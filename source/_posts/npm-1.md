@@ -1,7 +1,9 @@
 ---
 title: npm
 date: 2021-03-12 15:39:26
+categories: 參考
 tags:
+	- npm
 ---
 
 ### Dump version

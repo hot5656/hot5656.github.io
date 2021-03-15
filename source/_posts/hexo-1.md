@@ -1,7 +1,9 @@
 ---
 title: Put Hexo to GitHub
 date: 2021-03-12 15:40:30
+categories: 參考
 tags:
+	- hexo
 ---
 
 ### Install Hexo
