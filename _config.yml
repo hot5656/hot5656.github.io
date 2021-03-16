@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Robert 雜記
-subtitle: ''
-description: ''
-keywords:
-author: Robert Kao
-language: en
-timezone: ''
+title: Robert 雜記  # 部落格標題
+subtitle: ''        # 副標題
+description: ''     # 網站描述 
+keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
+author: Robert Kao  # 姓名或暱稱
+language: zh-TW     # 使用的語言
+timezone: ''        # 留空以使用系統時間
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -107,3 +107,8 @@ deploy:
   type: git
   repository: 'https://github.com/hot5656/hot5656.github.io.git'
   branch: master
+
+sitemap:
+  path: sitemap.xml
+  
+

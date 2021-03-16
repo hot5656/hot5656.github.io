@@ -18,6 +18,7 @@ cd blog
 git branch -a
 git checkout backup
 ```
+<!--more-->
 
 ### Install Hexo
 ``` bash

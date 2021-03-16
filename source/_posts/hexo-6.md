@@ -18,6 +18,7 @@ tags:
 hexo new page categories
 hexo new page tags
 ```
+<!--more-->
 
 ### source/categories/index.md 修改
 ``` markdown

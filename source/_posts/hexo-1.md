@@ -6,6 +6,8 @@ tags:
 	- hexo
 ---
 
+## 基本設定
+
 ### Install Hexo
 
 ``` bash
@@ -17,6 +19,7 @@ npm install -g hexo-cli
 ``` bash
 hexo version
 ```
+<!--more-->
 
 ### inition Blog
 
@@ -74,8 +77,7 @@ hexo d -g
 ``` bash
 hexo server
 ```
-
-### run web browser http://localhost:4000/
+[http://localhost:4000/](http://localhost:4000/)
 <div style="width:800px">
 	{% asset_img pic4.png pic4 %}
 </div>
@@ -85,10 +87,95 @@ hexo server
 hexo new win7-1
 ```
 
-### 顯示圖片(set _config.yml's  post_asset_folder: true)
+<br>
+
+## 設定檔案編輯(_config.yml)
+
+###  網頁基本設定
+``` yaml
+# Site
+title: Robert 雜記  # 部落格標題
+subtitle: ''        # 副標題
+description: ''     # 網站描述 
+keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
+author: Robert Kao  # 姓名或暱稱
+language: zh-TW     # 使用的語言
+timezone: ''        # 留空以使用系統時間
+```
+
+### 設定使用顯示圖片
 ``` bash
 post_asset_folder: true
 ```
+
+### 設定 next theme
+``` yaml
+# theme: landscape
+theme: next
+```
+
+<br>
+
+## next theme _config.yml 設定
+
+### 設置菜單
+``` yaml
+menu:
+  home: / || fa fa-home
+  #about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  #schedule: /schedule/ || fa fa-calendar
+  #sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat
+```
+
+### 文章搜尋功能(github 上執行會有一個圓圈一直轉)
+需安裝 hexo-generator-searchdb
+```bash
+npm install hexo-generator-searchdb --save
+```
+``` yaml
+local_search:
+  enable: true
+```
+<div style="width:500px">
+	{% asset_img pic5.png pic5 %}
+</div>
+
+<br>
+
+## 特定功能
+
+### sitemap.xml 製作
+安裝 hexo-generator-sitemap
+``` bash
+npm install hexo-generator-sitemap --save
+```
+hexo's _config.yml (新加入)
+``` yaml
+sitemap:
+  path: sitemap.xml
+```
+部署至 github
+``` bash
+hexo d -g
+```
+檢查是否部署完成
+[https://hot5656.github.io/sitemap.xml](https://hot5656.github.io/sitemap.xml)
+<div style="width:500px">
+	{% asset_img pic6.png pic6 %}
+</div>
+
+向Google Search Console提交 
+[https://search.google.com/search-console/welcome](https://search.google.com/search-console/welcome)
+... 待處理
+
+
+<br>
+
+## md檔 設定
 
 ### 顯示圖片(相關的圖片放於對應的目錄下)
 ``` bash

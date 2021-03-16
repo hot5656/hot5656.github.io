@@ -19,6 +19,7 @@ npm install -g hexo-cli
 ``` bash
 hexo version
 ```
+<!--more-->
 
 ### inition Blog
 ``` bash
@@ -42,7 +43,7 @@ npm install
 </div>
 
 ### 編輯部落格下檔案 _config.yml(for GitHub)
-``` yml
+``` yaml
 deploy:
   type: git
   repository: https://github.com/hot5656/blog.git
@@ -50,12 +51,12 @@ deploy:
 ```
 
 ### 編輯部落格下檔案 _config.yml(for 圖片放於對應的目錄下)
-``` yml
+``` yaml
 post_asset_folder: true
 ```
 
 ### 編輯部落格下檔案 _config.yml(網址設定)
-``` yml
+``` yaml
 url: https://hot5656.github.io/blog/
 root: /blog/
 ```

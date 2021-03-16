@@ -15,6 +15,7 @@ git init
 ``` bash
 git checkout -b backup
 ```
+<!--more-->
 
 # see branch
 ``` bash

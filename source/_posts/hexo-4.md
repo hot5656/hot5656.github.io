@@ -17,6 +17,7 @@ git init
 ``` bash
 git checkout -b backup
 ```
+<!--more-->
 
 ### hexo 本身已建立 .gitignore
 ``` bash

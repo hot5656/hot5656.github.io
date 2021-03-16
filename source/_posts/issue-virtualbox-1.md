@@ -10,6 +10,7 @@ tags:
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
+<!--more-->
 
 ### 執行 VBoxWindowsAdditions
 <div style="width:500px">

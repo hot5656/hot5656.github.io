@@ -18,6 +18,7 @@ git clone https://github.com/next-theme/hexo-theme-next themes/next
 # theme: landscape
 theme: next
 ```
+<!--more-->
 
 ### thmems/next/_config.yml 設置菜單
 ``` yaml
@@ -31,6 +32,19 @@ menu:
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
 ```
+
+### 文章搜尋功能(github 上執行會有一個圓圈一直轉)
+需安裝 hexo-generator-searchdb
+```bash
+npm install hexo-generator-searchdb --save
+```
+``` yaml
+local_search:
+  enable: true
+```
+<div style="width:500px">
+	{% asset_img pic5.png pic5 %}
+</div>
 
 <br>
 

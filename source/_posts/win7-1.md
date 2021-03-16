@@ -11,6 +11,7 @@ tags:
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
+<!--more-->
 
 ### 工作列-->使用小圖示(勾選)
 <div style="width:500px">

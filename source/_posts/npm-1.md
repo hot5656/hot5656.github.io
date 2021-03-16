@@ -17,6 +17,7 @@ npm -v
 ``` bash
 npm list
 ```
+<!--more-->
 
 ### 檢查 node_modules 有相關資安漏洞
 ``` bash

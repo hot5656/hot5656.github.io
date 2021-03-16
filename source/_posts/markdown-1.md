@@ -9,6 +9,8 @@ tags:
 * Bash lang-bash, lang-sh, lang-zsh
 * C, C++, and other C-likes lang-c, lang-h, lang-cpp, lang-hpp, lang-c++, lang-h++, lang-cc, lang-hh, lang-cxx, lang-hxx, lang-c-like
 * C# lang-cs, lang-csharp, lang-c#
+<!--more-->
+
 * Clojure lang-clojure, lang-clj
 * CoffeeScript lang-coffee, lang-coffeescript, lang-cson, lang-iced
 * CSS lang-css
