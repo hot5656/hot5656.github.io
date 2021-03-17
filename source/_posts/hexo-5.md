@@ -7,6 +7,12 @@ tags:
 	- github
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### clone
 ``` bash
 git clone https://github.com/hot5656/blog.git

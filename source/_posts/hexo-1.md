@@ -1,10 +1,17 @@
 ---
 title: Put Hexo to GitHub
 date: 2021-03-12 15:40:30
-categories: 參考
-tags:
-	- hexo
+categories: 程序
+tags: 
+	- hexo 
+	- github
 ---
+
+<style>
+h2 {
+  color: orange; 
+}
+</style>
 
 ## 基本設定
 
@@ -116,9 +123,14 @@ theme: next
 
 <br>
 
-## next theme _config.yml 設定
+## next theme 設定
 
 ### 設置菜單
+#### 需安裝 hexo-theme-next
+```bash
+git clone https://github.com/next-theme/hexo-theme-next themes/next
+```
+#### next's _config.yml
 ``` yaml
 menu:
   home: / || fa fa-home
@@ -131,20 +143,45 @@ menu:
   #commonweal: /404/ || fa fa-heartbeat
 ```
 
-### 文章搜尋功能(github 上執行會有一個圓圈一直轉)
-需安裝 hexo-generator-searchdb
+### 文章搜尋功能
+#### 需安裝 hexo-generator-searchdb
 ```bash
 npm install hexo-generator-searchdb --save
 ```
+#### next's _config.yml
 ``` yaml
 local_search:
   enable: true
 ```
+#### hexo's _config.yml 增加設定(因github 搜尋 path 僅接受 json format)
+```yaml
+search:
+  # path: search.xml
+  path: search.json
+  field: post
+  content: true
+```
+#### 必須先做 hexo clean
+``` bash
+hexo clean
+hexo d -g
+```
+#### 顯示畫面
 <div style="width:500px">
 	{% asset_img pic5.png pic5 %}
 </div>
 
 <br>
+
+### 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
+themes\next\layout\archive.njk
+<div style="width:500px">
+	{% asset_img pic7.png pic7 %}
+</div>
+修改成
+<div style="width:500px">
+	{% asset_img pic8.png pic8 %}
+</div>
 
 ## 特定功能
 

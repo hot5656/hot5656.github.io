@@ -35,14 +35,14 @@ custom_file_path:
 # Scheme Settings
 # ---------------------------------------------------------------
 
-# Schemes
-scheme: Muse
+# Schemes 外觀
+#scheme: Muse
 #scheme: Mist
 #scheme: Pisces
-#scheme: Gemini
+scheme: Gemini
 
 # Dark Mode
-darkmode: false
+darkmode: false # 黑暗效果
 
 
 # ---------------------------------------------------------------
@@ -730,7 +730,7 @@ algolia_search:
 # Local Search
 # Dependencies: https://github.com/next-theme/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: enable
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto
@@ -810,7 +810,7 @@ mermaid:
 
 # Use Animate.css to animate everything.
 # For more information: https://animate.style
-motion:
+motion: # 動畫效果
   enable: true
   async: false
   transition:
@@ -937,3 +937,4 @@ vendors:
 css: css
 js: js
 images: images
+

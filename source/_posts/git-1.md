@@ -6,6 +6,12 @@ tags:
 	- git
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### git init
 ``` bash
 git init
@@ -17,7 +23,7 @@ git checkout -b backup
 ```
 <!--more-->
 
-# see branch
+### see branch
 ``` bash
 # see local branch
 git branch
@@ -44,7 +50,7 @@ git add -A
 git add --all 
 ```
 
-### and commit
+### add commit
 ``` bash
 git commit -m "1st commit"
 ```
@@ -59,7 +65,7 @@ git log
 # list remote commit
 git rev-list --remotes
 # list all commit
-git rev-list –all
+git rev-list -–all
 ```
 
 ### add origin
@@ -71,6 +77,17 @@ git remote add origin https://github.com/hot5656/blog.git
 ``` bash
 git push -u origin backup
 ```
+
+### fetch
+``` bash
+git fetch
+```
+
+### pull
+``` bash
+git pull
+```
+
 
 ### dump remote server setting
 ``` bash

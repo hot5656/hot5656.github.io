@@ -6,6 +6,12 @@ tags:
 	- hexo
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ## command
 
 ### Install Hexo

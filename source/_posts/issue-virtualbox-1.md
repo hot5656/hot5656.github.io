@@ -6,6 +6,12 @@ tags:
 	- virtualbox
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### 插入 Guest Additions CD
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}

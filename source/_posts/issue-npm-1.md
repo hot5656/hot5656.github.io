@@ -6,6 +6,12 @@ tags:
 	node.js
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### 刪除目錄
 
 ``` bash

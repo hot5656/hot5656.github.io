@@ -6,6 +6,12 @@ tags:
 	- npm
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### Dump version
 
 ``` bash

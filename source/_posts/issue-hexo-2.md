@@ -6,6 +6,12 @@ tags:
 	- hexo
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ## port 被占用
 
 ### 查 port 被占用情形

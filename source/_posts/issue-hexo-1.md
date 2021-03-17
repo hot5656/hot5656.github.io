@@ -6,6 +6,11 @@ tags:
 	- hexo
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
 
 ### Install hexo-deployer-git 
 ``` bash

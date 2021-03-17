@@ -7,6 +7,12 @@ tags:
 	- win7
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### 工作列-->滑鼠右鍵-->內容
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}

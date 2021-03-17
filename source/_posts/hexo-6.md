@@ -6,6 +6,12 @@ tags:
 	- hexo
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
 ### 修改 scaffolds/post.md
 新增文章時,自動加入 categories, tags 項目
 ``` markdown

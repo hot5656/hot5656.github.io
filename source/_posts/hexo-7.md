@@ -6,7 +6,13 @@ tags:
 	- hexo
 ---
 
-## next
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
+## next 
 
 ### clone next theme
 ``` bash
@@ -34,17 +40,10 @@ menu:
 ```
 
 ### 文章搜尋功能(github 上執行會有一個圓圈一直轉)
-需安裝 hexo-generator-searchdb
-```bash
-npm install hexo-generator-searchdb --save
-```
 ``` yaml
 local_search:
   enable: true
 ```
-<div style="width:500px">
-	{% asset_img pic5.png pic5 %}
-</div>
 
 <br>
 

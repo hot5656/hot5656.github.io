@@ -7,6 +7,14 @@ tags:
 	- github
 ---
 
+<style>
+h2 {
+  color: orange; 
+}
+</style>
+
+## 第一次備份
+
 ### git init
 ``` bash
 cd blog
@@ -40,5 +48,34 @@ git commit -m "1st commit"
 ``` bash
 git remote add origin https://github.com/hot5656/blog.git
 git push -u origin backup
+```
+
+## 修改更新
+
+### 加入全部異動檔案
+``` bash
+git add -A
+```
+
+### add commit
+``` bash
+git commit -m "update 2021/03/16"
+```
+
+### push origin to remote
+``` bash
+git push -u origin backup
+```
+
+## pull 最新內容
+
+### fetch
+``` bash
+git fetch
+```
+
+### pull
+``` bash
+git pull
 ```
 
