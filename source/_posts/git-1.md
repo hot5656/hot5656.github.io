@@ -99,11 +99,35 @@ git remote -v
 git remote set-url origin https://github.com/hot5656/blog.git
 ```
 
-### change modify status
-```
+### dump modify status
+``` bash
 git status
 ```
 
+### list all file
+``` bash
+git ls-files
+```
+
+<br>
+
+### git 相關檔案
+
+#### .gitignore
+指定忽略的規則 : 資料庫的存取密碼, AWS 伺服器的存取金鑰, 或編譯產生檔案...
+``` bash
+# 忽略 secret.yml 檔案
+secret.yml
+# 忽略 config 目錄下的 database.yml 檔案
+config/database.yml
+# 忽略所有 db 目錄下附檔名是 .sqlite3 的檔案
+/db/*.sqlite3
+# 忽略所有附檔名是 .tmp 的檔案
+*.tmp
+```
+
+#### .gitkeep
+可提交一個空目錄
 
 
 

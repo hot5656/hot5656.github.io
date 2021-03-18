@@ -79,3 +79,58 @@ git fetch
 git pull
 ```
 
+## 備份 clone
+
+### clone
+``` bash
+git clone https://github.com/hot5656/blog.git
+```
+
+### check to backup
+``` bash
+cd blog
+git branch -a
+git checkout backup
+```
+
+### Install Hexo
+``` bash
+npm install -g hexo-cli
+```
+
+### Install all package for Blog
+``` bash
+npm install
+```
+
+### 產生靜態檔 + 本地執行
+``` bash
+hexo s -g
+```
+
+## theme 備份
+
+### 根目錄 .gitignore
+``` bash
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+# ignore themes/next
+themes/next/*
+```
+
+### 加入備分檔
+``` 
+git add -f themes\next\_config.yml
+git add -f themes\next\layout\archive.njk
+git add -f themes\next\.gitignore
+```
+
+### 若出現 fatal: Pathspec 'themes\next\_config.yml' is in submodule 'themes/next'
+``` bash
+git rm --cached themes/next/
+```
