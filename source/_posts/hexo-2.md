@@ -1,10 +1,11 @@
 ---
 title: Put Hexo to GitHub(第二個)
-date: 2021-03-14 08:41:44
 categories: 程序
-tags: 
-	- hexo 
-	- github
+tags:
+  - hexo
+  - github
+abbrlink: '1120'
+date: 2021-03-14 08:41:44
 ---
 
 <style>

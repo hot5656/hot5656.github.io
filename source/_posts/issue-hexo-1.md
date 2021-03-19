@@ -1,9 +1,10 @@
 ---
 title: hexo d - "ERROR Deployer not found git"
-date: 2021-03-14 14:13:00
 categories: Issue
-tags: 
-	- hexo
+tags:
+  - hexo
+abbrlink: 5a62
+date: 2021-03-14 14:13:00
 ---
 
 <style>

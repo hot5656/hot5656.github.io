@@ -35,14 +35,14 @@ custom_file_path:
 # Scheme Settings
 # ---------------------------------------------------------------
 
-# Schemes �~�[
+# Schemes 外觀
 #scheme: Muse
 #scheme: Mist
 #scheme: Pisces
 scheme: Gemini
 
 # Dark Mode
-darkmode: false # �·t�ĪG
+darkmode: false # 黑暗效果
 
 
 # ---------------------------------------------------------------
@@ -810,7 +810,7 @@ mermaid:
 
 # Use Animate.css to animate everything.
 # For more information: https://animate.style
-motion: # �ʵe�ĪG
+motion: # 動畫效果
   enable: true
   async: false
   transition:

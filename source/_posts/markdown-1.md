@@ -1,9 +1,10 @@
 ---
 title: Language codes list
-date: 2021-03-14 09:29:15
 categories: 參考
-tags: 
-	- markdown
+tags:
+  - markdown
+abbrlink: 375d
+date: 2021-03-14 09:29:15
 ---
 
 <style>

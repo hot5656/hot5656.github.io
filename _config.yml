@@ -11,11 +11,17 @@ author: Robert Kao  # 姓名或暱稱
 language: zh-TW     # 使用的語言
 timezone: ''        # 留空以使用系統時間
 
+abbrlink:
+  alg: crc16  #support crc16(default) and crc32  
+  rep: hex    #support dec(default) and hex
+
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://hot5656.github.io/
-permalink: :year/:month/:day/:title/
 permalink_defaults:
+  author_name: "Robert"
+# permalink: :year/:month/:day/:title/
+permalink: :author_name/:abbrlink/
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks

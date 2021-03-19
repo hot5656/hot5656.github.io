@@ -1,9 +1,10 @@
 ---
 title: Hexo 使用
-date: 2021-03-14 08:41:49
 categories: 參考
-tags: 
-	- hexo
+tags:
+  - hexo
+abbrlink: c588
+date: 2021-03-14 08:41:49
 ---
 
 <style>
@@ -64,6 +65,26 @@ hexo deploy (hexo d)
 ``` bash
 hexo clean
 ```
+
+###  產生文章
+```bash
+hexo new post_name
+```
+
+###  產生草稿
+```bash
+hexo new draft "new draft"
+# 啟動看到草稿文章
+hexo server --drafts
+# 草稿變成文章
+hexo publish [layout] <filename>
+```
+
+###  產生 page
+```bash
+hexo new page about
+```
+
 <br> 
 
 ## npm 安裝
@@ -145,4 +166,21 @@ index_generator:
 ``` html
 <!--more-->
 ```
+
+###  page 改成一般 HTML 格式
+
+#### index.md change to index.html
+
+#### 整頁完全受page layout 影響(填入以下)
+``` html
+---
+layout:false
+---
+
+```
+
+
+
+
+
 

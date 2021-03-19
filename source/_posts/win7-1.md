@@ -1,10 +1,11 @@
 ---
 title: Window 7 工作列縮小
-date: 2021-03-12 15:30:42
 categories: 參考
 tags:
-	- windows
-	- win7
+  - windows
+  - win7
+abbrlink: 54a3
+date: 2021-03-12 15:30:42
 ---
 
 <style>

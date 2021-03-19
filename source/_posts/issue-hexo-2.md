@@ -1,9 +1,10 @@
 ---
-title: hexo http://localhost:4000 打不開 
-date: 2021-03-14 14:13:53
+title: 'hexo http://localhost:4000 打不開'
 categories: Issue
-tags: 
-	- hexo
+tags:
+  - hexo
+abbrlink: b076
+date: 2021-03-14 14:13:53
 ---
 
 <style>

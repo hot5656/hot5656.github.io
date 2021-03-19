@@ -1,10 +1,11 @@
 ---
 title: hexo 備份
-date: 2021-03-14 15:24:03
 categories: 程序
-tags: 
-	- hexo 
-	- github
+tags:
+  - hexo
+  - github
+abbrlink: '6610'
+date: 2021-03-14 15:24:03
 ---
 
 <style>

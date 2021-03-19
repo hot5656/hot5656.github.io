@@ -1,9 +1,10 @@
 ---
 title: VirtualBox 6 – install windows 螢幕自動調整問題
-date: 2021-03-12 11:38:03
 categories: Issue
 tags:
-	- virtualbox
+  - virtualbox
+abbrlink: 207a
+date: 2021-03-12 11:38:03
 ---
 
 <style>

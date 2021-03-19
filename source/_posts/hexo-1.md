@@ -1,10 +1,11 @@
 ---
 title: Put Hexo to GitHub
-date: 2021-03-12 15:40:30
 categories: 程序
-tags: 
-	- hexo 
-	- github
+tags:
+  - hexo
+  - github
+abbrlink: dfd5
+date: 2021-03-12 15:40:30
 ---
 
 <style>
@@ -45,7 +46,7 @@ npm install
 
 ``` bash
 hot5656.github.io
-```
+``` 
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
@@ -98,6 +99,57 @@ hexo new win7-1
 
 ## 設定檔案編輯(_config.yml)
 
+###  更改匯總
+``` yaml
+# Site
+title: Robert 雜記  # 部落格標題
+subtitle: ''        # 副標題
+description: ''     # 網站描述 
+keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
+author: Robert Kao  # 姓名或暱稱
+language: zh-TW     # 使用的語言
+timezone: ''        # 留空以使用系統時間
+
+
+abbrlink:
+  alg: crc16  #support crc16(default) and crc32  
+  rep: hex    #support dec(default) and hex
+
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://hot5656.github.io/
+permalink_defaults:
+  author_name: "Robert"
+# permalink: :year/:month/:day/:title/
+permalink: :author_name/:abbrlink/
+
+
+post_asset_folder: true
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+# theme: landscape
+theme: next
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: git
+  repository: 'https://github.com/hot5656/hot5656.github.io.git'
+  branch: master
+
+sitemap:
+  path: sitemap.xml
+  
+search:
+  # path: search.xml
+  path: search.json
+  field: post
+  content: true
+
+```
+
 ###  網頁基本設定
 ``` yaml
 # Site
@@ -125,10 +177,58 @@ theme: next
 
 ## next theme 設定
 
+###  更改匯總
+``` yaml
+# Schemes 外觀
+#scheme: Muse
+#scheme: Mist
+#scheme: Pisces
+scheme: Gemini
+
+# Dark Mode
+darkmode: false # 黑暗效果
+
+menu:
+  home: / || fa fa-home
+  #about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  #schedule: /schedule/ || fa fa-calendar
+  #sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat
+
+local_search:
+  enable: enable
+
+motion: # 動畫效果
+  enable: true
+
+```
+
+###  Custom file paths
+``` yaml
+# Define custom file paths.
+# Create your custom files in site directory `source/_data` and uncomment needed files below.
+custom_file_path:
+  #head: source/_data/head.njk
+  #header: source/_data/header.njk
+  #sidebar: source/_data/sidebar.njk
+  #postMeta: source/_data/post-meta.njk
+  #postBodyEnd: source/_data/post-body-end.njk
+  #footer: source/_data/footer.njk
+  #bodyEnd: source/_data/body-end.njk
+  #variable: source/_data/variables.styl
+  #mixin: source/_data/mixins.styl
+  #style: source/_data/styles.styl
+```
+
 ### 設置菜單
 #### 需安裝 hexo-theme-next
 ```bash
-git clone https://github.com/next-theme/hexo-theme-next themes/next
+npm install hexo-theme-next
+# copy next config to local
+cp node_modules/hexo-theme-next/_config.yml _config.next.yml
 ```
 #### next's _config.yml
 ``` yaml
@@ -254,6 +354,28 @@ hexo d -g
 [https://search.google.com/search-console/welcome](https://search.google.com/search-console/welcome)
 ... 待處理
 
+
+### 設定hexo-abbrlink
+
+#### install hexo-abbrlink
+``` bash
+npm install hexo-abbrlink --save
+```
+
+#### set _config.yml
+``` yaml
+abbrlink:
+  alg: crc16  #support crc16(default) and crc32  
+  rep: hex    #support dec(default) and hex
+
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://hot5656.github.io/
+permalink_defaults:
+  author_name: "Robert"
+# permalink: :year/:month/:day/:title/
+permalink: :author_name/:abbrlink/
+```
 
 <br>
 
