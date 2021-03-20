@@ -8,11 +8,11 @@ abbrlink: dfd5
 date: 2021-03-12 15:40:30
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ## 基本設定
 
@@ -107,7 +107,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言
+language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
 timezone: ''        # 留空以使用系統時間
 
 
@@ -158,7 +158,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言
+language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
 timezone: ''        # 留空以使用系統時間
 ```
 
@@ -175,7 +175,7 @@ theme: next
 
 <br>
 
-## next theme 設定
+## next theme(主題) 設定
 
 ###  更改匯總
 ``` yaml
@@ -230,7 +230,7 @@ npm install hexo-theme-next
 # copy next config to local
 cp node_modules/hexo-theme-next/_config.yml _config.next.yml
 ```
-#### next's _config.yml
+#### _config.next.yml
 ``` yaml
 menu:
   home: / || fa fa-home
@@ -243,17 +243,40 @@ menu:
   #commonweal: /404/ || fa fa-heartbeat
 ```
 
+### 設置頭像
+放於 source/images/
+``` yaml
+# Sidebar Avatar
+avatar:
+  # Replace the default image and set the url here.
+  url: /images/head.png #/images/avatar.gif
+```
+
+### 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
+themes\next\layout\archive.njk
+<div style="width:500px">
+	{% asset_img pic7.png pic7 %}
+</div>
+修改成
+<div style="width:500px">
+	{% asset_img pic8.png pic8 %}
+</div>
+
+<br>
+
+## 特定功能
+
 ### 文章搜尋功能
 #### 需安裝 hexo-generator-searchdb
 ```bash
 npm install hexo-generator-searchdb --save
 ```
-#### next's _config.yml
+#### _config.next.yml
 ``` yaml
 local_search:
   enable: true
 ```
-#### hexo's _config.yml 增加設定(因github 搜尋 path 僅接受 json format)
+#### _config.next.yml 增加設定(因github 搜尋 path 僅接受 json format)
 ```yaml
 search:
   # path: search.xml
@@ -270,20 +293,6 @@ hexo d -g
 <div style="width:500px">
 	{% asset_img pic5.png pic5 %}
 </div>
-
-<br>
-
-### 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
-themes\next\layout\archive.njk
-<div style="width:500px">
-	{% asset_img pic7.png pic7 %}
-</div>
-修改成
-<div style="width:500px">
-	{% asset_img pic8.png pic8 %}
-</div>
-
-## 特定功能
 
 ### 加入 categories 和 tags
 
@@ -335,7 +344,7 @@ tags:
 ``` bash
 npm install hexo-generator-sitemap --save
 ```
-hexo's _config.yml (新加入)
+_config.next.yml (新加入)
 ``` yaml
 sitemap:
   path: sitemap.xml
@@ -376,6 +385,100 @@ permalink_defaults:
 # permalink: :year/:month/:day/:title/
 permalink: :author_name/:abbrlink/
 ```
+
+### 閱讀次數統計（LeanCloud）...待研究
+
+### 客製化設定
+
+#### 設定代碼風格 - _config.next.yml
+``` yaml
+codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    # light: default
+    # dark: tomorrow-night
+    light: a11y-dark
+    dark: a11y-dark
+```
+
+#### 設定客製化路徑 - _config.next.yml
+``` yaml
+# Define custom file paths.
+# Create your custom files in site directory `source/_data` and uncomment needed files below.
+custom_file_path:
+  #head: source/_data/head.njk
+  #header: source/_data/header.njk
+  #sidebar: source/_data/sidebar.njk
+  #postMeta: source/_data/post-meta.njk
+  #postBodyEnd: source/_data/post-body-end.njk
+  #footer: source/_data/footer.njk
+  #bodyEnd: source/_data/body-end.njk
+  variable: source/_data/variables.styl # 更改變數值
+  #mixin: source/_data/mixins.styl
+  style: source/_data/styles.styl # 更改 css 
+```
+
+#### 設定變數 - variables.styl
+``` yaml
+// 基本色系 - 由淺至深 https://colorhunt.co/palette/252860
+$web-color-l1 = #f0e5d8;
+$web-color-l2 = #bbdfc8;
+$web-color-l3 = #75cfb8;
+$web-color-l4 = #ffc478;
+
+// 背景颜色
+$body-bg-color = $web-color-l1;
+$header-bg-color = $web-color-l1;
+$footer-bg-color = $web-color-l1;
+// 貼文背景顏色
+$content-bg-color = $web-color-l2;
+// 選項背景顏色
+$menu-item-bg-color = $web-color-l3;
+```
+
+#### 設定 styles - styles.styl
+``` yaml
+// 設定 brand background
+.site-brand-container {
+	background: $web-color-l4;
+}
+
+// 刪除頭像邊框
+.site-author-image {
+    border: 0;
+}
+
+// 設定貼文內 h2 顏色(清楚分項用)
+.post-body > h2 {
+	color: orange; 
+}
+
+// 設定貼文內 tag 顏色(一般 web link 用)
+.post-body a {
+	color: blue;
+	border-bottom: 0;
+}
+.post-body a:hover {
+	text-decoration: underline;
+}
+
+// 設定貼文內 button, tag a 文字顏色(閱讀全文)
+.post-body .post-button a {
+	color: $btn-default-color;
+}
+
+// 設定貼文內 button background 顏色(閱讀全文)
+.post-body .btn {
+	background: $web-color-l2;
+}
+
+// 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
+.archive .collection-title {
+	display: none;
+}
+```
+
 
 <br>
 

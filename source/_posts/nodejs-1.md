@@ -7,11 +7,11 @@ abbrlink: 13c7
 date: 2021-03-12 15:39:11
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ### Dump version
 

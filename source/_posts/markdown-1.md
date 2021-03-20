@@ -7,11 +7,11 @@ abbrlink: 375d
 date: 2021-03-14 09:29:15
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 * Bash lang-bash, lang-sh, lang-zsh
 * C, C++, and other C-likes lang-c, lang-h, lang-cpp, lang-hpp, lang-c++, lang-h++, lang-cc, lang-hh, lang-cxx, lang-hxx, lang-c-like

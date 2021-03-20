@@ -26,9 +26,10 @@ custom_file_path:
   #postBodyEnd: source/_data/post-body-end.njk
   #footer: source/_data/footer.njk
   #bodyEnd: source/_data/body-end.njk
-  #variable: source/_data/variables.styl
+  variable: source/_data/variables.styl # 更改變數值
   #mixin: source/_data/mixins.styl
-  #style: source/_data/styles.styl
+  style: source/_data/styles.styl # 更改 css 
+ 
 
 
 # ---------------------------------------------------------------
@@ -125,7 +126,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: #/images/avatar.gif
+  url: /images/head.png #/images/avatar.gif
   # If true, the avatar will be dispalyed in circle.
   rounded: false
   # If true, the avatar will be rotated with the cursor.
@@ -356,8 +357,10 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: default
-    dark: tomorrow-night
+    # light: default
+    # dark: tomorrow-night
+    light: a11y-dark
+    dark: a11y-dark
   prism:
     light: prism
     dark: prism-dark

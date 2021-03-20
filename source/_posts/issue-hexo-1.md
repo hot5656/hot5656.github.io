@@ -7,11 +7,11 @@ abbrlink: 5a62
 date: 2021-03-14 14:13:00
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ### Install hexo-deployer-git 
 ``` bash

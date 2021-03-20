@@ -7,11 +7,11 @@ abbrlink: c588
 date: 2021-03-14 08:41:49
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ## command
 
@@ -46,6 +46,11 @@ hexo s -g
 hexo server (hexo s)
 ```
 
+### 啟動伺服器(含 debug data)
+``` bash
+hexo s --debug
+```
+
 ### 產生靜態檔案
 ``` bash
 hexo generate (hexo g)
@@ -75,7 +80,7 @@ hexo new post_name
 ```bash
 hexo new draft "new draft"
 # 啟動看到草稿文章
-hexo server --drafts
+hexo server --draft
 # 草稿變成文章
 hexo publish [layout] <filename>
 ```
@@ -140,7 +145,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言
+language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
 timezone: ''        # 留空以使用系統時間
 ```
 

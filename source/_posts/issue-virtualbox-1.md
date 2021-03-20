@@ -7,11 +7,11 @@ abbrlink: 207a
 date: 2021-03-12 11:38:03
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ### 插入 Guest Additions CD
 <div style="width:500px">

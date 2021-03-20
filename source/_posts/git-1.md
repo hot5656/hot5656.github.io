@@ -7,11 +7,11 @@ abbrlink: 41d6
 date: 2021-03-14 15:48:38
 ---
 
-<style>
+<!-- <style>
 h2 {
   color: orange; 
 }
-</style>
+</style> -->
 
 ### git init
 ``` bash
