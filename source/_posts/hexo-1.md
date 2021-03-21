@@ -1,18 +1,12 @@
 ---
 title: Put Hexo to GitHub
-categories: 程序
+categories: Blog
 tags:
   - hexo
   - github
 abbrlink: dfd5
 date: 2021-03-12 15:40:30
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ## 基本設定
 
@@ -53,15 +47,12 @@ hot5656.github.io
 
 ### 編輯部落格下檔案 _config.yml
 
-``` md
+``` yaml
 deploy:
   type: git
   repository: 'https://github.com/hot5656/hot5656.github.io.git'
   branch: master
 ```
-<div style="width:500px">
-	{% asset_img pic2.png pic2 %}
-</div>
 
 ### install hexo-deployer-git(for _config.yml's type: git)
 
@@ -162,7 +153,7 @@ language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
 timezone: ''        # 留空以使用系統時間
 ```
 
-### 設定使用顯示圖片
+### 設定圖片放於對應的目錄下
 ``` bash
 post_asset_folder: true
 ```
@@ -253,14 +244,13 @@ avatar:
 ```
 
 ### 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
-themes\next\layout\archive.njk
-<div style="width:500px">
-	{% asset_img pic7.png pic7 %}
-</div>
-修改成
-<div style="width:500px">
-	{% asset_img pic8.png pic8 %}
-</div>
+source\_data\styles.styl
+```css
+// 刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。
+.archive .collection-title {
+	display: none;
+}
+```
 
 <br>
 
@@ -454,19 +444,19 @@ $menu-item-bg-color = $web-color-l3;
 	color: orange; 
 }
 
-// 設定貼文內 tag 顏色(一般 web link 用)
-.post-body a {
-	color: blue;
-	border-bottom: 0;
-}
-.post-body a:hover {
-	text-decoration: underline;
-}
+// 設定貼文內 tag a顏色(一般 web link 用)
+// .post-body a {
+// 	color: blue;
+// 	border-bottom: 0;
+// }
+// .post-body a:hover {
+// 	text-decoration: underline;
+// }
 
 // 設定貼文內 button, tag a 文字顏色(閱讀全文)
-.post-body .post-button a {
-	color: $btn-default-color;
-}
+//.post-body .post-button a {
+//	color: $btn-default-color;
+//}
 
 // 設定貼文內 button background 顏色(閱讀全文)
 .post-body .btn {

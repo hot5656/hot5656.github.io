@@ -1,17 +1,11 @@
 ---
 title: Hexo 使用
-categories: 參考
+categories: Blog
 tags:
   - hexo
 abbrlink: c588
 date: 2021-03-14 08:41:49
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ## command
 

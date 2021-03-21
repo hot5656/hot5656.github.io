@@ -1,17 +1,11 @@
 ---
 title: Language codes list
-categories: 參考
+categories: Front End
 tags:
   - markdown
 abbrlink: 375d
 date: 2021-03-14 09:29:15
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 * Bash lang-bash, lang-sh, lang-zsh
 * C, C++, and other C-likes lang-c, lang-h, lang-cpp, lang-hpp, lang-c++, lang-h++, lang-cc, lang-hh, lang-cxx, lang-hxx, lang-c-like

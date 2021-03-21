@@ -1,16 +1,12 @@
 ---
 title: npm WARN npm does not support Node.js v14.16.0 (windows)
-categories: Issue
-tags: node.js
+categories: Front End
+tags: 
+	- node.js
+	- issue
 abbrlink: '2408'
 date: 2021-03-12 15:40:06
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ### 刪除目錄
 

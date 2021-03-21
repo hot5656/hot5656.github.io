@@ -1,17 +1,12 @@
 ---
 title: 'hexo http://localhost:4000 打不開'
-categories: Issue
+categories: Blog
 tags:
   - hexo
+  - issue
 abbrlink: b076
 date: 2021-03-14 14:13:53
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ## port 被占用
 

@@ -1,17 +1,11 @@
 ---
 title: hexo 更換 theme(主題)
-categories: 程序
+categories: Blog
 tags:
   - hexo
 abbrlink: b0cd
 date: 2021-03-15 14:05:03
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ## next 
 

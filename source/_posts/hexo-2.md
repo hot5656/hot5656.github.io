@@ -1,18 +1,12 @@
 ---
 title: Put Hexo to GitHub(第二個)
-categories: 程序
+categories: Blog
 tags:
   - hexo
   - github
 abbrlink: '1120'
 date: 2021-03-14 08:41:44
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ### 預先安裝 Git 和 Node.js
 

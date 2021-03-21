@@ -1,17 +1,11 @@
 ---
 title: VirtualBox 6 – install windows 螢幕自動調整問題
-categories: Issue
+categories: application
 tags:
   - virtualbox
 abbrlink: 207a
 date: 2021-03-12 11:38:03
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ### 插入 Guest Additions CD
 <div style="width:500px">

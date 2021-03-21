@@ -1,17 +1,11 @@
 ---
 title: Markdown 使用
-categories: 參考
+categories: Front End
 tags:
   - markdown
 abbrlink: f48c
 date: 2021-03-14 14:36:25
 ---
-
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
 
 ### 分隔線
 使用三個連續符號表示（-、*)

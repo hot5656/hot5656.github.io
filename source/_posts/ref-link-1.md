@@ -6,23 +6,12 @@ abbrlink: '8e64'
 date: 2021-03-18 15:48:55
 ---
 
-<!-- <style>
-a {
-	color: blue;
-	border-bottom: 0;
-}
-a:hover {
-	color: blue;
-	text-decoration: underline;
-}
-</style> -->
-
 ### 網頁設計參考
 
 + [配色 colorhunt](https://colorhunt.co/)
 
-+ 免費圖庫
-	+ [CC0 免費圖庫搜尋](https://cc0.wfublog.com/)
+### 免費圖庫
++ [CC0 免費圖庫搜尋](https://cc0.wfublog.com/)
 
 
 ### Hexo

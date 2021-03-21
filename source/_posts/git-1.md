@@ -1,17 +1,13 @@
 ---
 title: git 使用
-categories: 參考
+categories: Coding
 tags:
   - git
 abbrlink: 41d6
 date: 2021-03-14 15:48:38
 ---
 
-<!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
+## git 命令
 
 ### git init
 ``` bash
@@ -110,11 +106,19 @@ git status
 git ls-files
 ```
 
+### 復原已staged的檔案 unstage
+``` bash
+# 單一檔案
+git reset HEAD <file>
+# 所有檔案
+git reset
+```
+
 <br>
 
-### git 相關檔案
+## git 相關檔案
 
-#### .gitignore
+### .gitignore
 指定忽略的規則 : 資料庫的存取密碼, AWS 伺服器的存取金鑰, 或編譯產生檔案...
 ``` bash
 # 忽略 secret.yml 檔案
@@ -127,7 +131,7 @@ config/database.yml
 *.tmp
 ```
 
-#### .gitkeep
+### .gitkeep
 可提交一個空目錄
 
 
