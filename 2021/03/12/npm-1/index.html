@@ -25,14 +25,15 @@
   </script>
 <meta name="description" content="Dump version1npm -v  Dump all npm installed models1npm list">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm">
+<meta property="og:title" content="npm 說明">
 <meta property="og:url" content="https://hot5656.github.io/2021/03/12/npm-1/index.html">
 <meta property="og:site_name" content="Robert 雜記">
 <meta property="og:description" content="Dump version1npm -v  Dump all npm installed models1npm list">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-12T07:39:26.000Z">
-<meta property="article:modified_time" content="2021-03-20T06:57:19.709Z">
+<meta property="article:modified_time" content="2021-03-21T09:08:03.899Z">
 <meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="node.js">
 <meta property="article:tag" content="npm">
 <meta name="twitter:card" content="summary">
 
@@ -49,7 +50,7 @@
     lang   : 'zh-TW'
   };
 </script>
-<title>npm | Robert 雜記</title>
+<title>npm 說明 | Robert 雜記</title>
   
 
 
@@ -186,7 +187,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-all-npm-installed-models"><span class="nav-number">2.</span> <span class="nav-text">Dump all npm installed models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-node-modules-%E6%9C%89%E7%9B%B8%E9%97%9C%E8%B3%87%E5%AE%89%E6%BC%8F%E6%B4%9E"><span class="nav-number">3.</span> <span class="nav-text">檢查 node_modules 有相關資安漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E4%BF%AE%E6%AD%A3%E7%9B%B8%E9%97%9C%E6%BC%8F%E6%B4%9E"><span class="nav-number">4.</span> <span class="nav-text">自動修正相關漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%8F%AF%E6%9B%B4%E6%96%B0%E7%9A%84-node-modules"><span class="nav-number">5.</span> <span class="nav-text">更新可更新的 node_modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86-node-modules-%E4%B8%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">清理 node_modules 中不需要的檔案</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-all-npm-installed-models"><span class="nav-number">2.</span> <span class="nav-text">Dump all npm installed models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-node-modules-%E6%9C%89%E7%9B%B8%E9%97%9C%E8%B3%87%E5%AE%89%E6%BC%8F%E6%B4%9E"><span class="nav-number">3.</span> <span class="nav-text">檢查 node_modules 有相關資安漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E4%BF%AE%E6%AD%A3%E7%9B%B8%E9%97%9C%E6%BC%8F%E6%B4%9E"><span class="nav-number">4.</span> <span class="nav-text">自動修正相關漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%8F%AF%E6%9B%B4%E6%96%B0%E7%9A%84-node-modules"><span class="nav-number">5.</span> <span class="nav-text">更新可更新的 node_modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86-node-modules-%E4%B8%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">清理 node_modules 中不需要的檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-module"><span class="nav-number">7.</span> <span class="nav-text">install module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%88%E6%A1%88-npm-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">專案 npm 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E3%80%81%E6%9C%AC%E6%A9%9F%E5%AE%89%E8%A3%9D-%E5%85%B1%E7%94%A8-module"><span class="nav-number">9.</span> <span class="nav-text">本地、本機安裝(共用 module)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%88%E6%A1%88-modle-%E5%AE%89%E8%A3%9D"><span class="nav-number">10.</span> <span class="nav-text">專案 modle 安裝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E5%A5%97%E4%BB%B6"><span class="nav-number">11.</span> <span class="nav-text">移除套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%84%E5%8E%9F%E5%B0%88%E6%A1%88%E5%A5%97%E4%BB%B6"><span class="nav-number">12.</span> <span class="nav-text">還原專案套件</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -209,13 +210,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -267,7 +268,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          npm
+          npm 說明
         </h1>
 
         <div class="post-meta-container">
@@ -285,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-03-20 14:57:19" itemprop="dateModified" datetime="2021-03-20T14:57:19+08:00">2021-03-20</time>
+        <time title="修改時間：2021-03-21 17:08:03" itemprop="dateModified" datetime="2021-03-21T17:08:03+08:00">2021-03-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -293,7 +294,7 @@
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8F%83%E8%80%83/" itemprop="url" rel="index"><span itemprop="name">參考</span></a>
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
         </span>
     </span>
 
@@ -307,13 +308,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
-
-<h3 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+        <h3 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
 <h3 id="Dump-all-npm-installed-models"><a href="#Dump-all-npm-installed-models" class="headerlink" title="Dump all npm installed models"></a>Dump all npm installed models</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm list</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -326,6 +321,17 @@ h2 {
 
 <h3 id="清理-node-modules-中不需要的檔案"><a href="#清理-node-modules-中不需要的檔案" class="headerlink" title="清理 node_modules 中不需要的檔案"></a>清理 node_modules 中不需要的檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm prune</span><br></pre></td></tr></table></figure>
 
+<h3 id="install-module"><a href="#install-module" class="headerlink" title="install module"></a>install module</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安裝最新版本：</span></span><br><span class="line">npm install hexo-theme-next@latest</span><br><span class="line"><span class="comment"># 指定特定版本：</span></span><br><span class="line">npm install hexo-theme-next@8.0.0</span><br><span class="line"><span class="comment"># 安裝目前版本：</span></span><br><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+
+<h3 id="專案-npm-初始化"><a href="#專案-npm-初始化" class="headerlink" title="專案 npm 初始化"></a>專案 npm 初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 會要求你輸入關於這個專案的相關資訊</span></span><br><span class="line">npm init</span><br><span class="line"><span class="comment"># 專案全部載入預設資料</span></span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地、本機安裝-共用-module"><a href="#本地、本機安裝-共用-module" class="headerlink" title="本地、本機安裝(共用 module)"></a>本地、本機安裝(共用 module)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">or</span><br><span class="line">npm install hexo-cli –g</span><br></pre></td></tr></table></figure>
+
+<h3 id="專案-modle-安裝"><a href="#專案-modle-安裝" class="headerlink" title="專案 modle 安裝"></a>專案 modle 安裝</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dependencies (依賴套件): 專案 production or build 之後仍然會使用的套件，例如 jQuery、swiper 等等套件</span></span><br><span class="line">npm install --save hexo-generator-feed</span><br><span class="line"><span class="comment"># devDependencies (開發依賴套件): devDependencies 就是只有在我們開發時，才會使用的套件，舉例來講 babel、esling 等</span></span><br><span class="line">npm install --save-dev hexo-generator-feed</span><br></pre></td></tr></table></figure>
+
+<h3 id="移除套件"><a href="#移除套件" class="headerlink" title="移除套件"></a>移除套件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g [套件名稱]</span><br></pre></td></tr></table></figure>
+
+<h3 id="還原專案套件"><a href="#還原專案套件" class="headerlink" title="還原專案套件"></a>還原專案套件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -334,6 +340,7 @@ h2 {
 
     <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/node-js/" rel="tag"># node.js</a>
               <a href="/tags/npm/" rel="tag"># npm</a>
           </div>
 
@@ -341,8 +348,8 @@ h2 {
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/03/12/nodejs-1/" rel="prev" title="Node.js">
-                  <i class="fa fa-chevron-left"></i> Node.js
+                <a href="/2021/03/12/nodejs-1/" rel="prev" title="Node.js 說明">
+                  <i class="fa fa-chevron-left"></i> Node.js 說明
                 </a>
             </div>
             <div class="post-nav-item">

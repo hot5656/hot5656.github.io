@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="git init1git init  建立新分支 backup1git checkout -b backup">
+<meta name="description" content="git 命令git init1git init  建立新分支 backup1git checkout -b backup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git 使用">
 <meta property="og:url" content="https://hot5656.github.io/2021/03/14/git-1/index.html">
 <meta property="og:site_name" content="Robert 雜記">
-<meta property="og:description" content="git init1git init  建立新分支 backup1git checkout -b backup">
+<meta property="og:description" content="git 命令git init1git init  建立新分支 backup1git checkout -b backup">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-14T07:48:38.000Z">
-<meta property="article:modified_time" content="2021-03-20T06:57:19.708Z">
+<meta property="article:modified_time" content="2021-03-21T09:15:18.802Z">
 <meta property="article:author" content="Robert Kao">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -186,7 +186,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">1.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%88%86%E6%94%AF-backup"><span class="nav-number">2.</span> <span class="nav-text">建立新分支 backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#see-branch"><span class="nav-number">3.</span> <span class="nav-text">see branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkout-to-branch"><span class="nav-number">4.</span> <span class="nav-text">checkout to branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-all-file"><span class="nav-number">5.</span> <span class="nav-text">add all file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%85%A8%E9%83%A8%E7%95%B0%E5%8B%95%E6%AA%94%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">加入全部異動檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-commit"><span class="nav-number">7.</span> <span class="nav-text">add commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-commit-%E7%B4%80%E9%8C%84"><span class="nav-number">8.</span> <span class="nav-text">dump commit 紀錄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-commit"><span class="nav-number">9.</span> <span class="nav-text">list commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-origin"><span class="nav-number">10.</span> <span class="nav-text">add origin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-origin-to-remote"><span class="nav-number">11.</span> <span class="nav-text">push origin to remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">12.</span> <span class="nav-text">fetch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pull"><span class="nav-number">13.</span> <span class="nav-text">pull</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-remote-server-setting"><span class="nav-number">14.</span> <span class="nav-text">dump remote server setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#change-origin-setting"><span class="nav-number">15.</span> <span class="nav-text">change origin setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-modify-status"><span class="nav-number">16.</span> <span class="nav-text">dump modify status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-all-file"><span class="nav-number">17.</span> <span class="nav-text">list all file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-%E7%9B%B8%E9%97%9C%E6%AA%94%E6%A1%88"><span class="nav-number">18.</span> <span class="nav-text">git 相關檔案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gitignore"><span class="nav-number">18.1.</span> <span class="nav-text">.gitignore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gitkeep"><span class="nav-number">18.2.</span> <span class="nav-text">.gitkeep</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">git 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">1.1.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%88%86%E6%94%AF-backup"><span class="nav-number">1.2.</span> <span class="nav-text">建立新分支 backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#see-branch"><span class="nav-number">1.3.</span> <span class="nav-text">see branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkout-to-branch"><span class="nav-number">1.4.</span> <span class="nav-text">checkout to branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-all-file"><span class="nav-number">1.5.</span> <span class="nav-text">add all file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%85%A8%E9%83%A8%E7%95%B0%E5%8B%95%E6%AA%94%E6%A1%88"><span class="nav-number">1.6.</span> <span class="nav-text">加入全部異動檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-commit"><span class="nav-number">1.7.</span> <span class="nav-text">add commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-commit-%E7%B4%80%E9%8C%84"><span class="nav-number">1.8.</span> <span class="nav-text">dump commit 紀錄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-commit"><span class="nav-number">1.9.</span> <span class="nav-text">list commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-origin"><span class="nav-number">1.10.</span> <span class="nav-text">add origin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-origin-to-remote"><span class="nav-number">1.11.</span> <span class="nav-text">push origin to remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">1.12.</span> <span class="nav-text">fetch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pull"><span class="nav-number">1.13.</span> <span class="nav-text">pull</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-remote-server-setting"><span class="nav-number">1.14.</span> <span class="nav-text">dump remote server setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#change-origin-setting"><span class="nav-number">1.15.</span> <span class="nav-text">change origin setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dump-modify-status"><span class="nav-number">1.16.</span> <span class="nav-text">dump modify status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-all-file"><span class="nav-number">1.17.</span> <span class="nav-text">list all file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%A9%E5%8E%9F%E5%B7%B2staged%E7%9A%84%E6%AA%94%E6%A1%88-unstage"><span class="nav-number">1.18.</span> <span class="nav-text">復原已staged的檔案 unstage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%E7%9B%B8%E9%97%9C%E6%AA%94%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">git 相關檔案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gitignore"><span class="nav-number">2.1.</span> <span class="nav-text">.gitignore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitkeep"><span class="nav-number">2.2.</span> <span class="nav-text">.gitkeep</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -209,13 +209,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -285,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-03-20 14:57:19" itemprop="dateModified" datetime="2021-03-20T14:57:19+08:00">2021-03-20</time>
+        <time title="修改時間：2021-03-21 17:15:18" itemprop="dateModified" datetime="2021-03-21T17:15:18+08:00">2021-03-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -293,7 +293,7 @@
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8F%83%E8%80%83/" itemprop="url" rel="index"><span itemprop="name">參考</span></a>
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
         </span>
     </span>
 
@@ -307,13 +307,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <!-- <style>
-h2 {
-  color: orange; 
-}
-</style> -->
-
-<h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+        <h2 id="git-命令"><a href="#git-命令" class="headerlink" title="git 命令"></a>git 命令</h2><h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
 <h3 id="建立新分支-backup"><a href="#建立新分支-backup" class="headerlink" title="建立新分支 backup"></a>建立新分支 backup</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b backup</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -350,12 +344,14 @@ h2 {
 
 <h3 id="list-all-file"><a href="#list-all-file" class="headerlink" title="list all file"></a>list all file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files</span><br></pre></td></tr></table></figure>
 
+<h3 id="復原已staged的檔案-unstage"><a href="#復原已staged的檔案-unstage" class="headerlink" title="復原已staged的檔案 unstage"></a>復原已staged的檔案 unstage</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 單一檔案</span></span><br><span class="line">git reset HEAD &lt;file&gt;</span><br><span class="line"><span class="comment"># 所有檔案</span></span><br><span class="line">git reset</span><br></pre></td></tr></table></figure>
+
 <br>
 
-<h3 id="git-相關檔案"><a href="#git-相關檔案" class="headerlink" title="git 相關檔案"></a>git 相關檔案</h3><h4 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h4><p>指定忽略的規則 : 資料庫的存取密碼, AWS 伺服器的存取金鑰, 或編譯產生檔案…</p>
+<h2 id="git-相關檔案"><a href="#git-相關檔案" class="headerlink" title="git 相關檔案"></a>git 相關檔案</h2><h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h3><p>指定忽略的規則 : 資料庫的存取密碼, AWS 伺服器的存取金鑰, 或編譯產生檔案…</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 忽略 secret.yml 檔案</span></span><br><span class="line">secret.yml</span><br><span class="line"><span class="comment"># 忽略 config 目錄下的 database.yml 檔案</span></span><br><span class="line">config/database.yml</span><br><span class="line"><span class="comment"># 忽略所有 db 目錄下附檔名是 .sqlite3 的檔案</span></span><br><span class="line">/db/*.sqlite3</span><br><span class="line"><span class="comment"># 忽略所有附檔名是 .tmp 的檔案</span></span><br><span class="line">*.tmp</span><br></pre></td></tr></table></figure>
 
-<h4 id="gitkeep"><a href="#gitkeep" class="headerlink" title=".gitkeep"></a>.gitkeep</h4><p>可提交一個空目錄</p>
+<h3 id="gitkeep"><a href="#gitkeep" class="headerlink" title=".gitkeep"></a>.gitkeep</h3><p>可提交一個空目錄</p>
 
     </div>
 

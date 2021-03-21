@@ -2881,16 +2881,6 @@ mark.search-keyword {
 .post-body > h2 {
   color: #ffa500;
 }
-.post-body a {
-  color: #00f;
-  border-bottom: 0;
-}
-.post-body a:hover {
-  text-decoration: underline;
-}
-.post-body .post-button a {
-  color: #555;
-}
 .post-body .btn {
   background: #bbdfc8;
 }
