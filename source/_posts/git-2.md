@@ -207,6 +207,16 @@ format 支援的選項
 ``` bash
 gitk
 ```
+### 復原
+#### 更動最後一筆 commit(--amend)
+可更改 commit 說明 或 加入檔案
+```bash
+git commit -m 'initial commit'
+git add forgotten_file
+git commit --amend
+```
+
+
 
 
 ## <font color=#555555>參考文件</font>
