@@ -152,6 +152,16 @@ public/
 .deploy*/
 ```
 
+### 本地參考儲存庫
+``` bash
+git show-ref
+	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/master
+	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/serverfix
+	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/HEAD
+	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/master
+	37d73f1a945ece85dffe798ba7ae43733bf1f4aa refs/remotes/team/master
+```
+
 ### 提交的歷史記錄
 #### 檢視提交的歷史記錄
 從新到舊的順序列出儲存庫的提交的歷史記錄
@@ -411,7 +421,7 @@ git push origin --tags
 
 ### 分支(branch)
 
-####  HEAD 為指向當前所在的分支的指標
+#### HEAD 為指向當前所在的分支的指標
 
 ```
 # 新建分支
@@ -431,10 +441,140 @@ git branch -v
 # 列出已併入分支
 git branch --merged
 # 列出未併入分支
- git branch --no-merged
+git branch --no-merged
 # 刪除選端分支 serverfix
- git push origin :serverfix
+git push origin :serverfix
 ```
+
+#### 遠端分支處理
+
+##### 建立模擬儲存庫
+``` bash
+# 建立新的 儲存庫
+mkdir remote_test
+cd remote_test
+git init
+# 第一次提交
+echo init file > branch_test.txt
+git add .
+git commit -m "1st commit"
+# 上傳至遠端儲存庫 (遠端儲存庫已預先建立)
+git remote add origin https://github.com/hot5656/remote_test.git
+git push origin master
+# 2nd update 上傳至遠端儲存庫
+echo 1st change >> branch_test.txt
+git add -A
+git commit -m "2nd update"
+git push origin master
+# 上傳至遠端儲存庫2 (遠端儲存庫已預先建立)
+git remote add team https://github.com/hot5656/remote_test2.git
+git push team master
+# 3rd update 上傳至 origin 遠端儲存庫
+echo 3rd update >> branch_test.txt
+git add -A
+git commit -m "3rd update"
+git push origin master
+```
+
+##### 設定 computer 本地儲存庫
+``` bash
+# clone computer 儲存庫, 並刪除兩個 commit, fetch from team
+git clone https://github.com/hot5656/remote_test.git remote_test_computer
+cd remote_test_computer
+git reset HEAD^^ --hard
+git reset HEAD^^ --hard
+git remote add team https://github.com/hot5656/remote_test2.git
+git fetch team
+# computer add 2 commit
+echo modify 1st update >> branch_test.txt
+git add -A
+git commit -m "modify 1st update"
+echo modify 2nd update >> branch_test.txt
+git add -A
+git commit -m "modify 2nd update"
+```
+
+``` bash
+# 分支圖
+# remote-test(origin)
+1f0aa12 --> 37d73f1 --> 7369a89(mastetr)
+
+# remote-test1(team)
+1f0aa12 --> 37d73f1(master)
+
+# computer
+1f0aa12 --> 37d73f1        --> 7369a89(origin/mastetr)
+            (team/master)      (origin/mastetr)
+        --> 9161f8d        --> d9c9e57(master)
+```
+
+##### 將更改傳至遠端 serverfix
+
+``` bash
+# 將 computer 更改傳至 origin(branch serverfix)
+git checkout -b serverfix
+git push origin serverfix
+```
+
+``` bash
+# 分支圖
+# remote-test(origin)
+1f0aa12 --> 37d73f1 --> 7369a89(mastetr)
+        --> 9161f8d --> d9c9e57(serverfix)
+
+# remote-test1(team)
+1f0aa12 --> 37d73f1(master)
+
+# computer
+1f0aa12 --> 37d73f1        --> 7369a89(origin/mastetr)
+            (team/master)      (origin/mastetr)
+        --> 9161f8d        --> d9c9e57(master, serverfix, origin/serverfix)
+```
+
+##### 刪除遠端 serverfix
+```bash
+git push origin :serverfix
+	To https://github.com/hot5656/remote_test.git
+	- [deleted]         serverfix
+```
+
+#### 分支的合併(merge)
+{% asset_img pic4.png pic4 %}
+
+``` bash
+$ git checkout master
+$ git merge issue13
+```
+
+#### 分支的衍合(rebase)
+{% asset_img pic5.png pic5 %}
+
+##### 準備
+``` bash
+# 增加 branch issue13
+# brnach master modify + commit
+git branch issue13
+echo mastet rebase 1 >> branch_test.txt
+git add -A
+git commit -m "master wait rebase 1"
+# brnach issue13 modify + commit
+git checkout issue13
+echo issue13 rebase 1 >> branch_test.txt
+git add -A
+git commit -m "issue13 wait rebase 1"
+```
+
+##### rebase
+把另外一個分支的變更，當成這個分支的基礎(修改後併到主線)
+``` bash
+git checkout issue13
+git rebase master
+# 若有衝突會要求處理,再用 git add 加入,在執行 git rebase --continue
+git add -A
+# 會要求修改最後 commit 內容
+git rebase --continue
+```
+
 
 ## 未知內容
 + git mergetool : git merge tool 
