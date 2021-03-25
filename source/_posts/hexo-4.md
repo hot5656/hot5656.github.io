@@ -66,11 +66,13 @@ git push -u origin backup
 
 ### fetch
 ``` bash
+# 抓回遠端分支
 git fetch
 ```
 
 ### pull
 ``` bash
+# git pull = git fetch + git merge
 git pull
 ```
 

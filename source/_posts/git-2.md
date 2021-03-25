@@ -93,6 +93,27 @@ git add .
  git commit -m 'initial project version'
 ```
 
+### 備份儲存庫到 GitHub
+
+#### 備份到 GitHub
+GitHub 應預先建立 儲存庫
+``` bash
+# set origin 
+git remote add origin https://github.com/hot5656/rwd-pets.git
+# 建立 master branch
+git branch -M master
+# push
+git push -u origin master
+```
+
+#### 設定 GitHub 啟動靜態執行(若為網頁)
+setting --> GitHub Pages --> source --> master branch --> Save
+
+#### 網頁位址(若為網頁)
+[https://hot5656.github.io/ajaxF2eCheckRegister/](https://hot5656.github.io/ajaxF2eCheckRegister/)
+
+
+
 ### 複製現有的儲存庫
 ``` bash
 # 使用 default 目錄名稱
@@ -131,7 +152,8 @@ public/
 .deploy*/
 ```
 
-### 檢視提交的歷史記錄
+### 提交的歷史記錄
+#### 檢視提交的歷史記錄
 從新到舊的順序列出儲存庫的提交的歷史記錄
 ``` bash
 git log
@@ -202,11 +224,34 @@ format 支援的選項
 --committer	列出提交者名稱符合指定字串的更新
 ```
 
-### 使用圖形界面檢視歷史
+#### 顯示每個指令的 SHA-1 值
+``` bash
+git reflog
+	8ad28b8 (HEAD -> backup) HEAD@{0}: commit (amend): update 2021/3/23
+	fe335c2 HEAD@{1}: reset: moving to fe335c2
+	fe335c2 HEAD@{2}: reset: moving to fe335c2
+	fe335c2 HEAD@{3}: reset: moving to fe335c2
+	fe335c2 HEAD@{4}: reset: moving to fe335c2
+	fe335c2 HEAD@{5}: reset: moving to fe335c2
+	fe335c2 HEAD@{6}: commit (amend): update 2021/3/23
+	58e7265 HEAD@{7}: commit (amend): update 2021/3/23
+	d37689e HEAD@{8}: commit: update 2021/3/23
+	155415a (origin/backup) HEAD@{9}: commit: update 2021/03/22
+	5e79348 HEAD@{10}: pull: Fast-forward
+	3d7d128 HEAD@{11}: commit: update 2021/03/19
+	b115098 HEAD@{12}: commit: update 2021/03/18
+	943a44a HEAD@{13}: pull: Fast-forward
+	c16e900 HEAD@{14}: commit: update 1021/02/16
+	7bf66fc HEAD@{15}: commit: add some hexo, categories and tags
+	83a54ad HEAD@{16}: commit (initial): 1st commit
+```
+
+#### 使用圖形界面檢視歷史
 基本上就是 git log 的圖形界面版本
 ``` bash
 gitk
 ```
+
 ### 復原
 #### 更動最後一筆 commit(--amend)
 可更改 commit 說明 或 加入檔案
@@ -216,6 +261,184 @@ git add forgotten_file
 git commit --amend
 ```
 
+#### 復原已被 staged 檔案
+檔案要加路徑名,不然不會有反應
+``` bash
+git add .
+git status
+	On branch backup
+	Your branch is ahead of 'origin/backup' by 1 commit.
+	(use "git push" to publish your local commits)
+	Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+			modified:   source/_posts/git-2.md
+# git reset HEAD <file>
+git reset HEAD source/_posts/git-2.md
+git status
+	On branch backup
+	Your branch is ahead of 'origin/backup' by 1 commit.
+	(use "git push" to publish your local commits)
+	Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+			modified:   source/_posts/git-2.md
+```
+
+#### 復原已更動的檔案(discard unstaged 檔案)
+``` bash
+# git status 提供命令
+git status
+	On branch backup
+	Your branch is ahead of 'origin/backup' by 1 commit.
+		(use "git push" to publish your local commits)
+	Changes not staged for commit:
+		(use "git add <file>..." to update what will be committed)
+		(use "git restore <file>..." to discard changes in working directory)
+			modified:   source/_posts/git-2.md
+			modified:   source/_posts/git-3.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+# git restore <file>
+git restore source/_posts/git-3.md
+git status
+	On branch backup
+	Your branch is ahead of 'origin/backup' by 1 commit.
+		(use "git push" to publish your local commits)
+
+	Changes not staged for commit:
+		(use "git add <file>..." to update what will be committed)
+		(use "git restore <file>..." to discard changes in working directory)
+			modified:   source/_posts/git-2.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+### 遠端協同運作
+
+#### 顯示遠端儲存庫
+``` bash
+# 顯示所有的遠端儲存庫
+git remote
+# 顯示所有的遠端儲存庫(顯示遠端儲存庫 url)
+git remote -v
+```
+
+#### 增加遠端儲存庫
+``` bash
+git remote add origin2 https://github.com/hot5656/blog.git
+```
+
+#### 從遠端儲存庫擷取或合併
+``` bash
+# 抓回遠端分支
+git fetch
+# origin/master 分支 合併到 master 分支
+git merge origin/master
+# git pull = git fetch + git merge
+git pull
+```
+
+#### 上傳至遠端儲存庫
+``` bash
+# -u 指遠端 branch
+git push -u origin backup
+# push local branch serverfix to remote serverfix
+git push origin serverfix
+# push local branch master to remote cat
+git push origin master:cat
+```
+
+#### 監看遠端儲存庫
+git pull 抓取遠端合併到 local
+git push 將 local 內容更新至遠端
+``` bash
+git remote show origin
+	* remote origin
+	Fetch URL: https://github.com/hot5656/hot5656.github.io.git
+	Push  URL: https://github.com/hot5656/hot5656.github.io.git
+	HEAD branch: master
+	Remote branches:
+		backup tracked
+		master tracked
+	Local branch configured for 'git pull':
+		backup merges with remote backup
+	Local ref configured for 'git push':
+		backup pushes to backup (fast-forwardable)
+```
+
+#### 移除或更名遠端儲存庫
+``` bash
+# 更改 遠端儲存庫
+git remote rename pb paul
+# 移除 遠端儲存庫
+git remote rm paul
+```
+
+### 標籤
+#### 列出標籤
+``` bash
+git tag
+# 列出特定標籤
+git tag -l 'v1.4.2.*'
+# 顯示指定標籤的資料與對應的commit
+git show v1.4
+```
+
+#### 建立標籤
+```bash
+# 含附註的標籤
+git tag -a v1.4 -m 'my version 1.4'
+# 建立輕量級的標籤 - 只保存commit檢查碼的文件
+git tag v1.4-lw
+git tag
+	v0.1
+	v1.3
+	v1.4
+	v1.4-lw
+	v1.5
+```
+
+#### 追加標籤
+```
+# 入該次commit的檢查碼(或前幾碼即可)
+git tag -a v1.2 9fceb02
+```
+
+#### 標籤傳至遠端儲存庫
+```
+# 單一標籤
+git push origin v1.5
+# 所有標籤
+git push origin --tags
+```
+
+### 分支(branch)
+
+####  HEAD 為指向當前所在的分支的指標
+
+```
+# 新建分支
+git branch testing
+# 切換分支
+git checkout testing
+# 新建同時切換分支
+git checkout -b iss53
+# 合併分支 hotfix
+git merge hotfix
+# 刪除 hotfix 分支
+git branch -d hotfix
+# 列出所有分支
+git branch
+# 列出各分支最後提交資訊
+git branch -v
+# 列出已併入分支
+git branch --merged
+# 列出未併入分支
+ git branch --no-merged
+# 刪除選端分支 serverfix
+ git push origin :serverfix
+```
+
+## 未知內容
++ git mergetool : git merge tool 
++ opendiff : one merge tool
 
 
 

@@ -26,7 +26,7 @@ git checkout -b backup
 git branch
 # see remote branch
 git branch -r
-# see local nad remote branch
+# see local and remote branch
 git branch -a
 ```
 
@@ -77,11 +77,13 @@ git push -u origin backup
 
 ### fetch
 ``` bash
+# 抓回遠端分支
 git fetch
 ```
 
 ### pull
 ``` bash
+# git pull = git fetch + git merge
 git pull
 ```
 
