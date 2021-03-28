@@ -15,6 +15,7 @@ tags:
 	{% asset_img pic1.jpg pic1 %}
 </div>
 
+<!--more-->
 ### 三種狀態
 已修改(modified),已暫存(staged)及已提交(committed)
 <div style="width:500px">

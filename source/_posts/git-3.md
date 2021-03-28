@@ -15,7 +15,7 @@ git config --global gui.encoding utf-8			 #圖形界面編碼
 git config --global i18n.commit.encoding utf-8   	 #提交信息編碼
 git config --global i18n.logoutputencoding utf-8	 #輸出log編碼
 ```
-
+<!--more-->
 ### warning: LF will be replaced by CRLF in xxxxx
 ``` bash
 git config --global core.autocrlf false

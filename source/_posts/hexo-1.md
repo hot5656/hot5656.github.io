@@ -391,8 +391,8 @@ codeblock:
   theme:
     # light: default
     # dark: tomorrow-night
-    light: a11y-dark
-    dark: a11y-dark
+    light: gml
+    dark: gml
 ```
 
 #### 設定客製化路徑 - _config.next.yml

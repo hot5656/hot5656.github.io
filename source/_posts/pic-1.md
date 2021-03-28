@@ -16,6 +16,7 @@ JPG(Joint Photographic Experts Group)
 + 不支持透明及動畫
 + JPG格式最常用於圖像，攝影和任何具有大量顏色的東西。
 
+<!--more-->
 ### PNG
 PNG (Portable Network Graphic)
 + 能夠使用透明度和 / 或不透明度

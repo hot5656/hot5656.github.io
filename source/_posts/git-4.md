@@ -11,6 +11,7 @@ tags:
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
+<!--more-->
 <div style="width:500px">
 	{% asset_img pic2.png pic2 %}
 </div>
