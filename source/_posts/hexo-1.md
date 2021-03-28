@@ -219,6 +219,9 @@ custom_file_path:
 ```bash
 npm install hexo-theme-next
 # copy next config to local
+# windows command
+copy node_modules\hexo-theme-next\_config.yml _config.next.yml
+# linux command
 cp node_modules/hexo-theme-next/_config.yml _config.next.yml
 ```
 #### _config.next.yml

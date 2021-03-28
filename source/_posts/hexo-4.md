@@ -47,6 +47,19 @@ git push -u origin backup
 
 ## 修改更新
 
+### 查看修改內容
+``` bash
+git status
+  On branch backup
+  Your branch is up to date with 'origin/backup'.
+  Changes not staged for commit:
+    (use "git add <file>..." to update what will be committed)
+    (use "git checkout -- <file>..." to discard changes in working directory)
+          modified:   source/_posts/hexo-1.md
+          modified:   source/_posts/hexo-4.md
+  no changes added to commit (use "git add" and/or "git commit -a")
+```
+
 ### 加入全部異動檔案
 ``` bash
 git add -A
@@ -59,21 +72,17 @@ git commit -m "update 2021/03/16"
 
 ### push origin to remote
 ``` bash
-git push -u origin backup
+git push origin backup
 ```
 
-## pull 最新內容
+## 同步遠端 最新內容
 
-### fetch
+### fetch + merge
 ``` bash
 # 抓回遠端分支
-git fetch
-```
-
-### pull
-``` bash
-# git pull = git fetch + git merge
-git pull
+git fetch origin backup
+# merge 遠端分支
+git merge origin/backup
 ```
 
 ## 備份 clone

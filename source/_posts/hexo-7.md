@@ -13,6 +13,9 @@ date: 2021-03-15 14:05:03
 ``` bash
 npm install hexo-theme-next
 # copy next config to local
+# windows command
+copy node_modules\hexo-theme-next\_config.yml _config.next.yml
+# linux command
 cp node_modules/hexo-theme-next/_config.yml _config.next.yml
 ```
 ### _config.yml 設定
