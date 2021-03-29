@@ -1,6 +1,6 @@
 ---
 title: Python install
-categories: Python
+categories: Coding
 tags:
   - python
 abbrlink: ccd0

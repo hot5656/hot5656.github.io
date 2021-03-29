@@ -85,6 +85,33 @@ git fetch origin backup
 git merge origin/backup
 ```
 
+### 簡短顯示 commit 
+``` bash
+git log --oneline
+	4f52de2 (HEAD -> backup, origin/backup) update 2021/03/28-2
+	9bb92eb update 2021/03/28
+	5a09926 update 2021/03/25
+	aabcf2b update 2021/3/24
+	8ad28b8 update 2021/3/23
+	155415a update 2021/03/22
+	5e79348 update 2021/3/21
+	0d82e9b update 2021/03/20
+	3d7d128 update 2021/03/19
+	b115098 update 2021/03/18
+	943a44a update 2021/2/17
+	c16e900 update 1021/02/16
+	7bf66fc add some hexo, categories and tags
+	83a54ad 1st commit
+```
+
+### 顯示所有 respsitory
+``` bash
+git show-ref
+	4f52de2bb6a363eed5ff816aed641b26722d2b07 refs/heads/backup
+	4f52de2bb6a363eed5ff816aed641b26722d2b07 refs/remotes/origin/backup
+	ee599a173055bef88086941c5a96277a2cc34340 refs/remotes/origin/master
+```
+
 ## 備份 clone
 
 ### clone

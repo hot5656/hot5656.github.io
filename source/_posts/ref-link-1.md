@@ -21,6 +21,9 @@ date: 2021-03-18 15:48:55
 ### Git
 + [Pro Git(中文)](http://iissnan.com/progit/index.zh-tw.html)
 
+### Python
++ [PyCharm Help](https://www.jetbrains.com/help/pycharm/quick-start-guide.html)
+
 ### 題庫
 + [Git 面試題](https://gitbook.tw/interview)
 
