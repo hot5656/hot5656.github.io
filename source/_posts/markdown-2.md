@@ -5,6 +5,7 @@ tags:
   - markdown
 abbrlink: f48c
 date: 2021-03-14 14:36:25
+mathjax: true
 ---
 
 ### 分隔線
@@ -160,7 +161,7 @@ while (condition) {
 <font color=blue>藍色</font>
 <font color=purple>紫色</font>
 
-### 代辦事項
+### 待辦事項
 ``` markdown
 - [ ] 香蕉
 - [x] 玉米
@@ -185,6 +186,115 @@ while (condition) {
 > 花開宜折的時候就要抓緊去折，
 > 不要等到花謝時只折了個空枝。
 > >作者：杜秋娘(第二層)
+
+### 流程圖
+設程式碼為 flow
+設定 元素 tag=>type: content
+基本型別
++ start
++ end
++ operation
++ subroutine
++ condition
++ inputoutput 
+
+``` bash
+# 設定 元素
+st=>start: 開始
+in=>inputoutput: 输入
+e=>end: 結束
+op=>operation: 操作
+cond=>condition: 條件
+sub=>subroutine: 子程序
+out=>inputoutput: 输出
+# 畫圖
+st(right)->in->op->cond
+cond(yes,right)->out->e
+cond(no)->sub
+```
+
+``` flow
+st=>start: 開始
+in=>inputoutput: 输入
+e=>end: 結束
+op=>operation: 操作
+cond=>condition: 條件
+sub=>subroutine: 子程序
+out=>inputoutput: 输出
+
+st(right)->in->op->cond
+cond(yes,right)->out->e
+cond(no)->sub
+```
+
+### 數學公式
+```bash
+# 下標 _ 改為 \_
+# 條件表達式 每列 \\ 改為 \\\\
+```
+
+``` bash
+# 行內公式
+質能方程式$E = mc^2$
+# 獨立公式
+質能方程式$$E = mc^2$$
+# ^ 上標, _ 下標
+$$x = a\_{1}^n + a\_{2}^n + a\_{3}^n$$
+# 分數使用\frac{分母}{分子} 不過推薦使用\cfrac來代替\frac，顯示公式不會太擠
+$$\frac{1}{3} 與\cfrac{1}{3}$$
+# {}因為有特殊作用因此當需要顯示大括號時一般使用\lbrace \rbrace來表示
+$$f(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$
+# 開根號 \sqrt[次数]{被开方数}
+$$\sqrt[3]{X} \sqrt{5 - x}$$ 
+# 極限
+$g. \lim\limits_{n \rightarrow a} [f(x)/g(x)]=L/M$
+# 條件表達式
+$$
+y=
+\begin{cases}
+-x,\quad x\leq 0 \\\\
+x,\quad x>0
+\end{cases}
+$$
+
+\begin{equation}
+    f(n) =
+    \begin{cases}
+    n/2, & \text{if $n$ is even} \\\\
+    3n+1, & \text{if $n$ is odd}
+    \end{cases}
+\end{equation}
+```
+
+質能方程式$E = mc^2$  
+質能方程式$$E = mc^2$$  
+上標,下標  
+$$x = a\_{1}^n + a\_{2}^n + a\_{3}^n$$
+分數使用  
+$$\frac{1}{3} 與\cfrac{1}{3}$$  
+括號
+$$f(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$  
+開根號  
+$$\sqrt[3]{X} \sqrt{5 - x}$$  
+極限  
+$\lim\limits_{n \rightarrow a} [f(x)/g(x)]=L/M$
+條件表達式  
+$$
+y=
+\begin{cases}
+-x,\quad x\leq 0 \\\\
+x,\quad x>0
+\end{cases}
+$$
+
+\begin{equation}
+    f(n) =
+    \begin{cases}
+    n/2, & \text{if $n$ is even} \\\\
+    3n+1, & \text{if $n$ is odd}
+    \end{cases}
+\end{equation}
+
 
 
 
