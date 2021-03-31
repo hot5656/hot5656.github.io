@@ -227,6 +227,28 @@ cond(yes,right)->out->e
 cond(no)->sub
 ```
 
+### 時序圖
+styles.styl 要做相對設定
+加入 tag div(set class sequence)
+設程式碼為 sequence
+``` bash
+# 加入 class sequence
+<div class="sequence">
+# 設程式碼為 sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+</div>
+```
+
+<div class="sequence">
+```sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
+</div>
+
 ### 數學公式
 ```bash
 # 下標 _ 改為 \_

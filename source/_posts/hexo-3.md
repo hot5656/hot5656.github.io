@@ -139,7 +139,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
+language: zh-TW     # 使用的語言
 timezone: ''        # 留空以使用系統時間
 ```
 

@@ -99,7 +99,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
+language: zh-TW     # 使用的語言
 timezone: ''        # 留空以使用系統時間
 
 
@@ -150,7 +150,7 @@ subtitle: ''        # 副標題
 description: ''     # 網站描述 
 keywords:           # 網站關鍵字(以逗號隔開)，方便 SEO 
 author: Robert Kao  # 姓名或暱稱
-language: zh-TW     # 使用的語言, TW 大寫或小寫都 ok
+language: zh-TW     # 使用的語言
 timezone: ''        # 留空以使用系統時間
 ```
 
@@ -345,6 +345,7 @@ sitemap:
 ```
 部署至 github
 ``` bash
+# 若有一些異常, 先執行 hexo clean
 hexo d -g
 ```
 檢查是否部署完成
@@ -471,6 +472,52 @@ $menu-item-bg-color = $web-color-l3;
 .archive .collection-title {
 	display: none;
 }
+
+// class 內 rect 
+// for 時序圖(sequence) 文字背景
+.sequence rect {
+  fill: $content-bg-color;
+}
+```
+
+### 字數統計
+#### install by npm
+``` bash
+npm install hexo-word-counter --save
+```
+
+#### _config.yml(新加入)
+``` yaml
+# symbols_count_time:
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  awl: 4
+  wpm: 275
+  suffix: "mins."
+```
+
+#### _config.next.yml
+``` yaml
+# Post wordcount display settings
+# Dependencies: https://github.com/next-theme/hexo-word-counter
+symbols_count_time:
+  separated_meta: true
+  item_text_total: false
+```
+
+### 顯示閱讀百分比
+#### _config.next.yml
+``` yaml
+back2top:
+  enable: true
+  # Back to top in sidebar.
+  sidebar: true
+  # Scroll percent label in b2t button.
+  scrollpercent: true
 ```
 
 ### markdown 支持 流程圖
@@ -510,10 +557,45 @@ cond(yes,right)->out->e
 cond(no)->sub
 ```
 
+### markdown 支持 時序圖
+#### install by npm
+``` bash
+npm install --save hexo-filter-sequence
+```
+
+#### source/_data/styles.styl
+``` css
+// class sequence 內 rect 
+// for 時序圖(sequence) 文字背景
+.sequence rect {
+  fill: $content-bg-color;
+}
+```
+
+#### 範例
+``` bash
+# 加入 class sequence
+<div class="sequence">
+# 設程式碼為 sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+</div>
+```
+
+<div class="sequence">
+```sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
+</div>
+
 ### markdown 支持 數學公式
 #### install by npm
 ``` bash
-npm install hexo-filter-mathjax --save
+# 不用安裝, 只是留下紀錄
+# npm install hexo-filter-mathjax --save
 ```
 
 #### _config.next.yml
