@@ -520,6 +520,22 @@ back2top:
   scrollpercent: true
 ```
 
+### 更改 menu 說明 (zh-TW 繁體中文)
+#### 新增 source/_data/languages.yml
+``` yaml
+zh-TW:
+  menu:
+    home: 首頁
+    archives: 歸檔列表
+    categories: 分類
+    tags: 標籤
+    about: 關於
+    search: 搜尋
+    schedule: 時間表
+    sitemap: 網站地圖
+    commonweal: 公益 404
+```
+
 ### markdown 支持 流程圖
 #### install by npm
 ``` bash
