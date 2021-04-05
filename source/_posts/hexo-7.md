@@ -18,6 +18,16 @@ copy node_modules\hexo-theme-next\_config.yml _config.next.yml
 # linux command
 cp node_modules/hexo-theme-next/_config.yml _config.next.yml
 ```
+or 
+```bash
+git clone https://github.com/next-theme/hexo-theme-next themes/next
+# copy next config to local
+# windows command
+copy themes\next\_config.yml _config.next.yml
+# linux command
+cp themes/next/_config.yml _config.next.yml
+```
+
 ### _config.yml 設定
 
 #### 設定 theme
