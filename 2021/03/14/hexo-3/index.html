@@ -31,7 +31,7 @@
 <meta property="og:description" content="commandInstall Hexo1Install Hexo  Dump version1hexo version">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-14T00:41:49.000Z">
-<meta property="article:modified_time" content="2021-03-20T15:29:42.960Z">
+<meta property="article:modified_time" content="2021-04-05T01:31:00.822Z">
 <meta property="article:author" content="Robert Kao">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -129,7 +129,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -209,7 +209,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -225,6 +225,10 @@
 
         </div>
       </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -233,10 +237,6 @@
     </header>
 
     
-  <div class="back-to-top" role="button">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -285,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-03-20 23:29:42" itemprop="dateModified" datetime="2021-03-20T23:29:42+08:00">2021-03-20</time>
+        <time title="修改時間：2021-04-05 09:31:00" itemprop="dateModified" datetime="2021-04-05T09:31:00+08:00">2021-04-05</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,6 +298,22 @@
     </span>
 
   
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
 </div>
 
         </div>
@@ -354,7 +370,7 @@
 
 <h3 id="config-yml-for-網址設定"><a href="#config-yml-for-網址設定" class="headerlink" title="_config.yml(for 網址設定)"></a>_config.yml(for 網址設定)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://hot5656.github.io/blog/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/blog/</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="config-yml-for-網頁基本設定"><a href="#config-yml-for-網頁基本設定" class="headerlink" title="_config.yml(for 網頁基本設定)"></a>_config.yml(for 網頁基本設定)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Robert</span> <span class="string">雜記</span>  <span class="comment"># 部落格標題</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 副標題</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>     <span class="comment"># 網站描述 </span></span><br><span class="line"><span class="attr">keywords:</span>           <span class="comment"># 網站關鍵字(以逗號隔開)，方便 SEO </span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Robert</span> <span class="string">Kao</span>  <span class="comment"># 姓名或暱稱</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-TW</span>     <span class="comment"># 使用的語言, TW 大寫或小寫都 ok</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 留空以使用系統時間</span></span><br></pre></td></tr></table></figure>
+<h3 id="config-yml-for-網頁基本設定"><a href="#config-yml-for-網頁基本設定" class="headerlink" title="_config.yml(for 網頁基本設定)"></a>_config.yml(for 網頁基本設定)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Robert</span> <span class="string">雜記</span>  <span class="comment"># 部落格標題</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 副標題</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>     <span class="comment"># 網站描述 </span></span><br><span class="line"><span class="attr">keywords:</span>           <span class="comment"># 網站關鍵字(以逗號隔開)，方便 SEO </span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Robert</span> <span class="string">Kao</span>  <span class="comment"># 姓名或暱稱</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-TW</span>     <span class="comment"># 使用的語言</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 留空以使用系統時間</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="config-yml-for-首頁一頁要顯示幾篇文章"><a href="#config-yml-for-首頁一頁要顯示幾篇文章" class="headerlink" title="_config.yml(for 首頁一頁要顯示幾篇文章)"></a>_config.yml(for 首頁一頁要顯示幾篇文章)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">index_generator:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment">#一頁顯示的文章量 (0 = 關閉分頁功能)</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br></pre></td></tr></table></figure>
 <br> 
@@ -442,6 +458,20 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Robert Kao</span>
 </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">33 分鐘</span>
+  </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
 
@@ -464,6 +494,8 @@
 
 
 
+
+  
 
 
 </body>

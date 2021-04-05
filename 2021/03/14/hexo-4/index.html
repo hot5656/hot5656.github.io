@@ -31,7 +31,7 @@
 <meta property="og:description" content="第一次備份git init12cd bloggit init  建立新分支 backup1git checkout -b backup">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-14T07:24:03.000Z">
-<meta property="article:modified_time" content="2021-03-28T03:10:03.185Z">
+<meta property="article:modified_time" content="2021-03-30T14:05:29.642Z">
 <meta property="article:author" content="Robert Kao">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="github">
@@ -130,7 +130,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -187,7 +187,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%82%99%E4%BB%BD"><span class="nav-number">1.</span> <span class="nav-text">第一次備份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">1.1.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%88%86%E6%94%AF-backup"><span class="nav-number">1.2.</span> <span class="nav-text">建立新分支 backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-%E6%9C%AC%E8%BA%AB%E5%B7%B2%E5%BB%BA%E7%AB%8B-gitignore"><span class="nav-number">1.3.</span> <span class="nav-text">hexo 本身已建立 .gitignore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-file-and-commit"><span class="nav-number">1.4.</span> <span class="nav-text">add file and commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-to-remote"><span class="nav-number">1.5.</span> <span class="nav-text">push to remote</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9B%B4%E6%96%B0"><span class="nav-number">2.</span> <span class="nav-text">修改更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%85%A7%E5%AE%B9"><span class="nav-number">2.1.</span> <span class="nav-text">查看修改內容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%85%A8%E9%83%A8%E7%95%B0%E5%8B%95%E6%AA%94%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text">加入全部異動檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-commit"><span class="nav-number">2.3.</span> <span class="nav-text">add commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-origin-to-remote"><span class="nav-number">2.4.</span> <span class="nav-text">push origin to remote</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E9%81%A0%E7%AB%AF-%E6%9C%80%E6%96%B0%E5%85%A7%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">同步遠端 最新內容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch-merge"><span class="nav-number">3.1.</span> <span class="nav-text">fetch + merge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%99%E4%BB%BD-clone"><span class="nav-number">4.</span> <span class="nav-text">備份 clone</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clone"><span class="nav-number">4.1.</span> <span class="nav-text">clone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check-to-backup"><span class="nav-number">4.2.</span> <span class="nav-text">check to backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo"><span class="nav-number">4.3.</span> <span class="nav-text">Install Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-all-package-for-Blog"><span class="nav-number">4.4.</span> <span class="nav-text">Install all package for Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94-%E6%9C%AC%E5%9C%B0%E5%9F%B7%E8%A1%8C"><span class="nav-number">4.5.</span> <span class="nav-text">產生靜態檔 + 本地執行</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%82%99%E4%BB%BD"><span class="nav-number">1.</span> <span class="nav-text">第一次備份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-init"><span class="nav-number">1.1.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%88%86%E6%94%AF-backup"><span class="nav-number">1.2.</span> <span class="nav-text">建立新分支 backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-%E6%9C%AC%E8%BA%AB%E5%B7%B2%E5%BB%BA%E7%AB%8B-gitignore"><span class="nav-number">1.3.</span> <span class="nav-text">hexo 本身已建立 .gitignore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-file-and-commit"><span class="nav-number">1.4.</span> <span class="nav-text">add file and commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-to-remote"><span class="nav-number">1.5.</span> <span class="nav-text">push to remote</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9B%B4%E6%96%B0"><span class="nav-number">2.</span> <span class="nav-text">修改更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%85%A7%E5%AE%B9"><span class="nav-number">2.1.</span> <span class="nav-text">查看修改內容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%85%A8%E9%83%A8%E7%95%B0%E5%8B%95%E6%AA%94%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text">加入全部異動檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-commit"><span class="nav-number">2.3.</span> <span class="nav-text">add commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-origin-to-remote"><span class="nav-number">2.4.</span> <span class="nav-text">push origin to remote</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E9%81%A0%E7%AB%AF-%E6%9C%80%E6%96%B0%E5%85%A7%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">同步遠端 最新內容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch-merge"><span class="nav-number">3.1.</span> <span class="nav-text">fetch + merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E7%9F%AD%E9%A1%AF%E7%A4%BA-commit"><span class="nav-number">3.2.</span> <span class="nav-text">簡短顯示 commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E6%89%80%E6%9C%89-respsitory"><span class="nav-number">3.3.</span> <span class="nav-text">顯示所有 respsitory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%99%E4%BB%BD-clone"><span class="nav-number">4.</span> <span class="nav-text">備份 clone</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clone"><span class="nav-number">4.1.</span> <span class="nav-text">clone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check-to-backup"><span class="nav-number">4.2.</span> <span class="nav-text">check to backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo"><span class="nav-number">4.3.</span> <span class="nav-text">Install Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-all-package-for-Blog"><span class="nav-number">4.4.</span> <span class="nav-text">Install all package for Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94-%E6%9C%AC%E5%9C%B0%E5%9F%B7%E8%A1%8C"><span class="nav-number">4.5.</span> <span class="nav-text">產生靜態檔 + 本地執行</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -210,7 +210,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -226,6 +226,10 @@
 
         </div>
       </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -234,10 +238,6 @@
     </header>
 
     
-  <div class="back-to-top" role="button">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -286,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-03-28 11:10:03" itemprop="dateModified" datetime="2021-03-28T11:10:03+08:00">2021-03-28</time>
+        <time title="修改時間：2021-03-30 22:05:29" itemprop="dateModified" datetime="2021-03-30T22:05:29+08:00">2021-03-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -299,6 +299,22 @@
     </span>
 
   
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
 </div>
 
         </div>
@@ -328,6 +344,10 @@
 <h3 id="push-origin-to-remote"><a href="#push-origin-to-remote" class="headerlink" title="push origin to remote"></a>push origin to remote</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin backup</span><br></pre></td></tr></table></figure>
 
 <h2 id="同步遠端-最新內容"><a href="#同步遠端-最新內容" class="headerlink" title="同步遠端 最新內容"></a>同步遠端 最新內容</h2><h3 id="fetch-merge"><a href="#fetch-merge" class="headerlink" title="fetch + merge"></a>fetch + merge</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 抓回遠端分支</span></span><br><span class="line">git fetch origin backup</span><br><span class="line"><span class="comment"># merge 遠端分支</span></span><br><span class="line">git merge origin/backup</span><br></pre></td></tr></table></figure>
+
+<h3 id="簡短顯示-commit"><a href="#簡短顯示-commit" class="headerlink" title="簡短顯示 commit"></a>簡短顯示 commit</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline</span><br><span class="line">	4f52de2 (HEAD -&gt; backup, origin/backup) update 2021/03/28-2</span><br><span class="line">	9bb92eb update 2021/03/28</span><br><span class="line">	5a09926 update 2021/03/25</span><br><span class="line">	aabcf2b update 2021/3/24</span><br><span class="line">	8ad28b8 update 2021/3/23</span><br><span class="line">	155415a update 2021/03/22</span><br><span class="line">	5e79348 update 2021/3/21</span><br><span class="line">	0d82e9b update 2021/03/20</span><br><span class="line">	3d7d128 update 2021/03/19</span><br><span class="line">	b115098 update 2021/03/18</span><br><span class="line">	943a44a update 2021/2/17</span><br><span class="line">	c16e900 update 1021/02/16</span><br><span class="line">	7bf66fc add some hexo, categories and tags</span><br><span class="line">	83a54ad 1st commit</span><br></pre></td></tr></table></figure>
+
+<h3 id="顯示所有-respsitory"><a href="#顯示所有-respsitory" class="headerlink" title="顯示所有 respsitory"></a>顯示所有 respsitory</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git show-ref</span><br><span class="line">	4f52de2bb6a363eed5ff816aed641b26722d2b07 refs/heads/backup</span><br><span class="line">	4f52de2bb6a363eed5ff816aed641b26722d2b07 refs/remotes/origin/backup</span><br><span class="line">	ee599a173055bef88086941c5a96277a2cc34340 refs/remotes/origin/master</span><br></pre></td></tr></table></figure>
 
 <h2 id="備份-clone"><a href="#備份-clone" class="headerlink" title="備份 clone"></a>備份 clone</h2><h3 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/hot5656/blog.git</span><br></pre></td></tr></table></figure>
 
@@ -413,6 +433,20 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Robert Kao</span>
 </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">33 分鐘</span>
+  </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
 
@@ -435,6 +469,8 @@
 
 
 
+
+  
 
 
 </body>
