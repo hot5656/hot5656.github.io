@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hot5656.github.io/2021/04/05/hexo-8/</loc>
+    
+    <lastmod>2021-04-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hot5656.github.io/2021/03/15/hexo-7/</loc>
+    
+    <lastmod>2021-04-05</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hot5656.github.io/2021/03/12/hexo-1/</loc>
     
     <lastmod>2021-04-05</lastmod>
@@ -79,13 +93,6 @@
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/2021/03/15/hexo-7/</loc>
-    
-    <lastmod>2021-03-28</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hot5656.github.io/2021/03/14/git-1/</loc>
     
     <lastmod>2021-03-28</lastmod>
@@ -156,14 +163,14 @@
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/categories/index.html</loc>
+    <loc>https://hot5656.github.io/tags/index.html</loc>
     
     <lastmod>2021-03-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/tags/index.html</loc>
+    <loc>https://hot5656.github.io/categories/index.html</loc>
     
     <lastmod>2021-03-20</lastmod>
     
@@ -207,14 +214,14 @@
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/tags/virtualbox/</loc>
+    <loc>https://hot5656.github.io/tags/node-js/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/tags/node-js/</loc>
+    <loc>https://hot5656.github.io/tags/virtualbox/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -263,14 +270,14 @@
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/tags/pycharm/</loc>
+    <loc>https://hot5656.github.io/tags/web/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/tags/web/</loc>
+    <loc>https://hot5656.github.io/tags/pycharm/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -307,14 +314,14 @@
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/categories/application/</loc>
+    <loc>https://hot5656.github.io/categories/Front-End/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hot5656.github.io/categories/Front-End/</loc>
+    <loc>https://hot5656.github.io/categories/application/</loc>
     <lastmod>2021-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
