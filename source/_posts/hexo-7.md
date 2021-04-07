@@ -11,7 +11,7 @@ date: 2021-03-15 14:05:03
 
 ### clone next theme
 ``` bash
-npm install hexo-theme-next
+npm install hexo-theme-next --save
 # copy next config to local
 # windows command
 copy node_modules\hexo-theme-next\_config.yml _config.next.yml
@@ -103,7 +103,7 @@ avatar:
 
 ### install inside theme
 ``` bash
-npm install hexo-theme-inside
+npm install hexo-theme-inside --save
 ```
 
 ### _config.yml 設定 theme

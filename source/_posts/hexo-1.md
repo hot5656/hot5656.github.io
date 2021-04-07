@@ -218,7 +218,7 @@ custom_file_path:
 ### 設置菜單
 #### 需安裝 hexo-theme-next
 ```bash
-npm install hexo-theme-next
+npm install hexo-theme-next --save
 # copy next config to local
 # windows command
 copy node_modules\hexo-theme-next\_config.yml _config.next.yml
