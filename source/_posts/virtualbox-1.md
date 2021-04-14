@@ -16,6 +16,8 @@ tags:
 
 ### 下載 
 [virtio-net driver]( https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md)
+[virtio-win-0.1.102](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.102/)
+
 + Select Stable virtio-win ISO
 + 我安裝的是 Win7, 當下抓的是 virtio-win-0.1.185.iso 但安裝有問題, 最後試 virtio-win-0.1.102.iso 結果 ok
 

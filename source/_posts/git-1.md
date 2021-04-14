@@ -16,6 +16,9 @@ git init
 
 ### 建立新分支 backup
 ``` bash
+# 建立新分支 issue1
+git branch issue1
+# 建立新分支 backup 同時切過去
 git checkout -b backup
 ```
 <!--more-->
@@ -30,9 +33,16 @@ git branch -r
 git branch -a
 ```
 
+### 刪除 branch
+```
+git branch -d work1
+```
+
 ### checkout to branch
 ``` bash
 git checkout backup
+### checkout 某一個 commit
+git checkout 1f0aa12
 ```
 
 ### add all file
@@ -49,12 +59,18 @@ git add --all
 
 ### add commit
 ``` bash
+# commit
 git commit -m "1st commit"
+# add modify and commit
+# 僅加入修改,不會加入新檔案
+git commit -am "update 2021/04/12"
 ```
 
 ### dump commit 紀錄
 ``` bash
 git log
+# 每一個 commint 僅列一行
+git log --oneline
 ```
 
 ### list commit
@@ -72,7 +88,10 @@ git remote add origin https://github.com/hot5656/blog.git
 
 ### push origin to remote
 ``` bash
+# 若 remote 無 backup
 git push -u origin backup
+# 若 remote 有 backup
+git push origin backup
 ```
 
 ### fetch

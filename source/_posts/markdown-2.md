@@ -188,10 +188,11 @@ while (condition) {
 > >作者：杜秋娘(第二層)
 
 ### 行內程式碼
+如果要標記一小段行內程式碼，你可以用反引號把它包起來
 ``` bash
-HTML <br> 元素會產生文字的斷行
+Use the `printf()` function.
 ``` 
-HTML`<br>` 元素會產生文字的斷行
+Use the `printf()` function.
 
 
 ### 流程圖

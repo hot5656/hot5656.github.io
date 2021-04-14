@@ -705,6 +705,31 @@ $$
     \end{cases}
 \end{equation}
 
+
+### 加入 Disqus 留言版 
+#### 申請留言版帳號
+到 [Disqus](https://disqus.com/) 註冊帳號後並登入
++ I wnat to install Disqus on my site
+<div style="width:500px">
+	{% asset_img pic21.png pic21 %}
+</div>
+
++ 基本設定
+<div style="width:500px">
+	{% asset_img pic22.png pic22 %}
+</div>
+
+#### set hexo's _config.next.yml
+``` yaml
+# Disqus
+# For more information: https://disqus.com
+disqus:
+  enable: enable # enable Disqus
+  shortname: hot5656-blog # Disqus Website Name for you
+  count: true
+```
+
+
 <br>
 
 ## md檔 設定

@@ -583,8 +583,8 @@ comments:
 # Disqus
 # For more information: https://disqus.com
 disqus:
-  enable: false
-  shortname:
+  enable: enable # enable Disqus
+  shortname: hot5656-blog # Disqus Website Name for you
   count: true
 
 # DisqusJS
