@@ -7,6 +7,12 @@ abbrlink: c588
 date: 2021-03-14 08:41:49
 ---
 
+<style>
+.post-image {
+	border: 1px solid black;
+}
+</style>
+
 ## command
 
 ### Install Hexo
@@ -154,12 +160,6 @@ index_generator:
 
 ## md檔 設定
 
-###  顯示圖片(含設定寬度)
-``` html
-<div style="width:500px">
-	{% asset_img pic1.png pic1 %}
-</div>
-```
 
 ###  加入 繼續閱讀 截斷文章
 ``` html
@@ -177,6 +177,86 @@ layout:false
 ---
 
 ```
+
+### 設定 Hexo 本地連結
+`{% post_link filename [title] [escape] %}`
+
+#### show hexo's post title
+``` md
+{% post_link hexo-1 %}
+```
+{% post_link hexo-1 %}
+
+#### show 指定文字
+``` md
+{% post_link hexo-1 'Hexo 製作部落格' %}
+```
+{% post_link hexo-1 'Hexo 製作部落格' %}
+
+#### Escape title(don't care tag)
+``` md
+{% post_link hexo-1 '<b>Hexo</b> 製作部落格' %}
+```
+{% post_link hexo-1 '<b>Hexo</b> 製作部落格' %}
+
+#### Do not Escape title(care tag)
+``` md
+{% post_link hexo-1 '<b>Hexo</b> 製作部落格' false %}
+```
+{% post_link hexo-1 '<b>Hexo</b> 製作部落格' false %}
+
+### 顯示圖檔
+
+#### default 顯示
+``` md
+{% asset_img pic2.jpg pic2 %}
+```
+{% asset_img pic2.jpg pic2 %}
+
+####  設定外框寬度(可靠左或縮小圖片)
+``` html
+<div style="width:500px">
+	{% asset_img pic2.jpg pic2"%}
+</div>
+```
+<div style="width:500px">
+	{% asset_img pic2.jpg pic2"%}
+</div>
+
+#### 加入自訂 class
+``` html
+<style>
+.post-image {
+	border: 1px solid black;
+}
+</style>
+
+{% asset_img post-image pic2.jpg pic2"%}
+```
+{% asset_img post-image pic2.jpg pic2"%}
+
+#### 指定寬度,高度
+``` md
+{% asset_img pic2.jpg 300 300 "pic2"%}
+```
+{% asset_img pic2.jpg 300 300 "pic2"%}
+
+#### 指定寬度(自動調整高度)
+``` md
+{% asset_img pic2.jpg 300 "pic2"%}
+```
+{% asset_img pic2.jpg 300 "pic2"%}
+
+#### 指定 Title & Alt
+> alt 圖片替代文字
+> title 滑鼠移經顯示文字標示
+``` md
+{% asset_img pic2.jpg "pic2 title'pic2 alt'" %}
+```
+{% asset_img pic2.jpg "pic2 title'pic2 alt'" %}
+
+
+
 
 
 

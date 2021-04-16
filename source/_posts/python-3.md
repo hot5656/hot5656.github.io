@@ -2,7 +2,7 @@
 title: Tkinter (Python)
 abbrlink: 12a5
 date: 2021-04-15 13:52:21
-categories: coding
+categories: Coding
 tags:
 	- python
 ---
@@ -23,7 +23,7 @@ window.minsize(width=500, height=300)
 # bg : window 背景顏色
 window.config(padx=50, pady=70, bg="#B1DDC6")
 
-# 保持顯示 windows
+# 保持顯示 window
 window.mainloop()
 ```
 
@@ -39,6 +39,13 @@ fred["fg"] = "red"
 fred["bg"] = "blue"
 # Use the config() method to update multiple attrs subsequent to object creation
 fred.config(fg="red", bg="blue")
+```
+
+#### 邊線與邊框
+``` py
+# highlightthickness=0 無邊線
+# borderwidth=0 無邊框
+ok_btn = Button(image=ok_img, command=ok_process, borderwidth=0, highlightthickness=0)
 ```
 
 
@@ -296,6 +303,42 @@ print(f"-->{entry.get()}")
 # entry.delete(0, END)
 ```
 
+#### [Canvas (繪圖)](https://tkdocs.com/tutorial/canvas.html)
+<div style="width:300px">
+	{% asset_img pic9.png pic9 %}
+</div>
+
+``` py
+# constant
+YELLOW = "#f7f5dd"
+FONT_NAME = "Courier"
+# Canvas, highlightthickness 邊線寬度
+canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
+# image 元件
+tomato_img = PhotoImage(file="tomato.png")
+# add image
+canvas.create_image(100, 112, image=tomato_img)
+# add text, fill 填入顏色
+canvas.create_text(102, 130, text="00:00", font=(FONT_NAME, 35, "bold"), fill="white")
+canvas.pack()
+```
+
+
+###  [Bind](http://www.tcl.tk/man/tcl8.6/TkCmd/event.htm)
+#### Listbox
+``` py
+def listbox_used(event):
+    print(listbox.get(listbox.curselection()))
+
+listbox = Listbox(height=4)
+fruits = ["Apple", "Pear", "Orange", "Banana"]
+for item in fruits:
+    listbox.insert(fruits.index(item), item)
+listbox.bind("<<ListboxSelect>>", listbox_used)
+listbox.pack()
+```
+
 ###  參考
++ [Tk tutorial](https://tk-tutorial.readthedocs.io/en/latest/index.html)
 + [Tkinter 8.5 reference](https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/) : a GUI for Python
 + [Tk Commands](http://tcl.tk/man/tcl8.6/TkCmd/contents.htm) : 較清楚

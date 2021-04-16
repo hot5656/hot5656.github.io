@@ -2,11 +2,12 @@
 title: 100 Days of Code for Python - Day31(Flash Card App)
 abbrlink: b88e
 date: 2021-04-14 16:42:37
-categories:
+categories: Coding
 tags:
+  - python
 ---
 
-### 
+### xx
 #### 製作 字卡 csv
 1. 建立 google 試算表
 2. copy 常用字 至試算表
@@ -15,8 +16,15 @@ tags:
 <!--more-->
 
 4. 選擇翻譯方塊格右下角往下拉,即可完成所有翻譯
-{% asset_img pic1.png pic1 %}
-{% asset_img pic2.png pic2 %}
+<div style="width:500px">
+	{% asset_img pic1.png pic1 %}
+</div>
+<div style="width:500px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
+5. 檔案 --> 下載 --> .csv
+
 
 
 
