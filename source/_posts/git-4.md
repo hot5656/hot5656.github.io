@@ -38,13 +38,6 @@ tags:
 </div>
 
 
-
-
-
-
-
-
-
 ## git update(windowns)
 ```bash
 # git version 2.31.0.windows.1(2021/03/24)
