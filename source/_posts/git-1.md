@@ -14,7 +14,8 @@ date: 2021-03-14 15:48:38
 git init
 ```
 
-### 建立新分支 backup
+### Branch
+#### 建立新分支 backup
 ``` bash
 # 建立新分支 issue1
 git branch issue1
@@ -23,7 +24,7 @@ git checkout -b backup
 ```
 <!--more-->
 
-### see branch
+#### see branch
 ``` bash
 # see local branch
 git branch
@@ -31,33 +32,56 @@ git branch
 git branch -r
 # see local and remote branch
 git branch -a
+# see branch 詳細
+git branch -v 
 ```
 
-### 刪除 branch
+#### 本地參考儲存庫
+``` branch
+git show-ref
+	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/master
+	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/serverfix
+	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/HEAD
+	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/master
+	37d73f1a945ece85dffe798ba7ae43733bf1f4aa refs/remotes/team/master
 ```
+
+#### 更改 branch 名稱
+``` bash
+# m 大小寫皆可
+git branch -M main
+git branch -m main
+```
+
+#### 刪除 branch
+``` bash
 git branch -d work1
 ```
 
-### checkout to branch
+#### checkout to branch
 ``` bash
 git checkout backup
 ### checkout 某一個 commit
 git checkout 1f0aa12
 ```
 
-### add all file
-``` bash
-git add .
-```
 
-### 加入全部異動檔案
-不論檔案狀態是 Untracked files 或是 Changes not staged for commit（紅色），都會一口氣變成 Changes to be committed（綠色）
+### Commit
+#### add all file
 ``` bash
+# 所有這個目錄(含子層)
+git add .
+# 所有專案(兩個命令相同)
 git add -A
 git add --all 
 ```
 
-### add commit
+#### 還原檔案修改
+``` bash
+git checkout -- branch_test.txt
+```
+
+#### add commit
 ``` bash
 # commit
 git commit -m "1st commit"
@@ -66,14 +90,23 @@ git commit -m "1st commit"
 git commit -am "update 2021/04/12"
 ```
 
-### dump commit 紀錄
+#### 更動最後一筆 commit 說明
 ``` bash
-git log
-# 每一個 commint 僅列一行
-git log --oneline
+git commit --amend
 ```
 
-### list commit
+#### 移除最後一次 commit
+``` bash
+# 移除最後一次 commit,檔案修改不保留
+git reset HEAD^ --hard
+# 移除最後一次 commit,保留檔案修改
+# 兩個命令完全一樣
+git reset HEAD^ --soft
+git reset HEAD^
+```
+
+#### list commit 
+> 但只列出雜湊碼,所以不清楚
 ``` bash
 # list remote commit
 git rev-list --remotes
@@ -81,12 +114,33 @@ git rev-list --remotes
 git rev-list -–all
 ```
 
-### add origin
+#### dump modify status
 ``` bash
-git remote add origin https://github.com/hot5656/blog.git
+git status
 ```
 
-### push origin to remote
+#### list all file
+``` bash
+git ls-files
+```
+
+#### 復原已staged的檔案 unstage
+``` bash
+# 單一檔案
+git reset HEAD <file>
+# 所有檔案
+git reset
+```
+
+#### 查看被修改檔案的內容
+``` bash
+git diff source/_posts/os-1.md
+```
+
+
+### Remote
+
+#### push origin to remote
 ``` bash
 # 若 remote 無 backup
 git push -u origin backup
@@ -94,45 +148,62 @@ git push -u origin backup
 git push origin backup
 ```
 
-### fetch
+#### fetch
 ``` bash
 # 抓回遠端分支
 git fetch
+# 抓回遠端分支 origin/backup
+git fetch origin backup
 ```
 
-### pull
+#### pull
 ``` bash
 # git pull = git fetch + git merge
 git pull
+# pull 遠端分支 origin/backup
+git pull origin/backup
 ```
 
-
-### dump remote server setting
+#### add origin(remote server)
 ``` bash
-git remote -v
+git remote add origin https://github.com/hot5656/blog.git
 ```
 
-### change origin setting
+#### change origin setting
 ``` bash
 git remote set-url origin https://github.com/hot5656/blog.git
 ```
 
-### dump modify status
+#### 更改 遠端儲存庫名
 ``` bash
-git status
+git remote rename pb paul
 ```
 
-### list all file
+#### 移除 遠端儲存庫
 ``` bash
-git ls-files
+git remote rm paul
 ```
 
-### 復原已staged的檔案 unstage
+#### dump remote server setting
 ``` bash
-# 單一檔案
-git reset HEAD <file>
-# 所有檔案
-git reset
+git remote -v
+```
+
+### Other 
+
+#### dump log (commit 紀錄)
+``` bash
+git log
+# 每一個 commint 僅列一行
+git log --oneline
+```
+
+#### merge
+``` bash
+# merge 其他 branch
+git merge new-feature
+# origin/master 分支 合併到 master 分支
+git merge origin/master
 ```
 
 <br>

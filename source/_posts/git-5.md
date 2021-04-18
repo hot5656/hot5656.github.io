@@ -25,6 +25,27 @@ tags:
 	{% asset_img pic3.png pic3 %}
 </div>
 
+### Put code to GitHub
+#### GitHub generate a respsitory
+<div style="width:700px">
+	{% asset_img pic31.png pic31 %}
+</div>
+
+####  Create a new repository on the command line
+``` bash
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/hot5656/html_demo.git
+git push -u origin master
+```
+
+#### Push an existing repository from the command line
+``` bash
+git remote add origin https://github.com/hot5656/html_demo.git
+git push -u origin master
+```
+
 ### Pull Request（PR）
 
 #### Setting request
@@ -81,3 +102,5 @@ tags:
 
 ### 參考資料
 [使用 Pull Request（PR）](https://gitbook.tw/chapters/github/pull-request.html)
+[GitHub flow](https://guides.github.com/introduction/flow/)
+[使用 Git Hooks 驗證 local commit 資料](https://dotblogs.com.tw/AceLee/2020/04/07/002126)
