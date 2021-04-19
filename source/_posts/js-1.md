@@ -25,6 +25,8 @@ tags:
 #### 型態
 ``` js
 var age = 20
+// 區域變數
+let temp = 10
 // variable undifined
 var total
 console.log(total)
@@ -56,6 +58,26 @@ console.log('type function', typeof function(){})
   type null object		// It's more special
   type underined undefined
   type function function
+```
+
+#### number
+``` js
+// 最大整數 2^53 - 1 : Number.MAX_SAFE_INTEGER
+```
+
+#### String
+``` js
+// string split to array
+var line = "aa bb cc"
+console.log(line.split(' '))
+// string to integer
+var tmp = '10'
+var num1 = parseInt(tmp)
+console.log(typeof num1)
+// string to number
+var tmp = '10'
+var num1 = Number(tmp)
+console.log(typeof num1)
 ```
 
 #### 陣列 Array
@@ -203,9 +225,70 @@ console.log( 10 > 5 ? 'bigger' : 'smaller')
 ```
 
 
+### 迴圈
+#### for  迴圈
+``` js
+for (let i=0 ; i<10 ; i++) {
+	console.log(i)
+}
+```
+
+### 函數 
+``` js
+function multiply(num1,num2) {
+	var result = num1 * num2
+	return result
+ }
+  
+console.log(multiply(4,7))
+```
+
+### 內建物件
+#### [Math](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Math)
+```js
+Math.random()
+Math.round()四捨五入
+Math.floor()
+```
 
 ### console object
 #### console.log()
+
+
+### require('readline') 用於自動測試
+#### Code test.js
+``` js
+var readline = require('readline');
+
+var lines = []
+var rl = readline.createInterface({
+  input: process.stdin
+});
+
+rl.on('line', function (line) {
+  lines.push(line)
+});
+
+rl.on('close', function() {
+  solve(lines)
+})
+
+function solve(lines) {
+  var tmp = lines[0].split(' ')
+  console.log(Number(tmp[0]) + Number(tmp[1]))
+}
+```
+
+#### input data input.txt
+``` bash
+10 13
+```
+
+#### 執行
+``` bash
+$ cat input.txt | node test.js
+23
+```
 
 
 ### 參考
