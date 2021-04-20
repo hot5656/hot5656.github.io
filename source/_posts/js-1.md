@@ -5,6 +5,7 @@ date: 2021-04-18 14:55:40
 categories: Coding
 tags:
 	- javascript
+mathjax: true
 ---
 
 ### 基本
@@ -24,6 +25,7 @@ tags:
 ### 變數 variable
 #### 型態
 ``` js
+// NaN : Not-A-Number
 var age = 20
 // 區域變數
 let temp = 10
@@ -63,10 +65,21 @@ console.log('type function', typeof function(){})
 #### number
 ``` js
 // 最大整數 2^53 - 1 : Number.MAX_SAFE_INTEGER
+console.log(Number.MAX_SAFE_INTEGER);   // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER+1); // 9007199254740992
+console.log(Number.MAX_SAFE_INTEGER+2); // 9007199254740992
+// number to string
+var num = 99
+console.log(String(num), typeof String(num))
+console.log(num.toString(), typeof num.toString())
 ```
 
 #### String
 ``` js
+// ascii code 和 字元 互轉
+let c = 'N'
+let code = c.charCodeAt(0) // charCodeAt(0) : c 字串 index 0 轉成 ascii code 
+console.log(String.fromCharCode(code  + 0x20)) // String.fromCharCode(code) : ascii 轉成字元
 // string split to array
 var line = "aa bb cc"
 console.log(line.split(' '))
@@ -78,6 +91,10 @@ console.log(typeof num1)
 var tmp = '10'
 var num1 = Number(tmp)
 console.log(typeof num1)
+// repeat
+"abc".repeat(0)      // ""
+"abc".repeat(1)      // "abc"
+"abc".repeat(2)      // "abcabc"
 ```
 
 #### 陣列 Array
@@ -88,6 +105,57 @@ scores.push(100)
 scores.push(80)
 console.log(scores, scores.length)
 ```
+
+### Array process
+#### map
+``` js
+// 簡單型式
+let arr = [1, 2, 3]
+function double(n) {
+	return n * 2
+}
+let newArr =arr.map(double)
+console.log(arr)
+console.log(newArr)
+// 詳細變化
+var mapEmpty = people.map(function(item, index, array){
+});
+console.log(mapEmpty);    // [undefined, undefined, undefined, undefined]
+
+var mapAgeThan5 = people.map(function(item, index, array){
+  return item.age > 5;    // 比較大於五歲的
+});
+console.log(mapAgeThan5); // [true, true, false, false]
+
+var mapAgeThan5_2 = people.map(function(item, index, array){
+  // 錯誤示範
+  if (item.age > 5) {
+    return item;              // 回傳大於五歲的
+  }
+  return false;               // 別以為空的或是 false 就不會回傳
+});
+
+console.log(mapAgeThan5_2);   // [{name: 'Casper'...}, {name: 'Wang'...}, false, false]
+
+var mapEat = people.map(function(item, index, array){
+  if (item.like !== '蘿蔔泥') {
+    return `${item.like} 好吃`;
+  } else {
+    return `${item.like} 不好吃`;
+  }
+});
+
+console.log(mapEat);          // ["鍋燒意麵 好吃", "炒麵 好吃", "蘿蔔泥 不好吃", "蘿蔔泥 不好吃"]
+```
+
+#### indexOf/lastIndexOf
+``` js
+// 第一個找到之索引, 不存在傳回 -1
+console.log([1, 2, 3, 1].indexOf(1))		// 0
+// 最後一個找到之索引
+console.log([1, 2, 3, 1].lastIndexOf(1))	// 3
+```
+
 
 ### 運算式與運算子
 #### == 與 === (=== 也比較型態,建議全用 ===)
@@ -155,6 +223,7 @@ false && 7 --> false
 * : 乘
 / : 除
 % : 取餘數
+** : 指數運算子 
 # 簡短運算
 a += 1
 a -= 1
@@ -165,6 +234,8 @@ a--
 ++a
 --a
 ```
+2**3 : $2^3$
+
 
 #### 位元運算子
 ``` bash
@@ -234,6 +305,7 @@ for (let i=0 ; i<10 ; i++) {
 ```
 
 ### 函數 
+#### 基本型式
 ``` js
 function multiply(num1,num2) {
 	var result = num1 * num2
@@ -243,20 +315,72 @@ function multiply(num1,num2) {
 console.log(multiply(4,7))
 ```
 
+#### inline function
+```
+var func = function() { 
+    //Your Code Here 
+};
+// example 
+function filter(arr, callback) {
+	result = []
+	for(i=0 ; i < arr.length ; i++) {
+		if (callback(arr[i])){
+			result.push(arr[i])
+		}
+	}
+	return result
+}
+// nums : local array
+// target (local variable)
+let newNum = filter(nums,function(element){
+	return element != target
+} )
+```
+
+#### callback 
+``` js
+let arr = [1, 2, 3]
+
+function double(n) {
+	return n * 2
+}
+
+function map(arr, callback) {
+	let result = []
+	for (let i = 0; i < arr.length; i++) {
+		result[i] = callback(arr[i])
+	}
+	return result
+}
+
+console.log(map(arr, double))
+```
+
+
 ### 內建物件
 #### [Math](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Math)
 ```js
-Math.random()
-Math.round()四捨五入
-Math.floor()
+// 亂數 介於0到1之間(包含 0，不包含1)
+console.log(Math.random())
+//四捨五入
+console.log(Math.round(20.49))
+console.log(Math.round(-20.49))
+// 最大整數
+console.log(Math.floor(5.95))
+console.log(Math.floor(-5.95))
 ```
 
-### console object
-#### console.log()
+### Web API
+#### console
+``` js
+var name = "Bob"
+console.log("The name is : ", name)
+```
 
 
-### require('readline') 用於自動測試
-#### Code test.js
+### 應用
+#### require('readline') 用於自動測試
+##### Code - test.js
 ``` js
 var readline = require('readline');
 
@@ -279,12 +403,12 @@ function solve(lines) {
 }
 ```
 
-#### input data input.txt
+##### input file - input.txt
 ``` bash
 10 13
 ```
 
-#### 執行
+##### 執行
 ``` bash
 $ cat input.txt | node test.js
 23
@@ -293,3 +417,5 @@ $ cat input.txt | node test.js
 
 ### 參考
 + [MDN avaScript 指南](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide)
+
+
