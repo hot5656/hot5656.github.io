@@ -24,6 +24,35 @@ mathjax: true
 
 ### 變數 variable
 #### 型態
++ 種類
+``` js
+// 字串（string）
+// 數字（number）
+// 布林值（boolean）
+// null
+// undefined
+// 物件（object）
+// symbol
+// dump type
+console.log(typeof 'Hello World!')	// 'string'
+console.log(typeof true) 						// 'boolean'
+console.log(typeof 1234567) 				// 'number'
+console.log(typeof null) 						// 'object'
+console.log(typeof undefined) 			// 'undefined'
+console.log(typeof { name: 'Jack' })// 'object'
+console.log(typeof Symbol()) 				// 'symbol'
+console.log(typeof function() {})		// 'function'
+console.log(typeof [1, 2, 3]) 			// 'object'
+console.log(typeof NaN) 						// 'number' NaN(not a number）
+// 檢視物件到底是屬於哪個子型別 Object.prototype.toString
+console.log(Object.prototype.toString.call([1, 2, 3])) 					// "[object Array]"
+console.log(Object.prototype.toString.call({ name: 'Jack' })) 	// "[object Object]"
+console.log(Object.prototype.toString.call(function sayHi() {}))// "[object Function]"
+console.log(Object.prototype.toString.call(/helloworld/i)) 			// "[object RegExp]"
+console.log(Object.prototype.toString.call(new Date())) 				// "[object Date]"
+```
+
++ exampe 
 ``` js
 // NaN : Not-A-Number
 var age = 20
@@ -62,7 +91,7 @@ console.log('type function', typeof function(){})
   type function function
 ```
 
-#### number
+#### [number](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Number)
 ``` js
 // 最大整數 2^53 - 1 : Number.MAX_SAFE_INTEGER
 console.log(Number.MAX_SAFE_INTEGER);   // 9007199254740991
@@ -72,6 +101,9 @@ console.log(Number.MAX_SAFE_INTEGER+2); // 9007199254740992
 var num = 99
 console.log(String(num), typeof String(num))
 console.log(num.toString(), typeof num.toString())
+// 顯示固定長度小數
+let value = 1.2
+console.log(value.toFixed(2)) // 1.20
 ```
 
 #### String
@@ -156,6 +188,29 @@ console.log([1, 2, 3, 1].indexOf(1))		// 0
 console.log([1, 2, 3, 1].lastIndexOf(1))	// 3
 ```
 
+###  [物件 object](https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects/Basics)
+#### example
+``` js
+var person = {
+	name : ['Bob', 'Smith'],
+	age: 20,
+	gender: 'mail',
+	insterests: [ 'music', 'skiing'],
+	bio: function(){
+		alert(this.name[0] + ' ' + this.name[1] + ' is '+ this.age + ' years old. He likes ' + this.insterests[0]+ ' and '+ this.insterests[1]);
+	},
+	greeting: function() {
+		alert('Hi! I\'m ' + this.name[0] + '.');
+	}
+}
+// -- 點記法 (Dot notation) --
+person.age
+person.interests[1]
+person.bio()
+// -- 括弧記法 (Bracket notation) --
+person['age']
+person['name']['first']
+```
 
 ### 運算式與運算子
 #### == 與 === (=== 也比較型態,建議全用 ===)
@@ -304,6 +359,23 @@ for (let i=0 ; i<10 ; i++) {
 }
 ```
 
+#### while  迴圈
+``` js
+// while
+var n = 0
+var x = 0
+while (n < 3) {
+    n++
+    x += n
+}
+// do while
+var i = 10
+do {
+    i += 1
+} while (i < 5);
+```
+
+
 ### 函數 
 #### 基本型式
 ``` js
@@ -368,6 +440,15 @@ console.log(Math.round(-20.49))
 // 最大整數
 console.log(Math.floor(5.95))
 console.log(Math.floor(-5.95))
+// 平方 
+console.log(Math.pow(10, 2)) // 100
+// 3次方
+console.log(Math.pow(3, 3))	// 27
+// 開根號
+console.log(Math.sqrt(49))			// 7
+console.log(Math.pow(49, 0.5))	// 7
+// 3次根號
+console.log(Math.pow(27, 1/3))		// 3
 ```
 
 ### Web API
@@ -414,8 +495,14 @@ $ cat input.txt | node test.js
 23
 ```
 
+#### NPSC 測試
+``` bash
+cat pa.in | node code.js | diff pa.out -
+# 處理換行差異
+cat pa.in | node code.js | diff --strip-trailing-cr pa.out -
+```
 
 ### 參考
 + [MDN avaScript 指南](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide)
-
++ [你懂 JavaScript 嗎？#17 物件（Object）](https://cythilya.github.io/2018/10/24/object/)
 

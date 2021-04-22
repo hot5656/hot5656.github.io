@@ -268,6 +268,16 @@ source\_data\styles.styl
 }
 ```
 
+### 修改 tab size
+source\_data\styles.styl
+``` css
+// 修改 tab size 為 2
+pre {
+	tab-size: 2;
+}
+```
+
+
 <br>
 
 ## 特定功能
