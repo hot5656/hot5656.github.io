@@ -136,6 +136,20 @@ var scores = [ 30, 70, 60, 50]
 scores.push(100)
 scores.push(80)
 console.log(scores, scores.length)
+// 二維陣列 宣告
+let number = 3
+let arr = []
+// 宣告第二層
+for (let i=0 ; i < number ; i++) {
+	arr[i] = new Array()
+}
+// 給值
+for (let i=0 ; i < number ; i++) {
+	for (let j=0 ; j < number ; j++) {
+		arr[i][j] = i+j
+	}
+}
+console.log(arr)	// [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ]
 ```
 
 ### Array process
@@ -456,6 +470,12 @@ console.log(Math.pow(27, 1/3))		// 3
 ``` js
 var name = "Bob"
 console.log("The name is : ", name)
+```
+
+#### process.stdout.write - 不換行列印
+``` js
+process.stdout.write('This is ')
+process.stdout.write('a book') // This is a book
 ```
 
 
