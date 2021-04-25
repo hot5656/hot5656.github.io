@@ -23,6 +23,8 @@ mathjax: true
 <!--more-->
 
 ### 變數 variable
+#### [data structures - 資料型別與資料結構](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Data_structures)
+
 #### 型態
 + 種類
 ``` js
@@ -97,24 +99,41 @@ console.log('type function', typeof function(){})
 console.log(Number.MAX_SAFE_INTEGER);   // 9007199254740991
 console.log(Number.MAX_SAFE_INTEGER+1); // 9007199254740992
 console.log(Number.MAX_SAFE_INTEGER+2); // 9007199254740992
-// number to string
-var num = 99
-console.log(String(num), typeof String(num))
-console.log(num.toString(), typeof num.toString())
+// PI
+console.log(Math.PI)							// 3.141592653589793
+// 數字轉成字串
+let num = 20
+console.log(String(num), typeof String(num))				// 20 string
+console.log(num.toString(), typeof num.toString())	// 20 string
+// 數字轉成字串 (利用加法)
+b = num + ''
+console.log(b, typeof b) // 20 string
+// 數字轉成 8 進制字串
+console.log(num.toString(8), typeof num.toString())	// 24 string
 // 顯示固定長度小數
 let value = 1.2
 console.log(value.toFixed(2)) // 1.20
+// string to number
+console.log(Number("10.211"))				// 10.211
+// string to 整數
+console.log(parseInt("10.211"))			// 10
+// string(8進制) to 整數(10進制))
+console.log(parseInt("20.1", 8))		// 16
+// string to 浮點
+console.log(parseFloat("20.111"))		// 20.111
 ```
 
-#### String
+#### [String](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/String)
 ``` js
 // ascii code 和 字元 互轉
 let c = 'N'
 let code = c.charCodeAt(0) // charCodeAt(0) : c 字串 index 0 轉成 ascii code 
 console.log(String.fromCharCode(code  + 0x20)) // String.fromCharCode(code) : ascii 轉成字元
+// 多字 ascii 轉 字串
+console.log(String.fromCharCode(65, 66, 67)) // ABC
 // string split to array
 var line = "aa bb cc"
-console.log(line.split(' '))
+console.log(line.split(' '))	// [ 'aa', 'bb', 'cc' ]
 // string to integer
 var tmp = '10'
 var num1 = parseInt(tmp)
@@ -126,7 +145,27 @@ console.log(typeof num1)
 // repeat
 "abc".repeat(0)      // ""
 "abc".repeat(1)      // "abc"
-"abc".repeat(2)      // "abcabc"
+// 轉小寫
+console.log("Hello!".toLowerCase())	// hello!
+// 轉大寫
+console.log("Hello!".toUpperCase())	// HELLO!"abc".repeat(2)      // "abcabc"
+// 找字串位置, -1 不存在
+console.log("Hello!".indexOf('l'))	// 2
+console.log("Hello!".indexOf('y'))	// -1
+// 取代找字串
+// 僅取代第一個
+console.log("Hello!".replace('l', "!x"))	// He!xlo!
+// 正規表達式(regexp)可取代全部
+console.log("Hello!".replace(/l/g, "!x"))	// He!x!xo!
+// trim 刪除前後空白
+console.log("  Hello! ".trim() + "..")	// Hello!..
+// string length1
+console.log("Hello!".length)	// 6
+// replace 
+let str = "abc"
+let str2 = str.replace("b","z")
+console.log(str)	// abc
+console.log(str2)	// azc
 ```
 
 #### 陣列 Array
@@ -150,56 +189,6 @@ for (let i=0 ; i < number ; i++) {
 	}
 }
 console.log(arr)	// [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ]
-```
-
-### Array process
-#### map
-``` js
-// 簡單型式
-let arr = [1, 2, 3]
-function double(n) {
-	return n * 2
-}
-let newArr =arr.map(double)
-console.log(arr)
-console.log(newArr)
-// 詳細變化
-var mapEmpty = people.map(function(item, index, array){
-});
-console.log(mapEmpty);    // [undefined, undefined, undefined, undefined]
-
-var mapAgeThan5 = people.map(function(item, index, array){
-  return item.age > 5;    // 比較大於五歲的
-});
-console.log(mapAgeThan5); // [true, true, false, false]
-
-var mapAgeThan5_2 = people.map(function(item, index, array){
-  // 錯誤示範
-  if (item.age > 5) {
-    return item;              // 回傳大於五歲的
-  }
-  return false;               // 別以為空的或是 false 就不會回傳
-});
-
-console.log(mapAgeThan5_2);   // [{name: 'Casper'...}, {name: 'Wang'...}, false, false]
-
-var mapEat = people.map(function(item, index, array){
-  if (item.like !== '蘿蔔泥') {
-    return `${item.like} 好吃`;
-  } else {
-    return `${item.like} 不好吃`;
-  }
-});
-
-console.log(mapEat);          // ["鍋燒意麵 好吃", "炒麵 好吃", "蘿蔔泥 不好吃", "蘿蔔泥 不好吃"]
-```
-
-#### indexOf/lastIndexOf
-``` js
-// 第一個找到之索引, 不存在傳回 -1
-console.log([1, 2, 3, 1].indexOf(1))		// 0
-// 最後一個找到之索引
-console.log([1, 2, 3, 1].lastIndexOf(1))	// 3
 ```
 
 ###  [物件 object](https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects/Basics)
@@ -366,6 +355,7 @@ console.log( 10 > 5 ? 'bigger' : 'smaller')
 
 
 ### 迴圈
+> 兩種改變迴圈的指令 : break, continue
 #### for  迴圈
 ``` js
 for (let i=0 ; i<10 ; i++) {
@@ -386,7 +376,7 @@ while (n < 3) {
 var i = 10
 do {
     i += 1
-} while (i < 5);
+} while (i < 5)
 ```
 
 
@@ -396,34 +386,17 @@ do {
 function multiply(num1,num2) {
 	var result = num1 * num2
 	return result
- }
-  
+}
 console.log(multiply(4,7))
-```
-
-#### inline function
-```
-var func = function() { 
-    //Your Code Here 
-};
-// example 
-function filter(arr, callback) {
-	result = []
-	for(i=0 ; i < arr.length ; i++) {
-		if (callback(arr[i])){
-			result.push(arr[i])
-		}
-	}
+// 另一種表示法
+var multiply= function(num1,num2) {
+	var result = num1 * num2
 	return result
 }
-// nums : local array
-// target (local variable)
-let newNum = filter(nums,function(element){
-	return element != target
-} )
+console.log(multiply(4,7)) // 28
 ```
 
-#### callback 
+#### 函數含 callback function 
 ``` js
 let arr = [1, 2, 3]
 
@@ -439,18 +412,57 @@ function map(arr, callback) {
 	return result
 }
 
-console.log(map(arr, double))
+console.log(map(arr, double)) // [ 2, 4, 6 ]
+```
+
+#### 匿名函數 anonymous function
+``` js
+let arr = [1, 2, 3]
+function map(arr, callback) {
+	let result = []
+	for (let i = 0; i < arr.length; i++) {
+		result[i] = callback(arr[i])
+	}
+	return result
+}
+
+// 匿名函數
+console.log(map(arr, function(x){
+		return x*3
+	})
+) // [ 3, 6, 9 ]
+```
+
+#### 參數(Parameter)與引數([Argument](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Functions/arguments))
+``` js
+// a,b 參數(Parameter)
+function add(a, b) {
+	// js arguments 內容
+	console.log(arguments)	// [Arguments] { '0': 2, '1': 3 }
+	// js arguments[1]
+	console.log(arguments[1])	// 3
+	console.log(typeof arguments) // object
+	return a + b
+}
+// 2, 3 與引數(Argument)
+console.log(add(2, 3))	// 5
 ```
 
 
-### 內建物件
+### 內建函數
 #### [Math](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Math)
 ```js
 // 亂數 介於0到1之間(包含 0，不包含1)
 console.log(Math.random())
 //四捨五入
-console.log(Math.round(20.49))
-console.log(Math.round(-20.49))
+console.log(Math.round(20.49))		// 20
+console.log(Math.round(-20.49))		// -20
+// 取較大整數(正整數無條件進位)
+console.log(Math.ceil(10.11))			// 11
+console.log(Math.ceil(-10.11))		// -10
+// 取較小整數(正整數無條件捨去)
+console.log(Math.floor(10.98))		// 10
+console.log(Math.floor(-10.98))		// -11
 // 最大整數
 console.log(Math.floor(5.95))
 console.log(Math.floor(-5.95))
@@ -463,6 +475,141 @@ console.log(Math.sqrt(49))			// 7
 console.log(Math.pow(49, 0.5))	// 7
 // 3次根號
 console.log(Math.pow(27, 1/3))		// 3
+```
+
+#### [Array](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array)
+##### map
+``` js
+// 簡單型式
+let arr = [1, 2, 3]
+function double(n) {
+	return n * 2
+}
+let newArr =arr.map(double)
+console.log(arr)			// [ 1, 2, 3 ]
+console.log(newArr)		// [ 2, 4, 6 ]
+// 詳細變化
+var mapEmpty = people.map(function(item, index, array){
+});
+console.log(mapEmpty);    // [undefined, undefined, undefined, undefined]
+
+var mapAgeThan5 = people.map(function(item, index, array){
+  return item.age > 5;    // 比較大於五歲的
+});
+console.log(mapAgeThan5); // [true, true, false, false]
+
+var mapAgeThan5_2 = people.map(function(item, index, array){
+  // 錯誤示範
+  if (item.age > 5) {
+    return item;              // 回傳大於五歲的
+  }
+  return false;               // 別以為空的或是 false 就不會回傳
+});
+
+console.log(mapAgeThan5_2);   // [{name: 'Casper'...}, {name: 'Wang'...}, false, false]
+
+var mapEat = people.map(function(item, index, array){
+  if (item.like !== '蘿蔔泥') {
+    return `${item.like} 好吃`;
+  } else {
+    return `${item.like} 不好吃`;
+  }
+});
+
+console.log(mapEat);          // ["鍋燒意麵 好吃", "炒麵 好吃", "蘿蔔泥 不好吃", "蘿蔔泥 不好吃"]
+```
+
+##### indexOf/lastIndexOf
+``` js
+// 第一個找到之索引, 不存在傳回 -1
+console.log([1, 2, 3, 1].indexOf(1))		// 0
+// 最後一個找到之索引
+console.log([1, 2, 3, 1].lastIndexOf(1))	// 3
+```
+
+##### join
+``` js
+// 用某字串結合array成字串 
+let arr = [1, 2, 3]
+console.log(arr.join('!'))	// 1!2!3
+```
+
+##### filter
+``` js
+// filter 陣列內容設定條件成立即留下
+let arr2 = [1, -9, 2, -1, 3]
+console.log(arr2.filter(
+	function(x) {
+		return x > 0
+	})
+)		// [ 1, 2, 3 ]
+```
+
+##### slice
+``` js
+// 切下某些 array 內容
+let arr3 = [1, 2, 3, 4, 5, 6]
+// slice from 2 to end
+console.log(arr3.slice(2))	// [ 3, 4, 5, 6 ]
+//  slice from 2 to 4(before)
+console.log(arr3.slice(2, 4))	// [ 3, 4 ]
+```
+
+##### splice (改變原陣列)
+``` js
+// array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+// 從哪裡開始, 刪除幾個 item, 插入其他內容
+var months = ['Jan', 'March', 'April', 'June'];
+// position 1 開始刪除 0 個
+months.splice(1, 0, 'Feb');
+// inserts at index 1
+console.log(months);		// [ 'Jan', 'Feb', 'March', 'April', 'June' ]
+// position 4 開始刪除 1 個
+months.splice(4, 1, 'May');
+// replaces 1 element at index 4
+console.log(months);	// [ 'Jan', 'Feb', 'March', 'April', 'May' ]
+// position 3 開始刪除 1 個
+months.splice(3, 1 );
+// delete 1 element at index 3
+console.log(months);	// [ 'Jan', 'Feb', 'March', 'May' ]
+```
+
+##### sort (改變原陣列)
+``` js
+// 文字排序
+const months = ['March', 'Jan', 'Feb', 'Dec'];
+months.sort();
+console.log(months);	// [ 'Dec', 'Feb', 'Jan', 'March' ]
+// 數字也用近似文字方式排列
+const array1 = [1, 30, 4, 21, 100000];
+array1.sort();
+console.log(array1);	// [ 1, 100000, 21, 30, 4 ]
+// 數字排列 flow 1(小排到大)
+// 相等 return 0, 不換位置 -1, 換位置 1 (正數換位置)
+// b (positionnow : start from value 1), a(position now+1 : start from value 100000) 
+// array1.sort( function(a, b) {
+// 	if (a === b) return 0
+// 	if (b > a) return -1
+// 	return 1
+// })
+// console.log(array1);	// [ 1, 4, 21, 30, 100000 ]
+// 數字排列 flow 2(小排到大)
+// (正數換位置)
+array1.sort( function(a, b) {
+	// return (b < a) ? 1 :　-1 
+	return a - b 
+})
+console.log(array1);	// [ 1, 4, 21, 30, 100000 ]
+```
+
+##### reverse (改變原陣列)
+```
+const array1 = ['one', 'two', 'three'];
+console.log('array1:', array1);  // array1: [ 'one', 'two', 'three' ]
+const reversed = array1.reverse();
+console.log('reversed:', reversed);	// reversed: [ 'three', 'two', 'one' ]
+// Careful: reverse is destructive -- it changes the original array.
+console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ```
 
 ### Web API
