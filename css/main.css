@@ -2859,3 +2859,6 @@ mjx-container[display="true"] + br {
 .sequence rect {
   fill: #bbdfc8;
 }
+pre {
+  tab-size: 2;
+}
