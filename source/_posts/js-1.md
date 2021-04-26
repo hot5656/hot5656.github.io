@@ -9,6 +9,7 @@ mathjax: true
 ---
 
 ### 基本
+> ECMA-262是定義了Javascript的核心規範
 #### 註解
 ``` javascript
 // This is a comment
@@ -22,30 +23,299 @@ mathjax: true
 
 <!--more-->
 
+#### Hoisting (提升)
+##### example
+``` js
+// not defined
+console.log(b) // ReferenceError: b is not defined
+// 僅宣告提升,不含賦值
+console.log(a) // undefined, 不是 is not defined
+var a =10
+// hoisting 優先順序 function > parameter > var
+// 優先順序 parameter > var
+function test(v){
+	console.log(v)
+	var v = 3
+}
+test(10)
+// 優先順序 function > parameter > var
+function test3(v){
+	console.log(v)		// [Function: v]
+	var v = 3
+	function v() {
+		return 100
+	}
+}
+test3(10)
+// let 和 const 的 hoisting, TDZ（Temporal Dead Zone）
+// let 有 hoisting, 但賦值前不能使用
+var a2 = 10
+function test2() {
+	console.log(a2)		// ReferenceError: Cannot access 'a' before initialization
+	let a2 = 2
+}
+test2()
+```
+
+##### 原理
+<div style="width:500px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
+> EC(Execution Contexts)
+> VO(variable object)
+> AO(activation object)
+
+#### Closure (閉包)
+##### example 
+``` js
+// example #1
+/*
+test EC{
+	AO {
+		a : 10
+		inner : function
+	}
+}
+
+Global EC{}
+	VO {
+		func : function --> test.inner
+	}
+}
+*/
+function test() {
+	var a = 10
+	function inner() {
+		a++
+		console.log(a)
+	}
+	return inner
+}
+var func = test()
+func()	// 11
+func()	// 12
+func()	// 13
+// example #2
+/*
+innerEC{
+	AO {
+		arguments
+	},
+	scopeChain : [innerEC.AO, testC.scopeChain]
+							=[innerEC.AO, testEC.AO, globalEC.VO ]
+}
+
+testEC{
+	AO {
+		arguments,
+		vTest : 20,
+		inner : function
+	},
+	scopeChain : [testEC.AO, globalEC.scopeChain]
+							=[testEC.AO, globalEC.VO]
+}
+
+globalEC{
+	VO {
+		v1 : 10,
+		inner : function ,
+		test: function
+	},
+	scopeChain : [globalEC.VO]
+}
+*/
+var v1 = 10
+function test() {
+  var vTest = 20
+  function inner() {
+    console.log(v1, vTest) //10 20
+  }
+  return inner
+}
+var inner = test()
+inner()	// 10 20
+// example #3 - complex count
+function complex(num) {
+	console.log('calculate')
+	return num*num*num
+}
+
+function cache(func) {
+	var ans = {}
+	return function(num) {
+		if (ans[num]) {
+			return ans[num]
+		}
+		ans[num] = func(num)
+		return ans[num]
+	}
+}
+
+console.log(complex(20))		// calculate 8000
+console.log(complex(20))		// calculate 8000
+console.log(complex(20))		// calculate 8000
+const cacheComplex = cache(complex)
+console.log(cacheComplex(20))		// calculate 8000
+console.log(cacheComplex(20))		// 8000
+console.log(cacheComplex(20))		// 8000
+```
+
+##### Closure 造成問題
+``` js
+// closure trigger issue
+var arr = []
+for (var i=0 ; i<5 ; i++){
+	arr[i] = function() {
+		return console.log(i)
+	}
+}
+arr[0]()	// 5
+arr[1]()	// 5
+arr[2]()	// 5
+arr[3]()	// 5
+arr[4]()	// 5
+// fix #1
+var arr = []
+for (var i=0 ; i<5 ; i++){
+	arr[i] = consloeLogN(i)
+}
+function consloeLogN(n) {
+	return function() {
+		console.log(n)
+	}
+}
+arr[0]()	// 0
+arr[1]()	// 1
+arr[2]()	// 2
+arr[3]()	// 3
+arr[4]()	// 4
+// fix #2(定義立即執行 IIFEImmediately Invoked Function Expression）)
+var arr = []
+for (var i=0 ; i<5 ; i++){
+	arr[i] = (function(number) {
+							return function() {
+								console.log(number)
+							}
+						})(i)
+}
+arr[0]()	// 0
+arr[1]()	// 1
+arr[2]()	// 2
+arr[3]()	// 3
+arr[4]()	// 4
+// fix #3 - let
+var arr = []
+for (let i=0 ; i<5 ; i++){
+	arr[i] = function() {
+		return console.log(i)
+	}
+}
+arr[0]()	// 0
+arr[1]()	// 1
+arr[2]()	// 2
+arr[3]()	// 3
+arr[4]()	// 4
+```
+
+#### 物件導向 and prototype
+##### ES6 class
+``` js
+class Dog {
+	constructor(name) {
+		this.name = name
+	}
+	getName() {
+		return this.name
+	}
+	sayHello() {
+		console.log(this.name)
+	}
+}
+
+var d1 = new Dog("Dog_1")
+d1.sayHello()							// Dog_1
+console.log(d1.getName())	// Dog_1
+var d2 = new Dog("Dog_2")
+d2.sayHello()							// Dog_2
+```
+
+##### ES5
+``` js
+// example #1 - 會產生重複相同之 function
+function Dog(name) {
+	var myName = name
+	return {
+		getName: function() {
+			return myName
+		},
+		sayHello: function(){
+			console.log(myName)
+		}
+	}
+}
+
+var d = Dog("abc")
+d.sayHello()	// abc
+```
+
+
 ### 變數 variable
+
+#### var, let and const 
+``` js
+// let and const 是在 ES6 才使用
+// var 的 scope(作用域) 是 function
+// let, const 的 scope(作用域) 是 block
+```
+
 #### [data structures - 資料型別與資料結構](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Data_structures)
 
-#### 型態
+
 + 種類
 ``` js
-// 字串（string）
-// 數字（number）
-// 布林值（boolean）
-// null
-// undefined
-// 物件（object）
-// symbol
-// dump type
-console.log(typeof 'Hello World!')	// 'string'
-console.log(typeof true) 						// 'boolean'
-console.log(typeof 1234567) 				// 'number'
-console.log(typeof null) 						// 'object'
-console.log(typeof undefined) 			// 'undefined'
-console.log(typeof { name: 'Jack' })// 'object'
-console.log(typeof Symbol()) 				// 'symbol'
-console.log(typeof function() {})		// 'function'
-console.log(typeof [1, 2, 3]) 			// 'object'
-console.log(typeof NaN) 						// 'number' NaN(not a number）
+// --- Primitive ( immutable value - 不可變)
+// Boolean
+// Null
+// Undefined
+// Number(數字)
+// BigInt(這是一個實驗中的功能) : BigInt 是透過在一個數值後加上 n 或呼叫 BigInt()
+// String(字串)
+// Symbol（於 ECMAScript 6 新定義）
+// ---
+// Object (物件) - immutable value : array, function, date ...
+// --- dump type 
+console.log(typeof true) 						// boolean
+console.log(typeof null) 						// object
+console.log(typeof undefined) 			// undefined
+console.log(typeof 1234567) 				// number
+console.log(typeof 12n)							// bigint
+console.log(typeof 'Hello World!')	// string
+console.log(typeof Symbol()) 				// symbol
+console.log(typeof { name: 'Jack' })// object
+console.log(typeof [1, 2, 3]) 			// object
+console.log(typeof function() {})		// function
+console.log(typeof NaN) 						// number, NaN(not a number）
+// check array
+console.log(Array.isArray([]))	// True
+// check NaN(唯一 自己不等於自己)
+let num = Number("hello")
+console.log(num)					// NaN
+console.log(num === NaN)	// false
+console.log(num === num)	// false
+console.log(typeof num)		// number
+// check undefined
+let a 
+console.log(a)					// undefined
+console.log(typeof a)		// undefined
+// check undefined 再處理
+let b 
+if ( typeof a != undefined) {
+	console.log("undefined", b+1)	// undefined NaN
+}
+else {
+	console.log(b+1)
+}
 // 檢視物件到底是屬於哪個子型別 Object.prototype.toString
 console.log(Object.prototype.toString.call([1, 2, 3])) 					// "[object Array]"
 console.log(Object.prototype.toString.call({ name: 'Jack' })) 	// "[object Object]"
@@ -671,5 +941,11 @@ cat pa.in | node code.js | diff --strip-trailing-cr pa.out -
 
 ### 參考
 + [MDN avaScript 指南](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide)
-+ [你懂 JavaScript 嗎？#17 物件（Object）](https://cythilya.github.io/2018/10/24/object/)
++ [ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)
++ [該來理解 JavaScript 的原型鍊了](https://github.com/aszx87410/blog/issues/18)
++ [深入探討 JavaScript 中的參數傳遞](https://github.com/aszx87410/blog/issues/30)
++ [我知道你懂 hoisting，可是你了解到多深](https://github.com/aszx87410/blog/issues/34)
++ [所有的函式都是閉包：談 JS 中的作用域與 Closure](https://github.com/aszx87410/blog/issues/35)
++ [淺談 JavaScript 頭號難題 this](https://github.com/aszx87410/blog/issues/39)
++ [你懂 JavaScript 嗎？物件（Object）](https://cythilya.github.io/2018/10/24/object/)
 
