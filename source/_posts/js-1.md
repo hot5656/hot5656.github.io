@@ -256,9 +256,216 @@ function Dog(name) {
 }
 
 var d = Dog("abc")
+var d2 = Dog("123")
 d.sayHello()	// abc
+console.log(d.sayHello === d2.sayHello) // false
+// example #2 - 不會產生重複相同之 function
+function Dog(name) {
+	this.name = name
+}
+
+Dog.prototype.getName = function() {
+	return this.name
+}
+Dog.prototype.sayHello = function() {
+	console.log(this.name)
+}
+
+var d = new Dog("abc")			// 注意加 new
+var d2 = new Dog("123")			// 注意加 new
+d.sayHello()	// abc
+console.log(d.sayHello === d2.sayHello) // true
 ```
 
+##### prototype 原型鍊
+
++ Example
+``` js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+  
+Person.prototype.log = function () {
+  console.log(this.name + ', age:' + this.age);
+}
+  
+var nick = new Person('nick', 18);
+var peter = new Person('peter', 20);
+nick.log();   
+console.log(nick.log === peter.log) // true
+// nick.__proto__ 指至 Person.prototype
+console.log(nick.__proto__ === Person.prototype)	// true
+// Person.prototype.__proto__ 指至 Object.prototype
+console.log(Person.prototype.__proto__ === Object.prototype)	// true
+// Object.prototype.__proto__ === null (到頂端)
+console.log(Object.prototype.__proto__)	// null
+// Person.__proto__ 指至 Function.prototype
+console.log(Person.__proto__ === Function.prototype); // true
+console.log(Function.prototype.__proto__ === Object.prototype) // true
+console.log(Object.prototype.__proto__); //null
+```
+
++ .hasOwnProperty() 判斷自身屬性是否存在
+``` js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+// Person.prototype add function log
+Person.prototype.log = function () {
+  console.log(this.name + ', age:' + this.age);
+}
+  
+var nick = new Person('nick', 18);
+// hasOwnProperty() 檢查是否直屬屬性
+console.log(nick.hasOwnProperty('log'))								// false
+console.log(nick.__proto__.hasOwnProperty('log'))			// true
+console.log(Person.prototype.hasOwnProperty('log'))		// true
+// Object.prototype add function testObject()
+Object.prototype.testObject = function() {
+	console.log("Object :", 999)
+}
+// test call Object.prototype function
+nick.testObject()					// Object : 999
+// list all property
+for (let key in nick) {
+	if (nick.hasOwnProperty(key)) {
+		console.log(`Property ${key}: ${nick[key]}`)
+	}
+	else {
+			console.log(key); 
+	}
+}
+// Property name: nick
+// Property age: 18
+// log
+// testObject
+```
+
++ instanceof 就是拿來判斷 A 是不是 B 的 instance
+``` js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+  
+Person.prototype.log = function () {
+  console.log(this.name + ', age:' + this.age);
+}
+  
+var nick = new Person('nick', 18);
+  
+console.log(nick instanceof Person); // true
+console.log(nick instanceof Object); // true
+console.log(nick instanceof Array); // false
+```
+
+##### new 程序模擬
+``` js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+  
+Person.prototype.log = function () {
+  console.log(this.name + ', age:' + this.age);
+}
+  
+function newObj(Constructor, arguments) {
+  var o = new Object();
+  
+  // 讓 o 繼承原型鍊
+  o.__proto__ = Constructor.prototype;
+  
+  // 執行建構函式
+  Constructor.apply(o, arguments);
+  
+  // 回傳建立好的物件
+  return o;
+}
+  
+var nick = newObj(Person, ['nick', 18]);
+nick.log(); // nick, age:18
+```
+
+##### 繼承 Inheritance
+``` JS
+class Dog {
+	constructor(name) {
+		this.name = name
+	}
+	getName() {
+		return this.name
+	}
+	sayHello() {
+		console.log(this.name)
+	}
+}
+
+class ColorDog extends Dog {
+	constructor(name, color) {
+		// 第一要先加 super()
+		super(name)
+		this.color = color
+	}
+	showColor() {
+		console.log("color :", this.color)
+	}
+}
+
+var d1 = new Dog("Dog_1")
+d1.sayHello()							// Dog_1
+var d2 = new ColorDog("Dog_2", "Yellow")
+d2.sayHello()			// Dog_2
+d2.showColor()		// color : Yellow
+```
+
+#### this
+``` js
+// 無用的 this 列出環境變數, node.js 和 web browser 會有差異
+function test() {
+	console.log(this)
+}
+test()
+// 加入 'use strict' 嚴格模式 undefined
+'use strict'
+function test() {
+	console.log(this)
+}
+test()			// undefined
+// this 解析
+'use strict'
+const obj = {
+	a: 123,
+	inner: {
+		test: function() {
+			console.log(this)
+		}
+	}
+}
+const func = obj.inner.test
+// 相當 func.call(undefined)
+func()			// undefined
+obj.inner.test() // { test: [Function: test] }
+obj.inner.test.call(obj.inner)	// { test: [Function: test] }
+```
+
+#### call, apply and bind(可更改 this 值)
+> apply 參數為 array 輸入
+> bind 能預設 this 及 一些 參數
+``` js
+'use strict'
+function test(a, b, c) {
+	console.log(this)
+	console.log(a, b, c)
+}
+test(1, 2, 3)								// undefined 1 2 3
+test.call(123, 1, 2, 3)			// 123 1 2 3
+test.apply(123, [1, 2, 3])	// 123 1 2 3
+var testBind = test.bind(123, 9 , 7)
+testBind(99)	// 123 9 7 99
+```
 
 ### 變數 variable
 
