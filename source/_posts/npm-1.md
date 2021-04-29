@@ -83,3 +83,29 @@ npm uninstall -g [套件名稱]
 ``` bash
 npm install
 ```
+
+### npm package 
+#### [mathjs](https://www.npmjs.com/package/mathjs)
+``` js
+// npm install mathjs
+// require 
+var maths = require("mathjs");
+console.log(maths.round(maths.e, 3))	// 2.718
+console.log(maths.log(10000, 10))			// 4
+// import 
+import {
+  atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt
+} from 'mathjs'
+console.log(round(e, 3))				// 2.718
+console.log(log(10000, 10))			// 4
+```
+
+#### [lodash](https://www.npmjs.com/package/lodash)
+``` js
+// npm install lodash
+var _ = require('lodash');
+// 反轉陣列
+var array = [1, 2, 3];
+_.reverse(array);
+console.log(array)
+```

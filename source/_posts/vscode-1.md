@@ -20,9 +20,22 @@ tags:
 <!--more-->
 
 ### Package Usage (ctrl+shift+p 跳至 Command line)
+#### default 
++ 移除每行後面的空白 - Trailing spaces not allowed
+Press `F1` --> `Trim Trailing Whitespace`
+
 #### GitHD
 + View History : 看 history, 看檔案與前版差異
 + View File History : 看 某檔案有關 history, 看檔案與前版差異
+
+#### Untabify - Replace tabs with spaces and vice versa.
++ table --> space
+1. open file
+2. Press `F1` --> `Untabify` --> `Enter` --> `number`(for spece) --> `Enter`
+
++ space --> table
+1. open file
+2. Press `F1` --> `Tabify` --> `Enter` --> `number`(for spece) --> `Enter`
 
 ### 設定
 

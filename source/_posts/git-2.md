@@ -576,6 +576,35 @@ git add -A
 git rebase --continue
 ```
 
+## 應用
+### commit hook Eslint ???
+``` bash
+npm init
+eslint --init
+```
+
+#### package.json 加上 run script，指定 lint 來執行 Eslint 
+"lint": "eslint *.js",
+``` json
+{
+  "name": "eslint_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hw1.js",
+  "scripts": {
+    "lint": "eslint *.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0"
+  }
+}
+```
+
 
 ## 未知內容
 + git mergetool : git merge tool 

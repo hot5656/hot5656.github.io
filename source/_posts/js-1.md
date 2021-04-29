@@ -10,7 +10,7 @@ mathjax: true
 
 ### 基本
 > ECMA-262是定義了Javascript的核心規範
-#### 註解
+#### 註解 and Hello World
 ``` javascript
 // This is a comment
 
@@ -19,9 +19,33 @@ mathjax: true
 	多行註解 
 	.....
 */
+
+var str = 'Hello world!';
+console.log(str);		// Hello world!
 ```
 
 <!--more-->
+
+#### import module
+``` js
+// require 
+var maths = require("mathjs");
+console.log(maths.round(maths.e, 3))	// 2.718
+console.log(maths.log(10000, 10))			// 4
+// import 
+import {
+  atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt
+} from 'mathjs'
+console.log(round(e, 3))				// 2.718
+console.log(log(10000, 10))			// 4
+// import 單一的物件、變數重新賦予名稱
+import { fn as newFn } from './module.js';
+// 全部匯入
+import * as name from './module.js';
+// 匯入 default export 並賦予 fn 的名稱
+// 匯入全部的 named export，並給賦予至 named 的物件上
+import fn, * as named from './defaultModule.js';
+```
 
 #### Hoisting (提升)
 ##### example
@@ -467,6 +491,37 @@ var testBind = test.bind(123, 9 , 7)
 testBind(99)	// 123 9 7 99
 ```
 
+#### 箭頭函式中，this 指稱的對象在所定義時就固定了，而不會隨著使用時的脈絡而改變
+``` js
+// 使用 匿名函式
+class Test{
+	run() {
+		console.log('run this', this)
+		setTimeout( function() {
+			console.log(this)
+		}, 100)
+	}
+}
+
+const t = new Test()	
+t.run()				// run this Test {} , Timelot{ ...
+// 使用 箭頭函式
+class Test2{
+	run() {
+		console.log('run this', this)
+		setTimeout( () => {
+			console.log(this)
+		}, 100)
+	}
+}
+
+const t2 = new Test2()
+t2.run()			// run this Test2 {}, Test2 {}
+```
+
+
+
+
 ### 變數 variable
 
 #### var, let and const 
@@ -857,7 +912,7 @@ do {
 ```
 
 
-### 函數 
+### 函式 
 #### 基本型式
 ``` js
 function multiply(num1,num2) {
@@ -873,7 +928,7 @@ var multiply= function(num1,num2) {
 console.log(multiply(4,7)) // 28
 ```
 
-#### 函數含 callback function 
+#### 函式含 callback function 
 ``` js
 let arr = [1, 2, 3]
 
@@ -892,7 +947,7 @@ function map(arr, callback) {
 console.log(map(arr, double)) // [ 2, 4, 6 ]
 ```
 
-#### 匿名函數 anonymous function
+#### 匿名數式 anonymous function
 ``` js
 let arr = [1, 2, 3]
 function map(arr, callback) {
@@ -903,12 +958,31 @@ function map(arr, callback) {
 	return result
 }
 
-// 匿名函數
+// 匿名函式
 console.log(map(arr, function(x){
 		return x*3
 	})
 ) // [ 3, 6, 9 ]
 ```
+
+#### [箭頭函式 arrow function](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+``` js
+// 只有一個參數時,括號才能不加:
+// (單一參數) => { 陳述式; }
+// 單一參數 => { 陳述式; }
+//若無參數，就一定要加括號:
+// () => { statements }
+function Person(){
+  this.age = 0;
+
+  setInterval( () => {
+    console.log(this.age++); 
+  }, 1000);
+}
+
+var p = new Person(); // 0, 1 , 2 ...
+```
+
 
 #### 參數(Parameter)與引數([Argument](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Functions/arguments))
 ``` js
@@ -926,7 +1000,7 @@ console.log(add(2, 3))	// 5
 ```
 
 
-### 內建函數
+### 內建函式
 #### [Math](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Math)
 ```js
 // 亂數 介於0到1之間(包含 0，不包含1)
