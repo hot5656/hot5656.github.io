@@ -1163,11 +1163,204 @@ console.log('reversed:', reversed);	// reversed: [ 'three', 'two', 'one' ]
 console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ```
 
-### Web API
+### ES6
+ECMAScript [ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) 6th edition-June 2015, 所以稱為 ES6 或 ES2015
+
+#### let 和 const
+var 的 scope(作用域) 是 function
+let, const 的 scope(作用域) 是 block
+const 為常數,執行中不可更改
+
+#### Template Literals (字串樣版)
+使用兩個反引號 (back-tick ) ‵  ‵ 標示
+
+##### 多行字串
+``` js
+// SE5
+var str1 = 'string line 1 \n' +
+					'string line 2'
+console.log(str1)
+// SE6
+var str2 = `string line 1 
+string line 2`
+console.log(str2)
+```
+
+##### 嵌入變數
+``` js
+var name = 'Robert'
+// SE5
+console.log('Hello ' + name + ' now is ' + new Date()) 
+// SE6 
+console.log(`Hello ${name} now is ${new Date()}`)
+```
+
+#### Destructuring (解構)
+``` js
+// array
+const arr = [1, 2, 3, 4]
+let [first, second, third, fourth] = arr
+console.log(second, third)		// 2 3
+// object - 變數要與 obj 相同
+const obj = {
+	name: 'Nick',
+	age: 30,
+	address: 'Taiwan',
+	family: {
+		father: 'Bill'
+	}
+}
+let { name, age, address, family } = obj
+let { father } = family
+console.log(name, address)		// Nick Taiwan
+console.log(family, father)		// { father: 'Bill' } Bill
+// function
+function test({a,b}) {
+	console.log(a)		// 1
+}
+
+test({
+	a: 1,
+	b:2
+})
+```
+
+#### Spread Operator (展開) - 可用於複製 array 或 object 內容
+``` js
+// array
+let arr = [1, 2, 3]
+let arr2 = [4, 5, 6, ...arr] 
+console.log(arr2)		// [ 4, 5, 6, 1, 2, 3 ]
+// object 
+var obj1 = {
+	a: 1,
+	b: 2
+}
+var obj3 = {
+		...obj1,
+		c: 3
+}
+console.log(obj3)	// { a: 1, b: 2, c: 3 }
+// 相同變數名稱,後令押前令
+var obj4 = {
+	...obj1,
+	b: 3
+}
+console.log(obj4)	// { a: 1, b: 3 }
+// 複製內容
+var obj01 = {
+	a: 2,
+	b: 4
+}
+var obj02 = {
+	...obj01
+}
+console.log(obj01, obj02, obj01 === obj02)	// { a: 2, b: 4 } { a: 2, b: 4 } false
+```
+
+#### Rest Parameters (剩餘參數) - 不一定用 rest 可用其他變數名稱
+``` js
+// array - 不一定用 rest
+var arr = [1, 2, 3, 4]
+var [first, ...rest] = arr
+var [first2, ...rest2] = arr
+console.log(first, rest)		// 1 [ 2, 3, 4 ]
+console.log(first2, rest2)	// 1 [ 2, 3, 4 ]
+// object
+var obj = {
+	a: 1,
+	b: 2,
+	c: 3
+}
+var {a, ...obj2} = obj
+console.log(obj2)			// { b: 2, c: 3 }
+// function 
+function add(...args) {
+	console.log(args)					//  [ 1, 2 ]
+	return args[0] + args[1]	//  3
+}
+console.log(add(1,2))
+```
+
+#### Default Parameters (預設值)
+``` js
+function repeat(str='hello', times = 5) {
+	console.log(times)
+	return str.repeat(times)
+}
+console.log(repeat())				// 5 hellohellohellohellohello
+console.log(repeat('abc'))	// 5 abcabcabcabcabc
+```
+
+#### Arrow Function (箭頭函式)
+``` js
+const test = (n) => {
+	return n
+}
+console.log(test(10))	// 10
+
+var arr =[1, 2, 3, 4, 5]
+/*
+console.log(
+	arr
+	.filter(value => {
+		return value > 1
+	} )
+	.map( value => {
+		return value * 2
+	})
+)	// [ 4, 6, 8, 10 ]
+*/
+console.log(
+	arr
+		.filter(value => value > 1 )
+		.map( value => value * 2)
+)		// [ 4, 6, 8, 10 ]
+```
+
+#### import and export
+##### ES5
+``` js
+// utils.js
+function add(a, b) {
+	return a + b
+}
+module.exports = add
+```
+
+``` js
+// test1.js
+var add = require('./utils')
+console.log(add(3,5))
+```
+
+``` bash
+$ node test1.js
+8
+```
+
+##### ES6
+Export 有幾種方式：
+1. export function add(){}，使用 import {add} 引入
+2. export { add }，與上面那種一樣
+3. export default function add()，使用 import add 引入，不需要加大括號
+如果想要用其他名字，可以用 as 取別名，例如說 export { add as addFunction }
+可以用 import * as utils from 'utils' 把全部都 import 進來
+
+
+```js
+console.log(add(3,5))
+```
+
+### API
 #### console
 ``` js
+// normal 
 var name = "Bob"
 console.log("The name is : ", name)
+console.log(("The name is : " + name)
+// SE6 
+console.log("The name is : ${name}", name)
 ```
 
 #### process.stdout.write - 不換行列印

@@ -15,7 +15,10 @@ tags:
 + 跳至某一行 : Ctrl+G
 + 全螢幕切換 : F11
 + 多行編輯-選擇行   :  alt+(mouse-left)
-+ 多行編輯-選擇多行 :  alt+(mouse-left) 移動位置
++ 多行編輯-選擇多行 :  alt+shift+(mouse-left) 移動位置
++ 左移一個字 : Ctrl + Left
++ 右移一個字 : Ctrl + Right
++ 儲存檔案   : Ctrl + s
 
 <!--more-->
 

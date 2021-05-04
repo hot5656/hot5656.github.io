@@ -51,6 +51,12 @@ npm install hexo-theme-next@8.0.0
 npm install hexo-theme-next
 ```
 
+### npx : 執行 project 安裝 module
+``` bash
+npx jest
+```
+
+
 ### 專案 npm 初始化
 ``` bash
 # 會要求你輸入關於這個專案的相關資訊
@@ -84,6 +90,251 @@ npm uninstall -g [套件名稱]
 npm install
 ```
 
+### run script
+``` js
+// index.js
+let leftPad = require('left-pad')
+// insert 0 before number 
+console.log(leftPad(123, 10, '0'))
+```
+
+package.json
+``` json
+{
+  "name": "js102",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "left-pad": "^1.3.0"
+  }
+}
+```
+
+``` bash
+$ npm run start
+
+> js102@1.0.0 start
+> node index.js
+
+0000000123
+```
+
+### Unit test
+#### call function test
+``` js
+// index.js
+function repeat(str, times) {
+	let result= ''
+	for (let i=0 ; i<times ; i++) {
+		result += str
+	}
+	return result
+}
+
+// test by code
+console.log(repeat('a', 5) === 'aaaaa')
+console.log(repeat('abc', 2) === 'abcabc')
+console.log(repeat('1!a', 2) === '1!a1!a')
+console.log(repeat('', 3) === '')
+console.log(repeat('abc', 0) === '')
+```
+
+``` bash
+$ node index.js
+true
+true
+true
+true
+true
+```
+
+#### [jest test](https://jestjs.io/docs/getting-started)
+
+##### example
+jest 會自動找 xxx.test.js 測試 
+``` js
+// index.js
+function repeat(str, times) {
+	let result= ''
+	for (let i=0 ; i<times ; i++) {
+		result += str
+	}
+	return result
+}
+
+// export for test
+module.exports = repeat
+```
+
+``` js
+// index.test.js
+let repeat = require('./index')
+
+test('a 重複 5 次為 aaaaa', function() {
+	expect(repeat('a', 5)).toBe('aaaaa')
+})
+```
+
+``` bash
+$ npx jest
+ PASS  ./index.test.js
+  √ a 重複 5 次為 aaaaa (3 ms)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:14:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:15:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:16:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:17:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:18:9)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        4.857 s
+Ran all test suites matching /index.test.js/i.
+```
+
+##### test by script
+
+``` jsaon
+  "scripts": {
+		"start": "node index.js",
+	  "test": "jest"
+  },
+```
+
+``` bash
+$ yarn run test
+yarn run v1.22.10
+$ jest
+ PASS  ./index.test.js
+  √ a 重複 5 次為 aaaaa (4 ms)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:14:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:15:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:16:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:17:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:18:9)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.822 s
+Ran all test suites.
+Done in 4.23s.
+```
+
+##### test multi items
+
+``` js
+// index.test.js
+let repeat = require('./index')
+
+test('a 重複 5 次為 aaaaa', function() {
+	expect(repeat('a', 5)).toBe('aaaaa')
+})
+test('1!a 重複 2 次為 1!a1!a', function() {
+	expect(repeat('1!a', 2)).toBe('1!a1!a')
+})
+test('空字串 重複 3 次為 空字串', function() {
+	expect(repeat('', 3)).toBe('')
+})
+test('abc 重複 0 次為 空字串', function() {
+	expect(repeat('abc', 0)).toBe('')
+})
+```
+
+``` bash
+$ npm run test
+
+> js102@1.0.0 test
+> jest
+
+ PASS  ./index.test.js
+  √ a 重複 5 次為 aaaaa (5 ms)
+  √ 1!a 重複 2 次為 1!a1!a (1 ms)
+  √ 空字串 重複 3 次為 空字串 (1 ms)
+  √ abc 重複 0 次為 空字串 (1 ms)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:14:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:15:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:16:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:17:9)
+
+  console.log
+    true
+
+      at Object.<anonymous> (index.js:18:9)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        3.628 s
+Ran all test suites.
+```
+
+#### TDD (Test-Driven Development) 測試驅動開發
+先寫 test pattern 再寫 code
+
 ### npm package 
 #### [mathjs](https://www.npmjs.com/package/mathjs)
 ``` js
@@ -108,4 +359,17 @@ var _ = require('lodash');
 var array = [1, 2, 3];
 _.reverse(array);
 console.log(array)
+```
+
+#### [left-pad](https://www.npmjs.com/package/left-pad)
+``` js
+// index.js
+let leftPad = require('left-pad')
+// insert 0 before number 
+console.log(leftPad(123, 10, '0'))
+```
+
+#### jest
+``` bash
+yarn add --dev jest
 ```
