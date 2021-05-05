@@ -8,9 +8,15 @@ tags:
 ---
 
 ### stdin is not a tty (Windows Git Bash)
-> 先進入 bash 再執行
+#### 先進入 bash 再執行
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
 
 <!--more-->
+
+#### 其他執行方法
+``` bash
+cat input.txt | env node lioj_1014.js
+cat input.txt | command node lioj_1014.js
+```

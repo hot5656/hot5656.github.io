@@ -1163,7 +1163,7 @@ console.log('reversed:', reversed);	// reversed: [ 'three', 'two', 'one' ]
 console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ```
 
-### ES6
+### [ES6](https://github.com/DrkSephy/es6-cheatsheet)
 ECMAScript [ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) 6th edition-June 2015, 所以稱為 ES6 或 ES2015
 
 #### let 和 const
@@ -1348,8 +1348,66 @@ Export 有幾種方式：
 可以用 import * as utils from 'utils' 把全部都 import 進來
 
 
+使用 import package.json 要加 "type": "module"
+``` json
+{
+  "name": "js102",
+  "version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+```
+
 ```js
-console.log(add(3,5))
+// utils.js #1
+export function add(a, b) {
+	return a + b
+}
+export const PI = 3.14
+// ...........
+// utils.js #2
+function add(a, b) {
+	return a + b
+}
+const PI = 3.14
+export {
+	add,
+	PI
+}
+// 可改名
+// export {
+// 	add as addFun ,
+// 	PI
+// }
+// ...........
+// utils.js #3 (export 加 default export 不用大括號)
+export default function add(a, b) {
+	return a + b
+}
+export const PI = 3.14
+```
+
+``` js
+// test1.js #1
+// import 應在 utils.js 含有之 function 或 常數
+// 要 import ./utils.js, 不可 import ./utils
+// import package.json 要加 "type": "module", 但使用 require 不能加 
+import {add, PI} from './utils.js'
+console.log(add(3, 5), PI)		// 8 3.14
+// ...........
+// test1.js #2 (import all)
+import * as utils from './utils.js'
+console.log(utils.add(3, 5), utils.PI)		// 8 3.14
+// ...........
+// test1.js #3 (export 加 default export 不用大括號)
+import add, {PI} from './utils.js'
+console.log(add(3, 5), PI)		// 8 3.14
 ```
 
 ### API

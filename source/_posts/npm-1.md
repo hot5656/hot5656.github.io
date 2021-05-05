@@ -373,3 +373,45 @@ console.log(leftPad(123, 10, '0'))
 ``` bash
 yarn add --dev jest
 ```
+
+#### [babel-node](https://babeljs.io/docs/en/babel-node)
+1. 模擬 ES6 執行
+2. 效率不好僅測試時使用
+3. 使用 import 也是要設 "type": "module"
+
+##### install 
+
+``` bash
+npm install --save-dev @babel/core @babel/node
+```
+
+##### add config file - .babelrc
+
+``` bash
+{
+	"presents": ["Qbabel/preset-env"]
+}
+```
+
+##### test
+
+``` js
+// utils.js
+export function add(a, b) {
+	return a + b
+}
+export const PI = 3.14 
+```
+
+``` js
+// test1.js
+import {add, PI} from './utils.js'
+console.log(add(3, 5), PI)		// 8 3.14
+```
+
+``` bash
+$ npx babel-node test1.js
+8 3.14
+```
+
+
