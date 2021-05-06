@@ -24,6 +24,14 @@ date: 2021-03-18 15:48:55
 ### Python
 + [PyCharm Help](https://www.jetbrains.com/help/pycharm/quick-start-guide.html)
 
+### API
++ [REQ | RES](https://reqres.in/) : API test
++ [Facebook API](https://developers.facebook.com/tools?locale=zh_TW)
++ [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
++ [Github API](https://github.com/HackerNews/API)
++ [PokeAPI](https://pokeapi.co/)
++ [Lorem Picsum](https://picsum.photos/) : 假圖 API
+
 ### 開源/線上資源
 + [worldlink 實用開源](https://www.worldlink.com.cn/zh_tw/osdir/pos?properties%5B55%5D%5B0%5D=1.html)
 + [DISQUS](https://disqus.com/) : 網站留言服務
