@@ -369,6 +369,31 @@ let leftPad = require('left-pad')
 console.log(leftPad(123, 10, '0'))
 ```
 
+#### [Request](https://www.npmjs.com/package/request) - Simplified HTTP client
+``` bash
+npm install request
+```
+
+``` js
+const request = require('request');
+request('https://github.com/hot5656/AboutMe', function (error, response, body) {
+  console.error('error:', error); 
+  console.log('statusCode:', response && response.statusCode); 
+  // console.log('body:', body); 
+});
+```
+
+``` bash
+$ node request_1.js
+error: null
+statusCode: 200
+```
+
+#### [axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
+``` bash
+npm install axios
+``` 
+
 #### jest
 ``` bash
 yarn add --dev jest

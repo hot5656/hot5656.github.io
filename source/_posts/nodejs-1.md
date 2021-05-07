@@ -27,7 +27,7 @@ node app.js
 
 ### [API](https://nodejs.org/docs/latest-v14.x/api/index.html) [中文文件](http://nodejs.cn/api/)
 
-#### run module os 
+#### OS 
 ``` js
 // test1.js
 let os = require('os')
@@ -37,6 +37,33 @@ console.log(os.platform())
 ``` bash
 $ node test1.js
 win32
+```
+
+#### HTTP
+``` js
+// http_server1.js
+let http = require('http');
+let server = http.createServer(handleRequest)
+
+function handleRequest(req, res){
+	console.log(req.url)
+	res.write('hello')
+	res.end()
+}
+
+server.listen(5000);
+```
+
+``` bash
+$ node http_server1.js
+/
+/favicon.ico
+```
+
+#### Proces
+``` js
+const process = require('process')
+console.log(process.argv)
 ```
 
 ### export my module 

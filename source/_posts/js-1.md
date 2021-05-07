@@ -1163,6 +1163,12 @@ console.log('reversed:', reversed);	// reversed: [ 'three', 'two', 'one' ]
 console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ```
 
+#### JSON
+``` js
+// JSON.stringify() - method converts a JavaScript value to a JSON string
+console.log(JSON.stringify({ x: 5, y: 6 }))
+```
+
 ### [ES6](https://github.com/DrkSephy/es6-cheatsheet)
 ECMAScript [ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) 6th edition-June 2015, 所以稱為 ES6 或 ES2015
 

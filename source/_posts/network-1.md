@@ -5,9 +5,10 @@ date: 2021-05-05 14:58:25
 categories: 知識
 tags:
 	- network
+	- http
 ---
 
-#### TCP/IP
+### TCP/IP
 
 #### 基本架構
 
@@ -58,6 +59,7 @@ tags:
 
 + 2xx 成功
 	200 OK
+	202 Accepted
 + 3xx 重新導向
 	301 永久導向
 	302 暫時導向
@@ -75,5 +77,5 @@ tags:
 #### [Charles](https://www.charlesproxy.com/download/) 封包抓取工具
 
 
-#### 參考資料
+### 參考資料
 + [基礎網路概念](http://linux.vbird.org/linux_server/0110network_basic.php#whatisnetwork_osi)
