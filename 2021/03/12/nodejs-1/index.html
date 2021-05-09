@@ -23,18 +23,27 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Dump version1node -v  simple run js(js file)123&#x2F;&#x2F; app.jsvar msg &#x3D; &quot;hello World&quot;;console.log(msg);  simple run js(node.js run js)1node app.js">
+<meta name="description" content="基本Dump version1node -v  simple run js123&#x2F;&#x2F; app.jsvar msg &#x3D; &quot;hello World&quot;;console.log(msg);  1node app.js  API 中文文件OS123&#x2F;&#x2F; test1.jslet os &#x3D; require(&amp;#x27;os&amp;#x27;)console.log(os.platform())">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js 說明">
 <meta property="og:url" content="https://hot5656.github.io/2021/03/12/nodejs-1/index.html">
 <meta property="og:site_name" content="Robert 雜記">
-<meta property="og:description" content="Dump version1node -v  simple run js(js file)123&#x2F;&#x2F; app.jsvar msg &#x3D; &quot;hello World&quot;;console.log(msg);  simple run js(node.js run js)1node app.js">
+<meta property="og:description" content="基本Dump version1node -v  simple run js123&#x2F;&#x2F; app.jsvar msg &#x3D; &quot;hello World&quot;;console.log(msg);  1node app.js  API 中文文件OS123&#x2F;&#x2F; test1.jslet os &#x3D; require(&amp;#x27;os&amp;#x27;)console.log(os.platform())">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic8.png">
 <meta property="article:published_time" content="2021-03-12T07:39:11.000Z">
-<meta property="article:modified_time" content="2021-03-20T15:29:42.960Z">
+<meta property="article:modified_time" content="2021-05-09T06:18:54.518Z">
 <meta property="article:author" content="Robert Kao">
 <meta property="article:tag" content="node.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/03/12/nodejs-1/pic1.png">
 
 
 <link rel="canonical" href="https://hot5656.github.io/2021/03/12/nodejs-1/">
@@ -186,7 +195,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-run-js-js-file"><span class="nav-number">2.</span> <span class="nav-text">simple run js(js file)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-run-js-node-js-run-js"><span class="nav-number">3.</span> <span class="nav-text">simple run js(node.js run js)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.1.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simple-run-js"><span class="nav-number">1.2.</span> <span class="nav-text">simple run js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">API 中文文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OS"><span class="nav-number">2.1.</span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP"><span class="nav-number">2.2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proces"><span class="nav-number">2.3.</span> <span class="nav-text">Proces</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#export-my-module"><span class="nav-number">3.</span> <span class="nav-text">export my module</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#export-1"><span class="nav-number">3.1.</span> <span class="nav-text">export #1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#export-2-%E5%B8%B8%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">export #2 (常用)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTPP-server-and-client"><span class="nav-number">4.</span> <span class="nav-text">HTPP server and client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#request-Simplified-HTTP-client"><span class="nav-number">4.1.</span> <span class="nav-text">request - - Simplified HTTP client</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#install"><span class="nav-number">4.1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#show-status"><span class="nav-number">4.1.2.</span> <span class="nav-text">show status</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-body"><span class="nav-number">4.1.3.</span> <span class="nav-text">get body</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shwo-header"><span class="nav-number">4.1.4.</span> <span class="nav-text">shwo header</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-server-node-js-%E5%85%A7%E5%90%AB"><span class="nav-number">4.2.</span> <span class="nav-text">http-server - node.js  內含</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#example"><span class="nav-number">4.2.1.</span> <span class="nav-text">example</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#example-2"><span class="nav-number">4.2.2.</span> <span class="nav-text">example 2</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,20 +211,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -285,7 +294,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-03-20 23:29:42" itemprop="dateModified" datetime="2021-03-20T23:29:42+08:00">2021-03-20</time>
+        <time title="修改時間：2021-05-09 14:18:54" itemprop="dateModified" datetime="2021-05-09T14:18:54+08:00">2021-05-09</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,14 +328,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>131</span>
+      <span>6.3k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
+      <span>6 分鐘</span>
     </span>
 </div>
 
@@ -337,11 +346,97 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+        <h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><h4 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
 
-<h3 id="simple-run-js-js-file"><a href="#simple-run-js-js-file" class="headerlink" title="simple run js(js file)"></a>simple run js(js file)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">var</span> msg = <span class="string">&quot;hello World&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(msg);</span><br></pre></td></tr></table></figure>
+<h4 id="simple-run-js"><a href="#simple-run-js" class="headerlink" title="simple run js"></a>simple run js</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">var</span> msg = <span class="string">&quot;hello World&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(msg);</span><br></pre></td></tr></table></figure>
 
-<h3 id="simple-run-js-node-js-run-js"><a href="#simple-run-js-node-js-run-js" class="headerlink" title="simple run js(node.js run js)"></a>simple run js(node.js run js)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="API-中文文件"><a href="#API-中文文件" class="headerlink" title="API 中文文件"></a><a target="_blank" rel="noopener" href="https://nodejs.org/docs/latest-v14.x/api/index.html">API</a> <a target="_blank" rel="noopener" href="http://nodejs.cn/api/">中文文件</a></h3><h4 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test1.js</span></span><br><span class="line"><span class="keyword">let</span> os = <span class="built_in">require</span>(<span class="string">&#x27;os&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(os.platform())</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node test1.js</span><br><span class="line">win32</span><br></pre></td></tr></table></figure>
+
+<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http_server1.js</span></span><br><span class="line"><span class="keyword">let</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> server = http.createServer(handleRequest)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(req.url)</span><br><span class="line">	res.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">	res.end()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node http_server1.js</span><br><span class="line">/</span><br><span class="line">/favicon.ico</span><br></pre></td></tr></table></figure>
+
+<h4 id="Proces"><a href="#Proces" class="headerlink" title="Proces"></a>Proces</h4><p>process存在於全域性物件上，不需要使用require()載入即可使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const process = require(&#x27;process&#x27;)</span></span><br><span class="line"><span class="built_in">console</span>.log(process.argv)</span><br></pre></td></tr></table></figure>
+
+<h3 id="export-my-module"><a href="#export-my-module" class="headerlink" title="export my module"></a>export my module</h3><h4 id="export-1"><a href="#export-1" class="headerlink" title="export #1"></a>export #1</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myMouble.js - myModule export #1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> n * <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = double</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test1.js - myModule export #1</span></span><br><span class="line"><span class="keyword">let</span> myModule = <span class="built_in">require</span>(<span class="string">&#x27;./myModule&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(myModule(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node test1.js</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+
+<h4 id="export-2-常用"><a href="#export-2-常用" class="headerlink" title="export #2 (常用)"></a>export #2 (常用)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myMouble.js - myModule export #2</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> n * <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	double: double,</span><br><span class="line">	triple: <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> n * <span class="number">3</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = obj</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test1.js - myModule export #2</span></span><br><span class="line"><span class="keyword">let</span> myModule = <span class="built_in">require</span>(<span class="string">&#x27;./myModule&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(myModule.double(<span class="number">3</span>), myModule.triple(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node test1.js</span><br><span class="line">6 15</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTPP-server-and-client"><a href="#HTPP-server-and-client" class="headerlink" title="HTPP server and client"></a>HTPP server and client</h3><h4 id="request-Simplified-HTTP-client"><a href="#request-Simplified-HTTP-client" class="headerlink" title="request - - Simplified HTTP client"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/request">request</a> - - Simplified HTTP client</h4><h5 id="install"><a href="#install" class="headerlink" title="install"></a>install</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install request</span><br></pre></td></tr></table></figure>
+
+<h5 id="show-status"><a href="#show-status" class="headerlink" title="show status"></a>show status</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line">request(<span class="string">&#x27;https://github.com/hot5656/AboutMe&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">&#x27;error:&#x27;</span>, error); </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;statusCode:&#x27;</span>, response &amp;&amp; response.statusCode); </span><br><span class="line">  <span class="comment">// console.log(&#x27;body:&#x27;, body); </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node request_1.js</span><br><span class="line">error: null</span><br><span class="line">statusCode: 200</span><br></pre></td></tr></table></figure>
+
+<h5 id="get-body"><a href="#get-body" class="headerlink" title="get body"></a>get body</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line">request(<span class="string">&#x27;https://github.com/hot5656/AboutMe&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// console.error(&#x27;error:&#x27;, error); </span></span><br><span class="line">  <span class="comment">// console.log(&#x27;statusCode:&#x27;, response &amp;&amp; response.statusCode); </span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;body:&#x27;</span>, body); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">command</span> node request_1.js  &gt; ho5656.html</span><br></pre></td></tr></table></figure>
+
+<h5 id="shwo-header"><a href="#shwo-header" class="headerlink" title="shwo header"></a>shwo header</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line">request(<span class="string">&#x27;https://github.com/hot5656/AboutMe&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(response.headers)</span><br><span class="line">  <span class="comment">// console.log(&#x27;body:&#x27;, body); </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">$ node request_1.js</span><br><span class="line">&#123;</span><br><span class="line">  server: <span class="string">&#x27;GitHub.com&#x27;</span>,</span><br><span class="line">  date: <span class="string">&#x27;Wed, 05 May 2021 07:45:16 GMT&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;content-type&#x27;</span>: <span class="string">&#x27;text/html; charset=utf-8&#x27;</span>,</span><br><span class="line">  vary: <span class="string">&#x27;X-PJAX, Accept-Encoding, Accept, X-Requested-With&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;permissions-policy&#x27;</span>: <span class="string">&#x27;interest-cohort=()&#x27;</span>,</span><br><span class="line">  etag: <span class="string">&#x27;W/&quot;6c2b56ff86dccd4690557cb83915b549&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;cache-control&#x27;</span>: <span class="string">&#x27;max-age=0, private, must-revalidate&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strict-transport-security&#x27;</span>: <span class="string">&#x27;max-age=31536000; includeSubdomains; preload&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;x-frame-options&#x27;</span>: <span class="string">&#x27;deny&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;x-content-type-options&#x27;</span>: <span class="string">&#x27;nosniff&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;x-xss-protection&#x27;</span>: <span class="string">&#x27;0&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;referrer-policy&#x27;</span>: <span class="string">&#x27;no-referrer-when-downgrade&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;expect-ct&#x27;</span>: <span class="string">&#x27;max-age=2592000, report-uri=&quot;https://api.github.com/_private/browser/errors&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;content-security-policy&#x27;</span>: <span class="string">&quot;default-src &#x27;none&#x27;; base-uri &#x27;self&#x27;; block-all-mixed-content; connect-src &#x27;self&#x27; uploads.g</span></span><br><span class="line"><span class="string">ithub.com www.githubstatus.com collector.githubapp.com api.github.com github-cloud.s3.amazonaws.com github-production-re</span></span><br><span class="line"><span class="string">pository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-u</span></span><br><span class="line"><span class="string">ser-asset-6210df.s3.amazonaws.com cdn.optimizely.com logx.optimizely.com/v1/events wss://alive.github.com *.actions.gith</span></span><br><span class="line"><span class="string">ubusercontent.com wss://*.actions.githubusercontent.com online.visualstudio.com/api/v1/locations insights.github.com; fo</span></span><br><span class="line"><span class="string">nt-src github.githubassets.com; form-action &#x27;self&#x27; github.com gist.github.com; frame-ancestors &#x27;none&#x27;; frame-src render.</span></span><br><span class="line"><span class="string">githubusercontent.com; img-src &#x27;self&#x27; data: github.githubassets.com identicons.github.com collector.githubapp.com github</span></span><br><span class="line"><span class="string">-cloud.s3.amazonaws.com secured-user-images.githubusercontent.com/ *.githubusercontent.com; manifest-src &#x27;self&#x27;; media-s</span></span><br><span class="line"><span class="string">rc github.com user-images.githubusercontent.com/; script-src github.githubassets.com; style-src &#x27;unsafe-inline&#x27; github.g</span></span><br><span class="line"><span class="string">ithubassets.com; worker-src github.com/socket-worker-3f088aa2.js gist.github.com/socket-worker-3f088aa2.js&quot;</span>,</span><br><span class="line">  <span class="string">&#x27;set-cookie&#x27;</span>: [</span><br><span class="line">    <span class="string">&#x27;_gh_sess=NI97SaBBGcExrVqC%2FAInwNqd%2FJ8kyr3QWl8aWLyXTQ02WCNaZnTA%2FBLbI9UUPfKJYc6dOc2J8Q9RObRql78r9q3D%2B5tLwpDh0j</span></span><br><span class="line"><span class="string">a%2FGjn4WsjGm1XH1z7CWvkYyVQfOP%2FQx6n2pm95ePiwSwtITnj27BY7cteKvBzGlMKJNYqVuMzSXcxyMr9Tu4zVG99JDTU6oOOW1WQAPARk2t8Y%2F%2B</span></span><br><span class="line"><span class="string">SLWBxcIAuEEAoBPH%2FoaBbI0G3IHtvvobWiCQodRvyeXJ30h0qui2ZQs8O8WNTsBdR4Jw%3D%3D--eZlEDQ1ebZKKm2Jh--H8LZRSxWEwmES%2F54qujq%2</span></span><br><span class="line"><span class="string">Fw%3D%3D; Path=/; HttpOnly; Secure; SameSite=Lax&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;_octo=GH1.1.1400842276.1620200716; Path=/; Domain=github.com; Expires=Thu, 05 May 2022 07:45:16 GMT; Secure; SameSi</span></span><br><span class="line"><span class="string">te=Lax&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;logged_in=no; Path=/; Domain=github.com; Expires=Thu, 05 May 2022 07:45:16 GMT; HttpOnly; Secure; SameSite=Lax&#x27;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;accept-ranges&#x27;</span>: <span class="string">&#x27;bytes&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;transfer-encoding&#x27;</span>: <span class="string">&#x27;chunked&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;x-github-request-id&#x27;</span>: <span class="string">&#x27;F317:1E82:12B4AA:163825:60924D0B&#x27;</span>,</span><br><span class="line">  connection: <span class="string">&#x27;close&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="http-server-node-js-內含"><a href="#http-server-node-js-內含" class="headerlink" title="http-server - node.js  內含"></a><a target="_blank" rel="noopener" href="https://nodejs.org/dist/latest-v14.x/docs/api/http.html#http_class_http_server">http-server</a> - node.js  內含</h4><h5 id="example"><a href="#example" class="headerlink" title="example"></a>example</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http_server1.js</span></span><br><span class="line"><span class="keyword">let</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> server = http.createServer(handleRequest)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(req.url)</span><br><span class="line">	res.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">	res.end()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node http_server1.js</span><br><span class="line">/</span><br><span class="line">/favicon.ico</span><br></pre></td></tr></table></figure>
+
+<div style="width:300px">
+    <img src="/2021/03/12/nodejs-1/pic1.png" class="" title="pic1">
+</div>
+
+<h5 id="example-2"><a href="#example-2" class="headerlink" title="example 2"></a>example 2</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http_server1.js</span></span><br><span class="line"><span class="keyword">let</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> server = http.createServer(handleRequest)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(req.url)</span><br><span class="line">	<span class="keyword">if</span> (req.url === <span class="string">&#x27;/&#x27;</span>) &#123;</span><br><span class="line">		res.write(<span class="string">&#x27;welcome&#x27;</span>)</span><br><span class="line">		res.end()</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.url === <span class="string">&#x27;/hello&#x27;</span>) &#123;</span><br><span class="line">		res.write(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">		res.end()</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span> (req.url === <span class="string">&#x27;/redirect&#x27;</span>) &#123;</span><br><span class="line">		res.writeHead(<span class="number">200</span>, &#123;</span><br><span class="line">			<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Robert&#x27;</span></span><br><span class="line">		&#125;)</span><br><span class="line">		res.end()</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span> (req.url === <span class="string">&#x27;/redirect2&#x27;</span>) &#123;</span><br><span class="line">		res.writeHead(<span class="number">302</span>, &#123;</span><br><span class="line">			<span class="string">&#x27;location&#x27;</span>: <span class="string">&#x27;/hello&#x27;</span></span><br><span class="line">		&#125;)</span><br><span class="line">		res.end()</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	res.writeHead(<span class="number">404</span>)</span><br><span class="line">	res.end()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ node http_server1.js</span><br><span class="line">/</span><br><span class="line">/hello</span><br><span class="line">/redirect</span><br><span class="line">/new</span><br><span class="line">/redirect2</span><br></pre></td></tr></table></figure>
+
+<div style="width:300px">
+    <img src="/2021/03/12/nodejs-1/pic2.png" class="" title="pic2">
+</div>
+
+<div style="width:300px">
+    <img src="/2021/03/12/nodejs-1/pic3.png" class="" title="pic3">
+</div>
+
+<div style="width:650px">
+    <img src="/2021/03/12/nodejs-1/pic4.png" class="" title="pic4">
+</div>
+
+<div style="width:650px">
+    <img src="/2021/03/12/nodejs-1/pic5.png" class="" title="pic5">
+</div>
+
+<div style="width:650px">
+    <img src="/2021/03/12/nodejs-1/pic7.png" class="" title="pic7">
+</div>
+
+<p>因 Chrome 使用 network monitor 有問題, 改用 Brave 正常</p>
+<div style="width:700px">
+    <img src="/2021/03/12/nodejs-1/pic6.png" class="" title="pic6">
+</div>
+
+<p>看不到 network monitor 是因為選JS(應選All)<br>總是有 util.js 和 pagejs.js 是因為 chrome 安裝了 SmartPKI 多憑證安控模組擴充套件</p>
+<div style="width:650px">
+    <img src="/2021/03/12/nodejs-1/pic8.png" class="" title="pic8">
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -426,13 +521,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="總字數">66k</span>
+    <span title="總字數">105k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">1:01</span>
+    <span title="所需總閱讀時間">1:35</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
