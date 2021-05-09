@@ -8,6 +8,7 @@ date: 2021-03-18 15:48:55
 
 ### 網頁設計參考
 + [配色 colorhunt](https://colorhunt.co/)
++ [Online UrlEncoder](https://www.ewdna.com/2008/12/online-urlencoderutf-8.html)
 
 ### 免費圖庫
 + [CC0 免費圖庫搜尋](https://cc0.wfublog.com/)
@@ -31,6 +32,7 @@ date: 2021-03-18 15:48:55
 + [REQ | RES](https://reqres.in/) : API test
 + [Facebook API](https://developers.facebook.com/tools?locale=zh_TW)
 + [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
++ [Twitch API v5](https://dev.twitch.tv/docs/v5)
 + [Github API](https://github.com/HackerNews/API)
 + [PokeAPI](https://pokeapi.co/)
 + [Lorem Picsum](https://picsum.photos/) : 假圖 API

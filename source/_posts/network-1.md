@@ -59,6 +59,7 @@ tags:
 
 + 2xx 成功
 	200 OK
+	201 Created
 	202 Accepted
 + 3xx 重新導向
 	301 永久導向

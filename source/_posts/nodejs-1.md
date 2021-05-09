@@ -61,8 +61,9 @@ $ node http_server1.js
 ```
 
 #### Proces
+process存在於全域性物件上，不需要使用require()載入即可使用
 ``` js
-const process = require('process')
+// const process = require('process')
 console.log(process.argv)
 ```
 

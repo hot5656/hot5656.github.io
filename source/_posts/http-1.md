@@ -69,7 +69,7 @@ request.post(
 			job: 'engineer'
 		}
 	}, 
-	function(err, httpResponse, body){ 
+	function(error, response, body){ 
 		console.log(body)
 	}
 )
@@ -79,6 +79,55 @@ request.post(
 $ node api2.js
 {"name":"Robert","job":"engineer","id":"806","createdAt":"2021-05-07T04:31:50.023Z"}
 ```
+
+##### DELETE (Request)
+``` js
+// api2.js
+const request = require('request')
+const process = require('process')
+
+request.delete(
+	{
+		url:'https://reqres.in/api/products/' + process.argv[2], 
+	}, 
+	function(error, response, body){ 
+		console.log("status code : " + response.statusCode)
+	}
+)
+```
+
+``` bash
+$ node api12.js 2
+status code : 204
+```
+
+##### PATCH (Request)
+``` js
+// ap22.js
+const request = require('request')
+const process = require('process')
+
+request.patch(
+	{
+		url:'https://reqres.in/api/products/2', 
+		form: {
+			name:'Robert'
+		}
+	}, 
+	function(error, response, body){ 
+		console.log("status code : " + response.statusCode)
+		console.log(body)
+	}
+)
+```
+
+``` bash
+$ node api22.js
+status code : 200
+{"name":"Robert","updatedAt":"2021-05-07T13:53:34.158Z"}
+```
+
+
 
 ##### GET - SINGLE USER (axios)
 ``` js
@@ -162,7 +211,7 @@ $ node api4.js
 object
 ```
 
-##### POST - DELETE (axios)
+##### DELETE (axios)
 ``` js
 // api5.js
 const axios  = require('axios')
@@ -183,7 +232,7 @@ $ node api5.js 2
 status code :204
 ```
 
-##### POST - PATCH (axios)
+##### PATCH (axios)
 ``` js
 // api6.js
 const axios  = require('axios')
@@ -206,6 +255,40 @@ $ node api6.js
 status code : 200
 { name: 'Robert', updatedAt: '2021-05-07T07:39:29.788Z' }
 ```
+
+#### [Twitch API v5](https://dev.twitch.tv/docs/v5)
+##### [Get Top Games](https://dev.twitch.tv/docs/v5/reference/games#get-top-games)
+``` js
+const request = require('request')
+
+request({
+  url: 'https://api.twitch.tv/kraken/games/top?limit=20',
+  headers: {
+    Accept: 'application/vnd.twitchtv.v5+json',
+    'Client-ID': 'just_test_id...'
+  }
+},
+(error, response, body) => {
+  const bodyObj = JSON.parse(body)
+  for (let i = 0; i < bodyObj.top.length; i++) {
+    console.log(bodyObj.top[i].viewers, bodyObj.top[i].game.name)
+  }
+})
+```
+
+``` bash
+$ node hw4.js
+361259 Just Chatting
+250115 Resident Evil Village
+229862 Grand Theft Auto V
+125651 League of Legends
+108203 Minecraft
+96315 Call of Duty: Warzone
+81721 VALORANT
+77601 FIFA 21
+...
+```
+
 
 ### 資料格式
 #### XML(Extensible Markup Language) 可延伸標示語言

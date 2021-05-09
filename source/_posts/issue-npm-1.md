@@ -49,3 +49,24 @@ npm install -g npm@latest
 
 ## require is not defined (node.js)
 package.json 移除 "type": "module",
+
+## process 參數含 & 要加 " 才不會有問題
+``` js
+// index.js
+console.log("---------")
+console.log(process.argv[2])
+```
+
+``` bash
+$ node index.js &01
+[35] 3164
+bash: 01: command not found
+
+$ node index.js &
+[36] 15224
+
+$ node index.js "&01"
+---------
+&01
+[35]+  Stopped                 winpty node.exe index.js
+```

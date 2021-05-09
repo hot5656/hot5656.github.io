@@ -519,7 +519,19 @@ const t2 = new Test2()
 t2.run()			// run this Test2 {}, Test2 {}
 ```
 
-
+#### try...catch 陳述式
+``` js
+try {
+  const bodyObj = JSON.parse(body)
+  console.log(bodyObj.id, bodyObj.name)
+} catch (err) {
+  console.log('---------------')
+  console.log(err)
+  console.log('---------------')
+} finally {
+	// 都會執行
+}
+```
 
 
 ### 變數 variable
@@ -1167,6 +1179,8 @@ console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ``` js
 // JSON.stringify() - method converts a JavaScript value to a JSON string
 console.log(JSON.stringify({ x: 5, y: 6 }))
+// json to obj
+const bodyObj = JSON.parse(body)
 ```
 
 ### [ES6](https://github.com/DrkSephy/es6-cheatsheet)
