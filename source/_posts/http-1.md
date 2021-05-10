@@ -342,3 +342,24 @@ RESTful API是一種設計風格，這種風格使API設計具有整體一致性
 查詢使用者列表	  GET		 /users
 ```
 
+### [User-Agent](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Headers/User-Agent)(browser)
+``` js
+request('https://lidemy-http-challenge.herokuapp.com/api/v2/sys_info', {
+		headers: {
+			'X-Library-Number': '20',
+			'User-Agent': 'MSIE 6.0'
+		},
+		'auth': {
+			'user': 'admin',
+			'pass': 'admin123'
+		}
+	},
+	function (error, response, body) {
+		if (error) {
+			console.log(error)
+			return
+		}
+		console.log(body)
+	})
+```
+
