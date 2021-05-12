@@ -43,6 +43,11 @@ tags:
 + 127.0.0.1 : 本機 address
 
 ### HTTP
+
+#### [HTTP version](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP)
+
+#### [HTTP message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)
+
 #### [HTTP method](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Methods)
 
 + GET	　  : 請求指定的頁面信息，並返回實體主體。
@@ -77,6 +82,9 @@ tags:
 
 #### [Charles](https://www.charlesproxy.com/download/) 封包抓取工具
 
+#### [POSTMAN](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-TW)
+
+#### [Wireshark](https://www.wireshark.org/download.html)
 
 ### 參考資料
 + [基礎網路概念](http://linux.vbird.org/linux_server/0110network_basic.php#whatisnetwork_osi)
