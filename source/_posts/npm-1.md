@@ -448,6 +448,54 @@ $ npx babel-node test1.js
 8 3.14
 ```
 
+#### [request-debug](https://www.npmjs.com/package/request-debug) : monitor HTTP(S) requests performed by the request module
+``` js
+// npm install request-debug
+// challeng-2.js
+const request = require('request')
+// 只要加入這一行,就可以 monitor
+require('request-debug')(request)
+
+request('https://lidemy-http-challenge.herokuapp.com/api/v3/hello',
+function (error, response, body) {
+	if (error) {
+		console.log(error)
+		return
+	}
+	console.log(body)
+})
+```
+
+``` bash
+$ node challeng-2.js
+{
+  request: {
+    debugId: 1,
+    uri: 'https://lidemy-http-challenge.herokuapp.com/api/v3/hello',
+    method: 'GET',
+    headers: { host: 'lidemy-http-challenge.herokuapp.com' }
+  }
+}
+{
+  response: {
+    debugId: 1,
+    headers: {
+      server: 'Cowboy',
+      connection: 'close',
+      'x-powered-by': 'Express',
+      'content-type': 'text/plain; charset=utf-8',
+      date: 'Thu, 13 May 2021 07:27:38 GMT',
+      'content-length': '93',
+      via: '1.1 vegur'
+    },
+    statusCode: 200,
+    body: '\n您的 origin 不被允許存取此資源，請確認您是從 lidemy.com 送出 request。\n'
+  }
+}
+
+您的 origin 不被允許存取此資源，請確認您是從 lidemy.com 送出 request。
+```
+
 ### npm config
 ``` bash
 # list config

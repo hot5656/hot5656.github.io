@@ -290,6 +290,40 @@ $ node hw4.js
 ```
 
 #### [Lidemy HTTP Challenge](https://lidemy-http-challenge.herokuapp.com/start)
+##### issue 紀錄
+``` bash
+# process 參數含 & 要加 “ 才不會有問題
+node challeng.js "lv1?token={GOGOGO}&name=Robert"
+# 輸入中文要編碼
+node challeng.js getbook "?q=%E4%B8%96%E7%95%8C"
+# 設定 origin
+#		headers: {
+#			'User-Agent': 'Googlebot',
+#			Origin: 'https://lidemy.com'
+#		}
+node challeng.js bookv3 hello
+# 設定 User Agent for IE6
+#{
+#	headers: {
+#		'X-Library-Number': '20',
+#		'User-Agent': 'MSIE 6.0'
+#	},
+#	'auth': {
+#		'user': 'admin',
+#		'pass': 'admin123'
+#	}
+#}
+node challeng.js infobook2
+#  設定 User Agent for google search
+#	headers: {
+#		'User-Agent': 'Googlebot',
+#		Origin: 'https://lidemy.com'
+#	}
+node challeng.js bookv3 index
+# process 參數含 ! 使用 " 會有問題 要改為 '
+node challeng.js 'lv15?token={ILOVELIdemy!!!}'
+```
+
 ##### js code
 ``` js
 // challenge.js
@@ -437,6 +471,7 @@ if (process.argv[2] === "book") {
 } else if (process.argv[2] === "bookv3") {
 	request('https://lidemy-http-challenge.herokuapp.com/api/v3/' + process.argv[3], {
 			headers: {
+				'User-Agent': 'Googlebot',
 				Origin: 'https://lidemy.com'
 			}
 		}, 
@@ -448,6 +483,12 @@ if (process.argv[2] === "book") {
 			console.log(body)
 			// console.log(response)
 		})
+	return
+} else if (process.argv[2] === "lv15") {
+	request('https://lidemy-http-challenge.herokuapp.com/lv15?token={ILOVELIdemy!!!}',
+	function (error, response, body) {
+		console.log(body)
+	})
 	return
 } 
 
@@ -462,6 +503,11 @@ request('https://lidemy-http-challenge.herokuapp.com/' + parameter,
 ```
 
 ##### 流程
+[Challeng Start](https://lidemy-http-challenge.herokuapp.com/start)
+[Book API](https://gist.github.com/aszx87410/3873b3d9cbb28cb6fcbb85bf493b63ba)
+[Book API v2](https://gist.github.com/aszx87410/1e5e5105c1c35197f55c485a88b0328a)
+[Book API v3](https://gist.github.com/aszx87410/0b0d3cabf32c4e44084fadf5180d0cf4)
+
 ``` bash
 Chrome --> https://lidemy-http-challenge.herokuapp.com/start
 	第一關的 token 為：{GOGOGO}
@@ -654,6 +700,26 @@ node challeng.js "lv14?token={SEOisHard}"
 	算了，還是不要瞎猜好了，你幫我們研究一下吧！
 node challeng.js "lv14?token={SEOisHard}&hint=1"
 	伺服器是怎麼辨識是不是 Google 搜尋引擎的？仔細想想之前我們怎麼偽裝自己是 IE6 的
+node challeng.js bookv3 index
+	<html>
+		<h1>I Love Google</h1>
+		<p>Google please rank our website higher, PLEASE!</p>
+		<!-- token for lv15：{ILOVELIdemy!!!}  -->
+	</html>
+node challeng.js 'lv15?token={ILOVELIdemy!!!}'
+	還真的是我猜的那樣...不過還是要謝謝你幫我們完成這麼多任務！
+	今天是我在這職位的最後一天啦，之後我要升官了，應該就不用處理這麼多小事情了
+	這段期間感謝你的幫忙，我們以後有緣再相見啦！
+	The End，恭喜破關！
+	這次是真的破關了，這是最後一關，感謝你願意參與這個遊戲
+	也希望這遊戲是有趣的，希望你在玩的時候有學到東西
+	也歡迎把這個遊戲分享給親朋好友們
+	感謝！
+	我開了一個 gist，大家可以在這邊隨意留言，或是講一下破關感言
+	https://gist.github.com/aszx87410/1dbde92876ba253a45654988ca829ebb
+	最後，感謝所有幫我測試的朋友們
+	Author: huli@lidemy.com
+	https://www.facebook.com/lidemytw/
 ```
 
 ### 資料格式

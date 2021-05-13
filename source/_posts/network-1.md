@@ -44,9 +44,81 @@ tags:
 
 ### HTTP
 
+#### url 中文編碼(Url Encode / Decode)
+url 若含中文要轉為 UTF-8(8-bit Unicode Transformation Format) 
+
+
 #### [HTTP version](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP)
 
 #### [HTTP message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)
+[User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent)
++ [List of User Agents](https://developers.whatismybrowser.com/useragents/explore/)
++ [google User-Agent](https://developers.google.com/search/docs/advanced/crawling/overview-google-crawlers)
+
+``` js
+// GET 
+request('https://lidemy-http-challenge.herokuapp.com/api/v2/sys_info', {
+		headers: {
+			'X-Library-Number': '20',
+			'User-Agent': 'MSIE 6.0',
+			Origin: 'https://lidemy.com'
+		},
+		'auth': {
+			'user': 'admin',
+			'pass': 'admin123'
+		}
+	},
+	function (error, response, body) {
+		console.log(body)
+	})
+// POST
+request.post({
+		url: 'https://lidemy-http-challenge.herokuapp.com/api/books',
+		form: {
+			name: process.argv[3],
+			ISBN: process.argv[4]
+		}
+	},
+	function (err, httpResponse, body) {
+		console.log(body)
+	})
+// DELETE 
+request.delete({
+		url: 'https://lidemy-http-challenge.herokuapp.com/api/v2/books/' + process.argv[3],
+		'auth': {
+			'user': 'admin',
+			'pass': 'admin123'
+		}
+	},
+	function (err, httpResponse, body) {
+		if (err) {
+			console.log(err)
+			return
+		}
+		console.log(body)
+	})
+// PATCH
+request.patch({
+		url: 'https://lidemy-http-challenge.herokuapp.com/api/v2/books/' + process.argv[3],
+		'auth': {
+			'user': 'admin',
+			'pass': 'admin123'
+		},
+		form: {
+			ISBN: '9981835423'
+		}
+	},
+	function (err, httpResponse, body) {
+		if (err) {
+			console.log(err)
+			return
+		}
+		
+		// console.log(httpResponse)
+		console.log(body)
+	})
+```
+
 
 #### [HTTP method](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Methods)
 
@@ -88,3 +160,4 @@ tags:
 
 ### 參考資料
 + [基礎網路概念](http://linux.vbird.org/linux_server/0110network_basic.php#whatisnetwork_osi)
++ [徹底了解TCP三次握手與四次揮手](https://kknews.cc/zh-tw/code/b83bma9.html)

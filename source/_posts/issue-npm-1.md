@@ -70,3 +70,13 @@ $ node index.js "&01"
 &01
 [35]+  Stopped                 winpty node.exe index.js
 ```
+
+## process 參數含 ! 使用 " 會有問題 要改為 '
+``` bash
+node challeng.js "lv15?token={ILOVELIdemy!!!}"
+	bash: !}: event not found
+
+node challeng.js 'lv15?token={ILOVELIdemy!!!}'
+	還真的是我猜的那樣...不過還是要謝謝你幫我們完成這麼多任務！
+	......
+```
