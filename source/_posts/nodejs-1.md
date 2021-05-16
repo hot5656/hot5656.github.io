@@ -60,11 +60,25 @@ $ node http_server1.js
 /favicon.ico
 ```
 
-#### Proces
+#### Process
 process存在於全域性物件上，不需要使用require()載入即可使用
 ``` js
 // const process = require('process')
 console.log(process.argv)
+```
+
+#### [File system](https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_file_system)
+``` js
+// __dirname 為目前的目錄
+let fs = require('fs')
+console.log(__dirname)
+
+fs.readFile(__dirname + '/bus921_temp.html', 'utf8',
+	(err, data) => {
+		parseBusData(data)
+		// console.log(data)
+	}
+)
 ```
 
 ### export my module 

@@ -80,3 +80,26 @@ node challeng.js 'lv15?token={ILOVELIdemy!!!}'
 	還真的是我猜的那樣...不過還是要謝謝你幫我們完成這麼多任務！
 	......
 ```
+
+
+## npm install 一直處於 sill install loadAllDepsIntoIdealTree
+
+``` bash
+# 不知何時設定 https-proxy, 刪除即 ok
+npm config get https-proxy
+  http://103.253.27.108:80/
+npm config get proxy
+  null
+npm config delete https-proxy
+npm config list
+  ; "builtin" config from C:\Users\win10\AppData\Roaming\npm\node_modules\npm\npmrc
+  prefix = "C:\\Users\\win10\\AppData\\Roaming\\npm"
+  ; "cli" config from command line options
+  omit = []
+  user-agent = "npm/7.6.3 node/v14.17.0 win32 x64"
+  ; node bin location = D:\app\nodejs\node.exe
+  ; cwd = D:\work\git\test-npm
+  ; HOME = C:\Users\win10
+  ; Run `npm config ls -l` to show all defaults.
+```
+
