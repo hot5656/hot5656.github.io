@@ -500,6 +500,16 @@ $menu-item-bg-color = $web-color-l3;
 .sequence rect {
   fill: $content-bg-color;
 }
+
+// 修改 tab size 為 2
+pre {
+	tab-size: 2;
+}
+
+// 更改 table 偶數列背景
+.table-container tr:nth-child(2n) {
+	background: #d4d4d4
+}
 ```
 
 ### 字數統計

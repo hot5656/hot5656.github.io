@@ -8,10 +8,16 @@ date: 2021-03-18 15:48:55
 
 ### 網頁設計參考
 + [配色 colorhunt](https://colorhunt.co/)
-+ [Online UrlEncoder](https://www.ewdna.com/2008/12/online-urlencoderutf-8.html)
++ [Url Encode/Decode](https://www.urlencoder.org/)
++ [HTML5 site templates](https://html5up.net/) : 模板
++ [TTny PNG](https://tinypng.com/) : PNG 圖檔優化
++ [Tiny JPG](https://tinyjpg.com/) : JPG 圖檔優化
+
+### tool
++ [ResponsivePX.com](http://www.responsivepx.com/) : 網頁調整測試(寬度) 
 
 ### 免費圖庫
-+ [CC0 免費圖庫搜尋](https://cc0.wfublog.com/)
++ [CC0 免費圖庫搜尋](https://cc0.wfublog.com/) : 要點圖看到大圖再下載,才有大圖
 
 <!--more-->
 ### Hexo
@@ -48,9 +54,6 @@ date: 2021-03-18 15:48:55
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
 + [CoderBridge 技術內容創作分享學習平台](https://zh-tw.coderbridge.com/)
 + [google 文件](https://developers.google.com/search/docs)
-+ [HTML5 site templates](https://html5up.net/)
-+ [TTny PNG](https://tinypng.com/)
-+ [Tiny JPG](https://tinyjpg.com/)
 
 
 ### 題庫
