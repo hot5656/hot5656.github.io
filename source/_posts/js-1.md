@@ -1453,6 +1453,8 @@ process.stdout.write('This is ')
 process.stdout.write('a book') // This is a book
 ```
 
+### JS庫
++ Modernizr : 一個開源的JS庫，它使得那些基於訪客瀏覽器的不同（指對新標準支援性的差異）而開發不同級別體驗的設計師的工作變得更為簡單
 
 ### 應用
 #### require('readline') 用於自動測試

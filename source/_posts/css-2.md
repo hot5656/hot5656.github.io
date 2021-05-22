@@ -8,11 +8,62 @@ tags:
 	- issue
 ---
 
+## Flex
 ### Flex - align-items/align-content stretch 無作用
 如果子容器或是元件，在有設定高度（height）的情況下，這個 stretch 會被忽略，自動變成 flex-start(align-items/)/normal(align-content)
 
 <!--more-->
 
+### 直接擺 image, flex 無效,加上 div 可縮小但不能放大,加上 min-width: 0 可放大也可縮小(不用加 div)
+``` html
+<style>
+	img {
+		/* 防止img解析度變差 */
+		max-width: 100%;
+		height: auto;
+		/* 修正放於div底部會有空白 */
+		display: block;
+	}
+
+	.menu-list {
+		display: flex;
+	}
+
+	img {
+		min-width: 0;
+		flex-shrink: 1;
+		flex-grow: 1;
+	}
+</style>
+
+<body>
+	<div class="menu-list">
+		<div>
+			<img src="./img/f-001.png" alt="">
+		</div>
+		<div>
+			<img src="./img/f-002.png" alt="">
+		</div>
+		<div>
+			<img src="./img/f-003.png" alt="">
+		</div>
+		<div>
+			<img src="./img/f-004.png" alt="">
+		</div>
+	</div>
+	<div class="menu-list">
+		<img src="./img/f-001.png" alt="">
+		<img src="./img/f-002.png" alt="">
+		<img src="./img/f-003.png" alt="">
+		<img src="./img/f-004.png" alt="">
+	</div>
+</body>
+```
+<div style="width:500px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
+## Other
 ### display: inline-block 設定 margin=0 還是會有間格
 換行或space造成,可移除換行,間隔或加入 common
 ``` html

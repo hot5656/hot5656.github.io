@@ -506,8 +506,11 @@ pre {
 	tab-size: 2;
 }
 
+// 更改 table head背景
 // 更改 table 偶數列背景
-.table-container tr:nth-child(2n) {
+.table-container thead tr,
+.table-container tbody tr:nth-child(2n)
+{
 	background: #d4d4d4
 }
 ```

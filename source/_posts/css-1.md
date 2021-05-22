@@ -845,3 +845,40 @@ box {
 + [CSS Flex Container](https://www.w3schools.com/css/css3_flexbox_container.asp)
 + [圖解：CSS Flex 屬性](https://wcc723.github.io/css/2017/07/21/css-flex/)
 + [Complete Guide for Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+``` ㄔㄩㄠ
+	font-family: "Times New Roman";
+	line-height: 1.2;
+.banner	{
+	background: url(../img/2.png);
+	background-size: cover;
+	height: 450px;
+}
+
+	text-align: center;
+
+ul-li 包 img+flex-grow: 1; 中間會有空白
+			<!-- <ul>
+				<li>
+					<img src="./img/f-001.png" alt="">
+				</li>
+				<li>
+					<img src="./img/f-002.png" alt="">
+				</li>
+				<li>
+					<img src="./img/f-003.png" alt="">
+
+				</li>
+				<li>
+					<img src="./img/f-004.png" alt="">
+				</li>
+			</ul> -->
+// .menu ul {
+// 	display: flex;
+// 	justify-content: flex-end;
+// 	li {
+// 		flex-grow: 1;
+// 	}
+// }
+calc() 是一個 CSS function 作用於屬性設定是數值的時候可以進行加減乘除的運算，例如： <length> 長度、<frequency> 頻率、<angle> 角度、<time> 時間、<number> 數字或者是 <integer> 整數這幾個屬性值都可以使用 calc()。
+```

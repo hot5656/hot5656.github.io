@@ -23,7 +23,7 @@ tags:
 
 <!--more-->
 
-### Package Usage (ctrl+shift+p 跳至 Command line)
+### Package Usage (ctrl+shift+p/F1 跳至 Command line)
 #### default 
 + 移除每行後面的空白 - Trailing spaces not allowed
 Press `F1` --> `Trim Trailing Whitespace`
@@ -91,4 +91,12 @@ Commonly Used --> Editor:Word Wrap
 	on : 自動換行
 ```
 
+### Plug
++ Live Server : Web server
++ Chinese Lorem : 中文假字(fenerate by ctlorem)
++ Live Sass Compiler : compile sas/scss(按 Watch Sass)
++ Indent-Rainbow : 縮排採紅色條
++ Git History :  see git log
++ colorize : color 可見可選
++ WhatFont : 網頁字型、字體樣式自動偵測工具
 
