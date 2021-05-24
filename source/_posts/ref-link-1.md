@@ -6,20 +6,24 @@ abbrlink: '8e64'
 date: 2021-03-18 15:48:55
 ---
 
-### 網頁設計參考
+### 網頁設計工具
 + [配色 colorhunt](https://colorhunt.co/)
 + [Url Encode/Decode](https://www.urlencoder.org/)
-+ [HTML5 site templates](https://html5up.net/) : 模板
 + [TTny PNG](https://tinypng.com/) : PNG 圖檔優化
 + [Tiny JPG](https://tinyjpg.com/) : JPG 圖檔優化
-
-### tool
 + [ResponsivePX.com](http://www.responsivepx.com/) : 網頁調整測試(寬度) 
++ [CSS Normalize](https://necolas.github.io/normalize.css/)
++ [html boilerplate](https://www.sitepoint.com/a-basic-html5-template/)
+
+<!--more-->
+
+### 參考網頁
++ [HTML5 site templates](https://html5up.net/) : 模板
++ [Hacker News](https://news.ycombinator.com/) : 可 link 到一些網頁,用作參考
 
 ### 免費圖庫
 + [CC0 免費圖庫搜尋](https://cc0.wfublog.com/) : 要點圖看到大圖再下載,才有大圖
 
-<!--more-->
 ### Hexo
 + [Hexo](https://hexo.io/zh-tw/)
 + [theme next document](https://theme-next.iissnan.com/)
@@ -49,6 +53,9 @@ date: 2021-03-18 15:48:55
 + [Whiteboard Fox](https://r8.whiteboardfox.com/) : 線上白板
 + [YOPmail](http://www.yopmail.com/zh/) : 暫時信箱
 + [免費資源網路社群](https://free.com.tw/)
+
+### 技術文章
++ [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)
 
 ### 未歸類
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)

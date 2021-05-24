@@ -206,6 +206,13 @@ git merge new-feature
 git merge origin/master
 ```
 
+#### remove 刪除檔案
+``` bash
+git rm home/week6/hw1/css/index.css.map
+# 若以改過要刪除
+git rm -f home/week6/hw1/css/index.css.map
+```
+
 <br>
 
 ## git 相關檔案

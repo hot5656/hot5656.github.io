@@ -146,3 +146,12 @@ tags:
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
+
+### button , 設定 display: block,寬度還是不能佔整行
+``` css
+/* set width:100% */
+button {
+	display: block;
+	width: 100%;
+}
+```

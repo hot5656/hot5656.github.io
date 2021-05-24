@@ -187,13 +187,13 @@ Allow: /data/*/crosssellaccommodations
 <!-- 表單 -->
 <form action="">
 	<div>
-		姓名: <input type="text">
+		姓名: <input type="text" placeholder="你的名字">
 	</div>
 	<div>
 		密碼: <input type="password">
 	</div>
 	<div>
-		Email: <input type="email">
+		Email: <input type="email" placeholder="你的電子郵件">
 	</div>
 	<div>
 		日期: <input type="date">
@@ -283,6 +283,34 @@ Allow: /data/*/crosssellaccommodations
 	</tr>
 </table>
 
+#### 其他標籤
+##### section
+``` html
+<!--  <section> 標籤 (tag) 用在 HTML 文件中有明顯含義的區塊 (related grouping of semantic meaning)，一般來說 section 區塊中也會有自己的標題 (h1-h6)-->
+<section>
+  <h1>Heading</h1>
+  <p>Bunch of awesome content</p>
+</section>
+<!-- 或 -->
+<article>
+  <section id="intro">
+      <!-- 介紹 -->
+  </section>
+
+  <section id="main_content">
+      <!-- 主內容 -->
+  </section>
+
+  <section id="related">
+      <ul>
+          <li><a href="that.html">相關文章</a></li>
+          <li><a href="this.html">相關文章</a></li>
+      </ul>
+  </section>
+</article>
+```
+
+
 ### 其他
 #### Escape 跳脫
 ``` html 
@@ -306,6 +334,21 @@ Allow: /data/*/crosssellaccommodations
 <p>This is a paragraph.</p>
 ```
 
+#### [HTML5的lang](https://vector.cool/html5%E7%9A%84lang%E9%80%9F%E6%9F%A5-%E6%B3%A8%E6%84%8F%EF%BC%9A%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87%E4%B8%8D%E6%98%AFzh-tw%E5%96%94/)
+``` html
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+```
 
 ### 參考
 + [MDN HTML](https://developer.mozilla.org/zh-TW/docs/Web/HTML)

@@ -22,6 +22,7 @@ menu
 人頭 avatar
 sidebar
 麵包屑 path/crumb
+navbar
 ```
 
 #### CSS 三種使用方法
@@ -323,6 +324,13 @@ div span:nth-child(3n+1) {
 	overflow: hidden;
 	/* ellipsis 字超過會 show ..., 但必先設定 white-space: nowrap; and overflow: hidden; */
 	text-overflow: ellipsis;
+	/* text-decoration: 文字特效 
+		none					預設值，無額外文字特效
+		overline			文字增加上線特效
+		underline			文字增加底線特效
+		line-through	文字增加刪除線特效
+	*/
+	text-decoration:underline;
 }
 </style>
 
@@ -330,6 +338,31 @@ div span:nth-child(3n+1) {
 	<div class="box">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed debitis eius minima ab earum autem nihil tempore nobis provident maxime! Repellat eligendi facere quod dolore voluptatibus nulla, voluptatem corporis error?</div>
 </body>
 ``` 
+
+##### [line-height](https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height)
+``` css
+box {
+	/* 建議方法,相對字的大小*/
+	line-height: 3.5;
+	/* 相對 font-size 大小, 若未設定參考 parent, 如 H1 為設定(follow browser),可能會有問題*/
+	line-height: 3em;
+	/* 相對 本身字體之百分比, 也可能有不確定性 */
+	line-height: 34%;
+	/* direct set px */
+	line-height: 32px;
+}
+```
+
+##### text-align 文字水平對齊
+``` css
+box {
+	text-align:left; 		//向左對齊
+	text-align:right; 	//向右對齊
+	text-align:center; 	//置中
+	text-align:justify; //使左右對齊本文
+}
+```
+
 
 #### transition 屬性改變漸變效果
 ``` html
@@ -788,7 +821,74 @@ box {
 </style>
 ```
 
+#### ol/ul/li
+``` css
+ul {
+	/* list-style-type
+		none (沒有)
+		disc (全黑圓圈)
+		circle (空心圓圈)
+		square (正方形)
+	*/
+	list-style-type:square;
+	/* list-style-position 屬性讓我們可以決定記號是否應該被視為是文字的一部份，並且由此而決定記號的位置。這個屬性可能的設定值為 "inside" 及 "outside"。預定值為 "outside"。
+	*/
+	list-style-position:inside;
+	// list-style-image 用來將某個圖案設定為記號
+	list-style-image:url("circle.gif");
+	// list-style :　list-style-tyle、list-style-position、及 list-style-image
+	list-style: url("circle.gif") none inside;
+}
+```
+
+#### other
+##### cursor
+``` cs
+box {
+	/* cursor 改變滑鼠游標的形狀
+			crosshair - 十字線型
+			move - 十字箭頭(移動)
+			all-scroll - 四方捲動
+			n-resize - 箭頭朝上
+			s-resiz - 箭頭朝下
+			e-resize - 箭頭朝右
+			w-resize - 箭頭朝左
+			nw-resize - 箭頭左上
+			sw-resize - 箭頭左下
+			se-resize - 箭頭朝右上
+			ne-resize - 箭頭朝右下
+			col-resize - 改變直行
+			row-resize - 改變橫欄
+			text - I 輸入文字符號
+			vertical-text - 垂直
+			help - 協助加一問號
+			wait - 等待中；漏斗
+			progress - 進行中；作
+			pointer - 手型，表示
+	*/
+	cursor: pointer;
+}
+```
+
+##### [box-shadow](https://developer.mozilla.org/zh-TW/docs/Web/CSS/box-shadow)
+``` css
+.box {
+	/* offset-x | offset-y | blur-radius(模糊半徑) | color */
+	box-shadow: 10px 5px 5px black;	
+
+	/* offset-x | offset-y | blur-radius | spread-radius(正值將導致陰影擴大並變大，負值將導致陰影縮小) | color */
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+```
+
+
 ### RWD 相關
+
+#### RWD meta
+``` css
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
 #### overflow
 ``` css
 	/*
@@ -881,4 +981,8 @@ ul-li 包 img+flex-grow: 1; 中間會有空白
 // 	}
 // }
 calc() 是一個 CSS function 作用於屬性設定是數值的時候可以進行加減乘除的運算，例如： <length> 長度、<frequency> 頻率、<angle> 角度、<time> 時間、<number> 數字或者是 <integer> 整數這幾個屬性值都可以使用 calc()。
+
+top(bottom) left(right)在相對定位中使用百分比時，參照的是最近一層父元素的高度與寬度；
+
+top(bottom) left(right)在絕對定位中使用百分比時，參照的是最近一層父元素的高度與寬度，但父元素不能是static定位；若父元素是static定位，則會一直往上一級查詢，直至查詢到整個網頁的根元素html。
 ```
