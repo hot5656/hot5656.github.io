@@ -350,6 +350,25 @@ Allow: /data/*/crosssellaccommodations
 </html>
 ```
 
+#### [HTML Entity List](https://www.freeformatter.com/html-entities.html)
+字元實體參照(character entity reference), 是標記式語言 SGML與HTML中對字元的一種跳脫序列表示
+``` html
+<div>
+  <ul>
+    <li>標&emsp;&emsp;題&nbsp;:</li>
+    <li>填&ensp;寫&ensp;人&nbsp;:</li>
+    <li>聯絡電話&nbsp;:</li>
+  </ul>
+</div>
+```
+<div>
+  <ul>
+    <li>標&emsp;&emsp;題&nbsp;:</li>
+    <li>填&ensp;寫&ensp;人&nbsp;:</li>
+    <li>聯絡電話&nbsp;:</li>
+  </ul>
+</div>
+
 ### 參考
 + [MDN HTML](https://developer.mozilla.org/zh-TW/docs/Web/HTML)
 + [w3school HTML](https://www.w3schools.com/html/default.asp)

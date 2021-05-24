@@ -14,6 +14,7 @@ date: 2021-03-18 15:48:55
 + [ResponsivePX.com](http://www.responsivepx.com/) : 網頁調整測試(寬度) 
 + [CSS Normalize](https://necolas.github.io/normalize.css/)
 + [html boilerplate](https://www.sitepoint.com/a-basic-html5-template/)
++ [DOM with JavaScript](https://htmldom.dev/) : JavaScript Example
 
 <!--more-->
 
@@ -56,6 +57,7 @@ date: 2021-03-18 15:48:55
 
 ### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)
++ [DOM 的事件傳遞機制：捕獲與冒泡](https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/)
 
 ### 未歸類
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)

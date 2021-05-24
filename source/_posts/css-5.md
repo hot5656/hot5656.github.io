@@ -94,3 +94,46 @@ a	{
 ### position: relative/absolute, top(bottom) left(right)使用百分比
 + 在相對定位中使用百分比時，參照的是最近一層父元素的高度與寬度
 + 在絕對定位中使用百分比時，參照的是最近一層父元素的高度與寬度，但父元素不能是static定位；若父元素是static定位，則會一直往上一級查詢，直至查詢到整個網頁的根元素html。
+
+### ul+li(flex) 排列 image
+**因前面加了 max-width: 100%; img 一定要加 width: 100%; 不然不能放大**
+``` css
+img {
+	/* 防止img解析度變差 */
+	max-width: 100%;
+	height: auto;
+	/* 修正放於div底部會有空白 */
+	display: block;
+}
+
+.menu-list {
+	ul {
+		display: flex;
+		li {
+			flex-grow: 1;
+			img {
+				width: 100%;
+			}
+		}
+	}
+}
+```
+
+``` html
+<div class="menu-list">
+	<ul>
+		<li>
+			<img src="./img/f-001.png" alt="">
+		</li>
+		<li>
+			<img src="./img/f-002.png" alt="">
+		</li>
+		<li>
+			<img src="./img/f-003.png" alt="">
+		</li>
+		<li>
+			<img src="./img/f-004.png" alt="">
+		</li>
+	</ul>
+</div>
+```

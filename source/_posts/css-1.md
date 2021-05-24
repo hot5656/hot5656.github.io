@@ -80,7 +80,7 @@ html, body, h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,p {
 ```
 
 #### CSS naming BEM(Block Element Modifier)
-+ A CSS Naming Convention](http://getbem.com/naming/)
++ [A CSS Naming Convention](http://getbem.com/naming/)
 + [BEM 101](https://css-tricks.com/bem-101/)
 
 ``` html
@@ -629,6 +629,22 @@ box {
 </body>
 ```
 
++ max-width/min-width
+``` css
+.box {
+	min-width: 300px;
+	max-width: 1200px;
+}
+``` 
+
++ border-radius 圓角屬性
+``` css
+.box {
+	/* top-left corner, top-right corner, bottom-right corner, bottom-left corner */
+	border-radius: 0 10px 0 10px;
+}
+```
+
 #### Flex
 
 **外容器**
@@ -881,6 +897,30 @@ box {
 }
 ```
 
+##### [font-family 字體](https://www.oxxostudio.tw/articles/201811/css-font-family.html)
+``` css 
+.box {
+	/*  使用 "Microsoft JhengHei" 不要使用 “微軟正黑體” 可避免某些 browser 誤判/* 
+	/* font-family: "微軟正黑體"; */
+	font-family: "Microsoft JhengHei"; 
+	font-family: "Times New Roman";
+}
+```
+
+#### [calc()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/calc())
+- 允許在聲明CSS屬性值時執行一些計算它可以用在如下場合&lt;length&gt;、&lt;frequency&gt;, &lt;angle&gt;、&lt;time&gt;、&lt;percentage&gt;、&lt;umber&gt;、或 &lt;integer&gt;
+- &plus; 和 - 運算符的兩邊必須要有空白字符
+- &ast; 和 / 這兩個運算符前後不需要空白字符，但如果考慮到統一性，仍然推薦加上空白符
+
+``` css
+/*
+	+ 加法。
+	- 減法。
+	* 乘法，乘數中至少有一個是 <number>。
+	/ 除法，除數（/右面的數）必須是<number>。
+*/
+
+```
 
 ### RWD 相關
 
@@ -945,44 +985,3 @@ box {
 + [CSS Flex Container](https://www.w3schools.com/css/css3_flexbox_container.asp)
 + [圖解：CSS Flex 屬性](https://wcc723.github.io/css/2017/07/21/css-flex/)
 + [Complete Guide for Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-
-``` ㄔㄩㄠ
-	font-family: "Times New Roman";
-	line-height: 1.2;
-.banner	{
-	background: url(../img/2.png);
-	background-size: cover;
-	height: 450px;
-}
-
-	text-align: center;
-
-ul-li 包 img+flex-grow: 1; 中間會有空白
-			<!-- <ul>
-				<li>
-					<img src="./img/f-001.png" alt="">
-				</li>
-				<li>
-					<img src="./img/f-002.png" alt="">
-				</li>
-				<li>
-					<img src="./img/f-003.png" alt="">
-
-				</li>
-				<li>
-					<img src="./img/f-004.png" alt="">
-				</li>
-			</ul> -->
-// .menu ul {
-// 	display: flex;
-// 	justify-content: flex-end;
-// 	li {
-// 		flex-grow: 1;
-// 	}
-// }
-calc() 是一個 CSS function 作用於屬性設定是數值的時候可以進行加減乘除的運算，例如： <length> 長度、<frequency> 頻率、<angle> 角度、<time> 時間、<number> 數字或者是 <integer> 整數這幾個屬性值都可以使用 calc()。
-
-top(bottom) left(right)在相對定位中使用百分比時，參照的是最近一層父元素的高度與寬度；
-
-top(bottom) left(right)在絕對定位中使用百分比時，參照的是最近一層父元素的高度與寬度，但父元素不能是static定位；若父元素是static定位，則會一直往上一級查詢，直至查詢到整個網頁的根元素html。
-```
