@@ -47,37 +47,37 @@ Press `F1` --> `Trim Trailing Whitespace`
 	{% asset_img pic1.png pic1 %}
 </div>
 
-+ 設定 中文介面
+#### 設定 中文介面
 ``` bash
 install package Chinese(traditional) Lanaguage Pack
 ctrl+shift+p --> configure Display Language zh-TW
 重新啟動 VSCode
 ```
 
-+ show CR/tab/space
+#### show CR/tab/space
 ``` bash
 Commonly Used --> Editor:Render Whitespace
 	none : no show
 	all  : show
 ```
 
-+ tab change space(no)
+#### tab change space(no)
 ``` bash
 Commonly Used --> Editor:Insert Spaces
 ```
 
-+ set indent using tabs(no)
+#### set indent using tabs(no)
 ``` bash
 # 檔案開啟自動偵測 indentation 
 Text Editor --> Detect indentation
 ```
 
-+ table size 
+#### table size 
 ``` bash
 Commonly Used --> Editor:Tab Size
 ```
 
-+ VSCode Show Full Path in Title Bar
+#### VSCode Show Full Path in Title Bar
 ``` bash
 Window -> Title
 default :
@@ -85,7 +85,7 @@ default :
 	full fath : ${activeEditorLong}${separator}${rootName}
 ```
 
-+ 自動換行 
+#### 自動換行 
 ``` bash
 Commonly Used --> Editor:Word Wrap
 	on : 自動換行

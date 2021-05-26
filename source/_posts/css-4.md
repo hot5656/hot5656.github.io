@@ -42,7 +42,7 @@ $font-l: $font-m * 1.2;
 $font-s: $font-m * 0.8;
 ```
 
-#### @mixin 語法知識庫 
+### @mixin 語法知識庫 
 ``` scss
 // 不帶参數
 @mixin font-hex {

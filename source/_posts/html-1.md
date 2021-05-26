@@ -109,6 +109,7 @@ Allow: /UserReview$
 Allow: /data/*/crosssellaccommodations
 ```
 
+#### Sitemap
 ``` xml
 # Sitemap: https://www.tripadvisor.com.tw/sitemap/2/zh_TW/sitemap_zh_TW_index.xml
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -183,6 +184,8 @@ Allow: /data/*/crosssellaccommodations
 ```
 
 #### [Form](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
+**name 當表單提交時使用,只有設置了name屬性才能在提交時傳遞它們的值**
+**value 可設定 input 初值**
 ``` html
 <!-- 表單 -->
 <form action="">

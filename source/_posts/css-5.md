@@ -137,3 +137,25 @@ img {
 	</ul>
 </div>
 ```
+
+### tag label 包住 tag input 可選擇字就選到 input(label 的 for 要拿掉)
+``` html
+<form action="">
+	<div>
+		<label>
+			<input type="checkbox" name="en">英文
+		</label>
+	</div>
+	<div>
+		<label>
+			<input type="checkbox" name="num">數字
+		</label>
+	</div>
+	<div>
+		<label>
+			<input type="checkbox" name="sp">特殊符號
+		</label>
+	</div>
+	<input class="gen-btn" type="submit" value="產生">
+</form>
+```
