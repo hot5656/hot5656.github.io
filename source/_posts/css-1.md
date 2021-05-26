@@ -95,6 +95,22 @@ html, body, h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,p {
 </div>
 ```
 
+#### 單位
+``` css
+.box {
+	/* px 點 */ 
+	height: 50px;
+	/* em 倍數乘以父元素的 px 值 */ 
+	padding: 0.75rem 1.5rem;
+	/* rem 倍數乘以根元素的 px */ 
+	line-height: 1.5rem;
+	/* % 父元素百分比 */ 
+	width:50%;
+	/* viewport height (百分比) */ 
+	height: 100vh;
+}
+```
+
 ### CSS Selector 選擇器
 #### 種類
 ``` css
@@ -363,6 +379,18 @@ box {
 }
 ```
 
+##### text-indent(首行處理)
+``` css
+.box {
+	/* 讓首行縮排 */
+  text-indent : 36px;
+	/* 讓首行凸出來 */
+ text-indent : -36px;
+	/* 讓字變不見 */
+	margin-left : 36px; 
+	text-indent : -36px;
+}
+```
 
 #### transition 屬性改變漸變效果
 ``` html

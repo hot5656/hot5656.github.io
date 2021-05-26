@@ -973,8 +973,10 @@ var x = document.getElementById("myLI").parentElement
 </html>
 ```
 
-#### local storage
+#### [local storage](https://developer.mozilla.org/zh-TW/docs/Web/API/Window/localStorage)
 儲存與 server 無關資料
+
+##### simple example
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -1001,12 +1003,79 @@ var x = document.getElementById("myLI").parentElement
 			.addEventListener('click', function(){
 					const id = document.querySelector('.id').value
 					// set local storage
-					window,localStorage.setItem('id', id)
+					window.localStorage.setItem('id', id)
 			})
 	</script>
 </body>
 </html>
 ```
+##### save job list
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+	</style>
+</head>
+<body>
+	<div>
+		<div>
+			job : <input class="job" type="text">
+			<button class="btn-add">新增</button>
+		</div>
+		<div class="list">
+		</div>
+	</div>
+
+	<script>
+		let jobList = JSON.parse(window.localStorage.getItem('todo-list'))
+		let idIndex = Number(JSON.parse(window.localStorage.getItem('id-index')))
+		// init value for 1st time
+		if (jobList === null) {
+			jobList = []
+		}
+		if (idIndex === 0) {
+			idIndex++
+		}
+		// show list
+		showList(jobList)
+		document.querySelector('.btn-add')
+			.addEventListener('click', function() {
+				let item = {}
+				item.job = document.querySelector('.job').value
+				if (item.job !== '') {
+					item.id = idIndex++
+					jobList.push(item)
+					// convert job array to JSON
+					let jobListJson = JSON.stringify(jobList)
+					window.localStorage.setItem('todo-list', jobListJson)
+					window.localStorage.setItem('id-index', String(idIndex))
+					// update list
+					showList(jobList)
+				}
+				else {
+					console.log('Input error')
+				}
+			})
+			// update job list
+			function showList(job) {
+				const listDiv = document.querySelector('.list')
+				listDiv.innerText = ''
+				for (let i=0 ; i < jobList.length ; i++) {
+					let item = document.createElement('div')
+					item.innerText = `${job[i].id} : ${job[i].job}`
+					listDiv.appendChild(item)
+				}
+			}
+	</script>
+</body>
+</html>
+```
+
 
 #### session storage 
 網頁關掉即清除
