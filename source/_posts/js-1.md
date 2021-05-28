@@ -741,6 +741,15 @@ for (let i=0 ; i < number ; i++) {
 console.log(arr)	// [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ]
 ```
 
+##### array item remove
+``` js
+// 使用 delete array 會造成 length 不變, 原來的值變成 undefined
+delete jobs[i]
+// splice 可真正將變數從 array 移除
+jobs.splice(i,1)
+```
+
+
 ###  [物件 object](https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects/Basics)
 #### example
 ``` js

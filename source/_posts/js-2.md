@@ -408,6 +408,40 @@ alert(div.classList.contains("foo"));
 </html>
 ```
 
+###### click
+###### mousedown
+###### mouseup
+###### dbclick - 短時間內雙擊左鍵觸發
+###### contextmenu - 滑鼠右鍵點擊觸發
+
+###### mousemove - 滑鼠移動時觸發(要用到時才綁定，避免不斷觸發)
+###### mouseenter - 滑鼠進入元素邊界時觸發(不會 bubble)
+###### mouseleave - 滑鼠完全離開元素時觸發(不會 bubble)
+###### mouseover - 滑鼠經過不同元素時觸發
+###### mouseout - 滑鼠離開元素時觸發
+
+###### keypress
++ [e.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values)
+
+```
+/* e.key : 字元
+	 e.keyCode : 編碼 ascii code
+	 e.code : 字串表示 "KeyQ" for the Q
+*/
+```
+###### keydown
+###### keyup
+###### submit - form commit
+
+###### DOMContentLoaded - DOM load complete
+``` js
+// DOM loaded
+document.addEventListener('DOMContentLoaded', function(){
+	......
+})
+```
+
+
 ##### 表單處理
 ``` html
 <!DOCTYPE html>
@@ -872,6 +906,14 @@ alert(div.classList.contains("foo"));
 	</script>
 </body>
 </html>
+```
+
+##### DOM loaded
+``` js
+// DOM loaded
+document.addEventListener('DOMContentLoaded', function(){
+	......
+})
 ```
 
 ### [Web API](https://developer.mozilla.org/zh-TW/docs/Web/API)

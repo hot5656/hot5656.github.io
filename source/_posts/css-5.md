@@ -159,3 +159,115 @@ img {
 	<input class="gen-btn" type="submit" value="產生">
 </form>
 ```
+### input
+#### [Custom Checkbox](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.debug *,	.debug {
+			outline: 1px solid gold
+		}
+
+		/* The container */
+		.container {
+			/* 設定外框 block, size, font-size ... */
+			display: block;
+			position: relative;
+			padding-left: 35px;
+			margin-bottom: 12px;
+			cursor: pointer;
+			font-size: 22px;
+			user-select: none;
+		}
+
+		/* Hide the browser's default checkbox */
+		.container input {
+			/* input 設定長寬為 0,透明 */
+			position: absolute;
+			opacity: 0;
+			height: 0px;
+			width: 0px;
+		}
+
+		/* Create a custom checkbox */
+		.checkmark {
+			/* 設定新 checkbox mark */
+			position: absolute;
+			top: 4px;
+			left: 0;
+			height: 15px;
+			width: 15px;
+			border: 1px solid #000;
+			/* background-color: #eee; */
+		}
+
+		/* On mouse-over, add a grey background color */
+		.container:hover input~.checkmark {
+			/* 上層 hover, 背景改變 */
+			background-color: #ccc;
+		}
+
+		/* When the checkbox is checked, add a blue background */
+		.container input:checked~.checkmark {
+			/* checked 背景改變 */
+			/* background-color: #2196F3; */
+		}
+
+		/* Show the checkmark when checked */
+		.container input:checked~.checkmark:after {
+			/* 若 checked 顯示符號 */
+			display: block;
+		}
+
+		/* Style the checkmark/indicator */
+		.container .checkmark:after {
+			content: "";
+			position: absolute;
+			display: none;
+			/* 設定符號位置 */
+			left: 4px;
+			top: 2px;
+			/* 設定打勾符號 */
+			width: 5px;
+			height: 10px;
+			border: solid #000;
+			border-width: 0 3px 3px 0;
+			transform: rotate(45deg);
+		}
+	</style>
+</head>
+<body>
+	<label class="container">One
+		<!-- checked="checked" 設定 checked -->
+		<input type="checkbox" checked="checked">
+		<span class="checkmark"></span>
+	</label>
+	<label class="container">Two
+		<input type="checkbox">
+		<span class="checkmark"></span>
+	</label>
+</body>
+</html>
+```
+
+#### Checkbox checked
+``` html
+<input class="input" type="checkbox" checked="checked">
+``` 
+
+#### trigger by enter
+``` js
+document.querySelector('.job-add input')
+	.addEventListener('keyup', function(e){
+		if (e.keyCode == 13) {
+			...
+		}
+	})
+``` 
