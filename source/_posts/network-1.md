@@ -141,10 +141,13 @@ request.patch({
 + 3xx 重新導向
 	301 永久導向
 	302 暫時導向
+	304 未改變,不需要再傳輸請求的內容，可以使用緩存的內容
 + 4xx客戶端錯誤
 	400 Bad Request
 	401 Unauthorized(未認證)
 	404 Not Found
+	405 Method Not Allowed
+	410 Gone - 表示所請求的資源不再可用，將不再可用 
 + 5xx伺服器錯誤
 	500 Internal Server Error
 	501 Not Implemented

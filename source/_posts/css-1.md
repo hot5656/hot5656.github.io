@@ -630,6 +630,63 @@ box {
 </body>
 ```
 
+#### visibility
+##### visible(default) - 可見
+##### hidden - 隱藏但還佔位置
+##### collapse
++ 在表格的 row 或 column (row、row group、column 和 column group 元素，也就是分別為 HTML 中的 `tr`、`tbody`、`col` 和 `colgroup` 元素) 使用 `visibility: collapse` 時：
+	+ 會導致整個 row 或 column 從顯示結果中刪除，原本佔用的空間會讓其他內容使用，也就是說顯示結果很像是將 `display: none` 應用在表格的 row 或 column 一樣
+	+ 與 collapsed column 或 row (合併欄或合併列) 相交 (intersect) 的 spanned row 或 column (跨欄或跨列) 的內容會被裁切掉 (clipped)
+	+ 可以在不強制重新佈局 (re-layout) 表格的情況下，使用動態效果來刪除表格的 row 或 column
++ 對 table cell (也就是 HTML 中的 `td` 或 `th` 元素) 使用 `visibility: collapse` 時，效果相當於 `visibility: hidden`
++ 除了上述以外的其他元素使用 `visibility: collapse` 時，效果相當於 `visibility: hidden`
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		table {
+			outline: 1px solid;
+		}
+		td {
+			outline: 1px solid;
+		}
+		.collapse {
+			visibility: collapse;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>1.1</td>
+			<td class="collapse">1.2</td>
+			<td>1.3</td>
+		</tr>
+		<tr class="collapse">
+			<td>2.1</td>
+			<td>2.2</td>
+			<td>2.3</td>
+		</tr>
+		<tr>
+			<td>3.1</td>
+			<td>3.2</td>
+			<td>3.3</td>
+		</tr>
+	</table>
+</body>
+</html>
+```
+
+<div style="width:150px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
 
 #### Box model
 ``` html

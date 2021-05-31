@@ -15,6 +15,7 @@ date: 2021-03-18 15:48:55
 + [CSS Normalize](https://necolas.github.io/normalize.css/)
 + [html boilerplate](https://www.sitepoint.com/a-basic-html5-template/)
 + [DOM with JavaScript](https://htmldom.dev/) : JavaScript Example
++ [You might not need jQuery](http://youmightnotneedjquery.com/)
 
 <!--more-->
 
@@ -44,6 +45,7 @@ date: 2021-03-18 15:48:55
 + [Facebook API](https://developers.facebook.com/tools?locale=zh_TW)
 + [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
 + [Twitch API v5](https://dev.twitch.tv/docs/v5)
++ [Twitch 開發人員主控台](https://dev.twitch.tv/login)
 + [Github API](https://github.com/HackerNews/API)
 + [PokeAPI](https://pokeapi.co/)
 + [Lorem Picsum](https://picsum.photos/) : 假圖 API
@@ -62,6 +64,7 @@ date: 2021-03-18 15:48:55
 + [Fooish 程式技術](https://www.fooish.com/html/)
 + [TechBridge 技術共筆部落格](https://blog.techbridge.cc/)
 + [Wibibi 網頁設計百科](https://www.wibibi.com/)
++ [segmentfault](https://segmentfault.com/)
 
 ### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)

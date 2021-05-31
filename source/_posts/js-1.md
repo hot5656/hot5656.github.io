@@ -922,6 +922,36 @@ for (let i=0 ; i<10 ; i++) {
 }
 ```
 
+##### for in
+ES5標準,遍歷的是key
+``` js
+let arr = ['a','b','c','d',{'e':'e_value','f':'f_value'}]
+for(let index in arr){
+    console.log(index)
+}		// 0,1,2,3,4
+//---------------------------------------------------
+//若想要用for in 取value，也是可以
+for(let index in arr){
+    console.log(arr[index])
+} 	//a,b,c,d,{'e':'e_value','f':'f_value'}
+//---------------------------------------------------
+//for in 會遍歷自定義屬性
+arr.name='myArray'
+for(let index in arr){
+    console.log(index)
+} 	// 0,1,2,3,4,name
+```
+
+##### for of 
+ES6標準,遍歷的是value
+可使用的對象有Array、Map、Set、String、TypedArray、arguments
+``` js
+let arr = ['a','b','c','d',{'e':'e_value','f':'f_value'}]
+for(let value of arr){
+    console.log(value)
+} //a,b,c,d,{'e':'e_value','f':'f_value'}
+```
+
 #### while  迴圈
 ``` js
 // while
@@ -1190,6 +1220,43 @@ console.log('reversed:', reversed);	// reversed: [ 'three', 'two', 'one' ]
 console.log('array1:', array1);	// array1: [ 'three', 'two', 'one' ]
 ```
 
+##### some - 來檢查陣列裡面是否有一些符合條件。只要有一個以上符合條件就會回傳 true
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<ul>
+		<li>-111</li>
+		<li>-222</li>
+		<li>333</li>
+		<li>-444</li>
+	</ul>
+	<script>
+		const elements = document.querySelectorAll('li')
+		/* elements 類陣列不能執行 .some() */
+		// console.log(elements.some( function(item) {
+		// 	return Num(item.innerText) > 0 
+		// }))
+		/* elements 類陣列,但非陣列,要轉成陣列才能執行 .some() */
+		const isAnyPositive = [...elements].some( function(item) {
+			console.log(item.innerText)
+			return Number(item.innerText) > 0 
+		})
+		console.log(isAnyPositive) // true
+	</script>
+	</body>
+</html>
+```
+
+##### every - 陣列裡面的所有東西都符合條件才會回傳 true
+
+
 #### JSON
 ``` js
 // JSON.stringify() - method converts a JavaScript value to a JSON string
@@ -1197,6 +1264,22 @@ console.log(JSON.stringify({ x: 5, y: 6 }))
 // json to obj
 const bodyObj = JSON.parse(body)
 ```
+
+#### [Global](https://www.w3schools.com/jsref/jsref_obj_global.asp)
+##### encodeURI() - encode a URI
+``` js
+var uri = "my test.asp?name=ståle&car=saab";
+var res = encodeURI(uri);
+```
+
+##### decodeURI() - decode a URI
+``` js
+var uri = "my test.asp?name=ståle&car=saab";
+var enc = encodeURI(uri);
+var dec = decodeURI(enc);
+var res = enc + "<br>" + dec;
+```
+
 
 ### [ES6](https://github.com/DrkSephy/es6-cheatsheet)
 ECMAScript [ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) 6th edition-June 2015, 所以稱為 ES6 或 ES2015

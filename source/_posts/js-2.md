@@ -153,6 +153,14 @@ document.addEventListener('DOMContentLoaded', function(){
 	{% asset_img pic2.png pic2 %}
 </div>
 
+###### .parentElement
+parentElement is the parent element of the current node. 
+若無父元素或非element則傳回 null 
+
+###### .parentNode
+parentNode is the parent of the current node. The parent of an element is an Element node, a Document node, or a DocumentFragment node.
+若無父元素或非element則傳回 null
+
 ##### [改變 css](https://developer.mozilla.org/zh-TW/docs/Web/API/ElementCSSInlineStyle/style)
 ``` html
 <!DOCTYPE html>
@@ -341,6 +349,31 @@ alert(div.classList.contains("foo"));
 	</script>
 </body>
 </html>
+```
+
+###### .append()
+加入Node物件或DOMString(文字)
+``` js
+/* 加入Node物件 */
+const parent = document.createElement('div')
+const child = document.createElement('p')
+parent.append(child)  // 然後div看起來像這樣<div> <p> </ p> </ div>
+/* 加入DOMString(文字) */
+const parent = document.createElement('div')
+parent.append('附加文字') // 然後div看起來像這樣 <div>附加文字</ div>
+```
+
+###### .appendChild()
+僅能加入Node物件, 不能加入DOMString(文字)
+若加入的物件已存在,則會移動到此
+``` js
+/* 加入Node物件 */
+const parent = document.createElement('div')
+const child = document.createElement('p')
+parent.appendChild(child) // 然後div看起來像這樣 <div> <p> </ p> </ div>
+/* 加入DOMString(文字) */
+const parent = document.createElement('div')
+parent.appendChild('Appending Text') // Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'
 ```
 
 #### [Event](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
@@ -946,8 +979,18 @@ var x = document.getElementById("myLI").parentElement
 ```
 
 #### [Event](https://developer.mozilla.org/zh-TW/docs/Web/API/Event)
-#### .target
-指向最初觸發事件的 DOM 物件
+
+##### .target - 初觸發事件的物件
+###### tag name
+``` js
+document.querySelector('.box')
+	.addEventListener('click', function(e){
+		// dump tag name
+		console.log(e.target.tagName.toLowerCase())
+	}) // div , ul or li
+```
+
+##### .currentTarget - 處理事件之監聽器所屬的物件
 
 
 ### 瀏覽器上儲存資料
@@ -1153,6 +1196,159 @@ var x = document.getElementById("myLI").parentElement
 </body>
 </html>
 ```
+
+### 傳送資料
+#### 表單 from --> Browser 畫面更新
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div class="app">
+		<!-- action: 表單提交到哪裡(也可能是後端程式) -->
+		<!-- <form method="GET" action="/test"> -->
+		<form method="POST" action="https://google.com">
+			username: <input type="text" name="username">
+			<input type="submit">
+		</form>
+	</div>
+</body>
+</html>
+```
+
+#### AJAX(Asynchronous JavaScript and XML) --> 資料回傳至 JavaScript
+
+##### AJAX google - 瀏覽器的限制 同源策略(Same-origin policy)
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		const request = new XMLHttpRequest()
+		// loaded function
+		request.onload = function() {
+			if (request.status >= 200 && request.status < 400) {
+				console.log(request.responseText)
+			}
+			else {
+				console.log('response error :', request.status)
+			}
+		}
+
+		// error 
+		request.onerror = function() {
+			console.log('error')
+		}
+
+		// true 表非同步
+		request.open('GET', 'https://google.com', true)
+		request.send()
+	</script>
+</body>
+</html>
+```
+
+<div style="width:700px">
+	{% asset_img pic9.png pic9 %}
+</div>
+
+##### AJAX fake data - Access-Control-Allow-Origin : *
+CORS(全名為 Cross-Origin Resource Sharing) 跨來源資源共享 : server response head 加 Access-Control-Allow-Origin : *
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		const request = new XMLHttpRequest()
+		// loaded function
+		// type 1
+		// request.addEventListener('load', function() {
+		// 	if (request.status >= 200 && request.status < 400) {
+		// 		console.log(request.responseText)
+		// 	}
+		// 	else {
+		// 		console.log('response error :', request.status)
+		// 	}
+		// })
+		// type 2
+		request.onload = function() {
+			if (request.status >= 200 && request.status < 400) {
+				console.log(request.responseText)
+			}
+			else {
+				console.log('response error :', request.status)
+			}
+		}
+
+		// error 
+		request.onerror = function() {
+			console.log('error')
+		}
+
+		// true 表非同步
+		request.open('GET', 'https://reqres.in/api/users/2', true)
+		request.send()
+	</script>
+</body>
+</html>
+```
+
+<div style="width:700px">
+	{% asset_img pic10.png pic10 %}
+</div>
+
+##### 跨來源網路存取
++ 同源政策控制了兩個不同網域來源互動,當使用XMLHttpRequest。這些互動可分為以下三類:
+	+ 跨來源寫(Cross-origin writes)通常被允許，例如有連結、重新導向以及表單送出。少數某些HTTP請求需要先導請求。
+	+ 跨來源嵌入(Cross-origin embedding)通常被允許
+	+ 跨來源讀取(Cross-origin read) 通常不被允許，不過通常可以藉由嵌入來繞道讀取，例如嵌入影像寬高讀取、嵌入程式碼或嵌入資源。
++ Preflight Request(預檢請求)
+	有時會看到發兩次 request,因為只要發送請求到不同 origin 就會有 cors 的問題,所以 server 必須先確定 client 端是合法請求，也就是,Preflighted 要先發一次 request 去驗證是否合法 domain,成功了才能發真正的 request
+
+#### JSONP(JSON with Padding) 第三種方式資料交換方式
++ img, scrip不受同源限制
++ 使用 script 傳回 json data 即可不受 同源策略 限制
++ 若 json 外部可包一個 function 即可方便處理,故要 server 配合
++ 某些 server 可指定 callback function(如 Twitch)
+
+``` html
+	<script>
+		function receiveData (response) {
+			console.log(response);
+		}
+	</script>
+	<!-- <script src="https://www.game.com/api/user"></script> -->
+	<script>
+		receiveData(
+		 {
+			 name: 'Robert',
+			 age: 30
+		 }
+		)
+	</script>
+```
+
+#### 單向資料傳送(email 或 廣告 追蹤)
+擺一張小而透明的檔案,若網頁被打開,server就知道 email/廣告 被打開 
 
 ### Window
 
