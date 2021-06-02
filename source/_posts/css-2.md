@@ -148,10 +148,48 @@ tags:
 </div>
 
 ### button , 設定 display: block,寬度還是不能佔整行
+要設定 width: 100% 才能佔整行
 ``` css
-/* set width:100% */
 button {
 	display: block;
+	/* 設完才能佔整行 */
 	width: 100%;
 }
+```
+
+### 設定 margin: 0 auto; 不能置中
+要設定 display block
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.box {
+			width: 500px;
+			padding: 20px;
+			border: 1px solid #000;
+		}
+		.kick {
+			/* 設定才能置中 */
+			/* display: block; */
+			background: #E62A45;
+			color: #fff;
+			width: 200px;
+			border-radius: 8px;
+			outline: none;
+			border: none;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<button class="kick">我要抽獎</button>
+	</div>
+</body>
+</html>
 ```

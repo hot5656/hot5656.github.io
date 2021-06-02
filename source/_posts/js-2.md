@@ -992,6 +992,8 @@ document.querySelector('.box')
 
 ##### .currentTarget - 處理事件之監聽器所屬的物件
 
+#### [XMLHttpRequest](https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)
+
 
 ### 瀏覽器上儲存資料
 

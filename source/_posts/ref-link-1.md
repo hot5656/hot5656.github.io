@@ -20,6 +20,7 @@ date: 2021-03-18 15:48:55
 <!--more-->
 
 ### 參考網頁
++ [Can I use](https://caniuse.com/)
 + [HTML5 site templates](https://html5up.net/) : 模板
 + [Hacker News](https://news.ycombinator.com/) : 可 link 到一些網頁,用作參考
 
@@ -65,6 +66,7 @@ date: 2021-03-18 15:48:55
 + [TechBridge 技術共筆部落格](https://blog.techbridge.cc/)
 + [Wibibi 網頁設計百科](https://www.wibibi.com/)
 + [segmentfault](https://segmentfault.com/)
++ [億聚網](https://www.1ju.org/)
 
 ### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)

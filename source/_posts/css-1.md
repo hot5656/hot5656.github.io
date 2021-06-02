@@ -392,6 +392,20 @@ box {
 }
 ```
 
+##### writing-mode and inline-size(雖然 display:block 也會影顯寬度)
++ writing-mode 文字顯示的方向
+	+ horizontal-tb : 水平顯示(default)
+	+ vertical-rl : 由右到左垂直顯示方式
+  + vertical-lr : 由左到右的垂直顯示方式
++ inline-size 影響一个元素的width 或 height, 取决于writing-mode
+	+ fit-content 
+	+ max-content
+	+ min-content
++ width 也可做以下設定(同 writing-mode=horizontal-tb 時 inline-size)
+	+ fit-content
+	+ max-content
+	+ min-content
+
 #### transition 屬性改變漸變效果
 ``` html
 <style>
