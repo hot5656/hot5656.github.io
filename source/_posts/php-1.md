@@ -136,3 +136,13 @@ aa4
 length=5array(5) { [0]=> string(2) "aa" [1]=> int(2) [2]=> int(3) [3]=> int(4) [4]=> string(2) "zz" } 
 Array ( [0] => aa [1] => 2 [2] => 3 [3] => 4 [4] => zz ) 9
 ```
+
+#### Disable cache 
+使用XAMPP環境,有時程式改變但 browser 顯示卻不正確,可能是 cache 的影響,選擇 Disable cache 再從新整理即可
+<div style="width:700px">
+	{% asset_img pic11.png pic11 %}
+</div>
+
+### PHP function 
+
+#### [date()](https://www.php.net/manual/en/function.date.php)

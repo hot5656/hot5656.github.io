@@ -57,6 +57,7 @@ date: 2021-03-18 15:48:55
 + [Whiteboard Fox](https://r8.whiteboardfox.com/) : 線上白板
 + [YOPmail](http://www.yopmail.com/zh/) : 暫時信箱
 + [免費資源網路社群](https://free.com.tw/)
++ [Free MySQL hosting](https://www.freemysqlhosting.net/)
 
 ### 技術網站
 + [W3School](https://www.w3schools.com/html/default.asp)
@@ -67,6 +68,7 @@ date: 2021-03-18 15:48:55
 + [Wibibi 網頁設計百科](https://www.wibibi.com/)
 + [segmentfault](https://segmentfault.com/)
 + [億聚網](https://www.1ju.org/)
++ [oxxostudio](https://www.oxxostudio.tw/)
 
 ### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)

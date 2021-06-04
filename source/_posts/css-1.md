@@ -278,6 +278,55 @@ div span:nth-child(3n+1) {
 </body>
 ```
 
+##### [CSS 漸層(Gradient)](https://www.oxxostudio.tw/articles/202008/css-gradient.html)
+漸層有以下幾種 : 
++ linear-gradient：線性漸層
++ radial-gradient：放射漸層
++ conic-gradient：圓錐形漸層(較新)
++ repeating-radial-gradient：放射重複漸層
++ repeating-linear-gradient：線性重複漸層
++ repeating-conic-gradient：圓錐形重複漸層(較新)
+
+可以套用漸層的 CSS 屬性有兩種 :
++ background：元素的背景
++ list-style-image：清單預設的符號圖案
+
+###### [Linear Gradient 線性漸層](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient())
++ 如果沒有設定角度，預設從上往下 進行漸層
++ background:linear-gradient(方向, 顏色1 位置, 顏色2 位置);
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.box {
+			width: 80%;
+			height: 80vh;
+			border: 1px solid #000;
+			margin: 0 auto;
+			/* 由上而下 */
+			/* background: linear-gradient(red, yellow); */
+			/* 三種顏色 */
+			/* background: linear-gradient(red, yellow, red); */
+			/* 角度 */
+			background: linear-gradient(135deg, red, yellow);
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+</body>
+</html
+```
+
+
+
+
 #### border, border-radius and outline 
 ``` html
 <style>
@@ -1084,3 +1133,4 @@ box {
 + [CSS Flex Container](https://www.w3schools.com/css/css3_flexbox_container.asp)
 + [圖解：CSS Flex 屬性](https://wcc723.github.io/css/2017/07/21/css-flex/)
 + [Complete Guide for Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
++ [深入理解 CSS 漸層](https://www.oxxostudio.tw/articles/202008/css-gradient.html)
