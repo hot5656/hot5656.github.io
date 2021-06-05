@@ -193,3 +193,18 @@ button {
 </body>
 </html>
 ```
+
+### &lt;a&gt; tag not working
++ 被其他元件遮住,故要將 z-index 調高,或將其他元件 z-index 調低
++ z-index 要有效,要設定 position: absolute, relative 或 fixed
+``` css
+.games .item a{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	z-index: 10;
+}
+```

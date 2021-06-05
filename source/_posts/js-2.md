@@ -978,6 +978,12 @@ if (document.getElementById("check1").checked){
 var x = document.getElementById("myLI").parentElement
 ```
 
+##### [.click()](https://developer.mozilla.org/zh-TW/docs/Web/API/HTMLElement/click) 模擬滑鼠點擊一個元素
+``` js
+// click 1st nav link
+document.querySelector('.navbar a').click()
+```
+
 #### [Event](https://developer.mozilla.org/zh-TW/docs/Web/API/Event)
 
 ##### .target - 初觸發事件的物件
@@ -1317,6 +1323,36 @@ CORS(全名為 Cross-Origin Resource Sharing) 跨來源資源共享 : server res
 <div style="width:700px">
 	{% asset_img pic10.png pic10 %}
 </div>
+
+##### AJAX set header
+``` js
+function sendTwitchApi(url, respProcess) {
+	const request = new XMLHttpRequest()
+	// loaded function
+	request.onload = function() {
+		if (request.status >= 200 && request.status < 400) {
+			// process by callback function
+			respProcess(request.responseText)
+		}
+		else {
+			console.log('response :', request)
+			console.log('response error :', request.status)
+		}
+	}
+	
+	// error 
+	request.onerror = function() {
+		console.log('error')
+	}
+	
+	// true 表非同步
+	request.open('GET', url, true)
+	// add header
+	request.setRequestHeader('Accept','application/vnd.twitchtv.v5+json');
+	request.setRequestHeader('Client-ID','qvtuq71csrlv5ipxo1ljzgbzqn1okh');
+	request.send()
+}
+```
 
 ##### 跨來源網路存取
 + 同源政策控制了兩個不同網域來源互動,當使用XMLHttpRequest。這些互動可分為以下三類:
