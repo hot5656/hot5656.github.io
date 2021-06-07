@@ -1266,18 +1266,24 @@ const bodyObj = JSON.parse(body)
 ```
 
 #### [Global](https://www.w3schools.com/jsref/jsref_obj_global.asp)
-##### encodeURI() - encode a URI
+##### encodeURIComponent()/encodeURI() - encode a URI
 ``` js
 var uri = "my test.asp?name=ståle&car=saab";
 var res = encodeURI(uri);
+// 含括編碼的字元較多, 使用此function
+var res2 = encodeURIComponent(uri);
 ```
 
-##### decodeURI() - decode a URI
+##### decodeURIComponent()/decodeURI() - decode a URI
 ``` js
 var uri = "my test.asp?name=ståle&car=saab";
 var enc = encodeURI(uri);
 var dec = decodeURI(enc);
 var res = enc + "<br>" + dec;
+// 含括編碼的字元較多, 使用此function
+var uri_enc = encodeURIComponent(uri);
+var uri_dec = decodeURIComponent(uri_enc);
+var res2 = uri_enc + "<br>" + uri_dec;
 ```
 
 

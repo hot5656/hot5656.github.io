@@ -1070,6 +1070,32 @@ box {
 
 ```
 
+#### [filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)
++ [CSS濾鏡效果](http://blog.shihshih.com/css-filter/)
+
+``` css
+/*
+CSS Filters濾鏡效果共有十種特效
+grayscale灰階
+sepia懷舊
+saturate飽和
+hue-rotate色相旋轉
+invert負片
+opacity不透明
+brightness亮度
+contrast對比
+blur模糊
+drop-shadow下拉陰影
+*/
+.games .item {
+	filter: brightness(0.8)
+}
+.games .item:hover {
+	filter: brightness(1)
+}
+```
+
+
 ### RWD 相關
 
 #### RWD meta

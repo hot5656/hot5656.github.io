@@ -5,6 +5,7 @@ date: 2021-05-23 15:04:44
 categories: Front End
 tags:
 	- css
+	- tricky
 ---
 
 ### tag a 連非中間文字都可選
@@ -56,6 +57,17 @@ a	{
 	<h1>蘋果咬一口</h1>
 </div>
 ``` 
+
+### 圖片加一層顏色,使亮度變小上層文字明顯 - 使用 filter
+``` css
+.games .item {
+	filter: brightness(0.8)
+}
+
+.games .item:hover {
+	filter: brightness(1)
+}
+```
 
 ### 使用 translate() 將元件移至 正中間
 ``` html

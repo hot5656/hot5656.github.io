@@ -313,6 +313,12 @@ Allow: /data/*/crosssellaccommodations
 </article>
 ```
 
+### [HTML Attribute](https://www.w3schools.com/tags/ref_attributes.asp)
+#### title - mouse 移至上方顯示說明 
+``` html
+<p><abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
+<p title="Free Web tutorials">W3Schools.com</p>
+```
 
 ### 其他
 #### Escape 跳脫

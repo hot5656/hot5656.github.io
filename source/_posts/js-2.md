@@ -376,6 +376,13 @@ const parent = document.createElement('div')
 parent.appendChild('Appending Text') // Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'
 ```
 
+###### [.remove()](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) - 直接移除元件
+``` js
+var el = document.getElementById('div-02');
+el.remove(); // Removes the div with the 'div-02' id
+```
+
+
 #### [Event](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
 + [Element Events](https://developer.mozilla.org/en-US/docs/Web/API/Element#clipboard_events)
 + [Document Events](https://developer.mozilla.org/en-US/docs/Web/API/Document#events)
