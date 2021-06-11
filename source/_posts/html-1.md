@@ -7,6 +7,16 @@ tags:
 	- html
 ---
 
+### 說明
++ [同源政策 (Same-origin policy)](https://developer.mozilla.org/zh-TW/docs/Web/Security/Same-origin_policy)
+	+ 跨來源寫(Cross-origin writes)通常被允許，例如有連結、重新導向以及表單送出。少數某些HTTP請求需要先導請求。
+	+ 跨來源嵌入(Cross-origin embedding)通常被允許。
+	+ 跨來源讀取(Cross-origin read) 通常不被允許，不過通常可以藉由嵌入來繞道讀取，例如嵌入影像寬高讀取、嵌入程式碼或嵌入資源。
++ [跨源資源共享（CORS）](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)
+	+ 簡單請求
+	+ Preflight Request(預檢請求)
+		有時會看到發兩次 request,因為只要發送請求到不同 origin 就會有 cors 的問題,所以 server 必須先確定 client 端是合法請求，也就是,Preflighted 要先發一次 request 去驗證是否合法 domain,成功了才能發真正的 request
+
 ### SEO(Search engine optimization)搜尋引擎優化 與 meta 標籤
 + [Tripadvisor](https://www.tripadvisor.com.tw/)
 + [The Open Graph protocol](https://ogp.me/) : Facebook 使用
@@ -241,6 +251,12 @@ Allow: /data/*/crosssellaccommodations
 		<input type="submit" value="送出">
 	</div>
 </form>
+
+##### textarea
+``` html
+<textarea name="content" rows="5"></textarea>
+```
+<textarea name="content" rows="5"></textarea>
 
 #### 圖片與多媒體
 ``` html

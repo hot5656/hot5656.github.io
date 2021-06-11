@@ -370,18 +370,6 @@ div span:nth-child(3n+1) {
 	line-height: 1.5em;
 	/* 水平位置 center, left(default), right */
 	text-align: center;
-	/* 字換行 
-	normal 預設值，根據瀏覽器預設的斷行效果
-	keep-all	不可以在單字的字母換行，必須保留完整單字，例如遇到半形空格才能換行
-	break-all 可以在單字的字母換行，不一定要完整單字才能換行(一般文章會將字切開)
-	break-word normal 和 overflow-wrap: anywhere  的合併 */
-	word-break: break-word;
-	/* 處理元素內的空白 - 也是處理換行 
-	normal 默認。空白會被瀏覽器忽略
-	pre 空白會被瀏覽器保留。其行為方式類似HTML 中的<pre> 標籤
-	nowrap	文本不會換行，文本會在在同一行上繼續，直到遇到<br> 標籤為止
-	pre-wrap	保留空白符序列，但是正常地進行換行 */
-	/* white-space: nowrap; */
 	width: 400px;
 	/* overflow and text-overflow */
 	/* overflow : hidden,scroll,visible ..  */
@@ -428,7 +416,7 @@ box {
 }
 ```
 
-##### text-indent(首行處理)
+##### text-indent 首行處理
 ``` css
 .box {
 	/* 讓首行縮排 */
@@ -440,6 +428,34 @@ box {
 	text-indent : -36px;
 }
 ```
+
+##### word-break 文字斷行規則
+``` css
+/*
+normal    預設值，根據瀏覽器預設的斷行效果
+keep-all	不可以在單字的字母換行，必須保留完整單字，例如遇到半形空格才能換行
+break-all 可以在單字的字母換行，不一定要完整單字才能換行(一般文章會將字切開)
+break-word normal 和 overflow-wrap: anywhere  的合併
+*/
+box {
+	word-break: break-all;
+}
+```
+
+##### white-space 空白與換行處理
+``` css
+/*
+normal	 默認。 空白會被瀏覽器忽略。
+pre	     空白會被瀏覽器保留。 其行為方式類似HTML 中的<pre> 標籤。
+nowrap	 文本不會換行，文本會在在同一行上繼續，直到遇到<br> 標籤為止。
+pre-wrap 保留空白符序列，但是正常地進行換行。
+pre-line 合併空白符序列，但是保留換行符。 
+*/
+box {
+	white-space: pre-line;
+}
+```
+
 
 ##### writing-mode and inline-size(雖然 display:block 也會影顯寬度)
 + writing-mode 文字顯示的方向

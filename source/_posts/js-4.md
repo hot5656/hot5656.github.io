@@ -69,6 +69,11 @@ switch (aString) {		// '1abc23'
 </body>
 ```
 
+### 瀏覽器 定時 reload 網頁
+``` js
+setInterval(function(){location.reload(true);}, 3000);
+```
+
 ### 使用 object 設定
 ``` js
 // prizes object

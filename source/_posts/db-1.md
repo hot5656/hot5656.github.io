@@ -1,10 +1,11 @@
 ---
-title: 資料庫
+title: DATABASE
 abbrlink: 6a62
 date: 2021-06-03 14:22:48
 categories: Back End
 tags:
 	- database
+	- mysql
 ---
 
 ### 基本
@@ -12,6 +13,7 @@ tags:
 + 編碼與排序 	: 建議 utf8_general_ci
 + Pimary Key(PK) : 主鍵
 + Unique : 在 table 內,資料唯一
++ CRUD : 新增(Create)、讀取(Read)、更新(Update)、刪除(Delete)
 
 <!--more-->
 
@@ -28,7 +30,9 @@ tags:
 #### DB 管理程式
 ##### MySQL
 + phpMyAdmin
-
++ MySQL workbench
++ Sequel Pro (Mac only)
++ HeidiSQL
 
 ### mySQL
 #### 基礎語法

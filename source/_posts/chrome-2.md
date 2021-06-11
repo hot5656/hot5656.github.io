@@ -43,3 +43,6 @@ webstore/detail/window-resizer-beta/pnhnbekjlbamfnnemcaolkjchjlidbib/related)
 
 #### [Wappalyzer](https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg/related?hl=zh-TW)
 查看網站所使用的環境、技術、主機與分析工具
+
+#### [daily.dev](https://chrome.google.com/webstore/detail/dailydev-all-in-one-devel/jlmpjdjjbgclbocgajdjefcidcncaied/related)
+All-in-one developer news reader

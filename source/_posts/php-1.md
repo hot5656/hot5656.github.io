@@ -3,6 +3,8 @@ title: PHP 說明
 categories: Back End
 tags:
   - php
+	- database
+	- mysql
 abbrlink: '755'
 date: 2021-05-31 10:39:11
 ---
@@ -540,3 +542,19 @@ http://localhost/robert/index.php
 ### PHP function 
 
 #### [date()](https://www.php.net/manual/en/function.date.php)
+
+#### [header](https://www.php.net/manual/en/function.header.php) 開啟網頁
+``` php
+header("Location: http://$host$uri/$extra");
+header("Location: index.php");
+```
+
+#### cookie
+``` php
+// set cookie - 1 hour --> *24*30 = 30days
+setcookie("user", "peter" , time()+3600); 
+// get kookie
+echo $_COOKIE["user"];
+// delete cookie 
+setcookie("user", "", time()-3600);
+```

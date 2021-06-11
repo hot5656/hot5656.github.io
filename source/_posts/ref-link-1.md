@@ -60,6 +60,10 @@ date: 2021-03-18 15:48:55
 + [Free MySQL hosting](https://www.freemysqlhosting.net/)
 
 ### 技術網站
++ [PHP manual](https://www.php.net/manual/en/)
++ [MySQL Improved Extension](https://www.php.net/manual/en/book.mysqli.php)
++ [mySQL Tutorial](https://www.mysqltutorial.org/)
++ [MySQL](https://dev.mysql.com/)
 + [W3School](https://www.w3schools.com/html/default.asp)
 + [W3School 中文](https://www.w3school.com.cn/)
 + [MDN Web Docs](https://developer.mozilla.org/zh-TW/docs/Web/HTML)
@@ -69,6 +73,8 @@ date: 2021-03-18 15:48:55
 + [segmentfault](https://segmentfault.com/)
 + [億聚網](https://www.1ju.org/)
 + [oxxostudio](https://www.oxxostudio.tw/)
++ [ITREAD01.COM](https://www.itread01.com/)
++ [PHP學習誌](https://sites.google.com/site/phplearnmark/home)
 
 ### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)
@@ -82,6 +88,7 @@ date: 2021-03-18 15:48:55
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
 + [CoderBridge 技術內容創作分享學習平台](https://zh-tw.coderbridge.com/)
 + [google 文件](https://developers.google.com/search/docs)
++ [DEV](https://dev.to/)
 
 
 ### 題庫
