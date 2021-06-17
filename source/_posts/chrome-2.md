@@ -8,13 +8,16 @@ tags:
 	- tool
 ---
 
+
+### Chrome special key
++ ``Esc`` - 停止載入目前網頁
+
+<!--more-->
+
 ### Chrome plug
 + [前端實用 chrome plug](https://pjchender.blogspot.com/2016/08/chrome-chrome-extension.html)
 + [十大Chrome外掛套件總整理](https://www.minwt.com/webdesign-dev/html/19042.html
 )
-
-<!--more-->
-
 
 #### [Page Ruler Redux](https://chrome.google.com/webstore/detail/page-ruler-redux/giejhjebcalaheckengmchjekofhhmal?hl=zh-TW)
 + 測 web site 長寬,距離上,下,左,右距離

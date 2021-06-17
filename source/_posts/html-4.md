@@ -45,6 +45,8 @@ tags:
 </body>
 ```
 
+<!--more-->
+
 ### 網頁 disable cache
 ``` html
 <meta http-equiv="Cache-Control" content="no-cache">
