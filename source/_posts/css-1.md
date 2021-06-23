@@ -1071,6 +1071,14 @@ box {
 }
 ```
 
+#### min-height
+``` css
+// 設定占滿整個畫面高度,以免畫面底端留有空白 
+.mini-page {
+  min-height: calc(100vh - 424px);
+}
+```
+
 #### [calc()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/calc())
 - 允許在聲明CSS屬性值時執行一些計算它可以用在如下場合&lt;length&gt;、&lt;frequency&gt;, &lt;angle&gt;、&lt;time&gt;、&lt;percentage&gt;、&lt;umber&gt;、或 &lt;integer&gt;
 - &plus; 和 - 運算符的兩邊必須要有空白字符

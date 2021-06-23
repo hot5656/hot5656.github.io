@@ -62,9 +62,9 @@ aa'#
 #### PHP Security 注意事項
 + add session
 + password save by hash
-+ XSS : print add htmlspecialchars
++ XSS : print add htmlspecialchars(check echo 有無呼叫 escape function)
 + SQL injection : add prepared statement
-+ 權限管理 : 做以下動作f前,要再 check user 是否符合
++ 權限管理 : 做以下動作前,要再 check user 是否符合
 	modify, deleted, show private information 
 
 
@@ -660,7 +660,12 @@ if ($affect_rows<1) {
 		// if (strpos($conn->error, 'Duplicate entry') !== false) {
 		// check duplicate error code = 1062
 		if  ($conn->errno === 1062) {
-		 	header('Location: register.php?errorCode=2');
+			 header('Location: register.php?errorCode=2');
+			 echo '帳號已被註冊!';
+		}
+		else {
+		 	header('Location: register.php?errorCode=3');
+			echo '新增錯誤!';
 		}
 		die($conn->error);
 	}
@@ -745,6 +750,47 @@ if ($affect_rows<1) {
 
 	// run index.php
 	header("Location: index.php");
+?>
+```
+
+#### 刪除 mySQL 資料(soft delete)
+``` php
+<?php 
+	require_once('conn.php');
+	require_once('utils.php');
+	session_start();
+
+	// if account not valid auto re-direct to index(logout)
+	accountValid();
+	
+	$id = NULL;
+	if (!empty($_GET['id'])) {
+		$id = $_GET['id'];
+	}
+
+	// $sql = "update blog set is_deleted=? where id=?";
+	// $stmt = $conn->prepare($sql);
+	// // 使用 true, TRUE or 1 都可, 但不能設值要使用變數
+	// $true = true;
+	// $stmt->bind_param('bs', $true, $id);
+	$sql = "update blog set is_deleted=TRUE where id=?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param('s', $id);
+	$result = $stmt->execute();
+	if(!$result) {
+		header('Location: admin.php?id=' . $id . '&errorCode=2');
+		die('刪除錯誤!');
+	}
+
+	$affect_rows = (int)$conn->affected_rows;
+	if ($affect_rows<1) {
+		header('Location: admin.php?id=' . $id . '&errorCode=2');
+		die('刪除錯誤!');
+	}
+
+	echo '刪除完成!';
+	header('Location: admin.php')
+
 ?>
 ```
 
@@ -905,6 +951,197 @@ ELECT * FROM table_name WHERE col_name IS NULL
 SELECT * FROM table_name WHERE col_name IS NOT NULL
 #欄位 col_name 是 NULL 或 空字串 的記錄
 SELECT * FROM table_name WHERE col_name IS NULL OR col_name = ''
+```
+
+#### login 檢查
+``` php
+// login_handle.php
+<?php
+	require_once('conn.php');
+	session_start();
+	
+	if ( empty($_POST['username']) || empty($_POST['password']) ) {
+		header('Location: login.php?errorCode=4');
+		die("輸入錯誤!");
+	}
+
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+
+	$sql = "select * from users where username=?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param('s', $username);
+	$result = $stmt->execute();
+	if (!$result) {
+		header('Location: login.php?errorCode=1');
+		print_r($conn->error);
+		die("資料庫錯誤!");
+	}
+
+	// 真正取資料要執行 $stmt->get_result();
+	$result = $stmt->get_result();
+	if ($result->num_rows < 1) {
+		header('Location: login.php?errorCode=2');
+		die("查無帳號!");
+	}
+
+	$row = $result->fetch_assoc();
+	if(!password_verify($password, $row['password'])) {
+		header('Location: login.php?errorCode=3');
+		die("密碼錯誤!");
+	}
+
+	echo "登入成功!";
+	// set session
+	$_SESSION['username'] = $username;
+	header('Location: index.php');
+?>
+```
+
++ check login state
+
+``` php
+<?php
+	session_start();
+
+	$username = NULL;
+	if (!empty($_SESSION['username'])) {
+		$username = $_SESSION['username'];
+	}
+?>
+
+<div class="nav-right">
+	<?php if($username) { ?>
+		<div class="nav-item"><a href="admin.php">管理後台</a></div>
+		<div class="nav-item"><a href="logout_handle.php">登出</a></div>
+	<?php } else { ?>
+		<div class="nav-item"><a href="login.php">登入</a></div>
+	<?php } ?>
+</div>
+```
+
+
+### PHP 語法
+#### 變數
+##### array
++ 設空 array - $levelArr = [] 
++ push array - array_push($levelArr, $row );
+``` php 
+function getManageLevels() {
+	global $conn;
+	$levelArr = [];
+	
+	$sql = 'select * from user_levels order by user_level';
+	$stmt = $conn->prepare($sql);
+	$result = $stmt->execute();
+	if ($result) {
+		// 真正取資料要執行 $stmt->get_result();
+		$result = $stmt->get_result();
+
+		while($row = $result->fetch_assoc()) {
+			array_push($levelArr, $row );
+		}
+	}
+	return $levelArr;
+}
+// show array
+$levelArr = getManageLevels();
+$length = count($levelArr);
+for ($i=0 ; $i < $length ; $i++) {
+	echo $levelArr[$i]['id'] . ' ' ;
+	echo $levelArr[$i]['user_level'] . ' ' ;
+	echo $levelArr[$i]['level_describe'] . ' ' ;
+	echo $levelArr[$i]['all_modify'] . ' ' ;
+	echo $levelArr[$i]['all_delete'] . ' ' ;
+	echo $levelArr[$i]['self_create'] . ' ' ;
+	echo $levelArr[$i]['self_modify'] . ' ' ;
+	echo $levelArr[$i]['self_delete'] . ' ' ;
+	echo ' <br>';
+}
+```
+
+##### object
+```
+// object 設定
+$manageState = [
+	'user_admin' => 0,
+	'all_modify' => 0,
+	'all_delete' => 0,
+	'self_create' => 0,
+	'self_modify' => 0,
+	'self_delete' => 0,
+];
+```
+### Snippet for PHP
+#### error code 處理
+``` php
+<?php 
+	if (!empty($_GET['errorCode'])) {
+		$msg = '';
+		switch ($_GET['errorCode']) {
+			case 1 :
+				$msg = '資料庫錯誤!';
+				break;
+			case 2 :
+				$msg = '查無帳號!';
+				break;
+			case 3 :
+				$msg = '密碼錯誤!';
+				break;
+			case 4 :
+				$msg = '輸入錯誤!';
+				break;
+			default :
+				$msg = '未知錯誤!';
+				break;
+		}
+		echo '<div class="warning">' . $msg . '</div>';
+	}
+?>
+```
+
+#### utils 
+##### check accountValid
+``` php
+<?php
+	require_once('conn.php');
+
+	// if account not valid auto re-direct to index(logout)
+	function accountValid() {
+		global $conn ;
+		$isValid =  false;
+
+		$username = NULL;
+		if (!empty($_SESSION['username'])) {
+			$username = $_SESSION['username'];
+		}
+
+		$sql = "select * from users where username=?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param('s', $username);
+		$result = $stmt->execute();
+		if ($result) {
+			$result = $stmt->get_result();
+			if ($result->num_rows > 0) {
+				$isValid =  true;
+			}
+		}
+		
+		if (!$isValid) {
+			Header("location: logout_handle.php");
+			exit();
+		}
+	} 
+?>
+```
+
+##### 設定 HTML 跳脫字元 - check echo 有無呼叫
+``` php
+	// 設定 HTML 跳脫字元
+	// check echo 有無呼叫
+	function escape($str) {
+		return htmlspecialchars($str, ENT_QUOTES);
+	}
 ```
 
 ### PHP function 

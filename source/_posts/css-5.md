@@ -171,6 +171,14 @@ img {
 	<input class="gen-btn" type="submit" value="產生">
 </form>
 ```
+
+### 設定占滿整個畫面高度,以免畫面底端留有空白 
+``` css
+.mini-page {
+  min-height: calc(100vh - 424px);
+}
+```
+
 ### input
 #### [Custom Checkbox](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
 ``` html

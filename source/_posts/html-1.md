@@ -258,6 +258,32 @@ Allow: /data/*/crosssellaccommodations
 ```
 <textarea name="content" rows="5"></textarea>
 
+##### 下拉式選單 - &lt;select&gt;, &lt;option&gt;
+``` html
+<select name="type">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="vw">VW</option>
+  <option value="audi" selected>Audi</option>
+</select>
+```
+
+<select id="type">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="vw">VW</option>
+  <option value="audi" selected>Audi</option>
+</select>
+
+##### input type hidden
+``` html
+<form>
+　<input type="text" name="YourName">
+　<input type="hidden" name="隱藏欄位名稱" value="隱藏欄位值">
+　<input type="submit" value="送出表單">
+</form>
+```
+
 #### 圖片與多媒體
 ``` html
 <!-- title:滑鼠移到顯示  alt:替代文字(圖片不存在))-->

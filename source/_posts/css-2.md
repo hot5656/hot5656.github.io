@@ -208,3 +208,32 @@ button {
 	z-index: 10;
 }
 ```
+
+### 設定 overflow: hidden;,造成 相鄰行內元素向下偏移
++ 設定 vertical-align: bottom; 即可修正
+``` html
+<style>
+	.box {
+		padding: 10px;
+	}
+
+	.box-1,
+	.box-2 {
+		display: inline-block;
+		width: 100px;
+	}
+
+	.box-2 {
+		overflow: hidden;
+		/* 修正造成相鄰向下偏移 */
+		vertical-align: bottom;
+	}
+</style>
+
+<div class="box debug">
+	<span class="box-1">AAA</span>
+	<span class="box-2">BBB</span>
+	<span class="box-1">CCC</span>
+	<span class="box-2">DDD</span>
+</div>
+```
