@@ -277,6 +277,15 @@ pre {
 }
 ```
 
+### 設定 tag code style 
+source\_data\styles.styl
+``` css
+// 設定 tag code style
+code {
+	color: #ff3860;
+	background-color: transparent;
+}
+```
 
 <br>
 
@@ -512,6 +521,12 @@ pre {
 .table-container tbody tr:nth-child(2n)
 {
 	background: #d4d4d4
+}
+
+// 設定 tag code style
+code {
+	color: #ff3860;
+	background-color: transparent;
 }
 ```
 

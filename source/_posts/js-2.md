@@ -308,6 +308,31 @@ alert(div.classList.contains("foo"));
 </html>
 ```
 
+``` html 
+// use innerHTML
+sendAjaxhApi('http://localhost/robert/comment/api_get_comment.php', function(response){
+	const comments = JSON.parse(response)
+	console.log(comments.comment[0])
+	let section = document.querySelector('section')
+	for(let i=0 ; i < comments.comment.length ; i++ ) {
+		let card = document.createElement('div')
+		card.classList.add('card')
+		card.innerHTML = `
+			<div class="card-avatar"></div>
+			<div class="card-info">
+				<div class="card-title"> 
+					<span class="card-user">${comments.comment[i].nickname}</span>
+					<span class="card-time">${comments.comment[i].create_at}</span>
+				<div class="card-content">
+					${comments.comment[i].content}
+				</div>
+			</div>
+		`
+		section.appendChild(card)
+	}
+})
+```
+
 ##### 加入刪除 元素
 ``` html
 <!DOCTYPE html>
@@ -904,6 +929,7 @@ document.addEventListener('DOMContentLoaded', function(){
 ```
 
 ##### event delegation(代理)
+事件代理（Event Delegation），又稱之為事件委託
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -942,6 +968,45 @@ document.addEventListener('DOMContentLoaded', function(){
 				if (e.target.classList.contains('btn')) {
 					alert(e.target.getAttribute('data-value'))
 				}
+		})
+	</script>
+</body>
+</html>
+```
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.item {
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<ul class="list">
+		<li class="item" id="id1">item1</li>
+		<li class="item">item2</li>
+		<li class="item">item3</li>
+	</ul>
+	<script>
+		document.addEventListener('click', function(e){
+			let element = e.target
+			if (element.classList.contains('item')) {
+				console.log(element.innerText)
+			}
+			// 判斷 tag
+			// if(element.nodeName.toLowerCase === "li")
+			// 判斷 id
+			if(element.id === "id1") {
+				console.log(element.id)
+			}
+
 		})
 	</script>
 </body>
@@ -1006,7 +1071,50 @@ document.querySelector('.box')
 ##### .currentTarget - 處理事件之監聽器所屬的物件
 
 #### [XMLHttpRequest](https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)
+``` js
+const request = new XMLHttpRequest()
+// loaded function
+request.onload = function() {
+	if (request.status >= 200 && request.status < 400) {
+		console.log(request.responseText)
+	}
+	else {
+		console.log('response error :', request.status)
+	}
+}
+// error 
+request.onerror = function() {
+	console.log('error')
+}
+// true 表非同步
+request.open('GET', 'https://google.com', true)
+request.send()
+```
 
+#### [URLSearchParams 解析網址的參數](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+``` js
+// http://localhost/robert/todo_list_bs4/?id=22
+let searchParams = new URLSearchParams(window.location.search);
+let id = searchParams.get('id');
+```
+
+#### [History API](https://developer.mozilla.org/zh-TW/docs/Web/API/History_API)
+``` js
+// 歷史紀錄中往上一步移動
+window.history.back();
+// 往下一步移動
+window.history.forward();
+// 移動到特定的歷史紀錄-往前一頁
+window.history.go(-1);
+// 往後一頁
+window.history.go(1);
+// 更改網址 - 不更新內容
+history.pushState(null, null, '/hello')
+
+pushState() // 更改網址,但不會讓瀏覽器去載入
+replaceState() // 修改目前的歷史紀錄而不是創造一個新的
+popstate 事件 // popstate 事件的 state 屬性會含有一個歷史紀錄的 state object 的副本。
+```
 
 ### 瀏覽器上儲存資料
 
@@ -1398,4 +1506,22 @@ window.alert("hello!")
 alert("hello2 !")
 ```
 
+##### load 畫面
+``` js
+// 刷新當前頁面
+location.reload()
+// load 指定頁面
+window.location = 'index.html?id=' + respId
+```
 
+### Snippet for JavaScript
+##### escape HTML
+``` js
+function escapeHTML(s) { 
+  return s.replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/'/g, "&#039;");
+}
+```

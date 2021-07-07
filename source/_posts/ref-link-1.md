@@ -50,6 +50,7 @@ date: 2021-03-18 15:48:55
 + [Github API](https://github.com/HackerNews/API)
 + [PokeAPI](https://pokeapi.co/)
 + [Lorem Picsum](https://picsum.photos/) : 假圖 API
++ [REST Countries](https://restcountries.eu/#api-endpoints-name)
 
 ### 開源/線上資源
 + [worldlink 實用開源](https://www.worldlink.com.cn/zh_tw/osdir/pos?properties%5B55%5D%5B0%5D=1.html)
@@ -59,6 +60,10 @@ date: 2021-03-18 15:48:55
 + [免費資源網路社群](https://free.com.tw/)
 + [Free MySQL hosting](https://www.freemysqlhosting.net/)
 + [000webhost](https://www.000webhost.com/)
+
+### project 
++ [jQuery UI](https://jqueryui.com/)
++ [Bootswatch](https://bootswatch.com/) : free themes for Bootstrap
 
 ### 技術網站
 + [PHP manual](https://www.php.net/manual/en/)

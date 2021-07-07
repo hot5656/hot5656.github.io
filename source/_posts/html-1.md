@@ -284,6 +284,16 @@ Allow: /data/*/crosssellaccommodations
 </form>
 ```
 
+##### [enctype Attribute(content type)](https://www.w3schools.com/tags/att_form_enctype.asp)
++ application/x-www-form-urlencoded
++ multipart/form-data
++ text/plain
+``` html
+<form enctype="value">
+	....
+</form>
+```
+
 #### 圖片與多媒體
 ``` html
 <!-- title:滑鼠移到顯示  alt:替代文字(圖片不存在))-->
