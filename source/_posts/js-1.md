@@ -533,6 +533,18 @@ try {
 }
 ```
 
+#### [throw](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Control_flow_and_error_handling)
+```
+// 拋出例外
+// throw expression
+throw "Error2";   // 字串形態
+throw 42;         // 數字形態
+throw true;       // True/False
+throw {toString: function() { return "我是物件!"; } }
+// 拋出 Error 物件
+throw new Error('Whoops!')
+```
+
 
 ### 變數 variable
 

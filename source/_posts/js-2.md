@@ -1116,6 +1116,317 @@ replaceState() // 修改目前的歷史紀錄而不是創造一個新的
 popstate 事件 // popstate 事件的 state 屬性會含有一個歷史紀錄的 state object 的副本。
 ```
 
+#### fetch and promise
+##### fetch API
+Fetch API 提供了一個能獲取包含跨網路資源在的資源介面,它有點像我們所熟悉的 XMLHttpRequest,回傳為 Promise 的物件
+
+fetch example 
+``` js
+		// simple run fetch
+		const result =  fetch('https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047')
+		console.log(result)
+		// response Promise
+		// --> Promise {<pending>}
+
+		// fetch().then() 將 promise 內容傳至function 
+		function printResult(resp) {
+			console.log(resp)
+		}
+		// ------------
+		const result =  fetch('https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047')
+		result.then(printResult)
+		// --> Response {type: "cors", url: "https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047",
+
+		// response status
+		api500 = "https://run.mocky.io/v3/db4c7417-2cf8-473e-9f05-f16ec2cfe725"
+		api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(api500).then( response => {
+				console.log(response.status)
+		})
+		fetch(api200).then( response => {
+				console.log(response.status)
+		})
+		// 500
+		// 300
+
+		// text() show response
+		// fetch() => Promise
+		// response.text() => Promise
+		api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(api200).then( response => {
+			response.text().then( text => {
+				console.log(text)
+			})
+			// console.log(response.text())
+		})
+		// {"message": "Hello!"}
+
+		// json() show response
+		// return send to .then
+		// fetch() => Promise
+		// response.text() => Promise, text = json
+		// response.json() => Promise, text = object
+		api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(api200).then( response => {
+			response.json().then(text =>{
+				console.log(text)
+				console.log(text.message)
+				return 123
+			}).then( abc =>{
+				console.log('abc=', abc)
+			})
+		})
+		// {message: "Hello!"}
+		// Hello!
+		// abc=123
+
+		// json() show response (another style)
+		// return send to .then
+		// fetch() => Promise
+		// response.text() => Promise, text = json
+		// response.json() => Promise, text = object
+		api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(api200).then( response => {
+			return response.json()
+		}).then(json =>{
+			console.log(json)
+		}) 
+		// {message: "Hello!"}
+
+		// uri error trigger catch 
+		// return send to .then
+		// fetch() => Promise
+		// response.text() => Promise, text = json
+		// response.json() => Promise, text = object
+		api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047-err'
+		fetch(api200).then( response => {
+			return response.json()
+		}).then(json =>{
+			console.log(json)
+		}).catch(e =>{
+			console.log("error=", e)
+		}) 
+		// error= TypeError: Failed to fetch
+
+		// POST
+		data = {
+			age: 30
+		}
+		pi200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(pi200, {
+			body: JSON.stringify(data), // object to json
+			headers: {
+				'content-type': 'application/json'	// json format
+			},
+			method: 'POST', 	// *GET, POST, PUT, DELETE, etc.
+  	}).then(response => {
+			return response.json()
+		}).then( json =>{
+			console.log(json)
+		})
+		// {message: "Hello!"}
+```
+##### fetch 注意事項
+
++ content-type 要填正確,如以下為 json
+
+``` js
+		pi200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		fetch(pi200, {
+			body: JSON.stringify(data), // object to json
+			headers: {
+				'content-type': 'application/json'	// json format
+			},
+			method: 'POST', 	// *GET, POST, PUT, DELETE, etc.
+  	}).then(response => {
+			return response.json()
+		}).then( json =>{
+			console.log(json)
+		}
+```
+
++ fetch 不會傳送 cookies，除非你有設定 credential
+	+ 要讓瀏覽器將 credentials 跟著 request 一起送出, 方式就是在 init object 加上 credentials: 'include' 
+	+ 想要把 credentials 發送給同源的 URL ，加上credentials: 'same-origin'。
+	+ 要確保瀏覽器不會帶著 credentials 請求，可以用 credentials: 'omit' 。
+
+``` js
+fetch('https://example.com', {
+  credentials: 'include'
+})
+
+fetch('https://example.com', {
+  credentials: 'same-origin'
+})
+
+fetch('https://example.com', {
+  credentials: 'omit'
+})
+```
+
++ mode: 'no-cors'僅告訴 server, don't card CPRS don'n need response error,並不表示server 不support時,能收到資料
+
+``` js
+		// mode: 'no-cors'
+		data = {
+			age: 30
+		}
+		pi200 = 'https://tw.yahoo.com'
+		fetch(pi200, {
+			body: JSON.stringify(data), // object to json
+			headers: {
+				'content-type': 'application/json'	// json format
+			},
+			method: 'POST', 	// *GET, POST, PUT, DELETE, etc.
+			mode: 'no-cors', // no-cors, cors, *same-origin
+  	}).then(response => {
+			return response.text()
+						.then( text =>{
+							console.log(text)
+						})
+		})
+```
+
+#####	Promise
+###### Promise應用 clipboard
+``` js
+		// 只能在 active tab 發生作用 (aka 開發者無法在 colsole 做測試，會得到DOMException: Document is not focused.)
+		var promise = navigator.clipboard.readText()
+		promise.then(data =>{
+			console.log()
+		})
+```
+
+###### Promise example
+``` js
+	// 1st Promise example
+	// function init(resolve, reject) {
+	// 	// resolve(5)	// data= 5, return for then
+	// 	reject(3) // error= 3, return for catch
+	// }
+	// const myPromise = new Promise(init)
+	// sampe function as up example 
+	const myPromise = new Promise( (resolve, reject) => {
+		resolve(4)
+	})
+	myPromise.then( data => {
+		console.log('data=', data)
+	}).catch(err =>{
+		console.log('error=' , err)
+	})
+
+	// set for 3s deleay 
+	const myPromise = new Promise( (resolve, reject) => {
+		setTimeout(() => {
+			resolve(6)
+		}, 3000)
+	})
+	myPromise.then( data => {
+		console.log('data=', data)
+	}).catch(err =>{
+		console.log('error=' , err)
+	})
+
+	// example for XMLHttpRequest()
+	api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+	const myPromise = new Promise((resolve, reject) => {
+		var request = new XMLHttpRequest()
+		request.open('GET', api200, true)
+		// --------------
+		request.onload = function() {
+			if (this.status >= 200 && this.status < 400) {
+				var data = JSON.parse(this.response)
+				resolve(data)
+			}
+		}
+		request.onerror = function(err) {
+			reject(err)
+		}
+		request.send()
+	})
+	// ----------------
+	myPromise.then( data => {
+		console.log('myPromise data =', data)
+	}).catch(err => {
+		console.log('error =', err)
+	})
+	// myPromise data = {message: "Hello!"}
+
+	// sleep()
+	// function sleep(ms) {
+	// 	const myPromise = new Promise(resolve => {
+	// 		setTimeout(resolve, ms)
+	// 	})
+	// 	return myPromise
+	// }
+	// ---------------
+	// function sleep(ms) {
+	// 	return new Promise(resolve => {
+	// 		setTimeout(resolve, ms)
+	// 	})
+	// }
+	// ---------------
+	// const sleep = ms => new Promise(resolve => {
+	// 				 setTimeout(resolve, ms)
+	// 			 })
+	//---------------
+	const sleep = ms => 
+		new Promise(resolve => setTimeout(resolve, ms))
+	sleep(1500).then( data => {
+	 	console.log('myPromise data', data)
+	})
+	.catch (err => {
+	 	console.log('err =', err)
+	})
+	// myPromise data undefined
+```
+
+#### async and await
++ await 特性下，會等 promise 任務完成後才會讓程式繼續往下執行
++ async，他能夠將 await 包在裡面，被包在裡面的 await 會依序地執行
+
+##### example 
+``` js
+	// for fetch
+	const response = await fetch(...)
+	console.log(response)
+
+	// for sleep
+	const sleep = ms =>
+		new Promise(resolve => setTimeout(resolve, ms))
+	async function main() {
+		console.log('enter main')
+		await sleep(1000)
+		console.log('exit main') 
+	}
+	main()
+
+	// wait then get data
+	const sleep = ms =>
+		new Promise(resolve => setTimeout(resolve, ms))
+	function getData(){
+		const api200 = 'https://run.mocky.io/v3/d2268e25-bfa4-4e70-a505-b5faf61f7047'
+		return fetch(api200)
+		.then( response => {
+			return response.json()
+		}).then(json =>{
+			console.log(json)
+		})
+	}
+	async function main() {
+		console.log('enter main')
+		await sleep(1000)
+		try {
+			const result = await getData()
+		} catch(err) {
+			console.log(err)
+		}
+		console.log('exit main')
+	}
+	main()
+```
+
+
 ### 瀏覽器上儲存資料
 
 #### [Cookie](https://www.w3schools.com/js/js_cookies.asp)
@@ -1512,6 +1823,13 @@ alert("hello2 !")
 location.reload()
 // load 指定頁面
 window.location = 'index.html?id=' + respId
+```
+
+##### window load complete
+```js
+window.onload = function() {
+	......
+}
 ```
 
 ### Snippet for JavaScript

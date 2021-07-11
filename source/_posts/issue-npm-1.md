@@ -103,3 +103,9 @@ npm config list
   ; Run `npm config ls -l` to show all defaults.
 ```
 
+## found vulnerabilities-漏洞
++ 未找到一致解決方法
+	>9 vulnerabilities (4 low, 5 moderate)
+	>9 high severity vulnerabilities
+
+

@@ -35,7 +35,7 @@ tags:
 
 ### event
 #### document
-##### document ready
+##### document ready - window load 完成
 ``` js
 $( document ).ready(function() {
   // Handler for .ready() called.
