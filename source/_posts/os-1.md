@@ -15,6 +15,13 @@ tags:
 nslookup
 # 查某一 host IP address
 nslookup google.com
+# 查  hot5656.website from 8.8.8.8(google DNS)
+hot5656.website 8.8.8.8
+	伺服器:  dns.google
+	Address:  8.8.8.8
+	未經授權的回答:
+	名稱:    hot5656.website
+	Address:  54.168.160.39
 ```
 
 <!--more-->
@@ -204,6 +211,80 @@ ls >> l1
 ``` bash
 cat pp.txt | grep hexo
 ```
+
+#### 建立軟連結 - 目錄僅能用軟連結
+```
+# /var/www map to ./www
+ln -s /var/www ./www
+```
+
+#### service control
+``` bash
+sudo service apache2 start
+sudo service apache2 stop
+sudo service apache2 restart
+# 第二種方式
+sudo systemctl start mysql
+sudo systemctl stop mysql
+sudo systemctl restart mysql
+# 第三種方式
+sudo /etc/init.d/mysql stop
+sudo /etc/init.d/mysql start
+sudo /etc/init.d/mysql restart
+# show service status
+systemctl status mysql
+```
+
+#### netstat -來查詢網路相關資訊
+``` bash
+# 列出所有連接埠
+netstat -a
+# 列出 TCP port
+netstat -at
+# 列出 UDP port
+netstat -au
+# 列出網路介面資訊
+netstat -ie
+```
+
+#### apt 
+``` bash
+# list 已安裝
+apt list --installed | grep mysql
+```
+
+#### chmod and chown
+``` bash
+sudo chmod -R 775 /var/www
+sudo chown -R ubuntu:ubuntu /var/www
+```
+
+#### more
+``` bash
+-m  顯示類似more命令的百分比
+-N  顯示每行的行號
+-f  強迫打開特殊檔，例如週邊設備代號、目錄和二進位檔案
+-g  只標誌最後搜索的關鍵字
+-i  忽略搜索時的大小寫
+
+/字串：向下搜索“字串”的功能
+?字串：向上搜索“字串”的功能
+n：重複前一個搜索（與 / 或 ? 有關）
+N：反向重複前一個搜索（與 / 或 ? 有關）
+y: 向前滾動一行
+空白鍵: 向後滾動一行
+[pagedown]：向下翻動一頁
+[pageup]  ：向上翻動一頁
+u: 向前滾動半頁
+d: 向後翻半頁
+Q: 退出less 命令
+h: 顯示説明介面
+
+less -m -N /var/log//apache2/error.log
+```
+
+#### top 顯示即時的系統負載狀態
+
 
 ### vim 
 <div style="width:500px">

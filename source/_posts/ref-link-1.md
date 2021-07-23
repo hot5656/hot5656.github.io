@@ -25,6 +25,7 @@ date: 2021-03-18 15:48:55
 + [Can I use](https://caniuse.com/)
 + [HTML5 site templates](https://html5up.net/) : 模板
 + [Hacker News](https://news.ycombinator.com/) : 可 link 到一些網頁,用作參考
++ [Awwwards](https://www.awwwards.com/) : 網頁設計和優秀網頁設計競賽平台
 
 #### 免費圖庫
 + [CC0 免費圖庫搜尋](https://cc0.wfublog.com/) : 要點圖看到大圖再下載,才有大圖
@@ -87,6 +88,7 @@ date: 2021-03-18 15:48:55
 + [免費資源網路社群](https://free.com.tw/)
 + [Free MySQL hosting](https://www.freemysqlhosting.net/)
 + [000webhost](https://www.000webhost.com/)
++ [申請一個屬於自己的自由網域-TWBBS.org](https://blog.xuite.net/jason_kuso/kuso/39506759)
 
 
 ### 技術網站
@@ -108,6 +110,7 @@ date: 2021-03-18 15:48:55
 + [PHP學習誌](https://sites.google.com/site/phplearnmark/home)
 + [Jollen's PHP 專欄](https://www.jollen.org/php/)
 + [WEBTECH](https://www.webtech.tw/)
++ [掘金](https://juejin.cn/)
 
 ### 文章
 #### Book
@@ -115,11 +118,20 @@ date: 2021-03-18 15:48:55
 
 #### 技術文章
 + [Sketch、Zeplin與Slices切圖](https://medium.com/%E4%B8%80%E5%80%8B%E4%BA%BA%E7%9A%84%E6%96%87%E8%97%9D%E5%BE%A9%E8%88%88/pm%E7%AD%86%E8%A8%98-sketch-zeplin%E8%88%87slices%E5%88%87%E5%9C%96-cfcd509b3cd2)
-+ [DOM 的事件傳遞機制：捕獲與冒泡](https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/)
-+ [申請一個屬於自己的自由網域-TWBBS.org](https://blog.xuite.net/jason_kuso/kuso/39506759)
++ [樹狀結構的建構、版面配置和繪製](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=zh-tw)
++ [減少樣式計算的範圍與複雜性](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations?hl=zh-tw)
++ [Google Web Vitals 網站體驗核心指標Web](https://web.dev/vitals/)
++ [系統設計學習地圖](https://medium.com/%E5%BE%8C%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88%E5%AD%B8%E7%BF%92%E5%9C%B0%E5%9C%96-de216ab211fb)
++ [系統設計入門](https://github.com/donnemartin/system-design-primer/blob/master/README-zh-TW.md)
++ [現代瀏覽器內部揭秘](https://juejin.cn/post/6844903679389073415)
++ [脚撕专有钉钉前端面试题](https://juejin.cn/post/6987549240436195364)
++ [zuaneducation-Frontend](https://www.zuaneducation.com/blog/category/front-end-development/)
 
 #### Blog
 + [無中生有](https://blog.xuite.net/jason_kuso/kuso)
++ [I am Mike](https://medium.com/i-am-mike)
++ [OA's](https://www.ioa.tw/)
++ [toright](https://blog.toright.com/)
 
 #### 未歸類
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)

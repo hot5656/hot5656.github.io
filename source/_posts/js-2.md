@@ -9,6 +9,11 @@ tags:
 ---
 
 ### 簡介
+#### 名詞
++ Client-side Render(CSR) : API get data 再由 JavaScript 渲染
++ Server-side Render(SSR) : 在 Server-side 就先渲染成 HTML
++  Search Engine Optimization(SEO) : 搜尋引擎最佳化,透過了解搜尋引擎的運作規則來調整網站，以及提高目的網站在有關搜尋引擎內排名的方式
+
 #### JavaScript 的功能
 + 介面 : 改變介面
 + 事件 : 監聽事件並做出反應

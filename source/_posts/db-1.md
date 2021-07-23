@@ -73,6 +73,52 @@ UPDATE my_class SET name='user01', content='content01' WHERE id=2
 DELETE FROM `my_class` WHERE id=4
 ```
 
+##### SHOW 權限內容 
+``` bash
+mysql>SHOW GRANTS FOR robert@localhost;
+	+------------------------------------------------------------+
+	| Grants for robert@localhost                                |
+	+------------------------------------------------------------+
+	| GRANT USAGE ON *.* TO `robert`@`localhost`                 |
+	| GRANT ALL PRIVILEGES ON `robert`.* TO `robert`@`localhost` |
+	+------------------------------------------------------------+
+```
+
+##### SHOW/CREATE DATABASE
+``` bash
+mysql> CREATE DATABASE `bill`;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| bill               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| robert             |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+``` 
+
+##### CREATE user(also add password)/ALTER(modify user setting)
+```
+CREATE USER 'robert'@'localhost' IDENTIFIED BY 'userpassword';
+# 可登入設定
+CREATE USER 'robert2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE USER 'robert2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+# 更改 user 設定
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'rootpassword';
+```
+
+##### 選擇資料庫
+``` bash
+USE mysql;
+```
+
 ##### is_deleted 欄位(hide data for user)
 MySQL沒有 boolean 型別, 設定 boolean 會自動轉成 tinyint(1)
 ``` bash

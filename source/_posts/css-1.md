@@ -111,6 +111,21 @@ html, body, h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,p {
 }
 ```
 
+#### 優化
++ 資源
+	+ Minify : CSS壓縮
+	+ ｇzip* : 檔案壓縮
+
++ 載入方式
+	+ CSS Sprites : 小圖合併
+	+ Critical CSS : 重要 CSS 先 load
+	+ Cache* : server 設定
+
++ 執行方式
+	+ 選擇器
+	+ 屬性渲染
+
+
 ### CSS Selector 選擇器
 #### 種類
 ``` css

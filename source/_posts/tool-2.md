@@ -1234,6 +1234,34 @@ npm run build
 # load index.html from browser
 ```
 
+#### webpack watch
+webpack.config.js add script watch
+``` js
+{
+  "name": "comment_api_plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"build": "webpack",
+		"watch": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jquery": "^3.6.0",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2"
+  }
+}
+```
+
+``` bash
+// run watch
+npm run watch
+```
+
 
 
 ### regular expression 正規表達式
