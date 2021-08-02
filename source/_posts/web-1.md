@@ -713,4 +713,3 @@ mysql> quit
 ``` bash
 less -m -N /var/log//apache2/error.log
 ```
-

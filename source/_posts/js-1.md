@@ -71,8 +71,9 @@ function test3(v){
 	}
 }
 test3(10)
-// let 和 const 的 hoisting, TDZ（Temporal Dead Zone）
+// let 和 const 的 hoisting, TDZ（Temporal Dead Zone）暫時死區
 // let 有 hoisting, 但賦值前不能使用
+// 如果在宣告變數之前使用變數，這個變數就是存在「暫時死區」中無法存取！這時候使用它就會報錯 ReferenceError
 var a2 = 10
 function test2() {
 	console.log(a2)		// ReferenceError: Cannot access 'a' before initialization
@@ -240,6 +241,35 @@ arr[1]()	// 1
 arr[2]()	// 2
 arr[3]()	// 3
 arr[4]()	// 4
+```
+
+##### Closure(閉包) 應用 - 隱藏資訊
+``` js
+function createWallet(init) {
+	var money = init
+	return {
+		add: function(num) {
+			money += num
+		},
+		deduct: function(num) {
+			money -= num
+		},
+		// function 寫法 #1
+		getMoney: function() {
+			return money
+		},
+		// function 寫法 #2
+		getInnerMoney() {
+		return money
+		}
+	}
+}
+
+var myWallet = createWallet(99)
+myWallet.add(1)
+myWallet.deduct(20)
+console.log(myWallet.getMoney())		// 80
+console.log(myWallet.getInnerMoney())	// 80
 ```
 
 #### 物件導向 and prototype
@@ -491,6 +521,36 @@ var testBind = test.bind(123, 9 , 7)
 testBind(99)	// 123 9 7 99
 ```
 
+``` js
+// apply 
+'use strict'
+function log() {
+	console.log(this)
+}
+var a = {a:1, log:log }
+var b = {a:2, log:log }
+
+log()		// undefined
+a.log()		// { a: 1, log: [Function: log] }
+b.log.apply(a)	// 代入 a 為 this
+
+// bind
+'use strict'
+const obj = {
+		a:1, 
+		test: function(){
+			console.log(this) 
+		}
+	}
+obj.test()	// { a: 1, test: [Function: test] }
+const func = obj.test
+func()		// undefined
+const bindTest = obj.test.bind(obj) // bind this from obj
+bindTest() // { a: 1, test: [Function: test] }
+const bindTest2 = obj.test.bind("swdwd") // bind this from a string
+bindTest2() // swdwd
+```
+
 #### 箭頭函式中，this 指稱的對象在所定義時就固定了，而不會隨著使用時的脈絡而改變
 ``` js
 // 使用 匿名函式
@@ -534,7 +594,7 @@ try {
 ```
 
 #### [throw](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Control_flow_and_error_handling)
-```
+``` js
 // 拋出例外
 // throw expression
 throw "Error2";   // 字串形態
@@ -592,16 +652,21 @@ console.log(num === num)	// false
 console.log(typeof num)		// number
 // check undefined
 let a 
-console.log(a)					// undefined
-console.log(typeof a)		// undefined
+console.log(a)					// undefined - 型態
+console.log(typeof a)		// undefined - 字串
 // check undefined 再處理
 let b 
-if ( typeof a != undefined) {
+if ( typeof a !== 'undefined') {
 	console.log("undefined", b+1)	// undefined NaN
 }
 else {
 	console.log(b+1)
 }
+// check NaN
+let num = Number("hello")
+console.log(num, typeof num) 	// NaN number
+console.log(num === NaN)		// false
+console.log(isNaN(num))			// true
 // 檢視物件到底是屬於哪個子型別 Object.prototype.toString
 console.log(Object.prototype.toString.call([1, 2, 3])) 					// "[object Array]"
 console.log(Object.prototype.toString.call({ name: 'Jack' })) 	// "[object Object]"
@@ -1618,4 +1683,5 @@ cat pa.in | node code.js | diff --strip-trailing-cr pa.out -
 + [所有的函式都是閉包：談 JS 中的作用域與 Closure](https://github.com/aszx87410/blog/issues/35)
 + [淺談 JavaScript 頭號難題 this](https://github.com/aszx87410/blog/issues/39)
 + [你懂 JavaScript 嗎？物件（Object）](https://cythilya.github.io/2018/10/24/object/)
-
++ [JavaScript-Equality-Table](https://dorey.github.io/JavaScript-Equality-Table/)
++ [Debounce & Throttle](https://medium.com/@alexian853/debounce-throttle-%E9%82%A3%E4%BA%9B%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC%E6%87%89%E8%A9%B2%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%B0%8F%E4%BA%8B-%E4%B8%80-76a73a8cbc39)
