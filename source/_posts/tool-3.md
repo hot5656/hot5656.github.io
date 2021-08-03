@@ -1,5 +1,5 @@
 ---
-title:  前端 package 練習
+title:  前端 package build 練習
 abbrlink: f15e
 date: 2021-07-25 16:12:11
 categories: Front End

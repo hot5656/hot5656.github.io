@@ -47,6 +47,46 @@ import * as name from './module.js';
 import fn, * as named from './defaultModule.js';
 ```
 
+#### require() vs import()
++ require() 是 node.js 內含函數
++ require() 執行 然後 return 
+``` js
+var myVar = require('http') 						//to use built-in modules
+var myVar2 = require('./myLocaModule') 	// to use local modules
+
+// example for require - demo_module.js
+var http = require('http');
+var dt = require('./myfirstmodule');
+// 'Content-Type': 'text/html;charset=utf-8' 修正中文亂碼
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  res.write("The date and time are currently: " + dt.myDateTime());
+  res.end();
+}).listen(8080);
+
+// myfirstmodule.js
+exports.myDateTime = function () {
+  return Date();
+};
+```
+
++ import()/export() 為 ES6 新語法, 若含.json 文件類型則不能使用
++ &lt;script&gt; type=”module” 也不能使用
++ require() 可擺於任何地方,import() 擺於程式最前面
+``` js
+var myVac = import("module-name");
+
+// example for import
+// app.js
+import {add, PI} from './utils.js'
+console.log(add(3, 5), PI)		// 8 3.14
+// utils.js
+export function add(a, b) {
+	return a + b
+}
+export const PI = 3.14 
+```
+
 #### Hoisting (提升)
 ##### example
 ``` js

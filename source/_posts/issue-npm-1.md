@@ -103,6 +103,25 @@ npm config list
   ; Run `npm config ls -l` to show all defaults.
 ```
 
+## node.js server 中文亂碼
+``` js
+// 'Content-Type': 'text/html;charset=utf-8' 修正中文亂碼
+// demo_module.js
+var http = require('http');
+var dt = require('./myfirstmodule');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  res.write("The date and time are currently: " + dt.myDateTime());
+  res.end();
+}).listen(8080);
+
+// myfirstmodule.js
+exports.myDateTime = function () {
+  return Date();
+};
+```
+
+
 ## found vulnerabilities-漏洞
 + 未找到一致解決方法
 	>9 vulnerabilities (4 low, 5 moderate)
