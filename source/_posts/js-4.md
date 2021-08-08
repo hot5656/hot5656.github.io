@@ -134,6 +134,3 @@ itemElement.innerHTML = STREAM_TEMPLATE
 
 
 
-```
-
-```
