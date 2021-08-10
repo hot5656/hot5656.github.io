@@ -971,6 +971,224 @@ module.exports = todoModel
 </form>
 ```
 
+#### 簡易註冊系統
+``` js
+// index.js
+const express = require('express')
+// add body parser
+const bodyParser = require('body-parser')
+// add express session
+const session = require('express-session')
+// add connect flash
+const flash = require('connect-flash')
+// add todo db
+const db = require('./db')
+const app = express()
+const port = 3000
+
+const todoController = require('./controllers/todo')
+const userController = require('./controllers/user')
+
+// set view engine type - directory is ./views
+app.set('view engine', 'ejs')
+
+// add body parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+// add connect flash
+app.use(flash())
+
+// add express session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+// add global variable - use middleware
+app.use((req, res, next) => {
+	res.locals.username = req.session.username
+	// add connect flash
+	res.locals.errorMessage = req.flash('errorMessage')
+	next()
+})
+
+function redirectBack(req, res) {
+	res.redirect('back')
+}
+
+app.get('/',  (req, res ) => {
+	res.render('user/index')
+})
+app.get('/register', userController.register)
+app.post('/register', userController.handleRegister, redirectBack)
+app.get('/login', userController.login)
+app.post('/login', userController.handleLogin, redirectBack)
+app.get('/logout', userController.logout)
+
+
+app.listen(port, () => {
+	// add todo db
+	db.connect()
+	console.log(`Example app listening at http://localhost:${port}`)
+})
+```
+
+``` js
+// ./todoController/user.js
+const userModel = require('../models/user')
+// add bcrypt
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
+const userController = {
+	register: (req, res ) => {
+		res.render('user/register')
+	},
+	handleRegister: (req, res , next) => {
+		const {username, password, nickname} = req.body
+		if (!username || !password || !nickname) {
+			req.flash('errorMessage', '缺少必要欄位!')
+			return next() 
+		}
+
+		bcrypt.genSalt(saltRounds, function(err, salt) {
+			bcrypt.hash(password, salt, function(err, hash) {
+					if (err) {
+						req.flash('errorMessage', err.toString())
+						return next() 
+					}
+
+					userModel.add({
+						username,
+						nickname,
+						password: hash
+					}, (err) => {
+						if (err) {
+							req.flash('errorMessage', err.toString())
+							return next() 
+						}
+						req.session.username = username
+						res.redirect('/')
+					})
+			});
+	});
+
+	},
+	login: (req, res ) => {
+		res.render('user/login')
+	},
+	handleLogin: (req, res, next) => {
+		const {username, password} = req.body
+			if (!username || !password) {
+				req.flash('errorMessage', '該填未填!')
+				return next()
+			}
+			
+			userModel.get(username, (err, user) => {
+			if (err) {
+				req.flash('errorMessage', err.toString())
+				return next()		
+			}
+
+			if (!user) {
+				req.flash('errorMessage', '無此帳號!')
+				return next()		
+			}
+
+			bcrypt.compare(password, user.password, function(err, isSuccess) {
+				if (err || (!isSuccess)) {
+					req.flash('errorMessage', '密碼錯誤!')
+					return next()		
+				}
+				req.session.username = user.username 
+				res.redirect('/')		
+			});
+		})
+	},
+	logout: (req, res) => {
+		req.session.username = null
+		res.redirect('/')
+	}
+}
+
+module.exports = userController
+```
+
+``` js
+// ./modules/user.js
+// add todo db
+const db = require('../db')
+
+const todos = [
+	'first todo', 'second todo', 'third todo'
+]
+const userModel = {
+	add: (user, cb) => {
+		db.query('INSERT INTO users(username, password, nickname) VALUES(?, ?, ?)',
+		 	[user.username, user.password, user.nickname], 
+			function (error, results) {
+				if (error) return cb(error)
+				cb(null)
+			}
+		);
+	},
+	get: (username,cb) => {
+		db.query('SELECT * FROM users WHERE username=?', [username], 
+			function (error, results) {
+				if (error) return cb(error)
+				cb(null, results[0])
+			}
+		);
+	},
+
+}
+
+module.exports = userModel
+```
+
+``` html
+<!-- ./views/user/index.ejs -->
+<h1>簡易會員系統</h1>
+
+<% if (username) { %> 
+	hello, <%= username %> <br>
+	<!-- 可執行 HTML -->
+	hello, <%- username %> <br>
+	<a href="/logout">登出</a>
+<% } else { %> 
+	<a href="/register">註冊</a>
+	<a href="/login">登入</a>
+<% } %> 
+```
+
+``` html
+<!-- ./views/user/register.ejs -->
+<h1>註冊頁面</h1>
+
+<h2><%= errorMessage %> </h2>
+<form method='POST' action="/register">
+	<div>username: <input type="textd" name='username'></div>
+	<div>password: <input type="password" name='password'></div>
+	<div>nickname: <input type="text" name='nickname'></div>
+	<input type="submit" >
+</form>
+```
+
+``` html
+<!-- ./views/user/login.ejs -->
+<h1>登入頁面</h1>
+
+<h2><%= errorMessage %> </h2>
+<form method='POST' action="/login">
+	<div>username: <input type="textd" name='username'></div>
+	<div>password: <input type="password" name='password'></div>
+	<input type="submit" >
+</form>
+```
+
 ### npm mysql
 #### example #1
 ``` bash
