@@ -159,7 +159,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 const todoController = {
@@ -236,7 +236,7 @@ module.exports = connection
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 const todoController = {
@@ -373,7 +373,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 // add permision check (admin===1)
@@ -480,7 +480,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 const todoController = {
@@ -666,7 +666,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 const todoController = {
@@ -885,7 +885,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/todo.js
+// ./controllers/todo.js
 const todoModel = require('../models/todo')
 
 const todoController = {
@@ -971,7 +971,12 @@ module.exports = todoModel
 </form>
 ```
 
-#### 簡易註冊系統
+#### 簡易會員註冊系統
+``` bash
+# insatll bcrypt
+npm install bcrypt
+```
+
 ``` js
 // index.js
 const express = require('express')
@@ -1037,7 +1042,7 @@ app.listen(port, () => {
 ```
 
 ``` js
-// ./todoController/user.js
+// ./controllers/user.js
 const userModel = require('../models/user')
 // add bcrypt
 const bcrypt = require('bcrypt')
@@ -1188,6 +1193,229 @@ module.exports = userModel
 	<input type="submit" >
 </form>
 ```
+
+#### 簡易留言板
+``` js
+// index.js
+const express = require('express')
+// add body parser
+const bodyParser = require('body-parser')
+// add express session
+const session = require('express-session')
+// add connect flash
+const flash = require('connect-flash')
+// add todo db
+const db = require('./db')
+const app = express()
+const port = 3000
+
+const todoController = require('./controllers/todo')
+const userController = require('./controllers/user')
+const commentController = require('./controllers/comment')
+
+// set view engine type - directory is ./views
+app.set('view engine', 'ejs')
+
+// add body parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+// add connect flash
+app.use(flash())
+
+// add express session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+// add global variable - use middleware
+app.use((req, res, next) => {
+	res.locals.username = req.session.username
+	// add connect flash
+	res.locals.errorMessage = req.flash('errorMessage')
+	next()
+})
+
+function redirectBack(req, res) {
+	res.redirect('back')
+}
+
+app.get('/', commentController.index) 
+app.get('/register', userController.register)
+app.post('/register', userController.handleRegister, redirectBack)
+app.get('/login', userController.login)
+app.post('/login', userController.handleLogin, redirectBack)
+app.get('/logout', userController.logout)
+
+app.post('/comments', commentController.add)
+app.get('/comments_delete/:id', commentController.delete)
+app.get('/comments_update/:id', commentController.update)
+app.post('/comments_update/:id', commentController.handelUpdate)
+
+app.listen(port, () => {
+	// add todo db
+	db.connect()
+	console.log(`Example app listening at http://localhost:${port}`)
+})
+```
+
+``` js
+// ./controllers/comment.js
+const commentModel = require('../models/comment')
+
+const commentController = {
+	add:  (req, res) => {
+		// get body data
+		const {username} = req.session
+		const {content} = req.body
+		if (!username || !content ) {
+			req.flash('errorMessage', '請輸入完整內容!')
+			return res.redirect('/')
+		}
+
+		commentModel.add(username, content, (err) => {
+			if (err) req.flash('errorMessage', err.toString())
+			res.redirect('/')
+		})
+	},
+	index: (req, res) => {
+		commentModel.getAll((err, results) => {
+			if (err) {
+				req.flash('errorMessage', err.toString())
+			}
+			res.render('user/index', {
+				comments: results
+			} )
+		})
+	},
+	delete: (req, res) => {
+		commentModel.delete(req.session.username, req.params.id, (err) => {
+			res.redirect('/')
+		})
+	},
+	update: (req, res) => {
+		commentModel.get(req.params.id, (err, result) => {
+			res.render('user/update',{
+				comment: result
+			})
+		})
+	},
+	handelUpdate: (req, res) => {
+		commentModel.update(req.session.username, req.params.id, req.body.content, (err) => {
+			res.redirect('/')
+		})
+	}
+}
+
+module.exports = commentController
+```
+
+``` js
+// ./modules/comment.js
+// add todo db
+const db = require('../db')
+
+const todoModel = {
+	add: (username, content, cb) => {
+		db.query('INSERT INTO comments(username, content) VALUES(?, ?)', 
+			[username ,content], 
+			function (error, results) {
+				if (error) return cb(error)
+				cb(null)
+			}
+		)
+	},
+	getAll: (cb) => {
+		db.query(
+			`SELECT U.nickname, C.content, C.id, U.username
+			FROM comments AS C LEFT JOIN users as U 
+			on U.username = C.username ORDER BY C.id DESC`,
+			(err, results) => {
+				if (err) return cb(err)
+				cb(null, results)
+			}
+		)
+	},
+	delete: (username, id, cb) => {
+		db.query(
+			`DELETE FROM comments WHERE id=? AND username=?`, [id, username], 
+			(err, results) => {
+				if (err) return cb(err)
+				cb(null)
+			}
+		)		
+	},
+	get: (id, cb) => {
+		db.query(
+			`SELECT U.nickname, C.content, C.id, U.username
+			FROM comments AS C LEFT JOIN users as U 
+			on U.username = C.username WHERE C.id=?`, [id],
+			(err, results) => {
+				if (err) return cb(err)
+				cb(null, results[0] || {})
+			}
+		)
+	},
+	update: (username, id, content, cb) => {
+		db.query(
+			`UPDATE comments SET content=? WHERE id=? AND username=?`, 
+			[content , id, username], 
+			(err, results) => {
+				if (err) return cb(err)
+				cb(null)
+			}
+		)		
+	}
+}
+
+module.exports = todoModel
+```
+
+``` html
+<!-- ./views/user/index.ejs -->
+<h1>簡易會員系統</h1>
+<h2><%= errorMessage %> </h2>
+
+<% if (username) { %> 
+	hello, <%= username %> 
+	<a href="/logout">登出</a>
+
+	<form method="POST" action="/comments">
+		<textarea name="content"></textarea>
+		<input type="submit">
+	</form>
+
+<% } else { %> 
+	<a href="/register">註冊</a>
+	<a href="/login">登入</a>
+<% } %> 
+
+<% comments.forEach( function(comment) { %> 
+	<h2><%= comment.nickname %> 
+		<% if (username == comment.username) { %>
+			<a href="/comments_delete/<%= comment.id %>">刪除</a>
+			<a href="/comments_update/<%= comment.id %>">修改</a>
+		<% } %> 
+	</h2>
+	<p><%= comment.content %> </p>
+<% }) %> 
+```
+
+``` html
+<!-- ./views/user/update.ejs -->
+<h1>編輯留言</h1>
+
+<form method="POST" action="/comments_update/<%= comment.id%>">
+	<textarea name="content"><%= comment.content %> </textarea>
+	<input type="submit">
+</form>
+```
+
+
+
 
 ### npm mysql
 #### example #1
