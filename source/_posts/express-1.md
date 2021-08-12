@@ -1417,26 +1417,200 @@ module.exports = todoModel
 ### ORM 與 Sequelize
 ORM : Object Relational Mapping
 
+#### Sequelize 基本操作
+
++ insatll sequelize
 ``` bash
-# install 
 npm install sequelize
 ```
 
++ link DB and create table's item
+``` js
+Sequelize = require('sequelize');
+// set db configuration
+const sequelize = new Sequelize('mydb', 'robert', 'password', {
+	host: 'localhost',
+	dialect: 'mysql'
+});
+
+// 驗證 DB 
+sequelize
+	.authenticate()
+	.then(() => {
+		console.log('Connection has been established successfully.');
+	})
+	.catch(err => {
+		console.error('Unable to connect to the database:', err);
+	});
+
+// define table field
+const User = sequelize.define('user', {
+	firstName: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+	lastName: {
+		type: Sequelize.STRING
+	}
+}, {
+	// timestamps: false,			// 關掉產生 timestamp 欄位
+	// freezeTableName: true,	// 關掉 自動複數檔案名
+});
+
+// create tabel item
+sequelize.sync().then(() => {
+	User.create({
+		firstName: 'Bill',
+		lastName: 'Chen'
+	}).then (() =>{
+		console.log('created!')
+	})
+})
+```
+
++ get/modify/delete table item 
+``` js
+// create tabel item
+sequelize.sync().then(() => {
+	User.create({
+		firstName: 'Bill',
+		lastName: 'Chen'
+	}).then (() =>{
+		console.log('created!')
+	})
+})
+
+// get tabel all item 
+sequelize.sync().then(() =>{
+	User.findAll().then( users => {
+		console.log("All user:", JSON.stringify(users,null,4))
+	})
+})
+
+// get table condition item
+sequelize.sync().then(() => {
+	User.findAll({
+			where: {
+				firstName: 'Bill2'
+			}
+	}).then( users => {
+		console.log(users[0].id, users[0].firstName)
+	})
+})
+
+// get table one item
+sequelize.sync().then(() => {
+	User.findOne({
+			where: {
+				firstName: 'Bill2'
+			}
+	}).then( user => {
+		console.log(user.id, user.firstName)
+	})
+})
+
+// update table's item 
+sequelize.sync().then(() => {
+	User.findOne({
+			where: {
+				firstName: 'Bill2'
+			}
+	}).then( user => {
+		user.update({
+			lastName: 'aaa'
+		}).then( () =>{
+			console.log('done')
+		})
+	})
+})
+
+// detelet table's item 
+sequelize.sync().then(() => {
+	User.findOne({
+			where: {
+				firstName: 'Bill2'
+			}
+	}).then( user => {
+		user.destroy().then( () =>{
+			console.log('done')
+		})
+	})
+})
+```
+
++ related db control
+``` js
+// define another table field
+const Comment = sequelize.define('comment', {
+	content: {
+		type: Sequelize.STRING,
+	}
+});
+// set mapping to low level table
+User.hasMany(Comment)
+
+// create low level table item
+sequelize.sync().then(() => {
+	Comment.create({
+		userId:3,
+		content: 'Hi'
+	}).then(() => {
+		console.log('done')
+	})
+})
+
+// set mapping to up level table
+Comment.belongsTo(User)
+// get low level item (include up level item)
+sequelize.sync().then(() =>{
+	Comment.findOne({
+		where: {
+			content: 'hello'
+		},
+		include: User
+	}).then(comment => {
+		console.log(JSON.stringify(comment, null, 4)) // 排列較易閱讀
+		console.log(comment.id, comment.content)
+	})
+} )
+
+// get up level item (include low level item)
+sequelize.sync().then(() => {
+	User.findOne({
+		where: {
+			firstName: 'Bill'
+		},
+		include: Comment
+	}).then(user => {
+		console.log(JSON.stringify(user.comments, null, 4)) // 排列較易閱讀
+	})
+})
+```
+
+#### Sequelize CLI
+
++ install sequelize-cli
 
 ``` bash
 # install 
 npm install sequelize-cli
-# init
+```
+
++ init sequeliz 
+
+``` bash
+# init sequeliz
 npx sequelize-cli init
 ```
 
 config/config.json
+change db configuration
 ``` json
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
+    "username": "robert",
+    "password": "password",
+    "database": "mydb2",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
@@ -1457,15 +1631,96 @@ config/config.json
 }
 ```
 
-create model 
++ create model 
+
 ``` bash
 npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 npx sequelize-cli model:generate --name Comment --attributes content:string
+```
 
-npx sequelize-cli db:migrate
++ migrate (generate db table) 
+
+``` bash
 # 產生 table sequelizemeta, 存執行 log
+npx sequelize-cli db:migrate
 # if env is test 
 # npx sequelize-cli db:migrate --env test
+```
+
++ 為 model 加上關聯
+
+./models/user.js
+``` js
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+			// 加上關聯設定
+			User.hasMany(models.Comment)
+    }
+  };
+  User.init({
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};
+```
+
+./models/comment.js
+``` js
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Comment extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+			// 加上關聯設定
+			Comment.belongsTo(models.User)
+    }
+  };
+  Comment.init({
+    content: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Comment',
+  });
+  return Comment;
+};
+```
+
++ create table item
+
+index.js
+``` js
+const db = require('./models')
+const User = db.User
+const Comment = db.Comment
+
+User.create({
+	firstName: 'Bill',
+	lastName: 'Chen'
+}).then(() =>{
+	console.log('done!')
+})
 ```
 
 ### npm mysql
@@ -1481,7 +1736,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'robert',
-  password : 'test@01',
+  password : 'password',
   database : 'app'
 });
  
