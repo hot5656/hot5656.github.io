@@ -1414,8 +1414,59 @@ module.exports = todoModel
 </form>
 ```
 
+### ORM 與 Sequelize
+ORM : Object Relational Mapping
+
+``` bash
+# install 
+npm install sequelize
+```
 
 
+``` bash
+# install 
+npm install sequelize-cli
+# init
+npx sequelize-cli init
+```
+
+config/config.json
+``` json
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+create model 
+``` bash
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+npx sequelize-cli model:generate --name Comment --attributes content:string
+
+npx sequelize-cli db:migrate
+# 產生 table sequelizemeta, 存執行 log
+# if env is test 
+# npx sequelize-cli db:migrate --env test
+```
 
 ### npm mysql
 #### example #1
@@ -1453,3 +1504,5 @@ connection.end();
 + [body-parser](http://expressjs.com/en/resources/middleware/body-parser.html)
 + [connect-flash](https://www.npmjs.com/package/connect-flash)
 + [bcrypt](https://www.npmjs.com/package/bcrypt)
++ [Sequelize](https://sequelize.org/)
++ [sequelize/cli](https://www.npmjs.com/package/sequelize-cli)

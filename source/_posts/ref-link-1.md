@@ -29,7 +29,9 @@ date: 2021-03-18 15:48:55
 
 #### 免費圖庫
 + [CC0 免費圖庫搜尋](https://cc0.wfublog.com/) : 要點圖看到大圖再下載,才有大圖
-
++ [Pexels](https://www.pexels.com/zh-tw/)
++ [38個高質+免費的圖庫網站](https://mtache.com/freestockphoto)
++ [envato elements 插畫](https://elements.envato.com/graphics/flat+design+pack)
 
 ### 分類
 #### Hexo
