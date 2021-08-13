@@ -1720,8 +1720,142 @@ User.create({
 	lastName: 'Chen'
 }).then(() =>{
 	console.log('done!')
+}).catch( err => {
+	console.log(err.toString())	
 })
 ```
+
+#### 改造留言板
+
+``` bash
+# install
+npm install sequelize
+npm install sequelize-cli
+npm install mysql2
+# init
+npx sequelize-cli init
+# create model
+npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string
+npx sequelize-cli model:generate --name Comment --attributes content:text
+# migrate 
+npx sequelize-cli db:migrate
+```
+
+./migrations/xxx-create-comment.js 加 user id
+```js
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Comments', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      content: {
+        type: Sequelize.TEXT
+			},
+			// add UserId
+			UserId: {
+        type: Sequelize.INTEGER
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Comments');
+  }
+};
+```
+
+./migrations/xxx-create-comment.js set username unique
+```js
+username: {
+	type: Sequelize.STRING,
+	unique: true
+},
+```
+
+
+
+撤銷 migrate 
+``` bash
+# 撤銷 上一次
+npx sequelize-cli db:migrate:undo
+# 撤銷所有
+npx sequelize-cli db:migrate:undo:all
+# migrate 
+npx sequelize-cli db:migrate
+```
+
+
+model 加上關聯
+
+./model/user.js
+``` js
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // 加上關聯設定
+			User.hasMany(models.Comment)
+    }
+  };
+  User.init({
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+    nickname: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  ret
+```
+
+./model/comment.js
+``` js
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Comment extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+			// 加上關聯設定
+			Comment.belongsTo(models.User)
+    }
+  };
+  Comment.init({
+    content: DataTypes.TEXT
+  }, {
+    sequelize,
+    modelName: 'Comment',
+  });
+  return Comment;
+};
+```
+
 
 ### npm mysql
 #### example #1
