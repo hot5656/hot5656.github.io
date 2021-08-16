@@ -1419,12 +1419,12 @@ ORM : Object Relational Mapping
 
 #### Sequelize 基本操作
 
-+ insatll sequelize
+##### insatll sequelize
 ``` bash
 npm install sequelize
 ```
 
-+ link DB and create table's item
+##### link DB and create table's item
 ``` js
 Sequelize = require('sequelize');
 // set db configuration
@@ -1464,11 +1464,13 @@ sequelize.sync().then(() => {
 		lastName: 'Chen'
 	}).then (() =>{
 		console.log('created!')
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 ```
 
-+ get/modify/delete table item 
+##### get/modify/delete table item 
 ``` js
 // create tabel item
 sequelize.sync().then(() => {
@@ -1477,6 +1479,8 @@ sequelize.sync().then(() => {
 		lastName: 'Chen'
 	}).then (() =>{
 		console.log('created!')
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 
@@ -1484,61 +1488,71 @@ sequelize.sync().then(() => {
 sequelize.sync().then(() =>{
 	User.findAll().then( users => {
 		console.log("All user:", JSON.stringify(users,null,4))
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 
 // get table condition item
 sequelize.sync().then(() => {
 	User.findAll({
-			where: {
-				firstName: 'Bill2'
-			}
+		where: {
+			firstName: 'Bill2'
+		}
 	}).then( users => {
 		console.log(users[0].id, users[0].firstName)
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 
 // get table one item
 sequelize.sync().then(() => {
 	User.findOne({
-			where: {
-				firstName: 'Bill2'
-			}
+		where: {
+			firstName: 'Bill2'
+		}
 	}).then( user => {
 		console.log(user.id, user.firstName)
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 
 // update table's item 
 sequelize.sync().then(() => {
 	User.findOne({
-			where: {
-				firstName: 'Bill2'
-			}
+		where: {
+			firstName: 'Bill2'
+		}
 	}).then( user => {
 		user.update({
 			lastName: 'aaa'
-		}).then( () =>{
-			console.log('done')
 		})
+	}).then(() => {
+		console.log('done')	
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 
 // detelet table's item 
 sequelize.sync().then(() => {
 	User.findOne({
-			where: {
-				firstName: 'Bill2'
-			}
+		where: {
+			firstName: 'Bill2'
+		}
 	}).then( user => {
-		user.destroy().then( () =>{
-			console.log('done')
-		})
+		user.destroy()
+	}).then(() => {
+		console.log('done')	
+	}).catch( err => {
+		console.log(err.toString())	
 	})
 })
 ```
 
-+ related db control
+##### related db control
 ``` js
 // define another table field
 const Comment = sequelize.define('comment', {
@@ -1589,14 +1603,14 @@ sequelize.sync().then(() => {
 
 #### Sequelize CLI
 
-+ install sequelize-cli
+##### install sequelize-cli
 
 ``` bash
 # install 
 npm install sequelize-cli
 ```
 
-+ init sequeliz 
+##### init sequeliz 
 
 ``` bash
 # init sequeliz
@@ -1631,14 +1645,16 @@ change db configuration
 }
 ```
 
-+ create model 
+##### create model 
 
 ``` bash
-npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+# npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+# add field user_level:integer
+npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string,user_level:integer
 npx sequelize-cli model:generate --name Comment --attributes content:string
 ```
 
-+ migrate (generate db table) 
+##### migrate (generate db table) 
 
 ``` bash
 # 產生 table sequelizemeta, 存執行 log
@@ -1647,7 +1663,7 @@ npx sequelize-cli db:migrate
 # npx sequelize-cli db:migrate --env test
 ```
 
-+ 為 model 加上關聯
+##### 為 model 加上關聯
 
 ./models/user.js
 ``` js
@@ -1707,7 +1723,7 @@ module.exports = (sequelize, DataTypes) => {
 };
 ```
 
-+ create table item
+##### create table item
 
 index.js
 ``` js
@@ -1726,7 +1742,68 @@ User.create({
 ```
 
 #### 改造留言板
+##### data 操作
+``` js 
+// 在 ejs 可直接使用
+res.locals.isLogin = req.session.isLogin
+res.locals.errorMessage = req.flash('errorMessage')
+// gte 傳入參數
+id: req.params.id,
+// post 傳入參數
+const {	content } = req.body
+// session 參數
+const {	username,	userId} = req.session
+// flash
+req.flash('errorMessage', '請輸入完整內容!')
+res.locals.errorMessage = req.flash('errorMessage')
+```
 
+``` js
+// migration - set field unique
+username: {
+	type: Sequelize.STRING,
+	unique: true
+},
+// migration - add field
+'use strict';
+// add UserId
+UserId: {
+  type: Sequelize.INTEGER
+},
+// controller - findAll add order 
+Comment.findAll({
+	include: User,
+	// 加入 order
+	order: [
+		['id', 'DESC']
+	]
+})
+// model 加上關聯
+class User extends Model {
+  /**
+    * Helper method for defining associations.
+    * This method is not a part of Sequelize lifecycle.
+    * The `models/index` file will call this method automatically.
+    */
+  static associate(models) {
+     // 加上關聯設定
+		User.hasMany(models.Comment)
+  }
+};
+class Comment extends Model {
+  /**
+    * Helper method for defining associations.
+    * This method is not a part of Sequelize lifecycle.
+    * The `models/index` file will call this method automatically.
+    */
+  static associate(models) {
+		// 加上關聯設定
+		Comment.belongsTo(models.User)
+  }
+};
+```
+
+##### install and create DB(migrate)
 ``` bash
 # install
 npm install sequelize
@@ -1741,6 +1818,7 @@ npx sequelize-cli model:generate --name Comment --attributes content:text
 npx sequelize-cli db:migrate
 ```
 
+##### add user id for comment
 ./migrations/xxx-create-comment.js 加 user id
 ```js
 'use strict';
@@ -1776,6 +1854,7 @@ module.exports = {
 };
 ```
 
+##### set username unique
 ./migrations/xxx-create-comment.js set username unique
 ```js
 username: {
@@ -1784,9 +1863,7 @@ username: {
 },
 ```
 
-
-
-撤銷 migrate 
+##### 撤銷migrate then migrate 
 ``` bash
 # 撤銷 上一次
 npx sequelize-cli db:migrate:undo
@@ -1796,9 +1873,7 @@ npx sequelize-cli db:migrate:undo:all
 npx sequelize-cli db:migrate
 ```
 
-
-model 加上關聯
-
+##### model 加上關聯
 ./model/user.js
 ``` js
 'use strict';
@@ -1856,6 +1931,572 @@ module.exports = (sequelize, DataTypes) => {
 };
 ```
 
+##### index.js
+``` js
+// index.js
+const express = require('express')
+// add body parser
+const bodyParser = require('body-parser')
+// add express session
+const session = require('express-session')
+// add connect flash
+const flash = require('connect-flash')
+const app = express()
+const port = 3000
+
+const userController = require('./controllers/user')
+const commentController = require('./controllers/comment')
+
+// set view engine type - directory is ./views
+app.set('view engine', 'ejs')
+
+// add body parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+// add connect flash
+app.use(flash())
+
+// add express session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+// add global variable - use middleware
+app.use((req, res, next) => {
+	res.locals.userId = req.session.userId
+	res.locals.username = req.session.username
+	// add connect flash
+	res.locals.errorMessage = req.flash('errorMessage')
+	next()
+})
+
+function redirectBack(req, res) {
+	res.redirect('back')
+}
+
+app.get('/', commentController.index) 
+app.get('/register', userController.register)
+app.post('/register', userController.handleRegister, redirectBack)
+app.get('/login', userController.login)
+app.post('/login', userController.handleLogin, redirectBack)
+app.get('/logout', userController.logout)
+
+app.post('/comments', commentController.add)
+app.get('/comments_delete/:id', commentController.delete)
+app.get('/comments_update/:id', commentController.update)
+app.post('/comments_update/:id', commentController.handelUpdate)
+
+
+app.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${port}`)
+})
+```
+
+##### view's template
+template/head.ejs
+``` html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+``` 
+
+template/navbar.ejs
+``` html
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+	<a class="navbar-brand" href="/">留言板</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+		aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<% if (userId) { %>
+			<a class="nav-link" href="/logout">登出</a>
+			<% } else { %>
+			<a class="nav-link" href="/register">註冊</a>
+			<a class="nav-link" href="/login">登入</a>
+			<% } %>
+		</div>
+	</div>
+</nav>
+``` 
+
+##### view 
+user/index.ejs
+``` html
+<!-- ./views/user/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('../template/head') %>
+	<title>Document</title>
+</head>
+
+<body>
+	<%- include('../template/navbar') %>
+
+	<div class="container">
+			<% if(errorMessage && errorMessage.length > 0) {  %> 
+				<div class="alert alert-danger" role="alert">
+					<%= errorMessage %>
+				</div>
+			<% } %> 
+
+		<% if (userId) { %>
+			<div class="h3">hello, <%= username %></div>
+
+			<form  class="mb-3" method="POST" action="/comments">
+				<div class="form-group">
+					<textarea name="content" class="form-control" rows="3"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		<% } %>
+
+		<% comments.forEach( function(comment) { %>
+		<div class="card border-light mb-3">
+			<div class="card-header">
+					<%= comment.User.nickname %>
+					<% if (userId == comment.UserId) { %>
+					<a href="/comments_delete/<%= comment.id %>">刪除</a>
+					<a href="/comments_update/<%= comment.id %>">修改</a>
+					<% } %>
+				</div>
+				<div class="card-body">
+					<p class="card-text"><%= comment.content %></p>
+				</div>
+			</div>
+			<% }) %>
+	</div>
+
+</body>
+
+</html>
+```
+
+user/register.ejs
+``` html
+<!-- ./views/user/register.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('../template/head') %> 
+	<title>Document</title>
+</head>
+<body>
+	<%- include('../template/navbar') %> 
+
+	<div class="container">
+		<% if(errorMessage && errorMessage.length > 0) {  %> 
+			<div class="alert alert-danger" role="alert">
+				<%= errorMessage %>
+			</div>
+		<% } %> 
+
+		<form method='POST' action="/register">
+				<div class="form-group row">
+					<label for="inputUsername" class="col-sm-2 col-form-label">username</label>
+					<div class="col-sm-10">
+						<input type="text"" class="form-control" id="inputUsername" name='username'>
+					</div>
+				</div>
+				<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="inputPassword" name='password'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputUsername" class="col-sm-2 col-form-label">nickname</label>
+				<div class="col-sm-10">
+					<input type="text"" class="form-control" id="inputUsername" name='nickname'>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">註冊</button>
+		</form>
+
+	</div>
+</body>
+</html>
+```
+
+user/login.ejs
+``` html
+<!-- ./views/user/login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('../template/head') %> 
+	<title>Document</title>
+</head>
+<body>
+	<%- include('../template/navbar') %> 
+
+	<div class="container">
+		<% if(errorMessage && errorMessage.length > 0) {  %> 
+			<div class="alert alert-danger" role="alert">
+				<%= errorMessage %>
+			</div>
+		<% } %> 
+
+		<form method='POST' action="/login">
+				<div class="form-group row">
+					<label for="inputUsername" class="col-sm-2 col-form-label">username</label>
+					<div class="col-sm-10">
+						<input type="text"" class="form-control" id="inputUsername" name='username'>
+					</div>
+				</div>
+				<div class="form-group row">
+				<label for="inputPassword" class="col-sm-2 col-form-label">password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="inputPassword" name='password'>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">登入</button>
+		</form>
+
+	</div>
+</body>
+</html>
+```
+
+user/update.ejs
+``` html
+<!-- ./views/user/update.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('../template/head') %> 
+	<title>Document</title>
+</head>
+<body>
+	<%- include('../template/navbar') %> 
+
+	<div class="container">
+		<form  method="POST" action="/comments_update/<%= comment.id%>">
+			<div class="form-group">
+				<textarea name="content" class="form-control" rows="3"><%= comment.content %></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</form>
+	</div>
+</body>
+</html>
+```
+
+##### control 
+controllers/user.js
+``` js
+// ./controllers/user.js
+const db = require('../models')
+const User = db.User
+// add bcrypt
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
+const userController = {
+	register: (req, res) => {
+		res.render('user/register')
+	},
+	handleRegister: (req, res, next) => {
+		const {	username,	password,	nickname} = req.body
+		if (!username || !password || !nickname) {
+			req.flash('errorMessage', '缺少必要欄位!')
+			return next()
+		}
+
+		bcrypt.genSalt(saltRounds, function (err, salt) {
+			bcrypt.hash(password, salt, function (err, hash) {
+				if (err) {
+					req.flash('errorMessage', err.toString())
+					return next()
+				}
+
+				User.create({
+					username: username,
+					nickname: nickname,
+					password: hash
+				}).then(user => {
+					req.session.userId = user.id
+					req.session.username = user.username
+					res.redirect('/')
+				}).catch(err => {
+					req.flash('errorMessage', err.toString())
+					return next()
+				})
+			});
+		});
+
+	},
+	login: (req, res) => {
+		res.render('user/login')
+	},
+	handleLogin: (req, res, next) => {
+		const {username,password} = req.body
+		if (!username || !password) {
+			req.flash('errorMessage', '該填未填!')
+			return next()
+		}
+
+		User.findOne({
+			where: {
+				username: username
+			}
+		}).then(user => {
+			if (!user) {
+				req.flash('errorMessage', '無此帳號!')
+				return next()
+			}
+
+			bcrypt.compare(password, user.password, function (err, isSuccess) {
+				if (err || (!isSuccess)) {
+					req.flash('errorMessage', '密碼錯誤!')
+					return next()
+				}
+				// console.log(user)
+				req.session.userId = user.id
+				req.session.username = user.username
+				res.redirect('/')
+			})
+		}).catch(err => {
+			req.flash('errorMessage', err.toString())
+			return next()
+		})
+	},
+	logout: (req, res) => {
+		req.session.userId = null
+		req.session.username = null
+		res.redirect('/')
+	}
+}
+
+module.exports = userController
+```
+
+controllers/comment.js
+``` js
+// ./controllers/comment.js
+const db = require('../models')
+const User = db.User
+const Comment = db.Comment
+
+const commentController = {
+	add: (req, res) => {
+		// get body data
+		// username,	userId 應只在 ejs 有作用
+		const {	username,	userId} = req.session
+		const {	content } = req.body
+		if (!username || !content) {
+			req.flash('errorMessage', '請輸入完整內容!')
+			return res.redirect('/')
+		}
+
+		Comment.create({
+			UserId: userId,
+			content: content
+		}).then(user => {
+			res.redirect('/')
+		}).catch(err => {
+			req.flash('errorMessage', err.toString())
+			return next()
+		})
+	},
+	index: (req, res, next) => {
+		Comment.findAll({
+				include: User,
+				// 加入 order
+				order: [
+					['id', 'DESC']
+				]
+			}).then(comments => {
+				res.render('user/index', {
+					comments
+				})
+			})
+			.catch(err => {
+				req.flash('errorMessage', err.toString())
+				return next()
+			})
+	},
+	delete: (req, res) => {
+		Comment.findOne({
+			where: {
+				id: req.params.id,
+				UserId: req.session.userId
+			}
+		}).then(comment => {
+			// return 與 no return 無差別
+			// return comment.destroy()
+			comment.destroy()
+		}).then( () => {
+				res.redirect('/')
+		}).catch(err => {
+			console.log(err.toString())
+			res.redirect('/')
+		})
+	},
+	update: (req, res) => {
+		Comment.findOne({
+			where: {
+				id: req.params.id,
+				UserId: req.session.userId
+			}
+		}).then(comment => {
+			res.render('user/update', {
+				comment
+			})
+		}).catch(err => {
+			console.log(err.toString())
+			res.redirect('/')
+		})
+	},
+	handelUpdate: (req, res) => {
+		Comment.findOne({
+			where: {
+				id: req.params.id,
+				UserId: req.session.userId
+			}
+		}).then(comment => {
+			comment.update({
+				content: req.body.content
+			})
+		}).then(() =>{
+			res.redirect('/')
+		})
+		.catch(err => {
+			console.log(err.toString())
+			res.redirect('/')
+		})
+	}
+}
+
+module.exports = commentController
+```
+
+### Ngainx and PM2
+#### PM2
+##### command
+``` bash
+# install
+npm install pm2 -g
+# show pm2 status
+pm2 ls
+# run index.js(node.js)
+pm2 start index.js
+# get process log
+pm2 log 0
+# get process information
+pm2 info 0
+# stop process information
+pm2 stop 0
+# restart process information
+pm2 restart 0
+# delete process information
+pm2 delete 0
+```
+
+#### Nginx 
+
+```
+sudo apt update
+
+sudo apt install nginx
+sudo systemctl status nginx
+sudo systemctl start nginx
+```
+
+```
+sudo vim /etc/nginx/sites-available/aaa.website
+sudo vim /etc/nginx/sites-available/bbb.website
+```
+
+```
+const express = require('express')
+const app = express()
+const port = 3001
+
+app.get('/', (req,res) =>{
+                res.send('Hello, 3001....')
+})
+
+app.listen(port, () => {
+                console.log(`Example app listening at http://localhost:${port}`)})
+```
+
+```
+const express = require('express')
+const app = express()
+const port = 3002
+
+app.get('/', (req,res) =>{
+                res.send('Hi, 3002....')
+})
+
+
+
+app.listen(port, () => {
+                console.log(`Example app listening at http://localhost:${port}`)})
+
+```
+
+
+```
+sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginxsites-enabled/
+sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginxsites-enabled/
+```
+
+```
+server {
+       listen 80;
+       server_name aaa.hot5656.website;
+
+       location / {
+         proxy_pass http://127.0.0.1:3001;
+       }
+}
+
+server {
+       listen 80;
+       server_name bbb.hot5656.website;
+
+       location / {
+         proxy_pass http://127.0.0.1:3002;
+       }
+}
+```
+
+```
+# systemctl 
+# status 
+sudo systemctl status
+sudo systemctl apache2 status
+sudo systemctl stop apache2
+# check port
+netstat -a
+# check tcp
+netstat -at
+# show number
+netstat -ltnp
+
+sudo netstat -lptu
+sudo netstat -tulpn
+```
+
+```
+ sudo apt-get install -y nodejsnode
+ sudo apt install npm
+ sudo npm install -g npm@latest
+```
+
 
 ### npm mysql
 #### example #1
@@ -1895,3 +2536,5 @@ connection.end();
 + [bcrypt](https://www.npmjs.com/package/bcrypt)
 + [Sequelize](https://sequelize.org/)
 + [sequelize/cli](https://www.npmjs.com/package/sequelize-cli)
++ [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)
++ [How To Install Nginx on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)

@@ -285,6 +285,11 @@ less -m -N /var/log//apache2/error.log
 
 #### top 顯示即時的系統負載狀態
 
+#### ufw 防火牆
+``` bash
+ufw allow 80
+ufw status
+```
 
 ### vim 
 <div style="width:500px">
