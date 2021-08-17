@@ -2622,6 +2622,96 @@ heroku open
 ##### develop db for heroku
 ??
 
+### AWS 部署
+
+```
+sudo apt-get update
+sudo apt-get install nginx
+# 順序有關係
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# insuall pm2
+# npm install pm2 -g
+# found error , upgrade npm
+# sudo npm install -g npm@latest
+# 應是未加 sudo 
+sudo npm install pm2 -g
+
+# some mysql test command 
+# sudo systemctl stop mysql.service
+# sudo apt-get remove mysql-server
+# sudo apt-get install mysql-server
+```
+
+```
+uploader code
+npm install
+create db : mydb2
+sudo npx sequelize-cli db:migrate
+```
+
+change user password
+```
+ALTER USER 'robert'@'localhost' IDENTIFIED BY 'test@01';
+FLUSH PRIVILEGES;
+```
+
+firewall open 3000
+
+mysql 
+```
+# version
+mysql -V
+```
+
+```
+(1)使用 root 進入 MySQL
+mysql> mysql -u root -p
+
+(2)遠端登入
+mysql> mysql -u root -h remote_host_ip -p
+remote_host_ip 指你要登入的遠端MySQL
+
+(3)修改使用者密碼
+mysql> SET PASSWORD FOR '目標使用者'@'主機' = PASSWORD('密碼');
+mysql> flush privileges;
+
+(4)建立使用者，並給予權限
+grant usage on *.* to 'username'@'localhost' identified by 'yourpassword' with grant option; 
+grant all privileges on *.* to 'username'@'localhost' identified by 'yourpassword';
+flush privileges;
+
+5)刪除mysql的使用者
+mysql>delete from mysql.user where user='username' and host='localhost';
+mysql>flush privileges;
+
+OR
+mysql>DROP USER user@ip_address;
+
+6)查詢 User 的權限
+# 秀出系統現在有哪些使用者
+SELECT User,Host FROM mysql.user;
+# 下述這些結果都一樣, 都是列出目前使用者的權限.
+SHOW GRANTS;
+SHOW GRANTS FOR CURRENT_USER;
+SHOW GRANTS FOR CURRENT_USER();
+
+(7)移除 MySQL 帳號權限
+revoke all privileges on *.* from 'username'@'localhost';
+flush privileges;
+
+# current user
+SELECT CURRENT_USER();
+# all user
+select User from mysql. user;
+SELECT User,Host FROM mysql.user;
+#刪除mysql的使用者
+mysql>delete from mysql.user where user='username' and host='localhost';
+mysql>flush privileges;
+```
+
+
 ### npm mysql
 #### example #1
 ``` bash

@@ -95,7 +95,7 @@ tags:
 </div>
 
 #### 安裝
-1. 安裝 lamp
+##### 安裝 lamp
 
 ``` bash
 # 更新軟體
@@ -117,7 +117,7 @@ telnet 127.0.0.1 80
 	Connected to 127.0.0.1.
 	Escape character is '^]'.
 ```
-2. 安裝 phpmyadmin
+##### 安裝 phpmyadmin
 
 ``` bash
 sudo apt install phpmyadmin
@@ -141,7 +141,7 @@ sudo apt install phpmyadmin
 使用 browser 開啟 http://public_ip/phpmyadmin/ 即可用帳號 phpmyadmin 登入 
 (public_ip 填入實際ip)
 
-3. 設定 database
+##### 設定 database
 
 ``` bash
 # mysql version
@@ -232,7 +232,7 @@ mysql>
 # 使用 browser 開啟 http://public_ip/phpmyadmin/ 即可用帳號 root 登入
 ```
 
-4. change apache root folder
+##### change apache root folder
 
 ``` bash
 # change apache root folder
@@ -250,7 +250,7 @@ sudo service apache2 restart
 # open browser check work well
 ```
 
-5. 建立 SFTP link
+##### 建立 SFTP link
 
 執行 FileZilla, 新增站台, 選擇協定為 SFTP, 設定IP, 設定使用者,選擇 ssh key 檔案,點選連線
 <div style="maxwidth:1000px">
@@ -268,7 +268,7 @@ SFTP 連線後,即可將必要的檔案傳入
 	{% asset_img pic25.png pic25 %}
 </div>
 
-6. 建立 user 和 資料庫
+##### 建立 user 和 資料庫
 
 建立 user 
 ``` bash
@@ -503,7 +503,7 @@ OUTPUT 會顯示 SFTP 執行內容
 
 #### 安裝 #2 - 個別安裝
 
-1. 安裝 apache2 
+##### 安裝 apache2 
 
 ``` bash
 # 更新軟體
@@ -527,7 +527,7 @@ sudo service apache2 restart
 # open browser check work well
 ```
 
-2. 安裝 php
+##### 安裝 php
 
 ``` bash
 # install
@@ -546,7 +546,7 @@ sudo service apache2 restart
 # 檢查是否有 imagick、curl、mysqli、pdo_mysql、gd、mbstring 功能
 ```
 
-3. 安裝 MySQL
+##### 安裝 MySQL
 
 ``` bash
 # Install MySQL
@@ -578,7 +578,7 @@ mysql> exit
 Bye
 ```
 
-4. 檢查 MySQL 安裝結果
+##### 檢查 MySQL 安裝結果
 
 ``` bash
 # chec mysql status
@@ -610,7 +610,7 @@ sudo mysqladmin -p -u robert version
 	bles: 78  Queries per second avg: 0.006
 ``` 
 
-5. install phpMyAdmin
+##### install phpMyAdmin
 
 ``` bash
 # install phpMyAdmin 相關 package
@@ -645,13 +645,13 @@ sudo systemctl restart apache2
 可使用 .htaccess 增加 phpMyAdmin 安全性(有必要再來研究)
 
 #### 其他 app 連至 MySQL
-1. Inbound Rules 新增 HTTP TCP port:3306
+##### Inbound Rules 新增 HTTP TCP port:3306
 
 <div style="maxwidth:1000px">
 	{% asset_img pic46.png pic46 %}
 </div>
 
-2. mask bind-address(允許連線主機)
+##### mask bind-address(允許連線主機)
 
 ``` bash
 sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -661,7 +661,7 @@ bind-address          = 127.0.0.1
 # bind-address          = 127.0.0.1
 ```
 
-3. root localhost 改成 % 
+##### root localhost 改成 % 
 
 ``` bash
 sudo mysql -u root -p
@@ -710,6 +710,11 @@ mysql> flush privileges;
 mysql> quit
 	Bye
 ```
+
+##### heidisq port 3306 setting
+<div style="width:500px">
+	{% asset_img pic50.png pic50 %}
+</div>
 
 #### logs 查詢
 1. apache2 log
