@@ -245,6 +245,10 @@ netstat -at
 netstat -au
 # 列出網路介面資訊
 netstat -ie
+# other 
+sudo netstat -ltnp
+sudo netstat -lptu
+sudo netstat -tulpn
 ```
 
 #### apt 

@@ -333,6 +333,10 @@ mysql>
 1. 設定 domain name 對應 ip
 
 <div style="maxwidth:1000px">
+	{% asset_img pic37.png pic37 %}
+</div>
+
+<div style="maxwidth:1000px">
 	{% asset_img pic36.png pic36 %}
 </div>
 

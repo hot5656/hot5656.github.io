@@ -403,6 +403,31 @@ statusCode: 200
 npm install axios
 ``` 
 
+#### NODE_ENV [dotenv] - 環境變數集中在 env 檔
+``` bash 
+npm install dotenv --save
+```
+
+.env
+```
+CHRIS=chris
+DB_HOST=DB_HOST
+DB_PORT=DB_PORT
+DB_USER=DB_USER
+DB_PASS=DB_PASS
+```
+
+app.js
+``` js
+require('dotenv').config();
+console.log(process.env.CHRIS); //chris
+console.log(process.env["DB_HOST"]); //DB_HOST
+console.log(process.env["DB_PORT"]); //DB_PORT
+console.log(process.env["DB_USER"]); //DB_USER
+console.log(process.env["DB_PASS"]); //DB_PASS
+```
+
+
 #### jest
 ``` bash
 yarn add --dev jest

@@ -2406,19 +2406,22 @@ pm2 delete 0
 
 #### Nginx 
 
-```
+##### install
+``` bash
+# install nginx
 sudo apt update
-
 sudo apt install nginx
+# install node.js
+sudo apt-get install nodejs
+sudo apt install npm
+sudo npm install -g npm@latest # in need - install lasted version
+# dump status and start mginx
 sudo systemctl status nginx
 sudo systemctl start nginx
 ```
 
-```
-sudo vim /etc/nginx/sites-available/aaa.website
-sudo vim /etc/nginx/sites-available/bbb.website
-```
-
+##### run web server 
+index.js
 ```
 const express = require('express')
 const app = express()
@@ -2432,6 +2435,7 @@ app.listen(port, () => {
                 console.log(`Example app listening at http://localhost:${port}`)})
 ```
 
+index2.js
 ```
 const express = require('express')
 const app = express()
@@ -2441,20 +2445,31 @@ app.get('/', (req,res) =>{
                 res.send('Hi, 3002....')
 })
 
-
-
 app.listen(port, () => {
                 console.log(`Example app listening at http://localhost:${port}`)})
 
 ```
 
+``` bash
+# start web server
+pm2 start index.js
+pm2 start index2.js
+```
 
-```
-sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginxsites-enabled/
-sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginxsites-enabled/
+#### set for DNS 
+<div style="maxwidth:1000px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
+##### configure nginx to web server
+``` bash
+sudo vim /etc/nginx/sites-available/aaa.website
+sudo vim /etc/nginx/sites-available/bbb.website
 ```
 
-```
+
+``` js
+// aaa.website
 server {
        listen 80;
        server_name aaa.hot5656.website;
@@ -2464,6 +2479,7 @@ server {
        }
 }
 
+// bbb.website
 server {
        listen 80;
        server_name bbb.hot5656.website;
@@ -2474,29 +2490,137 @@ server {
 }
 ```
 
-```
-# systemctl 
-# status 
-sudo systemctl status
-sudo systemctl apache2 status
-sudo systemctl stop apache2
-# check port
-netstat -a
-# check tcp
-netstat -at
-# show number
-netstat -ltnp
-
-sudo netstat -lptu
-sudo netstat -tulpn
+add soft link 
+``` bash
+sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginxsites-enabled/
+sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginxsites-enabled/
 ```
 
-```
- sudo apt-get install -y nodejsnode
- sudo apt install npm
- sudo npm install -g npm@latest
+##### reload nginx
+``` bash
+sudo systemctl reload nginx
+sudo systemctl status nginx
 ```
 
+### Heroku
+#### develop node.js - no db
+
+##### install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+``` bash
+heroku -v
+node -v
+```
+
+##### package.json add "script start" and "engines"
+``` js
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+```
+
+##### set env port
+app.js
+``` js
+const port = process.env.PORT || 5001
+```
+
+##### run heroku local test
+``` bash
+heroku local web
+```
+
+##### develop to heroku
+
+add .gitignore
+```
+node_modules/
+```
+
+git init 
+``` bash
+git add .
+git status
+git commit -m "1st commit"
+git show-ref
+```
+
+push to heroku
+``` bash
+# login 
+heroku login
+# create app
+heroku create
+# list app
+heroku lis
+# delete app - if need detele other app
+# heroku apps:destroy afternoon-plains-5751
+git remote -v
+	heroku  https://git.heroku.com/mysterious-ravine-06292.git (fetch)
+	heroku  https://git.heroku.com/mysterious-ravine-06292.git (push)
+# push to heroku
+git push heroku master
+# open by local browser
+heroku open
+```
+
+#### develop node.js - include db
+
+##### package.json add "script start" and "engines"
+``` js
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+```
+
+##### set env port
+index.js
+``` js
+const port = process.env.PORT || 3000
+```
+
+##### run heroku local test
+``` bash
+heroku local web
+```
+
+##### develop to heroku
+
+add .gitignore
+```
+node_modules/
+```
+
+git init 
+``` bash
+git add .
+git status
+git commit -m "1st commit"
+git show-ref
+```
+
+push to heroku
+``` bash
+# create app
+heroku create
+git remote -v
+	heroku  https://git.heroku.com/mysterious-ravine-06292.git (fetch)
+	heroku  https://git.heroku.com/mysterious-ravine-06292.git (push)
+# push to heroku
+git push heroku master
+# open by local browser
+heroku open
+```
+
+##### develop db for heroku
+??
 
 ### npm mysql
 #### example #1
@@ -2538,3 +2662,5 @@ connection.end();
 + [sequelize/cli](https://www.npmjs.com/package/sequelize-cli)
 + [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)
 + [How To Install Nginx on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
++ [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true)
++ [Heroku - ClearDB MySQL](https://devcenter.heroku.com/articles/cleardb)
