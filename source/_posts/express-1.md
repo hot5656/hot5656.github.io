@@ -2657,13 +2657,52 @@ ALTER USER 'robert'@'localhost' IDENTIFIED BY 'test@01';
 FLUSH PRIVILEGES;
 ```
 
-firewall open 3000
+firewall open 3000,5000
 
 mysql 
+
+
+~/ex3-sequelize$ pm2 start index.js
+~/blog$ pm2 start index.js
 ```
 # version
 mysql -V
 ```
+
+configure nginx to web server
+sudo vim /etc/nginx/sites-available/aaa.website
+sudo vim /etc/nginx/sites-available/bbb.website
+
+
+// aaa.website
+server {
+       listen 80;
+       server_name aaa.hot5656.website;
+
+       location / {
+         proxy_pass http://127.0.0.1:3000;
+       }
+}
+
+// bbb.website
+server {
+       listen 80;
+       server_name bbb.hot5656.website;
+
+       location / {
+         proxy_pass http://127.0.0.1:5000;
+       }
+}
+
+sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginx/sites-enabled/
+
+<error> 
+Job for nginx.service failed because the control process exited with error code.
+See "systemctl status nginx.service" and "journalctl -xe" for details.
+check log
+sudo nano /var/log/nginx/error.log
+
 
 ```
 (1)使用 root 進入 MySQL
@@ -2709,6 +2748,18 @@ SELECT User,Host FROM mysql.user;
 #刪除mysql的使用者
 mysql>delete from mysql.user where user='username' and host='localhost';
 mysql>flush privileges;
+
+
+# show all DB
+SHOW DATABASES;
+
+# show DB's table
+USE mysql2;
+SHOW TABLES;
+
+# delete table
+DROP TABLE blog_category;
+DROP TABLE user_levels;
 ```
 
 
