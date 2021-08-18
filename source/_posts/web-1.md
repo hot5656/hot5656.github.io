@@ -711,6 +711,11 @@ mysql> quit
 	Bye
 ```
 
+``` bash
+# restart mysql
+sudo systemctl restart mysql
+```
+
 ##### heidisq port 3306 setting
 <div style="width:500px">
 	{% asset_img pic50.png pic50 %}

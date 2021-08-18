@@ -1650,8 +1650,11 @@ change db configuration
 ``` bash
 # npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 # add field user_level:integer
+# npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string,user_level:integer
+# npx sequelize-cli model:generate --name Comment --attributes content:string
+# 欄位加滿,不然有時會有問題
 npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string,user_level:integer
-npx sequelize-cli model:generate --name Comment --attributes content:string
+npx sequelize-cli model:generate --name Comment --attributes content:text,UserId:integer
 ```
 
 ##### migrate (generate db table) 
@@ -1812,8 +1815,11 @@ npm install mysql2
 # init
 npx sequelize-cli init
 # create model
-npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string
-npx sequelize-cli model:generate --name Comment --attributes content:text
+# npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string
+# npx sequelize-cli model:generate --name Comment --attributes content:text
+# 欄位加滿,不然有時會有問題
+npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string,user_level:integer
+npx sequelize-cli model:generate --name Comment --attributes content:text,UserId:integer
 # migrate 
 npx sequelize-cli db:migrate
 ```
@@ -2467,9 +2473,8 @@ sudo vim /etc/nginx/sites-available/aaa.website
 sudo vim /etc/nginx/sites-available/bbb.website
 ```
 
-
+aaa.website
 ``` js
-// aaa.website
 server {
        listen 80;
        server_name aaa.hot5656.website;
@@ -2478,8 +2483,10 @@ server {
          proxy_pass http://127.0.0.1:3001;
        }
 }
+```
 
-// bbb.website
+bbb.website
+```
 server {
        listen 80;
        server_name bbb.hot5656.website;
@@ -2492,8 +2499,8 @@ server {
 
 add soft link 
 ``` bash
-sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginxsites-enabled/
-sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginxsites-enabled/
+sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginx/sites-enabled/
 ```
 
 ##### reload nginx
@@ -2569,6 +2576,12 @@ heroku open
 
 #### develop node.js - include db
 
+##### install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+``` bash
+heroku -v
+node -v
+```
+
 ##### package.json add "script start" and "engines"
 ``` js
   "scripts": {
@@ -2608,8 +2621,13 @@ git show-ref
 
 push to heroku
 ``` bash
+# login - if never login
+# heroku login
 # create app
 heroku create
+# list app - if want to see other app
+# delete app - if need detele other app
+# heroku lis
 git remote -v
 	heroku  https://git.heroku.com/mysterious-ravine-06292.git (fetch)
 	heroku  https://git.heroku.com/mysterious-ravine-06292.git (push)
@@ -2620,61 +2638,218 @@ heroku open
 ```
 
 ##### develop db for heroku
-??
-
-### AWS 部署
-
+``` bash
+# show logs for debug
+heroku logs -–tail
+# add db
+heroku addons:create cleardb:ignite
 ```
+
+check models/index.js see use_env_variable for db parameter
+``` json
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+```
+
+check heroku db env name
+<div style="maxwidth:1000px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
+set config/config.json
+``` json
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "use_env_variable": "CLEARDB_DATABASE_URL"
+  }
+```
+
+commit + push to heroku
+``` 
+git add .
+git commit -m "add db config"
+git push heroku master
+```
+
+add migrate script to package.json
+``` json
+  "scripts": {
+    "db:migrate": "npx sequelize db:migrate",
+    "start": "npm run db:migrate && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+
+commit + push to heroku
+``` bash 
+git add .
+git commit -m "add db migrate"
+git push heroku master
+```
+
+##### heidisql link to heroku db
+<div style="width:500px">
+	{% asset_img pic3.png pic3 %}
+</div>
+
+
+### AWS 部署(node.js + express + nginx)
+
+#### install nginx, node.js, npm, pm2
+``` bash
+# install nginx
 sudo apt-get update
 sudo apt-get install nginx
-# 順序有關係
+# 順序有關係 - install node,npmx
 sudo apt-get install nodejs
 sudo apt-get install npm
-
 # insuall pm2
-# npm install pm2 -g
+sudo npm install pm2 -g 
 # found error , upgrade npm
-# sudo npm install -g npm@latest
-# 應是未加 sudo 
+sudo npm install -g npm@latest
 sudo npm install pm2 -g
-
-# some mysql test command 
-# sudo systemctl stop mysql.service
-# sudo apt-get remove mysql-server
-# sudo apt-get install mysql-server
 ```
 
+#### install mysql 
+``` bash
+# Install MySQL
+sudo apt install mysql-server
+# Run the security script 
+sudo mysql_secure_installation
+# Creating MySQL User (robert)
+sudo mysql
+mysql> CREATE USER 'robert'@'localhost' IDENTIFIED BY 'passwrod';
+Query OK, 0 rows affected (0.02 sec)
+
+# 更改 root password Password Plugin to mysql_native_password for remote login
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'passwrod';
+Query OK, 0 rows affected (0.01 sec)
+
+# 授予 user 權限
+mysql> GRANT ALL  ON mydb2.* TO 'robert'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+# create database - 特別要用反引號
+mysql> CREATE DATABASE `mydb2`;
+Query OK, 1 row affected (0.01 sec)
+
+# free previous command cache 
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+Bye
 ```
-uploader code
+
+#### 其他 app 連至 MySQL
+##### Inbound Rules 新增 HTTP TCP port:3306
+
+<div style="maxwidth:1000px">
+	{% asset_img pic4.png pic4 %}
+</div>
+
+##### mask bind-address(允許連線主機)
+
+``` bash
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+# --- 原來
+bind-address          = 127.0.0.1
+# --- 修改後
+# bind-address          = 127.0.0.1
+```
+
+##### root localhost 改成 % 
+
+``` bash
+sudo mysql -u root -p
+Enter password:
+
+mysql> SELECT user,plugin,host FROM mysql.user;
+	+------------------+-----------------------+-----------+
+	| user             | plugin                | host      |
+	+------------------+-----------------------+-----------+
+	| debian-sys-maint | caching_sha2_password | localhost |
+	| mysql.infoschema | caching_sha2_password | localhost |
+	| mysql.session    | caching_sha2_password | localhost |
+	| mysql.sys        | caching_sha2_password | localhost |
+	| phpmyadmin       | caching_sha2_password | localhost |
+	| robert           | caching_sha2_password | localhost |
+	| root             | mysql_native_password | localhost |
+	+------------------+-----------------------+-----------+
+	7 rows in set (0.00 sec)
+
+mysql> use mysql;
+	Reading table information for completion of table and column names
+	You can turn off this feature to get a quicker startup with -A
+	Database changed
+
+mysql> update user set host ='%'where user ='root' and host ='localhost';
+	Query OK, 1 row affected (0.01 sec)
+	Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT user,plugin,host FROM mysql.user;
+	+------------------+-----------------------+-----------+
+	| user             | plugin                | host      |
+	+------------------+-----------------------+-----------+
+	| root             | mysql_native_password | %         |
+	| debian-sys-maint | caching_sha2_password | localhost |
+	| mysql.infoschema | caching_sha2_password | localhost |
+	| mysql.session    | caching_sha2_password | localhost |
+	| mysql.sys        | caching_sha2_password | localhost |
+	| phpmyadmin       | caching_sha2_password | localhost |
+	| robert           | caching_sha2_password | localhost |
+	+------------------+-----------------------+-----------+
+	7 rows in set (0.00 sec)
+
+mysql> flush privileges;
+	Query OK, 0 rows affected (0.01 sec)
+
+mysql> quit
+	Bye
+```
+
+``` bash
+# restart mysql
+sudo systemctl restart mysql
+```
+
+##### heidisq port 3306 setting
+<div style="width:500px">
+	{% asset_img pic5.png pic5 %}
+</div>
+
+#### install and start app 
+``` bash
+# ftp load code ex3-sequelize
+# install module and migrate db
 npm install
-create db : mydb2
 sudo npx sequelize-cli db:migrate
-```
-
-change user password
-```
-ALTER USER 'robert'@'localhost' IDENTIFIED BY 'test@01';
-FLUSH PRIVILEGES;
-```
-
-firewall open 3000,5000
-
-mysql 
-
-
+# ftp load code ex3-sequelize
+npm install
+sudo npx sequelize-cli db:migrate
+# fireware open port 3000 and 5000 for app using
+# start app
 ~/ex3-sequelize$ pm2 start index.js
 ~/blog$ pm2 start index.js
 ```
-# version
-mysql -V
-```
 
+#### run nginx
 configure nginx to web server
+``` bash
 sudo vim /etc/nginx/sites-available/aaa.website
 sudo vim /etc/nginx/sites-available/bbb.website
+```
 
-
-// aaa.website
+aaa.website
+``` js
 server {
        listen 80;
        server_name aaa.hot5656.website;
@@ -2683,8 +2858,10 @@ server {
          proxy_pass http://127.0.0.1:3000;
        }
 }
+```
 
-// bbb.website
+bbb.website
+``` js
 server {
        listen 80;
        server_name bbb.hot5656.website;
@@ -2693,75 +2870,20 @@ server {
          proxy_pass http://127.0.0.1:5000;
        }
 }
+```
 
+add soft link 
+``` bash
 sudo ln -s /etc/nginx/sites-available/aaa.website /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/bbb.website /etc/nginx/sites-enabled/
+```
 
-<error> 
-Job for nginx.service failed because the control process exited with error code.
-See "systemctl status nginx.service" and "journalctl -xe" for details.
-check log
+reload nginx 
+``` bash 
+sudo systemctl reload nginx
+# check nginx log in need
 sudo nano /var/log/nginx/error.log
-
-
 ```
-(1)使用 root 進入 MySQL
-mysql> mysql -u root -p
-
-(2)遠端登入
-mysql> mysql -u root -h remote_host_ip -p
-remote_host_ip 指你要登入的遠端MySQL
-
-(3)修改使用者密碼
-mysql> SET PASSWORD FOR '目標使用者'@'主機' = PASSWORD('密碼');
-mysql> flush privileges;
-
-(4)建立使用者，並給予權限
-grant usage on *.* to 'username'@'localhost' identified by 'yourpassword' with grant option; 
-grant all privileges on *.* to 'username'@'localhost' identified by 'yourpassword';
-flush privileges;
-
-5)刪除mysql的使用者
-mysql>delete from mysql.user where user='username' and host='localhost';
-mysql>flush privileges;
-
-OR
-mysql>DROP USER user@ip_address;
-
-6)查詢 User 的權限
-# 秀出系統現在有哪些使用者
-SELECT User,Host FROM mysql.user;
-# 下述這些結果都一樣, 都是列出目前使用者的權限.
-SHOW GRANTS;
-SHOW GRANTS FOR CURRENT_USER;
-SHOW GRANTS FOR CURRENT_USER();
-
-(7)移除 MySQL 帳號權限
-revoke all privileges on *.* from 'username'@'localhost';
-flush privileges;
-
-# current user
-SELECT CURRENT_USER();
-# all user
-select User from mysql. user;
-SELECT User,Host FROM mysql.user;
-#刪除mysql的使用者
-mysql>delete from mysql.user where user='username' and host='localhost';
-mysql>flush privileges;
-
-
-# show all DB
-SHOW DATABASES;
-
-# show DB's table
-USE mysql2;
-SHOW TABLES;
-
-# delete table
-DROP TABLE blog_category;
-DROP TABLE user_levels;
-```
-
 
 ### npm mysql
 #### example #1

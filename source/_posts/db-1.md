@@ -38,6 +38,16 @@ tags:
 #### 基礎語法
 一般 mySQL 命令都用大寫,較易識別
 
+##### bash command 
+``` bash
+# version
+mysql -V
+# 使用 root 進入 MySQL
+mysql -u root -p
+# 遠端登入 - remote_host_ip 指你要登入的遠端MySQL ip
+mysql -u root -h remote_host_ip -p
+```
+
 ##### 查詢資料 Select
 ``` bash
 # table 可用 反引號包住,也可以不加反引號
@@ -66,6 +76,9 @@ INSERT INTO `my_class`(name, content) VALUES ('Jack','office')
 ``` bash
 # 指定要更動欄位
 UPDATE my_class SET name='user01', content='content01' WHERE id=2
+# 修改使用者密碼
+ALTER USER 'robert'@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
 ```
 
 ##### 刪除資料 Delete
@@ -112,11 +125,34 @@ CREATE USER 'robert2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 CREATE USER 'robert2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 # 更改 user 設定
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'rootpassword';
+# 建立使用者，並給予權限
+grant usage on *.* to 'username'@'localhost' identified by 'yourpassword' with grant option; 
+grant all privileges on *.* to 'username'@'localhost' identified by 'yourpassword';
+flush privileges;
+# 刪除mysql的使用者
+delete from mysql.user where user='username' and host='localhost';
+flush privileges;
 ```
 
 ##### 選擇資料庫
 ``` bash
 USE mysql;
+```
+
+##### other command
+``` bash
+# current user
+SELECT CURRENT_USER();
+# show all user
+SELECT User,Host FROM mysql.user;
+# show all DB
+SHOW DATABASES;
+# show DB's table
+USE mysql2;
+SHOW TABLES;
+# delete table
+DROP TABLE blog_category;
+DROP TABLE user_levels;
 ```
 
 ##### is_deleted 欄位(hide data for user)
