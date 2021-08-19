@@ -14,7 +14,7 @@ tags:
 ``` bash
 npm install express
 npm install ejs
-express body-parser
+npm install body-parser
 npm install express-session
 npm install connect-flash
 npm install sequelize
@@ -35,7 +35,7 @@ config/config.json
     "username": "robert",
     "password": "password",
     "database": "mydb2",
-    "host": "local",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
@@ -215,4 +215,57 @@ app.get('/all', blogController.all)
 app.listen(port, () => {
 	console.log(`blog app listening at http://localhost:${port}`)
 })
+```
+
+### lottery api
+#### module install + sqeuwlize-cli init
+``` bash
+npm init
+npm install express
+npm install ejs
+npm install body-parser
+# connect-flash need express-session
+npm install express-session
+npm install connect-flash
+npm install sequelize
+npm install sequelize-cli
+npm install mysql2
+# init 
+npx sequelize-cli init
+```
+
+#### config.json
+config/config.json
+``` json
+{
+  "development": {
+    "username": "robert",
+    "password": "password",
+    "database": "mydb2",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+#### create db(migrate)
+``` bash
+# Lottery
+npx sequelize-cli model:generate --name Lottery --attributes prize:string,description:string,url:string,probability:integer
+# migrate
+npx sequelize-cli db:migrate
 ```
