@@ -1750,7 +1750,7 @@ User.create({
 // 在 ejs 可直接使用
 res.locals.isLogin = req.session.isLogin
 res.locals.errorMessage = req.flash('errorMessage')
-// gte 傳入參數
+// get 傳入參數
 id: req.params.id,
 // post 傳入參數
 const {	content } = req.body
@@ -2547,8 +2547,9 @@ add .gitignore
 node_modules/
 ```
 
-git init 
+git init and commit
 ``` bash
+git init 
 git add .
 git status
 git commit -m "1st commit"
@@ -2927,3 +2928,4 @@ connection.end();
 + [How To Install Nginx on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
 + [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true)
 + [Heroku - ClearDB MySQL](https://devcenter.heroku.com/articles/cleardb)
++ [npm CORS](https://www.npmjs.com/package/cors)

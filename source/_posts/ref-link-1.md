@@ -92,6 +92,7 @@ date: 2021-03-18 15:48:55
 + [Free MySQL hosting](https://www.freemysqlhosting.net/)
 + [000webhost](https://www.000webhost.com/)
 + [申請一個屬於自己的自由網域-TWBBS.org](https://blog.xuite.net/jason_kuso/kuso/39506759)
++ [Upload.cc: 免費圖片上傳網](https://upload.cc/)
 
 
 ### 技術網站
