@@ -91,6 +91,14 @@ Commonly Used --> Editor:Word Wrap
 	on : 自動換行
 ```
 
+#### JSX snippets
+``` json
+	"emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+	"emmet.triggerExpansionOnTab": true,
+```
+
 ### Plug
 + Live Server : Web server
 + Chinese Lorem : 中文假字(fenerate by ctlorem)

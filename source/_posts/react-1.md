@@ -144,6 +144,7 @@ JSX : 是一個 JavaScript 的語法擴充, 允許我們在 JS 的檔案中使�
 ```
 
 ### 基礎
+#### instal and start 
 ``` bash
 # install 
 npx create-react-app my-app
@@ -155,4 +156,105 @@ cd my-app
 npm start
 ```
 
+#### Strict Mode and measuring performance
+``` js
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import reportWebVitals from './reportWebVitals';
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+	// strict mode 可移除
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  rootElement
+);
+
+// measuring performance
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+```
+
+#### 1st React - include Inline styling 
+``` js
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+
+ReactDOM.render(
+	<App />,
+  document.getElementById('root')
+);
+``` 
+
+``` js
+// App.js
+// import css file
+import './App.css';
+
+// Creating a style object variable for Inline styling 
+const titleStyle = {
+	color: 'red',
+	fontWeight: 'bold'
+}
+
+function Title({size}) {
+	if (size === 'XL') {
+		// Creating a style object variable for Inline styling 
+		return <h1 style={titleStyle}>hello</h1>
+	}
+	else {
+		// Inline styling
+		return <h3 style={{
+			color: 'blue'
+		}}>hello</h3>
+	}
+}
+
+function Description({children}) {
+	return (
+		<p>
+			{children}
+		</p>
+	)
+}
+
+function App() {
+  return (
+		// class 改為 className
+		<div className="App">
+			{/* add function  */}
+			{/* add parameter */}
+			<Title size='L'></Title>
+			{/* add some data to function, its name is children */}
+			<Description>
+				This is 1st react.
+				welcome to here.
+			</Description>
+		</div>
+  );
+}
+
+export default App;
+```
+
+``` css
+/* App.css */
+.App {
+  text-align: center;
+}
+``` 
+
+#### styled components
+```bash
+npm install styled-components
+``` 
+
 ### 參考資料
++ [styled components](https://styled-components.com/docs/basics)

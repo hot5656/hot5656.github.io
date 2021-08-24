@@ -137,12 +137,19 @@ date: 2021-03-18 15:48:55
 + [I am Mike](https://medium.com/i-am-mike)
 + [OA's](https://www.ioa.tw/)
 + [toright](https://blog.toright.com/)
++ [PJCHENder](https://pjchender.dev/)
 
 #### 未歸類
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
 + [CoderBridge 技術內容創作分享學習平台](https://zh-tw.coderbridge.com/)
 + [google 文件](https://developers.google.com/search/docs)
 + [DEV](https://dev.to/)
++ [moo.com](https://www.moo.com/) : business card
++ [Canva](https://www.canva.com/zh_tw/) : business card
++ [vwnmo](https://venmo.com/)
+
+co-working space
+PayPal and Stripe
 
 ### 其他
 #### 題庫
