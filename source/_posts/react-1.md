@@ -252,9 +252,178 @@ export default App;
 ``` 
 
 #### styled components
+##### install
 ```bash
 npm install styled-components
 ``` 
 
+##### Example 1
+``` js
+// App.js
+// import css file
+import './App.css';
+// import styled components
+import styled from 'styled-components'
+
+// Creating a style object variable for Inline styling 
+const titleStyle = {
+	color: 'red',
+	fontWeight: 'bold'
+}
+
+// 可以包下一層, set hover
+const TitleWrapper = styled.h2`
+  display: flex;
+  color: blue;
+  
+  &:hover {
+    color: red;
+  }
+
+  span {
+    color: yellow;
+  }
+`
+
+function Title({size}) {
+	if (size === 'XL') {
+		// Creating a style object variable for Inline styling 
+		return <h1 style={titleStyle}>hello</h1>
+	}
+	else {
+		// Inline styling
+		// return <h2 style={{
+    //    dislay: 'flex';
+    //   color: 'blue',
+    // }}>hello</h2>
+    return (
+      <TitleWrapper>hello <span>yo</span> </TitleWrapper>
+    )
+	}
+}
+
+// styled components 代替 function 
+const Description = styled.p`
+  color: red;
+  padding: 20px;
+  border: 1px solid black;
+`
+
+// function Description({children}) {
+// 	return (
+// 		<p>
+// 			{children}
+// 		</p>
+// 	)
+// }
+
+function App() {
+  const titleSize = 'M';
+  return (
+		// class 改為 className
+		<div className="App">
+			{/* add function  */}
+			{/* add parameter */}
+			<Title size={titleSize}></Title>
+			{/* add some data to function, its name is children */}
+			<Description>
+				This is 1st react.
+				welcome to here.
+			</Description>
+		</div>
+  );
+}
+
+export default App;
+```
+
+##### Example 2
+``` js
+// App.js
+// import css file
+import './App.css';
+import styled from 'styled-components';
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid black;
+
+  & + & {
+    margin-top: 12px;
+  }
+`
+
+const TodoContent = styled.div`
+	color: rgb(2,40,77);
+	// 可依傳入之 props 做不同設定
+  // font-size: ${props => props.size === 'XL' ? '20px' : '12px'}
+  font-size: 12px;
+
+	// 可依傳入之 props 重新設定
+  ${props => props.size ==='XL' && `
+    font-size: 20px;
+  `}
+`
+
+const TodoButtonWrapper= styled.div``
+
+const Button = styled.button`
+  padding: 4px;
+  color: black;
+
+  &:hover {
+    color: red;
+  }
+
+	// 相連之 component
+  & + & {
+    margin-left: 10px;
+  }
+`
+
+function TodoItem({ size, content}) {
+  return (
+      <TodoItemWrapper>
+        <TodoContent size={size}>{content}</TodoContent>
+        <TodoButtonWrapper>
+          <Button>已完成</Button>
+          <Button>刪除</Button>
+        </TodoButtonWrapper>
+      </TodoItemWrapper>
+  )
+}
+
+function App() {
+  return (
+		<div className="App">
+			{/* TodoItem 移出成為一個 component */}
+      <TodoItem content="123"></TodoItem>
+      <TodoItem content="456" size="XL"></TodoItem>
+		</div>
+  );
+}
+
+// function App() {
+//   return (
+// 		<div className="App">
+//       <TodoItemWrapper>
+//         <TodoContent size='XL'>I am todo</TodoContent>
+//         <TodoButtonWrapper>
+//           <Button>已完成</Button>
+//           <Button>刪除</Button>
+//         </TodoButtonWrapper>
+//       </TodoItemWrapper>
+// 		</div>
+//   );
+// }
+
+export default App;
+```
+
+
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
++ [tagged template](https://pjchender.blogspot.com/2017/01/javascript-es6-template-literalstagged.html)

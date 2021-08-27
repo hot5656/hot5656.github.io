@@ -9,16 +9,28 @@ tags:
 ---
 
 ### 快速鍵
-+ 重整程式排列 : shift-alt-f
-+ 移動整行程式碼 : Alt + ↑ 或 Alt + ↓
-+ 設註解 : ctrl+/ 
 + 跳至 Command line : ctrl+shift+p 或 F1
-+ 跳至某一行 : Ctrl+G
 + 全螢幕切換 : F11
++ 搜尋檔案 : Ctrl + P
+---
++ 移動整行程式碼 : Alt + ↑ 或 Alt + ↓
++ 重整程式排列 : shift + alt + F
++ 設註解 : ctrl+/ 
++ 跳至某一行 : Ctrl+G
 + 多行編輯-選擇行   :  alt+(mouse-left)
 + 多行編輯-選擇多行 :  alt+shift+(mouse-left) 移動位置
 + 左移一個字 : Ctrl + Left
 + 右移一個字 : Ctrl + Right
++ 編輯所有符合字串 : 選擇字串 --> Ctrl + shift + L
++ 編輯下一個符合字串 : 選擇字串 --> Ctrl + D
++ 移除前一個編輯符合字串 : 選擇字串 --> Ctrl + U
++ 選擇一整行 : Ctrl + L
++ 複製區塊(前面/後面) : Shift + Alt + UP/DOWN
+---
++ 切換左邊功能表(sidebar) : Crtl + B
++ 分割畫面 : Ctrl + \
++ 開關 terminal : Ctrl + ` (反引號)
++ 關閉所有檔案 : Ctrl + K + W
 + 儲存檔案   : Ctrl + s
 
 <!--more-->
