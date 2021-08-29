@@ -258,6 +258,9 @@ npm install styled-components
 ``` 
 
 ##### Example 1
++ styled-compoents 代替 function
++ 可以包下一層, set hover
+
 ``` js
 // App.js
 // import css file
@@ -338,6 +341,10 @@ export default App;
 ```
 
 ##### Example 2
++ & + & (相連之 component)
++ 傳入props
++ TodoItem 移出成為一個 component
+
 ``` js
 // App.js
 // import css file
@@ -423,7 +430,781 @@ function App() {
 export default App;
 ```
 
+##### Example 3
++ media query
++ re-styled
++ theme
++ TodoItem component 另存一個 file
+
+###### index.js 
+``` js
+// index.js 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import {ThemeProvider} from 'styled-components'
+
+const theme = {
+	colors: {
+		primary_300: '#ff7979',
+		primary_400: '#e33e3e',
+		primary_500: '#af0505'
+	}
+}
+
+ReactDOM.render(
+	// theme傳入
+	<ThemeProvider theme={theme}>
+		<App />
+	</ThemeProvider>
+	,
+	document.getElementById('root')
+);
+```
+
+###### App.js
+``` js
+// App.js
+// import css file
+import './App.css';
+import styled from 'styled-components';
+import TodoItem from './TodoItem'
+
+// 對原本存在 function,再做 re-styled
+const BlackTodoItem = styled(TodoItem)`
+  background: black;
+`
+
+function App() {
+  return (
+		<div className="App">
+      <TodoItem content="123"/>
+			<TodoItem content="456" size="XL"/>
+      <BlackTodoItem content="456" size="XL"/>
+		</div>
+  );
+}
+export default App;
+```
+
+###### ./constants/style.js
+``` js
+/* ./constants/style.js */
+export const MEDIA_QUERY_MD = '@media screen and (min-width: 768px)'
+export const MEDIA_QUERY_LG = '@media screen and (min-width: 1000px)'
+```
+
+###### TodoItem.js
+``` js
+// TodoItem.js
+import styled from 'styled-components';
+import { MEDIA_QUERY_MD, MEDIA_QUERY_LG} from './constants/style'
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid black;
+
+  & + & {
+    margin-top: 12px;
+  }
+`
+
+const TodoContent = styled.div`
+// 取用 theme
+	color: ${props => props.theme.colors.primary_300};
+	
+  font-size: ${props => props.size === 'XL' ? '20px' : '12px'};
+`
+
+const TodoButtonWrapper= styled.div``
+
+const Button = styled.button`
+  padding: 4px;
+  color: black;
+
+	// ***** media change *****
+	// @media screen and (min-width: 768px) {
+	// 	font-size: 16px;
+	// }
+	${MEDIA_QUERY_MD} {
+		font-size: 16px;
+	}
+
+	${MEDIA_QUERY_LG} {
+		font-size: 20px;
+	}
+
+  &:hover {
+    color: red;
+  }
+
+	// 相連之 component
+  & + & {
+    margin-left: 10px;
+  }
+`
+
+// 對原本存在styled-component,再做 re-styled
+export const RedButton = styled(Button)`
+  color: red;
+`
+
+// for other import
+// 因為 function re-style, 增加 class 
+export default function TodoItem({ className, size, content}) {
+  return (
+      <TodoItemWrapper className={className}>
+        <TodoContent size={size}>{content}</TodoContent>
+        <TodoButtonWrapper>
+          <Button>已完成</Button>
+          <RedButton>刪除</RedButton>
+        </TodoButtonWrapper>
+      </TodoItemWrapper>
+  )
+}
+```
+
+#### JSX to react by Babel example
+``` js
+<button size="XL">hello!</button>
+
+"use strict";
+/*#__PURE__*/
+React.createElement("button", {
+  size: "XL"
+}, "hello!");
+```
+
+``` js
+<button size="XL" onClick={()=>{
+  alert(1)}}>hello!</button>
+
+"use strict";
+/*#__PURE__*/
+React.createElement("button", {
+  size: "XL",
+  onClick: () => {
+    alert(1);
+  }
+}, "hello!");
+```
+
+``` js 
+<button size="XL" onClick={()=>{
+  alert(1)}}><div>hello!</div></button>
+
+"use strict";
+/*#__PURE__*/
+React.createElement("button", {
+  size: "XL",
+  onClick: () => {
+    alert(1);
+  }
+}, /*#__PURE__*/React.createElement("div", null, "hello!"));
+```
+
+#### State
+
+##### example 1
++ state init : const [counter, setCounter] = React.useState(0); 
++ state ange : setCounter(counter + 1)
++ ui upadte : counter: {counter}
+
+``` js
+// App.js
+// import css file
+import './App.css';
+import styled from 'styled-components';
+import TodoItem from './TodoItem'
+import { Hook } from 'tapable';
+// for State
+import React from 'react';
+
+// 對原本存在 function,再做 re-styled
+const BlackTodoItem = styled(TodoItem)`
+  background: black;
+`
+
+// Hook
+// function comment
+// class comment
+
+function App() {
+	// for State
+	const [counter, setCounter] = React.useState(0);
+	console.log('render', counter)
+
+	// function HandleButtonClick() {}
+	const HandleButtonClick = () =>{
+		console.log('button click')
+		setCounter(counter + 1)
+	}
+
+  return (
+		<div className="App">
+			{/* for State */}
+			<div>counter: {counter}</div>
+			<button onClick={HandleButtonClick}>increment</button>
+      <TodoItem content="123"/>
+			<TodoItem content="456" size="XL"/>
+		</div>
+  );
+}
+export default App;
+```
+
+##### example 2 - todos
++ key
++ setTodos for array
++ todos.map
+
+``` js
+// App.js
+// import css file
+import './App.css';
+import TodoItem from './TodoItem'
+// for State
+import { useState } from 'react';
+
+function App() {
+	// immutable 不可變的
+	const [todos, setTodos] = useState([
+		1
+	]);
+
+	const handleTodosClick = () =>{
+		setTodos([Math.random(), ...todos])
+	}
+
+  return (
+		<div className="App">
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map((todo, index) => <TodoItem key={index} content={todo} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+##### example 3 - todos add item
++ controlled component
++ uncontrolled component #1
++ uncontrolled component #2 (Ref)
++ todo change to object
+
+
+###### App.js
+``` js
+// App.js
+// import css file
+import './App.css';
+import TodoItem from './TodoItem'
+// for State
+import { useState } from 'react';
+// uncontrolled component #2 -> ref
+// import { useState, useRef } from 'react';
+
+let id =2 ;
+function App() {
+	// immutable 不可變的
+	const [todos, setTodos] = useState([
+		{
+			id: 1,
+			content: 'abc'
+		}
+	]);
+	// add value
+	const [value, setValue] = useState('')
+	// uncontrolled component #2 -> ref
+	// const inputRef = useRef()
+
+	const handleTodosClick = () =>{
+		// uncontrolled component #1 -> get value
+		// document.querySelector('.input-todo').value
+		// uncontrolled component #2 -> ref
+		// console.log(inputRef.current.value)
+		// set input value 
+		setTodos([{
+			id,
+			content: value
+		}, ...todos])
+		setValue('')
+		id++
+	}
+
+	const handleInputChange = (e) => {
+		// console.log(e.target.value)
+		// controlled component
+		setValue(e.target.value)
+	}
+
+  return (
+		<div className="App">
+			{/* controlled component */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			{/* uncontrolled component #1 -> get value */}
+			{/* <input className="input-todo" type="text" placeholder="todo"/> */}
+			{/* uncontrolled component #2 -> ref */}
+			{/* <input ref={inputRef} type="text" placeholder="todo"/> */}
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+###### TodoItem.js
+``` js
+// TodoItem.js
+import styled from 'styled-components';
+import { MEDIA_QUERY_MD, MEDIA_QUERY_LG} from './constants/style'
+// react direct
+import React from 'react';
+
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid black;
+
+  & + & {
+    margin-top: 12px;
+  }
+`
+
+const TodoContent = styled.div`
+// 取用 theme
+	color: ${props => props.theme.colors.primary_300};
+	
+  font-size: ${props => props.size === 'XL' ? '20px' : '12px'};
+`
+
+const TodoButtonWrapper= styled.div``
+
+const Button = styled.button`
+  padding: 4px;
+  color: black;
+
+	// ***** media change *****
+	// @media screen and (min-width: 768px) {
+	// 	font-size: 16px;
+	// }
+	${MEDIA_QUERY_MD} {
+		font-size: 16px;
+	}
+
+	${MEDIA_QUERY_LG} {
+		font-size: 20px;
+	}
+
+  &:hover {
+    color: red;
+  }
+
+	// 相連之 component
+  & + & {
+    margin-left: 10px;
+  }
+`
+
+// 對原本存在styled-component,再做 re-styled
+export const RedButton = styled(Button)`
+  color: red;
+`
+
+// for other import
+// 因為 function re-style, 增加 class 
+export default function TodoItem({ className, size, todo}) {
+  return (
+       <TodoItemWrapper className={className} data-tddo-id={todo.id} >
+        <TodoContent size={size}>{todo.content}</TodoContent>
+        <TodoButtonWrapper>
+          <Button>已完成</Button>
+          <RedButton>刪除</RedButton>
+        </TodoButtonWrapper>
+      </TodoItemWrapper>
+  )
+}
+```
+
+##### example 4 - todos delete
++ todo delete
+
+###### App.js
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+import { useState } from 'react';
+
+let id =2 ;
+function App() {
+	const [todos, setTodos] = useState([
+		{
+			id: 1,
+			content: 'abc'
+		}
+	]);
+	// add value
+	const [value, setValue] = useState('')
+
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id,
+			content: value
+		}, ...todos])
+		setValue('')
+		id++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+###### TodoItem.js
+``` js
+// TodoItem.js
+import styled from 'styled-components';
+import { MEDIA_QUERY_MD, MEDIA_QUERY_LG} from './constants/style'
+// react direct
+import React from 'react';
+
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid black;
+
+  & + & {
+    margin-top: 12px;
+  }
+`
+
+const TodoContent = styled.div`
+// 取用 theme
+	color: ${props => props.theme.colors.primary_300};
+	
+  font-size: ${props => props.size === 'XL' ? '20px' : '12px'};
+`
+
+const TodoButtonWrapper= styled.div``
+
+const Button = styled.button`
+  padding: 4px;
+  color: black;
+
+	${MEDIA_QUERY_MD} {
+		font-size: 16px;
+	}
+
+	${MEDIA_QUERY_LG} {
+		font-size: 20px;
+	}
+
+  &:hover {
+    color: red;
+  }
+
+	// 相連之 component
+  & + & {
+    margin-left: 10px;
+  }
+`
+
+export const RedButton = styled(Button)`
+  color: red;
+`
+
+// for other import
+// 因為 function re-style, 增加 class 
+export default function TodoItem({ className, size, todo, handleDeleteTodo}) {
+  return (
+       <TodoItemWrapper className={className} data-tddo-id={todo.id} >
+        <TodoContent size={size}>{todo.content}</TodoContent>
+        <TodoButtonWrapper>
+          <Button>已完成</Button>
+          {/* todo delete */}
+          <RedButton onClick={() => {
+            handleDeleteTodo(todo.id)
+          }}>刪除</RedButton>
+        </TodoButtonWrapper>
+      </TodoItemWrapper>
+  )
+}
+```
+
+##### example 5 - todos change state
++ todo change state
+
+###### App.js
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// import { useState } from 'react';
+// use ref
+import { useState, useRef } from 'react';
+
+let id =3 ;
+function App() {
+	const [todos, setTodos] = useState([
+		// todo change state
+		{	id: 1, content: 'abc', isDone: true},
+		{	id: 2, content: 'xxx', isDone: false},
+	]);
+	// add value
+	const [value, setValue] = useState('')
+	// use ref
+	const id = useRef(3)
+
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// use ref
+		id.current++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+###### TodoItem.js
+``` js
+// TodoItem.js
+import styled from 'styled-components';
+import { MEDIA_QUERY_MD, MEDIA_QUERY_LG} from './constants/style'
+// react direct
+import React from 'react';
+
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid black;
+
+  & + & {
+    margin-top: 12px;
+  }
+`
+
+const TodoContent = styled.div`
+// 取用 theme
+	color: ${props => props.theme.colors.primary_300};
+	
+  font-size: ${props => props.size === 'XL' ? '20px' : '12px'};
+
+  // todo change state
+  // props.isDone show text-decoration: line-through;
+  ${props => props.isDone && `
+    text-decoration: line-through;
+  `}
+`
+
+const TodoButtonWrapper= styled.div``
+
+const Button = styled.button`
+  padding: 4px;
+  color: black;
+
+	${MEDIA_QUERY_MD} {
+		font-size: 16px;
+	}
+
+	${MEDIA_QUERY_LG} {
+		font-size: 20px;
+	}
+
+  &:hover {
+    color: red;
+  }
+
+	// 相連之 component
+  & + & {
+    margin-left: 10px;
+  }
+`
+
+export const RedButton = styled(Button)`
+  color: red;
+`
+
+// for other import
+// 因為 function re-style, 增加 class 
+export default function TodoItem({ className, size, todo, handleDeleteTodo, handleToggleIsDone}) {
+  //  todo change state
+  const handleToggleClick = () => {
+    handleToggleIsDone(todo.id)
+  }
+  // todo delete
+  const handleDeleteClick = () => {
+    handleDeleteTodo(todo.id)
+  }
+
+  return (
+      <TodoItemWrapper className={className} data-tddo-id={todo.id} >
+        {/* todo change state */}
+        <TodoContent isDone={todo.isDone} size={size}>{todo.content}</TodoContent>
+        <TodoButtonWrapper>
+          {/* todo change state */}
+          <Button onClick={handleToggleClick}>
+            {/* { todo.isDone ? '已完成' : '未完成'} */}
+            {/* todo.isDone 顯示已完成  */}
+            { todo.isDone && '已完成'}
+            { !todo.isDone && '未完成'}
+
+          </Button>
+          {/* todo delete */}
+          <RedButton onClick={handleDeleteClick}>刪除</RedButton>
+        </TodoButtonWrapper>
+      </TodoItemWrapper>
+  )
+}
+```
+
+```
+Undoing the Last Commit
+
+```
+
+
++ vscode extensions
+Eslint and Prettier — Code formatter and install it.
++ eslint 
+npm install eslint --save-dev
+npx eslint --init
+D:\work\git\li\react\demo>npx eslint --init
+√ How would you like to use ESLint? · problems
+√ What type of modules does your project use? · esm
+√ Which framework does your project use? · react
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · browser
+√ What format do you want your config file to be in? · JSON
+
+
+.eslintrc.json
+``` json
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+    }
+}
+
+    "eslint.workingDirectories": [
+        "Dir1",
+        "Dir2"
+      ],
+      "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+      ]
+			
+```
+
+Formatting Code Automatically
+``` bash
+npm install husky lint-staged prettier
+npm i -D eslint eslint-plugin-react husky lint-staged prettier
+D:\work\git\li\react\demo>npm install eslint-config-prettier eslint-plugin-prettier -D
+```
+
+``` json
+```
+
+# undo 1st commit - not lose data
+git update-ref -d HEAD
+
+# undo 1 commit - not lose data
+git reset --soft HEAD~1
+# undo 1 commit by windows - not lose data
+git reset --soft "HEAD~1"
+
 
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
 + [tagged template](https://pjchender.blogspot.com/2017/01/javascript-es6-template-literalstagged.html)
++	[Babel is a JavaScript compiler](https://babeljs.io)
++ [Prettier](https://prettier.io/)
++ [React Setting Up Your Editor](https://create-react-app.dev/docs/setting-up-your-editor)
