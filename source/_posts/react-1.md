@@ -1125,6 +1125,28 @@ export default function TodoItem({ className, size, todo, handleDeleteTodo, hand
 }
 ```
 
+
+
+#### prettier ESLint
+1. insatll vscode “Prettier ESLint”
+2. npx create-react-app demo
+3. ESlint settings
+```
+# 雙引號
+/* eslint jsx-quotes: ["error", "prefer-double"] */
+# 定要有分號
+/* eslint semi: ["error", "always"] */
+# function 與 () 不要有空格
+/* eslint space-before-function-paren: ["error", "never"] */
+``` 
+
+
+
+
+
+
+
+
 ```
 Undoing the Last Commit
 
