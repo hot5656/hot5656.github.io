@@ -569,6 +569,15 @@ export default function TodoItem({ className, size, content}) {
 ```
 
 #### JSX to react by Babel example
++ JSX Prevents Injection Attacks
++ dangerouslySetInnerHTML
++ tag a run javascript: add encode URI
+```  js
+	{/* javascript:alert(1) */}
+  {/* <a href={todo.content}>click me</a> */}
+  <a href={window.encodeURIComponent(todo.content)}>click me</a>
+```
+
 ``` js
 <button size="XL">hello!</button>
 
@@ -1125,13 +1134,437 @@ export default function TodoItem({ className, size, todo, handleDeleteTodo, hand
 }
 ```
 
+#### useEffect
++ render 後,你想做什麼
+
+##### exampl 1 - add useEffect
+``` js
+	// add useEffect-1 
+	import { useState, useRef, useEffect } from 'react';
+
+	// add useEffect-1
+	useEffect( () => {
+		console.log("after render!")
+	});
+```
+
+##### exampl 2 - run useEffect when todos change
+``` js
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	// add useEffect - after render --> when todos change -2
+	useEffect( () => {
+		writeTodosToLocalStorage(todos);
+		console.log(JSON.stringify(todos));
+	}, [todos]);
+```
+
+##### exampl 3 - run useEffect 1st render
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// import { useState } from 'react';
+// use ref
+// add useEffect-1 
+import { useState, useRef, useEffect } from 'react';
+
+// let id =3 ;
+let isInit = true ;
+function App() {
+	const [todos, setTodos] = useState([
+		// todo change state
+		{	id: 1, content: 'abc', isDone: true},
+		{	id: 2, content: 'xxx', isDone: false},
+	]);
+	// add value
+	const [value, setValue] = useState('')
+	// use ref
+	const id = useRef(3)
+	
+	// add useEffect-1
+	// useEffect( () => {
+	// 	console.log("after render!")
+	// });
+
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	// add useEffect - after render --> when todos change -2
+	useEffect( () => {
+		// 1st load do not save to local storage
+		if (!isInit) {
+			writeTodosToLocalStorage(todos);
+		}
+		console.log('todos change :',JSON.stringify(todos));
+	}, [todos]);
+
+	// add useEffect - after render --> just 1st time render -3
+	useEffect( () => {
+		// alert(1);
+		// load from localStorage - 3
+		const todoData = window.localStorage.getItem("todos") || "";
+		if (todoData) {
+			// writeTodosToLocalStorage(todos);
+			// console.log(JSON.stringify(todos));
+			console.log("1st :", todoData)
+			isInit = false;
+			// count correct id
+			JSON.parse(todoData).map(　todo =>　id.current = (todo.id >= id.current) ?  todo.id + 1 :　id.current );
+			setTodos(JSON.parse(todoData));
+		}
+	}, []);
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// save to localStorage after update-1+
+		// writeTodosToLocalStorage([{
+		// 	id: id.current,
+		// 	content: value,
+		// 	isDone: false
+		// }, ...todos]);
+		// use ref
+		id.current++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+##### exampl 4 -  set local storage to init todos 
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// add useEffect
+import { useState, useRef, useEffect} from 'react';
+
+function App() {
+	const todoData = window.localStorage.getItem("todos") || "";
+	// set local storage to init todos 
+	const [todos, setTodos] = useState(JSON.parse(todoData));
+	// add value
+	const [value, setValue] = useState('')
+	// use ref
+	const id = useRef(3)
+	// count correct id
+	JSON.parse(todoData).map(　todo =>　id.current = (todo.id >= id.current) ?  todo.id + 1 :　id.current );
+
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	useEffect( () => {
+		writeTodosToLocalStorage(todos);
+		console.log('todos change :',JSON.stringify(todos));
+	}, [todos]);
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// use ref
+		id.current++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+#### lazy initializer - just run 1st time
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// add useEffect
+import { useState, useRef, useEffect} from 'react';
+
+function App() {
+	// use ref
+	const id = useRef(1);
+	// set local storage to init todos 
+	// lazy initializer - just run 1st time
+	const [todos, setTodos] = useState( () => {
+		console.log('init');
+		let todoData = window.localStorage.getItem("todos") || "";
+		if(todoData) {
+			todoData = JSON.parse(todoData);
+			id.current = todoData[0].id + 1;
+		}
+		else {
+			todoData = [] ;
+
+		}
+		return todoData;
+	});
+	// add value
+	const [value, setValue] = useState('');
+
+	// count correct id
+	todos.map(　todo =>　id.current = (todo.id >= id.current) ?  todo.id + 1 :　id.current );
+
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	useEffect( () => {
+		writeTodosToLocalStorage(todos);
+		console.log('todos change :',JSON.stringify(todos));
+	}, [todos]);
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// use ref
+		id.current++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+#### useLayoutEffect
++ render 前你想做什麼
+
+##### exampl 1
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// import { useState } from 'react';
+// use ref
+// add useEffect-1 
+// add useLayoutEffect
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+
+// let id =3 ;
+let isInit = true ;
+function App() {
+	const [todos, setTodos] = useState([
+		// todo change state
+		{	id: 1, content: 'abc', isDone: true},
+		{	id: 2, content: 'xxx', isDone: false},
+	]);
+	// add value
+	const [value, setValue] = useState('')
+	// use ref
+	const id = useRef(3)
+	
+	// add useEffect-1
+	// useEffect( () => {
+	// 	console.log("after render!")
+	// });
+
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	// add useEffect - after render --> when todos change -2
+	useEffect( () => {
+		// 1st load do not save to local storage
+		if (!isInit) {
+			writeTodosToLocalStorage(todos);
+		}
+		console.log('todos change :',JSON.stringify(todos));
+	}, [todos]);
+
+	// add useEffect - after render --> just 1st time render -3
+	// add useLayoutEffect
+	useLayoutEffect( () => {
+		// alert(1);
+		// load from localStorage - 3
+		const todoData = window.localStorage.getItem("todos") || "";
+		if (todoData) {
+			// writeTodosToLocalStorage(todos);
+			// console.log(JSON.stringify(todos));
+			console.log("1st :", todoData)
+			isInit = false;
+			// count correct id
+			JSON.parse(todoData).map(　todo =>　id.current = (todo.id >= id.current) ?  todo.id + 1 :　id.current );
+			setTodos(JSON.parse(todoData));
+		}
+	}, []);
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// save to localStorage after update-1+
+		// writeTodosToLocalStorage([{
+		// 	id: id.current,
+		// 	content: value,
+		// 	isDone: false
+		// }, ...todos]);
+		// use ref
+		id.current++
+	}
+
+	const handleInputChange = (e) => {
+		setValue(e.target.value)
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
 
 
 #### prettier ESLint
-1. insatll vscode “Prettier ESLint”
-2. npx create-react-app demo
-3. ESlint settings
-```
+
++ vscode extensions
+Eslint and Prettier — Code formatter and install it.
+
+``` bash
+# install react demo
+npx create-react-app demo
+# install eslint 
+npm install eslint --save-dev
+npx eslint --init
+D:\work\git\li\react\demo>npx eslint --init
+	√ How would you like to use ESLint? · problems
+	√ What type of modules does your project use? · esm
+	√ Which framework does your project use? · react
+	√ Does your project use TypeScript? · No / Yes
+	√ Where does your code run? · browser
+	√ What format do you want your config file to be in? · JSON
+``` 
+
+``` js
 # 雙引號
 /* eslint jsx-quotes: ["error", "prefer-double"] */
 # 定要有分號
@@ -1142,87 +1575,16 @@ export default function TodoItem({ className, size, todo, handleDeleteTodo, hand
 
 
 
+### git wait check
 
-
-
-
-
-```
-Undoing the Last Commit
-
-```
-
-
-+ vscode extensions
-Eslint and Prettier — Code formatter and install it.
-+ eslint 
-npm install eslint --save-dev
-npx eslint --init
-D:\work\git\li\react\demo>npx eslint --init
-√ How would you like to use ESLint? · problems
-√ What type of modules does your project use? · esm
-√ Which framework does your project use? · react
-√ Does your project use TypeScript? · No / Yes
-√ Where does your code run? · browser
-√ What format do you want your config file to be in? · JSON
-
-
-.eslintrc.json
-``` json
-{
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-    }
-}
-
-    "eslint.workingDirectories": [
-        "Dir1",
-        "Dir2"
-      ],
-      "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-      ]
-			
-```
-
-Formatting Code Automatically
 ``` bash
-npm install husky lint-staged prettier
-npm i -D eslint eslint-plugin-react husky lint-staged prettier
-D:\work\git\li\react\demo>npm install eslint-config-prettier eslint-plugin-prettier -D
-```
-
-``` json
-```
-
 # undo 1st commit - not lose data
 git update-ref -d HEAD
-
 # undo 1 commit - not lose data
 git reset --soft HEAD~1
 # undo 1 commit by windows - not lose data
 git reset --soft "HEAD~1"
-
+```
 
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
@@ -1230,3 +1592,5 @@ git reset --soft "HEAD~1"
 +	[Babel is a JavaScript compiler](https://babeljs.io)
 + [Prettier](https://prettier.io/)
 + [React Setting Up Your Editor](https://create-react-app.dev/docs/setting-up-your-editor)
++ [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
++ [dangerouslySetInnerHTML](https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml)
