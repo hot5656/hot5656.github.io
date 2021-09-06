@@ -10,6 +10,8 @@ tags:
 ### 名詞
 web component : Web Components is a suite of different technologies allowing you to create reusable custom elements
 JSX : 是一個 JavaScript 的語法擴充, 允許我們在 JS 的檔案中使用 HTML 的標籤
+Virtual DOM : 
+Reconciliation : 找出哪些樹節點哪些需要變化
 
 <!--more-->
 
@@ -1343,6 +1345,191 @@ function App() {
 export default App;
 ```
 
+##### exampl 5 -  clear up LayoutEffects 
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// add useEffect
+import { useState, useRef, useEffect} from 'react';
+
+function App() {
+	......
+
+	useEffect( () => {
+		console.log('run 1st render!');
+
+		// clear up LayoutEffects
+		// unmount
+		return () =>{
+			console.log('unmount!');
+		}
+	}, []);
+
+	useEffect( () => {
+		writeTodosToLocalStorage(todos);
+		console.log('useEffect todos :',JSON.stringify(todos));
+
+		// clear up LayoutEffects
+		// 下一次 render 前執行,內容與前次render相同
+		// 可應用於 user disconnect
+		return () =>{
+			console.log('clearEffect todos :',JSON.stringify(todos));
+		}
+	}, [todos]);
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleInputChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+#### 改寫成自己的 hook
+``` js
+// App.js
+import './App.css';
+import TodoItem from './TodoItem'
+// useTodos hook
+import useTodos from './useTodos';
+
+function App() {
+	const {
+		todos,
+		handleTodosClick,
+		handleToggleIsDone,
+		handleDeleteTodo,
+		value,
+		handleChange
+	} = useTodos()
+
+  return (
+		<div className="App">
+			{/* todo delete */}
+			<input type="text" placeholder="todo" value={value} onChange={handleChange} />
+			<button onClick={handleTodosClick}>add todo</button>
+			{todos.map(todo => <TodoItem key={todo.id} todo={todo} handleDeleteTodo={handleDeleteTodo} handleToggleIsDone={handleToggleIsDone} />)}
+		</div>
+  );
+}
+export default App;
+```
+
+``` js
+// useInput.js
+import { useState } from 'react';
+
+export default function useInput() {
+	// add value
+	const [value, setValue] = useState('');
+	const handleChange = e => {
+			setValue(e.target.value)
+	}
+
+	return {
+		value, 
+		setValue, 
+		handleChange
+	}
+}
+```
+
+``` js
+// useTodos.js
+import { useState, useRef, useEffect } from 'react';
+import useInput from './useInput';
+
+export default function useTodos() {
+	// use ref
+	const id = useRef(1);
+
+	// set local storage to init todos 
+	const [todos, setTodos] = useState( () => {
+		console.log('init');
+		let todoData = window.localStorage.getItem("todos") || "";
+		if(todoData) {
+			todoData = JSON.parse(todoData);
+			id.current = todoData[0].id + 1;
+		}
+		else {
+			todoData = [] ;
+
+		}
+		return todoData;
+	});
+
+	const {value, setValue, handleChange } = useInput()
+
+	// save to localStorage after update-1+
+	function writeTodosToLocalStorage(todos) {
+		window.localStorage.setItem("todos", JSON.stringify(todos));
+	}
+
+	useEffect( () => {
+		console.log('run 1st render!');
+
+		// clear up LayoutEffects
+		// unmount
+		return () =>{
+			console.log('unmount!');
+		}
+	}, []);
+
+	useEffect( () => {
+		writeTodosToLocalStorage(todos);
+		console.log('useEffect todos :',JSON.stringify(todos));
+
+		// clear up LayoutEffects
+		return () =>{
+			console.log('clearEffect todos :',JSON.stringify(todos));
+		}
+	}, [todos]);
+
+	const handleTodosClick = () =>{
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// use ref
+		id.current++
+	}
+
+	// todo delete
+	const handleDeleteTodo = id => {
+		setTodos(todos.filter(todo => todo.id !== id ))
+	}
+
+	// todo change state
+	const handleToggleIsDone = id => {
+		setTodos(todos.map(todo => {
+			if (todo.id !== id) return todo
+			return {
+				...todo,
+				isDone: !todo.isDone
+			}
+		}))
+	}
+
+	return {
+		todos,
+		handleTodosClick,
+		handleToggleIsDone,
+		handleDeleteTodo,
+		value,
+		setValue,
+		handleChange
+	}
+}
+```
+
 #### lazy initializer - just run 1st time
 ``` js
 // App.js
@@ -1594,3 +1781,8 @@ git reset --soft "HEAD~1"
 + [React Setting Up Your Editor](https://create-react-app.dev/docs/setting-up-your-editor)
 + [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
 + [dangerouslySetInnerHTML](https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml)
++ [hook-flow](https://github.com/donavon/hook-flow)
++ [A Complete Guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
++ [useLocalStorage](https://usehooks.com/useLocalStorage/)
++ [從頭打造一個簡單的 Virtual DOM](https://blog.techbridge.cc/2019/02/04/vdom-from-scratch/)
++ [為了瞭解原理，那就來實作一個簡易 Virtual DOM 吧！](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/build-a-simple-virtual-dom-5cf12ccf379f)
