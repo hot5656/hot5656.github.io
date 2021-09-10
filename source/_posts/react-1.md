@@ -12,6 +12,8 @@ web component : Web Components is a suite of different technologies allowing you
 JSX : 是一個 JavaScript 的語法擴充, 允許我們在 JS 的檔案中使用 HTML 的標籤
 Virtual DOM : 
 Reconciliation : 找出哪些樹節點哪些需要變化
+Immutability : 不可變性
+Mutation : 修改
 
 <!--more-->
 
@@ -146,6 +148,10 @@ Reconciliation : 找出哪些樹節點哪些需要變化
 ```
 
 ### 基礎
+
+#### 注意事項
++ Component 的字首須為大寫字母 : 小寫字母開頭的組件視為原始 DOM 標籤 
+
 #### instal and start 
 ``` bash
 # install 
@@ -2384,6 +2390,11 @@ export default function Demo() {
 ```
 
 #### propTypes 驗證 props
+
+``` bash
+# 雖然 create-react-app 已安裝, 建議要安裝(因為 React 隨時都有可能更新內部 dependency 的版號，甚至移除 node module)
+npm install prop-types
+```
 
 add file ./.eslintrc.json
 ``` json
