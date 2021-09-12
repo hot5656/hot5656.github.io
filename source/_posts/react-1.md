@@ -2644,6 +2644,60 @@ export default function useTodos() {
 }
 ```
 
+#### deployment
+##### local 
+``` bash
+# build 
+yarn build
+# run
+npm install -g serve
+serve -s build
+```
+
+##### push to github
+
+package.json
+``` json
+  "homepage": "https://hot5656.github.io/react-comments-test",
+```
+
+``` bash
+npm install --save gh-pages
+``` 
+
+package.json
+``` json
+
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+		.....
+}
+```
+
+github add repository - repository react-comments-test
+
+
+``` bash
+# git init and commit
+git init
+git add .
+git commit -m "init"
+# push to github
+git remote add origin https://github.com/hot5656/react-comments-test.git
+git branch -M main
+git push -u origin main
+# run deploy
+npm run deploy
+```
+
+change github branch to gh-pages
+Settings --> Branches --> default branch 
+
+open by browser
+
+
+
 
 #### prettier ESLint(not finished)
 
@@ -2701,3 +2755,4 @@ git reset --soft "HEAD~1"
 + [從頭打造一個簡單的 Virtual DOM](https://blog.techbridge.cc/2019/02/04/vdom-from-scratch/)
 + [為了瞭解原理，那就來實作一個簡易 Virtual DOM 吧！](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/build-a-simple-virtual-dom-5cf12ccf379f)
 + [React lifeCycle 生命週期](https://ithelp.ithome.com.tw/articles/10234998)
++ [react deployment](https://create-react-app.dev/docs/deployment/)

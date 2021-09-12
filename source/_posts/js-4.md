@@ -132,5 +132,13 @@ itemElement.innerHTML = STREAM_TEMPLATE
 		.replace('name', stream.channel.display_name)
 ```
 
+### show date to string(need add new) - use react
+``` js
+<div>{new Date(2141241556).toLocaleString()}</div>
+// 1970/1/26 上午2:47:21
+<div>{Date(2141241556).toLocaleString()}</div> 
+// Sun Sep 12 2021 16:33:37 GMT+0800 (台北標準時間)
+```
+
 
 
