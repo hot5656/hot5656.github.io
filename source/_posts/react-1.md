@@ -2648,53 +2648,50 @@ export default function useTodos() {
 ##### local 
 ``` bash
 # build 
-yarn build
+npm run build
 # run
 npm install -g serve
 serve -s build
+# set port
+# serve -s build -l 4000
+# !!!!! 執行 deploy to github 後再執行就會有問題 !!!!! 
+# 要移除 deploy to github's json 設定再執行
+# npm run build
+# serve -s build
 ```
 
-##### push to github
-
+##### deploy to github
+###### add scripts and homepage
 package.json
 ``` json
-  "homepage": "https://hot5656.github.io/react-comments-test",
-```
-
-``` bash
-npm install --save gh-pages
-``` 
-
-package.json
-``` json
-
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
 		.....
-}
+	},
+  "homepage": "https://hot5656.github.io/react-comments-test2",
 ```
+###### insatll gh-pages
+``` bash
+npm install --save gh-pages
+``` 
 
-github add repository - repository react-comments-test
+###### github add repository - react-comments-test2
 
-
+###### deploy to github
 ``` bash
 # git init and commit
 git init
 git add .
 git commit -m "init"
-# push to github
-git remote add origin https://github.com/hot5656/react-comments-test.git
-git branch -M main
-git push -u origin main
+# add remote repository 
+git remote add origin https://github.com/hot5656/react-comments-test2.git
 # run deploy
 npm run deploy
 ```
 
-change github branch to gh-pages
-Settings --> Branches --> default branch 
-
-open by browser
+###### open by browser
+https://hot5656.github.io/react-comments-test2/
 
 
 

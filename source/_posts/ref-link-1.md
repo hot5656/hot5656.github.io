@@ -153,6 +153,10 @@ co-working space
 PayPal and Stripe
 
 ### 其他
+
+#### Idea
++ [iChannels](https://www.ichannels.com.tw/main-index.php?member=af000095117) : 聯盟行銷(Affiliate Marketing)
+
 #### 題庫
 + [Git 面試題](https://gitbook.tw/interview)
 
