@@ -2694,6 +2694,114 @@ npm run deploy
 https://hot5656.github.io/react-comments-test2/
 
 
+#### react router
+##### install
+``` bash
+npm install react-router-dom
+```
+
+##### ./component/App
+``` js
+// ./component/App/App.js
+import React from "react";
+import HomePage from "../../Pages/HomePage";
+import LoginPage from "../../Pages/LoginPage"; 
+import Header from "../Header";
+import styled from 'styled-components';
+import {
+  // BrowserRouter as Router,
+  // for SPA
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+const Root =  styled.div``;
+
+export default function App() {
+  return (
+    <Root>
+      <Router>
+        <Header />
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+
+          <hr />
+
+          <Switch>
+            {/* exact 完全比對 */}
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </Root>
+  );
+}
+```
+
+``` js
+// ./component/App/index.js
+export { default } from './App';
+```
+
+##### ./component/Header
+``` js
+// ./component/Header/Header.js
+import React from "react";
+
+export default function Header() {
+  return <div>Header</div>;
+}
+```
+
+``` js
+// ./component/Header/index.js
+export { default } from './Header';
+```
+
+##### ./Pages/HomePage
+``` js
+// ./Pages/HomePage/HomePage.js
+import React from "react";
+
+export default function HomePage() {
+  return <div>Homepage</div>;
+}
+```
+
+``` js
+// ./Pages/HomePage/index.js
+export { default } from './HomePage';
+```
+
+##### ./Pages/LoginPage
+``` js
+// ./Pages/LoginPage/LoginPage.js
+import React from "react";
+
+export default function LoginPage() {
+  return <div>LoginPage</div>;
+}
+```
+
+``` js
+// ./Pages/LoginPage/index.js
+export { default } from './LoginPage';
+```
+
 
 
 #### prettier ESLint(not finished)
@@ -2753,3 +2861,4 @@ git reset --soft "HEAD~1"
 + [為了瞭解原理，那就來實作一個簡易 Virtual DOM 吧！](https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/build-a-simple-virtual-dom-5cf12ccf379f)
 + [React lifeCycle 生命週期](https://ithelp.ithome.com.tw/articles/10234998)
 + [react deployment](https://create-react-app.dev/docs/deployment/)
++ [react router](https://reactrouter.com/web/guides/quick-start)
