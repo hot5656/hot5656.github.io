@@ -156,6 +156,8 @@ PayPal and Stripe
 
 #### Idea
 + [iChannels](https://www.ichannels.com.tw/main-index.php?member=af000095117) : 聯盟行銷(Affiliate Marketing)
++ [Canva](https://www.canva.com/zh_tw/):建立社群媒體圖形、簡報、海報、文件和其他視覺內容的平面設計平台
++ [DR.DREAM](https://deanlife.blog/)
 
 #### 題庫
 + [Git 面試題](https://gitbook.tw/interview)
