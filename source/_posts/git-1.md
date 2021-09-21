@@ -213,6 +213,17 @@ git rm home/week6/hw1/css/index.css.map
 git rm -f home/week6/hw1/css/index.css.map
 ```
 
+#### undo 1st commit - not lose data
+``` bash
+# 會刪除所有中間 commit 資料
+git update-ref -d HEAD
+```
+
+#### undo 1 commit - not lose data
+``` bash
+git reset --soft HEAD~1
+```
+
 <br>
 
 ## git 相關檔案

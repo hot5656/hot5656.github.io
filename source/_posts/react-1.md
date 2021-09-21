@@ -14,8 +14,23 @@ Virtual DOM :
 Reconciliation : 找出哪些樹節點哪些需要變化
 Immutability : 不可變性
 Mutation : 修改
+JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞被 認證 的用戶身份訊息，以便於從資源伺服器獲取資源
 
 <!--more-->
+
+### 常用 list
++ useState
++ useEffect
++ useLayoutEffect
++ useRef
++ memo, useMemo, useCallback
++ useContext
++ react router
++ useParams
++ useHistory
++ theme
++ styled(Link)
++ useLocation
 
 ### todolist simulate
 ``` html
@@ -440,8 +455,31 @@ export default App;
 
 ##### Example 3
 + media query
+	``` js
+	${MEDIA_QUERY_MD} {
+		font-size: 16px;
+	}
+	```
 + re-styled
-+ theme
+	``` js
+	import TodoItem from './TodoItem'
+	
+	// 對原本存在 function,再做 re-styled
+	const BlackTodoItem = styled(TodoItem)`
+		background: black;
+	`
+
+	function App() {
+		return (
+			<div className="App">
+				<TodoItem content="123"/>
+				<TodoItem content="456" size="XL"/>
+				<BlackTodoItem content="456" size="XL"/>
+			</div>
+		);
+	}
+	```
++ theme : 使用 ThemeProvider 內層可用 props 取用
 + TodoItem component 另存一個 file
 
 ###### index.js 
@@ -597,8 +635,7 @@ React.createElement("button", {
 ```
 
 ``` js
-<button size="XL" onClick={()=>{
-  alert(1)}}>hello!</button>
+<button size="XL" onClick={()=> {alert(1)} }>hello!</button>
 
 "use strict";
 /*#__PURE__*/
@@ -611,8 +648,7 @@ React.createElement("button", {
 ```
 
 ``` js 
-<button size="XL" onClick={()=>{
-  alert(1)}}><div>hello!</div></button>
+<button size="XL" onClick={()=>{alert(1)} }><div>hello!</div></button>
 
 "use strict";
 /*#__PURE__*/
@@ -1397,6 +1433,7 @@ export default App;
 ```
 
 #### 改寫成自己的 hook
+##### App.js
 ``` js
 // App.js
 import './App.css';
@@ -1426,6 +1463,8 @@ function App() {
 export default App;
 ```
 
+
+##### useInput.js
 ``` js
 // useInput.js
 import { useState } from 'react';
@@ -1445,6 +1484,8 @@ export default function useInput() {
 }
 ```
 
+
+##### useTodos.js
 ``` js
 // useTodos.js
 import { useState, useRef, useEffect } from 'react';
@@ -1537,9 +1578,38 @@ export default function useTodos() {
 ```
 
 #### memo, useMemo, useCallback
-+ memo - 把 component 包起來
-+ useMemo - for data
-+ useCallback - 把 function 記起來 
++ memo - 把 component 包起來, 雖然 parents rerender 但本身未改變就不 rerender
+``` js
+// add memo - 傳入不變,即不 re-render
+// 但每次 render 會 new handleTodosClick
+const MemoButton = memo(Button);
+```
++ useMemo - 把 data 記起來,未改變就不產生新的
+``` js
+	// add useMemo - for data 
+	// todos change no run 
+	const s = useMemo(() =>{
+		console.log('calculate s')
+		return value ? redStyle : blueStyle;
+	}, [value])
+```
++ useCallback - 把 function 記起來,未改變就不產生新的
+``` js
+
+	// add useCallback - [] 表沒東西會造成改變
+	const handleTodosClick = useCallback(() =>{
+		console.log(value);
+		// set input value 
+		setTodos([{
+			id: id.current,
+			content: value,
+			isDone: false
+		}, ...todos])
+		setValue('')
+		// use ref
+		id.current++
+	}, [setValue, value, todos]);
+```
 
 ``` js
 // App.js
@@ -1701,7 +1771,7 @@ export default function useTodos() {
 }
 ```
 
-#### lazy initializer - just run 1st time
+#### lazy initializer - useState() 加 function 僅第一次執行
 ``` js
 // App.js
 import './App.css';
@@ -2238,7 +2308,7 @@ export default class Counter extends React.Component {
 }
 ```
 #### useContext
-##### prop Drilling
+##### prop Drilling : 資料跨多層傳送
 ``` js 
 // index.js 
 import React from 'react';
@@ -2290,6 +2360,23 @@ export default function Demo() {
 ```
 
 ##### useContext example
+``` js
+	// add useContext(also import createContext ) 
+	import { useState, useContext, createContext } from "react"; 
+	const ColorContext = createContext()
+
+	function DemoInnerBoxContent() {
+		// 取出 colors
+		const colors = useContext(ColorContext)
+	}
+
+	return (
+		// colors 透過 createContext 傳送
+		<ColorContext.Provider value={colors} >
+			......
+		</ColorContext.Provider>
+	)
+```
 + useContext for array
 + useContext 可動態改變
 + useContext 中間層可改變
@@ -2700,7 +2787,62 @@ https://hot5656.github.io/react-comments-test2/
 npm install react-router-dom
 ```
 
-##### ./component/App
+##### useParams
+``` js
+// ./Pages/BlogPost/BlogPost.js
+import { useParams } from "react-router-dom";
+
+export default function BlogPost() {
+  let { slug } = useParams();
+	......
+}
+
+
+// ./component/App/App.js
+export default function App() {
+
+  return (
+    <AuthContext.Provider value={{user, setUser}}>
+      <Root>
+        <Header done={isDone} />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path="/posts/:slug">
+            <BlogPost />
+          </Route>
+          <Route path="/new-post">
+            <CreatePage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+        </Switch>
+      </Root>
+    </AuthContext.Provider>
+  );
+}
+```
+
+##### useHistory, useLocation
+``` js
+import { Link, useLocation, useHistory } from "react-router-dom";
+
+  const history = useHistory();
+  const { user, setUser } = useContext(AuthContext); 
+
+  const handleLogout = () => {
+    setAuthToken('');
+    setUser(null);
+    if (location.pathname !==  "/") {
+      history.push('/');
+    } 
+  };
+```
+
+##### example #1
+###### ./component/App
 ``` js
 // ./component/App/App.js
 import React from "react";
@@ -2757,7 +2899,7 @@ export default function App() {
 export { default } from './App';
 ```
 
-##### ./component/Header
+###### ./component/Header
 ``` js
 // ./component/Header/Header.js
 import React from "react";
@@ -2772,7 +2914,7 @@ export default function Header() {
 export { default } from './Header';
 ```
 
-##### ./Pages/HomePage
+###### ./Pages/HomePage
 ``` js
 // ./Pages/HomePage/HomePage.js
 import React from "react";
@@ -2787,7 +2929,7 @@ export default function HomePage() {
 export { default } from './HomePage';
 ```
 
-##### ./Pages/LoginPage
+###### ./Pages/LoginPage
 ``` js
 // ./Pages/LoginPage/LoginPage.js
 import React from "react";
@@ -2804,25 +2946,67 @@ export { default } from './LoginPage';
 
 
 
-#### prettier ESLint(not finished)
+### prettier ESLint(not finished)
+#### create-react-app default include ESLint configuration
+.\node_modules\react-scripts\config\webpack.config.js
+``` js
+  !disableESLintPlugin &&
+    new ESLintPlugin({
+      // Plugin options
+      extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+      formatter: require.resolve('react-dev-utils/eslintFormatter'),
+      eslintPath: require.resolve('eslint'),
+      failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),
+      context: paths.appSrc,
+      cache: true,
+      cacheLocation: path.resolve(
+        paths.appNodeModules,
+        '.cache/.eslintcache'
+      ),
+      // ESLint class options
+      cwd: paths.appPath,
+      resolvePluginsRelativeTo: __dirname,
+      baseConfig: {
+        extends: [require.resolve('eslint-config-react-app/base')],
+        rules: {
+          ...(!hasJsxRuntime && {
+            'react/react-in-jsx-scope': 'error',
+          }),
+        },
+      },
+    }),
+```
 
-+ vscode extensions
-Eslint and Prettier — Code formatter and install it.
+#### vscode ESlint configuration - ESLint
+./.eslintrc.json
+``` json
+{
+	"extends": ["react-app"],
+	"rules": {
+		"react/prop-types": "warn",
+		"semi": "error"  // 結尾要加分號
+	}
+}
+```
 
-``` bash
-# install react demo
-npx create-react-app demo
-# install eslint 
-npm install eslint --save-dev
-npx eslint --init
-D:\work\git\li\react\demo>npx eslint --init
-	√ How would you like to use ESLint? · problems
-	√ What type of modules does your project use? · esm
-	√ Which framework does your project use? · react
-	√ Does your project use TypeScript? · No / Yes
-	√ Where does your code run? · browser
-	√ What format do you want your config file to be in? · JSON
-``` 
+#### prettier - Prettier - Code formatter (Prettier)
+settings.json
+``` json
+{
+  "editor.tabSize": 2,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.js": "javascriptreact"
+  }
+}
+```
+
+
 
 ``` js
 # 雙引號
@@ -2833,18 +3017,11 @@ D:\work\git\li\react\demo>npx eslint --init
 /* eslint space-before-function-paren: ["error", "never"] */
 ``` 
 
+### 測試
+#### react-testing-library : 測試 React component
 
+#### Cypress : end ot end test 
 
-### git wait check
-
-``` bash
-# undo 1st commit - not lose data
-git update-ref -d HEAD
-# undo 1 commit - not lose data
-git reset --soft HEAD~1
-# undo 1 commit by windows - not lose data
-git reset --soft "HEAD~1"
-```
 
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
@@ -2862,3 +3039,6 @@ git reset --soft "HEAD~1"
 + [React lifeCycle 生命週期](https://ithelp.ithome.com.tw/articles/10234998)
 + [react deployment](https://create-react-app.dev/docs/deployment/)
 + [react router](https://reactrouter.com/web/guides/quick-start)
++ [JWT](https://jwt.io/)
++ [react-testing-library](https://testing-library.com/docs/bs-react-testing-library/intro)
++ [cypress](https://www.cypress.io/)
