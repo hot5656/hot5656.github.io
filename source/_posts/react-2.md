@@ -824,4 +824,546 @@ export default function LoginPage() {
 export { default } from './LoginPage';
 ```
 
+### 報名表單
+
+#### ./App.css
+``` css
+body {
+  background: #b2b2b2;
+}
+```
+
+#### ./App.js
+``` js
+// App.js
+import "./App.css";
+import { useState } from "react";
+import styled from "styled-components";
+
+const Root = styled.div`
+  width: 645px;
+  border-top: 5px solid #fad312;
+  margin: 10px auto;
+  background: #fff;
+  padding: 50px 32px;
+
+  .h1 {
+    font-size: 36px;
+  }
+
+  .input-middle-note {
+    font-size: 14px;
+    color: red;
+    margin-top: 20px;
+  }
+
+  .input-note {
+    font-size: 14px;
+  }
+
+  .input-label {
+    font-size: 20px;
+    margin-top: 50px;
+  }
+
+  .input-middle {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 16px;
+    background: #fad312;
+    border-width: 0;
+    padding: 12px 32px;
+    cursor: pointer;
+    margin: 30px 0 20px 0;
+    border-radius: 5px;
+  }
+
+  input {
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  .required::after {
+    position: relative;
+    top: 2px;
+    left: 2px;
+    content: "*";
+    color: red;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+`;
+
+export default function App() {
+  const [submit, setSumbit] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [phone, setPhone] = useState("");
+  const [submitMode, setSubmitMode] = useState("");
+  const [how, setHow] = useState("");
+  const [suggest, setSuggest] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(name, email, phone, submitMode, how, suggest);
+    let submitString = "";
+    if (submitMode === "bed") {
+      submitString = "躺在床上用想像力實作";
+    }
+    if (submitMode === "mobile") {
+      submitString = "趴在地上滑手機找現成的";
+    }
+
+    setSumbit(true);
+
+    if (!name || !email || !phone || !submitMode) return;
+
+    let report =
+      `暱稱 : ${name}\n` +
+      `電子郵件 : ${email}\n` +
+      `手機號碼 : ${phone}\n` +
+      `報名類型 : ${submitString}\n` +
+      `來源 :  ${how}\n` +
+      `建議 :  ${suggest}`;
+    alert(report);
+
+    window.location.reload();
+  };
+
+  return (
+    <Root>
+      <form onSubmit={handleSubmit}>
+        <h1>新拖延運動報名表單</h1>
+        <div className="input-note">活動日期：2020/12/10 ~ 2020/12/11</div>
+        <div className="input-note">活動地點：台北市大安區新生南路二段1號</div>
+
+        <div className="input-middle-note">* 必填</div>
+
+        <div className="input-label required">
+          <label htmlFor="">暱稱</label>
+        </div>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        {!name && submit && <ErrorMessage>不可為空白!</ErrorMessage>}
+
+        <div className="input-label required">
+          <label htmlFor="">電子郵件</label>
+        </div>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {!email && submit && <ErrorMessage>不可為空白!</ErrorMessage>}
+
+        <div className="input-label  required">
+          <label htmlFor="">手機號碼</label>
+        </div>
+        <input
+          type="tel"
+          nampe="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        {!phone && submit && <ErrorMessage>不可為空白!</ErrorMessage>}
+
+        <div className="input-label required">
+          <label htmlFor="">報名類型</label>
+        </div>
+        <div>
+          <div>
+            <input
+              className="input-middle"
+              type="radio"
+              name="submit-mode"
+              value="bed"
+              onChange={(e) => setSubmitMode(e.target.value)}
+            />
+            躺在床上用想像力實作
+          </div>
+          <div>
+            <input
+              className="input-middle"
+              type="radio"
+              name="submit-mode"
+              value="mobile"
+              onChange={(e) => setSubmitMode(e.target.value)}
+            />
+            趴在地上滑手機找現成的
+          </div>
+        </div>
+        {!submitMode && submit && <ErrorMessage>不可不選!</ErrorMessage>}
+
+        <div className="input-label">
+          <label htmlFor="">怎麼知道這個活動的？ </label>
+        </div>
+        <input
+          type="text"
+          name="how"
+          value={how}
+          onChange={(e) => setHow(e.target.value)}
+        />
+
+        <div className="input-label">其他</div>
+        <div className="input-note">對活動的一些建議</div>
+        <input
+          type="text"
+          name="suggest"
+          value={suggest}
+          onChange={(e) => setSuggest(e.target.value)}
+        />
+        <div>
+          <button type="submit">提交</button>
+        </div>
+      </form>
+      <div className="input-note">請勿透過表單送出您的密碼。</div>
+    </Root>
+  );
+}
+```
+
+### 五子棋
+#### ./App.js
+``` js
+// App.js
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import Board from "./Board";
+
+const Game = styled.div`
+  background: #f9cc9d;
+`;
+
+const SequareContentB = styled.div`
+  width: 26px;
+  height: 26px;
+  background: black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  left: 1px;
+  top: 1px;
+  margin-left: 10px;
+  margin-top: 5px;
+`;
+
+const SequareContentW = styled.div`
+  width: 26px;
+  height: 26px;
+  background: white;
+  // border: 1px solid black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  left: 1px;
+  top: 1px;
+  margin-left: 10px;
+  margin-top: 5px;
+`;
+
+const StatusLine = styled.div`
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  font-size: 30px;
+`;
+
+function Status({ blackNext, winner }) {
+  let status;
+  if (!winner) {
+    status = "Next player:";
+  } else {
+    status = "Winner:";
+  }
+
+  return (
+    <StatusLine>
+      {status}
+      {blackNext && <SequareContentB />}
+      {!blackNext && <SequareContentW />}
+    </StatusLine>
+  );
+}
+
+Status.propTypes = {
+  blackNext: PropTypes.bool,
+  winner: PropTypes.bool,
+};
+
+// Next player: X
+// Winner: X
+// Draw
+export default function App() {
+  const [squares, setSquares] = useState(Array(19 * 19).fill(null));
+  const [blackNext, setBlackNext] = useState(true);
+  const [winner, setWinner] = useState(false);
+
+  useEffect(() => {
+    // console.log("app..");
+    // console.log(squares);
+    if (squares[0] !== null) {
+      if (squares[0] === "b") {
+        setBlackNext(true);
+      } else {
+        setBlackNext(false);
+      }
+      setWinner(true);
+      console.log("Winner...");
+    }
+  }, [squares]);
+
+  return (
+    <Game>
+      <Status blackNext={blackNext} winner={winner}></Status>
+      <Board
+        squares={squares}
+        setSquares={setSquares}
+        blackNext={blackNext}
+        setBlackNext={setBlackNext}
+        setWinner={setWinner}
+        winner={winner}
+      ></Board>
+    </Game>
+  );
+}
+```
+
+#### ./Board.js
+``` js
+import styled from "styled-components";
+import PropTypes from "prop-types";
+
+const MAX_BOARD_WIDTH = 19;
+const MIN_POSITION = 0;
+const MAX_POSITION = 18;
+const WIN_COUNT = 5;
+
+const Root = styled.div`
+  display: flex;
+  width: 610px;
+  justify-content: start;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border: 1px solid black;
+`;
+
+const SquareBlock = styled.div`
+  border: 1px solid black;
+  width: 32px;
+  height: 32px;
+  display: block;
+  box-sizing: border-box;
+`;
+
+const SequareContentB = styled.div`
+  width: 26px;
+  height: 26px;
+  background: black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  left: 1px;
+  top: 1px;
+`;
+
+const SequareContentW = styled.div`
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  left: 1px;
+  top: 1px;
+`;
+
+function Square({
+  index,
+  squares,
+  setSquares,
+  blackNext,
+  setBlackNext,
+  setWinner,
+  winner,
+}) {
+  const winCount = (x, y, square, ox, oy) => {
+    let count = 1;
+    // console.log(`(${x},${y}) : ${square}`);
+    for (let i = 1; i < 5; i++) {
+      const tempX = x + i * ox;
+      const tempY = y + i * oy;
+      if (
+        tempX < MIN_POSITION ||
+        tempX > MAX_POSITION ||
+        tempY < MIN_POSITION ||
+        tempY > MAX_POSITION
+      ) {
+        continue;
+      }
+
+      if (squares[tempX + tempY * MAX_BOARD_WIDTH] === square) {
+        count = count + 1;
+      } else {
+        break;
+      }
+      // console.log(`(${tempX},${tempY})`, tempX + tempY * MAX_BOARD_WIDTH);
+    }
+    for (let i = 1; i < 5; i++) {
+      const tempX = x + i * -ox;
+      const tempY = y + i * -oy;
+      if (
+        tempX < MIN_POSITION ||
+        tempX > MAX_POSITION ||
+        tempY < MIN_POSITION ||
+        tempY > MAX_POSITION
+      ) {
+        continue;
+      }
+
+      if (squares[tempX + tempY * MAX_BOARD_WIDTH] === square) {
+        count = count + 1;
+      } else {
+        break;
+      }
+      // console.log(`(${tempX},${tempY})`, tempX + tempY * MAX_BOARD_WIDTH);
+    }
+
+    return count;
+  };
+
+  const win = (x, y, square) => {
+    const count1 = winCount(x, y, square, 1, 0);
+    const count2 = winCount(x, y, square, 0, 1);
+    const count3 = winCount(x, y, square, 1, 1);
+    const count4 = winCount(x, y, square, 1, -1);
+    console.log(`(${x},${y}) : ${square}`, count1, count2, count3, count4);
+    return (
+      count1 >= WIN_COUNT ||
+      count2 >= WIN_COUNT ||
+      count3 >= WIN_COUNT ||
+      count4 >= WIN_COUNT
+    );
+    // console.log(`(${x},${y}) : ${square}`);
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x + i},${y})`);
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x - i},${y})`);
+    // }
+    // console.log("-----");
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x},${y + i})`);
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x},${y - i})`);
+    // }
+    // console.log("-----");
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x + i},${y + i})`);
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x - i},${y - i})`);
+    // }
+    // console.log("-----");
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x + i},${y - i})`);
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(`(${x - i},${y + i})`);
+    // }
+    // console.log("-----");
+  };
+
+  const handleClick = () => {
+    if (squares[index] !== null) return;
+    if (winner) return;
+    const x = index % MAX_BOARD_WIDTH;
+    const y = Math.floor(index / MAX_BOARD_WIDTH);
+    const player = blackNext ? "b" : "w";
+    setSquares(
+      squares.map((item, i) => {
+        if (i !== index) return item;
+        return player;
+      })
+    );
+    setBlackNext(!blackNext);
+
+    if (win(x, y, player)) {
+      if (player === "b") {
+        setBlackNext(true);
+      } else {
+        setBlackNext(false);
+      }
+      setWinner(true);
+      console.log("Winner...");
+    }
+  };
+
+  return (
+    <SquareBlock onClick={handleClick}>
+      {squares[index] === "b" && <SequareContentB />}
+      {squares[index] === "w" && <SequareContentW />}
+    </SquareBlock>
+  );
+}
+
+Square.propTypes = {
+  index: PropTypes.number,
+  squares: PropTypes.array,
+  setSquares: PropTypes.func,
+  blackNext: PropTypes.bool,
+  setBlackNext: PropTypes.func,
+  setWinner: PropTypes.func,
+  winner: PropTypes.bool,
+};
+
+export default function Board({
+  squares,
+  setSquares,
+  blackNext,
+  setBlackNext,
+  setWinner,
+  winner,
+}) {
+  return (
+    <Root>
+      {squares.map((point, index) => {
+        return (
+          <Square
+            key={index}
+            index={index}
+            squares={squares}
+            setSquares={setSquares}
+            blackNext={blackNext}
+            setBlackNext={setBlackNext}
+            setWinner={setWinner}
+            winner={winner}
+          ></Square>
+        );
+      })}
+    </Root>
+  );
+}
+
+Board.propTypes = {
+  squares: PropTypes.array,
+  setSquares: PropTypes.func,
+  blackNext: PropTypes.bool,
+  setBlackNext: PropTypes.func,
+  setWinner: PropTypes.func,
+  winner: PropTypes.bool,
+};
+```
 
