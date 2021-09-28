@@ -1,9 +1,11 @@
 ---
 title: JavaScript review
-tags: Coding - javascript - review
 abbrlink: 99fe
 date: 2021-09-23 16:26:11
-categories:
+categories: Coding
+tags: 
+	- javascript 
+	- review
 ---
 
 ### closure(閉包)
@@ -22,6 +24,8 @@ func()	// 11
 func()	// 12
 func()	// 13
 ```
+
+<!--more-->
 
 + 應用 #1 - 複雜計算自動記憶不用重算
 ``` js
@@ -119,9 +123,6 @@ JavaScript 的 Call stack 是擺放待執行的程序,JavaScript 對於不能馬
 
 {% asset_img javascript-event-loop-step-1.png event-loop-step %}
 
-圖片: from [JavaScript tutorial](https://www.javascripttutorial.net/javascript-event-loop/
-)
-
 ### currying(柯里化）function
 + currying function 指的是將多參數函數轉為順序接收單一參數的函數
 + 可簡化程式及提高程式的重用性
@@ -182,8 +183,105 @@ function discount(price, discount) {
 const tenPercentDiscouint = curry(discount,0.1);
 console.log(tenPercentDiscouint(500));	// 50
 ```
-### JavaScript prototype ??? 待詳細
-+ prototype 是 JavaScript 的 繼承機制
+
+### Constructor(建構) Function
++ Constructor Function 可建立包含不同屬性(properties)的物件(object)
+``` js
+	function Person(name, age) {
+	this.name = name;
+	this.age = age;
+	}
+	Person.prototype.eat = function () {
+		console.log(`${this.name} is eating.`)
+	}
+	Person.prototype.sleep = function () {
+		console.log(`${this.name} is sleeping.`)
+	}
+	Person.prototype.walk =function () {
+		console.log(`${this.name} is walking.`)
+	}
+
+	let Bob = new Person("Bob", 23);
+	let Bill = new Person("Bill", 40);
+```
+
+### JavaScript prototype (原型)
++ prototype 是 JavaScript function 的一個 屬性
++ prototype 內有一個屬性 constructor 會指到原函數,也可利用 constructor 產生新的物件,新產生的物件可以利用__proto__指回原函數的內部函數
+<div style="width:700px; background:#fff;">
+	{% asset_img 1_-BEeuzTDD3LajJF772fpOw.png function_prototype_block %}
+</div>
+
+``` js
+function Person(name, age) {
+function Person(name, age) {
+	this.name = name;
+	this.age = age;
+}
+Person.prototype.eat = function () {
+	console.log(`${this.name} is eating.`)
+}
+Person.prototype.sleep = function () {
+	console.log(`${this.name} is sleeping.`)
+}
+Person.prototype.walk = function () {
+	console.log(`${this.name} is walking.`)
+}
+console.log("-- Person --")
+console.log(Person.prototype.__proto__)								// [Object: null prototype] {}
+console.log(Person.prototype.constructor) 						// [Function: Person]
+console.log(Person.prototype.constructor === Person)	// true
+console.log(Person.prototype) 
+		// {
+		// 	eat: [Function(anonymous)],
+		// 	sleep: [Function(anonymous)],
+		// 	walk: [Function(anonymous)]
+		// }
+
+let Bob = new Person("Bob", 23);
+console.log("-- Bob --")
+console.log(Bob.__proto__.constructor === Person)		// true
+console.log(Bob.__proto__) 
+		// {
+		// 	eat: [Function(anonymous)],
+		// 	sleep: [Function(anonymous)],
+		// 	walk: [Function(anonymous)]
+		// }
+```
+
+### JavaScript prototype chain(原型鏈)
+#### prototype chain 是 JavaScript 的 繼承機制
+#### Object prototype : let apple = {} 與 let apple = new Object() 相同
+``` js
+let orange = {}
+let apple = new Object();
+
+console.log(Object.prototype.__proto__)						// null
+console.log(Object.prototype)											// [Object: null prototype] {}
+console.log(Object.prototype == apple.__proto__)	// true
+console.log(Object.prototype.toString)						// [Function: toString]
+
+console.log(Object.prototype == orange.__proto__)	// true
+```
+<div style="width:700px; background:#fff;">
+	{% asset_img 1_jnQajbOpNPHWXKgHslrZxw.png %}
+</div>
+
+#### prototype chain : Function prototype + Object prototype
+<div style="maxwidth:900px; background:#fff;">
+	{% asset_img 1_DBHDoUyVxoTy76iFsGcOkw.png %}
+</div>
+
+#### prototype chain : Array + Object prototype
+<div style="width:700px; background:#fff;">
+	{% asset_img 1_fcoaBBBDhy8eCxqBvHU0jQ.png %}
+</div>
+
+#### prototype chain for all
+<div style="maxwidth:1000px; background:#fff;">
+	{% asset_img 1_Evoq9q8LCyxKteA9e-_31w.png %}
+</div>
+
 
 ### Memoization
 + Memoization是一種優化技術,透過儲存曾計算的的結果,來增加應用程序的執行
@@ -307,7 +405,39 @@ console.log(` fibonacci${5} -->`, countFibonacci(5));
 + async/await :  ES2017(ES8) 增加的語法, 使非同步的程式看起來像是同步的程式
 
 ### recursion(遞迴)
-+ 透過程式
++ 透過函式重複呼叫自己最終得到計算結果的一種方法
++ 這是一個常用處理排序或遍歷(traversing)的方法
+
+### 何謂 JavaScript
+JavaScript 是一種直譯的程式語言,原本是設計給瀏覽器使用,現在已被應用到不同的環境,含 Server 也有使用到
+
+### 何謂 ECMAScript
+定義 JavaScript 的規格
+
+### == 和 === 的差異
+== 比較値, === 比較値和資料型態
+
+### promise 是什麼
+一種 JavaScript 的 object, 一般用於處理非同步的程序
+
+### Strict mode(嚴格模式) JavaScript 
+JS 引擎會用嚴格的標準來讀你的 code,避免你寫出不穩定或不夠嚴謹的 code, 讓你寫出的 Javascript 更安全
+
+### AJAX
+Asynchronous JavaScript and XML,AJAX向伺服器傳送要求取回必須的資料，並在客戶端採用JavaScript處理來自伺服器的回應.
+
+### synchronous(同步) 與 asynchronous(非同步的) 差異
+同步為執行完成目前的程序再執行後面的程序,非同步則不等待執行完成繼續往後執行,如執行 AJAX 就要使用非同步,不然就有可能出現網頁卡住的現象
+
+### var, let 和 const 的差別
++ var 是 function scope, let 和 const 是 block scope
++ var,let 設定後可更改, const 不可更改
+
+### DOM(文件物件模型) 是什麼 
+Document Object Model,提供了一個文件（樹）的結構化表示法，並定義讓程式可以存取並改變文件架構、風格和內容的方法。 
+<div style="width:500px; background:#fff;">
+	{% asset_img naw1u0v.png %}
+</div>
 
 
 
@@ -315,3 +445,12 @@ console.log(` fibonacci${5} -->`, countFibonacci(5));
 
 
 
+
+
+
+
+
+
+
+
+圖片 from [JavaScript Prototype and Prototype Chain explained](https://chamikakasun.medium.com/javascript-prototype-and-prototype-chain-explained-fdc2ec17dd04)
