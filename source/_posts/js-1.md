@@ -312,7 +312,7 @@ console.log(myWallet.getMoney())		// 80
 console.log(myWallet.getInnerMoney())	// 80
 ```
 
-#### 物件導向 and prototype
+#### 物件導向(Object Oriented Programming) and prototype
 ##### ES6 class
 ``` js
 class Dog {
