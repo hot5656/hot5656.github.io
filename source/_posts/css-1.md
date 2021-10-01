@@ -696,7 +696,7 @@ box {
 	}
 
 	/* inline-block
-		height 不可調
+		height 可調
 		width  可調
 		margin 可調
 		padding 可調 */
@@ -709,7 +709,7 @@ box {
 	}
 </style>
 
-<body class="debug">
+<div class="debug">
 	<div class="wrap">
 		<div class="box1">111</div>
 		<div class="box1">222</div>
@@ -730,7 +730,7 @@ box {
 		<div class="box2">2222</div>
 		<div class="box2">3333</div>
 	</div>
-</body>
+</div>
 ```
 
 #### visibility

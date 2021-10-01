@@ -22,6 +22,10 @@ date: 2021-03-18 15:48:55
 <!--more-->
 
 ### 設計參考 
+
+#### 參考功能
++ [HTML Entity](https://www.w3schools.com/charsets/ref_html_entities_4.asp)
++ [HTML Semantic Elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
 #### 參考網頁
 + [Can I use](https://caniuse.com/)
 + [HTML5 site templates](https://html5up.net/) : 模板
@@ -33,6 +37,7 @@ date: 2021-03-18 15:48:55
 + [Pexels](https://www.pexels.com/zh-tw/)
 + [38個高質+免費的圖庫網站](https://mtache.com/freestockphoto)
 + [envato elements 插畫](https://elements.envato.com/graphics/flat+design+pack)
+
 
 ### 分類
 #### Hexo
@@ -116,6 +121,7 @@ date: 2021-03-18 15:48:55
 + [Jollen's PHP 專欄](https://www.jollen.org/php/)
 + [WEBTECH](https://www.webtech.tw/)
 + [掘金](https://juejin.cn/)
++ [開發者技術內容創作分享與職涯發展平台](https://zh-tw.coderbridge.com/)
 
 ### 文章
 #### Book
@@ -138,6 +144,7 @@ date: 2021-03-18 15:48:55
 + [OA's](https://www.ioa.tw/)
 + [toright](https://blog.toright.com/)
 + [PJCHENder](https://pjchender.dev/)
++ [Huanlin學習筆記](https://www.huanlintalk.com/)
 
 #### 未歸類
 + [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
