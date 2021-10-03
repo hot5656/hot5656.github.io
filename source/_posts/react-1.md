@@ -167,7 +167,7 @@ JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞�
 #### 注意事項
 + Component 的字首須為大寫字母 : 小寫字母開頭的組件視為原始 DOM 標籤 
 
-#### instal and start 
+#### install and start 
 ``` bash
 # install 
 npx create-react-app my-app
@@ -200,6 +200,60 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+```
+
+#### export and export default
+一個js只有一個回傳值,用export default, 有多個回傳值就用export 
+``` js
+// ./src/redux/reducers/index.js
+import { combineReducers } from "redux";
+import todos from "./todos"
+import users from "./users"
+
+export default combineReducers({
+	todoState: todos,	//todos: todos 
+	users,	//users: users
+});
+```
+
+``` js
+// ./src/redux/actionTypes.js
+export const ADD_TODO =  "add_todo";
+export const DELETE_TODO = "delete_todo";
+export const ADD_USER = "add_user";
+```
+
+``` js
+// ./src/redux/actions.js
+import { ADD_TODO, DELETE_TODO, ADD_USER } from "./actionTypes";
+
+// action creator
+export function addTodo(name) {
+  return {
+    type: ADD_TODO,
+    payload: {
+      name: name,
+    },
+  };
+}
+
+export function deleteTodo(id) {
+  return {
+    type: DELETE_TODO,
+    payload: {
+      id: id,
+    },
+  };
+}
+
+export function addUser(name) {
+  return {
+    type: ADD_USER,
+    payload: {
+      name,
+    },
+  };
+}
 ```
 
 #### 1st React - include Inline styling 
