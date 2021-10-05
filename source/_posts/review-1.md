@@ -469,8 +469,31 @@ console.log(` fibonacci${5} -->`, countFibonacci(5));
 + 接收函式做為引數的函式(callback function) 或 回傳結果為函式的函式
 + map, filter 和 reduce 即為內建的Higher-order function(傳回函數) 
 
-#### Event delegation(事件委派)
+#### Event delegation(事件代理,事件委派)
 + Event listen 放在父元素,而非個別的元素,如此可精簡程式及處理動態產生的元素
+
+#### 事件傳遞機制：捕獲與冒泡
++ DOM 事件傳遞機制分成 3 階段：
+	+ Capturing Phase 捕獲階段
+	+ Target Phase 傳遞到元素本身
+	+ ubbling Phase 冒泡階段
++ 事件傳遞的兩個原則
+	+ 先捕獲，再冒泡
+	+ 當事件傳到 target 本身，沒有分捕獲跟冒泡
++ 當使用 event.stopPropagation()，事件傳遞就會停在設置的地方
+	+ 若在捕獲階段：阻止事件往下傳遞
+	+ 若在冒泡階段：阻止事件向上傳遞
++ 如果要讓同一層的事件也要停止，就用 stopImmediatePropagation()
+
+<div style="width:700px">
+	{% asset_img pic3.png pic3 %}
+</div>
+
+圖片來自 [W3C](https://www.w3.org/TR/DOM-Level-3-Events/#event-flow)
+
+#### preventDefault 與 stopPropagation 的差異
++ preventDefault() 停止元素預設事件發生，如果只是要預防 &lt;a href=”#”&gt; 回到頁首，可加上這個函數
++ stopPropagation() 停止作用的元素冒泡
 
 #### JavaScript asynchronous(非同步) operation 處理方式
 + Callback : 藉由參數（argument）傳入一個函式,以便完成某件程序後執行必要的程式
@@ -588,6 +611,8 @@ let dogsell1 = new DogSell("WaWa", "white", 1000);
 console.log(dogsell1.getInfo());
 ```
 
+#### Fetch API
+fetch()是 XMLHttpRequest 的升级版,提供了一個能獲取包含跨網路資源在的資源介面。它有點像我們所熟悉的 XMLHttpRequest ，但這個新的 API 提供了更強更彈性的功能。
 
 
 
@@ -600,7 +625,8 @@ console.log(dogsell1.getInfo());
 
 
 
-
+### 參考資料
+	+ [Fetch API 教程](https://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
 
 
 圖片 from [JavaScript Prototype and Prototype Chain explained](https://chamikakasun.medium.com/javascript-prototype-and-prototype-chain-explained-fdc2ec17dd04)
