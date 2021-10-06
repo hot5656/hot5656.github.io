@@ -10,10 +10,14 @@ tags:
 
 ### 基本
 + schema : 結構
-+ 編碼與排序 	: 建議 utf8_general_ci
++ 編碼與排序 	: 建議 utf8_general_ci 
 + Pimary Key(PK) : 主鍵
 + Unique : 在 table 內,資料唯一
 + CRUD : 新增(Create)、讀取(Read)、更新(Update)、刪除(Delete)
++ 類型 
+	+ InnoDB
+	+ MyISAM 不支援 Transaction(交易)
+
 
 <!--more-->
 
@@ -24,7 +28,7 @@ tags:
 +	MSSQL
 
 ##### NoSQL(Not only SQL)
-如再存 log 使用
+如儲存 log 使用
 + MongoDB
 
 #### DB 管理程式
@@ -161,4 +165,83 @@ MySQL沒有 boolean 型別, 設定 boolean 會自動轉成 tinyint(1)
 # 增加 is_deleted 欄位
 # query data for user
 SELECT * FROM `my_class` WHERE is_deleted=0
+```
+
+#### Transaction(交易) and Lock(鎖)
+##### Transaction(交易)
+``` php
+$conn->autocommit(FALSE);
+$conn->begin_transaction();
+$conn->query("update from money set amount = 20");
+$conn->query("update from money set sum = 10");
+$conn->commit();
+```
+
+##### Lock(鎖)
+``` php
+$conn->autocommit(FALSE);
+$conn->begin_transaction();
+$conn->query("SELECT amount from products where id = 1 for update");
+$conn->commit();
+```
+
+##### test DB table
+``` bash 
+products:  
+	id amount
+	 1   1
+```
+
+##### normal process
+``` php
+<?php
+	require_once('conn.php');
+	
+	$stmt = $conn->prepare("SELECT amount from products where id = 1");
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0 ) {
+		$row = $result->fetch_assoc();
+		echo "amount " . $row['amount'];
+
+		if ($row['amount'] > 0) {
+			$stmt = $conn->prepare("UPDATE products SET amount = amount - 1 where id = 1");
+			if ($stmt->execute()) {
+				echo '購買成功';
+			}
+		}
+	}
+	$conn->close();
+?>
+```
+
+##### add lock process
+``` php
+// where id = 1 for update  --> row lock
+// no where --> table lock
+<?php
+	require_once('conn.php');
+	
+	// transactio
+	$conn->autocommit(FALSE);
+	$conn->begin_transaction();
+	// for update mean lock
+	$stmt = $conn->prepare("SELECT amount from products where id = 1 for update");
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0 ) {
+		$row = $result->fetch_assoc();
+		echo "amount " . $row['amount'];
+
+		if ($row['amount'] > 0) {
+			$stmt = $conn->prepare("UPDATE products SET amount = amount - 1 where id = 1");
+			if ($stmt->execute()) {
+				echo '購買成功';
+			}
+		}
+	}
+	// transactio
+	$conn->commit();
+	$conn->close();
+?>
 ```

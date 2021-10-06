@@ -91,6 +91,26 @@ fruits3.push("orange")
 console.log('fruits=',fruits,'fruits3=',fruits3)	// fruits= [ 'apple' ] fruits3= [ 'apple', 'orange' ]
 ```
 
+#### window.onload 和 $(document).ready() 
++ window.onload 會等網頁的全部內容，包括圖片，CSS及&lt;iframe&gt;等外部內容載入後才會觸發
+``` js
+window.onload = function() {
+	func1();
+	func2();
+	....
+}
+
+// 若只需要執行單一 function 
+window.onload=Func;
+```
++ $(document).ready()在Document Object Model (DOM) 載入後就會觸發，所以順序上$(document).ready()會比window.onload先執行。
+``` js
+$(document).ready(() =>{
+	....
+}
+```
+
+
 
 
 
@@ -613,6 +633,24 @@ console.log(dogsell1.getInfo());
 
 #### Fetch API
 fetch()是 XMLHttpRequest 的升级版,提供了一個能獲取包含跨網路資源在的資源介面。它有點像我們所熟悉的 XMLHttpRequest ，但這個新的 API 提供了更強更彈性的功能。
+
+#### Logical Operator vs Nullish Coalescing Operator
++ Logical Operator:當值為 undefined, null, false 或 0 則傳回右邊的值 
+``` js
+console.log(false || 'Hello'); //Returns Hello
+console.log(undefined || 'Hello'); //Returns Hello
+console.log(null || 'Hello'); //Returns Hello
+console.log(0 || 'Hello'); //Returns Hello
+```
+
++ Nullish Coalescing Operator::當值為 undefined 或 null 則傳回右邊的值
+``` js
+console.log(false ?? 'Hello'); //Returns false
+console.log(undefined ?? 'Hello'); //Returns Hello
+console.log(null ?? 'Hello'); //Returns Hello
+console.log(0 ?? 'Hello'); //Returns 0
+```
+
 
 
 

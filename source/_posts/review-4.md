@@ -50,6 +50,52 @@ Nginx 發音同 "engine X"是非同步框架的網頁伺服器，也可以用作
 ##### PM2
 pm2 是一個 node 的程序管理器,可開啟多程序 
 
+#### Host App 
+##### XAMPP
+XAMPP 是跨平台 (X (Cross)) 可在 Windows、Linux 與 Mac OS 系統上執行，套件包含有 Appache + MariaDB(舊平台是 MySQL) + PHP + Perl 等套件。
+
+##### phpMyAdmin
+phpMyAdmin 是一個以PHP為基礎，以Web-Base方式架構在網站主機上的MySQL的資料庫管理工具，讓管理者可用Web介面管理MySQL資料庫。
+
+##### HeidiSQL
+HeidiSQL是一個自由開源的資料庫管理工具，用於MySQL及其分支，以及Microsoft SQL Server和PostgreSQL。
+
+##### JMeter
+壓力測試工具 - iT 邦幫忙
+###### check java veresion
+``` bash
+# 命令列執行
+java -version
+```
+
+###### download and install
++ download [JMeter](https://jmeter.apache.org/download_jmeter.cgi) : .zip for Window
++ 解壓縮執行 ./bin/jmeter.bat
++ change language : Options --> Choose Language --> Chinese(Traditional)
+
+###### add test item
++ 填入名稱 : TestProducts -> 名稱 -> Save
+<div style="maxwidth:1000px">
+	{% asset_img pic1.jpg pic1 %}
+</div>
+
++ add test group : TestProducts --> 新增 --> Threads(users) --> setUp Thread Group
+<div style="maxwidth:1000px">
+	{% asset_img pic2.jpg pic2 %}
+</div>
+
++ 新增 HTTP 要求 : setUp Thread Group --> 新增 --> 取樣 --> HTTP 要求 
+<div style="maxwidth:1000px">
+	{% asset_img pic3.jpg pic3 %}
+</div>
+
++ 新增 檢視結果樹 : setUp Thread Group --> 新增 --> 接聽 --> 檢視結果樹 
+<div style="maxwidth:1000px">
+	{% asset_img pic4.jpg pic4 %}
+</div>
+
+
+
 #### Coding program
 ##### node.js
 能夠在伺服器端運行 JavaScript 的開放原始碼

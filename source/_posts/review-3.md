@@ -107,19 +107,35 @@ HTML attributes 是 HTML tag 附加的訊息,位於 tag 名稱之後 結束尖�
 
 ### HTML 的3種 list
 + 無序列表（Unordered list）:無數字編號的清單
-+ 有序列表（Ordered list）: 有數字編號的清單
-+ 定義列表（Definition list）: 表示一系列的特殊名詞定義
 ``` html
 <ul>
 	<li>香蕉</li>
 	<li>芭樂</li>
 	<li>鳳梨</li>
 </ul>
+```
+<ul>
+	<li>香蕉</li>
+	<li>芭樂</li>
+	<li>鳳梨</li>
+</ul>
+
++ 有序列表（Ordered list）: 有數字編號的清單
+``` html
 <ol>
 	<li>香蕉</li>
 	<li>芭樂</li>
 	<li>鳳梨</li>
 </ol>
+```
+<ol>
+	<li>香蕉</li>
+	<li>芭樂</li>
+	<li>鳳梨</li>
+</ol>
+
++ 定義列表（Definition list）: 表示一系列的特殊名詞定義
+``` html
 <dl>
   <dt>HTML</dt>
   <dd>This stands for Hyper Text Markup Language</dd>
@@ -127,16 +143,6 @@ HTML attributes 是 HTML tag 附加的訊息,位於 tag 名稱之後 結束尖�
   <dd>This stands for Hyper Text Transfer Protocol</dd>
 </dl>
 ```
-<ul>
-	<li>香蕉</li>
-	<li>芭樂</li>
-	<li>鳳梨</li>
-</ul>
-<ol>
-	<li>香蕉</li>
-	<li>芭樂</li>
-	<li>鳳梨</li>
-</ol>
 <dl>
   <dt>HTML</dt>
   <dd>This stands for Hyper Text Markup Language</dd>
@@ -144,7 +150,8 @@ HTML attributes 是 HTML tag 附加的訊息,位於 tag 名稱之後 結束尖�
   <dd>This stands for Hyper Text Transfer Protocol</dd>
 </dl>
 
-
+### 參考資料
++ [A short guide to help you pick the correct HTML tag](https://dev.to/polgarj/a-short-guide-to-help-you-pick-the-correct-html-tag-56l9)
 
 
 
