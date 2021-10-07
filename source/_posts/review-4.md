@@ -43,14 +43,14 @@ HTML的內容全部由Server產生
 ```
 
 ### Tool and program
-#### Host program
+#### Server Application
 ##### Nginx
 Nginx 發音同 "engine X"是非同步框架的網頁伺服器，也可以用作反向代理、負載平衡器和HTTP快取。
 
 ##### PM2
 pm2 是一個 node 的程序管理器,可開啟多程序 
 
-#### Host App 
+#### App 
 ##### XAMPP
 XAMPP 是跨平台 (X (Cross)) 可在 Windows、Linux 與 Mac OS 系統上執行，套件包含有 Appache + MariaDB(舊平台是 MySQL) + PHP + Perl 等套件。
 
@@ -61,42 +61,10 @@ phpMyAdmin 是一個以PHP為基礎，以Web-Base方式架構在網站主機上�
 HeidiSQL是一個自由開源的資料庫管理工具，用於MySQL及其分支，以及Microsoft SQL Server和PostgreSQL。
 
 ##### JMeter
-壓力測試工具 - iT 邦幫忙
-###### check java veresion
-``` bash
-# 命令列執行
-java -version
-```
-
-###### download and install
-+ download [JMeter](https://jmeter.apache.org/download_jmeter.cgi) : .zip for Window
-+ 解壓縮執行 ./bin/jmeter.bat
-+ change language : Options --> Choose Language --> Chinese(Traditional)
-
-###### add test item
-+ 填入名稱 : TestProducts -> 名稱 -> Save
-<div style="maxwidth:1000px">
-	{% asset_img pic1.jpg pic1 %}
-</div>
-
-+ add test group : TestProducts --> 新增 --> Threads(users) --> setUp Thread Group
-<div style="maxwidth:1000px">
-	{% asset_img pic2.jpg pic2 %}
-</div>
-
-+ 新增 HTTP 要求 : setUp Thread Group --> 新增 --> 取樣 --> HTTP 要求 
-<div style="maxwidth:1000px">
-	{% asset_img pic3.jpg pic3 %}
-</div>
-
-+ 新增 檢視結果樹 : setUp Thread Group --> 新增 --> 接聽 --> 檢視結果樹 
-<div style="maxwidth:1000px">
-	{% asset_img pic4.jpg pic4 %}
-</div>
+壓力測試工具
 
 
-
-#### Coding program
+#### language and relative module
 ##### node.js
 能夠在伺服器端運行 JavaScript 的開放原始碼
 ##### Express 

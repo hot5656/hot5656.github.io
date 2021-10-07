@@ -493,6 +493,309 @@ Box model 包含 content, padding, border and margin
 </div>
 
 
+### CSS 水平置中
+#### text-align: center
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 100px;
+  border: 1px solid #f00;
+  margin: auto;
+	
+	text-align: center;
+}
+</style>
+
+<div class="box">
+	葡萄美酒夜光杯
+</div>
+```
+
+#### margin: 0 auto
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 100px;
+  border: 1px solid #f00;
+  margin: auto;
+	
+	/* text-align: center; */
+}
+.content {
+	text-align: center;
+	margin: 0 auto;
+	width: 50%;
+	background: #ccc;
+}
+</style>
+
+<div class="box">
+	<div class="content">
+		葡萄美酒夜光杯
+	</div>
+</div>
+```
+
+#### relative + translateX
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 100px;
+  border: 1px solid #f00;
+  margin: auto;
+}
+.content {
+	text-align: center;
+	width: 50%;
+	background: #ccc;
+	
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+</style>
+
+<div class="box">
+	<div class="content">
+		葡萄美酒夜光杯
+	</div>
+</div>
+```
+
+#### absolute + translateX
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 100px;
+  border: 1px solid #f00;
+  margin: auto;
+
+	position: relative;
+}
+.content {
+	text-align: center;
+	width: 50%;
+	background: #ccc;
+	
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+</style>
+
+<div class="box">
+	<div class="content">
+		葡萄美酒夜光杯
+	</div>
+</div>
+```
+
+### CSS 垂直置中
+#### line-height 單行文字置中
+``` html
+<style>
+.content{
+		width: 400px;
+		background: #ccc;
+		line-height:100px;
+		margin: auto;
+}
+</style>
+
+<div class="content">
+	Lorem ipsam.
+</div>
+```
+
+#### Line-height + inline-block 多行文字置中
+``` html
+<style>
+	h2{
+		text-align: center;
+	}
+	.box{
+		width: 500px;
+		border: 1px solid #f00;
+		margin: 0 auto;
+		text-align: center;
+
+		line-height: 200px;
+	}
+	.content{
+		display: inline-block;
+		height: auto;
+		line-height:1;
+		width: 400px;
+		background: #ccc;
+		vertical-align: middle;
+	}
+</style>
+
+<div class="box">
+  <div class="content">
+		<h2>涼 州 曲</h2>
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+#### 僞元素::before + inline-block
+藉由 僞元素::before,將外框撐開 
+``` html
+<style>
+h2{
+  text-align: center;
+}
+.box{
+  width: 500px;
+  border: 1px solid #f00;
+  margin: auto;
+  text-align: center;
+
+  height: 200px;
+}
+.box::before{
+  content:'';
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+}
+.box .content{
+  width: 400px;
+  background: #ccc;
+  display: inline-block;
+  vertical-align: middle;
+}
+</style>
+
+<div class="box">
+  <div class="content">
+		<h2>涼 州 曲</h2>
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+#### absolute + translate
+``` html
+h2{
+  text-align: center;
+}
+.box{
+  width: 500px;
+  border: 1px solid #f00;
+  margin: auto;
+  height: 200px;
+
+  position: relative;
+}
+.box .content{
+  width: 400px;
+  background: #ccc;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+<div class="box">
+  <div class="content">
+		<h2>涼 州 曲</h2>
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+#### flex + align-items
+``` html
+<style>
+h2{
+  text-align: center;
+}
+.box{
+  width: 500px;
+  border: 1px solid #f00;
+  margin: auto;
+  height: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+.content{
+  width: 400px;
+  background: #ccc;
+}
+
+</style>
+
+<div class="box">
+  <div class="content">
+		<h2>涼 州 曲</h2>
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+#### calc 對固定高度內容
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 200px;
+  border: 1px solid #f00;
+  margin: auto;
+}
+.content{
+  width: 400px;
+  background: #ccc;
+  position: relative;
+  top:calc((100% - 70px) / 2);
+  margin:auto;
+  height: 70px;
+}
+</style>
+
+<div class="box">
+  <div class="content">
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+#### relative + translateY
+``` html
+<style>
+.box{
+  width: 500px;
+  height: 250px;
+  border: 1px solid #f00;
+  margin: auto;
+}
+.content{
+  width: 400px;
+  background: #ccc;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+}
+</style>
+
+<div class="box">
+  <div class="content">
+		葡萄美酒夜光杯，欲飲琵琶馬上催。醉臥沙場君莫笑，古來征戰幾人回。
+  </div>
+</div>
+```
+
+
 
 
 

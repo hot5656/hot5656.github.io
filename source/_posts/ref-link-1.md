@@ -122,6 +122,8 @@ date: 2021-03-18 15:48:55
 + [WEBTECH](https://www.webtech.tw/)
 + [掘金](https://juejin.cn/)
 + [開發者技術內容創作分享與職涯發展平台](https://zh-tw.coderbridge.com/)
++ [Interview Questions and Answers](https://www.javatpoint.com/interview-questions-and-answers)
++ [Learn JavaScript Tutorial(Javatpoint)](https://www.javatpoint.com/javascript-tutorial)
 
 ### 文章
 #### Book
