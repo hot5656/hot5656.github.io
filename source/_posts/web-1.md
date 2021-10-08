@@ -727,3 +727,77 @@ sudo systemctl restart mysql
 ``` bash
 less -m -N /var/log//apache2/error.log
 ```
+
+###  AWS 部署和託管 React 應用程式
+#### 建立新的 React 應用程式
+``` bash
+npx create-react-app react-todos
+cd react-todos
+npm start
+``` 
+
+#### 初始化 GitHub 儲存庫
++ 建立 GitHub 儲存庫
+<div style="maxwidth:1000px">
+	{% asset_img pic60.png pic60 %}
+</div>
+
++ 初始化 git, 並將程式推送至 GitHub
+``` bash
+# git 已自動 init
+git remote add origin https://github.com/hot5656/react-todos.git
+git push -u origin master
+```
+
+#### 使用 AWS Amplify 部署應用程式
++ AWS Amplify --> Deliver --> Get started
+<div style="maxwidth:1000px">
+	{% asset_img pic61.png pic61 %}
+</div>
+
++ select GitHub
+<div style="maxwidth:1000px">
+	{% asset_img pic62.png pic62 %}
+</div>
+
++ 驗證完後, 選擇正確的 repository
+<div style="maxwidth:1000px">
+	{% asset_img pic63.png pic63 %}
+</div>
+
++ 接受預設的建置設定，然後選取 Next 
+<div style="maxwidth:1000px">
+	{% asset_img pic64.png pic64 %}
+</div>
+
++ 檢閱最終詳細資訊，然後選取 Save and Deploy (儲存並部署)
+<div style="maxwidth:1000px">
+	{% asset_img pic65.png pic65 %}
+</div>
+
++ AWS Amplify 主控台現在將在 https://...amplifyapp.com 建立您的源代碼並部署您的應用程式
+<div style="maxwidth:1000px">
+	{% asset_img pic67.png pic67 %}
+</div>
+
++ 選擇 link 即可看到執行畫面
+<div style="width:300px">
+	{% asset_img pic68.png pic68 %}
+</div>
+
+
+#### 更新應用程式
++ 程式更動後 push 到 github
+``` bash
+git add .
+git commit -m "update for todos"
+git push -u origin master
+```
+
++ 在 AWS Amplify 即可檢視更新的應用程式
+
+#### DevTools 可看到原始 source, 應該要另外處理
+<div style="maxwidth:1000px">
+	{% asset_img pic69.png pic69 %}
+</div>
+

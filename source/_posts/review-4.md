@@ -67,8 +67,14 @@ HeidiSQL是一個自由開源的資料庫管理工具，用於MySQL及其分支�
 #### language and relative module
 ##### node.js
 能夠在伺服器端運行 JavaScript 的開放原始碼
+
 ##### Express 
 Express.js 或簡稱 Express，Express 是 Node.js Web 應用程式架構。
+
+##### Sequelize (ORM 串接資料庫) 
++ ORM(Object Relational Mapping)物件關聯對映。是一種將關聯式資料庫（MySQL）映射（mapping）至物件導向（OOP）的資料抽象化技術。
++ ORM 扮演資料庫系統和 Model 資料容器的中間橋梁，讓我們能透過程式語言（JavaScript）去操作資料庫語言（SQL），是實作物件導向概念的一種工具模式。
++ Sequelize，這是一款基於 Node.js 的非同步 ORM 框架，讓我們能透過 ORM（物件關聯對映）來開發網頁，以物件導向的概念來操作資料庫。
 
 #### Automatic tool
 ##### Gulp
@@ -214,11 +220,6 @@ strSQL = "SELECT * FROM users;"
 #### Transaction 與 lock
 + 一個 transaction ,是為了特定需求的一組連續對資料庫 Read 和 Write 的動作
 + 為了保持資料的一致性,在執行 transaction 時,會將資料 lock 住,不讓其他 transaction 使用
-
-#### Sequelize (ORM 串接資料庫) 
-+ ORM(Object Relational Mapping)物件關聯對映。是一種將關聯式資料庫（MySQL）映射（mapping）至物件導向（OOP）的資料抽象化技術。
-+ ORM 扮演資料庫系統和 Model 資料容器的中間橋梁，讓我們能透過程式語言（JavaScript）去操作資料庫語言（SQL），是實作物件導向概念的一種工具模式。
-+ Sequelize，這是一款基於 Node.js 的非同步 ORM 框架，讓我們能透過 ORM（物件關聯對映）來開發網頁，以物件導向的概念來操作資料庫。
 
 #### N+1 problem
 當要由 DB 列出訂單含客戶名稱,可能查出訂單後,再由訂單內的客戶代號查詢客戶名稱,若有100筆訂單,就要執行 100 + 1 次查詢才能得到需要的資料,若改變查詢方法以使用較少的查詢次數,就能減少查詢的時間.
