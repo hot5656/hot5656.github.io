@@ -13,7 +13,7 @@ date: 2021-09-23 20:14:46
 <!--more-->
 
 ### 常用 list
-+ createStore
++ createStore : 產生 store
 + useSelector
 + useDispatch
 + Provider
@@ -40,13 +40,14 @@ npm install redux
 // ./app.js
 
 // node.js not simple support import
-// import { createStore } from "redux";
+// ./app.js
 const { createStore } = require("redux");
 
 const initialState = {
   value: 0,
 };
 
+// #2 initiation store state, accept dispatch by type
 function counterReducer(state = initialState, action) {
   console.log("reciver action", action);
   switch (action.type) {
@@ -66,13 +67,15 @@ function counterReducer(state = initialState, action) {
   return state;
 }
 
+// #1 產生 store 
 let store = createStore(counterReducer);
-// show state
+
+
+// #3 get state
 // console.log(store);
-// srtore get state
 console.log(" first state:", store.getState());
 
-// store dispatch
+// #4 trigger by dispatch
 store.dispatch({
   type: "plus",
 });
@@ -81,7 +84,7 @@ store.dispatch({
   type: "plus",
 });
 
-// srtore get state
+// #5 get state
 console.log(" second state:", store.getState());
 
 store.dispatch({
@@ -243,7 +246,8 @@ reciver action { type: 'delete_todo', payload: { id: 2 } }
 ``` bash
 npx create-react-app react-dedux-demo --template redux
 cd react-dedux-demo
-npm install react-redux
+# 已安裝
+# npm install react-redux
 ```
 
 ##### example #1 - todos
