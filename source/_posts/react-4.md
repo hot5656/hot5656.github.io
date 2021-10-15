@@ -14,10 +14,10 @@ date: 2021-09-23 20:14:46
 
 ### 常用 list
 + createStore : 產生 store
-+ useSelector
-+ useDispatch
-+ Provider
-+ combineReducers
++ useSelector : Redux store 中的狀態提取數據
++ useDispatch : 回傳一個 dispatch 方法, 產生 action
++ Provider : 讓整個react applicaiton都能取得Redux store的資料
++ combineReducers : 由多個不同 reducer 函數作為 value 的 object，合併成一個最終的 reducer 函數，然後就可以對這個 reducer 調用 createStore
 
 
 ### 基礎
@@ -255,45 +255,57 @@ cd react-dedux-demo
 + ./src/index.js
 ``` js
 // ./src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { store } from './redux/store';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+// step #2 store patch
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 ReactDOM.render(
+  // step #1 Provider 綁定,使整個react applicaiton都能取得 store
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
 + ./src/App.js
 ``` js
 // ./src/App.js
-import React from 'react';
-import { useSelector,useDispatch } from "react-redux";
-import { selectTodos } from "./redux/selectors"
-import { addTodo } from "./redux/actions"
-
+import { selectTodos } from "./redux/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "./redux/actions";
 
 function App() {
-  // const state = useSelector((state) => state);
-  // console.log('state:', state);
+  const state = useSelector((state) => state);
+  console.log("state:", state);
 
+  // step #7 useSelector 取得 store 內的植
+  // todos = useSelector((store) => store.todoState.todos)
   const todos = useSelector(selectTodos);
-  const dispatch = useDispatch()
-  console.log('todos', todos);
+  // step #9 useDispatch 可 trigger action
+  const dispatch = useDispatch();
+  // step #32 若已執行修改後會顯示,但直接執行(或重整畫面)則不會顯示 ???
+  console.log("todos", todos);
   return (
     <div>
-      <button onClick={() =>{
-        dispatch(addTodo(Math.random()))
-      }}>
+      <button
+        // step #11 dispatch 呼叫 action creator, 產生 action
+        onClick={() => {
+          dispatch(addTodo(Math.random()));
+        }}
+      >
         add todo
       </button>
       <ul>
-        {todos.map(todo => <li key={todo.id} >{todo.id} {todo.name}</li>)}
+        {/* step #12 show todos */}
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.id} {todo.name}
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -306,7 +318,7 @@ export default App;
 + ./src/redux/actionTypes.js
 ``` js
 // ./src/redux/actionTypes.js
-export const ADD_TODO =  "add_todo";
+export const ADD_TODO = "add_todo";
 export const DELETE_TODO = "delete_todo";
 
 export const ADD_USER = "add_user";
@@ -315,8 +327,10 @@ export const ADD_USER = "add_user";
 + ./src/redux/actions.js
 ``` js
 // ./src/redux/actions.js
+
 import { ADD_TODO, DELETE_TODO, ADD_USER } from "./actionTypes";
 
+// step #10 做成 action creator(function) 方便使用
 // action creator
 export function addTodo(name) {
   return {
@@ -350,17 +364,23 @@ export function addUser(name) {
 ``` js
 // ./src/redux/store.js
 
-import { createStore } from 'redux'
-import rootReducer from './reducers'
+import { createStore } from "redux";
+import rootReducer from "./reducers";
 
-export const store = createStore(rootReducer)
+// step #3 產生 store(from ./reducers )
+export const store = createStore(
+  rootReducer,
+  // step #31 add for redux devtool
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ```
 
 + ./src/redux/selectors.js
 ``` js
 // ./src/redux/selectors.js
 
-export const selectTodos = (store) => store.todoState.todos ;
+// step #8 selectot 另開成檔案
+export const selectTodos = (store) => store.todoState.todos;
 ```
 
 ###### ./src/redux/reducers
@@ -368,12 +388,13 @@ export const selectTodos = (store) => store.todoState.todos ;
 ``` js
 // ./src/redux/reducers/index.js
 import { combineReducers } from "redux";
-import todos from "./todos"
-import users from "./users"
+import todos from "./todos";
+import users from "./users";
 
+// step #4 combineReducers 可包含 多個 reducer
 export default combineReducers({
-	todoState: todos,	//todos: todos 
-	users,	//users: users
+  todoState: todos, //todos: todos
+  users, //users: users
 });
 ```
 
@@ -388,6 +409,7 @@ const initialState = {
   todos: [],
 };
 
+// step #5 todosReducer
 export default function todosReducer(state = initialState, action) {
   console.log("reciver action(todos)", action);
   switch (action.type) {
@@ -426,6 +448,7 @@ const initialState = {
   users: [],
 };
 
+// step #6 usersReducer
 export default function usersReducer(state = initialState, action) {
   console.log("reciver action(users)", action);
   switch (action.type) {
@@ -445,13 +468,6 @@ export default function usersReducer(state = initialState, action) {
   }
   return state;
 }
-```
-
-``` js
- const store = createStore(
-   reducer, /* preloadedState, */
-+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
- );
 ```
 
 ##### example #2 - button create component
