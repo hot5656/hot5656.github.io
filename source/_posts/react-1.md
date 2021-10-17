@@ -31,6 +31,7 @@ JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞�
 + theme
 + styled(Link)
 + useLocation
++ Fragment : 一個 component 讓你一次 render 多個 element 而不需要額外的 wrapper
 
 ### todolist simulate
 ``` html
@@ -3000,7 +3001,7 @@ export { default } from './LoginPage';
 
 
 
-### prettier ESLint(not finished)
+### prettier ESLint
 #### create-react-app default include ESLint configuration
 .\node_modules\react-scripts\config\webpack.config.js
 ``` js
