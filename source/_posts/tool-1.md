@@ -56,3 +56,45 @@ java -version
 <div style="maxwidth:1000px">
 	{% asset_img pic4.jpg pic4 %}
 </div>
+
+#### Cygwin 安裝 wget, apt-cyg, gcc
+##### install cygwin - add wget
+<div style="width:500px">
+	{% asset_img cygwin_1.jpg cygwin_1 %}
+</div>
+
+##### download apt-cyg 解壓縮後放於 /bin 目錄下, 並設定可執行
+<div style="maxwidth:1000px">
+	{% asset_img cygwin_2.jpg cygwin_2 %}
+</div>
+
+``` bash
+chmod +x /bin/apt-cyg
+```
+
+##### install gcc
+``` bash
+apt-cyg install gcc-core
+```
+
+##### some command 
+``` bash
+# dump cygwin version 
+uname -a
+		CYGWIN_NT-10.0 ESTPENB-W022 3.2.0(0.340/5/3) 2021-03-29 08:42 x86_64 Cygwin
+# check support gcc core 
+cygcheck -p bin/gcc
+		Found 10 matches for bin/gcc
+		gcc-core-10.2.0-1 - gcc-core: GNU Compiler Collection (C, OpenMP)
+		gcc-core-11.2.0-0 - gcc-core: GNU Compiler Collection (C, OpenMP)
+		gcc-core-11.2.0-1 - gcc-core: GNU Compiler Collection (C, OpenMP)
+		gcc-core-7.4.0-1 - gcc-core: GNU Compiler Collection (C, OpenMP)
+		gcc-core-9.3.0-2 - gcc-core: GNU Compiler Collection (C, OpenMP)
+		gcc-debuginfo-10.2.0-1 - gcc-debuginfo: Debug info for gcc
+		gcc-debuginfo-7.4.0-1 - gcc-debuginfo: Debug info for gcc
+		gcc-debuginfo-9.3.0-2 - gcc-debuginfo: Debug info for gcc
+		gccmakedep-1.0.2-1 - gccmakedep: X Makefile dependency tool for GCC (installed b
+		inaries and support files)
+		gccmakedep-1.0.3-1 - gccmakedep: X Makefile dependency tool for GCC (installed b
+		inaries and support files)
+```
