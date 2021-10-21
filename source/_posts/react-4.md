@@ -884,6 +884,204 @@ npm install @reduxjs/toolkit
 	{% asset_img ReduxAsyncDataFlowDiagram-d97ff38a0f4da0f327163170ccc13e80.gif %}
 </div>
 
+##### middleware example and add redux devtool
+``` js
+// ./src/redux/store.js
+
+// step #61 add middleware - import
+import { createStore, applyMiddleware } from "redux";
+// step #71 add for redux devtool with middle - import
+import { compose } from "redux";
+import rootReducer from "./reducers";
+
+// step #72 add for redux devtool with middle - variable
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// step #62 add middleware - middleware 1
+const logMiddleWare1 = (store) => (next) => (action) => {
+  console.log("Log Middleware1:", action);
+  next(action);
+};
+
+// step #63 add middleware - middleware 2
+const logMiddleWare2 = (store) => (next) => (action) => {
+  console.log("Log Middleware2:", action);
+  next(action);
+};
+
+// step #3 產生 store(from ./reducers )
+export const store = createStore(
+  rootReducer,
+  // step #73 add for redux devtool with middle - add
+  // step #64 add middleware - add
+  composeEnhancers(applyMiddleware(logMiddleWare1, logMiddleWare2))
+  // step #41 add for redux devtool
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+```
+
+##### thunk - example by async todos and fetch + redux-logger
+Redux Thunk middleware 讓你可以撰寫一個回傳 function 而非 action 的 action creators，透過 thunk 可以讓你控制發送（dispatch）一個 action 的時間點，因此適合用來處理非同步取得的資料狀態，或者是在特定條件符合的情況下才發送。
+
+###### install redux-logger
+``` bash
+npm install redux-logger
+```
+
+###### ./src/App.js
+``` js
+// ./src/App.js
+import { selectTodos } from "./redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+// import AddTodo from "./containers/AddTodo";
+import { addTodo } from "./redux/actions";
+// step #65 thunk - import async action creator
+import { addTodoAsync, AddTodoFetchPosts } from "./redux/actions";
+import { deleteTodo } from "./redux/actions";
+
+function App() {
+  // step #7 useSelector 取得 store 內的植
+  // todos = useSelector((store) => store.todoState.todos)
+  const todos = useSelector(selectTodos);
+  // step #42 若已執行修改後會顯示,但直接執行(或重整畫面)則不會顯示 ???
+  console.log("todos", todos);
+  // step #56 add delete button - add dispatch
+  const dispatch = useDispatch();
+  return (
+    <div>
+      {/* call step #21 addTodo component */}
+      {/* <AddTodo /> */}
+      <button
+        // step #11 dispatch 呼叫 action creator, 產生 action
+        onClick={() => {
+          dispatch(addTodo(Math.random()));
+        }}
+      >
+        add todo
+      </button>
+      <button
+        onClick={() => {
+          // step #66 thunk - dispatch 呼叫 async action creator
+          dispatch(addTodoAsync(Math.random()));
+        }}
+      >
+        add todo async
+      </button>
+      <button
+        onClick={() => {
+          // step #67 thunk - dispatch 呼叫 fetch action creator
+          dispatch(AddTodoFetchPosts());
+        }}
+      >
+        add toto fetch
+      </button>
+      <ul>
+        {/* step #9 show todos */}
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.id} {todo.name}
+            {/* step #55 add delete button */}
+            <button onClick={() => dispatch(deleteTodo(todo.id))}>
+              delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+###### ./src/redux/actions.js
+``` js
+// ./src/redux/actions.js
+
+import { ADD_TODO, DELETE_TODO, ADD_USER } from "./actionTypes";
+
+// step #10 做成 action creator(function) 方便使用
+// action creator
+export function addTodo(name) {
+  return {
+    type: ADD_TODO,
+    payload: {
+      name: name,
+    },
+  };
+}
+
+export function deleteTodo(id) {
+  return {
+    type: DELETE_TODO,
+    payload: {
+      id: id,
+    },
+  };
+}
+
+export function addUser(name) {
+  return {
+    type: ADD_USER,
+    payload: {
+      name,
+    },
+  };
+}
+
+// step #63 thunk - async action
+export function addTodoAsync(name) {
+  return (dispatch) => {
+    setTimeout(() => {
+      // 一秒後dispatch addTask()
+      dispatch(addTodo(name));
+    }, 1000);
+  };
+}
+
+// step #64 thunk - fetch action
+export function AddTodoFetchPosts() {
+  return (dispatch) => {
+    return fetch(
+      "https://api.kcg.gov.tw/api/service/Get/b4e6ae98-39b7-469b-8c68-56492cad3b71"
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        // console.log(json.data[0]);
+        // console.log(typeof json.data[0]);
+        dispatch(addTodo(json.data[0]["市場地址"]));
+      });
+  };
+}
+```
+
+###### ./src/redux/store.js
+``` js
+// ./src/redux/store.js
+
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+// step #61 thunk - import thunk
+import { applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+// step #71 redux-logger - import
+import { createLogger } from "redux-logger";
+
+// step #72 redux-logger
+const loggerMiddleware = createLogger();
+
+// step #3 產生 store(from ./reducers )
+export const store = createStore(
+  rootReducer,
+  // step #62 thunk - set at middleware
+  // step #73 redux-logger - add to middle
+  applyMiddleware(thunk, loggerMiddleware)
+  // step #41 add for redux devtool
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+```
+
 ##### Redux thunk example from template 
 + ./src/feature/counter/counterSlice.js
 ``` js
@@ -943,6 +1141,8 @@ export const store = createStore(
 + [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 + [A Todo List Example(Using the connect API)](https://react-redux.js.org/tutorials/connect)
 + [Redux Toolkit](https://redux-toolkit.js.org/)
++ [Redux 中文網](https://www.reduxjs.cn/recipes/recipe-index/)
++ [Hooks 常見問題](https://zh-hant.reactjs.org/docs/hooks-faq.html)
 
 ### 圖檔來源 
 + [Redux Essentials, Part 1: Redux Overview and Concepts](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
