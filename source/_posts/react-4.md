@@ -1114,21 +1114,22 @@ export function fetchCount(amount = 1) {
 }
 ```
 
-#### blog use redux example - 僅用於單篇文章
+#### blog use redux example - 顯示單篇文章
 ##### ./src/index.js
 ``` js
 // ./src/index.js
+// step #21 redux(get post) - do for blog(顯示單篇文章)
 import React from "react";
 import ReactDOM from "react-dom";
 // import App from "./components/Signup";
 // step #1 change to blog
 import App from "./components/App";
-// step #21 redux - import store, Provider
+// step #21 redux(get post) - import store, Provider
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
 ReactDOM.render(
-  // step #22 redux - Provider store
+  // step #22 redux(get post) - Provider store
   <Provider store={store}>
     <App />
   </Provider>,
@@ -1142,9 +1143,9 @@ ReactDOM.render(
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-// step #29 redux - import useSelector, useSelector, actions, selectors
+// step #29 redux(get post) - import useSelector, useSelector, actions, selectors
 import { useDispatch, useSelector } from "react-redux";
-import { addPostFromFetch } from "../../redux/actions";
+import { addPostFromFetch, deletePostFromFetch } from "../../redux/actions";
 import { selectPost } from "../../redux/selectors";
 
 const PostContainer = styled.div`
@@ -1158,7 +1159,7 @@ const PostTitle = styled.div`
 const PostBody = styled.div``;
 
 export default function BlogPost() {
-  let { slug } = useParams();
+  let { id } = useParams();
   // const state = useSelector((state) => state);
   // console.log("state:", state);
 
@@ -1168,11 +1169,21 @@ export default function BlogPost() {
 
   useEffect(() => {
     // step #30 redux - trigger dispatch addPostFromFetch action
-    dispatch(addPostFromFetch(slug));
-  }, [dispatch, slug]);
+    dispatch(addPostFromFetch(id));
+  }, [dispatch, id]);
+
+  // step #42 add delete blog item - handel function
+  const handleDelete = async (e) => {
+    await dispatch(deletePostFromFetch(id));
+    await console.log(id);
+    // step #45 add delete blog item - jump to home page
+    await window.location.assign("/");
+  };
 
   return (
     <PostContainer>
+      {/* step #41 add delete blog item - button */}
+      <button onClick={handleDelete}>刪除</button>
       <PostTitle>{post.title}</PostTitle>
       <PostBody>{post.body}</PostBody>
     </PostContainer>
@@ -1185,21 +1196,21 @@ export default function BlogPost() {
 ``` js
 // ./src/redux/actionTypes.js
 
-// step #25 redux - add actionTypes
-export const ADD_POST = "add_post";
+// step #25 redux(get post) - add actionTypes
+export const GET_POST = "get_post";
 ```
 
 + ./src/redux/actions.js
 ``` js
 // ./src/redux/actions.js
 
-import { ADD_POST } from "./actionTypes";
-import { getPostId } from "../WebApi";
+import { GET_POST } from "./actionTypes";
+import { getPostId, deletePost } from "../WebApi";
 
-// step #26 redux - add action addPost
+// step #26 redux(get post) - add action addPost
 export function addPost(title, body) {
   return {
-    type: ADD_POST,
+    type: GET_POST,
     payload: {
       title,
       body,
@@ -1207,7 +1218,7 @@ export function addPost(title, body) {
   };
 }
 
-// step #27 redux - add action addPostFromFetch
+// step #27 redux(get post) - add action addPostFromFetch
 export function addPostFromFetch(id) {
   return (dispatch) => {
     return getPostId(id).then((post) => {
@@ -1219,6 +1230,17 @@ export function addPostFromFetch(id) {
     });
   };
 }
+
+// step #44 add delete blog item - action
+export function deletePostFromFetch(id) {
+  return (dispatch) => {
+    return deletePost(id)
+      .then((res) => {
+        console.log("deletePostFromFetch", res);
+      })
+      .catch((e) => console.log("error=", e));
+  };
+}
 ```
 
 
@@ -1228,14 +1250,14 @@ export function addPostFromFetch(id) {
 
 import { createStore } from "redux";
 import postReducer from "./reducers/postReducer";
-// step #23 redux - import applyMiddleware, thunk, compose(redux devtool for middleware)
+// step #23 redux(get post) - import applyMiddleware, thunk, compose(redux devtool for middleware)
 import { applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { compose } from "redux";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// step #24 redux - add store
+// step #24 redux(get post) - add store
 export const store = createStore(
   postReducer,
   composeEnhancers(applyMiddleware(thunk))
@@ -1246,7 +1268,7 @@ export const store = createStore(
 ``` js
 // ./src/redux/selectors.js
 
-// step #27 redux - add selector for get data
+// step #27 redux(get post) - add selector for get data
 export const selectPost = (store) => store.post;
 ```
 
@@ -1256,7 +1278,7 @@ export const selectPost = (store) => store.post;
 + ./src/redux/reducers/postReducer.js
 ``` js
 // ./src/redux/reducers/postReducer.js
-import { ADD_POST } from "../actionTypes";
+import { GET_POST } from "../actionTypes";
 
 const initialState = {
   post: {
@@ -1265,11 +1287,11 @@ const initialState = {
   },
 };
 
-// step #28 redux - add postReducer
+// step #28 redux(get post) - add postReducer
 export default function postReducer(state = initialState, action) {
   console.log("receive action(post)", action);
   switch (action.type) {
-    case ADD_POST:
+    case GET_POST:
       return {
         post: {
           title: action.payload.title,
@@ -1283,6 +1305,339 @@ export default function postReducer(state = initialState, action) {
 }
 ```
 
+#### blog use redux example - 發表文章
+##### ./src/index.js
+```js
+// ./src/index.js
+// step #20 redux(get post) - do for blog(顯示單篇文章)
+// step #50 redux(add blog) - 發表文章
+import React from "react";
+import ReactDOM from "react-dom";
+// import App from "./components/Signup";
+// step #1 change to blog
+import App from "./components/App";
+// step #21 redux(get post) - import store, Provider
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
+ReactDOM.render(
+  // step #22 redux(get post) - Provider store
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+##### ./Pages/CreatePage/CreatePage.js
+```js
+// ./Pages/CreatePage/CreatePage.js
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addPostFromFetch, clearPost } from "../../redux/actions";
+import { selectPost, selectIsLoad } from "../../redux/selectors";
+import { useEffect } from "react";
+
+const Root = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+
+const Title = styled.div`
+  padding: 5px 0;
+  input {
+    width: 100%;
+  }
+
+  div {
+    padding-bottom: 5px;
+  }
+`;
+
+const Content = styled.div`
+  padding-bottom: 10px;
+
+  textarea {
+    width: 100%;
+  }
+
+  div {
+    padding-bottom: 5px;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+`;
+
+export default function CreatePage() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [errorMessage] = useState();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // step #59 redux(add blog) - submit add post
+    dispatch(addPostFromFetch(title, content));
+    // console.log("handleSubmit");
+  };
+
+  useEffect(() => {
+    // step #58 redux(add blog) - clear state when add post mount
+    dispatch(clearPost());
+    // console.log("creat mount..");
+  }, [dispatch]);
+
+  const post = useSelector(selectPost);
+  const isLoad = useSelector(selectIsLoad);
+  useEffect(() => {
+    // console.log("create effect :", post);
+    // console.log("isLoad:", isLoad);
+    // console.log("creat update ");
+    // step #60 redux(add blog) - show post after add post
+    if (isLoad) {
+      history.push("/posts/" + post.id);
+    }
+  }, [post, isLoad, history]);
+
+  return (
+    <Root>
+      <form onSubmit={handleSubmit}>
+        <Title>
+          <div>Title</div>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Title>
+        <Content>
+          <div>Content</div>
+          <textarea
+            rows="10"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </Content>
+        <div>
+          <button type="submit">新增</button>
+        </div>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </form>
+    </Root>
+  );
+}
+```
+
+##### ./Pages/BlogPost/BlogPost.js
+```js
+// ./Pages/BlogPost/BlogPost.js
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+// step #29 redux(get post) - import useSelector, useSelector, actions, selectors
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getPostFromFetch,
+  deletePostFromFetch,
+  clearPost,
+} from "../../redux/actions";
+import { selectPost, selectIsLoad } from "../../redux/selectors";
+
+const PostContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+const PostTitle = styled.div`
+  text-align: center;
+  font-size: 24px;
+`;
+const PostBody = styled.div``;
+
+export default function BlogPost() {
+  let { id } = useParams();
+  // const state = useSelector((state) => state);
+  // console.log("state:", state);
+
+  const post = useSelector(selectPost);
+  const isLoad = useSelector(selectIsLoad);
+  const dispatch = useDispatch();
+  // console.log(post);
+  // console.log("isLoad:", isLoad);
+
+  useEffect(() => {
+    return () => {
+      // step #57 redux(add blog) - clear state when get post unmount
+      dispatch(clearPost());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    // step #30 redux(get post) - trigger dispatch getPostFromFetch action
+    dispatch(getPostFromFetch(id));
+  }, [dispatch, id]);
+
+  // step #42 add delete blog item - handel function
+  const handleDelete = async (e) => {
+    await dispatch(deletePostFromFetch(id));
+    await console.log(id);
+    // step #45 add delete blog item - jump to home page
+    await window.location.assign("/");
+  };
+
+  return (
+    <PostContainer>
+      {/* step #41 add delete blog item - button */}
+      <button onClick={handleDelete}>刪除</button>
+      {/* step #31 redux(get post) - add no data options */}
+      {isLoad && <PostTitle>{post.title}</PostTitle>}
+      {isLoad && <PostBody>{post.body}</PostBody>}
+    </PostContainer>
+  );
+}
+```
+
+##### ./src/redux
++ ./src/redux/actionTypes.js
+```js
+
+// step #25 redux(get post) - add actionTypes
+export const GET_POST = "get_post";
+// step #51 redux(add blog) - add actionTypes
+export const ADD_POST = "add_post";
+export const CLEAR_POST = "clear_post";
+```
+
++ ./src/redux/actions.js
+```js
+// ./src/redux/actions.js
+
+import { CLEAR_POST, GET_POST } from "./actionTypes";
+import { getPostId, deletePost, create } from "../WebApi";
+
+// step #26 redux(get post) - add action getPost
+export function getPost(post) {
+  return {
+    type: GET_POST,
+    payload: post,
+  };
+}
+
+export function clearPost() {
+  return {
+    type: CLEAR_POST,
+    payload: null,
+  };
+}
+
+// step #27 redux(get post) - add action getPostFromFetch
+export function getPostFromFetch(id) {
+  return (dispatch) => {
+    return getPostId(id).then((post) => {
+      // console.log(post);
+      // console.log(post[0]);
+      if (post.length > 0) {
+        dispatch(getPost(post[0]));
+      }
+    });
+  };
+}
+
+// step #44 add delete blog item - action
+export function deletePostFromFetch(id) {
+  return (dispatch) => {
+    return deletePost(id)
+      .then((res) => {
+        console.log("deletePostFromFetch", res);
+      })
+      .catch((e) => console.log("error=", e));
+  };
+}
+
+// step #52 redux(add blog) - add action
+export function addPostFromFetch(title, body) {
+  return (dispatch) => {
+    return create(title, body).then((data) => {
+      // console.log("create:", data);
+      dispatch(getPost(data));
+    });
+  };
+}
+```
+
++ ./src/redux/store.js
+```js
+// ./src/redux/store.js
+
+import { createStore } from "redux";
+import postReducer from "./reducers/postReducer";
+// step #23 redux(get post) - import applyMiddleware, thunk, compose(redux devtool for middleware)
+import { applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { compose } from "redux";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// step #24 redux(get post) - add store
+export const store = createStore(
+  postReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+```
+
+
+
++ ./src/redux/selectors.js
+```js
+// ./src/redux/selectors.js
+
+// step #28 redux(get post) - add selector for get data
+export const selectPost = (store) => store.post;
+// step #56 redux(add blog) - add selector for isLoad flag
+export const selectIsLoad = (store) => store.isLoad;
+```
+
+
+##### ./src/redux/reducers
++ ./src/redux/reducers/postReducer.js
+```js
+// ./src/redux/reducers/postReducer.js
+import { CLEAR_POST, GET_POST, ADD_POST } from "../actionTypes";
+
+const initialState = {
+  // step #55 redux(add blog) - change state parameter
+  isLoad: false,
+  post: null,
+};
+
+// step #28 redux(get post) - add postReducer
+export default function postReducer(state = initialState, action) {
+  // console.log("receive action(post)", action);
+  switch (action.type) {
+    // step #53 redux(add blog) - add reducer
+    case CLEAR_POST:
+      return {
+        isLoad: false,
+        post: null,
+      };
+    // step #54 redux(add blog) - add reducer
+    case GET_POST:
+    case ADD_POST:
+      return {
+        isLoad: true,
+        post: action.payload,
+      };
+    default:
+      break;
+  }
+  return state;
+}
+```
 
 ###  redux devtool 
 + chrome install [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=zh-TW)
