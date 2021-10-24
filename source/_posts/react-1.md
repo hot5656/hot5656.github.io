@@ -3099,3 +3099,7 @@ settings.json
 + [cypress](https://www.cypress.io/)
 + [從零開始學 ReactJS(ReactJS 101)](https://github.com/kdchang/reactjs101)
 + [Overreacted(Dan Abramov)](https://overreacted.io/)
++ [ReactDOMServer](https://zh-hant.reactjs.org/docs/react-dom-server.html#rendertostring) : SSR reffence
++ [PRERENDER io](https://prerender.io/) : SSR reference
++ [*** Next.js](https://nextjs.org/) : The React Framework for Production (內建 SSR)
++ [TypeScript](https://www.typescriptlang.org/): .ts, JavaScript 加型態, 需編譯後才能執行

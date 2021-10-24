@@ -1666,6 +1666,8 @@ export const store = createStore(
 + [Redux Toolkit](https://redux-toolkit.js.org/)
 + [Redux 中文網](https://www.reduxjs.cn/recipes/recipe-index/)
 + [Hooks 常見問題](https://zh-hant.reactjs.org/docs/hooks-faq.html)
++ [Redux-Saga](https://redux-saga.js.org/)
++ [redux-observable](https://redux-observable.js.org/)
 
 ### 圖檔來源 
 + [Redux Essentials, Part 1: Redux Overview and Concepts](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
