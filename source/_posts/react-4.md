@@ -1114,6 +1114,174 @@ export function fetchCount(amount = 1) {
 }
 ```
 
+#### blog use redux example - 僅用於單篇文章
+##### ./src/index.js
+``` js
+// ./src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+// import App from "./components/Signup";
+// step #1 change to blog
+import App from "./components/App";
+// step #21 redux - import store, Provider
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
+ReactDOM.render(
+  // step #22 redux - Provider store
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+##### ./src/Pages/BlogPost/BlogPost.js
+``` js
+// ./Pages/BlogPost/BlogPost.js
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+// step #29 redux - import useSelector, useSelector, actions, selectors
+import { useDispatch, useSelector } from "react-redux";
+import { addPostFromFetch } from "../../redux/actions";
+import { selectPost } from "../../redux/selectors";
+
+const PostContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+const PostTitle = styled.div`
+  text-align: center;
+  font-size: 24px;
+`;
+const PostBody = styled.div``;
+
+export default function BlogPost() {
+  let { slug } = useParams();
+  // const state = useSelector((state) => state);
+  // console.log("state:", state);
+
+  const post = useSelector(selectPost);
+  const dispatch = useDispatch();
+  // console.log(post);
+
+  useEffect(() => {
+    // step #30 redux - trigger dispatch addPostFromFetch action
+    dispatch(addPostFromFetch(slug));
+  }, [dispatch, slug]);
+
+  return (
+    <PostContainer>
+      <PostTitle>{post.title}</PostTitle>
+      <PostBody>{post.body}</PostBody>
+    </PostContainer>
+  );
+}
+```
+
+##### ./src/redux
++ ./src/redux/actionTypes.js
+``` js
+// ./src/redux/actionTypes.js
+
+// step #25 redux - add actionTypes
+export const ADD_POST = "add_post";
+```
+
++ ./src/redux/actions.js
+``` js
+// ./src/redux/actions.js
+
+import { ADD_POST } from "./actionTypes";
+import { getPostId } from "../WebApi";
+
+// step #26 redux - add action addPost
+export function addPost(title, body) {
+  return {
+    type: ADD_POST,
+    payload: {
+      title,
+      body,
+    },
+  };
+}
+
+// step #27 redux - add action addPostFromFetch
+export function addPostFromFetch(id) {
+  return (dispatch) => {
+    return getPostId(id).then((post) => {
+      // console.log(post);
+      // console.log(post[0]);
+      if (post.length > 0) {
+        dispatch(addPost(post[0].title, post[0].body));
+      }
+    });
+  };
+}
+```
+
+
++ ./src/redux/store.js
+``` js
+// ./src/redux/store.js
+
+import { createStore } from "redux";
+import postReducer from "./reducers/postReducer";
+// step #23 redux - import applyMiddleware, thunk, compose(redux devtool for middleware)
+import { applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { compose } from "redux";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// step #24 redux - add store
+export const store = createStore(
+  postReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+```
+
++ ./src/redux/selectors.js
+``` js
+// ./src/redux/selectors.js
+
+// step #27 redux - add selector for get data
+export const selectPost = (store) => store.post;
+```
+
+
+
+##### ./src/redux/reducers
++ ./src/redux/reducers/postReducer.js
+``` js
+// ./src/redux/reducers/postReducer.js
+import { ADD_POST } from "../actionTypes";
+
+const initialState = {
+  post: {
+    title: "",
+    body: "",
+  },
+};
+
+// step #28 redux - add postReducer
+export default function postReducer(state = initialState, action) {
+  console.log("receive action(post)", action);
+  switch (action.type) {
+    case ADD_POST:
+      return {
+        post: {
+          title: action.payload.title,
+          body: action.payload.body,
+        },
+      };
+    default:
+      break;
+  }
+  return state;
+}
+```
 
 
 ###  redux devtool 

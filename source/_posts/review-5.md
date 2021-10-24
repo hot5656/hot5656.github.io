@@ -13,6 +13,8 @@ React 是一個由 facebook 開發的前端 JavaScript library.
 + 透過設計重複利用的元件的概念,設計一個個小元件，組裝成一個較大的元件，最終打造成一個的完整專案
 + 使用於開發複雜的互動式網頁
 
+<!--more-->
+
 ### Virtual DOM
 + Virtual DOM 是以 JavaScript 物件模擬特定 DOM 結構而產生的樹狀結構。
 + 不直接操作 DOM，而改操作這些物件。待一個段落後，再將這些變更更新回真實的 DOM 上，以期提升效能。
