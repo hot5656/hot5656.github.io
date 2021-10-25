@@ -19,18 +19,21 @@ JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞�
 <!--more-->
 
 ### 常用 list
-+ useState
-+ useEffect
-+ useLayoutEffect
-+ useRef
-+ memo, useMemo, useCallback
-+ useContext
-+ react router
-+ useParams
-+ useHistory
-+ theme
-+ styled(Link)
-+ useLocation
++ useState : react 使用的 state, 更動後就會 re-render
++ useEffect : 可控制 render 後要做什麼
++ useLayoutEffect :  可控制 render 前要做什麼
++ useRef : 近似於 useState,但更動後不會 re-render
++ memo : 把 component 包起來, 雖然 parents rerender 但本身未改變就不 rerender
++ useMemo : 把 data 記起來,未改變就不產生新的
++ useCallback : 把 function 記起來,未改變就不產生新的
++ useContext : 資料跨多層傳送
++ react router : 處理網頁的 route
++ useParams : 取得網頁的資訊
++ useHistory : 控制網頁跳頁
++ styled components : 方便輸入 css
++ ThemeProvider : set for theme
++ Link : 近似於 a tag
++ useLocation : 取得 path name
 + Fragment : 一個 component 讓你一次 render 多個 element 而不需要額外的 wrapper
 
 ### todolist simulate
@@ -667,6 +670,61 @@ export default function TodoItem({ className, size, content}) {
       </TodoItemWrapper>
   )
 }
+```
+
+##### Example 4 - 對原本存在 function,再做 re-styled
+``` js
+import React from 'react'
+import styled from 'styled-components'
+
+const Element = ({ red, className }) => {
+  return (
+    <div className={className}>
+      <div className="element__img" />
+      <div className="element__info">
+        <div className="element__title" skyblue>
+          Cute Puppy
+        </div>
+        <div className="element__description">
+          Sed ut voluptatem neque cumque. Qui sed ut itaque est doloribus qui.
+          Eos perferendis autem qui fugiat.
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const StyledElement = styled(Element)`
+  width: 80%;
+  height: 300px;
+  box-shadow: 0 0 5px 2px #ccc;
+  .element__img {
+    display: inline-block;
+    width: 300px;
+    height: 100%;
+    background-image: url('this is background url');
+  }
+  .element__info {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 300px);
+    height: 100%;
+    text-align: left;
+    .element__title {
+      padding: 20px 0 0 20px;
+      font-size: 48px;
+      color: ${props => (props.red ? 'red' : 'black')};
+    }
+    .element__description {
+      padding: 20px;
+      font-size: 30px;
+      font-style: italic;
+      color: #888888;
+    }
+  }
+`
+
+export default StyledElement
 ```
 
 #### JSX to react by Babel example
@@ -3103,3 +3161,4 @@ settings.json
 + [PRERENDER io](https://prerender.io/) : SSR reference
 + [*** Next.js](https://nextjs.org/) : The React Framework for Production (內建 SSR)
 + [TypeScript](https://www.typescriptlang.org/): .ts, JavaScript 加型態, 需編譯後才能執行
++ [React Interview Questions & Answers](https://github.com/sudheerj/reactjs-interview-questions)

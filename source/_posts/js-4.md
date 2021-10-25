@@ -138,6 +138,16 @@ itemElement.innerHTML = STREAM_TEMPLATE
 // 1970/1/26 上午2:47:21
 <div>{Date(2141241556).toLocaleString()}</div> 
 // Sun Sep 12 2021 16:33:37 GMT+0800 (台北標準時間)
+{new Date(10 * 1000)
+        .toLocaleTimeString("en-us", {
+          timeZone: "Africa/Abidjan",
+          hour12: false,
+        })
+        .replace(/\d{2}/, "00")}
+// 00:00:10
+// hour12: false ==> 設定 24小時制
+// timeZone: "Africa/Abidjan" ==> 顯示格式
+// .replace(/\d{2}/, "00") ==> 最前面填 00, 因為 00:00:00 對應 Taipei 為 08:00:00
 ```
 
 

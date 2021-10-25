@@ -12,6 +12,9 @@ date: 2021-10-21 12:04:45
 React 是一個由 facebook 開發的前端 JavaScript library.
 + 透過設計重複利用的元件的概念,設計一個個小元件，組裝成一個較大的元件，最終打造成一個的完整專案
 + 使用於開發複雜的互動式網頁
++ 使用 VirtualDOM 來提昇 render 的效率
++ 使用  Unidirectional data flow(單向資料的流動):更改狀態觸發畫面更新
+
 
 <!--more-->
 
@@ -186,124 +189,8 @@ App update(previous) count= 1
 App update(current) count= 2
 ```
 
-``` js
-import React, { useState, useEffect, useRef, useCallback } from "react";
+### react state
 
-function useTimer(callback, delay) {
-  const [remainSecond, setRemainSecond] = useState(0);
-  const savedCallback = useRef();
-  const savedDelay = useRef();
+### react props 
 
-  console.log("useTimer run");
-
-  // 保存到期回呼方法
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // 建立計數器並執行倒數
-  useEffect(() => {
-    // 刷新延遲秒數
-    savedDelay.current = delay;
-    setRemainSecond(delay);
-
-    // 每秒執行
-    const tick = (id) => {
-      // 計算剩餘時間
-      if (savedDelay.current > 0) {
-        savedDelay.current -= 1;
-      } else {
-        savedDelay.current = 0;
-      }
-
-      // 更新輸出的剩餘秒數
-      setRemainSecond(savedDelay.current);
-
-      // 停止條件
-      if (savedDelay.current <= 0) {
-        savedCallback.current();
-        clearInterval(id);
-      }
-    };
-
-    if (delay !== null) {
-      // 產生計數器
-      const id = setInterval(() => tick(id), 1000);
-
-      // 清除計數器 (cleanup)
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-
-  // 輸出剩餘秒數
-  return remainSecond;
-}
-
-function App() {
-  const [delay, setDelay] = useState(0);
-  const handleTimeup = useCallback(() => console.log("time up!!"), []);
-  const remainSecond = useTimer(handleTimeup, delay);
-
-  console.log("App run");
-  return (
-    <div>
-      <input
-        type="number"
-        onChange={(e) => setDelay(Number(e.target.value) || 0)}
-      />
-      {new Date(remainSecond * 1000)
-        .toLocaleTimeString("en-us", {
-          timeZone: "Africa/Abidjan",
-          hour12: false,
-        })
-        .replace(/\d{2}/, "00")}
-    </div>
-  );
-}
-
-export default App;
-```
-
-``` js
-import React, { useState, useEffect, useRef } from "react";
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  console.log("useInterval start");
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-    console.log("set callback");
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-      console.log("run tick ..");
-    }
-    if (delay !== null) {
-      console.log("wait call interval...");
-      let id = setInterval(tick, delay);
-      return () => {
-        console.log("*** clear Interval ***");
-        clearInterval(id);
-      };
-    }
-  }, [delay]);
-}
-
-function App() {
-  let [count, setCount] = useState(0);
-
-  console.log("App start");
-  useInterval(() => {
-    // Your custom logic here
-    setCount(count + 1);
-  }, 1000);
-
-  return <h1>{count}</h1>;
-}
-```
+### Reactjs vs React Native
