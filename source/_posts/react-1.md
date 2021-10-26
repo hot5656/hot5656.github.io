@@ -35,6 +35,7 @@ JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞�
 + Link : 近似於 a tag
 + useLocation : 取得 path name
 + Fragment : 一個 component 讓你一次 render 多個 element 而不需要額外的 wrapper
++ useReducer : 可執行 dispatch
 
 ### todolist simulate
 ``` html
@@ -2472,7 +2473,57 @@ export default function Demo() {
 }
 ```
 
-##### useContext example
+##### useContext example 1
++ ./App.js
+``` js
+// ./App.js
+import React from "react";
+import ContentExample from "./ContentExample";
+
+export default function App() {
+  return (
+    <div>
+      <ContentExample />
+    </div>
+  );
+}
+```
+
++ ./ContentExample
+``` js
+// ./ContentExample
+import React, { createContext, useContext } from "react";
+const slogan = "super star";
+
+const Content = createContext();
+
+function SideBarButton(props) {
+  // get context
+  const title = useContext(Content);
+  return <div>{title}</div>;
+}
+
+function SideBar(props) {
+  // get context
+  const bt = useContext(Content);
+  return (
+    <div>
+      <button>{bt}</button>
+      <SideBarButton />
+    </div>
+  );
+}
+
+export default function ContentExample(props) {
+  return (
+    // set Context
+    <Content.Provider value={slogan}>
+      <SideBar />
+    </Content.Provider>
+  );
+}
+```
+##### useContext example 2
 ``` js
 	// add useContext(also import createContext ) 
 	import { useState, useContext, createContext } from "react"; 
