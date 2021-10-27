@@ -866,6 +866,16 @@ delete jobs[i]
 jobs.splice(i,1)
 ```
 
+##### array 合併
+``` js
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
+const array3 = array1.concat(array2);
+
+console.log(array3);
+// expected output: Array ["a", "b", "c", "d", "e", "f"]
+```
+
 
 ###  [物件 object](https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects/Basics)
 #### example
