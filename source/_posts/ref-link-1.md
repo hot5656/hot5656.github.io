@@ -38,6 +38,7 @@ date: 2021-03-18 15:48:55
 #### 參考功能
 + [HTML Entity](https://www.w3schools.com/charsets/ref_html_entities_4.asp)
 + [HTML Semantic Elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
+
 #### 參考網頁
 + [Can I use](https://caniuse.com/)
 + [HTML5 site templates](https://html5up.net/) : 模板
@@ -50,6 +51,8 @@ date: 2021-03-18 15:48:55
 + [38個高質+免費的圖庫網站](https://mtache.com/freestockphoto)
 + [envato elements 插畫](https://elements.envato.com/graphics/flat+design+pack)
 
+#### 假資料
++ [Lorem Picsum](https://picsum.photos/) : 假圖 https://picsum.photos/200/300 
 
 ### 分類
 #### Hexo
