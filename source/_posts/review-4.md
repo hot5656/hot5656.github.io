@@ -42,6 +42,13 @@ HTML的內容全部由Server產生
 查詢使用者列表	  GET		 /users
 ```
 
+#### BOM vs DOM
++ BOM (Browser Object Model，瀏覽器物件模型) 是瀏覽器提供的物件，我們可以透過 JavaScript 直接跟瀏覽器溝通或做操作。
++ DOM (Document Object Model，文件物件模型)，是一個將 HTML 文件以樹狀的結構來表示的模型，而組合起來的樹狀圖
+<div style="width:650px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
 ### Tool and program
 #### Server Application
 ##### Nginx
