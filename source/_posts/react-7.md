@@ -13,7 +13,10 @@ npm install antd
 yarn add antd
 ```
 
-```
+<!--more-->
+
+
+``` js
 import { Button, Table } from "antd";
 import { BOOKS, columns } from "./data";
 import "antd/dist/antd.css";

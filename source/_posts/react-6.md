@@ -408,3 +408,372 @@ npm run start
 	<i> [webpack-dev-server] Loopback: http://localhost:8080/
 # auto open http://localhost:8080/ by browser
 ```
+
+### 基礎
+#### Component 
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class Title extends Component {
+  render() {
+    return <h1>Title</h1>;
+  }
+}
+
+class Text extends Component {
+  render() {
+    return <p>text</p>;
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Title />
+        <Text />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### Event 
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class Title extends Component {
+  render() {
+    // event
+    function sayHi() {
+      alert("Hi!");
+    }
+    return <h1 onClick={sayHi}>Title</h1>;
+  }
+}
+
+class Text extends Component {
+  render() {
+    return <p>text</p>;
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Title />
+        <Text />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### State
+##### 使用 on click function #1
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class App extends Component {
+  constructor() {
+    super();
+    // state
+    this.state = {
+      counter: 1,
+    };
+
+    // 使用 on click function 要加
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // on click function
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 onClick={this.handleClick}>Hello</h1>
+        <div>{this.state.counter}</div>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+##### 使用 on click function #2
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class App extends Component {
+  constructor() {
+    super();
+    // state
+    this.state = {
+      counter: 1,
+    };
+
+    // 使用 on click function 要加 example #1
+    // this.handleClick = this.handleClick.bind(this);
+  }
+
+  // on click function
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {/* 使用 on click function 要加 example #2 */}
+        <h1 onClick={this.handleClick.bind(this)}>Hello</h1>
+        <div>{this.state.counter}</div>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+##### 使用 箭頭函數 example
++ 箭頭函數 的 this, 為呼叫時之 this
+
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class App extends Component {
+  constructor() {
+    super();
+    // state
+    this.state = {
+      counter: 1,
+    };
+
+    // 使用 on click function 要加 example #1
+    // this.handleClick = this.handleClick.bind(this);
+  }
+
+  // on click function
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {/* 使用 箭頭函數 example */}
+        <h1
+          onClick={() => {
+            this.setState({
+              counter: this.state.counter + 1,
+            });
+          }}
+        >
+          Hello
+        </h1>
+        <div>{this.state.counter}</div>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### this 值,取決於如何被呼叫
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class Test extends Component {
+  setName(name) {
+    this.name = name;
+  }
+  say() {
+    console.log(this);
+  }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+    // state
+    this.state = {
+      counter: 1,
+    };
+
+    // 使用 on click function 要加
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // on click function
+  handleClick() {
+    // this 值,取決於如何被呼叫
+    const t = new Test();
+    t.setName("Robert");
+    t.say(); // name: "Robert" ..
+
+    const func = t.say;
+    func(); // undefine
+
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 onClick={this.handleClick}>Hello</h1>
+        <div>{this.state.counter}</div>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### props and event 溝通
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+
+class Title extends Component {
+  render() {
+    return <h1 onClick={this.props.handleClick}>{this.props.children}</h1>;
+  }
+}
+
+class Counter extends Component {
+  render() {
+    return <div>{this.props.number}</div>;
+  }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+    // state
+    this.state = {
+      counter: 1,
+    };
+
+    // 使用 on click function 要加
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // on click function
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {/* <h1 onClick={this.handleClick}>Hello</h1> */}
+        <Title handleClick={this.handleClick}>Hello</Title>
+        <Counter number={this.state.counter} />
+        {/* <div>{this.state.counter}</div> */}
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+#### 載入 CSS
+##### install
+``` bash
+npm install style-loader css-loader
+```
+
+##### modify ./webpack.config.js
+``` js
+// ./webpack.config.js
+......
+
+  module: {
+    rules: [
+      // 用 babel-loade 打包所有 .js 檔案,排除目錄 node_modules
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      }, // load css-loader and style-loader
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+```
+
+##### import css
+``` js
+// ./src/App.js
+import React, { Component } from "react";
+// import css
+import "./style.css";
+
+....
+```
+
+##### add css
+```
+/* ./style.css */
+
+h1 {
+  color: red;
+}
+
+```
+#### styleds-components 
+##### install
+``` bash
+npm install styled-components
+```
+
+##### use styled-components
+``` js 
+// ./src/App.js
+import React, { Component } from "react";
+// import styled-component
+import styled from "styled-components";
+
+const H1 = styled.h1`
+  color: red;
+  font-size: 50px;
+`;
+
+class Title extends Component {
+  render() {
+    return <H1 onClick={this.props.handleClick}>{this.props.children}</H1>;
+  }
+}
+```
