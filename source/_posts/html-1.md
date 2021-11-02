@@ -365,6 +365,19 @@ Allow: /data/*/crosssellaccommodations
 </article>
 ```
 
+##### dl, dd, dt
+``` html
+<!-- < dl > < dt >< dd >是在網頁設計上的一種內文排版技巧 -->
+<dl>
+    <dt>標題A</dt>
+      <dd>內容A-1</dd>
+      <dd>內容A-2</dd>
+    <dt>標題B</dt>
+     <dd>內容B-1</dd>
+     <dd>內容B-2</dd>
+</dl>
+```
+
 ### [HTML Attribute](https://www.w3schools.com/tags/ref_attributes.asp)
 #### title - mouse 移至上方顯示說明 
 ``` html

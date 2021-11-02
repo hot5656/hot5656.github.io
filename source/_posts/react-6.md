@@ -483,8 +483,8 @@ export default App;
 import React, { Component } from "react";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // state
     this.state = {
       counter: 1,
@@ -520,8 +520,8 @@ export default App;
 import React, { Component } from "react";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // state
     this.state = {
       counter: 1,
@@ -560,8 +560,8 @@ export default App;
 import React, { Component } from "react";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // state
     this.state = {
       counter: 1,
@@ -615,8 +615,8 @@ class Test extends Component {
 }
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // state
     this.state = {
       counter: 1,
@@ -672,8 +672,8 @@ class Counter extends Component {
 }
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // state
     this.state = {
       counter: 1,
@@ -774,6 +774,61 @@ const H1 = styled.h1`
 class Title extends Component {
   render() {
     return <H1 onClick={this.props.handleClick}>{this.props.children}</H1>;
+  }
+}
+```
+
+#### Ref
++ Ref 是藉由使用 React.createRef() 所產生的，它藉由 ref 參數被依附在 React element。Ref 常常會在一個 component 被建立出來的時候，被賦值在某個 instance 屬性，這樣一來他們就可以在整個 component 裡面被參考。
+``` js
+import React from "react";
+export default class APP extends React.Component {
+  constructor(props) {
+    super(props);
+    // 產生一個可以儲存 textInput DOM element 的 ref
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
+  }
+
+  focusTextInput() {
+    // 特別利用原生的 DOM API 來關注文字的輸入
+    // 注意：我們正利用「current」來取得 DOM 節點
+    this.textInput.current.focus();
+  }
+
+  render() {
+    // 告訴 React 我們想要將 <input> ref
+    // 和我們在 constructor 產生的 `textInput` 連結
+    return (
+      <div>
+        <input type="text" ref={this.textInput} />
+        <input
+          type="button"
+          value="Focus the text input"
+          onClick={this.focusTextInput}
+        />
+      </div>
+    );
+  }
+}
+```
+
++ 你不能在 function component 上使用 ref，因為他們沒有 instance。
+``` js
+function MyFunctionComponent() {
+  return <input />;
+}
+
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
+  render() {
+    // This will *not* work!
+    return (
+      <MyFunctionComponent ref={this.textInput} />
+    );
   }
 }
 ```
