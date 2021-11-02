@@ -832,3 +832,9 @@ class Parent extends React.Component {
   }
 }
 ```
+
+### [React 的生命週期](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+<div style="maxwidth:1000px">
+	{% asset_img pic1.jpg pic1 %}
+</div>
