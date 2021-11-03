@@ -838,3 +838,35 @@ class Parent extends React.Component {
 <div style="maxwidth:1000px">
 	{% asset_img pic1.jpg pic1 %}
 </div>
+
+### 進階
+#### inpit 共用 onChnage
+``` js
+var Hello = React.createClass({
+    constructor(props) {
+      super(props);
+      // state
+      this.state = {
+        input1: 0, 
+        input2: 0,
+      };
+
+       this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange (e) {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    render: {
+        const total = this.state.input1 + this.state.input2;
+
+        return (
+            <div>{total}<br/>
+                <input type="text" value={this.state.input1} name="input1" onChange={this.handleChange} />
+                <input type="text" value={this.state.input2} name="input2" onChange={this.handleChange} />
+            </div>
+        );
+    }
+});
+```
