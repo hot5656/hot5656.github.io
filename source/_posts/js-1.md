@@ -856,6 +856,35 @@ for (let i=0 ; i < number ; i++) {
 	}
 }
 console.log(arr)	// [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ]
+
+// array using function
+var numbers = [3, 56, 2, 48, 5];
+//Map -Create a new array by doing something with each item in an array.
+let doubleNumber = numbers.map((number) => number * 2);
+console.log(doubleNumber); //  [6, 112, 4, 96, 10]
+
+//Filter - Create a new array by keeping the items that return true.
+let filterNumber = numbers.filter((number) => number > 10);
+console.log(filterNumber); // [56, 48]
+
+//Reduce - Accumulate a value by doing something to each item in an array.
+var sumNumber = numbers.reduce((previousValue, currentVlaue) => {
+  console.log(`previous:${previousValue}, current:${currentVlaue}`);
+  return previousValue + currentVlaue;
+});
+// previous:3, current:56
+// previous:59, current:2
+// previous:61, current:48
+// previous:109, current:5
+console.log(sumNumber); // 114
+
+//Find - find the first item that matches from an array.
+var firstNumber = numbers.find((number) => number > 10);
+console.log(firstNumber); // 56
+
+//FindIndex - find the index of the first item that matches.
+var firstNumberIndex = numbers.findIndex((number) => number > 10);
+console.log(firstNumberIndex); // 1
 ```
 
 ##### array item remove
