@@ -97,32 +97,229 @@ export default function App() {
 ```
 
 
-
-
-
-
-
-
-
-
-
-``` js
-import { Button, Table } from "antd";
-import { BOOKS, columns } from "./data";
-import "antd/dist/antd.css";
-```
-+ Space : 拉開統一的空間
-``` html
-<Space>
-  <div>A1</div>
-  <div>A2</div>
-  <div>A3</div>
-</Space>
-```
+#### Book Store
 + Table
-+ Select
++ Card : Search
++ Select : Option
 + Input
-+ Card
++ Space
+
+##### ./src/index.js
+``` js
+// ./src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+##### ./src/columns/App.js
+``` js
+// ./src/columns/App.js
+import React, { useState } from "react";
+import { Table, Card, Select, Input, Space } from "antd";
+import { getBooks } from "../books";
+import "antd/dist/antd.css";
+const { Option } = Select;
+const { Search } = Input;
+
+const columns = [
+  {
+    title: "書名",
+    dataIndex: "title",
+    key: "title",
+  },
+  {
+    title: "價格",
+    dataIndex: "price",
+    key: "price",
+    sorter: true,
+  },
+  {
+    title: "分類",
+    dataIndex: "category",
+    key: "category",
+  },
+  {
+    title: "出版日期",
+    dataIndex: "publishedAt",
+    key: "publishedAt",
+  },
+];
+
+const DEFAULT_PAGINATION = {
+  position: ["bottomCenter"],
+  pageSize: 2,
+  pageSizeOptions: [2, 4, 6],
+  showSizeChanger: true,
+};
+
+function App() {
+  const [pagination, setPagination] = useState(DEFAULT_PAGINATION);
+  const [category, setCategory] = useState("0");
+  const [keyword, setKeyword] = useState("");
+  const [sort, setSort] = useState("");
+  const [filter, setFilter] = useState({
+    category,
+    keyword,
+    sort,
+  });
+  const books = getBooks(filter);
+  // console.log("App render", category, filter);
+
+  function handleChangeCategory(value) {
+    setKeyword("");
+    setCategory(value);
+    setFilter({ ...filter, category: value });
+    setPagination({ ...pagination, current: 1 });
+  }
+  function handleChangeKeyword(e) {
+    setKeyword(e.target.value);
+  }
+  function handelSearchKeyword(value) {
+    setCategory("0");
+    setFilter({ ...filter, keyword: keyword });
+    setPagination({ ...pagination, current: 1 });
+  }
+  function handelChange(_pagination, filters, sorter, extra) {
+    if (extra.action === "paginate") {
+      setPagination(_pagination);
+    } else if (extra.action === "sort") {
+      setSort(sorter.order);
+      setFilter({ ...filter, sort: sorter.order });
+      setPagination({ ...pagination, current: 1 });
+    }
+
+    // console.log("handelChange #1:", _pagination);
+    // console.log("handelChange #2:", filters);
+    // console.log("handelChange #3:", sorter);
+    // console.log("handelChange #4:", extra);
+  }
+  return (
+    <div>
+      <Card style={{ margin: 10 }}>
+        <Space>
+          <Select
+            placeholder="書籍分類"
+            defaultValue="0"
+            value={category}
+            onChange={handleChangeCategory}
+          >
+            <Option value="0">全部分類</Option>
+            <Option value="1">社會科學</Option>
+            <Option value="2">商業理財</Option>
+          </Select>
+          <Search
+            placeholder="搜尋書名、分類"
+            value={keyword}
+            onSearch={handelSearchKeyword}
+            onChange={handleChangeKeyword}
+          />
+        </Space>
+        <Table
+          dataSource={books}
+          columns={columns}
+          pagination={{ ...pagination }}
+          onChange={handelChange}
+        />
+      </Card>
+    </div>
+  );
+}
+
+export default App;
+```
+
+##### ./src/book.js
+``` js
+// ./src/book.js
+const bookStore = [
+  {
+    key: "1",
+    title: "遊牧人生 1",
+    price: 332,
+    category: "社會科學",
+    publishedAt: "2019/10/31",
+  },
+  {
+    key: "2",
+    title: "韓國人不想讓你知道的事 2",
+    price: 234,
+    category: "社會科學",
+    publishedAt: "2021/03/30",
+  },
+  {
+    key: "3",
+    title: "您可不曾認識的和平 3",
+    price: 224,
+    category: "社會科學",
+    publishedAt: "2019/10/1",
+  },
+  {
+    key: "4",
+    title: "致富心態 4",
+    price: 338,
+    category: "商業理財",
+    publishedAt: "2021/01/27",
+  },
+  {
+    key: "5",
+    title: "原子習慣 5",
+    price: 231,
+    category: "商業理財",
+    publishedAt: "2019/06/01",
+  },
+  {
+    key: "6",
+    title: "如何避免氣候災難 6",
+    price: 315,
+    category: "商業理財",
+    publishedAt: "2021/03/02",
+  },
+];
+
+const CATEGORY = {
+  1: "社會科學",
+  2: "商業理財",
+};
+
+export function getBooks(filter) {
+  let books = bookStore
+    .filter((book) => {
+      if (filter.category === "0") {
+        return true;
+      }
+
+      return book.category === CATEGORY[filter.category];
+    })
+    .filter((book) => {
+      if (filter.keyword === "") {
+        return true;
+      }
+      return (
+        book.title.indexOf(filter.keyword) !== -1 ||
+        book.category.indexOf(filter.keyword) !== -1
+      );
+    })
+    .sort((x, y) => {
+      if (filter.sort === "ascend") {
+        return x.price - y.price;
+      }
+
+      if (filter.sort === "descend") {
+        return y.price - x.price;
+      }
+
+      return 0;
+    });
+
+  // console.log("...", filter);
+  // console.log("books:", books);
+  return books;
+}
+```
+
 
 ### [lodash](https://lodash.com/docs)
 modern JavaScript utility library

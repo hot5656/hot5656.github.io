@@ -154,6 +154,7 @@ date: 2021-03-18 15:48:55
 + [現代瀏覽器內部揭秘](https://juejin.cn/post/6844903679389073415)
 + [脚撕专有钉钉前端面试题](https://juejin.cn/post/6987549240436195364)
 + [zuaneducation-Frontend](https://www.zuaneducation.com/blog/category/front-end-development/)
++ [ES6 In Depth Articles](https://hacks.mozilla.org/category/es6-in-depth/)
 
 #### Blog
 + [無中生有](https://blog.xuite.net/jason_kuso/kuso)

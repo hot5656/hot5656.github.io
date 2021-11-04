@@ -885,6 +885,27 @@ console.log(firstNumber); // 56
 //FindIndex - find the index of the first item that matches.
 var firstNumberIndex = numbers.findIndex((number) => number > 10);
 console.log(firstNumberIndex); // 1
+
+// Sort - sorts the elements of an array
+// compareFunction(a, b): - 後面欄位
+// > 0	sort b before a
+// < 0	sort a before b
+// === 0	keep original order of a and b
+var numbers = [4, 2, 5, 1, 3];
+var numbers2 = numbers.sort(function (a, b) {
+  console.log(a, b);
+  return a - b;
+});
+// 2 4
+// 5 2
+// 5 4
+// 1 4
+// 1 2
+// 3 4
+// 3 2
+numbers[2] = 9;
+console.log(numbers); // [1, 2, 9, 4, 5]
+console.log(numbers2); // [1, 2, 9, 4, 5]
 ```
 
 ##### array item remove
