@@ -521,6 +521,25 @@ $ node challeng-2.js
 您的 origin 不被允許存取此資源，請確認您是從 lidemy.com 送出 request。
 ```
 
+#### dotenv : env 設定
+.env
+``` js
+PORT=8
+```
+
+*.js
+``` js
+require("dotenv").config();
+```
+
+#### nodemon : node 修改自動重啟
+``` json
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+```
+
+
 ### npm config
 ``` bash
 # list config

@@ -30,6 +30,7 @@ date: 2021-03-18 15:48:55
 + [You might not need jQuery](http://youmightnotneedjquery.com/)
 + [avaScript Beautifier](https://beautifier.io/)
 + [CodeSandbox](https://codesandbox.io/)
++ [FLAT UI COLORS](https://flatuicolors.com/):常用調色板
 
 <!--more-->
 
