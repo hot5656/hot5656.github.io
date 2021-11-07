@@ -312,6 +312,7 @@ export const getPostId = (id) => {
 
 // https://student-json-api.lidemy.me/login
 // user01 Lidemy
+// JWT 
 export const login = (username, password) => {
 	return fetch(`${BASE_URL}/login`, {
 		method: 'POST',

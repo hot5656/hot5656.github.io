@@ -135,6 +135,93 @@ $ npm run start
 0000000123
 ```
 
+### module version
+#### package.json
++ ^version: Compatible with version
+鎖住第一碼(即A) 不得變更。如^1.2.2，則安裝範圍是>=1.2.2 且 <2.0.0。即須符合1.*.*。
++ &sim;version: Approximately equivalent to version
+鎖住第二碼(即B) 不得變更。如&sim;1.2.2，則安裝範圍是>=1.2.2且<1.3.0。即須符合1.2.*。
+
+``` json
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.4",
+    "mongoose": "^6.0.12",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.14",
+    "uuid": "^8.3.2"
+  }
+}
+```
+
+#### 安裝特定版本
++ 查詢最後版本
+``` bash
+npm info express-validator version
+  6.13.0
+```
+
++ 查詢所有版本
+``` bash
+npm view express-validator versions
+  [
+    '0.1.0',   '0.1.1',  '0.1.2',  '0.1.3',  '0.2.0',  '0.2.1',
+    '0.2.2',   '0.2.3',  '0.2.4',  '0.3.0',  '0.3.1',  '0.3.2',
+    '0.4.0',   '0.4.1',  '0.5.0',  '0.6.0',  '0.7.0',  '0.8.0',
+    '1.0.0',   '1.0.1',  '2.0.0',  '2.1.0',  '2.1.1',  '2.1.2',
+    '2.2.0',   '2.3.0',  '2.4.0',  '2.5.0',  '2.6.0',  '2.7.0',
+    '2.8.0',   '2.9.0',  '2.9.1',  '2.10.0', '2.11.0', '2.12.0',
+    '2.12.1',  '2.12.2', '2.13.0', '2.14.0', '2.14.1', '2.14.2',
+    '2.15.0',  '2.15.1', '2.16.0', '2.17.0', '2.17.1', '2.18.0',
+    '2.19.0',  '2.19.1', '2.19.2', '2.20.1', '2.20.2', '2.20.3',
+    '2.20.4',  '2.20.5', '2.20.6', '2.20.7', '2.20.8', '2.20.9',
+    '2.20.10', '2.21.0', '3.0.0',  '3.1.0',  '3.1.1',  '3.1.2',
+    '3.1.3',   '3.2.0',  '3.2.1',  '4.0.0',  '4.1.0',  '4.1.1',
+    '4.2.0',   '4.2.1',  '4.3.0',  '5.0.0',  '5.0.1',  '5.0.2',
+    '5.0.3',   '5.1.0',  '5.1.1',  '5.1.2',  '5.2.0',  '5.3.0',
+    '5.3.1',   '6.0.0',  '6.0.1',  '6.1.0',  '6.1.1',  '6.2.0',
+    '6.3.0',   '6.3.1',  '6.4.0',  '6.4.1',  '6.5.0',  '6.6.0',
+    '6.6.1',   '6.7.0',  '6.8.0',  '6.8.1',  '6.8.2',  '6.9.0',
+    '6.9.1',   '6.9.2',  '6.10.0', '6.10.1', '6.11.0', '6.11.1',
+    '6.12.0',  '6.12.1', '6.12.2', '6.13.0'
+  ]
+```
+
++ 查詢現在安裝 ndoe module 版本
+``` bash
+npm list
+  express@1.0.0 D:\work\git\li\project\ecommerce\express
+  +-- body-parser@1.19.0
+  +-- cookie-parser@1.4.5
+  +-- dotenv@10.0.0
+  +-- express@4.17.1
+  +-- mongodb@4.1.4
+  +-- mongoose@6.0.12
+  +-- morgan@1.10.0
+  +-- nodemon@2.0.14
+  `-- uuid@8.3.2
+```
+
++ 安裝特定版號 ndoe module
+``` bash
+# npm install [package-name]@[version-number]
+npm install renovate@20.5.1
+```
+
 ### Unit test
 #### call function test
 ``` js
@@ -344,7 +431,7 @@ Ran all test suites.
 #### TDD (Test-Driven Development) 測試驅動開發
 先寫 test pattern 再寫 code
 
-### npm package 
+### npm&apos;s node module 
 #### [mathjs](https://www.npmjs.com/package/mathjs)
 ``` js
 // npm install mathjs
@@ -537,6 +624,24 @@ require("dotenv").config();
   "scripts": {
     "start": "nodemon app.js"
   },
+```
+
+#### mongoose : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+``` js
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+var uri =
+  "mongodb://robert2:{password}@cluster0-shard-00-00.bscvu.mongodb.net:27017,cluster0-shard-00-01.bscvu.mongodb.net:27017,cluster0-shard-00-02.bscvu.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-11cyyj-shard-0&authSource=admin&retryWrites=true&w=majority";
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => console.log(err));
 ```
 
 
