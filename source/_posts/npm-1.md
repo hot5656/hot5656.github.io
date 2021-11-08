@@ -626,7 +626,7 @@ require("dotenv").config();
   },
 ```
 
-#### mongoose : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+#### [mongoose](https://www.npmjs.com/package/mongoose) : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.
 ``` js
 // connect mangoDB altas
 // using 2.2.12 or later's uri
@@ -676,34 +676,68 @@ POST /api/signup 400 101.068 ms - 86
 ::1 - - [08/Nov/2021:09:16:21 +0000] "POST /api/signup HTTP/1.1" 400 86
 ```
 
-#### cookie-parser : 
+#### cookie : [express](http://expressjs.com/zh-tw/4x/api.html#res.cookie) 有提供,不需要用cookie-parser :  
 ``` js
-var express = require('express')
-var cookieParser = require('cookie-parser')
- 
-var app = express()
-app.use(cookieParser())
- 
-app.get('/', function (req, res) {
-  // Cookies that have not been signed
-  console.log('Cookies: ', req.cookies)
- 
-  // Cookies that have been signed
-  console.log('Signed Cookies: ', req.signedCookies)
-})
- 
-app.listen(8080)
- 
-// curl command that sends an HTTP request with two cookies
-// curl http://127.0.0.1:8080 --cookie "Cho=Kim;Greet=Hello"
+// set cookie
+res.cookie("t", token, { expire: new Date() + 9999 });
+
+// clear cookie
+res.clearCookie("t");
 ```
 
-#### express-validator@5.3.1 : 
+#### [express-validator@5.3.1](https://express-validator.github.io/docs/5.3.1/check-api.html) :  express.js validate middlewares 
++ ./app.js
+``` js
+// ./app.js
+// express-validator
+const expressValidator = require("express-validator");
+// app
+const app = express();
+app.use(expressValidator()); // express-validator
+```
++ ./routes/user.js
+``` js
+// ./routes/user.js
+// valid
+const { userSignupValidator } = require("../validator/index");
 
-##### express-jwt : 
+router.post("/signup", userSignupValidator, signup);
+```
++ ./validator/index.js
+``` js 
+// ./validator/index.js
+exports.userSignupValidator = (req, res, next) => {
+  req.check("name", "Name is required").notEmpty();
+  req
+    .check("email", "Email must be between 3 to 32 characters")
+    .matches(/.+\@.+\..+/)
+    .withMessage("Email must contain @")
+    .isLength({
+      min: 4,
+      max: 32,
+    });
+  req.check("password", "Password is required").notEmpty();
+  req
+    .check("password")
+    .isLength({ min: 6 })
+    .withMessage("password must conatin at least 6 characters")
+    .matches(/\d/)
+    .withMessage("Password must contain a number");
+  const errors = req.validationErrors();
+  // console.log(errors);
+  if (errors) {
+    const firstError = errors.map((error) => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  next();
+};
+```
 
-##### jsonwebtoken : 
+#### express-jwt : 驗證 JWT
 
+#### jsonwebtoken :  產生 JWT token
+
+#### [crypto](https://nodejs.org/api/crypto.html#crypto-module-methods-and-properties) : node.js 提供,加密編碼
 
 ### npm config
 ``` bash

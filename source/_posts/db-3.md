@@ -10,6 +10,8 @@ tags:
 
 ### [Robo 3T](https://robomongo.org/) : MongoDB GUI 工具
 
+<!--more-->
+
 #### download RoBo 3T (for windows .zip version 即可)
 <div style="max-width:500px">
 	{% asset_img pic8.png pic8 %}
@@ -150,6 +152,24 @@ myFirstDataBase 為 default DB name, 可改為其他名稱
 <div style="max-width:700px">
 	{% asset_img pic31.png pic31 %}
 </div>
+
+### MongoDB Schema
+#### type
++ String
++ Number
++ Array
+
+#### default 
++ 0
++ []
+
+#### othert field
++ trim : true
++ require: true
++ maxlength: 32
++ unique: 32
++ timestamps: true
+
 
 
 

@@ -128,3 +128,23 @@ exports.myDateTime = function () {
 	>9 high severity vulnerabilities
 
 
+## body-parser 被標記為棄用(body-parser as deprecated)
+``` js
+// 原來
+const express = require("express");
+const bodyParser = require("body-parser");
+// app
+const app = express();
+
+app.use(bodyParser.json());
+
+
+// 更新
+const express = require("express");
+// app
+const app = express();
+
+app.use(express.json());
+```
+
+
