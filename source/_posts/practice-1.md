@@ -164,6 +164,8 @@ exports.sayHi = (req, res) => {
 };
 ```
 
+### new section
+
 install
 ``` bash
 npm install uuid
@@ -190,6 +192,93 @@ npm i express-jwt jsonwebtoken
 }
 
 ```
+
+### Postman 
+#### user api
+##### signup
++ POST http://localhost:8000/api/signup
+<div style="max-width:1000px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
++ header application/json
+<div style="max-width:1000px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
++ body 
+``` js
+{
+	"name": "key2",
+	"email": "key2@gmail.com",
+	"password": "rrrrrr5"
+}
+```
+<div style="max-width:1000px">
+	{% asset_img pic3.png pic3 %}
+</div>
+
++ response 
+``` js
+# 1st time
+{
+	"user": {
+			"name": "key2",
+			"email": "key2@gmail.com",
+			"hashed_password": "f36f604f6b3f085dea51bc1686d8ff18d915d038",
+			"salt": "1740b470-405f-11ec-af6d-67dd2756041e",
+			"role": 0,
+			"history": {
+					"tyep": [],
+					"default": []
+			},
+			"_id": "6188c6e92a5c350c58aa6d98",
+			"createdAt": "2021-11-08T06:42:49.790Z",
+			"updatedAt": "2021-11-08T06:42:49.790Z",
+			"__v": 0
+	}
+}
+
+# 2nd times
+{
+	"err": "11000 duplicate key error collection: ecmm.users index: email already exists"
+}
+```
+
+##### signin
++ POST http://localhost:8000/api/signin
++ header application/json
++ body 
+``` js
+{
+	"email": "key2@gmail.com",
+	"password": "rrrrrr5"
+}
+```
++ response 
+``` js
+{
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODc5NTU2YWIyYWVlNzIyYjI2YzI0NSIsImlhdCI6MTYzNjI5Nzg2OX0.jXzr0AMfA7Rwc-tMcljQUc2FKbxcPMAxzqddCaDoqFk",
+	"user": {
+			"_id": "61879556ab2aee722b26c245",
+			"email": "key2@gmail.com",
+			"name": "key2",
+			"role": 0
+	}
+}
+```
+
+##### signout
++ GET http://localhost:8000/api/signout
++ header application/json
++ response 
+``` js
+{
+	"message": "Signout success"
+}
+```
+
+
 
 ### 參考資料
 + [MERN Stack React Node Ecommerce from Scratch to Deployment](https://www.udemy.com/course/react-node-ecommerce/)

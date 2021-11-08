@@ -644,6 +644,66 @@ mongoose
   .catch((err) => console.log(err));
 ```
 
+#### uuid : create uuid(Universally Unique Identifier) 通用唯一辨識碼
+``` js
+// v4 uuid 
+import { v4 as uuidv4 } from 'uuid';
+uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+// v1 uuid
+const { v1: uuidv1 } = require("uuid");
+salt = uuidv1();
+```` 
+
+#### body-parser : Node.js body parsing middleware.
+``` js
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+
+// 可取出 req.body, 其他 middleware 也才可以 check body
+// (req, res) => {
+// console.log(req.body)
+//  }
+```
+
+#### morgan : HTTP request logger middleware for node.js
+print log in console for debug
+``` js
+// dev - status 會 show 不同顏色
+// :method :url :status :response-time ms - :res[content-length]
+POST /api/signup 400 101.068 ms - 86
+// common - start log 
+// :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]
+::1 - - [08/Nov/2021:09:16:21 +0000] "POST /api/signup HTTP/1.1" 400 86
+```
+
+#### cookie-parser : 
+``` js
+var express = require('express')
+var cookieParser = require('cookie-parser')
+ 
+var app = express()
+app.use(cookieParser())
+ 
+app.get('/', function (req, res) {
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies)
+ 
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies)
+})
+ 
+app.listen(8080)
+ 
+// curl command that sends an HTTP request with two cookies
+// curl http://127.0.0.1:8080 --cookie "Cho=Kim;Greet=Hello"
+```
+
+#### express-validator@5.3.1 : 
+
+##### express-jwt : 
+
+##### jsonwebtoken : 
+
 
 ### npm config
 ``` bash
