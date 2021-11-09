@@ -1264,7 +1264,7 @@ npm run watch
 
 
 
-### regular expression 正規表達式
+### regular expression 正規表達式 : [online test](https://regex101.com/)
 + /xy : 含 "xy"
 + /[aeiou] : 含 a,e,i,o or u
 + /[0-9] : 含數字
@@ -1281,8 +1281,9 @@ npm run watch
 + : ,() 叫做 Capturing Groups
 + ? : 含 0 or 1 個
 + \d 是配對數字，如果把 d 變成大寫，就會變成反義，所以 \D 代表：不是數字，而 \W 也一樣，代表：不是「英文大小寫字母與數字與底線」
-+ * : 0 個以上
++ &ast; : 0 個以上
 + \s : 可以配對到任何空白（空白字元、tab 以及換行）
++ \. : 表含點符號
 
 #### js example(check 是否符合)
 ``` js

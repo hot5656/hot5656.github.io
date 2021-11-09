@@ -10,7 +10,7 @@ tags:
 
 ### HTML Entities(實體) 是什麼
 HTML Entities是以&開頭;結束的字串,這常用來顯示一些保留字元,不可見字元或鍵盤難以輸入的字元
-常用 Entity
+[常用 Entity](https://unicode-table.com/en/html-entities/)
 
 |Symbol|Description		|Entity Name	|Number Code
 |------|------ 				|------ 			|-----
@@ -20,6 +20,7 @@ HTML Entities是以&開頭;結束的字串,這常用來顯示一些保留字元,
 |<		 |less-than			|&amp;lt;					|&amp;#60;
 |>		 |greater-than	|&amp;gt;					|&amp;#62;
 |~		 |tilde operator|&amp;sim;			  |&amp;#8764;
+|*		 |Asterisk			|&amp;ast;			  |&amp;#42;
 
 <!--more-->
 

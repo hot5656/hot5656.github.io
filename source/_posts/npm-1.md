@@ -642,6 +642,13 @@ mongoose
     console.log("MongoDB Connected…");
   })
   .catch((err) => console.log(err));
+
+// save data
+const User = mongoose.model("User", userSchema);
+new User(req.body).save;
+
+// get data 
+User.findOne({ email })
 ```
 
 #### uuid : create uuid(Universally Unique Identifier) 通用唯一辨識碼
@@ -685,7 +692,9 @@ res.cookie("t", token, { expire: new Date() + 9999 });
 res.clearCookie("t");
 ```
 
-#### [express-validator@5.3.1](https://express-validator.github.io/docs/5.3.1/check-api.html) :  express.js validate middlewares 
+#### express-validator@5.3.1 :  express.js validate middlewares
++ 6.x 會有 "typeError: express Validator is not a function" error 
++ document 參考 6.x [express-validator](https://express-validator.github.io/docs/validation-chain-api.html#notempty)
 + ./app.js
 ``` js
 // ./app.js
@@ -736,6 +745,10 @@ exports.userSignupValidator = (req, res, next) => {
 #### express-jwt : 驗證 JWT
 
 #### jsonwebtoken :  產生 JWT token
+``` js
+const jwt = require("jsonwebtoken"); // to generate signed token
+const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+```
 
 #### [crypto](https://nodejs.org/api/crypto.html#crypto-module-methods-and-properties) : node.js 提供,加密編碼
 

@@ -824,7 +824,75 @@ function App() {
 export default App;
 ```
 
-##### example 2 - todos
+##### example 2 - 多欄位
+``` js
+import React, { useState } from "react";
+
+function App() {
+  const [fullName, setFullName] = useState({
+    fName: "",
+    lName: ""
+  });
+
+  // 利用 setState 傳回改變前值
+  // function handleChange(e) {
+  //   const { value, name } = e.target;
+  //
+  //   // setState 可傳回改變前值
+  //   setFullName((prevValue) => {
+  //     if (name === "fName") {
+  //       return {
+  //         fName: value,
+  //         lName: prevValue.lName
+  //       };
+  //     } else if (name === "lName") {
+  //       return {
+  //         fName: prevValue.fName,
+  //         lName: value
+  //       };
+  //     }
+  //   });
+  // }
+
+  // 利用 ES6 解構
+  function handleChange(e) {
+    const { value, name } = e.target;
+
+    // setState 可傳回改變前值
+    setFullName({
+      ...fullName,
+      [name]: value
+    });
+  }
+
+  return (
+    <div className="container">
+      <h1>
+        Hello {fullName.fName} {fullName.lName}
+      </h1>
+      <form>
+        <input
+          name="fName"
+          onChange={handleChange}
+          placeholder="First Name"
+          value={fullName.fName}
+        />
+        <input
+          name="lName"
+          onChange={handleChange}
+          placeholder="Last Name"
+          value={fullName.lName}
+        />
+        <button>Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
+```
+
+##### example 3 - todos
 + key
 + setTodos for array
 + todos.map
@@ -857,7 +925,7 @@ function App() {
 export default App;
 ```
 
-##### example 3 - todos add item
+##### example 4 - todos add item
 + controlled component
 + uncontrolled component #1
 + uncontrolled component #2 (Ref)
@@ -1001,7 +1069,7 @@ export default function TodoItem({ className, size, todo}) {
 }
 ```
 
-##### example 4 - todos delete
+##### example 5 - todos delete
 + todo delete
 
 ###### App.js
@@ -1128,7 +1196,7 @@ export default function TodoItem({ className, size, todo, handleDeleteTodo}) {
 }
 ```
 
-##### example 5 - todos change state
+##### example 6 - todos change state
 + todo change state
 
 ###### App.js
