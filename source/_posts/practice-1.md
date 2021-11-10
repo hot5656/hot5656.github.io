@@ -471,6 +471,224 @@ userSchema.methods = {
 module.exports = mongoose.model("User", userSchema);
 ```
 
+#### Auth and Admin middlewares
++ ./controllers/user.js 改為 auth.js
++ ./routers/user.js 改為 auth.js
+
+##### ./app.js : add app.use("/api", userRoutes) for using Auth
+``` js
+// ./app.js
+const express = require("express");
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+// import routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+// import morgan
+const morgan = require("morgan");
+// cookie-parser
+const cookieParser = require("cookie-parser");
+// express-validator
+const expressValidator = require("express-validator");
+// env
+require("dotenv").config();
+
+// app
+const app = express();
+
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => console.log(err));
+
+// middlewares
+app.use(morgan("dev")); // morgan - http request log
+app.use(express.json()); // body parser
+app.use(cookieParser()); // cookie-parser
+app.use(expressValidator()); // express-validator
+
+// routes middleware
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+##### ./routes/user.js : add new link /secrect/:userId
++ ../controllers/auth 
+	+ requireSignin : check token
+	+ isAuth : check user auth
+	+ isAdmin : check admin(role == 1)
++ router.param("userId", userById) : if include parameter userId call userById
++ add ./controllers/user.js for userById
+
+``` js
+// ./routes/user.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const { userById } = require("../controllers/user");
+// add controller
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+router.get("/secrect/:userId", requireSignin, isAuth, (req, res) => {
+  res.json({
+    user: req.profile,
+  });
+});
+router.param("userId", userById);
+
+module.exports = router;
+```
+
+##### ./controller/auth.js : add requireSignin, isAuth, isAdmin
+``` js
+// ./controller/auth.js
+const User = require("../models/user");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+// jwt
+const jwt = require("jsonwebtoken"); // to generate signed token
+const expressJWT = require("express-jwt"); // for authorization check
+require("dotenv").config();
+
+exports.signup = (req, res) => {
+  console.log("req.body", req.body);
+  const user = new User(req.body);
+  user.save((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        err: errorHandler(err),
+      });
+    }
+
+    res.json({
+      user,
+    });
+  });
+};
+
+exports.signin = (req, res) => {
+  // find the user based on email
+  const { email, password } = req.body;
+  User.findOne({ email }, (err, user) => {
+    if (err || !user) {
+      return res.status(400)({
+        error: "User with that email does not exist. Please siginup",
+      });
+    }
+
+    // if user is found make sure the email and password match
+    // create authenticate method in user model
+    if (!user.authenticate(password)) {
+      return res.status(401).json({
+        error: "Email and password don't match",
+      });
+    }
+
+    // generate a signed token with user id and secret
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    console.log("token:", token);
+    // persist the thken as 't' in cookie with expiry date
+    res.cookie("t", token, { expire: new Date() + 9999 });
+    // return response with user and token to frontend client
+    const { _id, name, email, role } = user;
+    return res.json({ token, user: { _id, email, name, role } });
+  });
+};
+
+exports.signout = (req, res) => {
+  res.clearCookie("t");
+  res.json({ message: "Signout success" });
+};
+
+// need have cookie-parser
+// for authorization check
+exports.requireSignin = expressJWT({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"], // added later
+  userProperty: "auth",
+});
+
+exports.isAuth = (req, res, next) => {
+  let user = req.profile && req.auth && req.profile._id == req.auth._id;
+  if (!user) {
+    return res.status(403).json({ error: "Access denied" });
+  }
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  if (req.profile.role == 0) {
+    return res.status(403).json({ error: "Admin resource! Access denied" });
+  }
+  next();
+};
+```
+
+##### ./controllers/user.js
+``` js
+// ./controllers/user.js
+const User = require("../models/user");
+
+exports.userById = (req, res, next, id) => {
+  User.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
+```
+
+
+#### new 
+
+##### install
+``` bash
+npm i fromidable lodash
+```
+
+##### 
+``` js
+
+```
+
+##### 
+``` js
+
+```
+
+##### 
+``` js
+
+```
+
+##### 
+``` js
+
+```
+
+##### 
+``` js
+
+```
+
+
 ### Postman 
 #### user api
 ##### signup
@@ -507,7 +725,7 @@ module.exports = mongoose.model("User", userSchema);
 			"salt": "1740b470-405f-11ec-af6d-67dd2756041e",
 			"role": 0,
 			"history": {
-					"tyep": [],
+					"type": [],
 					"default": []
 			},
 			"_id": "6188c6e92a5c350c58aa6d98",
