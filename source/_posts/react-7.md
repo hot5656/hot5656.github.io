@@ -7,14 +7,66 @@ tags:
 	- react
 ---
 
+
+### [material-ui](https://v4.mui.com/)
+
+#### install 
+``` bash 
+# install material core
+npm i @material-ui/core 
+# install material icons
+npm i @material-ui/icons
+```
+
+<!--more-->
+
+#### example
+```js
+// icon
+import AddIcon from "@material-ui/icons/Add";
+// Floating action button
+import Fab from "@material-ui/core/Fab";
+// 顯示/消失
+import Zoom from "@material-ui/core/Zoom";
+
+function CreateArea(props) {
+  return (
+    <div>
+      <form className="create-note">
+        {isInput && (
+          <input
+            name="title"
+            onChange={handleChange}
+            value={note.title}
+            placeholder="Title"
+          />
+        )}
+        <textarea
+          name="content"
+          onChange={handleChange}
+          value={note.content}
+          placeholder="Take a note..."
+          rows={isInput ? 3 : 1}
+          onFocus={handleFocs}
+        />
+        <Zoom in={isInput}>
+          <Fab onClick={submitNote}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
+      </form>
+    </div>
+  );
+}
+```
+
+
 ### [Ant Design - antd](https://ant.design/docs/react/introduce)
 #### install
 ``` bash
 npm install antd
 yarn add antd
 ```
-
-<!--more-->
 
 #### first example
 + version

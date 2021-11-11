@@ -51,6 +51,7 @@ date: 2021-03-18 15:48:55
 + [Pexels](https://www.pexels.com/zh-tw/)
 + [38個高質+免費的圖庫網站](https://mtache.com/freestockphoto)
 + [envato elements 插畫](https://elements.envato.com/graphics/flat+design+pack)
++ [TRANSPARENT TEXTURE](https://www.transparenttextures.com/) : 背景紋理圖
 
 #### 假資料
 + [Lorem Picsum](https://picsum.photos/) : 假圖 https://picsum.photos/200/300 

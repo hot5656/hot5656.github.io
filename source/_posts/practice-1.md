@@ -683,9 +683,11 @@ npm i fromidable lodash
 
 ```
 
-##### 
-``` js
-
+##### invalid token : error message
+``` bash
+UnauthorizedError: invalid token
+    at D:\work\git-test\li\project\ecommerce\express\node_modules\express-jwt\lib\index.js:105:22
+		......
 ```
 
 
