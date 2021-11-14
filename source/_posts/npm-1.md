@@ -447,7 +447,7 @@ console.log(round(e, 3))				// 2.718
 console.log(log(10000, 10))			// 4
 ```
 
-#### [lodash](https://www.npmjs.com/package/lodash)
+#### [lodash](https://www.npmjs.com/package/lodash) reference [document](https://lodash.com/docs#assignIn)
 ``` js
 // npm install lodash
 var _ = require('lodash');
@@ -455,6 +455,18 @@ var _ = require('lodash');
 var array = [1, 2, 3];
 _.reverse(array);
 console.log(array)
+
+// { 'a': 0 } 被 new Foo 蓋過, 再被 new Bar蓋過
+function Foo() {
+  this.a = 1;
+}
+function Bar() {
+  this.c = 3;
+}
+Foo.prototype.b = 2;
+Bar.prototype.d = 4;
+_.assign({ 'a': 0 }, new Foo, new Bar);
+// => { 'a': 1, 'c': 3 }
 ```
 
 #### [left-pad](https://www.npmjs.com/package/left-pad)
@@ -751,6 +763,27 @@ const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 ```
 
 #### [crypto](https://nodejs.org/api/crypto.html#crypto-module-methods-and-properties) : node.js 提供,加密編碼
+
+
+#### [formidable](https://www.npmjs.com/package/formidable) : parsing data, 特別是有關 file
+``` js
+const formidable = require("formidable");
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    ......
+  });
+};
+```
 
 ### npm config
 ``` bash

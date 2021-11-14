@@ -1352,3 +1352,14 @@ console.log(re.test("0931234450"))	// true
 			// (2) ["wqe@asa.", "asa", index: 0, input: "wqe@asa.33", groups: undefined]
 			// asa
 ```
+
+#### js 轉換
+``` js
+const obj = {
+  "abbreviation": "/([A - Z])\w+/"
+};
+
+const stringified = JSON.stringify(obj);
+const regex = new RegExp(JSON.parse(stringified).abbreviation.slice(1, -1));
+console.log(regex);
+```

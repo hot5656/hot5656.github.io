@@ -656,38 +656,629 @@ exports.userById = (req, res, next, id) => {
 ```
 
 
-#### new 
+#### add Category and Product 
 
 ##### install
 ``` bash
-npm i fromidable lodash
+npm i formidable lodash
 ```
+
+##### ./app.js
+``` js
+// ./app.js
+const express = require("express");
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+// import routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+// add Category and Product
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+// import morgan
+const morgan = require("morgan");
+// cookie-parser
+const cookieParser = require("cookie-parser");
+// express-validator
+const expressValidator = require("express-validator");
+// env
+require("dotenv").config();
+
+// app
+const app = express();
+
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => console.log(err));
+
+// middlewares
+app.use(morgan("dev")); // morgan - http request log
+app.use(express.json()); // body parser
+app.use(cookieParser()); // cookie-parser
+app.use(expressValidator()); // express-validator
+
+// routes middleware
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+// add Category and Product
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+##### ./routes/category.js
+``` js
+// ./routes/category.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const {
+  create,
+  categoryById,
+  read,
+  remove,
+  update,
+  list,
+} = require("../controllers/category");
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+const { userById } = require("../controllers/user");
+
+router.get("/category/:categoryId", read);
+router.post("/category/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.delete(
+  "/category/:categoryId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  remove
+);
+router.put(
+  "/category/:categoryId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  update
+);
+router.get("/categories", list);
+
+// category/create
+// userId 參數驗證
+router.param("userId", userById);
+router.param("categoryId", categoryById);
+
+module.exports = router;
+```
+
+##### ./routes/product.js
+``` js 
+// ./routes/product.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const {
+  create,
+  productById,
+  read,
+  remove,
+  update,
+} = require("../controllers/product");
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+const { userById } = require("../controllers/user");
+
+router.get("/product/:productId", read);
+router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.delete(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  remove
+);
+router.put(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  update
+);
+
+// product/create
+// userId 參數驗證
+router.param("userId", userById);
+router.param("productId", productById);
+
+module.exports = router;
+```
+
+##### ./controller/category.js
+``` js
+// ./controller/category.js
+const Category = require("../models/category");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.categoryById = (req, res, next, id) => {
+  Category.findById(id).exec((err, category) => {
+    if (err || !category) {
+      return res.status(400).json({
+        error: "Category does not exist",
+      });
+    }
+    req.category = category;
+    console.log("1:", req.category);
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  return res.json(req.category);
+};
+
+exports.create = (req, res) => {
+  const category = new Ctegory(req.body);
+
+  category.save((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({ data });
+  });
+};
+
+exports.remove = (req, res) => {
+  let category = req.category;
+  category.remove((err, deletedCategory) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Category deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  const category = req.category;
+
+  category.name = req.body.name;
+
+  category.save((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({ data });
+  });
+};
+
+exports.list = (req, res) => {
+  Category.find().exec((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({ data });
+  });
+};
+```
+
+#####  ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+const { runInNewContext } = require("vm");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id).exec((err, product) => {
+    // console.log("productById...");
+    if (err || !product) {
+      return res.status(400).json({
+        error: "Product does not exist",
+      });
+    }
+    req.product = product;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.type;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.type;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(result);
+    });
+  });
+};
+```
+
+##### ./models/category.js
+``` js
+// ./models/category.js
+const mongoose = require("mongoose");
+
+const categorySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      require: true,
+      maxlength: 32,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model("Category", categorySchema);
+```
+
+##### ./models/product.js
+``` js
+// ./models/product.js
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
+
+const productSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+      maxlength: 32,
+    },
+    description: {
+      type: String,
+      required: true,
+      maxlength: 2000,
+    },
+    price: {
+      type: Number,
+      trim: true,
+      required: true,
+      maxlength: 32,
+    },
+    category: {
+      type: ObjectId,
+      ref: "Category",
+      require: true,
+    },
+    quantity: {
+      type: Number,
+    },
+    photo: {
+      data: Buffer,
+      contentType: String,
+    },
+    shipping: {
+      required: false,
+      type: Boolean,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model("Product", productSchema);
+```
+
+#### add some for product and user
++ product list all : get all product
++ product list related : get other product same category
++ product list category : list product incluse category
++ product search : search product
++ product photo : get product photo
++ user read : read user info
++ user update : update user info
 
 ##### 
 ``` js
 
 ```
 
-##### 
-``` js
 
+#### CORS
+##### install
+``` bash
+npm i cors
 ```
 
-##### 
+##### js code
 ``` js
+// cors
+const cors = require("cors");
 
+app.use(cors()); // cors
 ```
 
-##### 
-``` js
-
-```
-
+#### Error message 
 ##### invalid token : error message
 ``` bash
 UnauthorizedError: invalid token
     at D:\work\git-test\li\project\ecommerce\express\node_modules\express-jwt\lib\index.js:105:22
 		......
+```
+
+### API 
+#### User
++ signup : 註冊
+``` js
+POST api/signup
+Headers : [{"key":"Content-Type","value":"application/json","description":""}]
+Body :
+{
+	"name": "pen2",
+	"email": "pen2@gmail.com",
+	"password": "rrrrrr5"
+}
+```
+
++ signin : 登入
+``` js
+POST api/signin
+Headers : [{"key":"Content-Type","value":"application/json","description":""}]
+Body :
+{
+	"email": "pen2@gmail.com",
+	"password": "rrrrrr5"
+}
+```
+
++ signout :登出
+``` js
+GET api/signout
+Headers : [{"key":"Content-Type","value":"application/json","description":""}]
+```
+
++ secrect : get user information
+``` js
+GET api/secrect/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
+
+#### Caegory
++ create : 新增
+``` js
+POST /api/category/create/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+Body :
+{
+	"name": "react2"
+}
+```
+
++ read : 讀取一筆
+``` js
+GET /api/category/{categoryID}
+Headers : [{"key":"Content-Type","value":"application/json","description":""}]
+```
+
++ update : 更新
+``` js
+PUT /api/category/{categoryID}/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+Body :
+{
+	"name": "react2"
+}
+```
+
++ delete : 刪除
+``` js
+DEL /api/category/{categoryID}/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
+
++ list : 讀取全部
+``` js
+GET /api/categories
+Headers : [{"key":"Content-Type","value":"application/json","description":""}]
+```
+
+#### Product
++ create : 新增
+``` js
+POST /api/product/create/{userId}
+Headers : 
+[{"key":"Authorization","value":"Bearer token..","description":""}]
+Body : form-data 
+  name:PHP update
+  description:My second book on PHP update
+  price:20
+  category:618cccaac104434a41b7e4e7
+  shipping:false
+  quantity:100
+  photo --> file select
+```
+
++ read : 讀取一筆
+``` js
+GET /api/product/{ProductId}
+Headers : [{"key":"Content-Type","value":"application/json","description":""}] ??
+```
+
++ update : 更新
+``` js
+PUT /api/product/{productID}/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""}, ??
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+Body : form-data 
+  name:PHP update
+  description:My second book on PHP update
+  price:20
+  category:618cccaac104434a41b7e4e7
+  shipping:false
+  quantity:100
+  photo --> file select
+```
+
++ delete : 刪除
+``` js
+DEL /api/product/{productID}/{userId}
+Headers : 
+[
+  {"key":"Content-Type","value":"application/json","description":""}, ??
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
 ```
 
 
@@ -775,6 +1366,108 @@ UnauthorizedError: invalid token
 	"message": "Signout success"
 }
 ```
+
+##### read
++ GET http://localhost:8000/api/user/618d278d9e3c6d80ff6d0bd6
+
+
+##### update
++ PUT http://localhost:8000/api/user/618d278d9e3c6d80ff6d0bd6
++ body 
+``` js
+{
+	"name": "Pen2 update"
+}
+```
+
+#### category
+##### create
++ POST http://localhost:8000/api/category/create/618a148152decc596ebad50e
++ body 
+``` js
+{
+	"name": "react2"
+}
+```
+
+##### read
++ GET http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37
+
+##### update
++ PUT http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37/618d278d9e3c6d80ff6d0bd6
++ body 
+``` js
+{
+	"name": "react2 update"
+}
+```
+
+##### delete
++ DEL http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37/618d278d9e3c6d80ff6d0bd6
+
+
+#### product 
+##### create
++ POST http://localhost:8000/api/product/create/618a148152decc596ebad50e
++ body : form-data
+``` js
+  name:node
+  price:2
+  category:618cccaac104434a41b7e4e7
+  shipping:false
+  quantity:100
+  description:My second book on node
+  photo --> file select
+```
+
+
+##### update
++ PUT http://localhost:8000/api/product/618f39c32a40b25aab100325/618a148152decc596ebad50e
++ body 
+``` js
+  name:PHP update
+  description:My second book on PHP update
+  price:20
+  category:618cccaac104434a41b7e4e7
+  shipping:false
+  quantity:100
+  photo --> file select
+```
+
+
+##### list all
++ GET http://localhost:8000/api/products
+
+##### list related
++ GET http://localhost:8000/api/products/related/6190b7dc696433026ebb3588
+
+##### list category
++ GET http://localhost:8000/api/products/categories
+
+##### search
++ POST http://localhost:8000/api/products/by/search
++ body 
+``` js
+// seach price
+{
+  "skip" : "0",
+  "limit" : "100",
+  "filters": {
+    "price": ["2", "19"]
+  }
+}
+// search name
+{
+	"filters": {
+	  "name": "Note"
+	}
+}
+```
+
+##### photo
++ GET http://localhost:8000/api/product/photo/61911b28600004bfee6281f5
+
+
 
 
 
