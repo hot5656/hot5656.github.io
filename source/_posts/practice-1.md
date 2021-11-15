@@ -1111,11 +1111,405 @@ module.exports = mongoose.model("Product", productSchema);
 + user read : read user info
 + user update : update user info
 
-##### 
+##### ./routes/user.js
 ``` js
+// ./routes/user.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const { userById, read, update } = require("../controllers/user");
+// add controller
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 
+router.get("/secret/:userId", requireSignin, isAuth, (req, res) => {
+  res.json({
+    user: req.profile,
+  });
+});
+
+router.get("/user/:userId", requireSignin, isAuth, read);
+router.put("/user/:userId", requireSignin, isAuth, update);
+
+// userId 參數驗證
+router.param("userId", userById);
+
+module.exports = router;
 ```
 
+##### ./controllers/user.js
+``` js
+// ./controllers/user.js
+const User = require("../models/user");
+
+exports.userById = (req, res, next, id) => {
+  User.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+  return res.json(req.profile);
+};
+
+exports.update = (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $set: req.body },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        return res.status(400).json({
+          error: "You are not authorized to perform this action",
+        });
+      }
+      req.profile.hashed_password = undefined;
+      req.profile.salt = undefined;
+      res.json(user);
+    }
+  );
+};
+```
+
+##### ./routes/product.js
+``` js
+// ./routes/product.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const {
+  create,
+  productById,
+  read,
+  remove,
+  update,
+  list,
+  listRelated,
+  listCategories,
+  listBySearch,
+  photo,
+} = require("../controllers/product");
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+const { userById } = require("../controllers/user");
+
+router.get("/product/:productId", read);
+router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.delete(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  remove
+);
+router.put(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  update
+);
+
+router.get("/products", list);
+router.get("/products/related/:productId", listRelated);
+router.get("/products/categories", listCategories);
+router.post("/products/by/search", listBySearch);
+router.get("/product/photo/:productId", photo);
+
+// product/create
+// userId 參數驗證
+router.param("userId", userById);
+router.param("productId", productById);
+
+module.exports = router;
+```
+
+##### ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id).exec((err, product) => {
+    if (err || !product) {
+      return res.status(400).json({
+        error: "Product does not exist",
+      });
+    }
+    req.product = product;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+/**
+ * sel/arrival
+ * bye sell = /products?sortBy=sold&order=desc&limit=4
+ * bye arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no parameter are sent, then all products are returned
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select("-photo")
+    .populate("category") // mapt to Category
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+/**
+ * it will find the products based on the req product category
+ * other products that has the same category, will be return
+ */
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // $ne: not include
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .select("-photo")
+    .limit(limit)
+    .populate("category", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+exports.listCategories = (req, res) => {
+  // distinct : 取出不同的 category
+  // {} : 2nd parameter doesn't need do no send value
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+/**
+ * list products by search
+ * we will implement product search in react frontend
+ * we will show categories in checkbox and price range in radio buttons
+ * as the user clicks on those checkbox and radio buttons
+ * we will make api request and show the products to users based on what he wants
+ */
+// {
+//  "skip" : "1",
+//  "limit" : "2",
+// 	"filters": {
+// 		"name": "Note"
+// 	}
+// }
+//
+// >=2 and <=19
+//  {
+// "filters": {
+//   "price": ["2", "19"]
+// }
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte - great than price
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = new RegExp(req.body.filters[key]);
+      }
+    }
+  }
+
+  Product.find(findArgs)
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+```
 
 #### CORS
 ##### install
@@ -1369,46 +1763,219 @@ Headers :
 
 ##### read
 + GET http://localhost:8000/api/user/618d278d9e3c6d80ff6d0bd6
-
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
++ response
+``` js
+{
+    "user": {
+        "_id": "618b63c5e34b77bf26b6c8a1",
+        "name": "key6",
+        "email": "key6@gmail.com",
+        "hashed_password": "887f81a60171906e267b37fc777d3e282fdffc7a",
+        "salt": "c2c66800-41ed-11ec-97a8-83adda8782ce",
+        "role": 1,
+        "history": [],
+        "createdAt": "2021-11-10T06:16:37.259Z",
+        "updatedAt": "2021-11-10T06:16:37.259Z",
+        "__v": 0
+    }
+}
+```
 
 ##### update
 + PUT http://localhost:8000/api/user/618d278d9e3c6d80ff6d0bd6
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
 + body 
 ``` js
 {
 	"name": "Pen2 update"
 }
 ```
++ response
+``` js
+{
+    "_id": "618d278d9e3c6d80ff6d0bd6",
+    "name": "Pen2 new",
+    "email": "pen2@gmail.com",
+    "hashed_password": "a696711c462e5dfd4526c8914dcb6bb286f4d08b",
+    "salt": "0b6ead70-42fb-11ec-9c79-f353ea83f35d",
+    "role": 1,
+    "history": [],
+    "createdAt": "2021-11-11T14:24:13.767Z",
+    "updatedAt": "2021-11-15T01:25:40.367Z",
+    "__v": 0
+}
+```
+
+##### secret : get all user info
++ GET http://localhost:8000/api/secret/618b63c5e34b77bf26b6c8a1
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
++ response
+``` js
+{
+    "user": {
+        "_id": "618b63c5e34b77bf26b6c8a1",
+        "name": "key6",
+        "email": "key6@gmail.com",
+        "hashed_password": "887f81a60171906e267b37fc777d3e282fdffc7a",
+        "salt": "c2c66800-41ed-11ec-97a8-83adda8782ce",
+        "role": 1,
+        "history": [],
+        "createdAt": "2021-11-10T06:16:37.259Z",
+        "updatedAt": "2021-11-10T06:16:37.259Z",
+        "__v": 0
+    }
+}
+```
 
 #### category
 ##### create
 + POST http://localhost:8000/api/category/create/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
 + body 
 ``` js
 {
-	"name": "react2"
+	"name": "Python"
+}
+```
++ response
+``` js
+{
+    "data": {
+        "name": "Python",
+        "_id": "6191b9327a4a9765fa7ae859",
+        "createdAt": "2021-11-15T01:34:42.504Z",
+        "updatedAt": "2021-11-15T01:34:42.504Z",
+        "__v": 0
+    }
 }
 ```
 
 ##### read
-+ GET http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37
-
-##### update
-+ PUT http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37/618d278d9e3c6d80ff6d0bd6
-+ body 
++ GET http://localhost:8000/api/category/6191b9327a4a9765fa7ae859
++ Headers : []
++ response
 ``` js
 {
-	"name": "react2 update"
+    "_id": "6191b9327a4a9765fa7ae859",
+    "name": "Python",
+    "createdAt": "2021-11-15T01:34:42.504Z",
+    "updatedAt": "2021-11-15T01:34:42.504Z",
+    "__v": 0
 }
 ```
 
-##### delete
-+ DEL http://localhost:8000/api/category/618ccf090b3cc5bfec2cad37/618d278d9e3c6d80ff6d0bd6
+
+##### update
++ PUT http://localhost:8000/api/category/6191b9327a4a9765fa7ae859/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
++ body 
+``` js
+{
+	"name": "Python update"
+}
+```
++ response
+``` js
+{
+    "data": {
+        "_id": "6191b9327a4a9765fa7ae859",
+        "name": "Python update",
+        "createdAt": "2021-11-15T01:34:42.504Z",
+        "updatedAt": "2021-11-15T01:44:47.140Z",
+        "__v": 0
+    }
+}
+```
+
+##### delet
++ DEL http://localhost:8000/api/category/6191b9327a4a9765fa7ae859/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
++ response
+``` js
+{
+    "message": "Category deleted successly"
+}
+```
+
+##### list : list all category
++ GET http://localhost:8000/api/categories
++ Headers : []
++ response
+``` js
+{
+    "data": [
+        {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node",
+            "createdAt": "2021-11-11T07:56:26.487Z",
+            "updatedAt": "2021-11-11T07:56:26.487Z",
+            "__v": 0
+        },
+        {
+            "_id": "618d2aeb3cc4d2fb8b0ffa6c",
+            "name": "python",
+            "createdAt": "2021-11-11T14:38:35.706Z",
+            "updatedAt": "2021-11-11T14:38:35.706Z",
+            "__v": 0
+        },
+        {
+            "_id": "618f0dd7e7a15a9c59fe3c5c",
+            "name": "php",
+            "createdAt": "2021-11-13T00:59:03.787Z",
+            "updatedAt": "2021-11-13T00:59:03.787Z",
+            "__v": 0
+        }
+    ]
+}
+```
 
 
 #### product 
 ##### create
 + POST http://localhost:8000/api/product/create/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
 + body : form-data
 ``` js
   name:node
@@ -1419,33 +1986,238 @@ Headers :
   description:My second book on node
   photo --> file select
 ```
-
++ response
+``` js
+{
+    "name": "python",
+    "description": "My second book on node",
+    "price": 2,
+    "category": "618cccaac104434a41b7e4e7",
+    "quantity": 100,
+    "sold": 0,
+    "shipping": false,
+    "_id": "6191c890b0f8b1de8b7014f8",
+    "createdAt": "2021-11-15T02:40:16.238Z",
+    "updatedAt": "2021-11-15T02:40:16.238Z",
+    "__v": 0
+}
+```
 
 ##### update
-+ PUT http://localhost:8000/api/product/618f39c32a40b25aab100325/618a148152decc596ebad50e
++ PUT http://localhost:8000/api/product/6191c9a31f6127dd22f091a9/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
 + body 
 ``` js
-  name:PHP update
-  description:My second book on PHP update
-  price:20
-  category:618cccaac104434a41b7e4e7
-  shipping:false
-  quantity:100
+	name:python update
+	price:2
+	category:618cccaac104434a41b7e4e7
+	shipping:false
+	quantity:100
+	description:My second book on node
   photo --> file select
+```
++ response
+``` js
+{
+    "_id": "6191c9a31f6127dd22f091a9",
+    "name": "python update",
+    "description": "My second book on node",
+    "price": 2,
+    "category": "618cccaac104434a41b7e4e7",
+    "quantity": 100,
+    "sold": 0,
+    "shipping": false,
+    "createdAt": "2021-11-15T02:44:51.335Z",
+    "updatedAt": "2021-11-15T02:50:09.319Z",
+    "__v": 0
+}
+```
+
+##### read
++ GET http://localhost:8000/api/product/6191c9a31f6127dd22f091a9
++ Headers : []
++ response
+``` js
+{
+    "_id": "6191c9a31f6127dd22f091a9",
+    "name": "python update",
+    "description": "My second book on node",
+    "price": 2,
+    "category": "618cccaac104434a41b7e4e7",
+    "quantity": 100,
+    "sold": 0,
+    "shipping": false,
+    "createdAt": "2021-11-15T02:44:51.335Z",
+    "updatedAt": "2021-11-15T02:50:09.319Z",
+    "__v": 0
+}
+```
+
+##### delet
++ DEL http://localhost:8000/api/product/6191c9a31f6127dd22f091a9/618a148152decc596ebad50e
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""},
+  {"key":"Authorization","value":"Bearer token..","description":""}
+]
+```
++ response
+``` js
+{
+    "message": "Product deleted successly"
+}
 ```
 
 
 ##### list all
 + GET http://localhost:8000/api/products
++ Headers : []
++ response
+``` js
+[
+    {
+        "_id": "618f0dd7e7a15a9c59fe3c5c",
+        "name": "PHP",
+        "description": "My second book on PHP ",
+        "price": 2,
+        "category": {
+            "_id": "618f0dd7e7a15a9c59fe3c5c",
+            "name": "php",
+            "createdAt": "2021-11-13T00:59:03.787Z",
+            "updatedAt": "2021-11-13T00:59:03.787Z",
+            "__v": 0
+        },
+        "quantity": 100,
+        "sold": 0,
+        "shipping": false,
+        "createdAt": "2021-11-14T07:14:08.776Z",
+        "updatedAt": "2021-11-14T07:14:08.776Z",
+        "__v": 0
+    },
+    {
+        "sold": 0,
+        "_id": "618f0e74d520011c21fee5be",
+        "name": "Note Book #2",
+        "description": "My second book on node js",
+        "price": 20,
+        "category": {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node",
+            "createdAt": "2021-11-11T07:56:26.487Z",
+            "updatedAt": "2021-11-11T07:56:26.487Z",
+            "__v": 0
+        },
+        "quantity": 100,
+        "shipping": false,
+        "createdAt": "2021-11-13T01:01:40.218Z",
+        "updatedAt": "2021-11-13T01:01:40.218Z",
+        "__v": 0
+    },
+    {
+        "sold": 0,
+        "_id": "618f1a5f5b6c11abb3d34d35",
+        "name": "Note Book #2",
+        "description": "My second book on node js",
+        "price": 20,
+        "category": {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node",
+            "createdAt": "2021-11-11T07:56:26.487Z",
+            "updatedAt": "2021-11-11T07:56:26.487Z",
+            "__v": 0
+        },
+        "quantity": 100,
+        "shipping": false,
+        "createdAt": "2021-11-13T01:52:31.721Z",
+        "updatedAt": "2021-11-13T01:52:31.721Z",
+        "__v": 0
+    },
+]
+```
 
 ##### list related
-+ GET http://localhost:8000/api/products/related/6190b7dc696433026ebb3588
++ GET http://localhost:8000/api/products/related/6191c9a31f6127dd22f091a9
++ Headers : []
++ response
+``` js
+[
+    {
+        "sold": 0,
+        "_id": "618f0e74d520011c21fee5be",
+        "name": "Note Book #2",
+        "description": "My second book on node js",
+        "price": 20,
+        "category": {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node"
+        },
+        "quantity": 100,
+        "shipping": false,
+        "createdAt": "2021-11-13T01:01:40.218Z",
+        "updatedAt": "2021-11-13T01:01:40.218Z",
+        "__v": 0
+    },
+    {
+        "sold": 0,
+        "_id": "618f1a5f5b6c11abb3d34d35",
+        "name": "Note Book #2",
+        "description": "My second book on node js",
+        "price": 20,
+        "category": {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node"
+        },
+        "quantity": 100,
+        "shipping": false,
+        "createdAt": "2021-11-13T01:52:31.721Z",
+        "updatedAt": "2021-11-13T01:52:31.721Z",
+        "__v": 0
+    },
+    {
+        "sold": 0,
+        "_id": "618f1ce44737b63742b4e61b",
+        "name": "Note Book #2",
+        "description": "My second book on node js",
+        "price": 20,
+        "category": {
+            "_id": "618cccaac104434a41b7e4e7",
+            "name": "Node"
+        },
+        "quantity": 100,
+        "shipping": false,
+        "createdAt": "2021-11-13T02:03:16.637Z",
+        "updatedAt": "2021-11-13T02:03:16.637Z",
+        "__v": 0
+    },
+]
+```
 
 ##### list category
 + GET http://localhost:8000/api/products/categories
++ Headers : []
++ response
+``` js
+[
+    "618cccaac104434a41b7e4e7",
+    "618d2aeb3cc4d2fb8b0ffa6c",
+    "618f0dd7e7a15a9c59fe3c5c"
+]
+```
 
 ##### search
 + POST http://localhost:8000/api/products/by/search
++ Headers : 
+``` bash
+[
+  {"key":"Content-Type","value":"application/json","description":""}
+]
+```
 + body 
 ``` js
 // seach price
@@ -1453,7 +2225,7 @@ Headers :
   "skip" : "0",
   "limit" : "100",
   "filters": {
-    "price": ["2", "19"]
+    "price": ["3", "20"]
   }
 }
 // search name
@@ -1463,15 +2235,97 @@ Headers :
 	}
 }
 ```
++ response
+``` js
+{
+    "size": 4,
+    "data": [
+        {
+            "sold": 0,
+            "_id": "618f39c32a40b25aab100325",
+            "name": "PHP update",
+            "description": "My second book on PHP update",
+            "price": 20,
+            "category": {
+                "_id": "618f0dd7e7a15a9c59fe3c5c",
+                "name": "php",
+                "createdAt": "2021-11-13T00:59:03.787Z",
+                "updatedAt": "2021-11-13T00:59:03.787Z",
+                "__v": 0
+            },
+            "quantity": 100,
+            "shipping": false,
+            "createdAt": "2021-11-13T04:06:27.222Z",
+            "updatedAt": "2021-11-13T04:16:44.822Z",
+            "__v": 0
+        },
+        {
+            "sold": 0,
+            "_id": "618f1ce44737b63742b4e61b",
+            "name": "Note Book #2",
+            "description": "My second book on node js",
+            "price": 20,
+            "category": {
+                "_id": "618cccaac104434a41b7e4e7",
+                "name": "Node",
+                "createdAt": "2021-11-11T07:56:26.487Z",
+                "updatedAt": "2021-11-11T07:56:26.487Z",
+                "__v": 0
+            },
+            "quantity": 100,
+            "shipping": false,
+            "createdAt": "2021-11-13T02:03:16.637Z",
+            "updatedAt": "2021-11-13T02:03:16.637Z",
+            "__v": 0
+        },
+        {
+            "sold": 0,
+            "_id": "618f1a5f5b6c11abb3d34d35",
+            "name": "Note Book #2",
+            "description": "My second book on node js",
+            "price": 20,
+            "category": {
+                "_id": "618cccaac104434a41b7e4e7",
+                "name": "Node",
+                "createdAt": "2021-11-11T07:56:26.487Z",
+                "updatedAt": "2021-11-11T07:56:26.487Z",
+                "__v": 0
+            },
+            "quantity": 100,
+            "shipping": false,
+            "createdAt": "2021-11-13T01:52:31.721Z",
+            "updatedAt": "2021-11-13T01:52:31.721Z",
+            "__v": 0
+        },
+        {
+            "sold": 0,
+            "_id": "618f0e74d520011c21fee5be",
+            "name": "Note Book #2",
+            "description": "My second book on node js",
+            "price": 20,
+            "category": {
+                "_id": "618cccaac104434a41b7e4e7",
+                "name": "Node",
+                "createdAt": "2021-11-11T07:56:26.487Z",
+                "updatedAt": "2021-11-11T07:56:26.487Z",
+                "__v": 0
+            },
+            "quantity": 100,
+            "shipping": false,
+            "createdAt": "2021-11-13T01:01:40.218Z",
+            "updatedAt": "2021-11-13T01:01:40.218Z",
+            "__v": 0
+        }
+    ]
+}
+```
 
 ##### photo
 + GET http://localhost:8000/api/product/photo/61911b28600004bfee6281f5
-
-
-
-
++ Headers : []
 
 ### 參考資料
 + [MERN Stack React Node Ecommerce from Scratch to Deployment](https://www.udemy.com/course/react-node-ecommerce/)
 + [react-node-ecommerce](https://github.com/kaloraat/react-node-ecommerce)
 + [MongoDB Atlas](https://www.mongodb.com/atlas/database)
++ [Build a MERN web app](https://developer.ibm.com/patterns/build-a-mern-web-app/)
