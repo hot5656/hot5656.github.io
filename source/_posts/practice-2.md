@@ -42,4 +42,11 @@ npm i react-router-dom
 # error -> Browserslist: caniuse-lite is outdated. Please run:
 #         npx browserslist@latest --update-db
 npx browserslist@latest --update-db
+
+npm i history
+```
+
+```
+
+import { Link } from "react-router-dom";
 ```
