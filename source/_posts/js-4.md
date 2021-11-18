@@ -150,5 +150,47 @@ itemElement.innerHTML = STREAM_TEMPLATE
 // .replace(/\d{2}/, "00") ==> 最前面填 00, 因為 00:00:00 對應 Taipei 為 08:00:00
 ```
 
+### catch 處理完 .then 處理
+``` js
+  const { name, email, password } = values;
+
+  const signup = (user) => {
+    // 要加 return 才能 then 處理
+    return (
+      fetch(`${API}/signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        // json format body 傳回要加 .json()
+        .then((response) => response.json())
+        // then 處理, 若有 check data 要加 retuen
+        .then((data) => {
+          console.log("data:", data);
+          return data;
+        })
+        .catch((err) => {
+          console.log("signup err:", err);
+        })
+    );
+  };
+
+  function handelSubmit(e) {
+    e.preventDefault();
+    // catch 傳回用 .then 處理
+    signup({ name, email, password }).then((data) => {
+      // undefidata === undefined 表 server 未回應
+      if (data === undefined) {
+        console.log("Server not response");
+      } else {
+        console.log(data);
+      }
+    });
+  }
+```
+
 
 

@@ -149,6 +149,7 @@ header('Access-Control-Allow-Origin: *');
 	200 OK
 	201 Created
 	202 Accepted
+	204 No Content : 成功狀態碼表明請求成功，但客戶端不需要更新目前的頁面
 + 3xx 重新導向
 	301 永久導向
 	302 暫時導向

@@ -156,6 +156,15 @@ index_generator:
   per_page: 10  #一頁顯示的文章量 (0 = 關閉分頁功能)
   order_by: -date
 ```
+
+###  _config.next.yml (for 列出所有搜尋結果)
+``` yaml
+  # Show top n results per article, show all results by setting to -1
+  # top_n_per_article: 1
+  # change show all result
+  top_n_per_article: -1
+```
+
 <br> 
 
 ## md檔 設定
