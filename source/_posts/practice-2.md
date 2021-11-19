@@ -183,7 +183,7 @@ export default function Layout({
         <h2>{title}</h2>
         <p className="lead">{description}</p>
       </div>
-      <div className="className">{children}</div>
+      <div className={className}>{children}</div>
     </div>
   );
 }
@@ -242,7 +242,6 @@ const Menu = (props) => {
 export default Menu;
 ```
 
-
 #### set env
 
 ##### ./.env
@@ -256,5 +255,442 @@ REACT_APP_API_URL=http://localhost:8000/api
 export const API = process.env.REACT_APP_API_URL;
 ```
 
+### add Singup, Singin and Singout
+#### ./src/core/Menu.js
+``` js
+// ./src/core/Menu.js
+import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// add history, doesn't install
+import { createBrowserHistory } from "history";
+import { signout, isAuthenticated } from "../auth";
 
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#ff9900" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default Menu;
+```
+
+#### ./src/auth/index.js
+``` js
+// ./src/auth/index.js
+// import { getNodeText } from "@testing-library/react";
+import { API } from "../config";
+
+export const signup = (user) => {
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      // then 處理, 若有 check data 要加 retuen
+      .then((data) => {
+        // console.log("data:", data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+      })
+  );
+};
+
+export const signin = (user) => {
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/signin`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      // then 處理, 若有 check data 要加 retuen
+      // .then((data) => {
+      //   console.log("data:", data);
+      //   return data;
+      // })
+      .catch((err) => {
+        console.log("signup err:", err);
+      })
+  );
+};
+
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("jwt", JSON.stringify(data));
+    next();
+  }
+};
+
+export const signout = (next) => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("jwt");
+    next();
+    fetch(`${API}/signout`, {
+      method: "GET",
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      // .then((response) => {
+      //   console.log("signout", response);
+      // })
+      .catch((err) => console.log(err));
+  }
+};
+
+export const isAuthenticated = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  if (localStorage.getItem("jwt")) {
+    return JSON.parse(localStorage.getItem("jwt"));
+  } else {
+    return false;
+  }
+};
+
+// [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq)
+/* <input type="password" name="password" autocomplete="on"></input> */
+```
+
+#### ./src/user/Signin.js
+``` js
+// ./src/user/Signin.js
+import React, { useState } from "react";
+// v6 change Redirect to Navigate
+import { Navigate } from "react-router-dom";
+import Layout from "../core/Layout";
+import { signin, authenticate } from "../auth";
+
+export default function Singin() {
+  const [values, setValues] = useState({
+    email: "key6@gmail.com",
+    password: "rrrrrr5",
+    error: "",
+    loading: false,
+    redirectToReferrer: false,
+  });
+
+  const { email, password, error, loading, redirectToReferrer } = values;
+
+  function handelChange(e) {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handelSubmit(e) {
+    e.preventDefault();
+
+    setValues({
+      ...values,
+      error: "",
+      loading: true,
+    });
+
+    // catch 傳回用 .then 處理
+    signin({ email, password }).then((data) => {
+      // undefidata === undefined 表 server 未回應
+      if (data === undefined) {
+        // console.log("Server not response");
+        setValues({
+          ...values,
+          error: "Server not response",
+          loading: false,
+        });
+      } else if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+          loading: false,
+        });
+      } else {
+        // console.log("data:", data);
+        authenticate(data, () => {
+          setValues({
+            ...values,
+            error: "",
+            redirectToReferrer: true,
+          });
+        });
+      }
+    });
+  }
+
+  // 使用此種寫法不用加 {} and retuen
+  const signInForm = () => (
+    <form>
+      <div className="form-group">
+        <label className="text-muted">Email</label>
+        <input
+          onChange={handelChange}
+          name="email"
+          type="text"
+          className="form-control"
+          value={email}
+        />
+      </div>
+      <div className="form-group">
+        <label className="text-muted">Password</label>
+        <input
+          onChange={handelChange}
+          name="password"
+          type="password"
+          className="form-control"
+          value={password}
+        />
+      </div>
+      <button onClick={handelSubmit} className="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showError = () => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </div>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showLoading = () =>
+    loading && (
+      <div className="alert alert-info">
+        <h2>Loading...</h2>
+      </div>
+    );
+
+  // 使用此種寫法不用加 {} and retuen
+  const redirectUser = () => {
+    if (redirectToReferrer) {
+      return <Navigate to="/" />;
+    }
+  };
+
+  return (
+    <Layout
+      title="Singup Page"
+      description="Singup to Node React E-commerce"
+      className="container col-md-6 col-md-3"
+    >
+      {showError()}
+      {showLoading()}
+      {signInForm()}
+      {redirectUser()}
+    </Layout>
+  );
+}
+
+```
+
+#### ./src/user/Signup.js
+``` js
+//  ./src/user/Signup.js
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { signup } from "../auth";
+
+export default function Singup() {
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    error: "",
+    success: false,
+  });
+
+  const { name, email, password, error, success } = values;
+
+  function handelChange(e) {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handelSubmit(e) {
+    e.preventDefault();
+    // catch 傳回用 .then 處理
+    signup({ name, email, password }).then((data) => {
+      // undefidata === undefined 表 server 未回應
+      if (data === undefined) {
+        // console.log("Server not response");
+        setValues({
+          ...values,
+          error: "Server not response",
+          success: false,
+        });
+      } else if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+          success: false,
+        });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          email: "",
+          password: "",
+          error: "",
+          success: true,
+        });
+      }
+    });
+  }
+
+  // 使用此種寫法不用加 {} and retuen
+  const signUpForm = () => (
+    <form>
+      <div className="form-group">
+        <label className="text-muted">Name</label>
+        <input
+          onChange={handelChange}
+          name="name"
+          type="text"
+          className="form-control"
+          value={name}
+        />
+      </div>
+      <div className="form-group">
+        <label className="text-muted">Email</label>
+        <input
+          onChange={handelChange}
+          name="email"
+          type="text"
+          className="form-control"
+          value={email}
+        />
+      </div>
+      <div className="form-group">
+        <label className="text-muted">Password</label>
+        <input
+          onChange={handelChange}
+          name="password"
+          type="password"
+          className="form-control"
+          value={password}
+        />
+      </div>
+      <button onClick={handelSubmit} className="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showError = () => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </div>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showSuccess = () => (
+    <div
+      className="alert alert-info"
+      style={{ display: success ? "" : "none" }}
+    >
+      New acount is coreated. Please <Link to="/signin">Sigin</Link>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Singup Page"
+      description="Singup to Node React E-commerce"
+      className="container col-md-6 col-md-3"
+    >
+      {showError()}
+      {showSuccess()}
+      {signUpForm()}
+    </Layout>
+  );
+}
+```
 

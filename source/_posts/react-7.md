@@ -393,3 +393,278 @@ isEmpty([1, 2, 3]); // => false
 isEmpty({ 'a': 1 }); // => false
 ```
 
+### react-router-dom v5 to v6
+ + change Switch to Routes
+ + component put to element 
+ + change useHistory to Navigate
+#### react-router-dom v5
+##### Switch
+``` js
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+
+export default function App() {
+  const [user, setUser] = useState();
+  const [isDone, setIsDone] = useState(false);
+  // const isDone = useRef(false);
+  
+  useEffect(() =>{
+    const token = getAuthToken();
+    if (token) {
+      getMe().then(resp =>{
+        if (resp.ok === 1) {
+          setUser(resp.data);
+        }
+      });
+    }
+    setIsDone(true);
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{user, setUser}}>
+      <Root>
+        <Header done={isDone} />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path="/posts/:slug">
+            <BlogPost />
+          </Route>
+          <Route path="/new-post">
+            <CreatePage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+        </Switch>
+      </Root>
+    </AuthContext.Provider>
+  );
+}
+```
+
+##### useHistory
+``` js
+import { Link, useLocation, useHistory } from "react-router-dom";
+
+export default function Header({done}) {
+  const location = useLocation();
+  const history = useHistory();
+  const { user, setUser } = useContext(AuthContext); 
+
+  const handleLogout = () => {
+    setAuthToken('');
+    setUser(null);
+    if (location.pathname !==  "/") {
+      history.push('/');
+    } 
+  };
+
+  return (
+    <HeaderConainer>
+      <LeftContainer>
+        <Brand >部落格</Brand>
+        <NavbarList>
+          <Nav to="/" $active={location.pathname ===  "/"} >首頁</Nav>
+          { (user && done)&& <Nav to="/new-post" $active={location.pathname ===  "/new-post"} >發佈文章</Nav>}
+        </NavbarList>
+      </LeftContainer>
+      <NavbarList>
+        {(!user && done) && <Nav to="/login" $active={location.pathname ===  "/login"}>登入</Nav>}
+        {(user && done)  && <Nav to="#" onClick={handleLogout}>登出</Nav>}
+      </NavbarList>
+    </HeaderConainer>
+  );
+}
+```
+
+##### Redirect 
+``` js
+import { Switch, Route, Redirect } from "react-router-dom";
+
+function App() {
+  return (
+    <Switch>
+      <Route path="/home">
+        <HomePage />
+      </Route>
+			// if path "" redirect to "/home
+      <Redirect from="/" to="/home" />
+    </Switch>
+  );
+}
+```
+
+#### react-router-dom v6
+##### BrowserRouter +  Routes + element
+ ``` js
+//  react-router-dom V6
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+export default function AppRoutes() {
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+ ```
+
+##### useNavigate 
+``` js
+//  react-router-dom V6
+import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+```
+
+### [history](https://github.com/remix-run/history/blob/8bef6f4d50548f46ab7c97e171b3d8634093e7a7/docs/installation.md)
+``` js
+import { createBrowserHistory } from "history";
+
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#ff9900" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+```
+
+### 參考資料
++ [react-router-dom v6 document](https://reactrouter.com/docs/en/v6)
++ [react-router-dom v5 document](https://v5.reactrouter.com/web/guides/quick-start)
