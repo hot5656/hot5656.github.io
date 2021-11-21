@@ -694,3 +694,505 @@ export default function Singup() {
 }
 ```
 
+### add Admin/user Dashboard
+#### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+#### ./src/core/Menu.js
+``` js
+// ./src/core/Menu.js
+import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// add history, doesn't install
+import { createBrowserHistory } from "history";
+import { signout, isAuthenticated } from "../auth";
+
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#ff9900" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default Menu;
+```
+
+#### ./src/user/Signin.js
+``` js
+// ./src/user/Signin.js
+import React, { useState } from "react";
+// v6 change Redirect to Navigate
+import { Navigate } from "react-router-dom";
+import Layout from "../core/Layout";
+import { signin, authenticate, isAuthenticated } from "../auth";
+
+export default function Singin() {
+  const [values, setValues] = useState({
+    email: "key6@gmail.com",
+    password: "rrrrrr5",
+    error: "",
+    loading: false,
+    redirectToReferrer: false,
+  });
+
+  const { email, password, error, loading, redirectToReferrer } = values;
+  const { user } = isAuthenticated();
+
+  function handelChange(e) {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handelSubmit(e) {
+    e.preventDefault();
+
+    setValues({
+      ...values,
+      error: "",
+      loading: true,
+    });
+
+    // catch 傳回用 .then 處理
+    signin({ email, password }).then((data) => {
+      // undefidata === undefined 表 server 未回應
+      if (data === undefined) {
+        // console.log("Server not response");
+        setValues({
+          ...values,
+          error: "Server not response",
+          loading: false,
+        });
+      } else if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+          loading: false,
+        });
+      } else {
+        // console.log("data:", data);
+        authenticate(data, () => {
+          setValues({
+            ...values,
+            error: "",
+            redirectToReferrer: true,
+          });
+        });
+      }
+    });
+  }
+
+  // 使用此種寫法不用加 {} and retuen
+  const signInForm = () => (
+    <form>
+      <div className="form-group">
+        <label className="text-muted">Email</label>
+        <input
+          onChange={handelChange}
+          name="email"
+          type="text"
+          className="form-control"
+          value={email}
+          autoComplete="email"
+        />
+      </div>
+      <div className="form-group">
+        <label className="text-muted">Password</label>
+        <input
+          onChange={handelChange}
+          name="password"
+          type="password"
+          className="form-control"
+          value={password}
+          autoComplete="new-password"
+        />
+      </div>
+      <button onClick={handelSubmit} className="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showError = () => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </div>
+  );
+
+  // 使用此種寫法不用加 {} and retuen
+  const showLoading = () =>
+    loading && (
+      <div className="alert alert-info">
+        <h2>Loading...</h2>
+      </div>
+    );
+
+  // 使用此種寫法不用加 {} and retuen
+  const redirectUser = () => {
+    if (redirectToReferrer) {
+      if (user && user.role === 1) {
+        return <Navigate to="/admin/dashboard" />;
+      } else {
+        return <Navigate to="/user/dashboard" />;
+      }
+    }
+
+    // loggin already, redirect to /
+    if (isAuthenticated()) {
+      return <Navigate to="/" />;
+    }
+  };
+
+  return (
+    <Layout
+      title="Singup Page"
+      description="Singup to Node React E-commerce"
+      className="container col-md-6 col-md-3"
+    >
+      {showError()}
+      {showLoading()}
+      {signInForm()}
+      {redirectUser()}
+    </Layout>
+  );
+}
+```
+
+#### ./src/auth/AdminAuth.js
+``` js
+// ./src/auth/AdminAuth.js
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { isAuthenticated } from "./index";
+
+// check children: JSX.Element
+export default function AdimnRequireAuth({
+  children,
+}: {
+  children: JSX.Element,
+}) {
+  let location = useLocation();
+  if (!isAuthenticated() || isAuthenticated().user.role !== 1) {
+    console.log("not isAuthenticated");
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/signin" state={{ from: location }} />;
+  }
+
+  return children;
+}
+```
+
+#### ./src/auth/UserAuth.js
+``` js
+// ./src/auth/UserAuth.js
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { isAuthenticated } from "./index";
+
+// check children: JSX.Element
+export default function UserRequireAuth({
+  children,
+}: {
+  children: JSX.Element,
+}) {
+  let location = useLocation();
+  if (!isAuthenticated()) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/signin" state={{ from: location }} />;
+  }
+
+  return children;
+}
+```
+
+#### ./src/core/AdminDashboard.js
+``` js
+// ./src/core/AdminDashboard.js
+import React from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+
+export default function AdmintDashboard() {
+  const {
+    user: { name, email, role },
+  } = isAuthenticated();
+
+  const adminLinks = () => (
+    <div className="card">
+      <h3 className="card-header">Admin Links</h3>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <Link className="nav-link" to="/create/category">
+            Create Category
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/create/product">
+            Create Product
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  const adminInfo = () => (
+    <div className="card">
+      <h3 className="card-header">{`G'Day ${name}!`}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{name}</li>
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">
+          {role === 1 ? "Admin" : "Registrred User"}
+        </li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Dashboard Page"
+      description="User Dashboard"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-3">{adminLinks()}</div>
+        <div className="col-9">{adminInfo()}</div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+#### ./src/core/UserDashboard.js
+``` js
+// ./src/core/UserDashboard.js
+import React from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+
+export default function UsertDashboard() {
+  const {
+    user: { name, email, role },
+  } = isAuthenticated();
+
+  const userLinks = () => (
+    <div className="card">
+      <h3 className="card-header">User Links</h3>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <Link className="nav-link" to="/cart">
+            My Cart
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/profile/update">
+            Update Profile
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  const userInfo = () => (
+    <div className="card">
+      <h3 className="card-header">{`G'Day ${name}!`}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{name}</li>
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">
+          {role === 1 ? "Admin" : "Registrred User"}
+        </li>
+      </ul>
+    </div>
+  );
+
+  const purchaseHistory = () => (
+    <div className="card">
+      <ul className="list-group">
+        <li className="list-group-item">histtory</li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Dashboard Page"
+      description="User Dashboard"
+      className="container-fluid"
+    >
+      {/* <div className="card md-5">
+        <h3 className="card-header">User Information</h3>
+        <ul className="list-group">
+          <li className="list-group-item">{name}</li>
+          <li className="list-group-item">{email}</li>
+          <li className="list-group-item">
+            {role === 1 ? "Admin" : "Registrred User"}
+          </li>
+        </ul>
+      </div> */}
+
+      {/* <div className="card md-5">
+        <h3 className="card-header">Purchase history</h3>
+        <ul className="list-group">
+          <li className="list-group-item">histtory</li>
+        </ul>
+      </div> */}
+      <div className="row">
+        <div className="col-3">{userLinks()}</div>
+        <div className="col-9">
+          {userInfo()}
+          {purchaseHistory()}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+
+### 參考資料
++ [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)

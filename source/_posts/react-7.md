@@ -503,7 +503,7 @@ function App() {
  ``` js
 //  react-router-dom V6
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export default function AppRoutes() {
   return (
@@ -516,6 +516,8 @@ export default function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          // Redirect
+          <Route path="/home" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -590,6 +592,55 @@ const Menu = (props) => {
   );
 };
 ```
+
+##### Authentication
+``` js
+function AppRoutes() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+// 驗證 function()
+function UserRequireAuth({
+  children,
+}: {
+  children: JSX.Element,
+}) {
+  let location = useLocation();
+  if (!isAuthenticated()) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/signin" state={{ from: location }} />;
+  }
+
+  return children;
+}
+
+// 顯示內容
+function UserDashboard() {
+  return (<h2>User Dashboard<h2>);
+}
+```
+
 
 ### [history](https://github.com/remix-run/history/blob/8bef6f4d50548f46ab7c97e171b3d8634093e7a7/docs/installation.md)
 ``` js

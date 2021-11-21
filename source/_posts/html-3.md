@@ -21,5 +21,40 @@ tags:
 
 <!--more-->
 
+### [DOM] Input elements should have autocomplete attributes (suggested: "current-password")
+add autoComplete
+``` js
+  // 使用此種寫法不用加 {} and retuen
+  const signInForm = () => (
+    <form>
+      <div className="form-group">
+        <label className="text-muted">Email</label>
+        <input
+          onChange={handelChange}
+          name="email"
+          type="text"
+          className="form-control"
+          value={email}
+          autoComplete="email"
+        />
+      </div>
+      <div className="form-group">
+        <label className="text-muted">Password</label>
+        <input
+          onChange={handelChange}
+          name="password"
+          type="password"
+          className="form-control"
+          value={password}
+          autoComplete="new-password"
+        />
+      </div>
+      <button onClick={handelSubmit} className="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  );
+```
+
 
 
