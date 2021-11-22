@@ -838,7 +838,8 @@ exports.create = (req, res) => {
         error: errorHandler(err),
       });
     }
-    res.json({ data });
+    // fix 含 data 欄位
+    res.json( data );
   });
 };
 
@@ -867,7 +868,8 @@ exports.update = (req, res) => {
         error: errorHandler(err),
       });
     }
-    res.json({ data });
+    // fix 含 data 欄位
+    res.json( data );
   });
 };
 
@@ -878,7 +880,8 @@ exports.list = (req, res) => {
         error: errorHandler(err),
       });
     }
-    res.json({ data });
+    // fix 含 data 欄位
+    res.json( data );
   });
 };
 ```
@@ -1865,7 +1868,7 @@ Headers :
 + response
 ``` js
 {
-    "data": {
+    {
         "name": "Python",
         "_id": "6191b9327a4a9765fa7ae859",
         "createdAt": "2021-11-15T01:34:42.504Z",
@@ -1908,7 +1911,7 @@ Headers :
 + response
 ``` js
 {
-    "data": {
+    {
         "_id": "6191b9327a4a9765fa7ae859",
         "name": "Python update",
         "createdAt": "2021-11-15T01:34:42.504Z",
@@ -1940,7 +1943,7 @@ Headers :
 + response
 ``` js
 {
-    "data": [
+    [
         {
             "_id": "618cccaac104434a41b7e4e7",
             "name": "Node",
