@@ -1,11 +1,11 @@
 ---
 title: JavaScript tricky
-abbrlink: Coding
-date: 2021-05-29 13:57:32
-categories:
+abbrlink: '8e28'
+categories: Coding
 tags:
-	- javascript
-	- tricky
+  - javascript
+  - tricky
+date: 2021-05-29 13:57:32
 ---
 
 ### escape HTML function

@@ -4,6 +4,7 @@ abbrlink: 82e
 date: 2021-11-16 10:16:11
 categories: Project
 tags:
+	- react
 ---
 
 ### Create app + layout
@@ -449,14 +450,14 @@ export default function Singin() {
 
   const { email, password, error, loading, redirectToReferrer } = values;
 
-  function handelChange(e) {
+  function handleChange(e) {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   }
 
-  function handelSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     setValues({
@@ -500,7 +501,7 @@ export default function Singin() {
       <div className="form-group">
         <label className="text-muted">Email</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="email"
           type="text"
           className="form-control"
@@ -510,14 +511,14 @@ export default function Singin() {
       <div className="form-group">
         <label className="text-muted">Password</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="password"
           type="password"
           className="form-control"
           value={password}
         />
       </div>
-      <button onClick={handelSubmit} className="btn btn-primary">
+      <button onClick={handleSubmit} className="btn btn-primary">
         Submit
       </button>
     </form>
@@ -583,14 +584,14 @@ export default function Singup() {
 
   const { name, email, password, error, success } = values;
 
-  function handelChange(e) {
+  function handleChange(e) {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   }
 
-  function handelSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     // catch 傳回用 .then 處理
     signup({ name, email, password }).then((data) => {
@@ -627,7 +628,7 @@ export default function Singup() {
       <div className="form-group">
         <label className="text-muted">Name</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="name"
           type="text"
           className="form-control"
@@ -637,7 +638,7 @@ export default function Singup() {
       <div className="form-group">
         <label className="text-muted">Email</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="email"
           type="text"
           className="form-control"
@@ -647,14 +648,14 @@ export default function Singup() {
       <div className="form-group">
         <label className="text-muted">Password</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="password"
           type="password"
           className="form-control"
           value={password}
         />
       </div>
-      <button onClick={handelSubmit} className="btn btn-primary">
+      <button onClick={handleSubmit} className="btn btn-primary">
         Submit
       </button>
     </form>
@@ -869,14 +870,14 @@ export default function Singin() {
   const { email, password, error, loading, redirectToReferrer } = values;
   const { user } = isAuthenticated();
 
-  function handelChange(e) {
+  function handleChange(e) {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   }
 
-  function handelSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     setValues({
@@ -920,7 +921,7 @@ export default function Singin() {
       <div className="form-group">
         <label className="text-muted">Email</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="email"
           type="text"
           className="form-control"
@@ -931,7 +932,7 @@ export default function Singin() {
       <div className="form-group">
         <label className="text-muted">Password</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="password"
           type="password"
           className="form-control"
@@ -939,7 +940,7 @@ export default function Singin() {
           autoComplete="new-password"
         />
       </div>
-      <button onClick={handelSubmit} className="btn btn-primary">
+      <button onClick={handleSubmit} className="btn btn-primary">
         Submit
       </button>
     </form>
@@ -1569,7 +1570,7 @@ export default function AddCategory() {
 
   const { name, error, success } = values;
 
-  function handelChange(e) {
+  function handleChange(e) {
     setValues({
       ...values,
       error: "",
@@ -1577,7 +1578,7 @@ export default function AddCategory() {
     });
   }
 
-  function handelSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     setValues({
@@ -1605,11 +1606,11 @@ export default function AddCategory() {
 
   // 使用此種寫法不用加 {} and retuen
   const newCategoryForm = () => (
-    <form onSubmit={handelSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label className="text-muted">Name</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="name"
           type="text"
           className="form-control"
@@ -1729,7 +1730,7 @@ export default function AddProduct() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handelChange(e) {
+  function handleChange(e) {
     const name = e.target.name;
     const value = name === "photo" ? e.target.files[0] : e.target.value;
     // set formData's velue
@@ -1740,7 +1741,7 @@ export default function AddProduct() {
     });
   }
 
-  function handelSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     setValues({
@@ -1772,13 +1773,13 @@ export default function AddProduct() {
 
   // // 使用此種寫法不用加 {} and retuen
   const newProductForm = () => (
-    <form onSubmit={handelSubmit} className="mb-3">
+    <form onSubmit={handleSubmit} className="mb-3">
       <h4>Post Photo</h4>
       <div className="form-group">
         <label className="btn btn-secondary">
           <input
             id="photo_uploades"
-            onChange={handelChange}
+            onChange={handleChange}
             name="photo"
             type="file"
             accepr="image/*"
@@ -1787,7 +1788,7 @@ export default function AddProduct() {
         <br />
         <label className="text-muted">Name</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="name"
           type="text"
           className="form-control"
@@ -1795,7 +1796,7 @@ export default function AddProduct() {
         />
         <label className="text-muted">Description</label>
         <textarea
-          onChange={handelChange}
+          onChange={handleChange}
           name="description"
           type="text"
           className="form-control"
@@ -1803,7 +1804,7 @@ export default function AddProduct() {
         />
         <label className="text-muted">Price</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="price"
           type="text"
           className="form-control"
@@ -1811,7 +1812,7 @@ export default function AddProduct() {
         />
         <label className="text-muted">Category</label>
         <select
-          onChange={handelChange}
+          onChange={handleChange}
           name="category"
           className="form-control"
         >
@@ -1827,7 +1828,7 @@ export default function AddProduct() {
         </select>
         <label className="text-muted">Shipping</label>
         <select
-          onChange={handelChange}
+          onChange={handleChange}
           name="shipping"
           className="form-control"
         >
@@ -1837,7 +1838,7 @@ export default function AddProduct() {
         </select>
         <label className="text-muted">Quantity</label>
         <input
-          onChange={handelChange}
+          onChange={handleChange}
           name="quantity"
           type="number"
           className="form-control"
@@ -1888,6 +1889,546 @@ export default function AddProduct() {
         </div>
       </div>
     </Layout>
+  );
+}
+```
+
+
+### add Shop page + Category, Price filter
+#### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+
+#### ./src/core/Menu.js
+``` js
+// ./src/core/Menu.js
+import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// add history, doesn't install
+import { createBrowserHistory } from "history";
+import { signout, isAuthenticated } from "../auth";
+
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#ff9900" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/shop")}
+            to="/shop"
+          >
+            Shop
+          </Link>
+        </li>
+
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default Menu;
+```
+
+
+#### ./src/core/Shop.js
+``` js
+// ./src/core/Shop.js
+import React, { useState, useEffect } from "react";
+import Layout from "./Layout";
+import Card from "./Card";
+import { getCategories, getFilteredProducts } from "./apiCore";
+import Checkbox from "./Checkbox";
+import Radiobox from "./Radiobox";
+import { prices } from "./fixPrices";
+
+export default function Shop() {
+  const [categories, setCategories] = useState([]);
+  const [myFilters, setMyFilters] = useState({
+    filters: {
+      category: [],
+      price: [],
+    },
+  });
+  const [error, setError] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [limit, setLimit] = useState(6);
+  const [skip, setSkip] = useState(0);
+  const [size, setSize] = useState(0);
+  const [filteredResult, setFilteredResult] = useState([]);
+
+  const init = () => {
+    getCategories().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        // FormData 可建立表單資料中的欄位/值建立相對應的的鍵/值對（key/value）集合
+        setCategories(data);
+      }
+    });
+  };
+
+  function loaderFilterResults(newFilters) {
+    // console.log(newFilters);
+    getFilteredProducts(skip, limit, newFilters).then((data) => {
+      // console.log(data);
+      if (data.error) {
+        setError(data.error);
+        setFilteredResult([]);
+      } else {
+        setFilteredResult(data.data);
+        setSize(data.size);
+        setSkip(0);
+      }
+    });
+  }
+
+  function loadMore() {
+    let toSkip = skip + limit;
+    getFilteredProducts(toSkip, limit, myFilters.filters).then((data) => {
+      // console.log(data);
+      if (data.error) {
+        setError(data.error);
+        setFilteredResult([]);
+      } else {
+        setFilteredResult([...filteredResult, ...data.data]);
+        setSize(data.size);
+        setSkip(toSkip);
+      }
+    });
+  }
+
+  function loadMoreButton() {
+    return (
+      size > 0 &&
+      size >= limit && (
+        <button onClick={loadMore} className="btn btn-warning mb-5">
+          Load more
+        </button>
+      )
+    );
+  }
+
+  useEffect(() => {
+    init();
+    loaderFilterResults(myFilters.filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleFilters = (filters, filterBy) => {
+    // console.log("Shop", filters, filterBy);
+    const newFilters = { ...myFilters };
+    newFilters.filters[filterBy] = filters;
+
+    if (filterBy === "price") {
+      let priceValue = handlePrice(filters);
+      newFilters.filters[filterBy] = priceValue;
+    }
+    loaderFilterResults(myFilters.filters);
+    setMyFilters(newFilters);
+  };
+
+  function handlePrice(value) {
+    const data = prices;
+    let array = [];
+
+    for (let key in data) {
+      if (data[key]._id === parseInt(value)) {
+        array = data[key].array;
+      }
+    }
+    return array;
+  }
+
+  const showError = () => {
+    if (error) {
+      return <h3 className="text-danger">Category should be unique</h3>;
+    }
+  };
+
+  // console.log(filteredResult);
+  return (
+    <Layout
+      title="Shop Page"
+      description="Search and find books of your choice"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-4">
+          <h4>Fillter by categories</h4>
+          <ul>
+            <Checkbox
+              categories={categories}
+              handleFilters={(filters) => handleFilters(filters, "category")}
+            />
+          </ul>
+          <h4>Fillter by price range</h4>
+          <div>
+            <Radiobox
+              prices={prices}
+              handleFilters={(filters) => handleFilters(filters, "price")}
+            />
+          </div>
+        </div>
+        <div className="col-8">
+          {showError()}
+          <h2 className="mb-4">Products</h2>
+          <div className="row">
+            {filteredResult.map((product, i) => (
+              <Card key={i} product={product}></Card>
+            ))}
+          </div>
+          <hr />
+          {loadMoreButton()}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+
+#### ./src/core/Checkbox.js
+``` js
+// ./src/core/Checkbox.js
+/* eslint-disable array-callback-return */
+import React, { useState } from "react";
+
+export default function Checkbox({ categories, handleFilters }) {
+  const [checked, setChecked] = useState([]);
+
+  // ***--->>> event include parameter
+  const handleToggle = (c) => (e) => {
+    // return the first index or -1
+    const currentCategoryId = checked.indexOf(c);
+    const newCheckedCategoryId = [...checked];
+    // if current checked was not already in checked state > push
+    // else pull/take off
+    if (currentCategoryId === -1) {
+      newCheckedCategoryId.push(c);
+    } else {
+      newCheckedCategoryId.splice(currentCategoryId, 1);
+    }
+    // console.log(newCheckedCategoryId);
+    setChecked(newCheckedCategoryId);
+    handleFilters(newCheckedCategoryId);
+  };
+
+  return categories.map((c, i) => (
+    <li key={i} className="list-unstyled">
+      {/* value=false -->not select  */}
+      {/* ***--->>> event include parameter */}
+      <input
+        onChange={handleToggle(c._id)}
+        value={checked.indexOf(c._id) === -1}
+        type="checkbox"
+        className="form-check-input"
+      />
+      <label htmlFor="form-check-label">{c.name}</label>
+    </li>
+  ));
+}
+```
+
+
+#### ./src/core/Radiobox.js
+``` js
+// ./src/core/Radiobox.js
+/* eslint-disable array-callback-return */
+import React from "react";
+
+export default function Radiobox({ prices, handleFilters }) {
+  // const [value, setValue] = useState([]);
+
+  function handleChange(e) {
+    // console.log(e.target.value);
+    handleFilters(e.target.value);
+    // setValue(e.target.value);
+  }
+
+  return prices.map((p, i) => (
+    <div key={i} className="list-unstyled">
+      <input
+        name="price"
+        onChange={handleChange}
+        value={p._id}
+        type="radio"
+        className="mr-2 ml-4"
+      />
+      <label htmlFor="form-check-label">{p.name}</label>
+    </div>
+  ));
+}
+```
+
+
+#### ./src/core/fixPrices.js
+``` js
+// ./src/core/fixPrices.js
+export const prices = [
+  {
+    _id: 0,
+    name: "Any",
+    array: [],
+  },
+  {
+    _id: 1,
+    name: "$0 to $9",
+    array: [0, 9],
+  },
+  {
+    _id: 2,
+    name: "$10 to $19",
+    array: [10, 19],
+  },
+  {
+    _id: 3,
+    name: "$20 to $29",
+    array: [20, 29],
+  },
+  {
+    _id: 4,
+    name: "$30 to $39",
+    array: [30, 39],
+  },
+  {
+    _id: 5,
+    name: "More then $40",
+    array: [40, 99],
+  },
+];
+```
+
+
+#### ./src/admin/ApiCore.js
+``` js
+// ./src/admin/ApiCore.js
+import { API } from "../config";
+
+export const getProducts = (sortBy) => {
+  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getFilteredProducts = (skip, limit, filters) => {
+  const data = { limit, skip, filters };
+  // console.log(data);
+
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/products/by/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+      })
+  );
+};
+```
+
+
+#### ./src/core/Card.js
+``` js
+// ./src/core/Card.js
+/* eslint-disable react/prop-types */
+import React from "react";
+import { Link } from "react-router-dom";
+import ShowImage from "./ShowImage";
+
+export default function Card({ product }) {
+  // console.log(product);
+  return (
+    <div className="col-4 mb-3">
+      <div className="card">
+        <div className="card-header">{product.name}</div>
+        <div className="card-body">
+          <ShowImage item={product} url="product" />
+          <p>{`<<${product.category.name}>>`}</p>
+          <p>{product.description.substring(0, 10)}</p>
+          <p>${product.price}</p>
+          <Link to="/">
+            <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
+              View Product
+            </button>
+          </Link>
+          <button className="btn btn-outline-warning mt-2 mb-2">
+            Add to card
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 ```
