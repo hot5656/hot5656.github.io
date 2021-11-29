@@ -498,6 +498,17 @@ function App() {
 }
 ```
 
+##### get parameter ( need route&apos;s component)
+``` js
+function Product (props) {
+    useEffect(() => {
+        // get parameter
+        const productId = props.match.params.productId;
+        loadSingleProduct(productId);
+    }, [props]);
+}
+```
+
 #### react-router-dom v6
 ##### BrowserRouter +  Routes + element
  ``` js
@@ -638,6 +649,24 @@ function UserRequireAuth({
 // 顯示內容
 function UserDashboard() {
   return (<h2>User Dashboard<h2>);
+}
+```
+
+##### get parameter
+``` js
+import { useParams } from "react-router-dom";
+
+const Product = () => {
+  const params = useParams();
+  
+  useEffect(() => {
+    // react-router-dom v6 get parameter
+    const productId = params.productId;
+    locaSingleProduct(productId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  retrun (...);
 }
 ```
 

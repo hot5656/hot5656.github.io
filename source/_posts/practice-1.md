@@ -2331,4 +2331,5 @@ Headers :
 + [MERN Stack React Node Ecommerce from Scratch to Deployment](https://www.udemy.com/course/react-node-ecommerce/)
 + [react-node-ecommerce](https://github.com/kaloraat/react-node-ecommerce)
 + [MongoDB Atlas](https://www.mongodb.com/atlas/database)
++ [MongoDB document($regex)](https://docs.mongodb.com/manual/reference/operator/query/regex/)
 + [Build a MERN web app](https://developer.ibm.com/patterns/build-a-mern-web-app/)

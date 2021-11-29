@@ -816,6 +816,41 @@ app.listen(80, function () {
 })
 ```
 
+#### [query-string](https://www.npmjs.com/package/query-string):query string 處理
+``` js
+const queryString = require('query-string');
+console.log(location.search);
+//=> '?foo=bar'
+
+const parsed = queryString.parse(location.search);
+console.log(parsed);
+//=> {foo: 'bar'}
+
+console.log(location.hash);
+//=> '#token=bada55cafe'
+const parsedHash = queryString.parse(location.hash);
+console.log(parsedHash);
+//=> {token: 'bada55cafe'}
+
+parsed.foo = 'unicorn';
+parsed.ilike = 'pizza';
+const stringified = queryString.stringify(parsed);
+//=> 'foo=unicorn&ilike=pizza'
+```
+
+#### [moment](https://www.npmjs.com/package/moment): script data library
+``` js
+// show 距現在多久
+moment(product.createdAt).fromNow() // 15 days ago
+moment([2007, 0, 29]).fromNow(); // 4 years ago
+// display 
+moment().format();                                // "2014-09-08T08:02:17-05:00" (ISO 8601, no fractional seconds)
+moment().format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+moment().format("ddd, hA");                       // "Sun, 3PM"
+moment().format("[Today is] dddd");               // "Today is Sunday"
+moment('20.07.2018 09:19', moment.defaultFormat).toDate() // Fri Jul 20 2018 09:19:00 GMT+0300
+```
+
 
 ### npm config
 ``` bash

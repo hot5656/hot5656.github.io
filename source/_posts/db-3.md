@@ -153,23 +153,78 @@ myFirstDataBase 為 default DB name, 可改為其他名稱
 	{% asset_img pic31.png pic31 %}
 </div>
 
-### MongoDB Schema
-#### type
+### MongoDB 
+#### Schema
+##### type
 + String
 + Number
 + Array
++ ObjectId
++ Boolean
 
-#### default 
+##### special 
++ map to other 
+``` js
+category: {
+  type: ObjectId,
+  ref: "Category",
+  required: true,
+},
+```
+
++ photo
+``` js
+photo: {
+  data: Buffer,
+  contentType: String,
+},
+```
+
++ simple string
+``` js
+salt: String,
+```
+
+
+##### default 
 + 0
 + []
 
-#### othert field
+##### othert field
 + trim : true
-+ require: true
++ required: true
 + maxlength: 32
 + unique: 32
 + timestamps: true
 
+#### $regex
+``` js
+const query = {};
+query.name = { $regex: req.query.search, $options: "i" };
+Product.find(query, (err, products) => {
+	......
+}
+```
+
+#### control
++ Category.find().exec((err, data) => {}) : find all
++ Product.find({ _id: { $ne: req.product }, category: req.product.category }): find by consition, $ne: not include
++ Product.find(query, (err, products) => {}) : find direct run, not run exec
++ findById(id).exec((err, product) => {} ) : find by id
++ select("-photo") : remove field
++ populate("category") : link to another table
++ sort([[sortBy, order]]) : sort
++ skip(skip) : set skip
++ limit(limit) : set limit
++ remove((err, deletedProduct) => {} ) : remove
++ findOneAndUpdate() : find + update 
+``` js
+.findOneAndUpdate(
+  { _id: req.profile._id },
+  { $set: req.body },
+  { new: true },
+  (err, user) => {})
+```
 
 
 

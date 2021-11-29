@@ -2433,10 +2433,1569 @@ export default function Card({ product }) {
 }
 ```
 
-### 
+### add Products search
 #### install
 ``` bash
 npm i query-string
 ```
+
+#### Front End
+##### ./src/core/Home.js
+``` js
+// ./src/core/Home.js
+import React, { useState, useEffect } from "react";
+import Layout from "./Layout";
+import { getProducts } from "./apiCore";
+import Card from "./Card";
+import Search from "./Search";
+
+export default function Home() {
+  const [productsBySell, setProductsBySell] = useState([]);
+  const [productsByArrival, setProductsByArrival] = useState([]);
+  const [error, setError] = useState(false);
+
+  const loadProductsBySell = () => {
+    getProducts("sold").then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProductsBySell(data);
+      }
+    });
+  };
+
+  const loadProductsByArrival = () => {
+    getProducts("createdAt").then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProductsByArrival(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadProductsBySell();
+    loadProductsByArrival();
+  }, []);
+
+  const showError = () => {
+    if (error) {
+      return <h3 className="text-danger">error</h3>;
+    }
+  };
+
+  return (
+    <Layout
+      title="Home Page"
+      description="Node React E-commerce"
+      className="container-fluid"
+    >
+      <Search />
+      <h2 className="mb-4">Best Selles</h2>
+      <div className="row">
+        {productsBySell.map((product, i) => (
+          <Card key={i} product={product} />
+        ))}
+      </div>
+
+      {showError()}
+      <h2 className="mb-4">New Arrival</h2>
+      <div className="row">
+        {productsByArrival.map((product, i) => (
+          <Card key={i} product={product} />
+        ))}
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/Search.js
+``` js
+// ./src/core/Search.js
+import React, { useState, useEffect } from "react";
+import { getCategories, list } from "./apiCore";
+import Card from "./Card";
+
+export default function Search() {
+  const [data, setData] = useState({
+    categories: [],
+    category: "",
+    search: "",
+    results: [],
+    searched: false,
+  });
+
+  const { categories, category, search, results, searched } = data;
+
+  const loadCategories = () => {
+    getCategories().then((response) => {
+      if (response.error) {
+        console.log(response.error);
+      } else {
+        setData({ ...data, categories: response });
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function searchData() {
+    // console.log(search, category);
+    if (search) {
+      list({ search: search || undefined, category: category }).then(
+        (response) => {
+          if (response.error) {
+            console.log(response.error);
+          } else {
+            setData({ ...data, results: response, searched: true });
+          }
+        }
+      );
+    }
+  }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    searchData();
+  }
+
+  const handleChange = (name) => (e) => {
+    // setData({ ...data, [name]: e.target.value, searched: false });
+    setData({ ...data, [name]: e.target.value });
+  };
+
+  function searchMessage(searched, results) {
+    if (searched && results.length > 0) {
+      return `Found ${results.length} products`;
+    }
+    if (searched && results.length < 1) {
+      return `No products found`;
+    }
+  }
+
+  function searchProducts(results) {
+    return (
+      <div>
+        <h2 className="mt-4 mb-4">{searchMessage(searched, results)}</h2>
+        <div className="row">
+          {results.map((product, i) => (
+            <Card key={i} product={product} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function searchForm() {
+    return (
+      <form onSubmit={handleSearch}>
+        <span className="input-group-text">
+          <div className="input-group input-group-lg">
+            <div className="input-group-prepend">
+              <select className="btn mr-2" onChange={handleChange("category")}>
+                <option value="All">All</option>
+                {categories.map((c, i) => (
+                  <option key={i} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <input
+              type="search"
+              className="form-control"
+              onChange={handleChange("search")}
+              placeholder="Search by name"
+            />
+          </div>
+          <div className="btn inpu-group-append" style={{ border: "none" }}>
+            <button className="input-group-text">Search</button>
+          </div>
+        </span>
+      </form>
+    );
+  }
+  return (
+    <div className="row">
+      <div className="container mb-3">{searchForm()}</div>
+      <div className="container-fluid mb-3">{searchProducts(results)}</div>
+    </div>
+  );
+}
+```
+
+##### ./src/admin/ApiCore.js
+``` js
+// ./src/admin/ApiCore.js
+import { API } from "../config";
+import queryString from "query-string";
+
+export const getProducts = (sortBy) => {
+  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getFilteredProducts = (skip, limit, filters) => {
+  const data = { limit, skip, filters };
+  // console.log(data);
+
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/products/by/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+      })
+  );
+};
+
+export const list = (params) => {
+  const query = queryString.stringify(params);
+  return fetch(`${API}/products/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+```
+
+#### Bakc End
+##### ./routes/product.js
+``` js
+// ./routes/product.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const {
+  create,
+  productById,
+  read,
+  remove,
+  update,
+  list,
+  listSearch,
+  listRelated,
+  listCategories,
+  listBySearch,
+  photo,
+} = require("../controllers/product");
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+const { userById } = require("../controllers/user");
+
+router.get("/product/:productId", read);
+router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.delete(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  remove
+);
+router.put(
+  "/product/:productId/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  update
+);
+
+router.get("/products", list);
+router.get("/products/search", listSearch);
+router.get("/products/related/:productId", listRelated);
+router.get("/products/categories", listCategories);
+router.post("/products/by/search", listBySearch);
+router.get("/product/photo/:productId", photo);
+
+// product/create
+// userId 參數驗證
+router.param("userId", userById);
+router.param("productId", productById);
+
+module.exports = router;
+```
+
+##### ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id).exec((err, product) => {
+    if (err || !product) {
+      return res.status(400).json({
+        error: "Product does not exist",
+      });
+    }
+    req.product = product;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      // console.log("product:", result);
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+/**
+ * sel/arrival
+ * bye sell = /products?sortBy=sold&order=desc&limit=4
+ * bye arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no parameter are sent, then all products are returned
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select("-photo")
+    .populate("category") // mapt to Category
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      // console.log("product-list:", products);
+      res.json(products);
+    });
+};
+
+/**
+ * it will find the products based on the req product category
+ * other products that has the same category, will be return
+ */
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // $ne: not include
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .select("-photo")
+    .limit(limit)
+    .populate("category", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+exports.listCategories = (req, res) => {
+  // distinct : 取出不同的 category
+  // {} : 2nd parameter doesn't need do no send value
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+/**
+ * list products by search
+ * we will implement product search in react frontend
+ * we will show categories in checkbox and price range in radio buttons
+ * as the user clicks on those checkbox and radio buttons
+ * we will make api request and show the products to users based on what he wants
+ */
+// {
+//  "skip" : "1",
+//  "limit" : "2",
+// 	"filters": {
+// 		"name": "Note"
+// 	}
+// }
+//
+// >=2 and <=19
+//  {
+// "filters": {
+//   "price": ["2", "19"]
+// }
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let findArgs = {};
+
+  // console.log(order, sortBy, limit, skip, req.body.filters);
+  // console.log(req.body);
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte - great than price
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        // findArgs[key] = new RegExp(req.body.filters[key]);
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  // console.log("findArgs", findArgs);
+
+  Product.find(findArgs)
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+
+exports.listSearch = (req, res) => {
+  // create query object to hole search value and category value
+  const query = {};
+  // assign search value to query name
+  if (req.query.search) {
+    // mongodb regular expression
+    query.name = { $regex: req.query.search, $options: "i" };
+    console.log(query.name);
+    // assign category value to query.category
+    if (req.query.category && req.query.category != "All") {
+      query.category = req.query.category;
+    }
+    // find the product base on query object with 2 properties
+    // search and category
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select("-photo");
+  }
+};
+
+```
+
+### add Product Page with Related Products
+#### install   
+```
+npm i moment
+```
+
+#### Front End
+##### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+import Product from "./core/Product";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+          <Route path="/product/:productId" element={<Product />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+##### ./src/core/Product.js
+``` js
+// ./src/core/Product.js
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Layout from "./Layout";
+import { read, listRelated } from "./apiCore";
+import Card from "./Card";
+
+export default function Product(props) {
+  const [product, setProduct] = useState({});
+  const [relatedProduct, setRelatedProduct] = useState([]);
+  const [error, SetError] = useState();
+  const params = useParams();
+
+  // console.log(props);
+  function locaSingleProduct(productId) {
+    read(productId).then((data) => {
+      if (data.error) {
+        SetError(data.error);
+      } else {
+        setProduct(data);
+        // fetch related products
+        listRelated(data._id).then((data) => {
+          if (data.error) {
+            SetError(data.error);
+          } else {
+            setRelatedProduct(data);
+          }
+        });
+      }
+    });
+  }
+
+  useEffect(() => {
+    // react-router-dom v6 get parameter
+    const productId = params.productId;
+    locaSingleProduct(productId);
+  }, [params]);
+
+  return (
+    <Layout
+      title={product && product.name}
+      description={
+        product && product.description && product.description.substring(0.1)
+      }
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-8">
+          {product && product.description && (
+            <Card product={product} showViewProductButton={false} />
+          )}
+        </div>
+        <div className="col-4">
+          <h4>Rekated Products</h4>
+          {relatedProduct.map((p, i) => (
+            <div className="mb-3">
+              <Card key={i} product={p} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/Card.js
+``` js
+// ./src/core/Card.js
+/* eslint-disable react/prop-types */
+import React from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import ShowImage from "./ShowImage";
+
+export default function Card({ product, showViewProductButton = true }) {
+  // console.log(product);
+  function showViewButton(showViewProductButton) {
+    return (
+      showViewProductButton && (
+        <Link to={`/product/${product._id}`} className="mr-2">
+          <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
+            View Product
+          </button>
+        </Link>
+      )
+    );
+  }
+
+  function showAddToCardButton() {
+    return (
+      <button className="btn btn-outline-warning mt-2 mb-2">Add to card</button>
+    );
+  }
+
+  function showStock(quantity) {
+    return quantity > 0 ? (
+      <span className="badge badge-primary badge-pill">In Stock</span>
+    ) : (
+      <span>Out of Stock</span>
+    );
+  }
+
+  return (
+    <div className="card">
+      <div className="card-header name">{product.name}</div>
+      <div className="card-body">
+        <ShowImage item={product} url="product" />
+        {/* <p>{`<<${product.category.name}>>`}</p> */}
+        <p className="lead mt-2">{product.description.substring(0, 100)}</p>
+        <p className="black-10">${product.price}</p>
+        <p className="black-9">
+          Category: {product.category && product.category.name}
+        </p>
+        <p className="black-8">
+          Added on {moment(product.createdAt).fromNow()}
+        </p>
+        {showStock(product.quantity)}
+        <br />
+        {showViewButton(showViewProductButton)}
+        {showAddToCardButton()}
+      </div>
+    </div>
+  );
+}
+```
+
+##### ./src/admin/ApiCore.js
+``` js
+// ./src/admin/ApiCore.js
+import { API } from "../config";
+import queryString from "query-string";
+
+export const getProducts = (sortBy) => {
+  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getFilteredProducts = (skip, limit, filters) => {
+  const data = { limit, skip, filters };
+  // console.log(data);
+
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/products/by/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+      })
+  );
+};
+
+export const list = (params) => {
+  const query = queryString.stringify(params);
+  return fetch(`${API}/products/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+
+export const read = (productId) => {
+  console.log("productid=", productId);
+  return fetch(`${API}/product/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const listRelated = (productId) => {
+  return fetch(`${API}/products/related/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+```
+
+##### ./src/styles.css
+``` js
+/* ./src/styles.css */
+
+/** 
+* board radis 
+*/
+
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 0px;
+}
+
+/**
+* single product page - product name
+*/
+.name {
+  background: indigo;
+  color: #fff;
+  font-weight: bold;
+}
+
+/**
+* black shade from 10-1
+*/
+.black-10 {
+  background: #f2f2f2;
+}
+.black-9 {
+  background: #e6e6e6;
+}
+.black-8 {
+  background: #d9d9d9;
+}
+.black-7 {
+  background: #cccccc;
+}
+.black-6 {
+  background: #bfbfbf;
+}
+.black-5 {
+  background: #b3b3b3;
+}
+
+/**
+* product image on card 
+*/
+.product-img {
+  min-height: 100px;
+}
+
+/** 
+* jumbotron animation
+*/
+
+.jumbotron {
+  width: 30wh;
+  height: 30vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+```
+
+##### ./src/core/Home.js
+``` js
+// ./src/core/Home.js
+import React, { useState, useEffect } from "react";
+import Layout from "./Layout";
+import { getProducts } from "./apiCore";
+import Card from "./Card";
+import Search from "./Search";
+
+export default function Home() {
+  const [productsBySell, setProductsBySell] = useState([]);
+  const [productsByArrival, setProductsByArrival] = useState([]);
+  const [error, setError] = useState(false);
+
+  const loadProductsBySell = () => {
+    getProducts("sold").then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProductsBySell(data);
+      }
+    });
+  };
+
+  const loadProductsByArrival = () => {
+    getProducts("createdAt").then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProductsByArrival(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadProductsBySell();
+    loadProductsByArrival();
+  }, []);
+
+  const showError = () => {
+    if (error) {
+      return <h3 className="text-danger">error</h3>;
+    }
+  };
+
+  return (
+    <Layout
+      title="Home Page"
+      description="Node React E-commerce"
+      className="container-fluid"
+    >
+      <Search />
+      <h2 className="mb-4">Best Selles</h2>
+      <div className="row">
+        {productsBySell.map((product, i) => (
+          <div key={i} className="col-4 mb-3">
+            <Card product={product} />
+          </div>
+        ))}
+      </div>
+
+      {showError()}
+      <h2 className="mb-4">New Arrival</h2>
+      <div className="row">
+        {productsByArrival.map((product, i) => (
+          <div key={i} className="col-4 mb-3">
+            <Card product={product} />
+          </div>
+        ))}
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/Shop.js
+``` js
+// ./src/core/Shop.js
+import React, { useState, useEffect } from "react";
+import Layout from "./Layout";
+import Card from "./Card";
+import { getCategories, getFilteredProducts } from "./apiCore";
+import Checkbox from "./Checkbox";
+import Radiobox from "./Radiobox";
+import { prices } from "./fixPrices";
+
+export default function Shop() {
+  const [categories, setCategories] = useState([]);
+  const [myFilters, setMyFilters] = useState({
+    filters: {
+      category: [],
+      price: [],
+    },
+  });
+  const [error, setError] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [limit, setLimit] = useState(6);
+  const [skip, setSkip] = useState(0);
+  const [size, setSize] = useState(0);
+  const [filteredResult, setFilteredResult] = useState([]);
+
+  const init = () => {
+    getCategories().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        // FormData 可建立表單資料中的欄位/值建立相對應的的鍵/值對（key/value）集合
+        setCategories(data);
+      }
+    });
+  };
+
+  function loaderFilterResults(newFilters) {
+    // console.log(newFilters);
+    getFilteredProducts(skip, limit, newFilters).then((data) => {
+      // console.log(data);
+      if (data.error) {
+        setError(data.error);
+        setFilteredResult([]);
+      } else {
+        setFilteredResult(data.data);
+        setSize(data.size);
+        setSkip(0);
+      }
+    });
+  }
+
+  function loadMore() {
+    let toSkip = skip + limit;
+    getFilteredProducts(toSkip, limit, myFilters.filters).then((data) => {
+      // console.log(data);
+      if (data.error) {
+        setError(data.error);
+        setFilteredResult([]);
+      } else {
+        setFilteredResult([...filteredResult, ...data.data]);
+        setSize(data.size);
+        setSkip(toSkip);
+      }
+    });
+  }
+
+  function loadMoreButton() {
+    return (
+      size > 0 &&
+      size >= limit && (
+        <button onClick={loadMore} className="btn btn-warning mb-5">
+          Load more
+        </button>
+      )
+    );
+  }
+
+  useEffect(() => {
+    init();
+    loaderFilterResults(myFilters.filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleFilters = (filters, filterBy) => {
+    // console.log("Shop", filters, filterBy);
+    const newFilters = { ...myFilters };
+    newFilters.filters[filterBy] = filters;
+
+    if (filterBy === "price") {
+      let priceValue = handlePrice(filters);
+      newFilters.filters[filterBy] = priceValue;
+    }
+    loaderFilterResults(myFilters.filters);
+    setMyFilters(newFilters);
+  };
+
+  function handlePrice(value) {
+    const data = prices;
+    let array = [];
+
+    for (let key in data) {
+      if (data[key]._id === parseInt(value)) {
+        array = data[key].array;
+      }
+    }
+    return array;
+  }
+
+  const showError = () => {
+    if (error) {
+      return <h3 className="text-danger">Category should be unique</h3>;
+    }
+  };
+
+  // console.log(filteredResult);
+  return (
+    <Layout
+      title="Shop Page"
+      description="Search and find books of your choice"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-4">
+          <h4>Fillter by categories</h4>
+          <ul>
+            <Checkbox
+              categories={categories}
+              handleFilters={(filters) => handleFilters(filters, "category")}
+            />
+          </ul>
+          <h4>Fillter by price range</h4>
+          <div>
+            <Radiobox
+              prices={prices}
+              handleFilters={(filters) => handleFilters(filters, "price")}
+            />
+          </div>
+        </div>
+        <div className="col-8">
+          {showError()}
+          <h2 className="mb-4">Products</h2>
+          <div className="row">
+            {filteredResult.map((product, i) => (
+              <div key={i} className="col-4 mb-3">
+                <Card product={product} />
+              </div>
+              // <Card key={i} product={product}></Card>
+            ))}
+          </div>
+          <hr />
+          {loadMoreButton()}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+#### Back End
+##### ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id)
+    .populate("category")
+    .exec((err, product) => {
+      if (err || !product) {
+        return res.status(400).json({
+          error: "Product does not exist",
+        });
+      }
+      req.product = product;
+      next();
+    });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      // console.log("product:", result);
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+/**
+ * sel/arrival
+ * bye sell = /products?sortBy=sold&order=desc&limit=4
+ * bye arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no parameter are sent, then all products are returned
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select("-photo")
+    .populate("category") // mapt to Category
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      // console.log("product-list:", products);
+      res.json(products);
+    });
+};
+
+/**
+ * it will find the products based on the req product category
+ * other products that has the same category, will be return
+ */
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // $ne: not include
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .select("-photo")
+    .limit(limit)
+    .populate("category", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+exports.listCategories = (req, res) => {
+  // distinct : 取出不同的 category
+  // {} : 2nd parameter doesn't need do no send value
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+/**
+ * list products by search
+ * we will implement product search in react frontend
+ * we will show categories in checkbox and price range in radio buttons
+ * as the user clicks on those checkbox and radio buttons
+ * we will make api request and show the products to users based on what he wants
+ */
+// {
+//  "skip" : "1",
+//  "limit" : "2",
+// 	"filters": {
+// 		"name": "Note"
+// 	}
+// }
+//
+// >=2 and <=19
+//  {
+// "filters": {
+//   "price": ["2", "19"]
+// }
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let findArgs = {};
+
+  // console.log(order, sortBy, limit, skip, req.body.filters);
+  // console.log(req.body);
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte - great than price
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        // findArgs[key] = new RegExp(req.body.filters[key]);
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  // console.log("findArgs", findArgs);
+
+  Product.find(findArgs)
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+
+exports.listSearch = (req, res) => {
+  // create query object to hole search value and category value
+  const query = {};
+  // assign search value to query name
+  if (req.query.search) {
+    // mongodb regular expression
+    query.name = { $regex: req.query.search, $options: "i" };
+    console.log(query.name);
+    // assign category value to query.category
+    if (req.query.category && req.query.category != "All") {
+      query.category = req.query.category;
+    }
+    // find the product base on query object with 2 properties
+    // search and category
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select("-photo");
+  }
+};
+```
+
+
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
