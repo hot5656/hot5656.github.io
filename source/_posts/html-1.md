@@ -191,6 +191,9 @@ Allow: /data/*/crosssellaccommodations
   <li>item1</li>
   <li>item2</li>
 </ol>
+<!-- <sub> 標簽可定義下標文本。<sup> 可定義上標文本。都屬于行內元素，默認比當前字體稍小。 -->
+<p>This text is <sup>superscripted</sup></p>
+<p>The chemical formula of water: H<sub>2</sub>O</p>
 ```
 
 #### [Form](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
