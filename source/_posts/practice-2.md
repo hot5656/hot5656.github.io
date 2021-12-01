@@ -4000,6 +4000,11 @@ exports.listSearch = (req, res) => {
 ``` js
 Array.form()
 
+// splice - splice()本身所回傳回來的，會是我們刪除掉的元素陣列
+const colors1 = ["red", "yellow", "blue", "gray", "purple"]
+const colors2 = colors1.splice(1, 2, "hi")
+colors1; // ["red", "hi", "gray", "purple"]
+colors2; // ["yellow", "blue"]
 ```
 
 ### 參考資料
