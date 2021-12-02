@@ -364,6 +364,7 @@ export const signup = (user) => {
       })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -388,6 +389,7 @@ export const signin = (user) => {
       // })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -411,7 +413,10 @@ export const signout = (next) => {
       // .then((response) => {
       //   console.log("signout", response);
       // })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+				console.log(err);
+				return { error: "Server not response" };
+			});
   }
 };
 
@@ -1434,7 +1439,10 @@ export const getProducts = (sortBy) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 ```
 
@@ -1515,6 +1523,7 @@ export const createCategory = (userId, token, category) => {
       })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -1534,6 +1543,7 @@ export const createProduct = (userId, token, product) => {
       .then((response) => response.json())
       .catch((err) => {
         console.log(err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -1545,7 +1555,10 @@ export const getCategories = () => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 ```
 
@@ -2358,7 +2371,10 @@ export const getProducts = (sortBy) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getCategories = () => {
@@ -2368,7 +2384,10 @@ export const getCategories = () => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getFilteredProducts = (skip, limit, filters) => {
@@ -2393,6 +2412,7 @@ export const getFilteredProducts = (skip, limit, filters) => {
       })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -2481,7 +2501,7 @@ export default function Home() {
 
   const showError = () => {
     if (error) {
-      return <h3 className="text-danger">error</h3>;
+      return <h3 className="text-danger">{error}</h3>;
     }
   };
 
@@ -2640,7 +2660,10 @@ export const getProducts = (sortBy) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getCategories = () => {
@@ -2650,7 +2673,10 @@ export const getCategories = () => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getFilteredProducts = (skip, limit, filters) => {
@@ -2675,6 +2701,7 @@ export const getFilteredProducts = (skip, limit, filters) => {
       })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -2685,7 +2712,10 @@ export const list = (params) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 ```
 
@@ -3274,7 +3304,10 @@ export const getProducts = (sortBy) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getCategories = () => {
@@ -3284,7 +3317,10 @@ export const getCategories = () => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const getFilteredProducts = (skip, limit, filters) => {
@@ -3309,6 +3345,7 @@ export const getFilteredProducts = (skip, limit, filters) => {
       })
       .catch((err) => {
         console.log("signup err:", err);
+				return { error: "Server not response" };
       })
   );
 };
@@ -3319,7 +3356,10 @@ export const list = (params) => {
     method: "GET",
   })
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) =>{
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const read = (productId) => {
@@ -3330,7 +3370,10 @@ export const read = (productId) => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 
 export const listRelated = (productId) => {
@@ -3340,7 +3383,10 @@ export const listRelated = (productId) => {
     .then((response) => {
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+			console.log(err);
+			return { error: "Server not response" };
+		});
 };
 ```
 
@@ -3489,7 +3535,7 @@ export default function Home() {
 
   const showError = () => {
     if (error) {
-      return <h3 className="text-danger">error</h3>;
+      return <h3 className="text-danger">{error}</h3>;
     }
   };
 
@@ -3996,16 +4042,655 @@ exports.listSearch = (req, res) => {
 };
 ```
 
-### ???
+### add Cart
+#### ./src/core/Cart.js
 ``` js
-Array.form()
+// ./src/core/Cart.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Layout from "./Layout";
+import { getCart } from "./cartHelpers";
+import Card from "./Card";
+import Checkout from "./Checkout";
 
-// splice - splice()本身所回傳回來的，會是我們刪除掉的元素陣列
-const colors1 = ["red", "yellow", "blue", "gray", "purple"]
-const colors2 = colors1.splice(1, 2, "hi")
-colors1; // ["red", "hi", "gray", "purple"]
-colors2; // ["yellow", "blue"]
+export default function Cart() {
+  const [items, setItems] = useState([]);
+  const [updateScreen, setUpdateScreen] = useState(true);
+
+  useEffect(() => {
+    setItems(getCart());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateScreen]);
+
+  function handleUpdateScreen() {
+    setUpdateScreen(!updateScreen);
+  }
+
+  function showItems(items) {
+    return (
+      <div>
+        <h2>Your cart has {items.length} items</h2>
+        <hr />
+        {items.map((product, i) => (
+          <Card
+            key={i}
+            product={product}
+            showAddCartButton={false}
+            cartUpdate={true}
+            showRemoveProductButton={true}
+            handelUpdate={handleUpdateScreen}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  function noItemsMessage() {
+    return (
+      <h2>
+        Your cart is empty.
+        <br />
+        <Link to="/shop"> Continue shopping</Link>
+      </h2>
+    );
+  }
+
+  return (
+    <Layout
+      title="Shopping Cart"
+      description="Manage your cart items. Add remove checkout or continue shopping"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-6">
+          {items.length > 0 ? showItems(items) : noItemsMessage()}
+        </div>
+        <div className="col-6">
+          <h2 className="mb-4">Your cart summy</h2>
+          <hr />
+          <Checkout products={items}></Checkout>
+        </div>
+      </div>
+    </Layout>
+  );
+}
 ```
+
+#### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+import Product from "./core/Product";
+import Cart from "./core/Cart";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+#### ./src/core/Card.js
+``` js
+// ./src/core/Card.js
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import moment from "moment";
+import ShowImage from "./ShowImage";
+import { addItem, updateItem, removeItem } from "./cartHelpers";
+
+export default function Card({
+  product,
+  showViewProductButton = true,
+  showAddCartButton = true,
+  cartUpdate = false,
+  showRemoveProductButton = false,
+  handelUpdate,
+}) {
+  const [redirect, setRedirect] = useState(false);
+  const [count, setCount] = useState(product.count);
+
+  function showViewButton(showViewProductButton) {
+    return (
+      showViewProductButton && (
+        <Link to={`/product/${product._id}`} className="mr-2">
+          <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
+            View Product
+          </button>
+        </Link>
+      )
+    );
+  }
+
+  function addToCart() {
+    addItem(product, () => {
+      setRedirect(true);
+    });
+  }
+
+  function shouldRedirect(redirect) {
+    if (redirect) {
+      return <Navigate replace to="/cart" />;
+    }
+  }
+
+  function showAddToCard(showAddCartButton) {
+    return (
+      showAddCartButton && (
+        <button
+          onClick={addToCart}
+          className="btn btn-outline-warning mt-2 mb-2"
+        >
+          Add to card
+        </button>
+      )
+    );
+  }
+
+  function showRemoveButton(showRemoveProductButton) {
+    return (
+      showRemoveProductButton && (
+        <button
+          onClick={() => {
+            handelUpdate();
+            removeItem(product._id);
+          }}
+          className="btn btn-outline-danger mt-2 mb-2"
+        >
+          Remove Product
+        </button>
+      )
+    );
+  }
+
+  function showStock(quantity) {
+    return quantity > 0 ? (
+      <span className="badge badge-primary badge-pill">In Stock</span>
+    ) : (
+      <span>Out of Stock</span>
+    );
+  }
+
+  const handleChange = (productId) => (e) => {
+    // console.log(productId, e.target.value);
+    handelUpdate();
+    setCount(e.target.value < 1 ? 1 : e.target.value);
+    if (e.target.value >= 1) {
+      updateItem(productId, e.target.value);
+    }
+  };
+
+  function showCartUpdateotions(CartUpdate) {
+    return (
+      cartUpdate && (
+        <div>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Adjust Quantity</span>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              value={count}
+              onChange={handleChange(product._id)}
+            />
+          </div>
+        </div>
+      )
+    );
+  }
+
+  return (
+    <div className="card">
+      <div className="card-header name">{product.name}</div>
+      <div className="card-body">
+        {shouldRedirect(redirect)}
+        <ShowImage item={product} url="product" />
+        {/* <p>{`<<${product.category.name}>>`}</p> */}
+        <p className="lead mt-2">{product.description.substring(0, 100)}</p>
+        <p className="black-10">${product.price}</p>
+        <p className="black-9">
+          Category: {product.category && product.category.name}
+        </p>
+        <p className="black-8">
+          Added on {moment(product.createdAt).fromNow()}
+        </p>
+        {showStock(product.quantity)}
+        <br />
+        {showViewButton(showViewProductButton)}
+        {showAddToCard(showAddCartButton)}
+        {showRemoveButton(showRemoveProductButton)}
+        {showCartUpdateotions(cartUpdate)}
+      </div>
+    </div>
+  );
+}
+```
+
+#### ./src/core/cartHelpers.js
+``` js
+// ./src/core/cartHelpers.js
+export function addItem(item, next) {
+  let cart = [];
+
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+  }
+  cart.push({
+    ...item,
+    count: 1,
+  });
+ 
+  cart = Array.from(new Set(cart.map((p) => p._id))).map((id) => {
+    return cart.find((p) => p._id === id);
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  next();
+}
+
+export function itemTotal() {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      return JSON.parse(localStorage.getItem("cart")).length;
+    }
+  }
+  return 0;
+}
+
+export function getCart() {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      return JSON.parse(localStorage.getItem("cart"));
+    }
+  }
+  return [];
+}
+
+export function updateItem(productId, count) {
+  let cart = [];
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    // eslint-disable-next-line array-callback-return
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        cart[i].count = count;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+}
+
+export function removeItem(productId) {
+  let cart = [];
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    // eslint-disable-next-line array-callback-return
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        cart.splice(i, 1);
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+  return cart;
+}
+```
+
+#### ./src/core/Menu.js
+``` js
+// ./src/core/Menu.js
+import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// add history, doesn't install
+import { createBrowserHistory } from "history";
+import { signout, isAuthenticated } from "../auth";
+import { itemTotal } from "./cartHelpers";
+
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#ff9900" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const Menu = (props) => {
+  // add history
+  const history = createBrowserHistory(props);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    // 指執行 callback function next
+    signout(() => {
+      navigate("/");
+    });
+  };
+  // console.log("Manu render...");
+  return (
+    <div>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/shop")}
+            to="/shop"
+          >
+            Shop
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/cart")}
+            to="/cart"
+          >
+            Cart{" "}
+            <sup>
+              <small className="cart-badge">{itemTotal()}</small>
+            </sup>
+          </Link>
+        </li>
+
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Signin
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            {/* 因直接執行而不是切到另一頁,使用 span 即可 */}
+            <span
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#ffffff" }}
+              onClick={handleSignout}
+            >
+              Signout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default Menu;
+```
+
+#### ./src/core/Checkbox.js
+``` js
+// ./src/core/Checkbox.js
+/* eslint-disable array-callback-return */
+import React, { useState } from "react";
+
+export default function Checkbox({ categories, handleFilters }) {
+  const [checked, setChecked] = useState([]);
+
+  // ***--->>> event include parameter
+  const handleToggle = (c) => (e) => {
+    // return the first index or -1
+    const currentCategoryId = checked.indexOf(c);
+    const newCheckedCategoryId = [...checked];
+    // if current checked was not already in checked state > push
+    // else pull/take off
+    if (currentCategoryId === -1) {
+      newCheckedCategoryId.push(c);
+    } else {
+      newCheckedCategoryId.splice(currentCategoryId, 1);
+    }
+    // console.log(newCheckedCategoryId);
+    setChecked(newCheckedCategoryId);
+    handleFilters(newCheckedCategoryId);
+  };
+
+  return categories.map((c, i) => (
+    <li key={i} className="list-unstyled">
+      {/* value=false -->not select  */}
+      {/* ***--->>> event include parameter */}
+      <input
+        onChange={handleToggle(c._id)}
+        value={checked.indexOf(c._id) === -1}
+        type="checkbox"
+        className="form-check-input"
+      />
+      <label htmlFor="form-check-label">{c.name}</label>
+    </li>
+  ));
+}
+```
+
+#### ./src/styles.css
+``` js
+/* ./src/styles.css */
+
+/** 
+* board radis 
+*/
+
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 0px;
+}
+
+/* cart badge */
+.cart-badge,
+.cart-badge:hover {
+  border-radius: 50%;
+  padding: 2px;
+  font-size: 12px;
+  font-style: italic;
+  background: #000;
+}
+
+/**
+* single product page - product name
+*/
+.name {
+  background: indigo;
+  color: #fff;
+  font-weight: bold;
+}
+
+/**
+* black shade from 10-1
+*/
+.black-10 {
+  background: #f2f2f2;
+}
+.black-9 {
+  background: #e6e6e6;
+}
+.black-8 {
+  background: #d9d9d9;
+}
+.black-7 {
+  background: #cccccc;
+}
+.black-6 {
+  background: #bfbfbf;
+}
+.black-5 {
+  background: #b3b3b3;
+}
+
+/**
+* product image on card 
+*/
+.product-img {
+  min-height: 100px;
+}
+
+/** 
+* jumbotron animation
+*/
+
+.jumbotron {
+  width: 30wh;
+  height: 30vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+```
+
+### Payment Gateway
+
+
 
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
++ [Stripe vs PayPal vs Braintree](https://rubygarage.org/blog/stripe-vs-braintree-vs-paypal-how-do-these-payment-platforms-compare)
++ [Stripe VS Braintree](https://www.merchantmaverick.com/stripe-vs-braintree/)
++ [做為電商 PM，我是如何選擇金流服務商](https://medium.com/kkdaytech/%E5%81%9A%E7%82%BA%E9%9B%BB%E5%95%86-pm-%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E9%81%B8%E6%93%87%E9%87%91%E6%B5%81%E6%9C%8D%E5%8B%99%E5%95%86-a81bc651f6a6)

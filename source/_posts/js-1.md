@@ -906,6 +906,31 @@ var numbers2 = numbers.sort(function (a, b) {
 numbers[2] = 9;
 console.log(numbers); // [1, 2, 9, 4, 5]
 console.log(numbers2); // [1, 2, 9, 4, 5]
+
+// Array.from() 方法會從類陣列（array-like）或是可迭代（iterable）物件建立一個新的 Array 實體
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+
+// Set為一特殊object,可以視為一個 values 的收集器，每個值只會出現一次而已
+const arr = [1, 1, 3, 5, 5, 7];
+const arrToSet = new Set(arr); // Set { 1, 3, 5, 7 }
+// add,delte,has
+var mySet = new Set();
+mySet.add(1); // Set [ 1 ]
+mySet.add(5); // Set [ 1, 5 ]
+mySet.add(5); // Set [ 1, 5 ]
+mySet.add('some text'); // Set [ 1, 5, 'some text' ]
+var o = {a: 1, b: 2};
+mySet.add(o);
+mySet.add({a: 1, b: 2}); // o is referencing a different object so this is okay
+mySet.has(1); // true
+mySet.has(3); // false, 3 has not been added to the set
+mySet.has(5);              // true
+mySet.has(Math.sqrt(25));  // true
+mySet.has('Some Text'.toLowerCase()); // true
+mySet.has(o); // true
 ```
 
 ##### array item remove
