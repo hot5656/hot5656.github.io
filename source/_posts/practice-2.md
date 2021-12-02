@@ -4686,11 +4686,60 @@ export default function Checkbox({ categories, handleFilters }) {
 ```
 
 ### Payment Gateway
+``` bash
+# login Braintree
+login Briantree -> API -> Generate New API Key
 
+# set Back End .env
+BRAINTREE_MERCHAN_ID=...
+BRAINTREE_PUBLIC_KEY=...
+BRAINTREE_PRIVATE_KEY=...
 
+# install briantree
+npm i braintree
+```
+
+``` js
+const gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
+
+TypeError: braintree.connect is not a function
+
+const gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+});
+```
+postman
+``` js
+[GET]
+http://localhost:8000/api/braintree/getToken/6188c8128db0e4691c2f6727
+
+Content-Type:application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg4YzgxMjhkYjBlNDY5MWMyZjY3MjciLCJpYXQiOjE2Mzg0NTY1MDV9.7FWaG101Y0j3WhQdTMbO2-ew9pnb-S3tObemBH5DG28
+
+{
+    "clientToken": "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUyTXpnMU5ETXhOeklzSW1wMGFTSTZJbU01TVRRME1EUTBMV0kyTW1JdE5HSXlaQzA1WmpBMUxXSm1PVEU0WldRMU16WXpOaUlzSW5OMVlpSTZJblJpTlhaNVpIcHlNMjFrY0dRMGVXUWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pZEdJMWRubGtlbkl6YldSd1pEUjVaQ0lzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZlMzE5LlJXUmhBWG45b1BrdlFIemgwOW5YM2oxNkgzcWtHd0dtbXczRVAtRjU2cHBfWVRVdEo1VHVRb3lTc1dKaDZCdkNKQnJtazRQcm5RRVlSQksyb3R1N2NBIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3RiNXZ5ZHpyM21kcGQ0eWQvY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiZ3JhcGhRTCI6eyJ1cmwiOiJodHRwczovL3BheW1lbnRzLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vZ3JhcGhxbCIsImRhdGUiOiIyMDE4LTA1LTA4IiwiZmVhdHVyZXMiOlsidG9rZW5pemVfY3JlZGl0X2NhcmRzIl19LCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvdGI1dnlkenIzbWRwZDR5ZC9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6InRiNXZ5ZHpyM21kcGQ0eWQiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL3RiNXZ5ZHpyM21kcGQ0eWQifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiVHJ5QnlTZWxmIiwiY2xpZW50SWQiOm51bGwsInByaXZhY3lVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vcHAiLCJ1c2VyQWdyZWVtZW50VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3RvcyIsImJhc2VVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFzc2V0c1VybCI6Imh0dHBzOi8vY2hlY2tvdXQucGF5cGFsLmNvbSIsImRpcmVjdEJhc2VVcmwiOm51bGwsImVudmlyb25tZW50Ijoib2ZmbGluZSIsImJyYWludHJlZUNsaWVudElkIjoibWFzdGVyY2xpZW50MyIsIm1lcmNoYW50QWNjb3VudElkIjoidHJ5YnlzZWxmIiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn19",
+    "success": true
+}
+```
+
+Front End 
+``` bash
+npm i braintree-web-drop-in-react
+
+```
 
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
 + [Stripe vs PayPal vs Braintree](https://rubygarage.org/blog/stripe-vs-braintree-vs-paypal-how-do-these-payment-platforms-compare)
 + [Stripe VS Braintree](https://www.merchantmaverick.com/stripe-vs-braintree/)
 + [做為電商 PM，我是如何選擇金流服務商](https://medium.com/kkdaytech/%E5%81%9A%E7%82%BA%E9%9B%BB%E5%95%86-pm-%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E9%81%B8%E6%93%87%E9%87%91%E6%B5%81%E6%9C%8D%E5%8B%99%E5%95%86-a81bc651f6a6)
++ [Sandbox | Braintree Payments](https://www.braintreepayments.com/sandbox)
++ [Send a client token to your client](https://developer.paypal.com/braintree/docs/start/hello-server/node)
