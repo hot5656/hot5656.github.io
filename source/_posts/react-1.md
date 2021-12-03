@@ -3255,6 +3255,17 @@ settings.json
 #### Cypress : end ot end test 
 
 
+### Developer Tools
++ [React Developer Tool](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
++ [Storybook](https://storybook.js.org/)
++ [Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)
++ [Why Did You Render](https://github.com/welldone-software/why-did-you-render)
++ [React Testing Library With Jest](https://jestjs.io/)
++ [Formik](https://formik.org/) and [Yup](https://www.npmjs.com/package/yup)
++ [React Hook Form](https://react-hook-form.com/)
++ [React Sight](https://www.reactsight.com/)
++ [React Proto](https://react-proto.github.io/react-proto/)
+
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
 + [tagged template](https://pjchender.blogspot.com/2017/01/javascript-es6-template-literalstagged.html)
