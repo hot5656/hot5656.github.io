@@ -4695,6 +4695,13 @@ BRAINTREE_MERCHAN_ID=...
 BRAINTREE_PUBLIC_KEY=...
 BRAINTREE_PRIVATE_KEY=...
 
+# set CVV
+Fraud Management --> CVV --> CVV does not match (when provided) (N) --> For Any Transaction
+
+# enable paypal
+Processing --> paypal --> 
+ 
+
 # install briantree
 npm i braintree
 ```
@@ -4736,6 +4743,22 @@ npm i braintree-web-drop-in-react
 
 ```
 
+``` bash
+test visa card code : 4111111111111111
+
+event : onBlur 離開表單
+
+https://developer.paypal.com/home -> 
+
+
+ message: 'A linked PayPal Sandbox account is required to use…ls on linking your PayPal sandbox with Braintree.' --> flow: "vault", 設錯
+https://developer.paypal.com/braintree/docs/guides/paypal/testing-go-live#linked-paypal-testing
+
+
+REACT- DOM Mutation Warning Meaning
+[Violation] Added synchronous DOM mutation listener to a 'DOMNodeInserted' event. Consider using MutationObserver to make the page more responsive.
+```
+
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
 + [Stripe vs PayPal vs Braintree](https://rubygarage.org/blog/stripe-vs-braintree-vs-paypal-how-do-these-payment-platforms-compare)
@@ -4743,3 +4766,5 @@ npm i braintree-web-drop-in-react
 + [做為電商 PM，我是如何選擇金流服務商](https://medium.com/kkdaytech/%E5%81%9A%E7%82%BA%E9%9B%BB%E5%95%86-pm-%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E9%81%B8%E6%93%87%E9%87%91%E6%B5%81%E6%9C%8D%E5%8B%99%E5%95%86-a81bc651f6a6)
 + [Sandbox | Braintree Payments](https://www.braintreepayments.com/sandbox)
 + [Send a client token to your client](https://developer.paypal.com/braintree/docs/start/hello-server/node)
++ [Paypal](https://www.paypal.com/tw/webapps/mpp/home) 
++ [Paypal Sandbox](ttps://developer.paypal.com/developer/accountsh/)
