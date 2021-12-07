@@ -4686,35 +4686,107 @@ export default function Checkbox({ categories, handleFilters }) {
 ```
 
 ### Payment Gateway
+#### Back End
+##### install
 ``` bash
-# login Braintree
-login Briantree -> API -> Generate New API Key
-
-# set Back End .env
-BRAINTREE_MERCHAN_ID=...
-BRAINTREE_PUBLIC_KEY=...
-BRAINTREE_PRIVATE_KEY=...
-
-# set CVV
-Fraud Management --> CVV --> CVV does not match (when provided) (N) --> For Any Transaction
-
-# enable paypal
-Processing --> paypal --> 
- 
-
 # install briantree
 npm i braintree
 ```
 
+##### ./app.js
 ``` js
-const gateway = braintree.connect({
-  environment: braintree.Environment.Sandbox,
-  merchantId: process.env.BRAINTREE_MERCHANT_ID,
-  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-});
+// ./app.js
+const express = require("express");
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+// import routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+// add Category and Product
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+const braintreeRoutes = require("./routes/braintree");
+// import morgan
+const morgan = require("morgan");
+// cookie-parser
+const cookieParser = require("cookie-parser");
+// express-validator
+const expressValidator = require("express-validator");
+// cors
+const cors = require("cors");
+// env
+require("dotenv").config();
 
-TypeError: braintree.connect is not a function
+// app
+const app = express();
+
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => {
+    console.log(err);
+    return { error: "Server not response" };
+  });
+
+// middlewares
+app.use(morgan("dev")); // morgan - http request log
+app.use(express.json()); // body parser
+app.use(cookieParser()); // cookie-parser
+app.use(expressValidator()); // express-validator
+app.use(cors()); // cors
+
+// routes middleware
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+// add Category and Product
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+app.use("/api", braintreeRoutes);
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+
+##### ./routes/braintree.js
+``` js
+// ./routes/braintree.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const { requireSignin, isAuth } = require("../controllers/auth");
+const { userById } = require("../controllers/user");
+const { generateToken, processPayment } = require("../controllers/braintree");
+
+router.get("/braintree/getToken/:userId", requireSignin, isAuth, generateToken);
+router.post(
+  "/braintree/payment/:userId",
+  requireSignin,
+  isAuth,
+  processPayment
+);
+
+router.param("userId", userById);
+module.exports = router;
+```
+
+##### ./controllers/braintree.js
+``` js
+// ./controllers/braintree.js
+const User = require("../models/user");
+const braintree = require("braintree");
+require("dotenv").config();
 
 const gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
@@ -4722,49 +4794,530 @@ const gateway = new braintree.BraintreeGateway({
   publicKey: process.env.BRAINTREE_PUBLIC_KEY,
   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
 });
+
+exports.generateToken = (req, res) => {
+  // transaction 設定 merchantAccountId 就好,clientToken 可以不用設
+  // 但若要顯示 payment 的方式,就要設定
+  // gateway.clientToken.generate({}, function (err, response) {
+  gateway.clientToken.generate(
+    { merchantAccountId: process.env.BRAINTREE_MERCHANT_ACCOUNT_ID },
+    function (err, response) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        // console.log(response);
+        res.send(response);
+      }
+    }
+  );
+};
+
+exports.processPayment = (req, res) => {
+  let nonceFromTheClient = req.body.paymentMethodNonce;
+  let amountFromTheClient = req.body.amount;
+  // charge
+  let newTransaction = gateway.transaction.sale(
+    {
+      amount: amountFromTheClient,
+      paymentMethodNonce: nonceFromTheClient,
+      // 可設定不同的 merchantAccountId( for 不同的貨幣)
+      merchantAccountId: process.env.BRAINTREE_MERCHANT_ACCOUNT_ID,
+      options: {
+        submitForSettlement: true,
+      },
+    },
+    (error, result) => {
+      if (error) {
+        res.status(500).json(error);
+      } else {
+        res.json(result);
+      }
+    }
+  );
+};
 ```
-postman
+
+##### .env
 ``` js
-[GET]
-http://localhost:8000/api/braintree/getToken/6188c8128db0e4691c2f6727
+PORT=8000
+DATABASE=mongodb:...
+JWT_SECRET=...
+BRAINTREE_MERCHANT_ID=...
+BRAINTREE_PUBLIC_KEY=...
+BRAINTREE_PRIVATE_KEY=...
+BRAINTREE_MERCHANT_ACCOUNT_ID=...
+```
 
-Content-Type:application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg4YzgxMjhkYjBlNDY5MWMyZjY3MjciLCJpYXQiOjE2Mzg0NTY1MDV9.7FWaG101Y0j3WhQdTMbO2-ew9pnb-S3tObemBH5DG28
+#### Front End
+##### install 
+``` bash
+# insatll braintree-web-drop-in-react
+npm i braintree-web-drop-in-react
+```
 
-{
-    "clientToken": "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUyTXpnMU5ETXhOeklzSW1wMGFTSTZJbU01TVRRME1EUTBMV0kyTW1JdE5HSXlaQzA1WmpBMUxXSm1PVEU0WldRMU16WXpOaUlzSW5OMVlpSTZJblJpTlhaNVpIcHlNMjFrY0dRMGVXUWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pZEdJMWRubGtlbkl6YldSd1pEUjVaQ0lzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZlMzE5LlJXUmhBWG45b1BrdlFIemgwOW5YM2oxNkgzcWtHd0dtbXczRVAtRjU2cHBfWVRVdEo1VHVRb3lTc1dKaDZCdkNKQnJtazRQcm5RRVlSQksyb3R1N2NBIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3RiNXZ5ZHpyM21kcGQ0eWQvY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiZ3JhcGhRTCI6eyJ1cmwiOiJodHRwczovL3BheW1lbnRzLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vZ3JhcGhxbCIsImRhdGUiOiIyMDE4LTA1LTA4IiwiZmVhdHVyZXMiOlsidG9rZW5pemVfY3JlZGl0X2NhcmRzIl19LCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvdGI1dnlkenIzbWRwZDR5ZC9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6InRiNXZ5ZHpyM21kcGQ0eWQiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL3RiNXZ5ZHpyM21kcGQ0eWQifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiVHJ5QnlTZWxmIiwiY2xpZW50SWQiOm51bGwsInByaXZhY3lVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vcHAiLCJ1c2VyQWdyZWVtZW50VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3RvcyIsImJhc2VVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFzc2V0c1VybCI6Imh0dHBzOi8vY2hlY2tvdXQucGF5cGFsLmNvbSIsImRpcmVjdEJhc2VVcmwiOm51bGwsImVudmlyb25tZW50Ijoib2ZmbGluZSIsImJyYWludHJlZUNsaWVudElkIjoibWFzdGVyY2xpZW50MyIsIm1lcmNoYW50QWNjb3VudElkIjoidHJ5YnlzZWxmIiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn19",
-    "success": true
+
+##### ./src/core/Checkout.js
+``` js
+// ./src/core/Checkout.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import DropIn from "braintree-web-drop-in-react";
+import { isAuthenticated } from "../auth";
+import { getBraintreeClientToken, processPayment } from "./apiCore";
+import { emptyCart } from "./cartHelpers";
+
+export default function Checkout({ products, handelUpdate }) {
+  const [data, setData] = useState({
+    loading: false,
+    success: false,
+    clientToken: null,
+    error: "",
+    instance: {},
+    address: "",
+  });
+
+  const userId = isAuthenticated() && isAuthenticated().user._id;
+  const token = isAuthenticated() && isAuthenticated().token;
+
+  useEffect(() => {
+    getToken(userId, token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function getTotal() {
+    return products.reduce((currentValue, nextValue) => {
+      return currentValue + nextValue.count * nextValue.price;
+    }, 0);
+  }
+
+  function getToken(userId, token) {
+    getBraintreeClientToken(userId, token).then((response) => {
+      if (response.error) {
+        setData({ ...data, error: response.error });
+      } else {
+        // setData({ ...data, clientToken: response.clientToken });
+        setData({ clientToken: response.clientToken });
+      }
+    });
+  }
+
+  function showCheckout() {
+    return isAuthenticated() ? (
+      <div>{showDropIn()}</div>
+    ) : (
+      <Link to="/signin">
+        <button className="btn btn-primary">Sign in to checkout</button>
+      </Link>
+    );
+  }
+
+  function handleBuy() {
+    setData({ ...data, loading: true });
+    // send the nonce to your server
+    // nunce = data.instance.requestPaymentMethod()
+    let nonce;
+    // console.log("data", data);
+    if (products.length) {
+      // let getNonce = data.instance
+      data.instance
+        .requestPaymentMethod()
+        .then((data) => {
+          // console.log(data);
+          nonce = data.nonce;
+          // once you have nonce (Card type, card number) send nonce as paymentMethodNonce
+          // and also total to be charged
+          // console.log(
+          //   "send nonce and total to process : ",
+          //   nonce,
+          //   getTotal(products)
+          // );
+          const paymentData = {
+            paymentMethodNonce: nonce,
+            amount: getTotal(products),
+            // merchant_account_id: "dhewgthty",
+          };
+
+          processPayment(userId, token, paymentData)
+            .then((response) => {
+              // console.log(response);
+              setData({ ...data, success: response.success });
+              // empty cart
+              emptyCart(() => {
+                // console.log("payment success and empty cart");
+                setData({ ...data, loading: false });
+              });
+              handelUpdate();
+              // create order
+              // console.log("paymentData:", paymentData);
+            })
+            .catch((error) => {
+              console.log(error);
+              setData({ ...data, loading: false });
+            });
+        })
+        .catch((error) => {
+          console.log("dropin error: ", error);
+          setData({ ...data, error: error.message });
+        });
+    }
+  }
+
+  function shwoSucess(success) {
+    return (
+      <div
+        className="alert alert-danger"
+        style={{ display: success ? "" : "none" }}
+      >
+        Thanks! Your Payment was successful!
+      </div>
+    );
+  }
+
+  function shwoLoading(loading) {
+    return loading && <h2>Loading...</h2>;
+  }
+
+  function shwoError(error) {
+    return (
+      <div
+        className="alert alert-danger"
+        style={{ display: error ? "" : "none" }}
+      >
+        {error}
+      </div>
+    );
+  }
+
+  function showDropIn() {
+    return (
+      <div onBlur={() => setData({ ...data, error: "" })}>
+        {data.clientToken != null && products.length > 0 ? (
+          <DropIn
+            options={{
+              authorization: data.clientToken,
+              // ad paypal option
+              paypal: {
+                flow: "vault",
+              },
+            }}
+            onInstance={(instance) => (data.instance = instance)}
+          />
+        ) : null}
+        <button onClick={handleBuy} className="btn btn-success btn-block">
+          Pay
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2>Total: ${getTotal()}</h2>
+      {shwoLoading(data.loading)}
+      {shwoSucess(data.success)}
+      {shwoError(data.error)}
+      {showCheckout()}
+    </div>
+  );
 }
 ```
 
-Front End 
-``` bash
-npm i braintree-web-drop-in-react
+##### ./src/admin/ApiCore.js
+``` js
+// ./src/admin/ApiCore.js
+import { API } from "../config";
+import queryString from "query-string";
+
+export const getProducts = (sortBy) => {
+  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getFilteredProducts = (skip, limit, filters) => {
+  const data = { limit, skip, filters };
+  // console.log(data);
+
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/products/by/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const list = (params) => {
+  const query = queryString.stringify(params);
+  return fetch(`${API}/products/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const read = (productId) => {
+  console.log("productid=", productId);
+  return fetch(`${API}/product/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const listRelated = (productId) => {
+  return fetch(`${API}/products/related/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getBraintreeClientToken = (userId, token) => {
+  return fetch(`${API}/braintree/getToken/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const processPayment = (userId, token, paymentData) => {
+  // console.log(userId, token, paymentData);
+  return fetch(`${API}/braintree/payment/${userId}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(paymentData),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
 
 ```
 
-``` bash
-test visa card code : 4111111111111111
 
-event : onBlur 離開表單
+##### ./src/core/Cart.js
+``` js
+// ./src/core/Cart.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Layout from "./Layout";
+import { getCart } from "./cartHelpers";
+import Card from "./Card";
+import Checkout from "./Checkout";
 
-https://developer.paypal.com/home -> 
+export default function Cart() {
+  const [items, setItems] = useState([]);
+  const [updateScreen, setUpdateScreen] = useState(true);
 
+  useEffect(() => {
+    setItems(getCart());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateScreen]);
 
- message: 'A linked PayPal Sandbox account is required to use…ls on linking your PayPal sandbox with Braintree.' --> flow: "vault", 設錯
-https://developer.paypal.com/braintree/docs/guides/paypal/testing-go-live#linked-paypal-testing
+  function handleUpdateScreen() {
+    setUpdateScreen(!updateScreen);
+  }
 
+  function showItems(items) {
+    return (
+      <div>
+        <h2>Your cart has {items.length} items</h2>
+        <hr />
+        {items.map((product, i) => (
+          <Card
+            key={i}
+            product={product}
+            showAddCartButton={false}
+            cartUpdate={true}
+            showRemoveProductButton={true}
+            handelUpdate={handleUpdateScreen}
+          />
+        ))}
+      </div>
+    );
+  }
 
-REACT- DOM Mutation Warning Meaning
-[Violation] Added synchronous DOM mutation listener to a 'DOMNodeInserted' event. Consider using MutationObserver to make the page more responsive.
+  function noItemsMessage() {
+    return (
+      <h2>
+        Your cart is empty.
+        <br />
+        <Link to="/shop"> Continue shopping</Link>
+      </h2>
+    );
+  }
+
+  return (
+    <Layout
+      title="Shopping Cart"
+      description="Manage your cart items. Add remove checkout or continue shopping"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-6">
+          {items.length > 0 ? showItems(items) : noItemsMessage()}
+        </div>
+        <div className="col-6">
+          <h2 className="mb-4">Your cart summy</h2>
+          <hr />
+          <Checkout
+            products={items}
+            handelUpdate={handleUpdateScreen}
+          ></Checkout>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/cartHelpers.js
+``` js
+// ./src/core/cartHelpers.js
+export function addItem(item, next) {
+  let cart = [];
+
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+  }
+  cart.push({
+    ...item,
+    count: 1,
+  });
+
+  cart = Array.from(new Set(cart.map((p) => p._id))).map((id) => {
+    return cart.find((p) => p._id === id);
+  });
+  // console.log(cart);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  next();
+}
+
+export function itemTotal() {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      return JSON.parse(localStorage.getItem("cart")).length;
+    }
+  }
+  return 0;
+}
+
+export function getCart() {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      return JSON.parse(localStorage.getItem("cart"));
+    }
+  }
+  return [];
+}
+
+export function updateItem(productId, count) {
+  let cart = [];
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    // eslint-disable-next-line array-callback-return
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        cart[i].count = count;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+}
+
+export function removeItem(productId) {
+  let cart = [];
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    // eslint-disable-next-line array-callback-return
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        cart.splice(i, 1);
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+  return cart;
+}
+
+export function emptyCart(next) {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("cart");
+    next();
+  }
+}
 ```
 
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
-+ [Stripe vs PayPal vs Braintree](https://rubygarage.org/blog/stripe-vs-braintree-vs-paypal-how-do-these-payment-platforms-compare)
-+ [Stripe VS Braintree](https://www.merchantmaverick.com/stripe-vs-braintree/)
-+ [做為電商 PM，我是如何選擇金流服務商](https://medium.com/kkdaytech/%E5%81%9A%E7%82%BA%E9%9B%BB%E5%95%86-pm-%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E9%81%B8%E6%93%87%E9%87%91%E6%B5%81%E6%9C%8D%E5%8B%99%E5%95%86-a81bc651f6a6)
-+ [Sandbox | Braintree Payments](https://www.braintreepayments.com/sandbox)
-+ [Send a client token to your client](https://developer.paypal.com/braintree/docs/start/hello-server/node)
-+ [Paypal](https://www.paypal.com/tw/webapps/mpp/home) 
-+ [Paypal Sandbox](ttps://developer.paypal.com/developer/accountsh/)

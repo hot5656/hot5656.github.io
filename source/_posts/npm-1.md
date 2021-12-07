@@ -851,6 +851,33 @@ moment().format("[Today is] dddd");               // "Today is Sunday"
 moment('20.07.2018 09:19', moment.defaultFormat).toDate() // Fri Jul 20 2018 09:19:00 GMT+0300
 ```
 
+#### [braintree](https://www.npmjs.com/package/braintree) : Braintree Node library
+``` js
+var braintree = require('braintree');
+
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: 'your_merchant_id',
+  publicKey: 'your_public_key',
+  privateKey: 'your_private_key'
+});
+
+gateway.transaction.sale({
+  amount: '5.00',
+  paymentMethodNonce: 'nonce-from-the-client',
+  options: {
+    submitForSettlement: true
+  }
+}).then(function (result) {
+  if (result.success) {
+    console.log('Transaction ID: ' + result.transaction.id);
+  } else {
+    console.error(result.message);
+  }
+}).catch(function (err) {
+  console.error(err);
+});
+```
 
 ### npm config
 ``` bash

@@ -3176,7 +3176,10 @@ export default function LoginPage() {
 export { default } from './LoginPage';
 ```
 
-
+#### react event
++ onClick
++ onChange
++ onBlur : 離開表單
 
 ### prettier ESLint
 #### create-react-app default include ESLint configuration
