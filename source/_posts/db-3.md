@@ -226,6 +226,35 @@ Product.find(query, (err, products) => {
   (err, user) => {})
 ```
 
+### [mongoose](https://www.npmjs.com/package/mongoose) : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+#### example code
+``` js
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+var uri =
+  "mongodb://robert2:{password}@cluster0-shard-00-00.bscvu.mongodb.net:27017,cluster0-shard-00-01.bscvu.mongodb.net:27017,cluster0-shard-00-02.bscvu.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-11cyyj-shard-0&authSource=admin&retryWrites=true&w=majority";
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => console.log(err));
+
+// save data
+const User = mongoose.model("User", userSchema);
+new User(req.body).save;
+
+// get data 
+User.findOne({ email })
+```
+
+
+### 參考資料 
++ [mongoose document](https://mongoosejs.com/docs/)
 
 
 
