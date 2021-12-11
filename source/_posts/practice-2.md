@@ -5319,5 +5319,1383 @@ export function emptyCart(next) {
 }
 ```
 
+### add Order
+#### Back End
+##### ./app.js
+``` js
+// ./app.js
+const express = require("express");
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+const mongoose = require("mongoose");
+// import routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+// add Category and Product
+const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
+const braintreeRoutes = require("./routes/braintree");
+const orderRoutes = require("./routes/order");
+// import morgan
+const morgan = require("morgan");
+// cookie-parser
+const cookieParser = require("cookie-parser");
+// express-validator
+const expressValidator = require("express-validator");
+// cors
+const cors = require("cors");
+// env
+require("dotenv").config();
+
+// app
+const app = express();
+
+// connect mangoDB altas
+// using 2.2.12 or later's uri
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB Connected…");
+  })
+  .catch((err) => {
+    console.log(err);
+    return { error: "Server not response" };
+  });
+
+// middlewares
+app.use(morgan("dev")); // morgan - http request log
+app.use(express.json()); // body parser
+app.use(cookieParser()); // cookie-parser
+app.use(expressValidator()); // express-validator
+app.use(cors()); // cors
+
+// routes middleware
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+// add Category and Product
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
+app.use("/api", braintreeRoutes);
+app.use("/api", orderRoutes);
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+##### ./routes/order.js
+``` js
+// ./routes/order.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+const { userById, addOrderToUserHistory } = require("../controllers/user");
+const {
+  create,
+  listOrders,
+  getStatusValues,
+  orderById,
+  updateOrderStatus,
+} = require("../controllers/order");
+const { descreaseQuantity } = require("../controllers/product");
+
+router.post(
+  "/order/create/:userId",
+  requireSignin,
+  isAuth,
+  addOrderToUserHistory,
+  descreaseQuantity,
+  create
+);
+
+router.get("/order/list/:userId", requireSignin, isAuth, isAdmin, listOrders);
+router.get(
+  "/order/status-values/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  getStatusValues
+);
+
+router.put(
+  "/order/:orderId/status/:userId",
+  requireSignin,
+  isAuth,
+  isAdmin,
+  updateOrderStatus
+);
+
+router.param("userId", userById);
+router.param("orderId", orderById);
+module.exports = router;
+```
+
+##### ./models/orders.js
+``` js
+// ./models/orders.js
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const { ObjectId } = mongoose.Schema;
+
+const CartItemSchema = new mongoose.Schema(
+  {
+    product: { type: ObjectId, ref: "Product" },
+    name: String,
+    price: Number,
+    count: Number,
+  },
+  { timestamps: true }
+);
+
+const CartItem = mongoose.model("CartItem", CartItemSchema);
+
+const OrderSchema = new mongoose.Schema(
+  {
+    products: [CartItemSchema],
+    transaction_id: {},
+    amount: { type: Number },
+    address: String,
+    status: {
+      type: String,
+      default: "Not processed",
+      enum: ["Not processed", "Processing", "Shipped", "Delivered"],
+    },
+    updated: Date,
+    user: { type: ObjectId, ref: "User" },
+  },
+  { timestamps: true }
+);
+
+const Order = mongoose.model("Order", OrderSchema);
+
+module.exports = { Order, CartItem };
+```
+
+##### ./controllers/order.js
+``` js
+// ./controllers/order.js
+const { Order, CartItem } = require("../models/order");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.orderById = (req, res, next, id) => {
+  Order.findById(id)
+    .populate("products.product", "name price")
+    .exec((error, order) => {
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      req.order = order;
+      next();
+    });
+};
+
+exports.create = (req, res) => {
+  req.body.order.user = req.profile;
+  const order = new Order(req.body.order);
+  order.save((error, data) => {
+    if (error) {
+      return res.status(400).json({
+        error: errorHandler(error),
+      });
+    }
+    res.json(data);
+  });
+};
+
+exports.listOrders = (req, res) => {
+  Order.find()
+    .populate("user", "_id name address")
+    .sort("-created")
+    .exec((error, orders) => {
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      res.json(orders);
+    });
+};
+
+exports.getStatusValues = (req, res) => {
+  res.json(Order.schema.path("status").enumValues);
+};
+
+exports.updateOrderStatus = (req, res) => {
+  console.log(req);
+  Order.update(
+    { _id: req.body.orderId },
+    { $set: { status: req.body.status } },
+    (error, order) => {
+      console.log("????", error);
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      res.json(order);
+    }
+  );
+};
+```
+
+##### ./controllers/user.js
+``` js
+// ./controllers/user.js
+const User = require("../models/user");
+
+exports.userById = (req, res, next, id) => {
+  User.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+  return res.json(req.profile);
+};
+
+exports.update = (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $set: req.body },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        return res.status(400).json({
+          error: "You are not authorized to perform this action",
+        });
+      }
+      req.profile.hashed_password = undefined;
+      req.profile.salt = undefined;
+      res.json(user);
+    }
+  );
+};
+
+exports.addOrderToUserHistory = (req, res, next) => {
+  let history = [];
+
+  req.body.order.products.forEach((item) => {
+    history.push({
+      _id: item._id,
+      name: item.name,
+      description: item.description,
+      category: item.category,
+      quantity: item.count,
+      transcation_id: req.body.order.transaction_id,
+      amount: req.body.order.amount,
+    });
+  });
+
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $push: { history: history } },
+    { new: true },
+    (error, data) => {
+      if (error) {
+        return res.status(400).json({
+          error: "Could not update user purchase history",
+        });
+      }
+      next();
+    }
+  );
+};
+```
+
+##### ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id)
+    .populate("category")
+    .exec((err, product) => {
+      if (err || !product) {
+        return res.status(400).json({
+          error: "Product does not exist",
+        });
+      }
+      req.product = product;
+      next();
+    });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      // console.log("product:", result);
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+/**
+ * sel/arrival
+ * bye sell = /products?sortBy=sold&order=desc&limit=4
+ * bye arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no parameter are sent, then all products are returned
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select("-photo")
+    .populate("category") // mapt to Category
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      // console.log("product-list:", products);
+      res.json(products);
+    });
+};
+
+/**
+ * it will find the products based on the req product category
+ * other products that has the same category, will be return
+ */
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // $ne: not include
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .select("-photo")
+    .limit(limit)
+    .populate("category", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+exports.listCategories = (req, res) => {
+  // distinct : 取出不同的 category
+  // {} : 2nd parameter doesn't need do no send value
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+/**
+ * list products by search
+ * we will implement product search in react frontend
+ * we will show categories in checkbox and price range in radio buttons
+ * as the user clicks on those checkbox and radio buttons
+ * we will make api request and show the products to users based on what he wants
+ */
+// {
+//  "skip" : "1",
+//  "limit" : "2",
+// 	"filters": {
+// 		"name": "Note"
+// 	}
+// }
+//
+// >=2 and <=19
+//  {
+// "filters": {
+//   "price": ["2", "19"]
+// }
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let findArgs = {};
+
+  // console.log(order, sortBy, limit, skip, req.body.filters);
+  // console.log(req.body);
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte - great than price
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        // findArgs[key] = new RegExp(req.body.filters[key]);
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  // console.log("findArgs", findArgs);
+
+  Product.find(findArgs)
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+
+exports.listSearch = (req, res) => {
+  // create query object to hole search value and category value
+  const query = {};
+  // assign search value to query name
+  if (req.query.search) {
+    // mongodb regular expression
+    query.name = { $regex: req.query.search, $options: "i" };
+    console.log(query.name);
+    // assign category value to query.category
+    if (req.query.category && req.query.category != "All") {
+      query.category = req.query.category;
+    }
+    // find the product base on query object with 2 properties
+    // search and category
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select("-photo");
+  }
+};
+
+exports.descreaseQuantity = (req, res, next) => {
+  let bulkOps = req.body.order.products.map((item) => {
+    return {
+      updateOne: {
+        filter: { _id: item._id },
+        update: { $inc: { quantity: -item.count, sold: +item.count } },
+      },
+    };
+  });
+
+  Product.bulkWrite(bulkOps, {}, (error, products) => {
+    if (error) {
+      return res.status(400).json({
+        error: "Could not update product",
+      });
+    }
+    next();
+  });
+};
+```
+
+#### Front End
+
+##### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+import Product from "./core/Product";
+import Cart from "./core/Cart";
+import Orders from "./admin/Orders";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminRequireAuth>
+                <Orders />
+              </AdminRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+##### ./src/admin/Orders.js
+``` js
+//  ./src/admin/Orders.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+import { listOrders, getStatusValues, updateOrderStatus } from "./ApiAdmin";
+import moment from "moment";
+
+export default function Orders() {
+  const [orders, setOrders] = useState([]);
+  const [statusValues, setStatusValues] = useState([]);
+  const { user, token } = isAuthenticated();
+
+  function loadOrders() {
+    listOrders(user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setOrders(data);
+      }
+    });
+  }
+
+  function loadStatusValue() {
+    getStatusValues(user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setStatusValues(data);
+      }
+    });
+  }
+
+  useEffect(() => {
+    loadOrders();
+    loadStatusValue();
+  }, []);
+
+  function showOrdersLength() {
+    if (orders.length > 0) {
+      return (
+        <h1 className="text-danger display-2">Total orders: {orders.length}</h1>
+      );
+    } else {
+      <h1 className="text-danger">No orders</h1>;
+    }
+  }
+
+  function handleStatusChange(e, orderId) {
+    console.log("update order status");
+    updateOrderStatus(user._id, token, orderId, e.target.value).then((data) => {
+      if (data.error) {
+        console.log("status update field");
+      } else {
+        loadOrders();
+      }
+    });
+  }
+
+  function showStatus(o) {
+    // console.log(statusValues);
+    return (
+      <div className="from-group">
+        <h3 className="mark mb-4">Status: {o.status}</h3>
+        <select
+          className="from-control"
+          onChange={(e) => handleStatusChange(e, o._id)}
+        >
+          <option>Update Status</option>
+          {statusValues.map((status, index) => (
+            <option key={index} value={status}>
+              {status}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+
+  return (
+    <Layout
+      title="Orsers"
+      description={`G'day ${user.name}, you can manage all the orders here`}
+    >
+      <div className="row">
+        <div className="col-md-8 offset-md-2">
+          {showOrdersLength()}
+          {orders.map((o, oIndex) => {
+            return (
+              <div
+                className="mt-5"
+                key={oIndex}
+                style={{ borderBottom: "5px solid indigo" }}
+              >
+                <h2 className="mb-5">
+                  <span className="bg-primary">Order:{o._id}</span>
+                </h2>
+                <ul className="list-group mb-2">
+                  <li className="list-group-item">
+                    {o.status}
+                    {showStatus(o)}
+                  </li>
+                  <li className="list-group-item">
+                    Transaction ID: {o.transaction_id}
+                  </li>
+                  <li className="list-group-item">Amount: {o.amount}</li>
+                  <li className="list-group-item">Order By: {o.user.name}</li>
+                  <li className="list-group-item">
+                    Ordered on: {moment(o.createdAt).fromNow()}
+                  </li>
+                  <li className="list-group-item">
+                    Delivery address: {o.address}
+                  </li>
+                </ul>
+                <h3 className="mt-4 mb-4 font-italic">
+                  Total products in the orders: {o.products.length}
+                </h3>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/UserDashboard.js
+``` js
+// ./src/core/UserDashboard.js
+import React from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+
+export default function UserDashboard() {
+  const {
+    user: { name, email, role },
+  } = isAuthenticated();
+
+  const userLinks = () => (
+    <div className="card">
+      <h3 className="card-header">User Links</h3>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <Link className="nav-link" to="/cart">
+            My Cart
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/profile/update">
+            Update Profile
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  const userInfo = () => (
+    <div className="card">
+      <h3 className="card-header">{`G'Day ${name}!`}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{name}</li>
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">
+          {role === 1 ? "Admin" : "Registrred User"}
+        </li>
+      </ul>
+    </div>
+  );
+
+  const purchaseHistory = () => (
+    <div className="card">
+      <ul className="list-group">
+        <li className="list-group-item">histtory</li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Dashboard Page"
+      description="User Dashboard"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-3">{userLinks()}</div>
+        <div className="col-9">
+          {userInfo()}
+          {purchaseHistory()}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/core/Checkout.js
+``` js
+// ./src/core/Checkout.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import DropIn from "braintree-web-drop-in-react";
+import { isAuthenticated } from "../auth";
+import {
+  getBraintreeClientToken,
+  processPayment,
+  createOrder,
+} from "./apiCore";
+import { emptyCart } from "./cartHelpers";
+
+export default function Checkout({ products, handelUpdate }) {
+  const [data, setData] = useState({
+    loading: false,
+    success: false,
+    clientToken: null,
+    error: "",
+    instance: {},
+    address: "",
+  });
+
+  const userId = isAuthenticated() && isAuthenticated().user._id;
+  const token = isAuthenticated() && isAuthenticated().token;
+
+  useEffect(() => {
+    getToken(userId, token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function getTotal() {
+    return products.reduce((currentValue, nextValue) => {
+      return currentValue + nextValue.count * nextValue.price;
+    }, 0);
+  }
+
+  function getToken(userId, token) {
+    getBraintreeClientToken(userId, token).then((response) => {
+      if (response.error) {
+        setData({ ...data, error: response.error });
+      } else {
+        // setData({ ...data, clientToken: response.clientToken });
+        setData({ clientToken: response.clientToken });
+      }
+    });
+  }
+
+  function showCheckout() {
+    return isAuthenticated() ? (
+      <div>{showDropIn()}</div>
+    ) : (
+      <Link to="/signin">
+        <button className="btn btn-primary">Sign in to checkout</button>
+      </Link>
+    );
+  }
+
+  let deliveryAddress = data.address;
+
+  function handleBuy() {
+    setData({ ...data, loading: true });
+    // send the nonce to your server
+    // nunce = data.instance.requestPaymentMethod()
+    let nonce;
+    // console.log("data", data);
+    if (products.length) {
+      // let getNonce = data.instance
+      data.instance
+        .requestPaymentMethod()
+        .then((data) => {
+          // console.log(data);
+          nonce = data.nonce;
+          // once you have nonce (Card type, card number) send nonce as paymentMethodNonce
+          // and also total to be charged
+          // console.log(
+          //   "send nonce and total to process : ",
+          //   nonce,
+          //   getTotal(products)
+          // );
+          const paymentData = {
+            paymentMethodNonce: nonce,
+            amount: getTotal(products),
+            // merchant_account_id: "dhewgthty",
+          };
+
+          processPayment(userId, token, paymentData)
+            .then((response) => {
+              // create order
+              const createOrderData = {
+                products: products,
+                transaction_id: response.transaction.id,
+                amount: response.transaction.amount,
+                address: deliveryAddress,
+              };
+              createOrder(userId, token, createOrderData).then((response) => {
+                emptyCart(() => {
+                  handelUpdate();
+                  // console.log("payment success and empty cart");
+                  setData({ ...data, loading: false, success: true });
+                });
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+              setData({ ...data, loading: false });
+            });
+        })
+        .catch((error) => {
+          console.log("dropin error: ", error);
+          setData({ ...data, error: error.message });
+        });
+    }
+  }
+
+  function shwoSucess(success) {
+    return (
+      <div
+        className="alert alert-info"
+        style={{ display: success ? "" : "none" }}
+      >
+        Thanks! Your Payment was successful!
+      </div>
+    );
+  }
+
+  function shwoLoading(loading) {
+    return loading && <h2>Loading...</h2>;
+  }
+
+  function shwoError(error) {
+    return (
+      <div
+        className="alert alert-danger"
+        style={{ display: error ? "" : "none" }}
+      >
+        {error}
+      </div>
+    );
+  }
+
+  function handleAddress(e) {
+    setData({ ...data, address: e.target.value });
+  }
+
+  function showDropIn() {
+    return (
+      <div onBlur={() => setData({ ...data, error: "" })}>
+        {data.clientToken != null && products.length > 0 ? (
+          <div>
+            <div className="gorm-grop mb-3">
+              <label className="text-muted">Delivery address:</label>
+              <textarea
+                onChange={handleAddress}
+                className="form-control"
+                value={data.address}
+                placeholder="Type your deliver address here ..."
+              />
+            </div>
+            <DropIn
+              options={{
+                authorization: data.clientToken,
+                // ad paypal option
+                paypal: {
+                  flow: "vault",
+                },
+              }}
+              onInstance={(instance) => (data.instance = instance)}
+            />
+            <button onClick={handleBuy} className="btn btn-success btn-block">
+              Pay
+            </button>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2>Total: ${getTotal()}</h2>
+      {shwoLoading(data.loading)}
+      {shwoSucess(data.success)}
+      {shwoError(data.error)}
+      {showCheckout()}
+    </div>
+  );
+}
+```
+
+##### ./src/admin/ApiCore.js
+``` js
+// ./src/admin/ApiCore.js
+import { API } from "../config";
+import queryString from "query-string";
+
+export const getProducts = (sortBy) => {
+  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getFilteredProducts = (skip, limit, filters) => {
+  const data = { limit, skip, filters };
+  // console.log(data);
+
+  // 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/products/by/search`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const list = (params) => {
+  const query = queryString.stringify(params);
+  return fetch(`${API}/products/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const read = (productId) => {
+  console.log("productid=", productId);
+  return fetch(`${API}/product/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const listRelated = (productId) => {
+  return fetch(`${API}/products/related/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getBraintreeClientToken = (userId, token) => {
+  return fetch(`${API}/braintree/getToken/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const processPayment = (userId, token, paymentData) => {
+  // console.log(userId, token, paymentData);
+  return fetch(`${API}/braintree/payment/${userId}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(paymentData),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const createOrder = (userId, token, createOrderData) => {
+  return fetch(`${API}/order/create/${userId}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ order: createOrderData }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+```
+
+##### ./src/admin/ApiAdmin.js
+``` js
+// ./src/admin/ApiAdmin.js
+import { API } from "../config";
+
+export const createCategory = (userId, token, category) => {
+  // ***--->>> call API function 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/category/create/${userId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const createProduct = (userId, token, product) => {
+  // ***--->>> call API function 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/product/create/${userId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: product,
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .catch((err) => {
+        console.log(err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const listOrders = (userId, token) => {
+  return fetch(`${API}/order/list/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getStatusValues = (userId, token) => {
+  return fetch(`${API}/order/status-values/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const updateOrderStatus = (userId, token, orderId, status) => {
+  return fetch(`${API}/order/${orderId}/status/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status, orderId }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+```
+
+
+
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)
