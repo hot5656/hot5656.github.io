@@ -6695,7 +6695,1587 @@ export const updateOrderStatus = (userId, token, orderId, status) => {
 };
 ```
 
+### add user profile + user purchase history
+#### Back End
+##### ./routes/user.js
+``` js
+// ./routes/user.js
+const express = require("express");
+const router = express.Router();
+// add controller
+const {
+  userById,
+  read,
+  update,
+  purchaseHistory,
+} = require("../controllers/user");
+// add controller
+const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 
+router.get("/secret/:userId", requireSignin, isAuth, (req, res) => {
+  res.json({
+    user: req.profile,
+  });
+});
+
+router.get("/user/:userId", requireSignin, isAuth, read);
+router.put("/user/:userId", requireSignin, isAuth, update);
+router.get("/orders/by/user/:userId", requireSignin, isAuth, purchaseHistory);
+
+// userId 參數驗證
+router.param("userId", userById);
+
+module.exports = router;
+```
+
+##### ./controllers/order.js
+``` js
+// ./controllers/order.js
+const { Order } = require("../models/order");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.orderById = (req, res, next, id) => {
+  Order.findById(id)
+    .populate("products.product", "name price")
+    .exec((error, order) => {
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      req.order = order;
+      next();
+    });
+};
+
+exports.create = (req, res) => {
+  req.body.order.user = req.profile;
+  const order = new Order(req.body.order);
+  order.save((error, data) => {
+    if (error) {
+      return res.status(400).json({
+        error: errorHandler(error),
+      });
+    }
+    res.json(data);
+  });
+};
+
+exports.listOrders = (req, res) => {
+  Order.find()
+    .populate("user", "_id name address")
+    .sort("-created")
+    .exec((error, orders) => {
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      res.json(orders);
+    });
+};
+
+exports.getStatusValues = (req, res) => {
+  res.json(Order.schema.path("status").enumValues);
+};
+
+exports.updateOrderStatus = (req, res) => {
+  Order.updateOne(
+    { _id: req.body.orderId },
+    { $set: { status: req.body.status } },
+    (error, order) => {
+      if (error) {
+        return res.status(400).json({
+          error: errorHandler(error),
+        });
+      }
+      res.json(order);
+    }
+  );
+};
+```
+
+##### ./controllers/user.js
+``` js
+// ./controllers/user.js
+const User = require("../models/user");
+const { Order } = require("../models/order");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.userById = (req, res, next, id) => {
+  User.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+  return res.json(req.profile);
+};
+
+exports.update = (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $set: req.body },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        return res.status(400).json({
+          error: "You are not authorized to perform this action",
+        });
+      }
+      req.profile.hashed_password = undefined;
+      req.profile.salt = undefined;
+      res.json(user);
+    }
+  );
+};
+
+exports.addOrderToUserHistory = (req, res, next) => {
+  let history = [];
+
+  req.body.order.products.forEach((item) => {
+    history.push({
+      _id: item._id,
+      name: item.name,
+      description: item.description,
+      category: item.category,
+      quantity: item.count,
+      transcation_id: req.body.order.transaction_id,
+      amount: req.body.order.amount,
+    });
+  });
+
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $push: { history: history } },
+    { new: true },
+    (error, data) => {
+      if (error) {
+        return res.status(400).json({
+          error: "Could not update user purchase history",
+        });
+      }
+      next();
+    }
+  );
+};
+
+exports.purchaseHistory = (req, res) => {
+  Order.find({ user: req.profile._id })
+    .populate("user", "_id name")
+    .sort("-created")
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(orders);
+    });
+};
+```
+
+#### Front End
+##### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+import Product from "./core/Product";
+import Cart from "./core/Cart";
+import Orders from "./admin/Orders";
+import Profile from "./user/Profile";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminRequireAuth>
+                <Orders />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/profile/:userId"
+            element={
+              <UserRequireAuth>
+                <Profile />
+              </UserRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+##### ./src/core/UserDashboard.js
+``` js
+// ./src/core/UserDashboard.js
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+import { getPurchaseHistory } from "./apiUser";
+import moment from "moment";
+
+export default function UserDashboard() {
+  const [history, setHistory] = useState([]);
+
+  const {
+    user: { _id, name, email, role },
+  } = isAuthenticated();
+  const token = isAuthenticated().token;
+
+  function init(userId, token) {
+    getPurchaseHistory(userId, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setHistory(data);
+      }
+    });
+  }
+
+  useEffect(() => {
+    init(_id, token);
+  }, []);
+
+  const userLinks = () => (
+    <div className="card">
+      <h3 className="card-header">User Links</h3>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <Link className="nav-link" to="/cart">
+            My Cart
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to={`/profile/${_id}`}>
+            Update Profile
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  const userInfo = () => (
+    <div className="card">
+      <h3 className="card-header">{`G'Day ${name}!`}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{name}</li>
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">
+          {role === 1 ? "Admin" : "Registrred User"}
+        </li>
+      </ul>
+    </div>
+  );
+
+  const purchaseHistory = (history) => (
+    <div className="card mb-5">
+      <div className="card-header">Purchase history</div>
+      <ul className="list-group">
+        <li className="list-group-item">
+          {history.map((h, i) => {
+            return (
+              <div>
+                <hr />
+                {h.products.map((p, i) => {
+                  return (
+                    <div key={i}>
+                      <h6>Product name: {p.name}</h6>
+                      <h6>Product price: ${p.price}</h6>
+                      <h6>Purchased date: {moment(h.updatedAt).fromNow()}</h6>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Dashboard Page"
+      description="User Dashboard"
+      className="container-fluid"
+    >
+      <div className="row">
+        <div className="col-3">{userLinks()}</div>
+        <div className="col-9">
+          {userInfo()}
+          {purchaseHistory(history)}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/user/Profile.js
+``` js
+// ./src/user/Profile.js
+import React, { useState, useEffect } from "react";
+import { useParams, Navigate } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+import { read, update, updateUser } from "./apiUser";
+
+export default function Profile({ match }) {
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    error: false,
+    success: false,
+  });
+
+  const { token } = isAuthenticated();
+  const { name, email, password, error, success } = values;
+  const { userId } = useParams(); // v6 react-router-dom
+
+  function init(userId) {
+    // console.log(userId);
+    read(userId, token).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: true });
+      } else {
+        setValues({ ...values, name: data.name, email: data.email });
+      }
+    });
+  }
+
+  useEffect(() => {
+    // init(match.params.userId); // v5 react-router-dom
+    init(userId); // v6 react-router-dom
+  }, []);
+
+  const handleChange = (name) => (e) => {
+    setValues({ ...values, error: false, [name]: e.target.value });
+  };
+
+  function redirectUser(success) {
+    if (success) {
+      return <Navigate to="/cart" />;
+    }
+  }
+
+  function handSubmit(e) {
+    e.preventDefault();
+    update(userId, token, { name, email, password }).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        updateUser(data, () => {
+          setValues({
+            ...values,
+            name: data.name,
+            email: data.email,
+            success: true,
+          });
+        });
+      }
+    });
+  }
+
+  function profileUpdate(name, email, password) {
+    return (
+      <form>
+        <div className="form-group">
+          <label className="text-muted">Name</label>
+          <input
+            type="text"
+            onChange={handleChange("name")}
+            className="form-control"
+            value={name}
+          />
+        </div>
+        <div className="form-group">
+          <label className="text-muted">Email</label>
+          <input
+            type="email"
+            onChange={handleChange("email")}
+            className="form-control"
+            value={email}
+          />
+        </div>
+        <div className="form-group">
+          <label className="text-muted">Password</label>
+          <input
+            type="password"
+            onChange={handleChange("password")}
+            className="form-control"
+            value={password}
+          />
+        </div>
+        <button onClick={handSubmit} className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <Layout
+      title="Profile"
+      description="Update your profile"
+      className="container-fluid"
+    >
+      <h2 className="mb-4">Profile Update</h2>
+      {profileUpdate(name, email, password)}
+      {redirectUser(success)}
+    </Layout>
+  );
+}
+```
+
+##### ./src/user/apiUser.js
+``` js
+// ./src/user/apiUser.js
+import { API } from "../config";
+
+export const read = (userId, token) => {
+  return fetch(`${API}/user/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const update = (userId, token, user) => {
+  return fetch(`${API}/user/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(user),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const updateUser = (user, next) => {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("jwt")) {
+      let auth = JSON.parse(localStorage.getItem("jwt"));
+      auth.user = user;
+      localStorage.setItem("jwt", JSON.stringify(auth));
+      next();
+    }
+  }
+};
+
+export const getPurchaseHistory = (userId, token) => {
+  return fetch(`${API}/orders/by/user/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+```
+
+### add Manage Orders and Products
+#### Back End
+##### ./controller/product.js
+``` js
+// ./controller/product.js
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
+const Product = require("../models/product");
+const { errorHandler } = require("../helpers/dbErrorHandler");
+
+exports.productById = (req, res, next, id) => {
+  Product.findById(id)
+    .populate("category")
+    .exec((err, product) => {
+      if (err || !product) {
+        return res.status(400).json({
+          error: "Product does not exist",
+        });
+      }
+      req.product = product;
+      next();
+    });
+};
+
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+exports.create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    // check for all fieldd
+    const { name, description, price, category, quantity, shipping } = fields;
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: "All field are required",
+      });
+    }
+
+    let product = new Product(fields);
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      // console.log("product:", result);
+      res.json(result);
+    });
+  });
+};
+
+exports.remove = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      message: "Product deleted successly",
+    });
+  });
+};
+
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+
+    let product = req.product;
+    // fields 蓋過 product
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 200000) {
+        return res.status(400).json({
+          error: "Image should be less 200k in size",
+        });
+      }
+
+      // change files.photo.file to files.photo.filepath
+      product.photo.data = fs.readFileSync(files.photo.filepath);
+      product.photo.contentType = files.photo.mimetype;
+    }
+
+    product.save((err, result) => {
+      result.photo = undefined;
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+
+      result.photo = undefined;
+      res.json(result);
+    });
+  });
+};
+
+/**
+ * sel/arrival
+ * bye sell = /products?sortBy=sold&order=desc&limit=4
+ * bye arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no parameter are sent, then all products are returned
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  if (isNaN(limit)) limit = "";
+
+  Product.find()
+    .select("-photo")
+    .populate("category") // mapt to Category
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+/**
+ * it will find the products based on the req product category
+ * other products that has the same category, will be return
+ */
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // $ne: not include
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .select("-photo")
+    .limit(limit)
+    .populate("category", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
+exports.listCategories = (req, res) => {
+  // distinct : 取出不同的 category
+  // {} : 2nd parameter doesn't need do no send value
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+/**
+ * list products by search
+ * we will implement product search in react frontend
+ * we will show categories in checkbox and price range in radio buttons
+ * as the user clicks on those checkbox and radio buttons
+ * we will make api request and show the products to users based on what he wants
+ */
+// {
+//  "skip" : "1",
+//  "limit" : "2",
+// 	"filters": {
+// 		"name": "Note"
+// 	}
+// }
+//
+// >=2 and <=19
+//  {
+// "filters": {
+//   "price": ["2", "19"]
+// }
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let findArgs = {};
+
+  // console.log(order, sortBy, limit, skip, req.body.filters);
+  // console.log(req.body);
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte - great than price
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        // findArgs[key] = new RegExp(req.body.filters[key]);
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  // console.log("findArgs", findArgs);
+
+  Product.find(findArgs)
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
+
+exports.listSearch = (req, res) => {
+  // create query object to hole search value and category value
+  const query = {};
+  // assign search value to query name
+  if (req.query.search) {
+    // mongodb regular expression
+    query.name = { $regex: req.query.search, $options: "i" };
+    console.log(query.name);
+    // assign category value to query.category
+    if (req.query.category && req.query.category != "All") {
+      query.category = req.query.category;
+    }
+    // find the product base on query object with 2 properties
+    // search and category
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select("-photo");
+  }
+};
+
+exports.descreaseQuantity = (req, res, next) => {
+  let bulkOps = req.body.order.products.map((item) => {
+    return {
+      updateOne: {
+        filter: { _id: item._id },
+        update: { $inc: { quantity: -item.count, sold: +item.count } },
+      },
+    };
+  });
+
+  Product.bulkWrite(bulkOps, {}, (error, products) => {
+    if (error) {
+      return res.status(400).json({
+        error: "Could not update product",
+      });
+    }
+    next();
+  });
+};
+```
+
+#### Front End
+
+##### ./src/AppRoutes.js
+``` js
+// ./src/AppRoutes.js
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./core/Home";
+import Signup from "./user/Signup";
+import Signin from "./user/Singin";
+import UserDashboard from "./user/UserDashboard";
+import AdminDashboard from "./user/AdminDashboard";
+import UserRequireAuth from "./auth/UserAuth";
+import AdminRequireAuth from "./auth/AdminAuth";
+import AddCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import Shop from "./core/Shop";
+import Product from "./core/Product";
+import Cart from "./core/Cart";
+import Orders from "./admin/Orders";
+import Profile from "./user/Profile";
+import ManageProducts from "./admin/ManageProducts";
+import UpdateProduct from "./admin/UpdateProduct";
+
+export default function AppRoutes() {
+  // console.log("APP render...");
+  return (
+    <div>
+      <BrowserRouter>
+        {/* react-router-dom v6
+				   1. "Switch" is replaced by routes "Routes"
+					 2. component put to element */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/user/dashboard"
+            element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRequireAuth>
+                <AdminDashboard />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/category"
+            element={
+              <AdminRequireAuth>
+                <AddCategory />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/create/product"
+            element={
+              <AdminRequireAuth>
+                <AddProduct />
+              </AdminRequireAuth>
+            }
+          />
+          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminRequireAuth>
+                <Orders />
+              </AdminRequireAuth>
+            }
+          />
+          <Route
+            path="/profile/:userId"
+            element={
+              <UserRequireAuth>
+                <Profile />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <UserRequireAuth>
+                <ManageProducts />
+              </UserRequireAuth>
+            }
+          />
+          <Route
+            path="/admin/product/update/:productId"
+            element={
+              <AdminRequireAuth>
+                <UpdateProduct />
+              </AdminRequireAuth>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+
+##### ./src/core/AdminDashboard.js
+``` js
+// ./src/core/AdminDashboard.js
+import React from "react";
+import { Link } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+
+export default function AdmintDashboard() {
+  const {
+    user: { name, email, role },
+  } = isAuthenticated();
+
+  const adminLinks = () => (
+    <div className="card">
+      <h3 className="card-header">Admin Links</h3>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <Link className="nav-link" to="/create/category">
+            Create Category
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/create/product">
+            Create Product
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/admin/orders">
+            View Orders
+          </Link>
+        </li>
+        <li className="list-group-item">
+          <Link className="nav-link" to="/admin/products">
+            Manage Products
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+
+  // ***--->>> 使用 arrow 函數,可省略 return
+  const adminInfo = () => (
+    <div className="card">
+      <h3 className="card-header">{`G'Day ${name}!`}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{name}</li>
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">
+          {role === 1 ? "Admin" : "Registrred User"}
+        </li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <Layout
+      title="Dashboard Page"
+      description="Admin Dashboard"
+      className="container-fluid"
+    >
+      <div className="row">
+        {/* ***--->>> 使用 arrow 函數,可省略 return */}
+        <div className="col-3">{adminLinks()}</div>
+        <div className="col-9">{adminInfo()}</div>
+      </div>
+    </Layout>
+  );
+}
+```
+
+##### ./src/admin/ApiAdmin.js
+``` js
+// ./src/admin/ApiAdmin.js
+import { API } from "../config";
+
+export const createCategory = (userId, token, category) => {
+  // ***--->>> call API function 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/category/create/${userId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("signup err:", err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const createProduct = (userId, token, product) => {
+  // ***--->>> call API function 要加 return 才能 then 處理
+  return (
+    fetch(`${API}/product/create/${userId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: product,
+    })
+      // json format body 傳回要加 .json()
+      .then((response) => response.json())
+      .catch((err) => {
+        console.log(err);
+        return { error: "Server not response" };
+      })
+  );
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const listOrders = (userId, token) => {
+  return fetch(`${API}/order/list/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getStatusValues = (userId, token) => {
+  return fetch(`${API}/order/status-values/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const updateOrderStatus = (userId, token, orderId, status) => {
+  return fetch(`${API}/order/${orderId}/status/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status, orderId }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getProducts = () => {
+  return fetch(`${API}/products?limit=undefined`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const deleteProduct = (productId, userId, token) => {
+  return fetch(`${API}/product/${productId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const getProduct = (productId) => {
+  return fetch(`${API}/product/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+
+export const updateProduct = (productId, userId, token, product) => {
+  console.log(productId, userId, token, product);
+  return fetch(`${API}/product/${productId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: product,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+      return { error: "Server not response" };
+    });
+};
+```
+
+##### ./src/admin/ManageProducts.js
+``` js
+//  ./src/admin/ManageProducts.js
+import React, { useState, useEffect } from "react";
+import Layout from "../core/Layout";
+import { Link } from "react-router-dom";
+import { isAuthenticated } from "../auth";
+import { getProducts, deleteProduct } from "./ApiAdmin";
+
+export default function ManageProducts() {
+  const [products, setProducts] = useState([]);
+
+  const { user, token } = isAuthenticated();
+
+  function loadProducts() {
+    getProducts().then((data) => {
+      if (data.error) {
+        console.log(data.log);
+      } else {
+        setProducts(data);
+      }
+    });
+  }
+
+  function destroy(productId) {
+    deleteProduct(productId, user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        loadProducts();
+      }
+    });
+  }
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  return (
+    <Layout
+      title="Manage Products"
+      description="Perform CRUD on products"
+      className="container-fluid"
+    >
+      <h2 className="text-center">Total {products.length} products</h2>
+      <hr />
+
+      {products.map((p, i) => (
+        <li key={i} className="list-group-item">
+          <div className="row">
+            <div className="col-6">
+              <strong>{p.name}</strong>
+            </div>
+            <div className="col-3">
+              <Link to={`/admin/product/update/${p._id}`}>
+                <span className="badge badge-warning badge-pill">Update</span>
+              </Link>
+            </div>
+            <div className="col-3">
+              <span
+                onClick={() => destroy(p._id)}
+                className="badge badge-danger badge-pill"
+              >
+                Delete
+              </span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </Layout>
+  );
+}
+```
+
+##### ./src/admin/UpdateProduct.js
+``` js
+//  ./src/admin/UpdateProduct.js
+import React, { useState, useEffect } from "react";
+import { useParams, Navigate } from "react-router-dom";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+import { getProduct, getCategories, updateProduct } from "./ApiAdmin";
+
+export default function UpdateProduct() {
+  const [values, setValues] = useState({
+    name: "",
+    description: "",
+    price: "",
+    shipping: "",
+    quantity: "",
+    photo: "",
+    loading: false,
+    error: "",
+    createdProduct: "",
+    redirectToProfile: false,
+    formData: "",
+  });
+
+  const [categories, setCategories] = useState([]);
+
+  // destructure user and token from localStorage
+  const { user, token } = isAuthenticated();
+  const { productId } = useParams();
+
+  const {
+    name,
+    description,
+    price,
+    quantity,
+    loading,
+    error,
+    createdProduct,
+    redirectToProfile,
+    formData,
+  } = values;
+
+  const init = (productId) => {
+    getProduct(productId).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        // populate the state
+        setValues({
+          ...values,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          category: data.category._id,
+          shipping: data.shipping,
+          quantity: data.quantity,
+          formData: new FormData(),
+        });
+        // load categories
+        initCategories();
+      }
+    });
+  };
+
+  // load categories and set from data.error
+  const initCategories = () => {
+    getCategories().then((data) => {
+      if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+        });
+      } else {
+        setCategories(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    init(productId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function handleChange(e) {
+    const name = e.target.name;
+    const value = name === "photo" ? e.target.files[0] : e.target.value;
+    // set formData's velue
+    formData.set(name, value);
+    setValues({
+      ...values,
+      [e.target.name]: value,
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setValues({
+      ...values,
+      error: "",
+      loading: true,
+    });
+
+    // ***--->>> call API function 要加 return 才能 then 處理
+    updateProduct(productId, user._id, token, formData).then((data) => {
+      if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+        });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          description: "",
+          price: "",
+          quantity: "",
+          photo: "",
+          loading: false,
+          redirectToProfile: true,
+          createdProduct: data.name,
+        });
+      }
+    });
+  }
+
+  // // 使用此種寫法不用加 {} and retuen
+  const newProductForm = () => (
+    <form onSubmit={handleSubmit} className="mb-3">
+      <h4>Post Photo</h4>
+      <div className="form-group">
+        <label className="btn btn-secondary">
+          <input
+            id="photo_uploades"
+            onChange={handleChange}
+            name="photo"
+            type="file"
+            accepr="image/*"
+          />
+        </label>
+        <br />
+        <label className="text-muted">Name</label>
+        <input
+          onChange={handleChange}
+          name="name"
+          type="text"
+          className="form-control"
+          value={name}
+        />
+        <label className="text-muted">Description</label>
+        <textarea
+          onChange={handleChange}
+          name="description"
+          type="text"
+          className="form-control"
+          value={description}
+        />
+        <label className="text-muted">Price</label>
+        <input
+          onChange={handleChange}
+          name="price"
+          type="text"
+          className="form-control"
+          value={price}
+        />
+        <label className="text-muted">Category</label>
+        <select
+          onChange={handleChange}
+          name="category"
+          className="form-control"
+        >
+          <option>Please select</option>
+          {categories &&
+            categories.map((c, i) => (
+              <option key={i} value={c._id}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+        <label className="text-muted">Shipping</label>
+        <select
+          onChange={handleChange}
+          name="shipping"
+          className="form-control"
+        >
+          <option>Please select</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label className="text-muted">Quantity</label>
+        <input
+          onChange={handleChange}
+          name="quantity"
+          type="number"
+          className="form-control"
+          value={quantity}
+        />
+      </div>
+      <button className="btn btn-outline-primary">Update Product</button>
+    </form>
+  );
+
+  const showError = () => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </div>
+  );
+
+  const showSuccess = () => (
+    <div
+      className="alert alert-info"
+      style={{ display: createdProduct ? "" : "none" }}
+    >
+      <h2>{`${createdProduct}`} is updated!</h2>
+    </div>
+  );
+
+  const showLoading = () => {
+    loading && (
+      <div className="alert alert-success">
+        <h2>Loading...</h2>
+      </div>
+    );
+  };
+
+  const redirectUser = () => {
+    if (redirectToProfile) {
+      if (!error) {
+        return <Navigate to="/" />;
+      }
+    }
+  };
+
+  return (
+    <Layout
+      title="Update the product"
+      description={`G'day ${user.name}, ready update the product?`}
+    >
+      <div className="row">
+        <div className="col-md-8 offset-md-2">
+          {showLoading()}
+          {showSuccess()}
+          {showError()}
+          {newProductForm()}
+          {redirectUser()}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+```
 
 ### 參考資料
 + [Autofilling form controls: the autocomplete attribute](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute)

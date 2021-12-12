@@ -252,6 +252,62 @@ new User(req.body).save;
 User.findOne({ email })
 ```
 
+#### [Deprecation Warnings](https://mongoosejs.com/docs/deprecations.html)
+##### update()
+``` js
+// Replace this:
+MyModel.update({ foo: 'bar' }, { answer: 42 });
+// With this:
+MyModel.updateOne({ foo: 'bar' }, { answer: 42 });
+
+// If you use `overwrite: true`, you should use `replaceOne()` instead:
+MyModel.update(filter, update, { overwrite: true });
+// Replace with this:
+MyModel.replaceOne(filter, update);
+
+// If you use `multi: true`, you should use `updateMany()` instead:
+MyModel.update(filter, update, { multi: true });
+// Replace with this:
+MyModel.updateMany(filter, update);
+```
+
+##### remove()
+``` js
+// Replace this:
+MyModel.remove({ foo: 'bar' });
+// With this:
+MyModel.deleteMany({ foo: 'bar' });
+
+// Replace this:
+MyModel.remove({ answer: 42 }, { single: true });
+// With this:
+MyModel.deleteOne({ answer: 42 });
+```
+
+##### count()
+``` js
+// Replace this:
+MyModel.count({ answer: 42 });
+// With this:
+MyModel.countDocuments({ answer: 42 });
+
+// If you're counting all documents in the collection, use
+// `estimatedDocumentCount()` instead.
+MyModel.count();
+// Replace with:
+MyModel.estimatedDocumentCount();
+
+// Replace this:
+MyModel.find({ answer: 42 }).count().exec();
+// With this:
+MyModel.find({ answer: 42 }).countDocuments().exec();
+
+// Replace this:
+MyModel.find().count().exec();
+// With this, since there's no filter
+MyModel.find().estimatedDocumentCount().exec();
+```
+
 
 ### 參考資料 
 + [mongoose document](https://mongoosejs.com/docs/)
