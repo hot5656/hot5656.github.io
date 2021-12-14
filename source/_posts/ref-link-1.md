@@ -192,6 +192,13 @@ PayPal and Stripe
 + [Canva](https://www.canva.com/zh_tw/):建立社群媒體圖形、簡報、海報、文件和其他視覺內容的平面設計平台
 + [DR.DREAM](https://deanlife.blog/)
 
+#### Job
++ [Upwork](https://www.upwork.com/)
++ [F2E TW](https://github.com/f2etw/jobs/issues)
++ [yourator](https://www.yourator.co/)
++ [CakeResume](https://www.cakeresume.com/search?query=%E5%89%8D%E7%AB%AF&page=1)
++ [Toptal](https://www.toptal.com/front-end)
+
 #### 題庫
 + [Git 面試題](https://gitbook.tw/interview)
 

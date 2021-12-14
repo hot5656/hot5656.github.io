@@ -36,15 +36,22 @@ project\ecommerce\express>git add .
 project\ecommerce\express>git commit -m "push to github"
 git remote add origin https://github.com/hot5656/ecommence.git
 git push -u origin master
+set repository to private
 ```
 
 #### github create repository ecommence-front
 ```
-project\ecommerce\express>git init
+project\ecommerce\ecommerce-front>git init
+
 project\ecommerce\express>git add .
 project\ecommerce\express>git commit -m "push to github"
-git remote add origin https://github.com/hot5656/ecommence.git
+git remote add origin https://github.com/hot5656/ecommence-front.git
 git push -u origin master
+```
+
+
+```
+login cloud.digitalocean.com
 ```
 
 <!--more-->
