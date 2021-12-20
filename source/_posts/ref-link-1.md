@@ -39,6 +39,7 @@ date: 2021-03-18 15:48:55
 #### 參考功能
 + [HTML Entity](https://www.w3schools.com/charsets/ref_html_entities_4.asp)
 + [HTML Semantic Elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
++ [HTML Entity and Unicode](https://www.compart.com/en/unicode/)
 
 #### 參考網頁
 + [Can I use](https://caniuse.com/)
