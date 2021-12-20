@@ -7,6 +7,27 @@ tags:
 	- bootstrap
 ---
 
+### [Layout](/bootstrap-1/layout)
+#### Container
+
+|	|Extra small | Small|Medium|Large|Extra l|
+|--------------|-------|------|-------|-------|------|
+| |<576px	|≥576px|≥768px|≥992px|≥1200px|
+|.container	      | 100%	|540px |720px	|960px	|1140px|
+|.container-sm	  | 100%	|540px |720px	|960px	|1140px|
+|.container-md	  | 100%	|100%	 |720px	|960px	|1140px|
+|.container-lg	  | 100%	|100%	 |100%	|960px	|1140px|
+|.container-xl	  | 100%	|100%	 |100%	|100% 	|1140px|
+|.container-fluid	| 100%	|100%	 |100%	|100%	  |100%  |
+
+#### Grid options
+|	|Extra small | Small|Medium|Large|Extra l|
+|--------------|-------|------|-------|-------|------|
+| |<576px	|≥576px|≥768px|≥992px|≥1200px|
+|Max container width|	None (auto)	|540px	  |720px	  |960px	  |1140px  |
+|Class prefix	      |.col-	      |.col-sm-	|.col-md-	|.col-lg-	|.col-xl-|
+
+ps : Gutter width	30px (15px on each side of a column)
 
 ### Content
 #### [Typography](/bootstrap-1/typography) 排版
