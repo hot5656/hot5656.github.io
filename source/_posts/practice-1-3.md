@@ -1,5 +1,5 @@
 ---
-title: Practice React Ecommerce
+title: Practice React Ecommerce - Deployment
 abbrlink: 23b1
 date: 2021-12-13 21:11:29
 categories: Project
