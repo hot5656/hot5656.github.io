@@ -182,6 +182,7 @@ npx create-react-app -V
 # run react
 cd my-app
 npm start
+# run --> node node_modules/react-scripts/bin/react-scripts.js start
 ```
 
 #### Strict Mode and measuring performance
