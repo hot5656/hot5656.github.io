@@ -7,7 +7,204 @@ tags:
 	- deployment
 ---
 
-### ss
+### Deploy to DigitalOcean
+#### Create Droplet
+<div style="max-width:1000px">
+	{% asset_img pic31.png pic31 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic32.png pic32 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic33.png pic33 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic34.png pic34 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic35.png pic35 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic36.png pic36 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic37.png pic37 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic38.png pic38 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic39.png pic39 %}
+</div>
+
+
+#### login to Droplet
+<div style="max-width:500px">
+	{% asset_img pic40.png pic40 %}
+</div>
+<div style="max-width:500px">
+	{% asset_img pic41.png pic41 %}
+</div>
+<div style="max-width:500px">
+	{% asset_img pic42.png pic42 %}
+</div>
+
+#### add new user and set to sudo user
+``` bash
+# after login to server 
+# add user 
+adduser ecomadmin
+# add ecomadmin to sudo user 
+sudo adduser ecomadmin sudo
+
+# after login by ecomadmin
+# disable root login
+sudo vim /etc/ssh/sshd_config
+# PermitRootLogin yes --> no 
+sudo service ssh restart
+```
+
+#### install nodejs
+``` bash
+# install nodejs by vm default version (not use this)
+# sudo apt update
+# sudo apt install nodejs
+# node -v
+# sudo apt remove nodejs
+# install nodejs latest version(now is 16)
+cd ~
+curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+# check nodesource_setup.sh load already
+ls nodesource_setup.sh
+# run nodesource_setup.sh
+sudo bash nodesource_setup.sh
+# install nodejs
+sudo apt install nodejs
+# found as below ..
+## Run `sudo apt-get install -y nodejs` to install Node.js 16.x and npm
+sudo apt-get install -y nodejs
+# check version
+node -v
+	v16.13.1
+```
+
+#### install nginx
+``` Bash
+sudo apt install nginx
+cd /etc/nginx/sites-available
+ls
+	default
+# how to run node in digitalocean
+sudo vim default
+# location /api {
+#   proxy_set_header X-Real-IP $remote_addr;
+#   pproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#   pproxy_set_header X-NginX-Proxy true;
+#   pproxy_pass http://localhost:8000;
+#   pproxy_set_header Host $http_host;
+#   p proxy_cache_bypass $http_upgrade;
+#   pproxy_redirect off;
+# }
+#
+# location / {
+#   proxy_set_header X-Real-IP $remote_addr;
+#   pproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#   pproxy_set_header X-NginX-Proxy true;
+#   pproxy_pass http://localhost:3000;
+#   pproxy_set_header Host $http_host;
+#   p proxy_cache_bypass $http_upgrade;
+#   pproxy_redirect off;
+# }
+
+# test nginx 
+sudo nginx -t
+	nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+	nginx: configuration file /etc/nginx/nginx.conf test is successful
+sudo systemctl restart nginx
+```
+
+#### clone sources
+``` Bash
+cd ~
+mkdir project
+cd project
+git clone https://github.com/hot5656/ecommence-front.git
+git clone https://github.com/hot5656/ecommence.git
+cd ecommence
+sudo touch .env
+sudo vim .env
+# set ecommence .env
+PORT=8000
+DATABASE=mongodb://127.0.0.1:27017/ecommerce
+JWT_SECRET=...
+BRAINTREE_MERCHANT_ID=...
+BRAINTREE_PUBLIC_KEY=...
+BRAINTREE_PRIVATE_KEY=...
+BRAINTREE_MERCHANT_ACCOUNT_ID=...
+# cd to ecommence-front
+cd ../ecommence-front
+sudo touch .env
+sudo vim .env
+# set ecommence-front .env
+REACT_APP_API_URL=/api
+```
+
+#### install mongoDB
+``` Bash
+# install mongodb in digitalocean
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+apt-key list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+sudo apt update
+sudo apt install mongodb-org
+sudo systemctl start mongod.service
+sudo systemctl status mongod
+sudo systemctl enable mongod
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+	MongoDB shell version v4.4.10
+	connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+	Implicit session: session { "id" : UUID("d69b3786-0246-494e-a573-6a0726ebf2d6") }
+	MongoDB server version: 4.4.10
+	{
+					"authInfo" : {
+									"authenticatedUsers" : [ ],
+									"authenticatedUserRoles" : [ ]
+					},
+					"ok" : 1
+	}
+# check momgodb 
+mongo
+> show dbs
+  admin   0.000GB
+  config  0.000GB
+  local   0.000GB
+> use ecommerce
+  switched to db ecommerce
+> exit
+```
+
+#### install and run pm2
+``` bash
+# install pm2
+npm i pm2 g
+sudo npm i -g pm2
+# run ecommence (backend end)
+cd ~/project/ecommence
+npm install
+pm2 start app.js
+# run browser - check it's working --> response []
+http://xx.xx.xx.202/api/products
+# run ecommence-front (front end) 
+cd ../ecommence-front
+npm install
+# build react
+npm run build
+pm2 start server.js
+# run browser - verify it's working
+http://xx.xx.xx.202/
+```
+
+
 #### ecommerce server(express) add server.js
 ``` js
 const express = require('express');
