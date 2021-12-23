@@ -32,6 +32,30 @@ tags:
 ps : Gutter width	30px (15px on each side of a column)
 
 ### Content
+
+#### Reboot 
+##### font family
+``` js
+$font-family-sans-serif:
+  // Safari for macOS and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for macOS (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  Roboto,
+  // Basic web fallback
+  "Helvetica Neue", Arial,
+  // Linux
+  "Noto Sans",
+  "Liberation Sans",
+  // Sans serif fallback
+  sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+```
+
 #### [Typography](/bootstrap-1/typography) 排版
 ##### Headings
 ``` html
@@ -339,6 +363,27 @@ Negative margin(padding not support) :
 + n4 - (by default) for classes that set the margin to -$spacer * 1.5(24px)
 + n5 - (by default) for classes that set the margin to -$spacer * 3(48px)
 
+##### Margin
+``` js
+		<div class="mb-0 bg-primary text-white">mb-0 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="mb-1 bg-secondary text-white">mb-1 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="mb-2 bg-success text-white">mb-2 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="mb-3 bg-danger text-white">mb-3 Lorem ipsum dolor sit amet consectetu</div>
+		<div class="mb-4 bg-warning text-dark">mb-4 Lorem ipsum dolor sit amet consectetu</div>
+		<div class="mb-5 bg-info text-white">mb-5 Lorem ipsum dolor sit amet consectetu</div>
+		<div class="mx-auto text-white bg-dark" style="width: 300px;">mx-auto(width: 300px;) Lorem ipsum dolor sit amet consectetu</div>
+		<div class="ml-n3 bg-primary text-white">ml-n3 Lorem ipsum dolor sit amet consectetur</div>
+```
+
+##### Padding
+``` js
+		<div class="p-0 bg-primary text-white">p-0 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="p-1 bg-secondary text-white">p-1 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="p-2 bg-success text-white">p-2 Lorem ipsum dolor sit amet consectetur</div>
+		<div class="p-3 bg-danger text-white">p-3 Lorem ipsum dolor sit amet consectetu</div>
+		<div class="p-4 bg-warning text-dark">p-4 Lorem ipsum dolor sit amet consectetu</div>
+		<div class="p-5 bg-info text-white">p-5 Lorem ipsum dolor sit amet consectetu</div>
+```
 
 #### [Size](/bootstrap-1/size)
 ##### Width
@@ -381,6 +426,68 @@ Negative margin(padding not support) :
 		<div class="min-vh-100">Min-height 100vh</div>
 		<div class="vw-100">Width 100vw</div>
 		<div class="vh-100">Height 100vh</div>
+```
+
+#### [Float](/bootstrap-1/float)
++ float-left
++ float-right
++ float-none
+
+``` html
+		<!-- 
+		.clearfix::after {
+			display: block;
+			clear: both;
+			content: "";
+		} -->
+		<div class="bg-secondary text-center p-2 clearfix">
+			<!-- float-left: float: left!important; -->
+			<h1 class="bg-success p-2 float-left">Hello</h1>
+			<!-- float-right: float: right!important; -->
+			<h1 class="bg-primary p-2 float-right">World</h1>
+		</div>
+```
+
+#### [Position](/bootstrap-1/position)
++ position-static
++ position-relative
++ position-absolute
++ position-fixed
++ position-sticky
++ fixed-top
++ fixed-bottom
++ sticky-top
+
+``` html
+	<div class="box" >
+		<!-- .fixed-top {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: 1030;
+		} -->
+		<!-- <h1 class="bg-success p-2 fixed-top" >Hello</h1> -->
+
+		<!-- 
+		.fixed-bottom {
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 1030;
+		} -->
+		<h1 class="bg-primary p-2 fixed-bottom" >World</h1>
+		<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti doloribus dolorum sint animi, eligendi ut....</p>
+		<!-- 
+		.sticky-top {
+			position: sticky;
+			top: 0;
+			z-index: 1020;
+		} -->
+		<h1 class="bg-info p-2 sticky-top">test line...</h1>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. ...</p>
+	</div>
 ```
 
 

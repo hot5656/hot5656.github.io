@@ -29,6 +29,8 @@ app.listen(PORT, () => {
 });
 ```
 
+<!--more-->
+
 #### update ecommerce-front to github 
 ``` bash
 # github create repository ecommerce-front  
@@ -56,9 +58,6 @@ git push -u origin master
 <div style="max-width:1000px">
 	{% asset_img pic31.png pic31 %}
 </div>
-
-<!--more-->
-
 <div style="max-width:1000px">
 	{% asset_img pic32.png pic32 %}
 </div>
@@ -92,7 +91,7 @@ git push -u origin master
 <div style="max-width:500px">
 	{% asset_img pic41.png pic41 %}
 </div>
-<div style="max-width:500px">
+<div style="max-width:700px">
 	{% asset_img pic42.png pic42 %}
 </div>
 
@@ -338,7 +337,50 @@ pm2 delete server
 pm2 delete 4
 ```
 
-#### send backend
+#### Set SSL by Cloudflare
+<div style="max-width:1000px">
+	{% asset_img pic11.png pic11 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic12.png pic12 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic13.png pic13 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic14.png pic14 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic15.png pic15 %}
+</div>
+
+Change DNS at domain register 
+<div style="max-width:1000px">
+	{% asset_img pic16.png pic16 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic17.png pic17 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic18.png pic18 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic19.png pic19 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic20.png pic20 %}
+</div>
+<div style="max-width:1000px">
+	{% asset_img pic21.png pic21 %}
+</div>
+
+Wait some hours then it&apos;s woking
+<div style="max-width:1000px">
+	{% asset_img pic22.png pic22 %}
+</div>
+
+
+### Send email by sendgrid
 ``` bash
 # install
 npm i @sendgrid/mail
