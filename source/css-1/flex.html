@@ -1,0 +1,195 @@
+---
+layout: false
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>CSS Flex</title>
+
+	<style>
+		.box {
+			border: 1px solid #c3c3c3;
+			margin: 10px 50px;
+			padding: 10px;
+		}
+
+		.level2 {
+			margin-left: 25px;
+		}
+	</style>
+
+	<style>
+		.flex {
+			display: flex;
+		}
+
+		.inline-flex {
+			display: inline-flex;
+		}
+
+		.container {
+			/* padding: 20px; */
+			background-color: coral;
+			flex-direction: row;	 /* row,column, row-reverse, column-reverse*/
+			flex-wrap: nowrap;  	 /* 換行: nowrap, wrap */
+			/* flex-flow: row wrap;*/ /* flex-direction: row; +  flex-wrap: nowrap; */
+			justify-content: space-evenly; /*flex-start, flex-end, center, space-between, space-evenly, space-around */
+			height: 700px;
+			align-items: center; /*stretch, flex-start, center, flex-end,  baseline */
+			/* flex-wrap: wrap 時換行排列(有設 height) */
+			/*stretch, flex-start, center, flex-end,  baseline, space-between, space-evenly, space-around */
+			/* align-content: stretch;  */
+		}
+
+		.item {
+			padding: 30PX;
+			/* margin:10px; */
+			background: #777;
+			text-align: center;
+			font-size: 30px;
+			color: #fff;
+			border: 1px solid #f00;
+		}
+
+		/* for test align-items: baseline */
+		/* .item1 {
+			font-size: 70px;
+		} */
+
+		/* for test order and align-self */
+		/* align-self: stretch, flex-start, center, flex-end,  baseline */
+		/* .item1 {
+			order: 1;
+			align-self: flex-start;
+		}
+		.item5 {
+			order: -1;
+			align-self: flex-end;
+		} */
+	</style>
+
+	<style>
+		.container-column {
+			/* padding: 20px; */
+			background-color: coral;
+			flex-direction: column;	 /* row,column, row-reverse, column-reverse*/
+			flex-wrap: nowrap;  	 /* 換行: nowrap, wrap */
+			/* flex-flow: row wrap;*/ /* flex-direction: row; +  flex-wrap: nowrap; */
+			justify-content: space-around; /*flex-start, flex-end, center, space-between, space-evenly, space-around */
+			height: 700px;
+		}
+
+		.item-column {
+			padding: 30PX;
+			/* margin:10px; */
+			background: #777;
+			text-align: center;
+			font-size: 30px;
+			color: #fff;
+			border: 1px solid #f00;
+			width: 70px;
+		}
+	</style>
+
+	<style>
+		.container-flex {
+			/* padding: 20px; */
+			background-color: coral;
+			flex-direction: row;	 /* row,column, row-reverse, column-reverse*/
+			flex-wrap: nowrap;  	 /* 換行: nowrap, wrap */
+			/* flex-flow: row wrap;*/ /* flex-direction: row; +  flex-wrap: nowrap; */
+			justify-content: space-evenly; /*flex-start, flex-end, center, space-between, space-evenly, space-around */
+			height: 700px;
+			align-items: center; /*stretch, flex-start, center, flex-end,  baseline */
+			/* flex-wrap: wrap 時換行排列(有設 height) */
+			/*stretch, flex-start, center, flex-end,  baseline, space-between, space-evenly, space-around */
+			/* align-content: stretch;  */
+		}
+
+		.item-flex {
+			padding: 30PX;
+			margin:10px;
+			background: #777;
+			text-align: center;
+			font-size: 30px;
+			color: #fff;
+			border: 1px solid #f00;
+		}
+
+		.item1-flex {
+			width: 200px;
+			/* flex-grow default 0 */
+			/* flex-grow: 5; */
+			/* flex-shrink default 1, 縮至 內容大小及不會再縮 */
+			/* flex-shrink: 5; */
+			/* flex-basis: set main axis 長度 */
+			flex-basis: 100px;
+			/* flex: flex-grow flex-shrink flex-basis */
+			/* flex: 0 1 auto; */
+		}
+		.item5-flex {
+			width: 200px;
+			/* flex-grow default 0 */
+			/* flex-grow: 1; */
+			/* flex-shrink: must set flex-wrap: nowrap; */
+			/* flex-shrink default 1, 縮至 內容大小及不會再縮 */
+			/* flex-shrink: 1;  */
+		}
+	</style>
+
+</head>
+<body>
+	<h1 style="text-align: center" >CSS Flex</h1>
+
+	<h2 class="level2">flex (row)</h2>
+	<div class="box">
+		<div class="container flex">
+			<div class="item item1">A</div>
+			<div class="item item2">B</div>
+			<div class="item item3">C</div>
+			<div class="item item4">D</div>
+			<div class="item item5">E</div>
+		</div>
+	</div>
+
+	<h2 class="level2">inline-flex(row)</h2>
+	<div class="box">
+		<div class="container inline-flex">
+			<div class="item item1">A</div>
+			<div class="item item2">B</div>
+			<div class="item item3">C</div>
+			<div class="item item4">D</div>
+			<div class="item item5">E</div>
+		</div>
+	</div>
+
+	<h2 class="level2">flex (column)</h2>
+	<div class="box">
+		<div class="container-column flex">
+			<div class="item-column item1">A</div>
+			<div class="item-column item2">B</div>
+			<div class="item-column item3">C</div>
+			<div class="item-column item4">D</div>
+			<div class="item-column item5">E</div>
+		</div>
+	</div>
+
+	<h2 class="level2">flex (flex-grow, flex-shrink, flex-basis)</h2>
+	<div class="box">
+		<div class="container-flex flex">
+			<div class="item-flex item1-flex">A</div>
+			<div class="item-flex item2-flex">B</div>
+			<div class="item-flex item3-flex">C</div>
+			<div class="item-flex item4-flex">D</div>
+			<div class="item-flex item5-flex">E</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
