@@ -21,7 +21,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="npm WARN npm does not support Node.js v14.16.0 (windows)刪除目錄12C:\Users\yourname\AppData\Roaming目錄 npm and npm-cache  安裝npm1npm install -g npm@latest   Cannot use import statement outside a module (nod">
 <meta property="og:type" content="article">
@@ -31,7 +31,7 @@
 <meta property="og:description" content="npm WARN npm does not support Node.js v14.16.0 (windows)刪除目錄12C:\Users\yourname\AppData\Roaming目錄 npm and npm-cache  安裝npm1npm install -g npm@latest   Cannot use import statement outside a module (nod">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-12T07:40:06.000Z">
-<meta property="article:modified_time" content="2021-08-03T13:46:21.528Z">
+<meta property="article:modified_time" content="2021-11-08T12:54:58.849Z">
 <meta property="article:author" content="Robert Kao">
 <meta property="article:tag" content="issue">
 <meta property="article:tag" content="node.js">
@@ -187,7 +187,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-WARN-npm-does-not-support-Node-js-v14-16-0-windows"><span class="nav-number">1.</span> <span class="nav-text">npm WARN npm does not support Node.js v14.16.0 (windows)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E7%9B%AE%E9%8C%84"><span class="nav-number">1.1.</span> <span class="nav-text">刪除目錄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9Dnpm"><span class="nav-number">1.2.</span> <span class="nav-text">安裝npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cannot-use-import-statement-outside-a-module-node-js"><span class="nav-number">2.</span> <span class="nav-text">Cannot use import statement outside a module (node.js)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json-%E5%8A%A0%E5%85%A5-%E2%80%9Ctype%E2%80%9D-%E2%80%9Cmodule%E2%80%9D"><span class="nav-number">2.1.</span> <span class="nav-text">package.json 加入 “type”: “module”,</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#require-is-not-defined-node-js"><span class="nav-number">3.</span> <span class="nav-text">require is not defined (node.js)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-%E5%8F%83%E6%95%B8%E5%90%AB-amp-%E8%A6%81%E5%8A%A0-%E2%80%9C-%E6%89%8D%E4%B8%8D%E6%9C%83%E6%9C%89%E5%95%8F%E9%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">process 參數含 &amp; 要加 “ 才不會有問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-%E5%8F%83%E6%95%B8%E5%90%AB-%E4%BD%BF%E7%94%A8-%E2%80%9C-%E6%9C%83%E6%9C%89%E5%95%8F%E9%A1%8C-%E8%A6%81%E6%94%B9%E7%82%BA-%E2%80%98"><span class="nav-number">5.</span> <span class="nav-text">process 參數含 ! 使用 “ 會有問題 要改為 ‘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-%E4%B8%80%E7%9B%B4%E8%99%95%E6%96%BC-sill-install-loadAllDepsIntoIdealTree"><span class="nav-number">6.</span> <span class="nav-text">npm install 一直處於 sill install loadAllDepsIntoIdealTree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-js-server-%E4%B8%AD%E6%96%87%E4%BA%82%E7%A2%BC"><span class="nav-number">7.</span> <span class="nav-text">node.js server 中文亂碼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#found-vulnerabilities-%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">found vulnerabilities-漏洞</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-WARN-npm-does-not-support-Node-js-v14-16-0-windows"><span class="nav-number">1.</span> <span class="nav-text">npm WARN npm does not support Node.js v14.16.0 (windows)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E7%9B%AE%E9%8C%84"><span class="nav-number">1.1.</span> <span class="nav-text">刪除目錄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9Dnpm"><span class="nav-number">1.2.</span> <span class="nav-text">安裝npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cannot-use-import-statement-outside-a-module-node-js"><span class="nav-number">2.</span> <span class="nav-text">Cannot use import statement outside a module (node.js)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json-%E5%8A%A0%E5%85%A5-%E2%80%9Ctype%E2%80%9D-%E2%80%9Cmodule%E2%80%9D"><span class="nav-number">2.1.</span> <span class="nav-text">package.json 加入 “type”: “module”,</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#require-is-not-defined-node-js"><span class="nav-number">3.</span> <span class="nav-text">require is not defined (node.js)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-%E5%8F%83%E6%95%B8%E5%90%AB-amp-%E8%A6%81%E5%8A%A0-%E2%80%9C-%E6%89%8D%E4%B8%8D%E6%9C%83%E6%9C%89%E5%95%8F%E9%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">process 參數含 &amp; 要加 “ 才不會有問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-%E5%8F%83%E6%95%B8%E5%90%AB-%E4%BD%BF%E7%94%A8-%E2%80%9C-%E6%9C%83%E6%9C%89%E5%95%8F%E9%A1%8C-%E8%A6%81%E6%94%B9%E7%82%BA-%E2%80%98"><span class="nav-number">5.</span> <span class="nav-text">process 參數含 ! 使用 “ 會有問題 要改為 ‘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install-%E4%B8%80%E7%9B%B4%E8%99%95%E6%96%BC-sill-install-loadAllDepsIntoIdealTree"><span class="nav-number">6.</span> <span class="nav-text">npm install 一直處於 sill install loadAllDepsIntoIdealTree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-js-server-%E4%B8%AD%E6%96%87%E4%BA%82%E7%A2%BC"><span class="nav-number">7.</span> <span class="nav-text">node.js server 中文亂碼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#found-vulnerabilities-%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">found vulnerabilities-漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#body-parser-%E8%A2%AB%E6%A8%99%E8%A8%98%E7%82%BA%E6%A3%84%E7%94%A8-body-parser-as-deprecated"><span class="nav-number">9.</span> <span class="nav-text">body-parser 被標記為棄用(body-parser as deprecated)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -203,20 +203,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -286,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-08-03 21:46:21" itemprop="dateModified" datetime="2021-08-03T21:46:21+08:00">2021-08-03</time>
+        <time title="修改時間：2021-11-08 20:54:58" itemprop="dateModified" datetime="2021-11-08T20:54:58+08:00">2021-11-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -320,14 +320,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>2.6k</span>
+      <span>2.9k</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>2 分鐘</span>
+      <span>3 分鐘</span>
     </span>
 </div>
 
@@ -364,6 +364,9 @@
 </blockquote>
 </li>
 </ul>
+<h2 id="body-parser-被標記為棄用-body-parser-as-deprecated"><a href="#body-parser-被標記為棄用-body-parser-as-deprecated" class="headerlink" title="body-parser 被標記為棄用(body-parser as deprecated)"></a>body-parser 被標記為棄用(body-parser as deprecated)</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原來</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&quot;body-parser&quot;</span>);</span><br><span class="line"><span class="comment">// app</span></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="comment">// app</span></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(express.json());</span><br></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -447,13 +450,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="總字數">662k</span>
+    <span title="總字數">1m</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">10:02</span>
+    <span title="所需總閱讀時間">15:14</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動

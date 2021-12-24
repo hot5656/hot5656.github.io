@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="LayoutContainer    Extra small Small Medium Large Extra l     &lt;576px ≥576px ≥768px ≥992px ≥1200px   .container 100% 540px 720px 960px 1140px   .container-sm 100% 540px 720px 960px 1140px   .contain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bootstrap 4">
+<meta property="og:url" content="https://hot5656.github.io/2021/12/13/bootstrap-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="LayoutContainer    Extra small Small Medium Large Extra l     &lt;576px ≥576px ≥768px ≥992px ≥1200px   .container 100% 540px 720px 960px 1140px   .container-sm 100% 540px 720px 960px 1140px   .contain">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-13T00:48:21.000Z">
+<meta property="article:modified_time" content="2021-12-23T13:48:10.621Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="bootstrap">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/12/13/bootstrap-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Bootstrap 4 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Layout"><span class="nav-number">1.</span> <span class="nav-text">Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Container"><span class="nav-number">1.1.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Grid-options"><span class="nav-number">1.2.</span> <span class="nav-text">Grid options</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Content"><span class="nav-number">2.</span> <span class="nav-text">Content</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reboot"><span class="nav-number">2.1.</span> <span class="nav-text">Reboot</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#font-family"><span class="nav-number">2.1.1.</span> <span class="nav-text">font family</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Typography-%E6%8E%92%E7%89%88"><span class="nav-number">2.2.</span> <span class="nav-text">Typography 排版</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Headings"><span class="nav-number">2.2.1.</span> <span class="nav-text">Headings</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Headings-Class"><span class="nav-number">2.2.2.</span> <span class="nav-text">Headings Class</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Display-headings"><span class="nav-number">2.2.3.</span> <span class="nav-text">Display headings</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Lead-%E7%AA%81%E5%87%BA%E6%96%87%E5%AD%97"><span class="nav-number">2.2.4.</span> <span class="nav-text">Lead 突出文字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Inline-text-elements"><span class="nav-number">2.2.5.</span> <span class="nav-text">Inline text elements</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Abbreviations-%E7%B8%AE%E5%AF%AB"><span class="nav-number">2.2.6.</span> <span class="nav-text">Abbreviations 縮寫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Blockquotes-%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.7.</span> <span class="nav-text">Blockquotes 引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#List"><span class="nav-number">2.2.8.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Description-list-alignment"><span class="nav-number">2.2.9.</span> <span class="nav-text">Description list alignment</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Utilities"><span class="nav-number">3.</span> <span class="nav-text">Utilities</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text"><span class="nav-number">3.1.</span> <span class="nav-text">Text</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Text-alignment"><span class="nav-number">3.1.1.</span> <span class="nav-text">Text alignment</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Text-transform"><span class="nav-number">3.1.2.</span> <span class="nav-text">Text transform</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Font-weight-and-italics"><span class="nav-number">3.1.3.</span> <span class="nav-text">Font weight and italics</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Text-wrapping-and-overflow"><span class="nav-number">3.1.4.</span> <span class="nav-text">Text wrapping and overflow</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Word-break-%E9%98%B2%E6%AD%A2%E9%95%B7%E5%AD%97%E5%BD%B1%E9%9F%BF-layout"><span class="nav-number">3.1.5.</span> <span class="nav-text">Word break : 防止長字影響 layout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Monospace-%E7%AD%89%E5%AF%AC"><span class="nav-number">3.1.6.</span> <span class="nav-text">Monospace 等寬</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reset-color-force-color-%E7%B9%BC%E6%89%BF-parent-text-reset"><span class="nav-number">3.1.7.</span> <span class="nav-text">Reset color : force color 繼承 parent(.text-reset)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Text-decoration-Remove-a-text-decoration-with-a-text-decoration-none"><span class="nav-number">3.1.8.</span> <span class="nav-text">Text decoration : Remove a text decoration with a .text-decoration-none</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Colors"><span class="nav-number">3.2.</span> <span class="nav-text">Colors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Color"><span class="nav-number">3.2.1.</span> <span class="nav-text">Color</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Background-color"><span class="nav-number">3.2.2.</span> <span class="nav-text">Background color</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spacing"><span class="nav-number">3.3.</span> <span class="nav-text">Spacing</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Margin"><span class="nav-number">3.3.1.</span> <span class="nav-text">Margin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Padding"><span class="nav-number">3.3.2.</span> <span class="nav-text">Padding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Size"><span class="nav-number">3.4.</span> <span class="nav-text">Size</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Width"><span class="nav-number">3.4.1.</span> <span class="nav-text">Width</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Height"><span class="nav-number">3.4.2.</span> <span class="nav-text">Height</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Max-Height"><span class="nav-number">3.4.3.</span> <span class="nav-text">Max Height</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Max-Width"><span class="nav-number">3.4.4.</span> <span class="nav-text">Max Width</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Relative-to-the-viewport"><span class="nav-number">3.4.5.</span> <span class="nav-text">Relative to the viewport</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Float"><span class="nav-number">3.5.</span> <span class="nav-text">Float</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position"><span class="nav-number">3.6.</span> <span class="nav-text">Position</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Componets"><span class="nav-number">4.</span> <span class="nav-text">Componets</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">4.1.</span> <span class="nav-text">Form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/12/13/bootstrap-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Bootstrap 4
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-12-13 08:48:21" itemprop="dateCreated datePublished" datetime="2021-12-13T08:48:21+08:00">2021-12-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-12-23 21:48:10" itemprop="dateModified" datetime="2021-12-23T21:48:10+08:00">2021-12-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/12/13/bootstrap-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/12/13/bootstrap-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>20k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>18 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a><a href="/bootstrap-1/layout">Layout</a></h3><h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>Extra small</th>
+<th>Small</th>
+<th>Medium</th>
+<th>Large</th>
+<th>Extra l</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>&lt;576px</td>
+<td>≥576px</td>
+<td>≥768px</td>
+<td>≥992px</td>
+<td>≥1200px</td>
+</tr>
+<tr>
+<td>.container</td>
+<td>100%</td>
+<td>540px</td>
+<td>720px</td>
+<td>960px</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>.container-sm</td>
+<td>100%</td>
+<td>540px</td>
+<td>720px</td>
+<td>960px</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>.container-md</td>
+<td>100%</td>
+<td>100%</td>
+<td>720px</td>
+<td>960px</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>.container-lg</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>960px</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>.container-xl</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>.container-fluid</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h4 id="Grid-options"><a href="#Grid-options" class="headerlink" title="Grid options"></a>Grid options</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>Extra small</th>
+<th>Small</th>
+<th>Medium</th>
+<th>Large</th>
+<th>Extra l</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>&lt;576px</td>
+<td>≥576px</td>
+<td>≥768px</td>
+<td>≥992px</td>
+<td>≥1200px</td>
+</tr>
+<tr>
+<td>Max container width</td>
+<td>None (auto)</td>
+<td>540px</td>
+<td>720px</td>
+<td>960px</td>
+<td>1140px</td>
+</tr>
+<tr>
+<td>Class prefix</td>
+<td>.col-</td>
+<td>.col-sm-</td>
+<td>.col-md-</td>
+<td>.col-lg-</td>
+<td>.col-xl-</td>
+</tr>
+</tbody></table>
+<p>ps : Gutter width    30px (15px on each side of a column)</p>
+<h3 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h3><h4 id="Reboot"><a href="#Reboot" class="headerlink" title="Reboot"></a>Reboot</h4><h5 id="font-family"><a href="#font-family" class="headerlink" title="font family"></a>font family</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$font-family-sans-serif:</span><br><span class="line">  <span class="comment">// Safari for macOS and iOS (San Francisco)</span></span><br><span class="line">  -apple-system,</span><br><span class="line">  <span class="comment">// Chrome &lt; 56 for macOS (San Francisco)</span></span><br><span class="line">  BlinkMacSystemFont,</span><br><span class="line">  <span class="comment">// Windows</span></span><br><span class="line">  <span class="string">&quot;Segoe UI&quot;</span>,</span><br><span class="line">  <span class="comment">// Android</span></span><br><span class="line">  Roboto,</span><br><span class="line">  <span class="comment">// Basic web fallback</span></span><br><span class="line">  <span class="string">&quot;Helvetica Neue&quot;</span>, Arial,</span><br><span class="line">  <span class="comment">// Linux</span></span><br><span class="line">  <span class="string">&quot;Noto Sans&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Liberation Sans&quot;</span>,</span><br><span class="line">  <span class="comment">// Sans serif fallback</span></span><br><span class="line">  sans-serif,</span><br><span class="line">  <span class="comment">// Emoji fonts</span></span><br><span class="line">  <span class="string">&quot;Apple Color Emoji&quot;</span>, <span class="string">&quot;Segoe UI Emoji&quot;</span>, <span class="string">&quot;Segoe UI Symbol&quot;</span>, <span class="string">&quot;Noto Color Emoji&quot;</span> !<span class="keyword">default</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Typography-排版"><a href="#Typography-排版" class="headerlink" title="Typography 排版"></a><a href="/bootstrap-1/typography">Typography</a> 排版</h4><h5 id="Headings"><a href="#Headings" class="headerlink" title="Headings"></a>Headings</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- small, .small: font-size: 80%;, font-weight: 400; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>h1. Bootstrap heading <span class="tag">&lt;<span class="name">small</span>&gt;</span>text1<span class="tag">&lt;/<span class="name">small</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- text-muted: color: #6c757d!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>h1. Bootstrap heading <span class="tag">&lt;<span class="name">small</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>text1<span class="tag">&lt;/<span class="name">small</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>h2. Bootstrap heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>h3. Bootstrap heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>h4. Bootstrap heading<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h5</span>&gt;</span>h5. Bootstrap heading<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h6</span>&gt;</span>h6. Bootstrap heading<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Headings-Class"><a href="#Headings-Class" class="headerlink" title="Headings Class"></a>Headings Class</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h1&quot;</span>&gt;</span>h1. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h2&quot;</span>&gt;</span>h2. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h3&quot;</span>&gt;</span>h3. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h4&quot;</span>&gt;</span>h4. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h5&quot;</span>&gt;</span>h5. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;h6&quot;</span>&gt;</span>h6. Bootstrap heading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Display-headings"><a href="#Display-headings" class="headerlink" title="Display headings"></a>Display headings</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;display-1&quot;</span>&gt;</span>Display 1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;display-2&quot;</span>&gt;</span>Display 2<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;display-3&quot;</span>&gt;</span>Display 3<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;display-4&quot;</span>&gt;</span>Display 4<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Lead-突出文字"><a href="#Lead-突出文字" class="headerlink" title="Lead 突出文字"></a>Lead 突出文字</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .lead: font-size: 1.25rem;, font-weight: 300; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;lead&quot;</span>&gt;</span>Lorem ipsum dolor sit amet.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Inline-text-elements"><a href="#Inline-text-elements" class="headerlink" title="Inline text elements"></a>Inline text elements</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mark, .mark: padding: 0.2em;, background-color: #fcf8e3; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">mark</span>&gt;</span>ipsum dolor<span class="tag">&lt;/<span class="name">mark</span>&gt;</span> sit amet consectetur adipisicing elit. Similique, amet.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- del(browser): text-decoration: line-through; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">del</span>&gt;</span>ipsum dolor sit<span class="tag">&lt;/<span class="name">del</span>&gt;</span> amet consectetur adipisicing elit. Quo, voluptatem!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- s(browser): text-decoration: line-through; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">s</span>&gt;</span>ipsum, dolor<span class="tag">&lt;/<span class="name">s</span>&gt;</span> sit amet consectetur adipisicing elit. Nisi, nesciunt.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ins(browser):　text-decoration: underline; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">ins</span>&gt;</span>ipsum dolor<span class="tag">&lt;/<span class="name">ins</span>&gt;</span> sit, amet consectetur adipisicing elit. Nisi, expedita!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ｕ(browser):　text-decoration: underline; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">u</span>&gt;</span>ipsum dolor,<span class="tag">&lt;/<span class="name">u</span>&gt;</span> sit amet consectetur adipisicing elit. Possimus, magni.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- small, .small: font-size: 80%;, font-weight: 400; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">small</span>&gt;</span>ipsum dolor<span class="tag">&lt;/<span class="name">small</span>&gt;</span> sit, amet consectetur adipisicing elit. Tempora, voluptates.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- b, strong: font-weight: bolder; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem, <span class="tag">&lt;<span class="name">strong</span>&gt;</span>ipsum dolor<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> sit amet consectetur adipisicing elit. Velit, accusamus?<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- em(browser): font-style: italic; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem <span class="tag">&lt;<span class="name">em</span>&gt;</span>ipsum dolor<span class="tag">&lt;/<span class="name">em</span>&gt;</span> sit amet consectetur adipisicing elit. Sequi, facilis?<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, exercitationem.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Abbreviations-縮寫"><a href="#Abbreviations-縮寫" class="headerlink" title="Abbreviations 縮寫"></a>Abbreviations 縮寫</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- abbr : </span></span><br><span class="line"><span class="comment">	text-decoration: underline dotted;</span></span><br><span class="line"><span class="comment">	cursor: help; (?)</span></span><br><span class="line"><span class="comment">	border-bottom: 0;</span></span><br><span class="line"><span class="comment">	text-decoration-skip-ink: none; (畫 上畫線,下畫線 不受其他條件影響)--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- title=&quot;attribute&quot;: 顯示文字 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;attribute&quot;</span>&gt;</span>attr<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .initialism: font-size: 90%;, text-transform: uppercase; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;HyperText Markup Language&quot;</span> <span class="attr">class</span>=<span class="string">&quot;initialism&quot;</span>&gt;</span>html<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Blockquotes-引用"><a href="#Blockquotes-引用" class="headerlink" title="Blockquotes 引用"></a>Blockquotes 引用</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, iste!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- blockquote:	margin: 0 0 1rem; --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .blockquote: margin-bottom: 1rem;, font-size: 1.25rem; --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- blockquote(agent) &#123;</span></span><br><span class="line"><span class="comment">	display: block;</span></span><br><span class="line"><span class="comment">	margin-block-start: 1em;</span></span><br><span class="line"><span class="comment">	margin-block-end: 1em;</span></span><br><span class="line"><span class="comment">	margin-inline-start: 40px;</span></span><br><span class="line"><span class="comment">	margin-inline-end: 40px;</span></span><br><span class="line"><span class="comment">&#125; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">class</span>=<span class="string">&quot;blockquote&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;mb-0&quot;</span>&gt;</span>A well-known quote, contained in a blockquote element.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- footer: display: block; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .blockquote-footer: display: block; , font-size: 80%; , color: #6c757d; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- cite(browser):font-style: italic; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .blockquote-footer::before (橫線) &#123;</span></span><br><span class="line"><span class="comment">		content: &quot;\2014\00A0&quot;;</span></span><br><span class="line"><span class="comment">	&#125; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">&quot;blockquote-footer&quot;</span>&gt;</span>Someone famous in <span class="tag">&lt;<span class="name">cite</span> <span class="attr">title</span>=<span class="string">&quot;Source Title&quot;</span>&gt;</span>Source Title<span class="tag">&lt;/<span class="name">cite</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, commodi.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="List"><a href="#List" class="headerlink" title="List"></a>List</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .list-unstyled: padding-left: 0; , list-style: none; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-unstyled&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>This is a list.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>It appears completely unstyled.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>Structurally, it&#x27;s still a list.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- .list-inline: padding-left: 0; , list-style: none; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-inline&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .list-inline-item: display: inline-block; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>This is a list item.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>And another one.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>But they&#x27;re displayed inline.<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Description-list-alignment"><a href="#Description-list-alignment" class="headerlink" title="Description list alignment"></a>Description list alignment</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- dt: font-weight: 700; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-3&quot;</span>&gt;</span>Description lists<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- dd:	margin-bottom: 0.5rem; , margin-left: 0; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-9&quot;</span>&gt;</span>A description list is perfect for defining terms.<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-3&quot;</span>&gt;</span>Term<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-9&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>Definition for the term.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>And some more placeholder definition text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-3&quot;</span>&gt;</span>Another term<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-9&quot;</span>&gt;</span>This definition is short, so no extra paragraphs or anything.<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-3 text-truncate&quot;</span>&gt;</span>Truncated term is truncated<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-9&quot;</span>&gt;</span>This can be useful when space is tight. Adds an ellipsis at the end.<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-3&quot;</span>&gt;</span>Nesting<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-9&quot;</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- dl, ol, ul : margin-top: 0; , margin-bottom: 1rem; --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dl</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dt</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-4&quot;</span>&gt;</span>Nested definition list<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dd</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-8&quot;</span>&gt;</span>I heard you like definition lists. Let me put a definition list inside your definition list.<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Utilities"><a href="#Utilities" class="headerlink" title="Utilities"></a>Utilities</h3><h4 id="Text"><a href="#Text" class="headerlink" title="Text"></a><a href="/bootstrap-1/text">Text</a></h4><h5 id="Text-alignment"><a href="#Text-alignment" class="headerlink" title="Text alignment"></a>Text alignment</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Some placeholder text to demonstrate justified text alignment. Will you do the same for me? It&#x27;s time to face the music I&#x27;m no longer your muse. Heard it&#x27;s beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .text-justify: text-align: justify!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-justify&quot;</span>&gt;</span>Some placeholder text to demonstrate justified text alignment. Will you do the same for me? It&#x27;s time to face the music I&#x27;m no longer your muse. Heard it&#x27;s beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- .text-left : text-align: left!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span>Left aligned text on all viewport sizes.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-center&quot;</span>&gt;</span>Center aligned text on all viewport sizes.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-right&quot;</span>&gt;</span>Right aligned text on all viewport sizes.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Text-transform"><a href="#Text-transform" class="headerlink" title="Text transform"></a>Text transform</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- text-transform: lowercase!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-lowercase&quot;</span>&gt;</span>Lowercased text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-uppercase&quot;</span>&gt;</span>Uppercased text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-capitalize&quot;</span>&gt;</span>CapiTaliZed text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Font-weight-and-italics"><a href="#Font-weight-and-italics" class="headerlink" title="Font weight and italics"></a>Font weight and italics</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .font-weight-bold:	font-weight: 700!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-weight-bold&quot;</span>&gt;</span>Bold text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .font-weight-bolder: font-weight: bolder!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-weight-bolder&quot;</span>&gt;</span>Bolder weight text (relative to the parent element).<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .font-weight-normal: font-weight: 400!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-weight-normal&quot;</span>&gt;</span>Normal weight text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .font-weight-light: font-weight: 300!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-weight-light&quot;</span>&gt;</span>Light weight text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .font-weight-lighter:	font-weight: lighter!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-weight-lighter&quot;</span>&gt;</span>Lighter weight text (relative to the parent element).<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .font-italic: font-style: italic!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;font-italic&quot;</span>&gt;</span>Italic text.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Text-wrapping-and-overflow"><a href="#Text-wrapping-and-overflow" class="headerlink" title="Text wrapping and overflow"></a>Text wrapping and overflow</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .text-wrap:	white-space: normal!important; (空白換行) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;badge badge-primary text-wrap&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 6rem;&quot;</span>&gt;</span></span><br><span class="line">	This text should wrap.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- .text-nowrap:	white-space: nowrap!important; (不換行) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text-nowrap bd-highlight&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 8rem;&quot;</span>&gt;</span></span><br><span class="line">	This text should overflow the parent. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit deserunt necessitatibus itaque veniam! Nam, officia vero. Fugit eos natus numquam ipsa? Voluptas voluptate natus doloribus molestiae quod perspiciatis provident ipsa.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Block level --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .text-truncate :</span></span><br><span class="line"><span class="comment">		overflow: hidden;</span></span><br><span class="line"><span class="comment">		text-overflow: ellipsis; (over show ...省略符號)</span></span><br><span class="line"><span class="comment">		white-space: nowrap; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-2 text-truncate&quot;</span>&gt;</span></span><br><span class="line">		Praeterea iter est quasdam res quas ex communi.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Inline level --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- .d-inline-block: display: inline-block!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;d-inline-block text-truncate&quot;</span> <span class="attr">style</span>=<span class="string">&quot;max-width: 150px;&quot;</span>&gt;</span></span><br><span class="line">	Praeterea iter est quasdam res quas ex communi.</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span>	</span><br></pre></td></tr></table></figure>
+
+<h5 id="Word-break-防止長字影響-layout"><a href="#Word-break-防止長字影響-layout" class="headerlink" title="Word break : 防止長字影響 layout"></a>Word break : 防止長字影響 layout</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .text-break: </span></span><br><span class="line"><span class="comment">	word-break: break-word!important; (word 可分開)</span></span><br><span class="line"><span class="comment">	word-wrap: break-word!important; (word 可換行) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-break&quot;</span>&gt;</span>mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Monospace-等寬"><a href="#Monospace-等寬" class="headerlink" title="Monospace 等寬"></a>Monospace 等寬</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .text-monospace:</span></span><br><span class="line"><span class="comment">	font-family: SFMono-Regular,Menlo,Monaco,Consolas,&quot;Liberation Mono&quot;,&quot;Courier New&quot;,monospace!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-monospace&quot;</span>&gt;</span>This is in monospace<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Reset-color-force-color-繼承-parent-text-reset"><a href="#Reset-color-force-color-繼承-parent-text-reset" class="headerlink" title="Reset color : force color 繼承 parent(.text-reset)"></a>Reset color : force color 繼承 parent(.text-reset)</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .text-reset: color: inherit!important; --&gt;</span></span><br><span class="line">	Muted text with a <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-reset&quot;</span>&gt;</span>reset link<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Text-decoration-Remove-a-text-decoration-with-a-text-decoration-none"><a href="#Text-decoration-Remove-a-text-decoration-with-a-text-decoration-none" class="headerlink" title="Text decoration : Remove a text decoration with a .text-decoration-none"></a>Text decoration : Remove a text decoration with a .text-decoration-none</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- .text-decoration-none: text-decoration: none!important; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-decoration-none&quot;</span>&gt;</span>Non-underlined link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Colors"><a href="#Colors" class="headerlink" title="Colors"></a><a href="/bootstrap-1/colors">Colors</a></h4><h5 id="Color"><a href="#Color" class="headerlink" title="Color"></a>Color</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-primary&quot;</span>&gt;</span>.text-primary<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-secondary&quot;</span>&gt;</span>.text-secondary<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-success&quot;</span>&gt;</span>.text-success<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-danger&quot;</span>&gt;</span>.text-danger<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-warning&quot;</span>&gt;</span>.text-warning<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-info&quot;</span>&gt;</span>.text-info<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-light bg-dark&quot;</span>&gt;</span>.text-light<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-dark&quot;</span>&gt;</span>.text-dark<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-body&quot;</span>&gt;</span>.text-body<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span>.text-muted<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-white bg-dark&quot;</span>&gt;</span>.text-white<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-black-50&quot;</span>&gt;</span>.text-black-50<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-white-50 bg-dark&quot;</span>&gt;</span>.text-white-50<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Background-color"><a href="#Background-color" class="headerlink" title="Background color"></a>Background color</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-primary text-white&quot;</span>&gt;</span>.bg-primary<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-secondary text-white&quot;</span>&gt;</span>.bg-secondary<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-success text-white&quot;</span>&gt;</span>.bg-success<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-danger text-white&quot;</span>&gt;</span>.bg-danger<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-warning text-dark&quot;</span>&gt;</span>.bg-warning<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-info text-white&quot;</span>&gt;</span>.bg-info<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-light text-dark&quot;</span>&gt;</span>.bg-light<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-dark text-white&quot;</span>&gt;</span>.bg-dark<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-white text-dark&quot;</span>&gt;</span>.bg-white<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 mb-2 bg-transparent text-dark&quot;</span>&gt;</span>.bg-transparent<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Spacing"><a href="#Spacing" class="headerlink" title="Spacing"></a><a href="/bootstrap-1/space">Spacing</a></h4><p>type:</p>
+<ul>
+<li>m - for classes that set margin</li>
+<li>p - for classes that set padding</li>
+</ul>
+<p>side: </p>
+<ul>
+<li>t - for classes that set margin-top or padding-top</li>
+<li>b - for classes that set margin-bottom or padding-bottom</li>
+<li>l - for classes that set margin-left or padding-left</li>
+<li>r - for classes that set margin-right or padding-right</li>
+<li>x - for classes that set both *-left and *-right</li>
+<li>y - for classes that set both *-top and *-bottom</li>
+<li>blank - for classes that set a margin or padding on all 4 sides of the element</li>
+</ul>
+<p>size:</p>
+<ul>
+<li>0 - for classes that eliminate the margin or padding by setting it to 0</li>
+<li>1 - (by default) for classes that set the margin or padding to $spacer * .25(4px)</li>
+<li>2 - (by default) for classes that set the margin or padding to $spacer * .5(8px)</li>
+<li>3 - (by default) for classes that set the margin or padding to $spacer(16px)</li>
+<li>4 - (by default) for classes that set the margin or padding to $spacer * 1.5(24px)</li>
+<li>5 - (by default) for classes that set the margin or padding to $spacer * 3(48px)</li>
+<li>auto - for classes that set the margin to auto</li>
+</ul>
+<p>Negative margin(padding not support) :</p>
+<ul>
+<li>n1 - (by default) for classes that set the margin to -$spacer * .25(4px)</li>
+<li>n2 - (by default) for classes that set the margin to -$spacer * .5(8px)</li>
+<li>n3 - (by default) for classes that set the margin to -$spacer(16px)</li>
+<li>n4 - (by default) for classes that set the margin to -$spacer * 1.5(24px)</li>
+<li>n5 - (by default) for classes that set the margin to -$spacer * 3(48px)</li>
+</ul>
+<h5 id="Margin"><a href="#Margin" class="headerlink" title="Margin"></a>Margin</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-0 bg-primary text-white&quot;</span>&gt;mb-<span class="number">0</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-1 bg-secondary text-white&quot;</span>&gt;mb-<span class="number">1</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-2 bg-success text-white&quot;</span>&gt;mb-<span class="number">2</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-3 bg-danger text-white&quot;</span>&gt;mb-<span class="number">3</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-4 bg-warning text-dark&quot;</span>&gt;mb-<span class="number">4</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mb-5 bg-info text-white&quot;</span>&gt;mb-<span class="number">5</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mx-auto text-white bg-dark&quot;</span> style=<span class="string">&quot;width: 300px;&quot;</span>&gt;mx-auto(width: 300px;) Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;ml-n3 bg-primary text-white&quot;</span>&gt;ml-n3 Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-0 bg-primary text-white&quot;</span>&gt;p-<span class="number">0</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-1 bg-secondary text-white&quot;</span>&gt;p-<span class="number">1</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-2 bg-success text-white&quot;</span>&gt;p-<span class="number">2</span> Lorem ipsum dolor sit amet consectetur&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-3 bg-danger text-white&quot;</span>&gt;p-<span class="number">3</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-4 bg-warning text-dark&quot;</span>&gt;p-<span class="number">4</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;p-5 bg-info text-white&quot;</span>&gt;p-<span class="number">5</span> Lorem ipsum dolor sit amet consectetu&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Size"><a href="#Size" class="headerlink" title="Size"></a><a href="/bootstrap-1/size">Size</a></h4><h5 id="Width"><a href="#Width" class="headerlink" title="Width"></a>Width</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;w-25 p-3&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: #eee;&quot;</span>&gt;</span>Width 25%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;w-50 p-3&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: #eee;&quot;</span>&gt;</span>Width 50%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;w-75 p-3&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: #eee;&quot;</span>&gt;</span>Width 75%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;w-100 p-3&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: #eee;&quot;</span>&gt;</span>Width 100%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;w-auto p-3&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: #eee;&quot;</span>&gt;</span>Width auto<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Height"><a href="#Height" class="headerlink" title="Height"></a>Height</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;height: 100px; background-color: rgba(255,0,0,0.1);&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h-25 d-inline-block&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 120px; background-color: rgba(0,0,255,.1)&quot;</span>&gt;</span>Height 25%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h-50 d-inline-block&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 120px; background-color: rgba(0,0,255,.1)&quot;</span>&gt;</span>Height 50%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h-75 d-inline-block&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 120px; background-color: rgba(0,0,255,.1)&quot;</span>&gt;</span>Height 75%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h-100 d-inline-block&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 120px; background-color: rgba(0,0,255,.1)&quot;</span>&gt;</span>Height 100%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h-auto d-inline-block&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 120px; background-color: rgba(0,0,255,.1)&quot;</span>&gt;</span>Height auto<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Max-Height"><a href="#Max-Height" class="headerlink" title="Max Height"></a>Max Height</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;height: 100px; background-color: rgba(255,0,0,0.1);&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mh-100&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100px; height: 200px; background-color: rgba(0,0,255,0.1);&quot;</span>&gt;</span>Max-height 100%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Max-Width"><a href="#Max-Width" class="headerlink" title="Max Width"></a>Max Width</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;height: 100px; background-color: rgba(255,0,0,0.5);&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mw-100&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 1300px; height: 70px; background-color: rgba(0,0,255,0.1);&quot;</span>&gt;</span>Max-width 100%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Relative-to-the-viewport"><a href="#Relative-to-the-viewport" class="headerlink" title="Relative to the viewport"></a>Relative to the viewport</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;min-vw-100&quot;</span>&gt;</span>Min-width 100vw<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;min-vh-100&quot;</span>&gt;</span>Min-height 100vh<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;vw-100&quot;</span>&gt;</span>Width 100vw<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;vh-100&quot;</span>&gt;</span>Height 100vh<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Float"><a href="#Float" class="headerlink" title="Float"></a><a href="/bootstrap-1/float">Float</a></h4><ul>
+<li>float-left</li>
+<li>float-right</li>
+<li>float-none</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">.clearfix::after &#123;</span></span><br><span class="line"><span class="comment">	display: block;</span></span><br><span class="line"><span class="comment">	clear: both;</span></span><br><span class="line"><span class="comment">	content: &quot;&quot;;</span></span><br><span class="line"><span class="comment">&#125; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-secondary text-center p-2 clearfix&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- float-left: float: left!important; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;bg-success p-2 float-left&quot;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- float-right: float: right!important; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;bg-primary p-2 float-right&quot;</span>&gt;</span>World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a><a href="/bootstrap-1/position">Position</a></h4><ul>
+<li>position-static</li>
+<li>position-relative</li>
+<li>position-absolute</li>
+<li>position-fixed</li>
+<li>position-sticky</li>
+<li>fixed-top</li>
+<li>fixed-bottom</li>
+<li>sticky-top</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> &gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- .fixed-top &#123;</span></span><br><span class="line"><span class="comment">		position: fixed;</span></span><br><span class="line"><span class="comment">		top: 0;</span></span><br><span class="line"><span class="comment">		right: 0;</span></span><br><span class="line"><span class="comment">		left: 0;</span></span><br><span class="line"><span class="comment">		z-index: 1030;</span></span><br><span class="line"><span class="comment">	&#125; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;h1 class=&quot;bg-success p-2 fixed-top&quot; &gt;Hello&lt;/h1&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">	.fixed-bottom &#123;</span></span><br><span class="line"><span class="comment">		position: fixed;</span></span><br><span class="line"><span class="comment">		right: 0;</span></span><br><span class="line"><span class="comment">		bottom: 0;</span></span><br><span class="line"><span class="comment">		left: 0;</span></span><br><span class="line"><span class="comment">		z-index: 1030;</span></span><br><span class="line"><span class="comment">	&#125; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;bg-primary p-2 fixed-bottom&quot;</span> &gt;</span>World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti doloribus dolorum sint animi, eligendi ut....<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">	.sticky-top &#123;</span></span><br><span class="line"><span class="comment">		position: sticky;</span></span><br><span class="line"><span class="comment">		top: 0;</span></span><br><span class="line"><span class="comment">		z-index: 1020;</span></span><br><span class="line"><span class="comment">	&#125; --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;bg-info p-2 sticky-top&quot;</span>&gt;</span>test line...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. ...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Componets"><a href="#Componets" class="headerlink" title="Componets"></a>Componets</h3><h4 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;form &gt;</span><br><span class="line">  &lt;div className=<span class="string">&quot;form-group&quot;</span>&gt;</span><br><span class="line">    &lt;label className=<span class="string">&quot;text-muted&quot;</span>&gt;Name&lt;/label&gt;</span><br><span class="line">    &lt;input</span><br><span class="line">      onChange=&#123;handleChange&#125;</span><br><span class="line">      name=<span class="string">&quot;name&quot;</span></span><br><span class="line">      type=<span class="string">&quot;text&quot;</span></span><br><span class="line">      className=<span class="string">&quot;form-control&quot;</span></span><br><span class="line">    /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;button className=<span class="string">&quot;btn btn-outline-primary&quot;</span>&gt;Create Category&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-primary&quot;</span>&gt;Primary&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-secondary&quot;</span>&gt;Secondary&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-success&quot;</span>&gt;Success&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-danger&quot;</span>&gt;Danger&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-warning&quot;</span>&gt;Warning&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-info&quot;</span>&gt;Info&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-light&quot;</span>&gt;Light&lt;/button&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-dark&quot;</span>&gt;Dark&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-link&quot;</span>&gt;Link&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<!--more-->
+
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.6/getting-started/introduction/">Bootstrop 4</a></li>
+<li><a target="_blank" rel="noopener" href="https://bootswatch.com/">Bootswatch</a> : free themes for Bootstrap</li>
+<li><a target="_blank" rel="noopener" href="https://bootsnipp.com/">Bootsnipp for Bootstrop</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.awwwards.com/websites/bootstrap/">Best Website Examples of Bootstrap</a></li>
+<li><a target="_blank" rel="noopener" href="https://colorlib.com/wp/cat/bootstrap/">200+ Best Bootstrap Templates 2021 - Colorlib</a></li>
+<li><a target="_blank" rel="noopener" href="https://bootstraptaste.com/">BootstrapTaste:Best Bootstrap Templates and Themes 2021</a></li>
+<li><a href="/ref/bootstrap-1">Bootstrap 4 demo</a> : local demo bootstrap 4</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/bootstrap/" rel="tag"># bootstrap</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/07/js-6/" rel="prev" title="JavaScript Issue">
+                  <i class="fa fa-chevron-left"></i> JavaScript Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/13/practice-1-3/" rel="next" title="Practice React Ecommerce - Deployment">
+                  Practice React Ecommerce - Deployment <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">15:14</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/12/13/bootstrap-1/";
+    this.page.identifier = "2021/12/13/bootstrap-1/";
+    this.page.title = "Bootstrap 4";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
