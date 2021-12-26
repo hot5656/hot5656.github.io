@@ -17,6 +17,27 @@ tags:
 	+ Preflight Request(預檢請求)
 		有時會看到發兩次 request,因為只要發送請求到不同 origin 就會有 cors 的問題,所以 server 必須先確定 client 端是合法請求，也就是,Preflighted 要先發一次 request 去驗證是否合法 domain,成功了才能發真正的 request
 
+### HTML example
+``` HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Title icon -->
+	<link rel="shortcut icon" href="images/title-img.png" type="image/x-icon">
+
+	<!-- web title -->
+	<title>Pure Bootstrap Website</title>
+
+</head>
+<body>
+
+</body>
+</html>
+```
+
 ### SEO(Search engine optimization)搜尋引擎優化 與 meta 標籤
 + [Tripadvisor](https://www.tripadvisor.com.tw/)
 + [The Open Graph protocol](https://ogp.me/) : Facebook 使用

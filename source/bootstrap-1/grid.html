@@ -1,0 +1,377 @@
+
+---
+layout: false
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+	<style>
+		
+		.box {
+			border: 1px solid #c3c3c3;
+			margin: 10px 50px;
+			padding: 10px;
+		}
+
+		.level2 {
+			margin-left: 25px;
+		}
+	</style>
+
+	<title>Bootstrap 4 Grid system</title>
+</head>
+<body>
+	<h1 class="text-center" >Grid system</h1>
+
+	<h2 class="level2">Simple example</h2>
+	<div class="box">
+		<!-- container -->
+		<!-- @media (min-width: 576px)
+		.container, .container-sm {
+				max-width: 540px;
+		} -->
+		<div class="container bg-secondary text-light">
+			<!-- .row {
+				display: flex;
+				flex-wrap: wrap;
+				margin-right: -15px;
+				margin-left: -15px;
+			} -->
+			<div class="row mb-2">
+				<!-- 3 columns -->
+				<!-- .col {
+					flex-basis: 0;
+					flex-grow: 1;
+					max-width: 100%;
+				} -->
+				<div class="col bg-primary">First Column</div>
+				<div class="col bg-success">Second Column</div>
+				<div class="col bg-danger">Third Column</div>
+			</div>
+
+			<div class="row mb-2">
+				<!-- col-auto : element 寬度 -->
+				<!-- .col-auto {
+					flex: 0 0 auto;
+					width: auto;
+					max-width: 100%;
+				} -->
+				<div class="col bg-primary">First Column</div>
+				<div class="col-auto bg-success">Second Column</div>
+				<div class="col bg-danger">Third Column</div>
+			</div>
+
+			<div class="row mb-2">
+				<!-- columns 3 6 3 -->
+				<div class="col-3 bg-primary">First Column</div>
+				<div class="col-6 bg-success">Second Column</div>
+				<div class="col-3 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- columns over 12 -->
+				<div class="col-7 bg-primary">First Column</div>
+				<div class="col-3 bg-success">Second Column</div>
+				<div class="col-6 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- column for different breakpoint -->
+				<div class="col-sm-3 col-lg-4 bg-primary">First Column</div>
+				<div class="col-sm-6 col-lg-4 bg-success">Second Column</div>
+				<div class="col-sm-3 col-lg-4 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- all columns -->
+				<!-- .col-1 {
+					flex: 0 0 8.333333%;
+					max-width: 8.333333% 預防內容推開
+				} -->
+				<div class="col-1 bg-primary">col1</div>
+				<!-- .col-2 {
+					flex: 0 0 16.666667%;
+					max-width: 16.666667%;
+				} -->
+				<div class="col-2 bg-success">col-2</div>
+				<!-- .col-3 {
+					-ms-flex: 0 0 25%;
+					flex: 0 0 25%;
+					max-width: 25%;
+				} -->
+				<div class="col-3 bg-danger">col-3</div>
+				<!-- .col-4 {
+					flex: 0 0 33.333333%;
+					max-width: 33.333333%;
+				} -->
+				<div class="col-4 bg-primary">col-4</div>
+				<!-- .col-5 {
+					flex: 0 0 41.666667%;
+					max-width: 41.666667%;
+				} -->
+				<div class="col-5 bg-success">col-5</div>
+				<!-- .col-6 {
+					flex: 0 0 50%;
+					max-width: 50%;
+				} -->
+				<div class="col-6 bg-danger">col-6</div>
+				<!-- .col-7 {
+					flex: 0 0 58.333333%;
+					max-width: 58.333333%;
+				} -->
+				<div class="col-7 bg-primary">col-7</div>
+				<!-- .col-8 {
+					flex: 0 0 66.666667%;
+					max-width: 66.666667%;
+				} -->
+				<div class="col-8 bg-success">col-8</div>
+				<!-- .col-9 {
+					flex: 0 0 75%;
+					max-width: 75%;
+				} -->
+				<div class="col-9 bg-danger">col-9</div>
+				<!-- .col-10 {
+						flex: 0 0 83.333333%;
+						max-width: 83.333333%;
+				} -->
+				<div class="col-10 bg-primary">col-10</div>
+				<!-- .col-11 {
+					flex: 0 0 91.666667%;
+					max-width: 91.666667%;
+				} -->
+				<div class="col-11 bg-success">col-11</div>
+				<!-- .col-12 {
+						flex: 0 0 100%;
+						max-width: 100%;
+				} -->
+				<div class="col-12 bg-danger">col-12</div>
+			</div>
+		</div>
+
+		<!-- container fluid -->
+		<!-- .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+			width: 100%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		} -->
+		<div class="container-fluid bg-secondary text-light">
+			<h2>container fluid</h2>
+		</div>
+	</div>
+
+	<h2 class="level2">align-items-xx, justify-content-xx, align-self-xx, order</h2>
+	<div class="box">
+		<div class="container bg-secondary text-light">
+			<!-- .align-items-center {
+				align-items: center!important;
+			} -->
+			<!-- .justify-content-center {
+				justify-content: center!important;
+			} -->
+			<div class="row align-items-center justify-content-center" style="height: 250px;">
+				<!-- .align-self-start {
+						align-self: flex-start!important;
+				} -->
+				<!-- .order-12 {
+					order: 12;
+				} -->
+				<div class="col-2 order-12 bg-primary align-self-start">A</div>
+				<!-- .order-last {
+					order: 13;
+				} -->
+				<div class="col-2 order-last bg-success">B</div>
+				<!-- default order: 1; -->
+				<div class="col-2 bg-danger">C</div>
+				<!-- .order-1 {
+					order: 1;
+				} -->
+				<div class="col-2 order-1 bg-warning">D</div>
+				<!-- .order-first {
+					order: -1;
+				} -->
+				<div class="col-2 order-first bg-info align-self-end">E</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="level2">Grid system Nested</h2>
+	<div class="box">
+		<div class="container bg-secondary text-light">
+			<div class="row align-items-center" style="height: 250px;">
+				<div class="col-3 bg-primary">First Column</div>
+				<div class="col-9">
+					<div class="row">
+						<div class="col-6 bg-success">Nested Column 1</div>
+						<div class="col-6 bg-danger">Nested Column 2</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="level2">Gutters(col 以內含 padding 可用 px-x or py-x 修改寬度)</h2>
+	<div class="box">
+		<!-- px-4 因 row margin-right: -15px; margin-left: -15px; 才看的出來 -->
+		<div class="container bg-secondary py-2 px-4">
+			<!-- .row {
+				display: flex;
+				flex-wrap: wrap;
+				margin-right: -15px;
+				margin-left: -15px;
+			} -->
+			<div class="row">
+				<!-- .border {
+					border: 1px solid #dee2e6!important;
+				} -->
+				<!-- .pl-5, .px-5 {
+					padding-left: 3rem!important;
+				}
+				.pr-5, .px-5 {
+						padding-right: 3rem!important;
+				}
+				.pb-3, .py-3 {
+						padding-bottom: 1rem!important;
+				}
+				.pt-3, .py-3 {
+						padding-top: 1rem!important;
+				} -->
+				<!-- .col, .col-1, .col-10, .col-11, .col-12, .col-2 ... 
+				{
+					position: relative;
+					width: 100%;
+					padding-right: 15px;
+					padding-left: 15px;
+				} -->
+				<div class="col py-3 px-5 border bg-primary">Custom column padding</div>
+				<div class="col py-3 px-5 border bg-success">Custom column padding</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="level2">row-cols-x</h2>
+	<div class="box">
+		<div class="container">
+			<!-- .row-cols-2>* { : 下一層 2 個
+				flex: 0 0 50%;
+				max-width: 50%;
+			} -->
+			<div class="row row-cols-2 mb-2">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<div class="col bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>
+			<!-- .row-cols-3>* { : 下一層 3 個
+				flex: 0 0 33.333333%;
+				max-width: 33.333333%;
+			} -->
+			<div class="row row-cols-3 mb-2">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<div class="col bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>
+			<!-- .row-cols-4>* {
+					flex: 0 0 25%;
+					max-width: 25%;
+			} -->
+			<div class="row row-cols-4">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<!-- .col-6 50% 蓋過 .row-cols-4>* 25% -->
+				<!-- .col-6 {
+					flex: 0 0 50%;
+					max-width: 50%;
+				} -->
+				<div class="col-6 bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>			
+		</div>
+	</div>
+
+	<h2 class="level2">No gutters</h2>
+	<div class="box">
+		<!-- px-4 因 row margin-right: -15px; margin-left: -15px; 才看的出來 -->
+		<div class="container bg-secondary">
+			<!-- .no-gutters>.col, 內部 padding: 0
+				padding-right: 0;
+				padding-left: 0;
+			} -->
+			<div class="row no-gutters">
+					<!-- .col, .col-1, .col-10, .col-11, .col-12, .col-2 ... 
+					{
+						position: relative;
+						width: 100%;
+						padding-right: 15px;
+						padding-left: 15px;
+					} -->
+				<div class="col-6 bg-primary">Column</div>
+				<div class="col-6 bg-success">Column</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="level2">Offsetting columns</h2>
+	<div class="box">
+		<div class="container bg-secondary">
+			<div class="row mb-2">
+				<div class="col-4 bg-primary">Column</div>
+				<!-- .offset-4 {
+					margin-left: 33.333333%;
+				} -->
+				<div class="col-4 offset-4 bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- .offset-3 {
+					margin-left: 25%;
+				} -->
+				<div class="col-3 offset-3 bg-primary">Column</div>
+				<div class="col-3 offset-3 bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-6 offset-3 bg-primary">Column</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="level2">Margin utilities</h2>
+	<div class="box">
+		<div class="container bg-secondary">
+			<div class="row mb-2">
+				<div class="col-4 bg-primary">Column</div>
+				<!-- .ml-auto, .mx-auto {
+					margin-left: auto!important;
+				} -->
+				<div class="col-4 ml-auto bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-3 ml-auto bg-primary">Column</div>
+				<div class="col-3 ml-auto bg-success">Column</div> 
+			</div>
+			<div class="row mb-2">
+				<!-- .mr-auto, .mx-auto {
+					margin-right: auto!important;
+				} -->
+				<!-- col-auto : element 寬度 -->
+				<!-- .col-auto {
+					flex: 0 0 auto;
+					width: auto;
+					max-width: 100%;
+				} -->
+				<div class="col-auto mr-auto bg-primary">Column</div>
+				<div class="col-auto bg-success">Column</div> 
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -31,7 +31,406 @@ tags:
 
 ps : Gutter width	30px (15px on each side of a column)
 
-### Content
+#### [Grid system](/bootstrap-1/grid)
++ container, container-fluid
++ row, no-gutters
++ col-xx, col-sm-xx, clo-md-xx, col-lg-xx, col-xl-xx
++ col, col-auto, col-1, col-2 ... col-12
++ order-first, order-last, order-1, order-2 >>> order-12
++ row-cols-2,  row-cols-*
++ offset-3, offset-*
+
+
++ justify-content-xx
+	+ justify-content-start
+	+ justify-content-end
+	+ justify-content-center
+	+ justify-content-between
+	+ justify-content-around
+	+ justify-content-sm-start
+	+ justify-content-sm-end
+	+ justify-content-sm-center
+	+ justify-content-sm-between
+	+ justify-content-sm-around
++ align-items-xx
+	+ align-items-start
+	+ align-items-end
+	+ align-items-center
+	+ align-items-baseline
+	+ align-items-stretch
++  align-self-xx
+	+ align-self-start
+	+ align-self-end
+	+ align-self-center
+	+ align-self-baseline
+	+ align-self-stretch
++ align-content.
+	+ align-content-start
+	+ align-content-end
+	+ align-content-center
+	+ align-content-around
+	+ align-content-stretch
+
++ d-flex
++ d-inline-flex
++ flex-direction
+	+ flex-row
+	+ flex-row-reverse
+	+ flex-column
+	+ flex-column-reverse
++ flex-fill
++ flex grow, shrink
+	+ flex-grow-0
+	+ flex-grow-1
+	+ flex-shrink-0
+	+ flex-shrink-1
++ flex wrap
+	+ flex-nowrap
+	+ flex-wrap
+	+ flex-wrap-reverse
+
+##### Simple example
+``` html
+		<!-- container -->
+		<!-- @media (min-width: 576px)
+		.container, .container-sm {
+				max-width: 540px;
+		} -->
+		<div class="container bg-secondary text-light">
+			<!-- .row {
+				display: flex;
+				flex-wrap: wrap;
+				margin-right: -15px;
+				margin-left: -15px;
+			} -->
+			<div class="row mb-2">
+				<!-- 3 columns -->
+				<!-- .col {
+					flex-basis: 0;
+					flex-grow: 1;
+					max-width: 100%;
+				} -->
+				<div class="col bg-primary">First Column</div>
+				<div class="col bg-success">Second Column</div>
+				<div class="col bg-danger">Third Column</div>
+			</div>
+
+			<div class="row mb-2">
+				<!-- col-auto : element 寬度 -->
+				<!-- .col-auto {
+					flex: 0 0 auto;
+					width: auto;
+					max-width: 100%;
+				} -->
+				<div class="col bg-primary">First Column</div>
+				<div class="col-auto bg-success">Second Column</div>
+				<div class="col bg-danger">Third Column</div>
+			</div>
+
+			<div class="row mb-2">
+				<!-- columns 3 6 3 -->
+				<div class="col-3 bg-primary">First Column</div>
+				<div class="col-6 bg-success">Second Column</div>
+				<div class="col-3 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- columns over 12 -->
+				<div class="col-7 bg-primary">First Column</div>
+				<div class="col-3 bg-success">Second Column</div>
+				<div class="col-6 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- column for different breakpoint -->
+				<div class="col-sm-3 col-lg-4 bg-primary">First Column</div>
+				<div class="col-sm-6 col-lg-4 bg-success">Second Column</div>
+				<div class="col-sm-3 col-lg-4 bg-danger">Third Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- all columns -->
+				<!-- .col-1 {
+					flex: 0 0 8.333333%;
+					max-width: 8.333333% 預防內容推開
+				} -->
+				<div class="col-1 bg-primary">col1</div>
+				<!-- .col-2 {
+					flex: 0 0 16.666667%;
+					max-width: 16.666667%;
+				} -->
+				<div class="col-2 bg-success">col-2</div>
+				<!-- .col-3 {
+					-ms-flex: 0 0 25%;
+					flex: 0 0 25%;
+					max-width: 25%;
+				} -->
+				<div class="col-3 bg-danger">col-3</div>
+				<!-- .col-4 {
+					flex: 0 0 33.333333%;
+					max-width: 33.333333%;
+				} -->
+				<div class="col-4 bg-primary">col-4</div>
+				<!-- .col-5 {
+					flex: 0 0 41.666667%;
+					max-width: 41.666667%;
+				} -->
+				<div class="col-5 bg-success">col-5</div>
+				<!-- .col-6 {
+					flex: 0 0 50%;
+					max-width: 50%;
+				} -->
+				<div class="col-6 bg-danger">col-6</div>
+				<!-- .col-7 {
+					flex: 0 0 58.333333%;
+					max-width: 58.333333%;
+				} -->
+				<div class="col-7 bg-primary">col-7</div>
+				<!-- .col-8 {
+					flex: 0 0 66.666667%;
+					max-width: 66.666667%;
+				} -->
+				<div class="col-8 bg-success">col-8</div>
+				<!-- .col-9 {
+					flex: 0 0 75%;
+					max-width: 75%;
+				} -->
+				<div class="col-9 bg-danger">col-9</div>
+				<!-- .col-10 {
+						flex: 0 0 83.333333%;
+						max-width: 83.333333%;
+				} -->
+				<div class="col-10 bg-primary">col-10</div>
+				<!-- .col-11 {
+					flex: 0 0 91.666667%;
+					max-width: 91.666667%;
+				} -->
+				<div class="col-11 bg-success">col-11</div>
+				<!-- .col-12 {
+						flex: 0 0 100%;
+						max-width: 100%;
+				} -->
+				<div class="col-12 bg-danger">col-12</div>
+			</div>
+		</div>
+
+		<!-- container fluid -->
+		<!-- .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+			width: 100%;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		} -->
+		<div class="container-fluid bg-secondary text-light">
+			<h2>container fluid</h2>
+		</div>
+```
+
+##### align-items-xx, justify-content-xx, align-self-xx, order
+``` html
+		<div class="container bg-secondary text-light">
+			<!-- .align-items-center {
+				align-items: center!important;
+			} -->
+			<!-- .justify-content-center {
+				justify-content: center!important;
+			} -->
+			<div class="row align-items-center justify-content-center" style="height: 250px;">
+				<!-- .align-self-start {
+						align-self: flex-start!important;
+				} -->
+				<!-- .order-12 {
+					order: 12;
+				} -->
+				<div class="col-2 order-12 bg-primary align-self-start">A</div>
+				<!-- .order-last {
+					order: 13;
+				} -->
+				<div class="col-2 order-last bg-success">B</div>
+				<!-- default order: 1; -->
+				<div class="col-2 bg-danger">C</div>
+				<!-- .order-1 {
+					order: 1;
+				} -->
+				<div class="col-2 order-1 bg-warning">D</div>
+				<!-- .order-first {
+					order: -1;
+				} -->
+				<div class="col-2 order-first bg-info align-self-end">E</div>
+			</div>
+		</div>
+```
+
+##### Grid system Nested
+``` html
+		<div class="container bg-secondary text-light">
+			<div class="row align-items-center" style="height: 250px;">
+				<div class="col-3 bg-primary">First Column</div>
+				<div class="col-9">
+					<div class="row">
+						<div class="col-6 bg-success">Nested Column 1</div>
+						<div class="col-6 bg-danger">Nested Column 2</div>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Gutters(col 以內含 padding 可用 px-x or py-x 修改寬度)
+``` html
+		<!-- px-4 因 row margin-right: -15px; margin-left: -15px; 才看的出來 -->
+		<div class="container bg-secondary py-2 px-4">
+			<!-- .row {
+				display: flex;
+				flex-wrap: wrap;
+				margin-right: -15px;
+				margin-left: -15px;
+			} -->
+			<div class="row">
+				<!-- .border {
+					border: 1px solid #dee2e6!important;
+				} -->
+				<!-- .pl-5, .px-5 {
+					padding-left: 3rem!important;
+				}
+				.pr-5, .px-5 {
+						padding-right: 3rem!important;
+				}
+				.pb-3, .py-3 {
+						padding-bottom: 1rem!important;
+				}
+				.pt-3, .py-3 {
+						padding-top: 1rem!important;
+				} -->
+				<!-- .col, .col-1, .col-10, .col-11, .col-12, .col-2 ... 
+				{
+					position: relative;
+					width: 100%;
+					padding-right: 15px;
+					padding-left: 15px;
+				} -->
+				<div class="col py-3 px-5 border bg-primary">Custom column padding</div>
+				<div class="col py-3 px-5 border bg-success">Custom column padding</div>
+			</div>
+		</div>
+```
+
+##### row-cols-x
+``` html
+		<div class="container">
+			<!-- .row-cols-2>* { : 下一層 2 個
+				flex: 0 0 50%;
+				max-width: 50%;
+			} -->
+			<div class="row row-cols-2 mb-2">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<div class="col bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>
+			<!-- .row-cols-3>* { : 下一層 3 個
+				flex: 0 0 33.333333%;
+				max-width: 33.333333%;
+			} -->
+			<div class="row row-cols-3 mb-2">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<div class="col bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>
+			<!-- .row-cols-4>* {
+					flex: 0 0 25%;
+					max-width: 25%;
+			} -->
+			<div class="row row-cols-4">
+				<div class="col bg-primary">Column</div>
+				<div class="col bg-success">Column</div>
+				<!-- .col-6 50% 蓋過 .row-cols-4>* 25% -->
+				<!-- .col-6 {
+					flex: 0 0 50%;
+					max-width: 50%;
+				} -->
+				<div class="col-6 bg-info">Column</div>
+				<div class="col bg-danger">Column</div>
+			</div>			
+		</div>
+```
+
+##### No gutters
+``` html
+		<!-- px-4 因 row margin-right: -15px; margin-left: -15px; 才看的出來 -->
+		<div class="container bg-secondary">
+			<!-- .no-gutters>.col, 內部 padding: 0
+				padding-right: 0;
+				padding-left: 0;
+			} -->
+			<div class="row no-gutters">
+					<!-- .col, .col-1, .col-10, .col-11, .col-12, .col-2 ... 
+					{
+						position: relative;
+						width: 100%;
+						padding-right: 15px;
+						padding-left: 15px;
+					} -->
+				<div class="col-6 bg-primary">Column</div>
+				<div class="col-6 bg-success">Column</div>
+			</div>
+		</div>
+```
+
+##### Offsetting columns
+``` html
+		<div class="container bg-secondary">
+			<div class="row mb-2">
+				<div class="col-4 bg-primary">Column</div>
+				<!-- .offset-4 {
+					margin-left: 33.333333%;
+				} -->
+				<div class="col-4 offset-4 bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<!-- .offset-3 {
+					margin-left: 25%;
+				} -->
+				<div class="col-3 offset-3 bg-primary">Column</div>
+				<div class="col-3 offset-3 bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-6 offset-3 bg-primary">Column</div>
+			</div>
+		</div>
+```
+
+##### Margin utilities
+``` html
+		<div class="container bg-secondary">
+			<div class="row mb-2">
+				<div class="col-4 bg-primary">Column</div>
+				<!-- .ml-auto, .mx-auto {
+					margin-left: auto!important;
+				} -->
+				<div class="col-4 ml-auto bg-success">Column</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-3 ml-auto bg-primary">Column</div>
+				<div class="col-3 ml-auto bg-success">Column</div> 
+			</div>
+			<div class="row mb-2">
+				<!-- .mr-auto, .mx-auto {
+					margin-right: auto!important;
+				} -->
+				<!-- col-auto : element 寬度 -->
+				<!-- .col-auto {
+					flex: 0 0 auto;
+					width: auto;
+					max-width: 100%;
+				} -->
+				<div class="col-auto mr-auto bg-primary">Column</div>
+				<div class="col-auto bg-success">Column</div> 
+			</div>
+		</div>
+```
+
+
+### Content 
 
 #### Reboot 
 ##### font family
@@ -522,11 +921,216 @@ Negative margin(padding not support) :
 	<button type="button" class="btn btn-link">Link</button>
 	```
 
-<!--more-->
+### Other
+#### [fontawesome](/bootstrap-1/fontawesome)
+##### [Configuration](https://fontawesome.com/v5.15/how-to-use/javascript-api/setup/configuration)
+``` html
+<html>
+  <head>
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+      data-auto-a11y="true"
+    ></script>
+  </head>
+  <body>
+		<div>
+			<i class="fas fa-hippo"></i>
+		</div>
+
+		<!-- Font Awesome Icons + Your Project’s Styling -->
+		<div>
+			<span style="font-size: 3em; color: Tomato;">
+				<i class="fas fa-camera"></i>
+			</span>
+
+			<span style="font-size: 48px; color: Dodgerblue;">
+				<i class="fas fa-camera"></i>
+			</span>
+
+			<span style="font-size: 3rem;">
+				<span style="color: Mediumslateblue;">
+				<i class="fas fa-camera"></i>
+				</span>
+			</span>
+		</div>
+	</body>
+</html>
+```
+
+##### Free icon support fas ,far or fab only
+``` html
+		<div>
+			<i class="fas fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="far fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fal fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fad fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fab fa-accessible-icon"></i>
+		</div>
+		<i class="fas fa-clock"></i>
+		<i class="far fa-clock"></i>
+```
+
+##### Using an &lt;i&gt; element or &lt;span&gt; element to reference the icon
+``` html
+		<i class="fas fa-camera"></i>
+		<span class="fas fa-camera"></span>
+```
+
+##### Font Awesome Icons + Your Project’s Styling
+``` html
+		<span style="font-size: 3em; color: Tomato;">
+			<i class="fas fa-camera"></i>
+		</span>
+		<span style="font-size: 48px; color: Dodgerblue;">
+			<i class="fas fa-camera"></i>
+		</span>
+		<span style="font-size: 3rem;">
+			<span style="color: Mediumslateblue;">
+			<i class="fas fa-camera"></i>
+			</span>
+		</span>
+```
+
+##### Sizing Icons
+fa-xs, fa-sm, fa-lg, fa-2x, fa-3x, fa-4x, fa-5x, fa-6x, fa-7x, fa-8x, fa-9x, or fa-10x
+``` html
+		<i class="fas fa-clock" style="font-size:120px;color:#2196F3"></i>
+		<i class="far fa-clock" style="font-size:120px;color:#2196F3"></i>
+
+			<!-- .fa-xs {
+					font-size: .75em;
+			} -->
+			<i class="fas fa-clock fa-xs"></i>
+			<!-- .fa-sm {
+				font-size: .875em;
+			} -->
+			<i class="fas fa-clock fa-sm"></i>
+			<!-- default -->
+			<i class="fas fa-clock"></i>
+			<!-- .fa-lg {
+				font-size: 1.3333333333em;
+				line-height: .75em;
+				vertical-align: -0.0667em;
+			} -->
+			<i class="fas fa-clock fa-lg"></i>
+			<!-- fa-2x:	font-size: 2em; -->
+			<i class="fas fa-clock fa-2x"></i>
+			<!-- fa-5x: font-size: 5em; -->
+			<i class="fas fa-clock fa-5x"></i>
+			<!-- fa-10x: font-size: 10em; -->
+			<i class="fas fa-clock fa-10x"></i>
+```
+
+##### List Icons
+The fa-ul and fa-li classes are used to replace default bullets in unordered lists
+``` html
+		<!-- .fa-ul {
+			list-style-type: none;
+			margin-left: 2.5em;
+			padding-left: 0;
+		} -->
+		<ul class="fa-ul">
+			<!-- .fa-ul>li: position: relative; -->
+			<li><span class="fa-li"><i class="fas fa-check-square"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-spinner"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-pulse"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-spinner fa-pulse"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-square"></i></span>List Item</li>
+		</ul>
+```
+
+##### Animated Icons
+The fa-spin class gets any icon to rotate, and the fa-pulse class gets any icon to rotate with 8 steps
+``` html
+		<i class="fas fa-spinner fa-spin"></i>
+		<i class="fas fa-circle-notch fa-spin"></i>
+		<i class="fas fa-sync-alt fa-spin"></i>
+		<i class="fas fa-cog fa-spin"></i>
+		<i class="fas fa-cog fa-pulse"></i>
+		<i class="fas fa-spinner fa-pulse"></i>
+```
+
+##### Rotated and Flipped(翻轉) Icons
+The fa-rotate-* and fa-flip-* classes are used to rotate and flip icons
+``` html
+		<i class="fas fa-horse"></i>
+		<i class="fas fa-horse fa-rotate-90"></i>
+		<i class="fas fa-horse fa-rotate-180"></i>
+		<i class="fas fa-horse fa-rotate-270"></i>
+		<i class="fas fa-horse fa-flip-horizontal"></i>
+		<i class="fas fa-horse fa-flip-vertical"></i>		
+```
+
+##### Stacked(堆疊) Icons
+To stack multiple icons, use the fa-stack class on the parent, the fa-stack-1x class for the regularly sized icon, and fa-stack-2x for the larger icon.
+The fa-inverse class can be used as an alternative icon color. You can also add larger icon classes to the parent to further control the sizing.
+``` html
+		<span class="fa-stack fa-lg">
+			<i class="fas fa-circle fa-stack-2x"></i>
+			<i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+		fa-twitter (inverse) on fa-circle (solid)<br>
+		
+		<span class="fa-stack fa-lg">
+			<i class="far fa-circle fa-stack-2x"></i>
+			<i class="fab fa-twitter fa-stack-1x"></i>
+		</span>
+		fa-twitter on fa-circle (regular)<br>
+		
+		<span class="fa-stack fa-lg">
+			<i class="fas fa-camera fa-stack-1x"></i>
+			<i class="fas fa-ban fa-stack-2x text-danger" style="color:red;"></i>
+		</span>
+		fa-ban on fa-camera
+```
+
+##### Fixed Width Icons(fa-fw 設定固定寬度)
+The fa-fw class is used to set icons at a fixed width
+``` html
+		<p>Fixed Width:</p>
+		<!-- .fa-fw {
+			text-align: center;
+			width: 1.25em;
+		} -->
+		<div><i class="fas fa-arrows-alt-v fa-fw"></i> Icon 1</div>
+		<div><i class="fas fa-band-aid fa-fw"></i> Icon 2</div>
+		<div><i class="fab fa-bluetooth-b fa-fw"></i> Icon 3</div>
+		
+		<p>Without Fixed Width:</p>
+		<div><i class="fas fa-arrows-alt-v"></i> Icon 1</div>
+		<div><i class="fas fa-band-aid"></i> Icon 2</div>
+		<div><i class="fab fa-bluetooth-b"></i> Icon 3</div>
+```
+
+##### Bordered and Pulled Icons
+The fa-border, fa-pull-right or fa-pull-left classes are used for for pull quotes or article icons
+``` html
+		<!-- .fa-border {
+				border: solid 0.08em #eee;
+				border-radius: 0.1em;
+				padding: 0.2em 0.25em 0.15em;
+		} -->
+		<!-- .fa-pull-left {
+			margin-right: 0.3em;
+			width: auto;
+		} -->
+		<i class="fas fa-quote-left fa-3x fa-pull-left fa-border"></i>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+```
+
 
 ### 參考資料
 + [Bootstrop 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
 + [Bootswatch](https://bootswatch.com/) : free themes for Bootstrap
++ [Bootstrap Shuffle](https://bootstrapshuffle.com/): Create Bootstrap templates in minutes
 + [Bootsnipp for Bootstrop](https://bootsnipp.com/)
 + [Best Website Examples of Bootstrap](https://www.awwwards.com/websites/bootstrap/)
 + [200+ Best Bootstrap Templates 2021 - Colorlib](https://colorlib.com/wp/cat/bootstrap/)
