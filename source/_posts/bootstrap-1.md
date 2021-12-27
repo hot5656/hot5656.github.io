@@ -891,7 +891,47 @@ Negative margin(padding not support) :
 
 
 ### Componets
+	
+#### [Navbar](/bootstrap-1/navbar)
++ nav
+	+ class
+		+ navbar
+		+ navbar-expand-xx : row 排列 condition
+		+ navbar-light/navbar-dark: color
+	+ navbar-brand
+	+ button : toggle
+		+ navbar-toggle
+		+ data-toggle="collapse"
+		+ data-target="#..."
+	+ div
+		+ collapse: show/noshow control 
+		+ navbar-collapse: auto legnth alignment
+		+ id="..."
+	+ ul
+		+ navbar-nav: flex, list-style:none
+	+ li
+		+ nav-item : set basic nav item
+		+ active: some condition affect(navbar-light, navbar-dark)
+		+ a + nav-link : set for nav-link
+	+ li(dropdown)
+		+ nav-item : set basic nav item
+		+ dropdown : set support dropdown
+		+ a + nav-link : set for nav-link
+			+ dropdown-toggle: 
+			+ data-toggle="dropdown": dropdown control
+		+ div + dropdown-menu : dropdown form
+			+ a + dropdown-item : dropdown item
+			+ div + dropdown-divider: 分隔線
+##### Simple examples
+``` html
+```
+
+
 #### Form
++ form
+	+ form-inline: form basic setting
+	+ input + form-control : inpuit basic setting
+	+ button : bttton for form
 ``` js
 <form >
   <div className="form-group">
