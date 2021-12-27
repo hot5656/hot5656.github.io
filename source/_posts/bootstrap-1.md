@@ -912,7 +912,9 @@ Negative margin(padding not support) :
 	+ li
 		+ nav-item : set basic nav item
 		+ active: some condition affect(navbar-light, navbar-dark)
-		+ a + nav-link : set for nav-link
+		+ a 
+			+ nav-link : set for nav-link
+			+ disable : disable link
 	+ li(dropdown)
 		+ nav-item : set basic nav item
 		+ dropdown : set support dropdown
@@ -922,16 +924,339 @@ Negative margin(padding not support) :
 		+ div + dropdown-menu : dropdown form
 			+ a + dropdown-item : dropdown item
 			+ div + dropdown-divider: 分隔線
-##### Simple examples
+	+ navbar-text
+
+##### Simple example #1
 ``` html
+		<!-- .navbar {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+		} -->
+		<!-- .navbar-expand-md {
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+		} -->
+		<nav class="navbar navbar-expand-md navbar-light bg-light">
+			<!-- .navbar-brand {
+				display: inline-block;
+				padding-top: 0.3125rem;
+				padding-bottom: 0.3125rem;
+				margin-right: 1rem;
+				font-size: 1.25rem;
+				line-height: inherit;
+				white-space: nowrap;
+			} -->
+			<a class="navbar-brand" href="#">Navbar</a>
+
+			<!-- .navbar-toggler {
+				padding: 0.25rem 0.75rem;
+				font-size: 1.25rem;
+				line-height: 1;
+				background-color: transparent;
+				border: 1px solid transparent;
+				border-radius: 0.25rem;
+			} -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- .collapse:not(.show) {
+				display: none;
+			} -->
+			<!-- .navbar-collapse {
+				-ms-flex-preferred-size: 100%;
+				flex-basis: 100%;
+				-ms-flex-positive: 1;
+				flex-grow: 1;
+				-ms-flex-align: center;
+				align-items: center;
+			} -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<!-- .navbar-nav {
+					display: flex;
+					flex-direction: column;
+					padding-left: 0;
+					margin-bottom: 0;
+					list-style: none;
+				} -->
+				<ul class="navbar-nav mr-auto">
+					<!-- .nav-item {
+						flex: 1 1 auto;
+						text-align: center;
+					} -->
+					<li class="nav-item active">
+						<!-- .nav-link {
+							display: block;
+							padding: 0.5rem 1rem;
+						} -->
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<!-- .dropdown, .dropleft, .dropright, .dropup {
+						position: relative;
+					} -->
+					<li class="nav-item dropdown">
+						<!-- .dropdown-toggle : white-space: nowrap; -->
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+							Dropdown
+						</a>
+						<!-- .dropdown-menu {
+							position: absolute;
+							top: 100%;
+							left: 0;
+							z-index: 1000;
+							display: none;
+							float: left;
+							min-width: 10rem;
+							padding: 0.5rem 0;
+							margin: 0.125rem 0 0;
+							font-size: 1rem;
+							color: #212529;
+							text-align: left;
+							list-style: none;
+							background-color: #fff;
+							background-clip: padding-box;
+							border: 1px solid rgba(0,0,0,.15);
+							border-radius: 0.25rem;
+						} -->
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<!-- .dropdown-item {
+								display: block;
+								width: 100%;
+								padding: 0.25rem 1.5rem;
+								clear: both;
+								font-weight: 400;
+								color: #212529;
+								text-align: inherit;
+								white-space: nowrap;
+								background-color: transparent;
+								border: 0;
+							} -->
+							<!-- a.btn.disabled,
+							fieldset:disabled a.btn {
+								pointer-events: none;
+							} -->
+							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Another action</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Something else here</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<!-- .navbar-light .navbar-nav .nav-link.disabled {
+							color: rgba(0,0,0,.3);
+						} -->
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+
+				<!-- .form-inline {
+						display: flex;
+						flex-flow: row wrap;
+						align-items: center;
+				} -->
+				<form class="form-inline my-2 my-lg-0">
+					<!-- .form-control {
+						display: block;
+						width: 100%;
+						height: calc(1.5em + 0.75rem + 2px);
+						padding: 0.375rem 0.75rem;
+						font-size: 1rem;
+						font-weight: 400;
+						line-height: 1.5;
+						color: #495057;
+						background-color: #fff;
+						background-clip: padding-box;
+						border: 1px solid #ced4da;
+						border-radius: 0.25rem;
+						transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+					} -->
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<!-- .btn {
+						display: inline-block;
+						font-weight: 400;
+						color: #212529;
+						text-align: center;
+						vertical-align: middle;
+						-webkit-user-select: none;
+						-moz-user-select: none;
+						-ms-user-select: none;
+						user-select: none;
+						background-color: transparent;
+						border: 1px solid transparent;
+						padding: 0.375rem 0.75rem;
+						font-size: 1rem;
+						line-height: 1.5;
+						border-radius: 0.25rem;
+						transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+					} -->
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
 ```
 
+##### Simple example #2
+``` html
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Navbar w/ text</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Features</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Pricing</a>
+					</li>
+				</ul>
+				<!-- .navbar-text {
+					display: inline-block;
+					padding-top: 0.5rem;
+					padding-bottom: 0.5rem;
+				} -->
+				<span class="navbar-text">
+					Navbar text with an inline element
+				</span>
+			</div>
+		</nav>
+```
 
-#### Form
+##### Form #2
+``` html
+		<nav class="navbar navbar-light bg-light">
+			<form class="form-inline">
+				<!-- .input-group {
+					position: relative;
+					display: -ms-flexbox;
+					display: flex;
+					-ms-flex-wrap: wrap;
+					flex-wrap: wrap;
+					-ms-flex-align: stretch;
+					align-items: stretch;
+					width: 100%;
+				} -->
+				<div class="input-group">
+					<!-- .input-group-prepend {
+						margin-right: -1px;
+					} -->
+					<div class="input-group-prepend">
+						<!-- .input-group>.input-group-prepend>.input-group-text {
+							border-top-right-radius: 0;
+							border-bottom-right-radius: 0;
+						} -->
+						<span class="input-group-text" id="basic-addon1">@</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</form>
+		</nav>
+```
+
+##### Color schemes
+``` html
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<!-- Navbar content -->
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+		
+		<nav class="navbar navbar-expand-md navbar-dark bg-primary mt-2">
+			<!-- Navbar content -->
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+		
+		<nav class="navbar navbar-expand-md navbar-light mt-2" style="background-color: #e3f2fd;">
+			<!-- Navbar content -->
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+```
+
+#### [Input group](/bootstrap-1/input-group)
+
+#### [Form](/bootstrap-1/form)
 + form
 	+ form-inline: form basic setting
-	+ input + form-control : inpuit basic setting
-	+ button : bttton for form
+	+ input + form-control : input basic setting
+	+ button + type="submit" + .btn : bttton for form
++ form 
+	+ input-group : group for input
+		+ input-group-prepend : previous
+		+ input-group-text : text
+	+ input + form-control : input basic setting
+	+ input-group-append : after input char
+
 ``` js
 <form >
   <div className="form-group">
