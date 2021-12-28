@@ -402,6 +402,29 @@ Allow: /data/*/crosssellaccommodations
 </dl>
 ```
 
+##### fieldset and Legends
++ fieldset 用來對表單 (form) 中的控制元件做分組 (group)，而 
++ legend 通常是 fieldset 裡面的第一個元素作為該分組的標題 (caption)。
++ fieldset 標籤的屬性 (attributes)：
+	+ disabled: 將 fieldset 中所有欄位設定為禁用的狀態，是一個布林 (boolean) 屬性
+	+ name: 聲明 fieldset 名稱
+
+``` html
+<form>
+  <fieldset>
+    <legend>Personal details</legend>
+    <label>Your name:</label> <input name="yourname">
+    <label>Your age:</label> <input type="number" name="yourage">
+  </fieldset>
+
+  <fieldset>
+    <legend>Your address</legend>
+    <label>Street:</label> <input name="street">
+    <label>Zip code / post code:</label> <input name="postcode">
+  </fieldset>
+</form>
+```
+
 ### [HTML Attribute](https://www.w3schools.com/tags/ref_attributes.asp)
 #### title - mouse 移至上方顯示說明 
 ``` html
