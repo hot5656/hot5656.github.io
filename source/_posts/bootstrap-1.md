@@ -1859,6 +1859,9 @@ Negative margin(padding not support) :
 
 ```
 
+#### [Buttons](/bootstrap-1/buttons)
+
+
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)
 ##### [Configuration](https://fontawesome.com/v5.15/how-to-use/javascript-api/setup/configuration)
