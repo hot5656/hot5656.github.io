@@ -603,6 +603,57 @@ $font-family-sans-serif:
 		</dl>
 ```
 
+#### [Images](/bootstrap-1/images)
+##### Responsive images
+``` html
+		<div class="container">
+			<div class="row">
+				<div class="col-3 mx-auto">
+					<!-- .img-fluid {
+						max-width: 100%;
+						height: auto;
+					} -->
+					<img src="https://via.placeholder.com/400" class="img-fluid">
+				</div>
+			</div>
+		</div>
+```
+
+##### Image thumbnails
+``` html
+		<!-- .img-thumbnail {
+			padding: 0.25rem;
+			background-color: #fff;
+			border: 1px solid #dee2e6;
+			border-radius: 0.25rem;
+			max-width: 100%;
+			height: auto;
+		} -->
+		<img src="https://via.placeholder.com/200" class="img-thumbnail">
+```
+
+##### Rouned and rounded-circle
+``` html
+		<div class="d-flex justify-content-between">
+			<!-- .rounded: border-radius: 0.25rem!important;  -->
+			<img src="https://via.placeholder.com/200" class="rounded">
+			<!-- .rounded-circle: border-radius: 50%!important; -->
+			<img src="https://via.placeholder.com/200" class="rounded-circle">
+		</div>
+```
+
+##### Aligning images
+``` html
+		<div class="clearfix">
+			<img src="https://via.placeholder.com/200" class="rounded float-left">
+			<img src="https://via.placeholder.com/200" class="rounded float-right">
+		</div>
+		<img src="https://via.placeholder.com/200" class="rounded mx-auto d-block">
+		<div class="text-center mt-3">
+			<img src="https://via.placeholder.com/200" class="rounded">
+		</div>
+```
+
 ### Utilities
 #### [Text](/bootstrap-1/text)
 ##### Text alignment
@@ -1854,13 +1905,517 @@ Negative margin(padding not support) :
 
 ```
 
-##### 
+#### [Buttons](/bootstrap-1/buttons)
+##### Common buttons
 ``` html
-
+		<button type="button" class="btn btn-primary">Primary</button>
+		<button type="button" class="btn btn-secondary">Secondary</button>
+		<button type="button" class="btn btn-success">Success</button>
+		<button type="button" class="btn btn-danger">Danger</button>
+		<button type="button" class="btn btn-warning">Warning</button>
+		<button type="button" class="btn btn-info">Info</button>
+		<button type="button" class="btn btn-light">Light</button>
+		<button type="button" class="btn btn-dark">Dark</button>
+		
+		<button type="button" class="btn btn-link">Link</button>
 ```
 
-#### [Buttons](/bootstrap-1/buttons)
+##### Outline buttons
+``` html
+		<button type="button" class="btn btn-outline-primary">Primary</button>
+		<button type="button" class="btn btn-outline-secondary">Secondary</button>
+		<button type="button" class="btn btn-outline-success">Success</button>
+		<button type="button" class="btn btn-outline-danger">Danger</button>
+		<button type="button" class="btn btn-outline-warning">Warning</button>
+		<button type="button" class="btn btn-outline-info">Info</button>
+		<button type="button" class="btn btn-outline-light">Light</button>
+		<button type="button" class="btn btn-outline-dark">Dark</button>
+```
 
+##### Button tags
+``` html
+		<a class="btn btn-primary" href="#" role="button">Link</a>
+		<button class="btn btn-primary" type="submit">Button</button>
+		<input class="btn btn-primary" type="button" value="Input">
+		<input class="btn btn-primary" type="submit" value="Submit">
+		<input class="btn btn-primary" type="reset" value="Reset">
+```
+
+##### Sizes and block
+``` html
+		<button type="button" class="btn btn-primary btn-lg">Large button</button>
+		<button type="button" class="btn btn-primary btn-sm">Small button</button>
+
+		<div class="mt-3">
+			<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+		</div>
+```
+
+##### Button active and disable
+``` html
+		<a href="#" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Primary link</a>
+		<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link(active)</a>
+	
+		<div class="mt-3">
+			<button type="button" class="btn btn-lg btn-primary">Primary button</button>
+			<button type="button" class="btn btn-lg btn-primary" disabled>Primary button(disable)</button>
+		</div>
+```
+
+##### Toggle states
+data-toggle="button" to toggle a button’s active state.
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+			Single toggle
+		</button>
+```
+
+##### Checkbox and radio buttons
+data-toggle="buttons" to toggle state 
+.btn-group-toggle to style the input buttons
+``` html
+		<div class="btn-group-toggle mt-3" data-toggle="buttons">
+			<label class="btn btn-secondary active">
+				<input type="checkbox" checked> Checked
+			</label>
+		</div>
+
+		<div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+			<label class="btn btn-secondary active">
+				<input type="radio" name="options" id="option1" checked> Active
+			</label>
+			<label class="btn btn-secondary">
+				<input type="radio" name="options" id="option2"> Radio
+			</label>
+			<label class="btn btn-secondary">
+				<input type="radio" name="options" id="option3"> Radio
+			</label>
+		</div>
+```
+
+#### [Card](/bootstrap-1/card)
+##### Card Example
+``` html
+		<!-- .card {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			word-wrap: break-word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 1px solid rgba(0,0,0,.125);
+			border-radius: 0.25rem;
+		} -->
+		<div class="card" style="width: 18rem;">
+			<!-- .card-img, .card-img-top {
+				border-top-left-radius: calc(0.25rem - 1px);
+				border-top-right-radius: calc(0.25rem - 1px);
+			} -->
+			<img src="https://via.placeholder.com/200" class="card-img-top">
+			<!-- .card-body {
+				-ms-flex: 1 1 auto;
+				flex: 1 1 auto;
+				min-height: 1px;
+				padding: 1.25rem;
+			} -->
+			<div class="card-body">
+				<!-- .card-title: margin-bottom: 0.75rem; -->
+				<h5 class="card-title">Card title</h5>
+				<!-- .card-subtitle {
+					margin-top: -0.375rem;
+					margin-bottom: 0;
+				} -->
+				<!-- .card-text:last-child: margin-bottom: 0; -->
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<a href="#" class="btn btn-primary">Go somewhere</a>
+			</div>
+		</div>
+```
+
+##### card-heade, list-group, card-footer
+``` html
+		<div class="card" style="width: 18rem;">
+			<!-- .card-header:first-child:border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; -->
+			<!-- .card-header {
+					padding: 0.75rem 1.25rem;
+					margin-bottom: 0;
+					background-color: rgba(0,0,0,.03);
+					border-bottom: 1px solid rgba(0,0,0,.125);
+			} -->
+			<div class="card-header">
+				Featured
+			</div>
+			<!-- .list-group-flush {
+				border-radius: 0;
+			} -->
+			<!-- .list-group {
+					display: flex;
+					flex-direction: column;
+					padding-left: 0;
+					margin-bottom: 0;
+					border-radius: 0.25rem;
+			} -->
+			<ul class="list-group list-group-flush">
+				<!-- .list-group-flush>.list-group-item {
+					border-width: 0 0 1px;
+				} -->
+				<!-- .list-group-item:first-child {
+						border-top-left-radius: inherit;
+						border-top-right-radius: inherit;
+				} -->
+				<!-- .list-group-item {
+						position: relative;
+						display: block;
+						padding: 0.75rem 1.25rem;
+						background-color: #fff;
+						border: 1px solid rgba(0,0,0,.125);
+				} -->
+				<li class="list-group-item">An item</li>
+				<li class="list-group-item">A second item</li>
+				<li class="list-group-item">A third item</li>
+			</ul>
+			<!-- .card>.list-group+.card-footer {
+				border-top: 0;
+			} -->
+			<!-- .card-footer:last-child;:	border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); -->
+			<!-- .card-footer {
+					padding: 0.75rem 1.25rem;
+					background-color: rgba(0,0,0,.03);
+					border-top: 1px solid rgba(0,0,0,.125);
+			} -->
+			<div class="card-footer">
+				Card footer
+			</div>
+		</div>
+```
+
+##### Image overlays
+``` html
+		<div class="card bg-dark text-white">
+			<img src="https://via.placeholder.com/600x300" class="card-img">
+			<!-- .card-img-overlay {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				padding: 1.25rem;
+				border-radius: calc(0.25rem - 1px);
+			} -->
+			<div class="card-img-overlay">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				<p class="card-text">Last updated 3 mins ago</p>
+			</div>
+		</div>
+```
+
+##### Horizontal
+``` html
+		<div class="card mb-3" style="max-width: 540px;">
+			<div class="row no-gutters">
+				<div class="col-md-4">
+					<img class="img-fluid" src="https://via.placeholder.com/200x300">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Card styles
+``` html
+		<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+			<!-- .card-header {
+				padding: 0.75rem 1.25rem;
+				margin-bottom: 0;
+				background-color: rgba(0,0,0,.03);
+				border-bottom: 1px solid rgba(0,0,0,.125);
+			} -->
+			<div class="card-header">Header</div>
+			<div class="card-body">
+				<h5 class="card-title">Primary card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+		<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+			<div class="card-header">Header</div>
+			<div class="card-body">
+				<h5 class="card-title">Secondary card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+		<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+			<div class="card-header">Header</div>
+			<div class="card-body">
+				<h5 class="card-title">Success card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+```
+
+##### Border
+``` html
+		<div class="card border-primary mb-3" style="max-width: 18rem;">
+			<div class="card-header">Header</div>
+			<div class="card-body text-primary">
+				<h5 class="card-title">Primary card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+		<div class="card border-secondary mb-3" style="max-width: 18rem;">
+			<div class="card-header">Header</div>
+			<div class="card-body text-secondary">
+				<h5 class="card-title">Secondary card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+		<div class="card border-success mb-3" style="max-width: 18rem;">
+			<div class="card-header">Header</div>
+			<div class="card-body text-success">
+				<h5 class="card-title">Success card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+```
+
+##### Card groups
+``` html
+		<!-- .card-group {
+			display: flex;
+			flex-flow: row wrap;
+		} -->
+		<div class="card-group">
+			<!-- @media (min-width: 576px)
+			.card-group>.card {
+					flex: 1 0 0%;
+					margin-bottom: 0;
+			} -->
+			<!-- .card {
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					min-width: 0;
+					word-wrap: break-word;
+					background-color: #fff;
+					background-clip: border-box;
+					border: 1px solid rgba(0,0,0,.125);
+					border-radius: 0.25rem;
+			} -->
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+		</div>
+```
+
+##### Card decks
+``` html
+		<!-- @media (min-width: 576px)
+		.card-deck {
+				display: flex;
+				flex-flow: row wrap;
+				margin-right: -15px;
+				margin-left: -15px;
+		} -->
+		<div class="card-deck">
+			<!-- @media (min-width: 576px)
+			.card-deck .card {
+					-ms-flex: 1 0 0%;
+					flex: 1 0 0%;
+					margin-right: 15px;
+					margin-bottom: 0;
+					margin-left: 15px;
+			} -->
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">Last updated 3 mins ago</small>
+				</div>
+			</div>
+		</div>
+```
+
+##### Grid cards
+``` html
+		<div class="row row-cols-1 row-cols-md-3">
+			<!-- @media (min-width: 768px)
+			.row-cols-md-3>* {
+					-ms-flex: 0 0 33.333333%;
+					flex: 0 0 33.333333%;
+					max-width: 33.333333%;
+			} -->
+			<div class="col mb-4">
+				<!-- .h-100:	height: 100%!important; -->
+				<div class="card h-100">
+					<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="card h-100">
+					<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">This is a short card.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="card h-100">
+					<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="card h-100">
+					<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Card columns
+``` html
+		<!-- @media (min-width: 576px)
+		.card-columns {
+				column-count: 3;
+				column-gap: 1.25rem;
+				orphans: 1;
+				widows: 1;
+		} -->
+		<div class="card-columns">
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">(1)Card title that wraps to a new line</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+			<div class="card p-3">
+				<blockquote class="blockquote mb-0 card-body">
+					<p>(2)A well-known quote, contained in a blockquote element.</p>
+					<footer class="blockquote-footer">
+						<small class="text-muted">
+							Someone famous in <cite title="Source Title">Source Title</cite>
+						</small>
+					</footer>
+				</blockquote>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">(3)Card title</h5>
+					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+				</div>
+			</div>
+			<div class="card bg-primary text-white text-center p-3">
+				<blockquote class="blockquote mb-0">
+					<p>(4)A well-known quote, contained in a blockquote element.</p>
+					<footer class="blockquote-footer text-white">
+						<small>
+							Someone famous in <cite title="Source Title">Source Title</cite>
+						</small>
+					</footer>
+				</blockquote>
+			</div>
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">(5)Card title</h5>
+					<p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
+					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+				</div>
+			</div>
+			<div class="card">
+				<img src="https://via.placeholder.com/200" class="card-img" alt="...">
+			</div>
+			<div class="card p-3 text-right">
+				<blockquote class="blockquote mb-0">
+					<p>(6)A well-known quote, contained in a blockquote element.</p>
+					<footer class="blockquote-footer">
+						<small class="text-muted">
+							Someone famous in <cite title="Source Title">Source Title</cite>
+						</small>
+					</footer>
+				</blockquote>
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">(7)Card title</h5>
+					<p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+				</div>
+			</div>
+		</div>
+```
+
+#### [Dropdowns](/bootstrap-1/dropdowns)
 
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)

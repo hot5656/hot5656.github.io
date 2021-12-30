@@ -56,6 +56,7 @@ date: 2021-03-18 15:48:55
 
 #### 假資料
 + [Lorem Picsum](https://picsum.photos/) : 假圖 https://picsum.photos/200/300 
++ [Free Image Placeholder](https://placeholder.com/) : 假圖 https://via.placeholder.com/480x240
 
 #### 金流
 + [newebpay 藍新金流](https://www.newebpay.com/)
