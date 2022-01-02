@@ -32,10 +32,55 @@ layout: false
 	<h2 class="level2">Example(button and link)</h2>
 	<div class="box">
 		<div class="dropdown">
+			<!-- data-toggle="dropdown": triggler dropdown  -->
+			<!-- .dropdown-toggle {
+				white-space: nowrap;
+			} -->
+			<!-- .dropdown-toggle::after {
+				display: inline-block;
+				margin-left: 0.255em;
+				vertical-align: 0.255em;
+				content: "";
+				border-top: 0.3em solid;
+				border-right: 0.3em solid transparent;
+				border-bottom: 0;
+				border-left: 0.3em solid transparent;
+			} -->
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 				Dropdown button
 			</button>
+			<!-- .dropdown-menu {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				z-index: 1000;
+				display: none;
+				float: left;
+				min-width: 10rem;
+				padding: 0.5rem 0;
+				margin: 0.125rem 0 0;
+				font-size: 1rem;
+				color: #212529;
+				text-align: left;
+				list-style: none;
+				background-color: #fff;
+				background-clip: padding-box;
+				border: 1px solid rgba(0, 0, 0, 0.15);
+				border-radius: 0.25rem;
+			} -->
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<!-- .dropdown-item {
+					display: block;
+					width: 100%;
+					padding: 0.25rem 1.5rem;
+					clear: both;
+					font-weight: 400;
+					color: #212529;
+					text-align: inherit;
+					white-space: nowrap;
+					background-color: transparent;
+					border: 0;
+				} -->
 				<a class="dropdown-item" href="#">Action</a>
 				<a class="dropdown-item" href="#">Another action</a>
 				<a class="dropdown-item" href="#">Something else here</a>
@@ -43,6 +88,8 @@ layout: false
 		</div>
 
 		<div class="dropdown mt-3">
+			<!-- data-toggle="dropdown": triggler dropdown 
+			id="dropdownMenuButton": ｍap to id  -->
 			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
 				Dropdown link
 			</a>
@@ -84,6 +131,12 @@ layout: false
 				<a class="dropdown-item" href="#">Action</a>
 				<a class="dropdown-item" href="#">Another action</a>
 				<a class="dropdown-item" href="#">Something else here</a>
+				<!-- .dropdown-divider {
+					height: 0;
+					margin: 0.5rem 0;
+					overflow: hidden;
+					border-top: 1px solid #e9ecef;
+				} -->
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="#">Separated link</a>
 			</div>
@@ -115,9 +168,10 @@ layout: false
 
 	<h2 class="level2">Directions</h2>
 	<div class="box">
+		<!-- dropup -->
 		<div class="btn-group dropup">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				Dropup
+			Dropup
 			</button>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="#">Action</a>
@@ -128,6 +182,7 @@ layout: false
 			</div>
 		</div>
 
+		<!-- dropright -->
 		<div class="btn-group dropright">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				Dropright
@@ -141,6 +196,7 @@ layout: false
 			</div>
 		</div>
 
+		<!-- dropleft -->
 		<div class="btn-group dropleft">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				Dropleft
@@ -153,7 +209,6 @@ layout: false
 				<a class="dropdown-item" href="#">Separated link</a>
 			</div>
 		</div>
-
 	</div>
 
 	<h2 class="level2">Menu items(also support button)</h2>
@@ -166,21 +221,6 @@ layout: false
 				<button class="dropdown-item" type="button">Action</button>
 				<button class="dropdown-item" type="button">Another action</button>
 				<button class="dropdown-item" type="button">Something else here</button>
-			</div>
-		</div>
-	</div>
-
-	<h2 class="level2">Background color</h2>
-	<div class="box">
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
-				Dropdown
-			</button>
-			<div class="dropdown-menu">
-				<span class="dropdown-item-text">dropdown-item-text(for dropdown item title)</span>
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
 			</div>
 		</div>
 	</div>
@@ -205,6 +245,10 @@ layout: false
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				Right-aligned menu
 			</button>
+			<!-- .dropdown-menu-right {
+				right: 0;
+				left: auto;
+			} -->
 			<div class="dropdown-menu dropdown-menu-right">
 				<button class="dropdown-item" type="button">Action</button>
 				<button class="dropdown-item" type="button">Another action</button>
@@ -213,13 +257,13 @@ layout: false
 		</div>
 	</div>
 
-	<h2 class="level2">Responsive alignmentr</h2>
-	<!-- .dropdown-menu-right and .dropdown-menu{-sm|-md|-lg|-xl}-left. -->
+	<h2 class="level2">Responsive alignment</h2>
 	<div class="box">
 		<div class="btn-group">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false">
 				Right-aligned but left aligned when large screen
 			</button>
+			<!-- .dropdown-menu-right and .dropdown-menu{-sm|-md|-lg|-xl}-left. -->
 			<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
 				<button class="dropdown-item" type="button">Action</button>
 				<button class="dropdown-item" type="button">Another action</button>
@@ -235,17 +279,31 @@ layout: false
 				Dropdown
 			</button>
 			<div class="dropdown-menu">
+				<!-- .dropdown-header {
+					display: block;
+					padding: 0.5rem 1.5rem;
+					margin-bottom: 0;
+					font-size: .875rem;
+					color: #6c757d;
+					white-space: nowrap;
+				} -->
 				<h6 class="dropdown-header">Dropdown header</h6>
 				<a class="dropdown-item" href="#">Action</a>
 				<a class="dropdown-item" href="#">Another action</a>
 				<a class="dropdown-item" href="#">Something else here</a>
+				<!-- .dropdown-divider {
+					height: 0;
+					margin: 0.5rem 0;
+					overflow: hidden;
+					border-top: 1px solid #e9ecef;
+				} -->
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="#">Separated link</a>
 			</div>
 		</div>
 	</div>
 
-	<h2 class="level2">dropdown text</h2>
+	<h2 class="level2">Dropdown text</h2>
 	<div class="box">
 		<div class="btn-group">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -262,7 +320,7 @@ layout: false
 		</div>
 	</div>
 
-	<h2 class="level2">dropdown form</h2>
+	<h2 class="level2">Dropdown form</h2>
 	<div class="box">
 		<div class="btn-group">
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -300,6 +358,7 @@ layout: false
 	<div class="box">
 		<div class="d-flex">
 			<div class="dropdown mr-1">
+				<!-- data-offset="10,20" -->
 				<button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-expanded="false" data-offset="10,20">
 					Offset
 				</button>
@@ -311,6 +370,8 @@ layout: false
 			</div>
 			<div class="btn-group">
 				<button type="button" class="btn btn-secondary">Reference</button>
+				<!-- data-reference="parent" -->
+				<!-- .dropdown-toggle-split -->
 				<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-expanded="false" data-reference="parent">
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>

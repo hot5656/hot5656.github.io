@@ -1900,11 +1900,6 @@ Negative margin(padding not support) :
 		</script>
 ```
 
-##### 
-``` html
-
-```
-
 #### [Buttons](/bootstrap-1/buttons)
 ##### Common buttons
 ``` html
@@ -2417,6 +2412,484 @@ data-toggle="buttons" to toggle state
 
 #### [Dropdowns](/bootstrap-1/dropdowns)
 
+##### Example(button and link)
+``` html
+		<div class="dropdown">
+			<!-- data-toggle="dropdown": triggler dropdown  -->
+			<!-- .dropdown-toggle {
+				white-space: nowrap;
+			} -->
+			<!-- .dropdown-toggle::after {
+				display: inline-block;
+				margin-left: 0.255em;
+				vertical-align: 0.255em;
+				content: "";
+				border-top: 0.3em solid;
+				border-right: 0.3em solid transparent;
+				border-bottom: 0;
+				border-left: 0.3em solid transparent;
+			} -->
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+				Dropdown button
+			</button>
+			<!-- .dropdown-menu {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				z-index: 1000;
+				display: none;
+				float: left;
+				min-width: 10rem;
+				padding: 0.5rem 0;
+				margin: 0.125rem 0 0;
+				font-size: 1rem;
+				color: #212529;
+				text-align: left;
+				list-style: none;
+				background-color: #fff;
+				background-clip: padding-box;
+				border: 1px solid rgba(0, 0, 0, 0.15);
+				border-radius: 0.25rem;
+			} -->
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<!-- .dropdown-item {
+					display: block;
+					width: 100%;
+					padding: 0.25rem 1.5rem;
+					clear: both;
+					font-weight: 400;
+					color: #212529;
+					text-align: inherit;
+					white-space: nowrap;
+					background-color: transparent;
+					border: 0;
+				} -->
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</div>
+		</div>
+
+		<div class="dropdown mt-3">
+			<!-- data-toggle="dropdown": triggler dropdown 
+			id="dropdownMenuButton": ｍap to id  -->
+			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+				Dropdown link
+			</a>
+		
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</div>
+		</div>
+```
+
+##### Color
+``` html
+		<!-- Example single danger button -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Action
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+```
+
+##### Split button
+``` html
+		<!-- Example split danger button -->
+		<div class="btn-group">
+			<button type="button" class="btn btn-danger">Action</button>
+			<button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<!-- .dropdown-divider {
+					height: 0;
+					margin: 0.5rem 0;
+					overflow: hidden;
+					border-top: 1px solid #e9ecef;
+				} -->
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+```
+
+##### Sizing
+``` html
+		<!-- Large button groups (default and split) -->
+		<div class="btn-group">
+			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				Large button
+			</button>
+			<div class="dropdown-menu">
+				...
+			</div>
+		</div>
+
+		<!-- Small button groups (default and split) -->
+		<div class="btn-group">
+			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				Small button
+			</button>
+			<div class="dropdown-menu">
+				...
+			</div>
+		</div>
+```
+
+##### Directions
+``` html
+		<!-- dropup -->
+		<div class="btn-group dropup">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			Dropup
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+
+		<!-- dropright -->
+		<div class="btn-group dropright">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Dropright
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+
+		<!-- dropleft -->
+		<div class="btn-group dropleft">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Dropleft
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+```
+
+##### Menu items(also support button)
+``` html
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
+				Dropdown
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<button class="dropdown-item" type="button">Action</button>
+				<button class="dropdown-item" type="button">Another action</button>
+				<button class="dropdown-item" type="button">Something else here</button>
+			</div>
+		</div>
+```
+
+##### Active and disable
+``` html
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
+				Dropdown
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<button class="dropdown-item" type="button">Action</button>
+				<button class="dropdown-item active" type="button">Another action</button>
+				<button class="dropdown-item disabled" type="button">Something else here</button>
+			</div>
+		</div>
+```
+
+##### Menu alignment(align to right)
+``` html
+		<div class="btn-group">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Right-aligned menu
+			</button>
+			<!-- .dropdown-menu-right {
+				right: 0;
+				left: auto;
+			} -->
+			<div class="dropdown-menu dropdown-menu-right">
+				<button class="dropdown-item" type="button">Action</button>
+				<button class="dropdown-item" type="button">Another action</button>
+				<button class="dropdown-item" type="button">Something else here</button>
+			</div>
+		</div>
+```
+
+##### Responsive alignment
+``` html
+		<div class="btn-group">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false">
+				Right-aligned but left aligned when large screen
+			</button>
+			<!-- .dropdown-menu-right and .dropdown-menu{-sm|-md|-lg|-xl}-left. -->
+			<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+				<button class="dropdown-item" type="button">Action</button>
+				<button class="dropdown-item" type="button">Another action</button>
+				<button class="dropdown-item" type="button">Something else here</button>
+			</div>
+		</div>
+```
+
+##### Headers and Dividers
+``` html
+		<div class="btn-group">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Dropdown
+			</button>
+			<div class="dropdown-menu">
+				<!-- .dropdown-header {
+					display: block;
+					padding: 0.5rem 1.5rem;
+					margin-bottom: 0;
+					font-size: .875rem;
+					color: #6c757d;
+					white-space: nowrap;
+				} -->
+				<h6 class="dropdown-header">Dropdown header</h6>
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+				<!-- .dropdown-divider {
+					height: 0;
+					margin: 0.5rem 0;
+					overflow: hidden;
+					border-top: 1px solid #e9ecef;
+				} -->
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Separated link</a>
+			</div>
+		</div>
+```
+
+##### Dropdown text
+``` html
+		<div class="btn-group">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Dropdown
+			</button>
+			<div class="dropdown-menu p-4 text-muted" style="max-width: 200px;">
+				<p>
+					Some example text that's free-flowing within the dropdown menu.
+				</p>
+				<p class="mb-0">
+					And this is more example text.
+				</p>
+			</div>
+		</div>
+```
+
+##### Dropdown form
+``` html
+		<div class="btn-group">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				Dropdown
+			</button>
+			<div class="dropdown-menu">
+				<form class="px-4 py-3">
+					<div class="form-group">
+						<label for="exampleDropdownFormEmail1">Email address</label>
+						<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+					</div>
+					<div class="form-group">
+						<label for="exampleDropdownFormPassword1">Password</label>
+						<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="dropdownCheck">
+							<label class="form-check-label" for="dropdownCheck">
+								Remember me
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Sign in</button>
+				</form>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">New around here? Sign up</a>
+				<a class="dropdown-item" href="#">Forgot password?</a>
+			</div>
+		</div>
+```
+
+##### Dropdown options
+Use data-offset or data-reference to change the location of the dropdown
+``` html
+		<div class="d-flex">
+			<div class="dropdown mr-1">
+				<!-- data-offset="10,20" -->
+				<button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-expanded="false" data-offset="10,20">
+					Offset
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-secondary">Reference</button>
+				<!-- data-reference="parent" -->
+				<!-- .dropdown-toggle-split -->
+				<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-expanded="false" data-reference="parent">
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Separated link</a>
+				</div>
+			</div>
+		</div>
+```
+
+#### [Progress](/bootstrap-1/progress)
+##### Example
+``` html
+		<!-- .progress {
+			display: flex;
+			height: 1rem;
+			overflow: hidden;
+			line-height: 0;
+			font-size: .75rem;
+			background-color: #e9ecef;
+			border-radius: 0.25rem;
+		} -->
+		<div class="progress mb-3">
+			<!-- .progress-bar {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				overflow: hidden;
+				color: #fff;
+				text-align: center;
+				white-space: nowrap;
+				background-color: #007bff;
+				transition: width .6s ease;
+			} -->
+			<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<!-- width: 25%; -->
+			<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+```
+
+##### Labels
+``` html
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+		</div>
+```
+
+##### Height
+set a height value on the .progress, so if you change that value the inner .progress-bar will automatically resize accordingly.
+``` html
+		<div class="progress mb-3" style="height: 1px;">
+			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress" style="height: 20px;">
+			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+```
+
+##### Backgrounds
+``` html
+		<div class="progress mb-3">
+			<div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+```
+
+##### Multiple bars
+Include multiple progress bars in a progress component
+``` html
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+			<div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+			<div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+```
+
+##### Striped
+Add .progress-bar-striped to any .progress-bar to apply a stripe via CSS
+``` html
+	<div class="progress mb-3">
+			<!-- .progress-bar-striped {
+				background-image: linear-gradient(
+		45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+				background-size: 1rem 1rem;
+			} -->
+			<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress mb-3">
+			<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+```
+
+##### Animated stripes
+Add .progress-bar-animated to .progress-bar to animate the stripes right to left via CSS3 animations.
+``` html
+		<div class="progress">
+			<!-- .progress-bar-animated {
+				animation: 1s linear infinite progress-bar-stripes;
+			} -->
+			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+		</div>
+```
+
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)
 ##### [Configuration](https://fontawesome.com/v5.15/how-to-use/javascript-api/setup/configuration)
@@ -2622,6 +3095,12 @@ The fa-border, fa-pull-right or fa-pull-left classes are used for for pull quote
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 ```
 
+
+
+##### 
+``` html
+
+```
 
 ### 參考資料
 + [Bootstrop 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
