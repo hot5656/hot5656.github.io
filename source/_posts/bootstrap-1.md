@@ -2890,6 +2890,433 @@ Add .progress-bar-animated to .progress-bar to animate the stripes right to left
 		</div>
 ```
 
+#### [Modal(互動視窗)](/bootstrap-1/modal)
+##### Example
+``` html
+		<!-- data-toggle="modal" 
+				data-target="#exampleModalLive" -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLive">
+			Launch demo modal
+		</button>
+		<!-- .modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1050;
+			display: none;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			outline: 0;
+		} -->
+		<!-- .fade {
+			transition: opacity .15s linear;
+		} -->
+		<div class="modal fade" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+			<!-- .modal-dialog {
+				position: relative;
+				width: auto;
+				margin: 0.5rem;
+				pointer-events: none;
+			} -->
+			<div class="modal-dialog">
+				<!-- .modal-content {
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+					pointer-events: auto;
+					background-color: #fff;
+					background-clip: padding-box;
+					border: 1px solid rgba(0,0,0,.2);
+					border-radius: 0.3rem;
+					outline: 0;
+				} -->
+				<div class="modal-content">
+					<!-- .modal-header {
+						display: -ms-flexbox;
+						display: flex;
+						-ms-flex-align: start;
+						align-items: flex-start;
+						-ms-flex-pack: justify;
+						justify-content: space-between;
+						padding: 1rem 1rem;
+						border-bottom: 1px solid #dee2e6;
+						border-top-left-radius: calc(0.3rem - 1px);
+						border-top-right-radius: calc(0.3rem - 1px);
+					} -->
+					<div class="modal-header">
+						<!-- .modal-title {
+							margin-bottom: 0;
+							line-height: 1.5;
+						} -->
+						<h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
+						<!-- button.close {
+							padding: 0;
+							background-color: transparent;
+							border: 0;
+						} -->
+						<!-- data-dismiss="modal" -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<!-- .modal-body {
+						position: relative;
+						-ms-flex: 1 1 auto;
+						flex: 1 1 auto;
+						padding: 1rem;
+					} -->
+					<div class="modal-body">
+						<p>Woohoo, you're reading this text in a modal!</p>
+					</div>
+					<!-- .modal-footer {
+						display: flex;				-ms-flex-wrap: wrap;
+						flex-wrap: wrap;
+						align-items: center;
+						justify-content: flex-end;
+						padding: 0.75rem;
+						border-top: 1px solid #dee2e6;
+						border-bottom-right-radius: calc(0.3rem - 1px);
+						border-bottom-left-radius: calc(0.3rem - 1px);
+					} -->
+					<div class="modal-footer">
+						<!-- data-dismiss="modal" -->
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Static backdrop
+When backdrop is set to static, the modal will not close when clicking outside it or press Esc key
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdropLive">
+			Launch static backdrop modal
+		</button>
+		<!-- data-backdrop="static" -->
+		<div class="modal fade" id="staticBackdropLive" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLiveLabel">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>I will not close if you click outside me. Don't even try to press escape key.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Understood</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Scrolling long content #1
+When modals become too long for the user’s viewport or device, they scroll independent of the page itself
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+			Launch demo modal
+		</button>
+
+		<div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>What follows is just some placeholder text for this modal dialog. Sipping on Rosé, Silver Lake sun,
+							coming up all lazy. It’s in the palm of your hand now baby. So we hit the boulevard. So make a wish, I'll
+							make it like your birthday everyday. Do you ever feel already buried deep six feet under? It's time to
+							bring out the big balloons. You could've been the greatest. Passport stamps, she's cosmopolitan. Your kiss
+							is cosmic, every move is magic.</p>
+						<p>We're living the life. We're doing it right. Open up your heart. I was tryna hit it and quit it. Her love
+							is like a drug. Always leaves a trail of stardust. The girl's a freak, she drive a jeep in Laguna Beach.
+							Fine, fresh, fierce, we got it on lock. All my girls vintage Chanel baby.</p>
+						<p>Before you met me I was alright but things were kinda heavy. Peach-pink lips, yeah, everybody stares.
+							This is no big deal. Calling out my name. I could have rewrite your addiction. She's got that, je ne sais
+							quoi, you know it. Heavy is the head that wears the crown. 'Cause, baby, you're a firework. Like thunder
+							gonna shake the ground.</p>
+						<p>Just own the night like the 4th of July! I’m gon’ put her in a coma. What you're waiting for, it's time
+							for you to show it off. Can't replace you with a million rings. You open my eyes and I'm ready to go, lead
+							me into the light. And here you are. I’m gon’ put her in a coma. Come on, let your colours burst. So cover
+							your eyes, I have a surprise. As I march alone to a different beat. Glitter all over the room pink
+							flamingos in the pool.</p>
+						<p>You just gotta ignite the light and let it shine! Come just as you are to me. Just own the night like the
+							4th of July. Infect me with your love and fill me with your poison. Come just as you are to me. End of the
+							rainbow looking treasure.</p>
+						<p>I can't sleep let's run away and don't ever look back, don't ever look back. I can't sleep let's run away
+							and don't ever look back, don't ever look back. Yes, we make angels cry, raining down on earth from up
+							above. I'm walking on air (tonight). Let you put your hands on me in my skin-tight jeans. Stinging like a
+							bee I earned my stripes. I went from zero, to my own hero. Even brighter than the moon, moon, moon. Make
+							'em go, 'Aah, aah, aah' as you shoot across the sky-y-y! Why don't you let me stop by?</p>
+						<p>Boom, boom, boom. Never made me blink one time. Yeah, you're lucky if you're on her plane. Talk about our
+							future like we had a clue. Oh my God no exaggeration. You're original, cannot be replaced. The girl's a
+							freak, she drive a jeep in Laguna Beach. It's no big deal, it's no big deal, it's no big deal. In another
+							life I would make you stay. I'm ma get your heart racing in my skin-tight jeans. I wanna walk on your wave
+							length and be there when you vibrate Never made me blink one time.</p>
+						<p>We'd keep all our promises be us against the world. If you get the chance you better keep her. It's time
+							to bring out the big, big, big, big, big, big balloons. I hope you got a healthy appetite. Don't let the
+							greatness get you down, oh, oh yeah. Yeah, she's footloose and so fancy free. I want the jaw droppin', eye
+							poppin', head turnin', body shockin'. End of the rainbow looking treasure.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Scrolling long content #2
+adding .modal-dialog-scrollable to .modal-dialog.
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+			Launch demo modal
+		</button>
+		<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
+			aria-hidden="true">
+			<!-- @media (min-width: 576px)
+			.modal-dialog-scrollable {
+					max-height: calc(100% - 3.5rem);
+			}
+			@media (min-width: 576px)
+			.modal-dialog {
+					max-width: 500px;
+					margin: 1.75rem auto;
+			} -->
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>What follows is just some placeholder text for this modal dialog. You just gotta ignite the light and let
+							it shine! Come just as you are to me. Just own the night like the 4th of July. Infect me with your love
+							and fill me with your poison. Come just as you are to me. End of the rainbow looking treasure.</p>
+						<p>I can't sleep let's run away and don't ever look back, don't ever look back. I can't sleep let's run away
+							and don't ever look back, don't ever look back. Yes, we make angels cry, raining down on earth from up
+							above. I'm walking on air (tonight). Let you put your hands on me in my skin-tight jeans. Stinging like a
+							bee I earned my stripes. I went from zero, to my own hero. Even brighter than the moon, moon, moon. Make
+							'em go, 'Aah, aah, aah' as you shoot across the sky-y-y! Why don't you let me stop by?</p>
+						<p>Boom, boom, boom. Never made me blink one time. Yeah, you're lucky if you're on her plane. Talk about our
+							future like we had a clue. Oh my God no exaggeration. You're original, cannot be replaced. The girl's a
+							freak, she drive a jeep in Laguna Beach. It's no big deal, it's no big deal, it's no big deal. In another
+							life I would make you stay. I'm ma get your heart racing in my skin-tight jeans. I wanna walk on your wave
+							length and be there when you vibrate Never made me blink one time.</p>
+						<p>We'd keep all our promises be us against the world. In another life I would be your girl. We can dance,
+							until we die, you and I, will be young forever. And on my 18th Birthday we got matching tattoos. So open
+							up your heart and just let it begin. 'Cause she's the muse and the artist. She eats your heart out. Like
+							Jeffrey Dahmer (woo). Pop your confetti. (This is how we do) I know one spark will shock the world, yeah
+							yeah. If you only knew what the future holds.</p>
+						<p>Sipping on Rosé, Silver Lake sun, coming up all lazy. It’s in the palm of your hand now baby. So we hit
+							the boulevard. So make a wish, I'll make it like your birthday everyday. Do you ever feel already buried
+							deep six feet under? It's time to bring out the big balloons. You could've been the greatest. Passport
+							stamps, she's cosmopolitan. Your kiss is cosmic, every move is magic.</p>
+						<p>We're living the life. We're doing it right. Open up your heart. I was tryna hit it and quit it. Her love
+							is like a drug. Always leaves a trail of stardust. The girl's a freak, she drive a jeep in Laguna Beach.
+							Fine, fresh, fierce, we got it on lock. All my girls vintage Chanel baby.</p>
+						<p>Before you met me I was alright but things were kinda heavy. Peach-pink lips, yeah, everybody stares.
+							This is no big deal. Calling out my name. I could have rewrite your addiction. She's got that, je ne sais
+							quoi, you know it. Heavy is the head that wears the crown. 'Cause, baby, you're a firework. Like thunder
+							gonna shake the ground.</p>
+						<p>Just own the night like the 4th of July! I’m gon’ put her in a coma. What you're waiting for, it's time
+							for you to show it off. Can't replace you with a million rings. You open my eyes and I'm ready to go, lead
+							me into the light. And here you are. I’m gon’ put her in a coma. Come on, let your colours burst. So cover
+							your eyes, I have a surprise. As I march alone to a different beat. Glitter all over the room pink
+							flamingos in the pool.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Vertically centered
+Add .modal-dialog-centered to .modal-dialog to vertically center the modal at view
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+			Vertically centered modal
+		</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenteredScrollable">
+			Vertically centered scrollable modal
+		</button>
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<!-- .modal-dialog-centered {
+				display: flex;
+				align-items: center;
+				min-height: calc(100% - 1rem);
+			} -->
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Placeholder text for this demonstration of a vertically centered modal dialog.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Placeholder text for this demonstration of a vertically centered modal dialog.</p>
+						<p>In this case, the dialog has a bit more content, just to show how vertical centering can be added to a scrollable modal.</p>
+						<p>What follows is just some placeholder text for this modal dialog. Sipping on Rosé, Silver Lake sun, coming up all lazy. It’s in the palm of your hand now baby. So we hit the boulevard. So make a wish, I'll make it like your birthday everyday. Do you ever feel already buried deep six feet under? It's time to bring out the big balloons. You could've been the greatest. Passport stamps, she's cosmopolitan. Your kiss is cosmic, every move is magic.</p>
+						<p>We're living the life. We're doing it right. Open up your heart. I was tryna hit it and quit it. Her love is like a drug. Always leaves a trail of stardust. The girl's a freak, she drive a jeep in Laguna Beach. Fine, fresh, fierce, we got it on lock. All my girls vintage Chanel baby.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Using the grid
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSystemModal">
+			Launch demo modal
+		</button>
+		<div class="modal fade" id="gridSystemModal" tabindex="-1" aria-labelledby="gridModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid bd-example-row">
+							<div class="row">
+								<div class="col-md-4">.col-md-4</div>
+								<div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+								<div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-9">
+									Level 1: .col-sm-9
+									<div class="row">
+										<div class="col-8 col-sm-6">
+											Level 2: .col-8 .col-sm-6
+										</div>
+										<div class="col-4 col-sm-6">
+											Level 2: .col-4 .col-sm-6
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### Sizes
+
+|Size         |	Class   |	Modal max-width|
+|-------------|---------|------|
+|Small	      |.modal-sm|300px |
+|Default      |	None	  |500px |
+|Large	      |.modal-lg|800px |
+|Extra  large	|.modal-xl|1140px|
+
+``` html
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalXl">Extra large modal</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLg">Large modal</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalSm">Small modal</button>
+		
+		<div class="modal fade" id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title h4" id="exampleModalXlLabel">Extra large modal</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title h4" id="exampleModalLgLabel">Large modal</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="exampleModalSm" tabindex="-1" aria-labelledby="exampleModalSmLabel" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title h4" id="exampleModalSmLabel">Small modal</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)
 ##### [Configuration](https://fontawesome.com/v5.15/how-to-use/javascript-api/setup/configuration)
