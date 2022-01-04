@@ -655,6 +655,933 @@ $font-family-sans-serif:
 ```
 
 #### [Tables](/bootstrap-1/tables)
+##### Example
+``` html
+			width: 100%;
+			margin-bottom: 1rem;
+			color: #212529;
+		} -->
+		<table class="table mb-5">
+			<thead>
+				<!-- .table thead th {
+					vertical-align: bottom;
+					border-bottom: 2px solid #dee2e6;
+				} -->
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- .table-dark {
+			color: #fff;
+			background-color: #343a40;
+		} -->
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Table head options(.thead-dark or .thead-light)
+``` html
+		<table class="table mb-5">
+			<!-- .table .thead-dark th {
+				color: #fff;
+				background-color: #343a40;
+				border-color: #454d55;
+			} -->
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table">
+			<!-- .table .thead-light th {
+				color: #495057;
+				background-color: #e9ecef;
+				border-color: #dee2e6;
+			} -->
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Striped rows
+``` html
+		<!-- .table-striped tbody tr:nth-of-type(odd) {
+			background-color: rgba(0, 0, 0, 0.05);
+		} -->
+		<table class="table table-striped mb-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- .table-dark.table-striped tbody tr:nth-of-type(odd) {
+			background-color: rgba(255, 255, 255, 0.05);
+		} -->
+		<table class="table table-striped table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Bordered table
+``` html
+		<!-- .table-bordered th,
+		.table-bordered td {
+			border: 1px solid #dee2e6 !important;
+		} -->
+		<table class="table table-bordered mb-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-bordered table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+```
+
+##### Borderless table
+``` html
+		<!-- .table-borderless th,
+		.table-borderless td,
+		.table-borderless thead th,
+		.table-borderless tbody + tbody {
+			border: 0;
+		} -->
+		<table class="table table-borderless mb-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-borderless">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Hoverable rows
+``` html
+		<!-- .table-hover tbody tr:hover {
+			color: #212529;
+			background-color: rgba(0, 0, 0, 0.075);
+		} -->
+		<table class="table table-hover mb-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- .table-hover .table-dark:hover > td,
+		.table-hover .table-dark:hover > th {
+			background-color: #b9bbbe;
+		} -->
+		<table class="table table-hover table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Small table
+``` html
+		<!-- .table-sm td, .table-sm th {
+			padding: 0.3rem;
+		} -->
+		<!-- .table td, .table th {
+				padding: 0.75rem;
+				vertical-align: top;
+				border-top: 1px solid #dee2e6;
+		} -->
+		<table class="table table-sm mb-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-sm table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Contextual(語意化) classes
+``` html
+		<table class="table mb-5">
+			<thead>
+				<tr>
+					<th scope="col">Class</th>
+					<th scope="col">Heading</th>
+					<th scope="col">Heading</th>
+				</tr>
+			</thead>
+			<tbody>
+				.table-active, .table-active>td, .table-active>th {
+					background-color: rgba(0,0,0,.075);
+				}
+				<tr class="table-active">
+					<th scope="row">Active</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr>
+					<th scope="row">Default</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+
+				<!-- .table-primary tbody+tbody, .table-primary td, .table-primary th, .table-primary thead th {
+					border-color: #7abaff;
+				}				 -->
+				<tr class="table-primary">
+					<th scope="row">Primary</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-secondary">
+					<th scope="row">Secondary</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-success">
+					<th scope="row">Success</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-danger">
+					<th scope="row">Danger</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-warning">
+					<th scope="row">Warning</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-info">
+					<th scope="row">Info</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-light">
+					<th scope="row">Light</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="table-dark">
+					<th scope="row">Dark</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Heading</th>
+					<th scope="col">Heading</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="bg-primary">
+					<th scope="row">1</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="bg-success">
+					<th scope="row">3</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="bg-info">
+					<th scope="row">5</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr>
+					<th scope="row">6</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="bg-warning">
+					<th scope="row">7</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr>
+					<th scope="row">8</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+				<tr class="bg-danger">
+					<th scope="row">9</th>
+					<td>Cell</td>
+					<td>Cell</td>
+				</tr>
+			</tbody>
+		</table>
+```
+
+##### Responsive tables
+``` html
+		<!-- .table-responsive {
+			display: block;
+			width: 100%;
+			overflow-x: auto;
+		} -->
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+```
+
+##### Responsive tables - sm
+``` html
+		<div class="table-responsive-sm">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+```
+
+##### Responsive tables - md<
+``` html
+		<!-- @media (max-width: 767.98px)
+		.table-responsive-md {
+				display: block;
+				width: 100%;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+		} -->
+		<div class="table-responsive-md">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+```
+
+##### Responsive tables - lg
+``` html
+		<div class="table-responsive-lg">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+```
+
+##### Responsive tables - xl
+``` html
+		<div class="table-responsive-xl">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+						<th scope="col">Heading</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+					<tr>
+						<th scope="row">3</th>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+						<td>Cell</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+```
+
 
 ### Utilities
 #### [Text](/bootstrap-1/text)
@@ -3320,9 +4247,219 @@ Add .modal-dialog-centered to .modal-dialog to vertically center the modal at vi
 ```
 
 #### [Pagination](/bootstrap-1/pagination)
+##### Example
+``` html
+		<nav aria-label="Page navigation example">
+			.pagination {
+				display: flex;
+				padding-left: 0;
+				list-style: none;
+				border-radius: 0.25rem;
+			}
+			<ul class="pagination">
+				<li class="page-item">
+					.page-item:first-child .page-link {
+						margin-left: 0;
+						border-top-left-radius: 0.25rem;
+						border-bottom-left-radius: 0.25rem;
+					}
+					.page-link {
+						position: relative;
+						display: block;
+						padding: 0.5rem 0.75rem;
+						margin-left: -1px;
+						line-height: 1.25;
+						color: #007bff;
+						background-color: #fff;
+						border: 1px solid #dee2e6;
+					}
+					<a class="page-link" href="#" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 
+		<nav aria-label="...">
+			<ul class="pagination">
+				<!-- .page-item.disabled .page-link {
+					color: #6c757d;
+					pointer-events: none;
+					cursor: auto;
+					background-color: #fff;
+					border-color: #dee2e6;
+				} -->
+				<li class="page-item disabled">
+					<a class="page-link">Previous</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<!-- .page-item.active .page-link {
+					z-index: 3;
+					color: #fff;
+					background-color: #007bff;
+					border-color: #007bff;
+				} -->
+				<li class="page-item active" aria-current="page">
+					<a class="page-link" href="#">2</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</ul>
+		</nav>
+```
+
+##### Disabled and active states
+``` html
+		<nav aria-label="...">
+			<ul class="pagination">
+				<!-- .page-item.disabled .page-link {
+					color: #6c757d;
+					pointer-events: none;
+					cursor: auto;
+					background-color: #fff;
+					border-color: #dee2e6;
+				} -->
+				<li class="page-item disabled">
+					<a class="page-link">Previous</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<!-- .page-item.active .page-link {
+					z-index: 3;
+					color: #fff;
+					background-color: #007bff;
+					border-color: #007bff;
+				} -->
+				<li class="page-item active" aria-current="page">
+					<a class="page-link" href="#">2</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</ul>
+		</nav>
+```
+
+##### Sizing
+``` html
+		<nav aria-label="...">
+			<ul class="pagination pagination-lg">
+				<!-- .pagination-lg .page-link {
+					padding: 0.75rem 1.5rem;
+					font-size: 1.25rem;
+					line-height: 1.5;
+				} -->
+				<li class="page-item active" aria-current="page">
+					<span class="page-link">1</span>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+			</ul>
+		</nav>
+
+		<nav aria-label="...">
+			<!-- .pagination-sm .page-link {
+				padding: 0.25rem 0.5rem;
+				font-size: .875rem;
+				line-height: 1.5;
+			} -->
+			<ul class="pagination pagination-sm">
+				<li class="page-item active" aria-current="page">
+					<span class="page-link">1</span>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+			</ul>
+		</nav>
+```
 
 #### [Badges(標籤)](/bootstrap-1/badges)
+##### Example
+``` html
+		<!-- .badge {
+			display: inline-block;
+			padding: 0.25em 0.4em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			border-radius: 0.25rem;
+			transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		} -->
+		<!-- .badge-secondary {
+			color: #fff;
+			background-color: #6c757d;
+		} -->
+		<h1>Example heading <span class="badge badge-secondary">New</span></h1>
+		<h2>Example heading <span class="badge badge-secondary">New</span></h2>
+		<h3>Example heading <span class="badge badge-secondary">New</span></h3>
+		<h4>Example heading <span class="badge badge-secondary">New</span></h4>
+		<h5>Example heading <span class="badge badge-secondary">New</span></h5>
+		<h6>Example heading <span class="badge badge-secondary">New</span></h6>
+
+		<button type="button" class="btn btn-primary mt-3">
+			Notifications <span class="badge badge-light">4</span>
+		</button>
+```
+
+##### Contextual variations(情境變化)
+``` html
+		<!-- .badge-primary {
+			color: #fff;
+			background-color: #007bff;
+		} -->
+		<span class="badge badge-primary">Primary</span>
+		<span class="badge badge-secondary">Secondary</span>
+		<span class="badge badge-success">Success</span>
+		<span class="badge badge-danger">Danger</span>
+		<span class="badge badge-warning">Warning</span>
+		<span class="badge badge-info">Info</span>
+		<span class="badge badge-light">Light</span>
+		<span class="badge badge-dark">Dark</span>
+```
+
+##### Pill badges
+``` html
+		<!-- .badge-pill {
+			padding-right: 0.6em;
+			padding-left: 0.6em;
+			border-radius: 10rem;
+		} -->
+		<span class="badge badge-pill badge-primary">Primary</span>
+		<span class="badge badge-pill badge-secondary">Secondary</span>
+		<span class="badge badge-pill badge-success">Success</span>
+		<span class="badge badge-pill badge-danger">Danger</span>
+		<span class="badge badge-pill badge-warning">Warning</span>
+		<span class="badge badge-pill badge-info">Info</span>
+		<span class="badge badge-pill badge-light">Light</span>
+		<span class="badge badge-pill badge-dark">Dark</span>
+```
+
+##### Links use badge
+``` html
+		<a href="#" class="badge badge-primary">Primary</a>
+		<a href="#" class="badge badge-secondary">Secondary</a>
+		<a href="#" class="badge badge-success">Success</a>
+		<a href="#" class="badge badge-danger">Danger</a>
+		<a href="#" class="badge badge-warning">Warning</a>
+		<a href="#" class="badge badge-info">Info</a>
+		<a href="#" class="badge badge-light">Light</a>
+		<a href="#" class="badge badge-dark">Dark</a>
+```
+
+
 
 
 ### Other

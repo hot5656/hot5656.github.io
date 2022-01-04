@@ -32,8 +32,29 @@ layout: false
 	<h2 class="level2">Example</h2>
 	<div class="box">
 		<nav aria-label="Page navigation example">
+			.pagination {
+				display: flex;
+				padding-left: 0;
+				list-style: none;
+				border-radius: 0.25rem;
+			}
 			<ul class="pagination">
 				<li class="page-item">
+					.page-item:first-child .page-link {
+						margin-left: 0;
+						border-top-left-radius: 0.25rem;
+						border-bottom-left-radius: 0.25rem;
+					}
+					.page-link {
+						position: relative;
+						display: block;
+						padding: 0.5rem 0.75rem;
+						margin-left: -1px;
+						line-height: 1.25;
+						color: #007bff;
+						background-color: #fff;
+						border: 1px solid #dee2e6;
+					}
 					<a class="page-link" href="#" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
 					</a>
@@ -51,10 +72,23 @@ layout: false
 
 		<nav aria-label="...">
 			<ul class="pagination">
+				<!-- .page-item.disabled .page-link {
+					color: #6c757d;
+					pointer-events: none;
+					cursor: auto;
+					background-color: #fff;
+					border-color: #dee2e6;
+				} -->
 				<li class="page-item disabled">
 					<a class="page-link">Previous</a>
 				</li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<!-- .page-item.active .page-link {
+					z-index: 3;
+					color: #fff;
+					background-color: #007bff;
+					border-color: #007bff;
+				} -->
 				<li class="page-item active" aria-current="page">
 					<a class="page-link" href="#">2</a>
 				</li>
@@ -70,10 +104,23 @@ layout: false
 	<div class="box">
 		<nav aria-label="...">
 			<ul class="pagination">
+				<!-- .page-item.disabled .page-link {
+					color: #6c757d;
+					pointer-events: none;
+					cursor: auto;
+					background-color: #fff;
+					border-color: #dee2e6;
+				} -->
 				<li class="page-item disabled">
 					<a class="page-link">Previous</a>
 				</li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<!-- .page-item.active .page-link {
+					z-index: 3;
+					color: #fff;
+					background-color: #007bff;
+					border-color: #007bff;
+				} -->
 				<li class="page-item active" aria-current="page">
 					<a class="page-link" href="#">2</a>
 				</li>
@@ -89,6 +136,11 @@ layout: false
 	<div class="box">
 		<nav aria-label="...">
 			<ul class="pagination pagination-lg">
+				<!-- .pagination-lg .page-link {
+					padding: 0.75rem 1.5rem;
+					font-size: 1.25rem;
+					line-height: 1.5;
+				} -->
 				<li class="page-item active" aria-current="page">
 					<span class="page-link">1</span>
 				</li>
@@ -98,6 +150,11 @@ layout: false
 		</nav>
 
 		<nav aria-label="...">
+			<!-- .pagination-sm .page-link {
+				padding: 0.25rem 0.5rem;
+				font-size: .875rem;
+				line-height: 1.5;
+			} -->
 			<ul class="pagination pagination-sm">
 				<li class="page-item active" aria-current="page">
 					<span class="page-link">1</span>
