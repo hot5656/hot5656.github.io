@@ -654,6 +654,8 @@ $font-family-sans-serif:
 		</div>
 ```
 
+#### [Tables](/bootstrap-1/tables)
+
 ### Utilities
 #### [Text](/bootstrap-1/text)
 ##### Text alignment
@@ -3316,6 +3318,12 @@ Add .modal-dialog-centered to .modal-dialog to vertically center the modal at vi
 			</div>
 		</div>
 ```
+
+#### [Pagination](/bootstrap-1/pagination)
+
+
+#### [Badges(標籤)](/bootstrap-1/badges)
+
 
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)
