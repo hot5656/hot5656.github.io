@@ -1,0 +1,307 @@
+---
+layout: false
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style>
+		.text-center {
+			text-align: center;
+		}
+
+		.box {
+			border: 1px solid #c3c3c3;
+			margin: 10px 50px;
+			padding: 10px;
+		}
+
+		.level2 {
+			margin-left: 25px;
+		}
+
+		.line {
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<title>CSS tricky</title>
+</head>
+
+<body>
+	<h1 class="text-center">CSS tricky</h1>
+
+	<h2 class="level2">Custom Checkbox by image</h2>
+	<div class="box">
+		<style>
+			.x-toggle:hover {
+				cursor: pointer;
+			}
+
+			.x-toggle input[type="radio"],
+			.x-toggle input[type="checkbox"] {
+				position: absolute;
+				opacity: 0;
+				z-index: -1;
+			}
+
+			.x-toggle input[type="radio"]+.x-toggle-label-text,
+			.x-toggle input[type="checkbox"]+.x-toggle-label-text {
+				background-repeat: no-repeat;
+				background-position: 0px 3px;
+				padding-left: 18px;
+			}
+
+			.x-toggle input[type="checkbox"]+.x-toggle-label-text {
+				background-image: url("images/icons-check14-deactive.png")
+			}
+
+			.x-toggle input[type="radio"]+.x-toggle-label-text {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAP9JREFUOE+NUiEShDAMrEQikUgkEolEIpGVlZU4nsATkEgkT0DyBCQSicx1Q9vj5mBgZ0pKu5ukSQSdIISQSZLA/qwoiqhpGtq2zTINFx8c5HnuiWEY8j9WHMf+HE6XZfkKnQiejZV8c8I4jpSmKXPgCIFE27Ze5LxdYd93yrKMuVprEi6VYRgs5R7zPDM3CALYI/xbFEXBYhZWVWWPn2H42gul/KvHLQxfeSEe/RZKKYhI2Ifyw5+AytqWkeDSmg16+YS6rpnLPV3X1XtBxc5j5YBIToQMp2k6JgdpYsxwAYtidV1Hfd9zs51jiDBFgB9yTE1Zlky4WkgPkQ4QfQB7iCVGTQWY/wAAAABJRU5ErkJggg==);
+			}
+
+			.x-toggle input[type="radio"]:disabled+.x-toggle-label-text,
+			.x-toggle input[type="checkbox"]:disabled+.x-toggle-label-text {
+				opacity: 0.4;
+			}
+
+			.x-toggle input[type="checkbox"]:checked+.x-toggle-label-text {
+				background-image: url("images/icons-check14-active.png")
+			}
+
+			.x-toggle input[type="radio"]:checked+.x-toggle-label-text {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAQpJREFUOE99Ui3WhUAIJRqNRqPRaDQajUaj0WhzCS7BaDS6BKNLMBqNRr65zDBP3893z0Ec4AIzQHwDEdVJkkA/JIoi7vuez/N0kSYWHxjyPPeBYRjKGRLHsbcj6b7vL6KSkNnoWjw3LMvCaZpKDBKhEA3D4Ema7RsQo9K2LZO2Ms+zC/mEErZtEx0EAbQt/wtKUhRFoTbiqqqc+Yl3EmDOrbMT1/XHe3wlAcbWOB9xlmXObOEc7vRE0zTW7y4qFwf+I13XpSNjkqc1P/cF+IWu68QvMz2O45XFyH2tFKikJHS4rqvdHLSJNYMDGo81jiNP0yTD1sQgYYsA3xe2pixLX/ld0B4qWTD/ATdO9vxiXE8EAAAAAElFTkSuQmCC);
+			}
+		</style>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="radio" name="y-n" value="y" checked>
+				<span class="x-toggle-label-text">Yes</span>
+			</label>
+			<label class="x-toggle">
+				<input type="radio" name="y-n" value="n">
+				<span class="x-toggle-label-text">No</span>
+			</label>
+		</div>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="checkbox" checked>
+				<span class="x-toggle-label-text">One</span>
+			</label>
+		</div>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="checkbox">
+				<span class="x-toggle-label-text">Two</span>
+			</label>
+		</div>
+	</div>
+
+	<h2 class="level2">Custom Checkbox #1</h2>
+	<div class="box">
+		<style>
+			/* Hide the boxes */
+			[type="checkbox"] {
+				position: absolute;
+				left: 0;
+				opacity: 0;
+			}
+
+			/* label position */
+			[type="checkbox"]+label {
+				position: relative;
+				padding-left: 2.3em;
+				font-size: 1.05em;
+				line-height: 1.7;
+				cursor: pointer;
+			}
+
+			/* checkbox outline */
+			[type="checkbox"]+label:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 1.4em;
+				height: 1.4em;
+				border: 1px solid #aaa;
+				background: #FFF;
+				/* background: #F00; */
+				border-radius: .2em;
+				box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1), 0 0 0 rgba(203, 34, 237, .2);
+				transition: all .275s;
+			}
+
+			/* checked mark aspect */
+			[type="checkbox"]+label:after {
+				content: '✕';
+				position: absolute;
+				top: .525em;
+				left: .18em;
+				font-size: 1.375em;
+				color: #CB22ED;
+				line-height: 0;
+				/* change checked transition */
+				transition: all .2s;
+			}
+
+			/* checked mark aspect changes */
+			[type="checkbox"]:not(:checked)+label:after {
+				opacity: 0;
+				/* change checked transform */
+				transform: scale(0) rotate(45deg);
+			}
+
+			[type="checkbox"]:checked+label:after {
+				opacity: 1;
+				/* change checked transform */
+				transform: scale(1) rotate(0);
+			}
+
+			/* Disabled checkbox */
+			[type="checkbox"]:disabled+label:before {
+				box-shadow: none;
+				border-color: #bbb;
+				background-color: #e9e9e9;
+			}
+
+			[type="checkbox"]:disabled:checked+label:after {
+				color: #777;
+			}
+
+			[type="checkbox"]:disabled+label {
+				color: #aaa;
+			}
+
+			/* focus add shadow */
+			/* [type="checkbox"]:focus + label:before {
+    		box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 6px rgba(203, 34, 237, .2);
+  		} */
+
+			input[type=checkbox].css-checkbox+label.css-label {
+				padding-left: 20px;
+				height: 15px;
+				display: inline-block;
+				line-height: 15px;
+				background-repeat: no-repeat;
+				background-position: 0 0;
+				font-size: 15px;
+				vertical-align: middle;
+				cursor: pointer;
+			}
+		</style>
+
+		<div class="line">
+			<input type="checkbox" id="test1" />
+			<label for="test1">Red</label>
+		</div>
+
+		<div class="line">
+			<input type="checkbox" id="test2" checked="checked" />
+			<label for="test2">Yellow</label>
+		</div>
+
+		<div class="line">
+			<input type="checkbox" id="test3" checked="checked" disabled="disabled" />
+			<label for="test3">Green</label>
+		</div>
+
+		<div>
+			<input type="checkbox" id="test4" disabled="disabled" />
+			<label for="test4">Brown</label>
+		</div>
+	</div>
+
+	<h2 class="level2">Custom Checkbox #2</h2>
+	<div class="box">
+		<style>
+			/* The container */
+			.container {
+				/* 設定外框 block, size, font-size ... */
+				display: block;
+				position: relative;
+				padding-left: 35px;
+				margin-bottom: 12px;
+				cursor: pointer;
+				font-size: 22px;
+				user-select: none;
+			}
+
+			/* Hide the browser's default checkbox */
+			.container input {
+				/* input 設定長寬為 0,透明 */
+				position: absolute;
+				opacity: 0;
+				height: 0px;
+				width: 0px;
+			}
+
+			/* Create a custom checkbox */
+			.checkmark {
+				/* 設定新 checkbox mark */
+				position: absolute;
+				top: 4px;
+				left: 0;
+				height: 15px;
+				width: 15px;
+				border: 1px solid #000;
+				/* background-color: #eee; */
+			}
+
+			/* On mouse-over, add a grey background color */
+			.container:hover input~.checkmark {
+				/* 上層 hover, 背景改變 */
+				background-color: #ccc;
+			}
+
+			/* When the checkbox is checked, add a blue background */
+			.container input:checked~.checkmark {
+				/* checked 背景改變 */
+				/* background-color: #2196F3; */
+			}
+
+			/* Show the checkmark when checked */
+			.container input:checked~.checkmark:after {
+				/* 若 checked 顯示符號 */
+				display: block;
+			}
+
+			/* Style the checkmark/indicator */
+			.container .checkmark:after {
+				content: "";
+				position: absolute;
+				display: none;
+				/* 設定符號位置 */
+				left: 4px;
+				top: 2px;
+				/* 設定打勾符號 */
+				width: 5px;
+				height: 10px;
+				border: solid #000;
+				border-width: 0 3px 3px 0;
+				transform: rotate(45deg);
+			}
+		</style>
+		<label class="container">One
+			<!-- checked="checked" 設定 checked -->
+			<input type="checkbox" checked="checked">
+			<span class="checkmark"></span>
+		</label>
+		<label class="container">Two
+			<input type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+	</div>
+
+
+</body>
+
+</html>

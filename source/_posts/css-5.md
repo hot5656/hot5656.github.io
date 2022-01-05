@@ -8,6 +8,9 @@ tags:
 	- tricky
 ---
 
+
+ [Demo](/ref/css-5)
+
 ### tag a 連非中間文字都可選
 ``` css 
 /* set inline-block 加 padding */
@@ -180,7 +183,179 @@ img {
 ```
 
 ### input
-#### [Custom Checkbox](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
+#### Custom Checkbox by image
+``` html
+		<style>
+			.x-toggle:hover {
+				cursor: pointer;
+			}
+
+			.x-toggle input[type="radio"],
+			.x-toggle input[type="checkbox"] {
+				position: absolute;
+				opacity: 0;
+				z-index: -1;
+			}
+
+			.x-toggle input[type="radio"]+.x-toggle-label-text,
+			.x-toggle input[type="checkbox"]+.x-toggle-label-text {
+				background-repeat: no-repeat;
+				background-position: 0px 3px;
+				padding-left: 18px;
+			}
+
+			.x-toggle input[type="checkbox"]+.x-toggle-label-text {
+				background-image: url("images/icons-check14-deactive.png")
+			}
+
+			.x-toggle input[type="radio"]+.x-toggle-label-text {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAP9JREFUOE+NUiEShDAMrEQikUgkEolEIpGVlZU4nsATkEgkT0DyBCQSicx1Q9vj5mBgZ0pKu5ukSQSdIISQSZLA/qwoiqhpGtq2zTINFx8c5HnuiWEY8j9WHMf+HE6XZfkKnQiejZV8c8I4jpSmKXPgCIFE27Ze5LxdYd93yrKMuVprEi6VYRgs5R7zPDM3CALYI/xbFEXBYhZWVWWPn2H42gul/KvHLQxfeSEe/RZKKYhI2Ifyw5+AytqWkeDSmg16+YS6rpnLPV3X1XtBxc5j5YBIToQMp2k6JgdpYsxwAYtidV1Hfd9zs51jiDBFgB9yTE1Zlky4WkgPkQ4QfQB7iCVGTQWY/wAAAABJRU5ErkJggg==);
+			}
+
+			.x-toggle input[type="radio"]:disabled+.x-toggle-label-text,
+			.x-toggle input[type="checkbox"]:disabled+.x-toggle-label-text {
+				opacity: 0.4;
+			}
+
+			.x-toggle input[type="checkbox"]:checked+.x-toggle-label-text {
+				background-image: url("images/icons-check14-active.png")
+			}
+
+			.x-toggle input[type="radio"]:checked+.x-toggle-label-text {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAQpJREFUOE99Ui3WhUAIJRqNRqPRaDQajUaj0WhzCS7BaDS6BKNLMBqNRr65zDBP3893z0Ec4AIzQHwDEdVJkkA/JIoi7vuez/N0kSYWHxjyPPeBYRjKGRLHsbcj6b7vL6KSkNnoWjw3LMvCaZpKDBKhEA3D4Ema7RsQo9K2LZO2Ms+zC/mEErZtEx0EAbQt/wtKUhRFoTbiqqqc+Yl3EmDOrbMT1/XHe3wlAcbWOB9xlmXObOEc7vRE0zTW7y4qFwf+I13XpSNjkqc1P/cF+IWu68QvMz2O45XFyH2tFKikJHS4rqvdHLSJNYMDGo81jiNP0yTD1sQgYYsA3xe2pixLX/ld0B4qWTD/ATdO9vxiXE8EAAAAAElFTkSuQmCC);
+			}
+		</style>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="radio" name="y-n" value="y" checked>
+				<span class="x-toggle-label-text">Yes</span>
+			</label>
+			<label class="x-toggle">
+				<input type="radio" name="y-n" value="n">
+				<span class="x-toggle-label-text">No</span>
+			</label>
+		</div>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="checkbox" checked>
+				<span class="x-toggle-label-text">One</span>
+			</label>
+		</div>
+
+		<div class="line">
+			<label class="x-toggle">
+				<input type="checkbox">
+				<span class="x-toggle-label-text">Two</span>
+			</label>
+		</div>
+```
+
+#### Custom Checkbox #1
+``` html
+		<style>
+			/* Hide the boxes */
+			[type="checkbox"] {
+				position: absolute;
+				left: 0;
+				opacity: 0;
+			}
+
+			/* label position */
+			[type="checkbox"]+label {
+				position: relative;
+				padding-left: 2.3em;
+				font-size: 1.05em;
+				line-height: 1.7;
+				cursor: pointer;
+			}
+
+			/* checkbox outline */
+			[type="checkbox"]+label:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 1.4em;
+				height: 1.4em;
+				border: 1px solid #aaa;
+				background: #FFF;
+				/* background: #F00; */
+				border-radius: .2em;
+				box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1), 0 0 0 rgba(203, 34, 237, .2);
+				transition: all .275s;
+			}
+
+			/* checked mark aspect */
+			[type="checkbox"]+label:after {
+				content: '✕';
+				position: absolute;
+				top: .525em;
+				left: .18em;
+				font-size: 1.375em;
+				color: #CB22ED;
+				line-height: 0;
+				/* change checked transition */
+				transition: all .2s;
+			}
+
+			/* checked mark aspect changes */
+			[type="checkbox"]:not(:checked)+label:after {
+				opacity: 0;
+				/* change checked transform */
+				transform: scale(0) rotate(45deg);
+			}
+
+			[type="checkbox"]:checked+label:after {
+				opacity: 1;
+				/* change checked transform */
+				transform: scale(1) rotate(0);
+			}
+
+			/* Disabled checkbox */
+			[type="checkbox"]:disabled+label:before {
+				box-shadow: none;
+				border-color: #bbb;
+				background-color: #e9e9e9;
+			}
+
+			[type="checkbox"]:disabled:checked+label:after {
+				color: #777;
+			}
+
+			[type="checkbox"]:disabled+label {
+				color: #aaa;
+			}
+
+			/* focus add shadow */
+			/* [type="checkbox"]:focus + label:before {
+    		box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 6px rgba(203, 34, 237, .2);
+  		} */
+		</style>
+
+		<div class="line">
+			<input type="checkbox" id="test1" />
+			<label for="test1">Red</label>
+		</div>
+
+		<div class="line">
+			<input type="checkbox" id="test2" checked="checked" />
+			<label for="test2">Yellow</label>
+		</div>
+
+		<div class="line">
+			<input type="checkbox" id="test3" checked="checked" disabled="disabled" />
+			<label for="test3">Green</label>
+		</div>
+
+		<div>
+			<input type="checkbox" id="test4" disabled="disabled" />
+			<label for="test4">Brown</label>
+		</div>
+```
+
+#### [Custom Checkbox #2](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -291,3 +466,8 @@ document.querySelector('.job-add input')
 		}
 	})
 ``` 
+
+### 參考資料
++ [Using images for checkboxes](https://gist.github.com/wrumsby/5523011)
++ [The Checkbox Hack](https://css-tricks.com/the-checkbox-hack/)
++ [CSS Checkbox Generator](http://www.csscheckbox.com/)
