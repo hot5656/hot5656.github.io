@@ -29,14 +29,166 @@ layout: false
 <body>
 	<h1 class="text-center" >List group</h1>
 
-	<h2 class="level2">Color</h2>
+	<h2 class="level2">Example</h2>
 	<div class="box">
-
+		<!-- .list-group {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			padding-left: 0;
+			margin-bottom: 0;
+			border-radius: 0.25rem;
+		} -->
+		<ul class="list-group">
+			<!-- .list-group-item {
+				position: relative;
+				display: block;
+				padding: 0.75rem 1.25rem;
+				background-color: #fff;
+				border: 1px solid rgba(0,0,0,.125);
+			} -->
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
 	</div>
 
-	<h2 class="level2">Background color</h2>
+	<h2 class="level2">Active items</h2>
+	<!-- Add .active to a .list-group-item  -->
 	<div class="box">
+		<ul class="list-group">
+			<!-- .list-group-item.active {
+				z-index: 2;
+				color: #fff;
+				background-color: #007bff;
+				border-color: #007bff;
+			} -->
+			<li class="list-group-item active" aria-current="true">An active item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+	</div>
 
+	<h2 class="level2">Disabled items</h2>
+	<!-- Add .disabled to a .list-group-item -->
+	<div class="box">
+		<ul class="list-group">
+			<!-- .list-group-item.disabled, .list-group-item:disabled {
+				color: #6c757d;
+				pointer-events: none;
+				background-color: #fff;
+			} -->
+			<li class="list-group-item disabled" aria-disabled="true">A disabled item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+	</div>
+
+	<h2 class="level2">Links and buttons</h2>
+	<!-- Use <a>s or <button>s to create actionable list group items with hover, disabled, and active states by adding .list-group-item-action.  -->
+	<div class="box">
+		<div class="list-group mb-3">
+			<a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+				The current link item
+			</a>
+			<a href="#" class="list-group-item list-group-item-action">A second link item</a>
+			<a href="#" class="list-group-item list-group-item-action">A third link item</a>
+			<a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+			<a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+		</div>
+
+		<div class="list-group">
+			<button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+				The current button
+			</button>
+			<button type="button" class="list-group-item list-group-item-action">A second item</button>
+			<button type="button" class="list-group-item list-group-item-action">A third button item</button>
+			<button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+			<button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+		</div>
+	</div>
+
+	<h2 class="level2">Flush(緊貼)</h2>
+	<!-- Add .list-group-flush to remove some borders and rounded corners to render list group items edge-to-edge in a parent container -->
+	<div class="box">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+	</div>
+
+	<h2 class="level2">Horizontal</h2>
+	<!-- Add .list-group-horizontal to change the layout of list group items from vertical to horizontal across all breakpoints. -->
+	<div class="box">
+		<ul class="list-group list-group-horizontal mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-sm mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-md mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-lg mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-xl mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+	</div>
+
+	<h2 class="level2">Contextual(情境) classes</h2>
+	<!-- Contextual classes also work with .list-group-item-action. -->
+	<div class="box">
+		<ul class="list-group mb-3">
+			<li class="list-group-item">A simple default list group item</li>
+		
+			<li class="list-group-item list-group-item-primary">A simple primary list group item</li>
+			<li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+			<li class="list-group-item list-group-item-success">A simple success list group item</li>
+			<li class="list-group-item list-group-item-danger">A simple danger list group item</li>
+			<li class="list-group-item list-group-item-warning">A simple warning list group item</li>
+			<li class="list-group-item list-group-item-info">A simple info list group item</li>
+			<li class="list-group-item list-group-item-light">A simple light list group item</li>
+			<li class="list-group-item list-group-item-dark">A simple dark list group item</li>
+		</ul>
+
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
+			
+			<!-- .list-group-item-primary.list-group-item-action:focus, .list-group-item-primary.list-group-item-action:hover {
+				color: #004085;
+				background-color: #9fcdff;
+			} -->
+			<a href="#" class="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-secondary">A simple secondary list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-success">A simple success list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-danger">A simple danger list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-warning">A simple warning list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
+		</div>
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -4459,9 +4459,9 @@ Add .modal-dialog-centered to .modal-dialog to vertically center the modal at vi
 		<a href="#" class="badge badge-dark">Dark</a>
 ```
 
-#### [Collapse](/bootstrap-1/collapse)
+#### [Collapse(折疊)](/bootstrap-1/collapse)
 
-#### [Tooltips](/bootstrap-1/tooltips)
+#### [Tooltips(工具提示框 )](/bootstrap-1/tooltips)
 
 #### [List group](/bootstrap-1/listgroup)
 
