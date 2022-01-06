@@ -4459,7 +4459,11 @@ Add .modal-dialog-centered to .modal-dialog to vertically center the modal at vi
 		<a href="#" class="badge badge-dark">Dark</a>
 ```
 
+#### [Collapse](/bootstrap-1/collapse)
 
+#### [Tooltips](/bootstrap-1/tooltips)
+
+#### [List group](/bootstrap-1/listgroup)
 
 
 ### Other
