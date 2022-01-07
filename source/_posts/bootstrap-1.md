@@ -4460,11 +4460,306 @@ Add .modal-dialog-centered to .modal-dialog to vertically center the modal at vi
 ```
 
 #### [Collapse(折疊)](/bootstrap-1/collapse)
+##### Example
++	data-toggle="collapse" is required
++	button with the data-target attribute
++	link with the href attribute 
++	.collapse hides content
++	.collapsing is applied during transitions
++	.collapse.show shows content
+
+``` html
+		<p>
+			<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+				Link with href
+			</a>
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				Button with data-target
+			</button>
+		</p>
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+			</div>
+		</div>
+```
+
+##### Multiple targets
+Multiple &lt;button&gt; or &lt;a&gt; can show and hide an element if they each reference it with their href or data-target attribute
+``` html
+		<p>
+			<a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
+		</p>
+		<div class="row">
+			<div class="col">
+				<div class="collapse multi-collapse" id="multiCollapseExample1">
+					<div class="card card-body">
+						Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="collapse multi-collapse" id="multiCollapseExample2">
+					<div class="card card-body">
+						Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
+##### ccordion(手風琴) example
+use .accordion as a wrapper
+``` html
+		<div class="accordion" id="accordionExample">
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Collapsible Group Item #1
+						</button>
+					</h2>
+				</div>
+		
+				<!-- 1st show -->
+				<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+						Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingTwo">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Collapsible Group Item #2
+						</button>
+					</h2>
+				</div>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+					<div class="card-body">
+						Some placeholder content for the second accordion panel. This panel is hidden by default.
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingThree">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							Collapsible Group Item #3
+						</button>
+					</h2>
+				</div>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+					<div class="card-body">
+						And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
+					</div>
+				</div>
+			</div>
+		</div>
+```
+
 
 #### [Tooltips(工具提示框 )](/bootstrap-1/tooltips)
+##### Example
+``` html
+		<!-- title="Tooltip on top" : show data
+		data-toggle="tooltip" : set for tooltip
+		data-placement="top" : show direction -->
+		<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+			Tooltip on top
+		</button>
+		<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+			Tooltip on right
+		</button>
+		<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+			Tooltip on bottom
+		</button>
+		<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+			Tooltip on left
+		</button>
+```
+
+##### Custom HTML adde
+``` html
+		<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+			Tooltip with HTML
+		</button>
+```
+
+##### javaScript
+``` javascript
+		// Enable tooltips
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		})
+```
+
 
 #### [List group](/bootstrap-1/listgroup)
+##### Example
+``` html
+		<!-- .list-group {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			padding-left: 0;
+			margin-bottom: 0;
+			border-radius: 0.25rem;
+		} -->
+		<ul class="list-group">
+			<!-- .list-group-item {
+				position: relative;
+				display: block;
+				padding: 0.75rem 1.25rem;
+				background-color: #fff;
+				border: 1px solid rgba(0,0,0,.125);
+			} -->
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+```
 
+##### Active items
+Add .active to a .list-group-item
+``` html
+		<ul class="list-group">
+			<!-- .list-group-item.active {
+				z-index: 2;
+				color: #fff;
+				background-color: #007bff;
+				border-color: #007bff;
+			} -->
+			<li class="list-group-item active" aria-current="true">An active item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+```
+
+##### Disabled items
+Add .disabled to a .list-group-item
+``` html
+		<ul class="list-group">
+			<!-- .list-group-item.disabled, .list-group-item:disabled {
+				color: #6c757d;
+				pointer-events: none;
+				background-color: #fff;
+			} -->
+			<li class="list-group-item disabled" aria-disabled="true">A disabled item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+```
+
+##### Links and buttons
+Use &lt;a&gt;s or &lt;button&gt;s to create actionable list group items with hover, disabled, and active states by adding .list-group-item-action.
+``` html
+		<div class="list-group mb-3">
+			<a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+				The current link item
+			</a>
+			<a href="#" class="list-group-item list-group-item-action">A second link item</a>
+			<a href="#" class="list-group-item list-group-item-action">A third link item</a>
+			<a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+			<a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+		</div>
+
+		<div class="list-group">
+			<button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+				The current button
+			</button>
+			<button type="button" class="list-group-item list-group-item-action">A second item</button>
+			<button type="button" class="list-group-item list-group-item-action">A third button item</button>
+			<button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+			<button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+		</div>
+```
+
+##### Flush(緊貼)
+Add .list-group-flush to remove some borders and rounded corners to render list group items edge-to-edge in a parent container
+``` html
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+```
+
+##### Horizontal
+Add .list-group-horizontal to change the layout of list group items from vertical to horizontal across all breakpoints
+``` html
+		<ul class="list-group list-group-horizontal mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-sm mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-md mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-lg mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+		<ul class="list-group list-group-horizontal-xl mb-3">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+		</ul>
+```
+
+##### Contextual(情境) classes
+Contextual classes also work with .list-group-item-action.
+``` html
+		<ul class="list-group mb-3">
+			<li class="list-group-item">A simple default list group item</li>
+		
+			<li class="list-group-item list-group-item-primary">A simple primary list group item</li>
+			<li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+			<li class="list-group-item list-group-item-success">A simple success list group item</li>
+			<li class="list-group-item list-group-item-danger">A simple danger list group item</li>
+			<li class="list-group-item list-group-item-warning">A simple warning list group item</li>
+			<li class="list-group-item list-group-item-info">A simple info list group item</li>
+			<li class="list-group-item list-group-item-light">A simple light list group item</li>
+			<li class="list-group-item list-group-item-dark">A simple dark list group item</li>
+		</ul>
+
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
+			
+			<!-- .list-group-item-primary.list-group-item-action:focus, .list-group-item-primary.list-group-item-action:hover {
+				color: #004085;
+				background-color: #9fcdff;
+			} -->
+			<a href="#" class="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-secondary">A simple secondary list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-success">A simple success list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-danger">A simple danger list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-warning">A simple warning list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
+			<a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
+		</div>
+```
 
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)
