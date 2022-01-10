@@ -294,6 +294,11 @@ div span:nth-child(3n+1) {
 	/* 最後一位 0: 透明, 1:不透明 */
 	background: rgba(200,150, 20,0.3);
 }
+
+.box3 {
+	height: 100vh;
+	background: url("images/header-img.jpeg") no-repeat center center /cover;
+}
 </style>
 
 <body>
@@ -339,6 +344,9 @@ div span:nth-child(3n+1) {
 			/* background: linear-gradient(red, yellow, red); */
 			/* 角度 */
 			background: linear-gradient(135deg, red, yellow);
+			/* image + linear-gradient */
+			/* background: linear-gradient(rgba(0,0,0, .4),rgba(0,0,0, .5)), url("images/header-img.jpeg") no-repeat center center /cover; */
+
 		}
 	</style>
 </head>
