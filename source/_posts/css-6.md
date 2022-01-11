@@ -41,6 +41,79 @@ tags:
 		</ul>
 ```
 
+#### Navbar
+``` html
+		<style>
+			.navbar-nav {
+				list-style: none;
+				display: flex;
+				background: rgb(0, 0, 0);
+				border-radius: 5px;
+				padding: 10px 40px;
+			}
+
+			.nav-link {
+				display: block;
+				padding: 10px;
+				margin: 0 8px;
+				text-decoration: none;
+				color: #fff;
+			}
+
+			.sidebar-link {
+				transition: all .4s;
+			}
+
+			.sidebar-link:hover {
+				background-color: #444;
+				border-radius: 5px;
+			}
+
+			.current {
+				background-color: #f44336;
+				border-radius: 7px;
+				box-shadow: 3px 5px 10px #111;
+				transition: all .3s;
+			}
+
+			.current:hover {
+				background-color: #ff6436;
+				border-radius: 7px;
+				box-shadow: 2px 5px 20px #111;
+				transform: translateY(-1px);
+			}
+		</style>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a href="#" class="nav-link current"><i
+						class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Profile</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Inbox</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Sales</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Analytics</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Charts</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Tables</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Setting</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link sidebar-link">Documentation</a>
+			</li>
+		</ul>
+```
+
 ### Text
 #### 文字移動
 ``` html
