@@ -114,6 +114,61 @@ tags:
 		</ul>
 ```
 
+#### Hamberger(need jQuery)
+``` html
+		<style>
+			.nav-menu {
+				background: linear-gradient( rgba(0,0,0, .3), rgba(0,0,0, .5));
+				padding: 30px;
+				transition: all .7s;
+				display: flex;
+				justify-content: flex-end;
+			}
+
+			.hamberger {
+				background: transparent;
+				border: none;
+				cursor: pointer;
+			}
+
+			.line1, .line2, .line3 {
+				background: #f8f9fa;
+				width:23px;
+				height: 3px;
+				margin: 5px;
+				transition: all .4s;
+			}
+
+			.change .line1 {
+				transform: rotate(-45deg) translate(-5px, 6px);
+			}
+
+			.change .line2 {
+				opacity: 0;
+			}
+
+			.change .line3 {
+				transform: rotate(45deg) translate(-5px, -6px);
+			}
+		</style>
+		<nav class="nav-menu">
+			<button type="button" class="hamberger">
+				<div class="bg-light line1"></div>
+				<div class="bg-light line2"></div>
+				<div class="bg-light line3"></div>
+			</button>		
+		</nav>
+
+		<script>
+			$(document).ready(function(){
+				$('.hamberger').click(function(){
+					$('.hamberger').toggleClass('change');
+				});
+			});
+		</script>
+```
+
+
 ### Text
 #### 文字移動
 ``` html
