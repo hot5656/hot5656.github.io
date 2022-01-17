@@ -252,7 +252,64 @@ img {
 		</div>
 ```
 
-#### Custom Checkbox #1
+#### Custom Checkbox(simple) #1
+``` html
+		<style>
+			/* mask 原來 checkbox*/
+			input[type=checkbox].custom-check {
+				display: none;
+			}
+
+			/* set label for toggle checkbox + */
+			input[type=checkbox].custom-check+label {
+				/* set for toggle  */
+				padding: 0;
+				cursor: pointer;
+				/* set position + offset */
+				display: inline-block;
+				padding-left: 26px;
+				user-select: none;
+				position: relative;
+			}
+
+			/* set checkbox 外框 */
+			input[type=checkbox].custom-check+label::before {
+				content: "";
+				position: absolute;
+				top: 4px;
+				left: 2px;
+				height: 15px;
+				width: 15px;
+				/* border: 1px solid #000; */
+				background-color: #eee;
+			}
+
+			/* set checkbox checked */
+			input[type=checkbox].custom-check:checked+label::after {
+				content: "";
+				position: absolute;
+				left: 6px;
+				top: 5px;
+
+				/* 設定打勾符號 */
+				width: 8px;
+				height: 12px;
+				border: solid #000;
+				border-width: 0 3px 3px 0;
+				transform: rotate(45deg);
+				z-index: 10;
+			}
+		</style>
+
+		<input id="check1"class="custom-check" type="checkbox" checked>
+		<label for="check1">One</label>
+		<br>
+		<br>
+		<input id="check2"class="custom-check" type="checkbox" checked>
+		<label for="check2">Two</label>
+```
+
+#### Custom Checkbox #2
 ``` html
 		<style>
 			/* Hide the boxes */
@@ -355,7 +412,7 @@ img {
 		</div>
 ```
 
-#### [Custom Checkbox #2](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
+#### [Custom Checkbox #3](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
 ``` html
 <!DOCTYPE html>
 <html lang="en">
