@@ -24,6 +24,7 @@ layout: false
 		.level1 {
 			margin-left: 25px;
 		}
+
 		.level2 {
 			margin-left: 25px;
 		}
@@ -34,10 +35,8 @@ layout: false
 	</style>
 
 	<title>CSS animation</title>
-	<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -116,8 +115,7 @@ layout: false
 		</style>
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a href="#" class="nav-link current"><i
-						class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
+				<a href="#" class="nav-link current"><i class="fas fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
 			<li class="nav-item">
 				<a href="#" class="nav-link sidebar-link">Profile</a>
 			</li>
@@ -149,7 +147,7 @@ layout: false
 	<div class="box">
 		<style>
 			.nav-menu {
-				background: linear-gradient( rgba(0,0,0, .3), rgba(0,0,0, .5));
+				background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5));
 				padding: 30px;
 				transition: all .7s;
 				display: flex;
@@ -162,9 +160,11 @@ layout: false
 				cursor: pointer;
 			}
 
-			.line1, .line2, .line3 {
+			.line1,
+			.line2,
+			.line3 {
 				background: #f8f9fa;
-				width:23px;
+				width: 23px;
 				height: 3px;
 				margin: 5px;
 				transition: all .4s;
@@ -187,17 +187,17 @@ layout: false
 				<div class="bg-light line1"></div>
 				<div class="bg-light line2"></div>
 				<div class="bg-light line3"></div>
-			</button>		
+			</button>
 		</nav>
 
 		<script>
-			$(document).ready(function(){
-				$('.hamberger').click(function(){
+			$(document).ready(function () {
+				$('.hamberger').click(function () {
 					$('.hamberger').toggleClass('change');
 				});
 			});
 		</script>
-	</div>	
+	</div>
 
 
 	<h2 class="level1">Text</h2>
@@ -322,7 +322,18 @@ layout: false
 		</header>
 	</div>
 
+	<h2 class="level1">Layout</h2>
+	<h3 class="level2">遮圖</h3>
+	<div class="box">
+		<style>
+			.contact {
+				background: linear-gradient(100deg, rgba(21, 31, 32, 1) 0%, rgba(21, 31,32, .95) 50%, transparent 50%), url("images/form-img.jpeg") no-repeat center center /cover;
+			}
+		</style>
 
+		<section class="contact" style="height: 500px">
+		</section>
+	</div>
 </body>
 
 </html>

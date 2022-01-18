@@ -4762,6 +4762,142 @@ Contextual classes also work with .list-group-item-action.
 ```
 
 #### [Carousel(輪播)](/bootstrap-1/carousel)
+##### Example
+1. The .active class needs to be added to one of the slides otherwise the carousel will not be visible
+2. set a unique id on the .carousel for optional controls
+3. Control and indicator elements must have a data-target attribute (or href for links) that matches the id of the .carousel element. 
+4. Adding in the previous and next controls by &lt;button&gt; elements
+5. Add captions to your slides easily with the .carousel-caption element within any .carousel-item. 
+
++ id="carouselExample" class="carousel slide" data-ride="carousel"
+	+ class="carousel-indicators"
+		+ data-target="#carouselExample" data-slide-to="0" class="active"
+		+ data-target="#carouselExample" data-slide-to="1"
+		+ ...
+	+ carousel-inner:
+		+	carousel-item active
+			.carousel-caption(字幕)
+		+	carousel-item
+		+	... 
+	+ &lt;button&gt; class="carousel-control-prev" data-target="#carouselExample" data-slide="prev"
+		+ class="carousel-control-prev-icon"
+	+ &lt;button&gt; class="carousel-control-next" data-target="#carouselExample" data-slide="next"
+		+ class="carousel-control-next-icon"
+
+``` html
+	<div class="box bg-dark text-muted">
+		<div id="carouselExample" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExample" data-slide-to="1"></li>
+				<li data-target="#carouselExample" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active text-center">
+					<h3>1st</h3>
+					<img src="https://picsum.photos/480/240?random=1" class="img-fluid">
+					<div class="carousel-caption">
+						<h5>First slide label</h5>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquam.</p>
+					</div>
+				</div>
+				<div class="carousel-item text-center">
+					<h3>2nd</h3>
+					<img src="https://picsum.photos/480/240?random=2" class="img-fluid">
+					<div class="carousel-caption">
+						<h5>Second slide label</h5>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquam.</p>
+					</div>
+				</div>
+				<div class="carousel-item text-center">
+					<h3>3rd</h3>
+					<img src="https://picsum.photos/480/240?random=3" class="img-fluid">
+					<div class="carousel-caption">
+						<h5>Third slide label</h5>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquam.</p>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-target="#carouselExample" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-target="#carouselExample" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</button>
+		</div>
+```
+
+##### Crossfade(交叉淡入淡出) + Individual interval
++ Add .carousel-fade to your carousel to animate slides with a fade transition instead of a slide.
++ Add data-interval="" to a .carousel-item to change the amount of time to delay between automatically cycling to the next item.
+
+``` html
+	<div class="box bg-dark text-muted">
+		<div id="carouselExample2" class="carousel slide carousel-fade" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active text-center" data-interval="1000">
+					<h3>1st</h3>
+					<img src="https://picsum.photos/480/240?random=4" class="img-fluid">
+					<div class="carousel-caption">
+					</div>
+				</div>
+				<div class="carousel-item text-center" data-interval="2000">
+					<h3>2nd</h3>
+					<img src="https://picsum.photos/480/240?random=5" class="img-fluid">
+				</div>
+				<div class="carousel-item text-center" data-interval="3000">
+					<h3>3rd</h3>
+					<img src="https://picsum.photos/480/240?random=6" class="img-fluid">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-target="#carouselExample2" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-target="#carouselExample2" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+```
+
+##### Display autoplay
+Does not include the data-ride attribute and has data-interval="false",it doesn’t autoplay.
+``` html
+	<div class="box bg-dark text-muted">
+		<div id="carouselExample3" class="carousel slide" data-interval="false">
+			<div class="carousel-inner">
+				<div class="carousel-item active text-center" data-interval="2000">
+					<h3>1st</h3>
+					<img src="https://picsum.photos/480/240?random=7" class="img-fluid">
+					<div class="carousel-caption">
+					</div>
+				</div>
+				<div class="carousel-item text-center" data-interval="2000">
+					<h3>2nd</h3>
+					<img src="https://picsum.photos/480/240?random=8" class="img-fluid">
+				</div>
+				<div class="carousel-item text-center" data-interval="2000">
+					<h3>3rd</h3>
+					<img src="https://picsum.photos/480/240?random=9" class="img-fluid">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-target="#carouselExample3" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-target="#carouselExample3" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</button>
+		</div>
+	</div>
+```
+### Other class
+#### list-unstyled
+``` css
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+```
 
 ### Other
 #### [fontawesome](/bootstrap-1/fontawesome)

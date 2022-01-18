@@ -288,3 +288,15 @@ tags:
 		</header>
 ```
 
+### Layout
+#### 遮圖
+``` html
+		<style>
+			.contact {
+				background: linear-gradient(100deg, rgba(21, 31, 32, 1) 0%, rgba(21, 31,32, .95) 50%, transparent 50%), url("images/form-img.jpeg") no-repeat center center /cover;
+			}
+		</style>
+
+		<section class="contact" style="height: 500px">
+		</section>
+```
