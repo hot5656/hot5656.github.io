@@ -15,6 +15,7 @@ tags:
 ---
 + 移動整行程式碼 : Alt + ↑ 或 Alt + ↓
 + 重整程式排列 : shift + alt + F
++ 複製一行 : Ctrl+C
 + 設註解 : ctrl+/ 
 + 跳至某一行 : Ctrl+G
 + 多行編輯-選擇行   :  alt+(mouse-left)
