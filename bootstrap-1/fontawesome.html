@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+	<style>
+		
+		.box {
+			border: 1px solid #c3c3c3;
+			margin: 10px 50px;
+			padding: 10px;
+		}
+
+		.level2 {
+			margin-left: 25px;
+		}
+	</style>
+
+	<title>Font Awesome</title>
+
+	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+</head>
+<body>
+	<h1 class="text-center" >Font Awesome</h1>
+
+	<h2 class="level2">Free icon support fas ,far or fab only</h2>
+	<div class="box">
+		<div>
+			<i class="fas fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="far fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fal fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fad fa-accessible-icon"></i>	
+		</div>
+		<div>
+			<i class="fab fa-accessible-icon"></i>
+		</div>
+		<i class="fas fa-clock"></i>
+		<i class="far fa-clock"></i>
+	</div>
+
+	<h2 class="level2">Using an &lt;i&gt; element or &lt;span&gt; element to reference the icon</h2>
+	<div class="box">
+		<i class="fas fa-camera"></i>
+		<span class="fas fa-camera"></span>
+	</div>
+
+	<h2 class="level2">Font Awesome Icons + Your Project’s Styling</h2>
+	<div class="box">
+		<span style="font-size: 3em; color: Tomato;">
+			<i class="fas fa-camera"></i>
+		</span>
+		<span style="font-size: 48px; color: Dodgerblue;">
+			<i class="fas fa-camera"></i>
+		</span>
+		<span style="font-size: 3rem;">
+			<span style="color: Mediumslateblue;">
+			<i class="fas fa-camera"></i>
+			</span>
+		</span>
+	</div>
+	
+	<h2 class="level2">Sizing Icons</h2>
+	<!-- fa-xs, fa-sm, fa-lg, fa-2x, fa-3x, fa-4x, fa-5x, fa-6x, fa-7x, fa-8x, fa-9x, or fa-10x -->
+	<div class="box">
+		<i class="fas fa-clock" style="font-size:120px;color:#2196F3"></i>
+		<i class="far fa-clock" style="font-size:120px;color:#2196F3"></i>
+
+			<!-- .fa-xs {
+					font-size: .75em;
+			} -->
+			<i class="fas fa-clock fa-xs"></i>
+			<!-- .fa-sm {
+				font-size: .875em;
+			} -->
+			<i class="fas fa-clock fa-sm"></i>
+			<!-- default -->
+			<i class="fas fa-clock"></i>
+			<!-- .fa-lg {
+				font-size: 1.3333333333em;
+				line-height: .75em;
+				vertical-align: -0.0667em;
+			} -->
+			<i class="fas fa-clock fa-lg"></i>
+			<!-- fa-2x:	font-size: 2em; -->
+			<i class="fas fa-clock fa-2x"></i>
+			<!-- fa-5x: font-size: 5em; -->
+			<i class="fas fa-clock fa-5x"></i>
+			<!-- fa-10x: font-size: 10em; -->
+			<i class="fas fa-clock fa-10x"></i>
+		</div>
+
+	<h2 class="level2">List Icons</h2>
+	<!-- The fa-ul and fa-li classes are used to replace default bullets in unordered lists. -->
+	<div class="box">
+		<!-- .fa-ul {
+			list-style-type: none;
+			margin-left: 2.5em;
+			padding-left: 0;
+		} -->
+		<ul class="fa-ul">
+			<!-- .fa-ul>li: position: relative; -->
+			<li><span class="fa-li"><i class="fas fa-check-square"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-spinner"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-pulse"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-spinner fa-pulse"></i></span>List Item</li>
+			<li><span class="fa-li"><i class="fas fa-square"></i></span>List Item</li>
+		</ul>
+	</div>
+
+	<h2 class="level2">Animated Icons</h2>
+	<!-- The fa-spin class gets any icon to rotate, and the fa-pulse class gets any icon to rotate with 8 steps. -->
+	<div class="box">
+		<i class="fas fa-spinner fa-spin"></i>
+		<i class="fas fa-circle-notch fa-spin"></i>
+		<i class="fas fa-sync-alt fa-spin"></i>
+		<i class="fas fa-cog fa-spin"></i>
+		<i class="fas fa-cog fa-pulse"></i>
+		<i class="fas fa-spinner fa-pulse"></i>
+	</div>
+
+	<h2 class="level2">Rotated and Flipped(翻轉) Icons</h2>
+	<!-- The fa-rotate-* and fa-flip-* classes are used to rotate and flip icons. -->
+	<div class="box">
+		<i class="fas fa-horse"></i>
+		<i class="fas fa-horse fa-rotate-90"></i>
+		<i class="fas fa-horse fa-rotate-180"></i>
+		<i class="fas fa-horse fa-rotate-270"></i>
+		<i class="fas fa-horse fa-flip-horizontal"></i>
+		<i class="fas fa-horse fa-flip-vertical"></i>		
+	</div>
+
+	<h2 class="level2">Stacked(堆疊) Icons</h2>
+	<!-- To stack multiple icons, use the fa-stack class on the parent, the fa-stack-1x class for the regularly sized icon, and fa-stack-2x for the larger icon.
+	The fa-inverse class can be used as an alternative icon color. You can also add larger icon classes to the parent to further control the sizing. -->
+	<div class="box">
+		<span class="fa-stack fa-lg">
+			<i class="fas fa-circle fa-stack-2x"></i>
+			<i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+		fa-twitter (inverse) on fa-circle (solid)<br>
+		
+		<span class="fa-stack fa-lg">
+			<i class="far fa-circle fa-stack-2x"></i>
+			<i class="fab fa-twitter fa-stack-1x"></i>
+		</span>
+		fa-twitter on fa-circle (regular)<br>
+		
+		<span class="fa-stack fa-lg">
+			<i class="fas fa-camera fa-stack-1x"></i>
+			<i class="fas fa-ban fa-stack-2x text-danger" style="color:red;"></i>
+		</span>
+		fa-ban on fa-camera
+	</div>
+
+	<h2 class="level2">Fixed Width Icons(fa-fw 設定固定寬度)</h2>
+	<!-- The fa-fw class is used to set icons at a fixed width. -->
+	<div class="box">
+		<p>Fixed Width:</p>
+		<!-- .fa-fw {
+			text-align: center;
+			width: 1.25em;
+		} -->
+		<div><i class="fas fa-arrows-alt-v fa-fw"></i> Icon 1</div>
+		<div><i class="fas fa-band-aid fa-fw"></i> Icon 2</div>
+		<div><i class="fab fa-bluetooth-b fa-fw"></i> Icon 3</div>
+		
+		<p>Without Fixed Width:</p>
+		<div><i class="fas fa-arrows-alt-v"></i> Icon 1</div>
+		<div><i class="fas fa-band-aid"></i> Icon 2</div>
+		<div><i class="fab fa-bluetooth-b"></i> Icon 3</div>
+	</div>
+
+	<h2 class="level2">Bordered and Pulled Icons</h2>
+	<!-- The fa-border, fa-pull-right or fa-pull-left classes are used for for pull quotes or article icons. -->
+	<div class="box">
+		<!-- .fa-border {
+				border: solid 0.08em #eee;
+				border-radius: 0.1em;
+				padding: 0.2em 0.25em 0.15em;
+		} -->
+		<!-- .fa-pull-left {
+			margin-right: 0.3em;
+			width: auto;
+		} -->
+		<i class="fas fa-quote-left fa-3x fa-pull-left fa-border"></i>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</div>
+
+</body>
+</html>
