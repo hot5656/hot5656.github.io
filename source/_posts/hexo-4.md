@@ -139,6 +139,8 @@ npm install
 ### 產生靜態檔 + 本地執行
 ``` bash
 hexo s -g
+// 新版修改
+npx hexo s -g 
 ```
 
 

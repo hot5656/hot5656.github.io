@@ -21,6 +21,8 @@ npm install -g hexo-cli
 
 ``` bash
 hexo version
+// 新版修改
+npx hexo version
 ```
 <!--more-->
 
@@ -65,6 +67,8 @@ npm install hexo-deployer-git --save
 ### 部署上 GitHub
 ``` bash
 hexo d -g
+// 新版修改
+npx hexo d -g
 ```
 
 ### run web browser https://hot5656.github.io/

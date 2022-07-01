@@ -23,6 +23,8 @@ Install Hexo
 ### Dump version
 ``` bash
 hexo version
+// 新版修改
+npx hexo version
 ```
 <!--more-->
 
@@ -33,12 +35,16 @@ hexo init blog
 
 ### 產生靜態檔後部署
 ``` bash
-hexo d -g 
+hexo d -g
+// 新版修改
+npx hexo d -g 
 ```
 
 ### 產生靜態檔後預覽
 ``` bash
 hexo s -g 
+// 新版修改
+npx hexo s -g 
 ```
 
 ### 啟動伺服器

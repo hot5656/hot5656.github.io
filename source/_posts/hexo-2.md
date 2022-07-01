@@ -18,6 +18,8 @@ npm install -g hexo-cli
 ### Dump version
 ``` bash
 hexo version
+// 新版修改
+npx hexo version
 ```
 <!--more-->
 
@@ -81,6 +83,8 @@ hexo new hexo-1
 ### 部署上 GitHub
 ``` bash
 hexo d -g
+// 新版修改
+npx hexo d -g
 ```
 
 ### run web browser https://hot5656.github.io/blog/ (使用自己的帳號, respsitory 名稱 )
