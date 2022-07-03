@@ -152,3 +152,56 @@ void main() {
 <div style="width:400px">
 	{% asset_img pic9.png pic9 %}
 </div>
+
+### alignment  android icon
+#### sleect icon
+<div style="width:600px">
+	{% asset_img pic10.png pic10 %}
+</div>
+
+new window
+<div style="width:400px">
+	{% asset_img pic11.png pic11 %}
+</div>
+
+<div style="width:600px">
+	{% asset_img pic12.png pic12 %}
+</div>
+
+<div style="width:600px">
+	{% asset_img pic13.png pic13 %}
+</div>
+
+select icon image
+<div style="width:600px">
+	{% asset_img pic14.png pic14 %}
+</div>
+
+align icon
+<div style="width:600px">
+	{% asset_img pic15.png pic15 %}
+</div>
+
+<div style="width:600px">
+	{% asset_img pic16.png pic16 %}
+</div>
+
+#### check new icon file
+<div style="width:600px">
+	{% asset_img pic17.png pic17 %}
+</div>
+
+<div style="width:600px">
+	{% asset_img pic18.png pic18 %}
+</div>
+
+#### check icon display
+before 
+<div style="width:400px">
+	{% asset_img pic19.png pic19 %}
+</div>
+
+after
+<div style="width:400px">
+	{% asset_img pic20.png pic20 %}
+</div>
