@@ -159,6 +159,35 @@ stop main.dart
 	{% asset_img pic45.png pic45 %}
 </div>
 
+### link physical android device 
+
+#### enable adnroid device 開發人員模式
+連續按版本編號直到顯示 開發人員模式已開啟
+<div style="width:300px">
+	{% asset_img pic51.jpg pic51 %}
+</div>
+
+#### enable USB 偵錯模式
+<div style="width:300px">
+	{% asset_img pic52.jpg pic52 %}
+</div>
+
+#### link to computer 
+<div style="width:300px">
+	{% asset_img pic53.jpg pic53 %}
+</div>
+
+#### Android Studio show device link already
+<div style="width:600px">
+	{% asset_img pic54.png pic54 %}
+</div>
+
+### Emulator
+#### enable/disable Emulator frame
+<div style="width:600px">
+	{% asset_img pic55.png pic55 %}
+</div>
+
 ### debug
 #### disable debug banner
 
@@ -206,9 +235,14 @@ void main() {
 ### package
 #### class 
 + [Scaffold class](https://docs-flutter-io.firebaseapp.com/flutter/material/Scaffold-class.html)
++ [MaterialApp class](https://api.flutter.dev/flutter/material/MaterialApp-class.html)
++ [MaterialColor class](https://api.flutter.dev/flutter/material/MaterialColor-class.html)
 
 ### reference
 + [Flutter-Course-Resources](https://github.com/londonappbrewery/Flutter-Course-Resources)
 + [Draw.io](https://app.diagrams.net/)
 + [icon generate](https://appicon.co/)
 + [Material Design - The color system](https://material.io/design/color/the-color-system.html)
++ [icons8 icon](https://icons8.com/)
++ [vecteezy free image](https://www.vecteezy.com/)
++ [canva desing](https://www.canva.com/zh_tw/)

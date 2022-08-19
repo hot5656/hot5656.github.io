@@ -9,6 +9,9 @@ tags:
 
 ### create flutter project
 <div style="width:600px">
+	{% asset_img pic1_0.png pic1_0 %}
+</div>
+<div style="width:600px">
 	{% asset_img pic1.png pic1 %}
 </div>
 
@@ -140,7 +143,7 @@ void main() {
 	{% asset_img pic6.png pic6 %}
 </div>
 
-<div style="width:400px">
+<div style="width:600px">
 	{% asset_img pic7.png pic7 %}
 </div>
 
@@ -149,7 +152,7 @@ void main() {
 	{% asset_img pic8.png pic8 %}
 </div>
 
-<div style="width:400px">
+<div style="width:600px">
 	{% asset_img pic9.png pic9 %}
 </div>
 
