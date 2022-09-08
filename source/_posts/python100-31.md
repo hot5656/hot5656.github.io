@@ -13,6 +13,7 @@ tags:
 2. copy 常用字 至試算表
 3. 輸入翻譯 function
 > =GOOGLETRANSLATE(A2,"en","zh-TW")
+  =GOOGLETRANSLATE(A2, "en", "zh")
 <!--more-->
 
 4. 選擇翻譯方塊格右下角往下拉,即可完成所有翻譯

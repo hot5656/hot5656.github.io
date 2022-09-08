@@ -11,9 +11,13 @@ date: 2021-03-28 18:32:25
 ## install(windows)
 
 + download [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows) windows Community version
-勾選 64 bit launcher(其他都選default)
+
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic1_2.png pic1_2 %}
 </div>
 
 <!--more-->
@@ -139,7 +143,9 @@ Ctrl+F8   : toggle the breakpoint.
 
 #### Edit
 ```
-Alt+Shift+(up/down)    : 程式上移或下移
-Double Shift           : search all files
+Ctrl+F									: basic search
+Alt+F7									: find usages
+Alt+Shift+(up/down)    	: 程式上移或下移
+Double Shift           	: search all files
 click+Alt+shift 往下拉  : 多行編輯
 ```

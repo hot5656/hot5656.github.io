@@ -126,3 +126,23 @@ C: 131G to 120G (2022.08.16)
 
 #### start Android Studio, run emulator
 
+### project issue
+#### Your project requires a higher compileSdkVersion
+```
+┌─ Flutter Fix ──────────────────────────────────────────────────┐
+│ [!] Your project requires a higher compileSdkVersion.          │
+│ Fix this issue by bumping the compileSdkVersion in             │
+│ D:\work\run\flutter\mi_card_flutter2\android\app\build.gradle: │
+│ android {                                                      │
+│   compileSdkVersion 31                                         │
+│ }                                                              │
+└────────────────────────────────────────────────────────────────┘
+```
+
+##### fix build.gradle (change 29 to 31)
+``` 
+android {
+    compileSdkVersion 31
+
+}
+```
