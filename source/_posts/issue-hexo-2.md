@@ -70,3 +70,73 @@ edge://net-internals/#hsts
 <div style="width:500px">
 	{% asset_img pic1.png pic1 %}
 </div>
+
+## Database load failed. Deleting database.(執行 無標籤,分類)
+### run "hexo clean" 再執行 "hexo s"
+``` bash
+D:\work\git\hot5656.github.io>hexo s
+INFO  Validating config
+INFO  ==================================
+  ███╗   ██╗███████╗██╗  ██╗████████╗
+  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝
+  ██╔██╗ ██║█████╗   ╚███╔╝    ██║
+  ██║╚██╗██║██╔══╝   ██╔██╗    ██║
+  ██║ ╚████║███████╗██╔╝ ██╗   ██║
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝
+========================================
+NexT version 8.2.2
+Documentation: https://theme-next.js.org
+========================================
+ERROR Database load failed. Deleting database.
+INFO  Start processing
+INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
+(node:1368) Warning: Accessing non-existent property 'lineno' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1368) Warning: Accessing non-existent property 'column' of module exports inside circular dependency
+(node:1368) Warning: Accessing non-existent property 'filename' of module exports inside circular dependency
+(node:1368) Warning: Accessing non-existent property 'lineno' of module exports inside circular dependency
+(node:1368) Warning: Accessing non-existent property 'column' of module exports inside circular dependency
+(node:1368) Warning: Accessing non-existent property 'filename' of module exports inside circular dependency
+INFO  Bye!
+
+D:\work\git\hot5656.github.io>hexo clean
+INFO  Validating config
+INFO  ==================================
+  ███╗   ██╗███████╗██╗  ██╗████████╗
+  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝
+  ██╔██╗ ██║█████╗   ╚███╔╝    ██║
+  ██║╚██╗██║██╔══╝   ██╔██╗    ██║
+  ██║ ╚████║███████╗██╔╝ ██╗   ██║
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝
+========================================
+NexT version 8.2.2
+Documentation: https://theme-next.js.org
+========================================
+INFO  Deleted public folder.
+
+D:\work\git\hot5656.github.io>hexo s
+INFO  Validating config
+INFO  ==================================
+  ███╗   ██╗███████╗██╗  ██╗████████╗
+  ████╗  ██║██╔════╝╚██╗██╔╝╚══██╔══╝
+  ██╔██╗ ██║█████╗   ╚███╔╝    ██║
+  ██║╚██╗██║██╔══╝   ██╔██╗    ██║
+  ██║ ╚████║███████╗██╔╝ ██╗   ██║
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝
+========================================
+NexT version 8.2.2
+Documentation: https://theme-next.js.org
+========================================
+INFO  Start processing
+(node:9304) Warning: Accessing non-existent property 'lineno' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9304) Warning: Accessing non-existent property 'column' of module exports inside circular dependency
+(node:9304) Warning: Accessing non-existent property 'filename' of module exports inside circular dependency
+(node:9304) Warning: Accessing non-existent property 'lineno' of module exports inside circular dependency
+(node:9304) Warning: Accessing non-existent property 'column' of module exports inside circular dependency
+(node:9304) Warning: Accessing non-existent property 'filename' of module exports inside circular dependency
+Deprecated as of 10.7.0. highlight(lang, code, ...args) has been deprecated.
+Deprecated as of 10.7.0. Please use highlight(code, options) instead.
+https://github.com/highlightjs/highlight.js/issues/2277
+INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
+```
