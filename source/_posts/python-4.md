@@ -92,6 +92,22 @@ def make_coff(coffee, money):
     profile += money
 ```
 
+### array
+``` py
+rticles = []
+divs = soup.find_all('div', 'r-ent')
+for d in divs:
+    if d.find('a'):
+        href = d.find('a')['href']
+        title = d.find('a').text
+        author = d.find('div', 'author').text if d.find('div', 'author') else ''
+        articles.append({
+            'title': title,
+            'href': href,
+            'author': author
+        })
+```
+
 ### input
 ``` py
 coin = float(input('    How many quarters?:'))
@@ -209,4 +225,24 @@ my_function(fname="Tobias", lname="Refsnes")
 def my_function(x):
     return 5 * x
 print(my_function(3))
+```
+
+
+### json
+#### write
+``` python
+        with open('gossiping.json', 'w', encoding='UTF-8') as file:
+            # ensure_ascii=False 輸出中文
+            # sort_keys=True 按 key 順序排列
+            json.dump(articles, file, indent=2, sort_keys=True, ensure_ascii=False)
+```
+
+### set() 函数 - 創建一個無序不重複元素集
+``` python
+def get_author_ids(posts, pattern):
+    ids = set()
+    for post in posts:
+        if pattern in post['author']:
+            ids.add(post['author'])
+    return ids
 ```
