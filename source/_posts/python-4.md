@@ -7,7 +7,8 @@ tags:
 	- python
 ---
 
-### import 
+###  基本
+#### import 
 ``` py
 # 一般 import
 import turtle
@@ -24,11 +25,72 @@ timmy = t.Turtle()
 
 <!--more-->
 
+#### pass
 ``` py
 pass
 ```
 
-### library
+#### 運算元
+``` py
+print(f'10 == 10 : {10 == 10}')
+print(f'10 != 10 : {10 != 10}')
+print(f'10 > 10 : {10 > 10}')
+print(f'10 < 10 : {10 < 10}')
+print(f'10 == 10 : {10 == 10}')
+print(f'10 == 10 : {10 == 10}')
+print(f'10 == 10 : {10 == 10}')
+
+print(f'5 & 7 : {5 & 7:x}')
+print(f'5 | 7 : {5 | 7:x}')
+print(f'5 ^ 7 : {5 ^ 7:x}')
+print(f'~ 5 : {~5 :x}')
+print(f'5 >> 1 : {5 >> 1:x}')
+print(f'5 << 1 : {5 << 1:x}')
+
+x = 7
+print(f'x < 5 and  x < 10 : {x < 5 and x < 10}')
+print(f'x < 5 or x < 4 : {x < 5 or x < 4}')
+print(f'not(x < 5 and x < 10) : {not (x < 5 and x < 10)}')
+```
+
+### 變數
+#### 變數與型態
+
+``` py
+money = 100
+name = "Robert"
+temperature = 25.2 
+flag = True
+print(type(money))	# <class 'int'>
+print(type(name))		# <class 'str'>
+print(type(temperature)) # <class 'float'>
+print(type(flag))   # <class 'bool'>
+print('Hi {name} give you {money} dollars, the temperature is {temp}'.format(name=name, money=money, temp=temperature))
+# reference glbal variable
+def make_coff(coffee, money):
+    global profile
+    for item in MENU:
+        resources[item] -= MENU[choice]["ingredients"][item]
+    profile += money
+```
+
+#### array
+``` py
+rticles = []
+divs = soup.find_all('div', 'r-ent')
+for d in divs:
+    if d.find('a'):
+        href = d.find('a')['href']
+        title = d.find('a').text
+        author = d.find('div', 'author').text if d.find('div', 'author') else ''
+        articles.append({
+            'title': title,
+            'href': href,
+            'author': author
+        })
+```
+
+#### library
 ``` py
 MENU = {
     "espresso": {
@@ -72,50 +134,16 @@ else:
 	print('input error')
 ```
 
-### 變數與型態
+### IO
 
-``` py
-money = 100
-name = "Robert"
-temperature = 25.2 
-flag = True
-print(type(money))	# <class 'int'>
-print(type(name))		# <class 'str'>
-print(type(temperature)) # <class 'float'>
-print(type(flag))   # <class 'bool'>
-print('Hi {name} give you {money} dollars, the temperature is {temp}'.format(name=name, money=money, temp=temperature))
-# reference glbal variable
-def make_coff(coffee, money):
-    global profile
-    for item in MENU:
-        resources[item] -= MENU[choice]["ingredients"][item]
-    profile += money
-```
-
-### array
-``` py
-rticles = []
-divs = soup.find_all('div', 'r-ent')
-for d in divs:
-    if d.find('a'):
-        href = d.find('a')['href']
-        title = d.find('a').text
-        author = d.find('div', 'author').text if d.find('div', 'author') else ''
-        articles.append({
-            'title': title,
-            'href': href,
-            'author': author
-        })
-```
-
-### input
+#### input
 ``` py
 coin = float(input('    How many quarters?:'))
 coin = int(input('    How many quarters?:'))
 name = input()
 ```
 
-### print
+#### print
 ``` py
 money = 100
 name = "Robert"
@@ -132,36 +160,6 @@ b = 200
 print(f'a + b ={a + b}') # a + b =210
 ```
 
-### Built-in function
-``` py
-# 4捨5入
-x = round(5.76543, 2)
-print(x)
-33 
-```
-
-### 運算元
-``` py
-print(f'10 == 10 : {10 == 10}')
-print(f'10 != 10 : {10 != 10}')
-print(f'10 > 10 : {10 > 10}')
-print(f'10 < 10 : {10 < 10}')
-print(f'10 == 10 : {10 == 10}')
-print(f'10 == 10 : {10 == 10}')
-print(f'10 == 10 : {10 == 10}')
-
-print(f'5 & 7 : {5 & 7:x}')
-print(f'5 | 7 : {5 | 7:x}')
-print(f'5 ^ 7 : {5 ^ 7:x}')
-print(f'~ 5 : {~5 :x}')
-print(f'5 >> 1 : {5 >> 1:x}')
-print(f'5 << 1 : {5 << 1:x}')
-
-x = 7
-print(f'x < 5 and  x < 10 : {x < 5 and x < 10}')
-print(f'x < 5 or x < 4 : {x < 5 or x < 4}')
-print(f'not(x < 5 and x < 10) : {not (x < 5 and x < 10)}')
-```
 
 ### 條件式
 ``` py
@@ -227,6 +225,25 @@ def my_function(x):
 print(my_function(3))
 ```
 
+### Built-in function
+
+#### round
+``` py
+# 4捨5入
+x = round(5.76543, 2)
+print(x)
+33 
+```
+
+#### set() 函数 - 創建一個無序不重複元素集
+``` python
+def get_author_ids(posts, pattern):
+    ids = set()
+    for post in posts:
+        if pattern in post['author']:
+            ids.add(post['author'])
+    return ids
+```
 
 ### json
 #### write
@@ -237,12 +254,8 @@ print(my_function(3))
             json.dump(articles, file, indent=2, sort_keys=True, ensure_ascii=False)
 ```
 
-### set() 函数 - 創建一個無序不重複元素集
-``` python
-def get_author_ids(posts, pattern):
-    ids = set()
-    for post in posts:
-        if pattern in post['author']:
-            ids.add(post['author'])
-    return ids
-```
+### Ref
++ [python time module](https://docs.python.org/3/library/time.html)
++ [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
++ [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
++ [set() 函数](https://www.runoob.com/python/python-func-set.html)

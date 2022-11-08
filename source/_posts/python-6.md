@@ -14,6 +14,9 @@ if __name__ == '__main__':
     main()
 ```
 
+
+<!--more-->
+
 ### Request 
 #### install
 ```
@@ -42,8 +45,6 @@ def get_web_page(url):
     else:
         return resp.text
 ```
-
-<!--more-->
 
 #### POST
 ``` python
@@ -138,7 +139,3 @@ for d in divs:
 + [Python web crawler note](https://clu.gitbook.io/python-web-crawler-note/13-yi-zhi-hen-yuan-shi-de-pa-chong)
 + [W3schools Python Requests Module](https://www.w3schools.com/python/module_requests.asp)
 + [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-+ [python time module](https://docs.python.org/3/library/time.html)
-+ [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
-+ [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
-+ [set() 函数](https://www.runoob.com/python/python-func-set.html)
