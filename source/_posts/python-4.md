@@ -54,8 +54,13 @@ print(f'not(x < 5 and x < 10) : {not (x < 5 and x < 10)}')
 ```
 
 ### 變數
-#### 變數與型態
 
++ array VS list 
+	+ array 屬於 Python 模組 numpy 裡的一種數據類型，所包含的所有元素類型都必須相同
+	+ list 是 Python 內建的數據類型，可以包含不同的元素類型
+
+
+#### 變數與型態
 ``` py
 money = 100
 name = "Robert"
@@ -88,6 +93,18 @@ for d in divs:
             'href': href,
             'author': author
         })
+```
+
+#### list
+``` py
+info = list()
+record = {
+    '日期': data[0],
+    '開盤價': data[3],
+    '收盤價': data[6],
+    '成交筆數': data[8]
+}
+info.append(record)
 ```
 
 #### library
