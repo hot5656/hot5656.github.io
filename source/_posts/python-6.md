@@ -139,3 +139,11 @@ for d in divs:
 + [Python web crawler note](https://clu.gitbook.io/python-web-crawler-note/13-yi-zhi-hen-yuan-shi-de-pa-chong)
 + [W3schools Python Requests Module](https://www.w3schools.com/python/module_requests.asp)
 + [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+```
+# Convert indentation to spaces
+press CTRL + Shift + P
+type: "convert indentation to Space"
+# This one forces the tab to be **space**
+"editor.insertSpaces": true,
+```
