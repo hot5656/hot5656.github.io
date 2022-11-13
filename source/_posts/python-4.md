@@ -347,9 +347,58 @@ if os.path.isfile(STOCK_DB_FILE):
     os.remove(STOCK_DB_FILE)
 ```
 
+#### timedate
+``` py
+import datetime
+
+def twDateToGlobal(twDate):
+    year, month, date = twDate.split("/")
+    print(datetime.date(int(year), int(month), int(date)))
+    return datetime.date(int(year), int(month), int(date))
+```
+
+#### time
+``` py
+import time
+
+current_date = time.strftime('%Y%m%d')
+current_year = time.strftime('%Y')
+current_month = time.strftime('%m')
+```
+
+#### re
+``` py
+import re
+
+# get h1~6
+find_text_content_by_reg(soup, 'h[1-6]')
+def find_text_content_by_reg(soup, reg_pattern):
+  for element in soup.find_all(re.compile(reg_pattern)):
+    print(element.name, element.text.strip())
+
+# get.png
+# $ means the tail, the end of the string.
+# \. means "."
+find_img_source_by_reg(soup, '\.png$')
+# .* means any 0~n character
+find_img_source_by_reg(soup, 'beginner.*'+'\.png$')
+find_img_source_by_reg(soup, 'crawler.*')
+def find_img_source_by_reg(soup, reg_pattern):
+  for img in soup.find_all('img', {'src': re.compile(reg_pattern)}):
+    # print(img['class'])
+    print(img['src'])
+
+count_blog_number(soup, 'card\-blog')
+def count_blog_number(soup, pattern):
+  count = len(soup.find_all('div', {'class' : re.compile(pattern)}))
+  print("Blog count: " + str(count))
+```
+
+
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
 + [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
 + [set() 函数](https://www.runoob.com/python/python-func-set.html)
 + [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
++ [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)

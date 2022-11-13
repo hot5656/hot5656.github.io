@@ -113,6 +113,54 @@ if __name__ == '__main__':
     main()
 ```
 
+#### some parse
+``` py
+# find tag
+print(soup.h4)
+print(soup.find("h4"))
+# find tag's text
+print(soup.find("h4").text)
+# find tag's text in below tag
+print(soup.h4.a.text)
+# find all tags's text
+for h4 in h4_tags:
+  print(h4.a.text)
+print(soup.h4.a.text)
+# find all tags's text by class
+# 以下代表相同
+# h4_tags = soup.find_all('h4', class_='card-title')
+# h4_tags = soup.find_all('h4', 'card-title')
+# h4_tags = soup.find_all('h4', {'class' : 'card-title'})
+h4_tags = soup.find_all('h4', 'card-title')
+for h4 in h4_tags:
+  print(h4.a.text)
+# find tags's text by id
+print('soup.find(id="mac-p").text.strip() : ')
+print('-'+soup.find(id='mac-p').text.strip()+'-')
+# find all tags's text by 非標準屬性
+# 非標準屬性會有錯誤
+# print(soup.find(data-foo='mac-p').text.strip())
+print('===============================')
+# 改用以下方式
+print(soup.find_all('', {'data-foo': 'mac-foo'}))
+# find blog 內容
+divs = soup.find_all('div', 'content')
+for div in divs:
+    print(div.h6.text.strip(), div.h4.text.strip(), div.p.text.strip())
+# find blog 內容 - another way 
+for div in divs:
+  print([s for s in div.stripped_strings])
+# parent and sibling
+price = link.parent.previous_sibling.text
+# children
+all_tds = [td for td in row.children]
+# check attrs
+if 'href' in all_tds[3].a.attrs :
+  href = all_tds[3].a['href']
+else:
+  href = None;
+```
+
 #### 解析後建立 html5 物件
 ``` python
 # need instll html5lib 
@@ -146,4 +194,6 @@ press CTRL + Shift + P
 type: "convert indentation to Space"
 # This one forces the tab to be **space**
 "editor.insertSpaces": true,
+# 修剪行末空白
+"files.trimTrailingWhitespace": true,
 ```
