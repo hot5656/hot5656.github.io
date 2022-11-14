@@ -257,6 +257,10 @@ print(f'I am {name}')	# I am Robert
 a = 10
 b = 200
 print(f'a + b ={a + b}') # a + b =210
+
+# print - not change line and direct output
+while current_articles:
+    print('.', end="",flush=True)
 ```
 
 ### Built-in function
