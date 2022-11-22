@@ -182,6 +182,20 @@ for d in divs:
     .....
 ``` 
 
+### Dcard API 2.0
+Base Url : https://www.dcard.tw/service/api/v2
+
+|說明|請求方法|路徑|
+|-----|-----|----|
+|全部文章				|GET	   |/posts|
+|看板資訊				|GET	   |/forums|
+|看板內文章列表	|GET	   |/forums/{看板名稱}/posts|
+|文章內文				|GET	   |/posts/{文章ID}|
+|文章內引用連結	|GET	   |/posts/{文章ID}/links|
+|文章內留言			|GET	   |/posts/{文章ID}/comments|
+
+
+
 ### Ref
 + [陳鍾誠的《演算法》課程 Crawler ](https://gitlab.com/cccnqu111/alg/-/tree/master/00e-python/09-net/crawler)
 + [Python web crawler note](https://clu.gitbook.io/python-web-crawler-note/13-yi-zhi-hen-yuan-shi-de-pa-chong)
