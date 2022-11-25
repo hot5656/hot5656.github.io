@@ -189,7 +189,7 @@ record = {
 info.append(record)
 ```
 
-#### library
+#### Dictionaries
 ``` py
 MENU = {
     "espresso": {
@@ -248,11 +248,14 @@ money = 100
 name = "Robert"
 temperature = 25.2
 print('Hi {name} give you {money} dollars, the temperature is {temp}'.format(name=name, money=money, temp=temperature))
+
 # show by format
 print('hex number={:x}'.format(23))	# hex number=17
 print(f'    money= ${insert_money:.2f}, cost= ${cost}')
+
 # string direct using variable
 print(f'I am {name}')	# I am Robert
+
 # 運算式
 a = 10
 b = 200
@@ -261,6 +264,51 @@ print(f'a + b ={a + b}') # a + b =210
 # print - not change line and direct output
 while current_articles:
     print('.', end="",flush=True)
+
+# alignemnt position
+print(f'{i:02d} {time_tag:16s} {title}')
+```
+
+#### file I/O
+``` py
+# access_mode
+# r  : read
+# rb : read binary
+# r+ : read and write
+# rb+ : read and write(binary)
+# w : write
+# wb : write binary
+# w+ : write and read 
+# wb+ :　write and read(binary)
+# a : appending
+# ab : appending binary
+# a+ : appending and read
+# ab+ : appending and read(binary)
+
+# open and write(json) 
+with open('gossiping.json', 'w', encoding='UTF-8') as file:
+    # ensure_ascii=False 輸出中文
+    # sort_keys=True 按 key 順序排列
+    json.dump(articles, file, indent=2, sort_keys=True, ensure_ascii=False)
+
+# open and write(csv)
+import csv
+with open('stockThisMonth.csv', 'w', encoding='UTF-8', newline='') as file: # excel 開檔,中文有問題
+# with open('stockThisMonth.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['日期', '開盤價', '收盤價', '成交筆數'])
+        for info in collected_info:
+                print(info)
+                writer.writerow([info['日期'], info['開盤價'], info['收盤價'], info['成交筆數']])
+
+# simple open json file
+# encoding='utf-8', load 中文正常
+f = open(file_name, 'r', encoding='utf-8')
+content = f.read()
+# print(content)
+dcard_shwo_api_title(content)
+print("get from file....")
+f.close()
 ```
 
 ### Built-in function
@@ -302,11 +350,33 @@ with open('stockThisMonth.csv', 'w', newline='') as file:
 ``` python
 import json
 
-# write
+# write dictionary list to a json format file
+articles = []
+articles.append({
+    'title': title,
+    'href': href,
+    'push_count': push_count,
+    'author': author
+})
 with open('gossiping.json', 'w', encoding='UTF-8') as file:
     # ensure_ascii=False 輸出中文
     # sort_keys=True 按 key 順序排列
     json.dump(articles, file, indent=2, sort_keys=True, ensure_ascii=False)
+
+# check json format
+def is_json(myjson):
+  try:
+    json.loads(myjson)
+  except ValueError as e:
+    return False
+  return True
+
+  # load json to variable
+  parsed = json.loads(content)
+
+  # show json
+  ensure_ascii=False, show 中文
+  print(json.dumps(parsed, indent=4, ensure_ascii=False))
 ```
 
 
@@ -398,6 +468,11 @@ def count_blog_number(soup, pattern):
   print("Blog count: " + str(count))
 ```
 
+#### quote/unquote
+``` py
+# 修正中文 show 亂碼
+trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).find('a')['href'], 'utf-8')
+```
 
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)

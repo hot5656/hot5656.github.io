@@ -113,8 +113,20 @@ if __name__ == '__main__':
     main()
 ```
 
-#### some parse
+#### html 解析
 ``` py
+# find()
+paging_div = soup.find('div', 'btn-group btn-group-paging')
+push_str = d.find('div', 'nrec').text
+href = d.find('a')['href']
+title = d.find('a').text
+author = d.find('div', 'author').text if d.find('div', 'author') else ''
+
+# find_all()
+divs = soup.find_all('div', 'r-ent')
+for d in divs:
+    .....
+
 # find tag
 print(soup.h4)
 print(soup.find("h4"))
@@ -126,6 +138,7 @@ print(soup.h4.a.text)
 for h4 in h4_tags:
   print(h4.a.text)
 print(soup.h4.a.text)
+
 # find all tags's text by class
 # 以下代表相同
 # h4_tags = soup.find_all('h4', class_='card-title')
@@ -137,6 +150,7 @@ for h4 in h4_tags:
 # find tags's text by id
 print('soup.find(id="mac-p").text.strip() : ')
 print('-'+soup.find(id='mac-p').text.strip()+'-')
+
 # find all tags's text by 非標準屬性
 # 非標準屬性會有錯誤
 # print(soup.find(data-foo='mac-p').text.strip())
@@ -150,6 +164,7 @@ for div in divs:
 # find blog 內容 - another way 
 for div in divs:
   print([s for s in div.stripped_strings])
+
 # parent and sibling
 price = link.parent.previous_sibling.text
 # children
@@ -159,6 +174,34 @@ if 'href' in all_tds[3].a.attrs :
   href = all_tds[3].a['href']
 else:
   href = None;
+
+# find li iclude a tag
+next = soup.find('li', {'class': 'nexttxt'}).find('a')
+
+# get tag a's href
+print('next url = ' + next['href'])
+
+# some example
+movie_info = movie.find('div', {'class': 'release_info'})
+if movie_info:
+  # 修正中文 show 亂碼
+  trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).find('a')['href'], 'utf-8')
+  # some movie no exceptation
+  exceptation = movie_info.find('div', {'class': 'leveltext'})
+  if exceptation:
+    pexceptation = exceptation.text.strip().split('\n')[0]
+  else:
+    pexceptation = ""
+  # some movie no exceptation
+  item = {
+    'ch_name': movie_info.find('div', {'class': 'release_movie_name'}).find('a').text.strip(),
+    'en_name': movie_info.find('div', {'class': 'en'}).find('a').text.strip(),
+    'expectation': pexceptation,
+    'intro': movie_info.find('div', {'class': 'release_text'}).find('span').text.strip(),
+    'poster_url': movie.find('div', {'class': 'release_foto'}).find('img')['data-src'],
+    'release_date': movie_info.find('div', {'class': 'release_movie_time'}).text.strip().split(' ')[-1],
+    'trailer_url': trailer_url
+  }
 ```
 
 #### 解析後建立 html5 物件
@@ -168,21 +211,73 @@ from bs4 import BeautifulSoup
 soup = BeautifulSoup(dom, 'html5lib')
 ```
 
-### html 解析
-``` python
-# find()
-paging_div = soup.find('div', 'btn-group btn-group-paging')
-push_str = d.find('div', 'nrec').text
-href = d.find('a')['href']
-title = d.find('a').text
-author = d.find('div', 'author').text if d.find('div', 'author') else ''
-# find_all()
-divs = soup.find_all('div', 'r-ent')
-for d in divs:
-    .....
-``` 
+### Selenium
 
-### Dcard API 2.0
+#### install
+```
+pip install selenium
+```
+
+#### example 1
+``` py
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+def page_down(element, times, sec):
+  print("[%] Scrolling down.")
+  for i in range(times):
+    print(i)
+    element.send_keys(Keys.PAGE_DOWN)
+    sleep(sec)  # bot id protection
+
+# save post - it check get post already
+post_list = list()
+
+if __name__ == '__main__':
+  browser = webdriver.Chrome()
+  browser.get('https://www.dcard.tw/f')
+  sleep(2)
+
+  # element for press page down
+  element = browser.find_element(By.TAG_NAME, "body")
+
+  # loop break when get >= 10 post
+  count=0
+  for count in range(10):
+    page_down(element, 2, 0.5)
+    html = browser.page_source
+    soup = BeautifulSoup(browser.page_source, 'html.parser')
+    find_top10_hot_title(soup, post_list, 'post-*')
+    print(post_list)
+    if (len(post_list)>=10):
+      break
+
+  # exit browser
+  browser.quit()
+```
+
+#### example 2 - get html from element
+``` py
+news =  browser.find_elements(By.CLASS_NAME, "story-list__news")
+i = 1
+for new in news:
+  new_html =  new.get_attribute('innerHTML')
+  soup = BeautifulSoup(new_html, 'html5lib')
+  title = soup.find('div', {'class' : 'story-list__text'}).find('a').text
+  time_tag = soup.find('div', {'class' : 'story-list__info'})
+  if time_tag:
+    time_tag = time_tag.text.strip().split('\n')[1].strip()
+  else:
+    time_tag = ""
+  # check no title mean not exist
+  if len(title) != 0:
+    print(f'{i:02d} {time_tag:16s} {title}')
+    i += 1
+```
+
+### API
+#### Dcard API 2.0
 Base Url : https://www.dcard.tw/service/api/v2
 
 |說明|請求方法|路徑|
@@ -201,6 +296,7 @@ Base Url : https://www.dcard.tw/service/api/v2
 + [Python web crawler note](https://clu.gitbook.io/python-web-crawler-note/13-yi-zhi-hen-yuan-shi-de-pa-chong)
 + [W3schools Python Requests Module](https://www.w3schools.com/python/module_requests.asp)
 + [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
++ [STEAM-Selenium 函式庫](https://steam.oxxostudio.tw/category/python/spider/selenium.html)
 
 ```
 # Convert indentation to spaces
