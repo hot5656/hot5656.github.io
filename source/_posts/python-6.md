@@ -7,23 +7,82 @@ tags:
 	- python
 ---
 
-### 非被引用才執行
-``` python
-# 非被引用才執行
-if __name__ == '__main__':
-    main()
+### 概念
+Web Scraping
+Scrapy
+Reguests
+BeautifulSoup
+
+#### 5 components
++ Spiders
++ Spiders (spider Middleware-extracting data)
+	+ scrapy.spider
+	+ crawlspider
++ Pipelines
++ Middleware(Downloader Middeware)
++ Engine
++ Scheduler
+
+#### Spider type
++ XMLFeedSpider
++ CSVFeedSpider
++ SitemapSpider
+
+#### Robots.txt (websites)
++ User-Agent
++ Allow
++ Disallow
+
 ```
+# example website : https://www.facebook.com/robots.txt
+# Notice: Collection of data on Facebook through automated means is
+# prohibited unless you have express written permission from Facebook
+# and may only be conducted for the limited purpose contained in said
+# permission.
+# See: http://www.facebook.com/apps/site_scraping_tos_terms.php
+
+User-agent: Applebot
+Disallow: /ajax/
+Disallow: /album.php
+Disallow: /checkpoint/
+......
+
+User-agent: Googlebot
+Disallow: /ajax/
+Disallow: /album.php
+Disallow: /checkpoint/
+......
+
+User-agent: Applebot
+Allow: /ajax/bootloader-endpoint/
+Allow: /ajax/pagelet/generic.php/PagePostsSectionPagelet
+Allow: /careers/
+Allow: /safetycheck/
+......
+
+User-agent: Googlebot
+Allow: /*/videos/
+Allow: /ajax/bootloader-endpoint/
+Allow: /ajax/pagelet/generic.php/PagePostsSectionPagelet
+Allow: /careers/
+Allow: /safetycheck/
+Allow: /watch
+......
+
+```
+
 
 
 <!--more-->
 
-### Request 
-#### install
+### package
+#### Request 
+##### install
 ```
 pip install requests
 ```
 
-#### GET 
+##### GET 
 ``` python 
 import requests
 
@@ -46,7 +105,7 @@ def get_web_page(url):
         return resp.text
 ```
 
-#### POST
+##### POST
 ``` python
 import requests
 
@@ -57,20 +116,20 @@ x = requests.post(url, json = myobj)
 print(x.text)
 ```
 
-#### other methods
+##### other methods
 + delete(url, args)	: Sends a DELETE request to the specified url
 + head(url, args) : Sends a HEAD request to the specified url
 + patch(url, data, args) : Sends a PATCH request to the specified url
 + put(url, data, args) : Sends a PUT request to the specified url
 + request(method, url, args) : Sends a request of the specified method to the specified url
 
-### BeautifulSoup 網頁解析
-#### install
+#### BeautifulSoup 網頁解析
+##### install
 ```
 pip install beautifulsoup4
 ```
 
-#### example
+##### example
 ``` python
 import requests
 from bs4 import BeautifulSoup
@@ -113,7 +172,7 @@ if __name__ == '__main__':
     main()
 ```
 
-#### html 解析
+##### html 解析
 ``` py
 # find()
 paging_div = soup.find('div', 'btn-group btn-group-paging')
@@ -204,21 +263,21 @@ if movie_info:
   }
 ```
 
-#### 解析後建立 html5 物件
+##### 解析後建立 html5 物件
 ``` python
 # need instll html5lib 
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(dom, 'html5lib')
 ```
 
-### Selenium
+#### Selenium
 
-#### install
+##### install
 ```
 pip install selenium
 ```
 
-#### example 1
+##### example 1
 ``` py
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -257,7 +316,7 @@ if __name__ == '__main__':
   browser.quit()
 ```
 
-#### example 2 - get html from element
+##### example 2 - get html from element
 ``` py
 news =  browser.find_elements(By.CLASS_NAME, "story-list__news")
 i = 1

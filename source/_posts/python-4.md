@@ -129,6 +129,13 @@ def my_function(x):
 print(my_function(3))
 ```
 
+#### 非被引用才執行
+``` python
+# 非被引用才執行
+if __name__ == '__main__':
+    main()
+```
+
 ### 變數
 
 + array VS list 
@@ -267,6 +274,7 @@ while current_articles:
 
 # alignemnt position
 print(f'{i:02d} {time_tag:16s} {title}')
+print(f'({i:02d}) {article["ip"]:15s}-{article["location_data"]["country"]:15s} {article["title"]}')
 ```
 
 #### file I/O
@@ -310,6 +318,44 @@ dcard_shwo_api_title(content)
 print("get from file....")
 f.close()
 ```
+
+### specific operation
+#### get page
+``` py
+import requests
+
+# include cookies
+def get_web_page(url):
+    resp = requests.get(url=url, cookies={'over18': '1'})
+    if resp.status_code != 200:
+        print('Invalid url:', resp.url)
+        return None
+    else:
+        return resp.text
+
+# get json(include agent head)
+headers = {'user-agent': 'Mozilla/5.0 (Macintosh Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
+def get_location(ip):
+    response = requests.get(f'https://ipapi.co/{ip}/json/', headers=headers).json()
+```
+
+#### get local ip & ip location
+``` py
+def get_local_ip():
+    response = requests.get('https://api64.ipify.org?format=json').json()
+    return response["ip"]
+
+headers = {'user-agent': 'Mozilla/5.0 (Macintosh Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
+def get_location(ip):
+    response = requests.get(f'https://ipapi.co/{ip}/json/', headers=headers).json()
+    location_data = {
+        "ip": ip,
+        "city": response.get("city"),
+        "region": response.get("region"),
+        "country": response.get("country_name")
+    }
+    return location_data
+``` 
 
 ### Built-in function
 
@@ -466,6 +512,15 @@ count_blog_number(soup, 'card\-blog')
 def count_blog_number(soup, pattern):
   count = len(soup.find_all('div', {'class' : re.compile(pattern)}))
   print("Blog count: " + str(count))
+
+# get match string
+dom = soup_item.find('div', {'id': 'main-container'}).text
+pattern = '來自: \d+\.\d+\.\d+\.\d+'
+match = re.search(pattern, dom)
+if match:
+  return match.group(0).replace('來自: ', '')
+else:
+  return None
 ```
 
 #### quote/unquote
