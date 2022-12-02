@@ -71,6 +71,14 @@ Allow: /watch
 
 ```
 
+#### scrapy
+```
+# install myenv11_scrapy
+rem cd \app\python_env\
+rem py -3.11 -m virtualenv myenv11_scrapy
+# install 
+pip install scrapy pylint autopep8
+```
 
 
 <!--more-->
