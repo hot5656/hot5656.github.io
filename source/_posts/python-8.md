@@ -79,7 +79,7 @@ rem cd \app\python_env\
 rem py -3.10 -m virtualenv myenv10_scrapy
 # install 
 pip install scrapy 
-pip install ylint 
+pip install pylint 
 pip install autopep8
 pip install ipython
 ```
@@ -342,8 +342,7 @@ RuntimeError: There is no current event loop in thread 'Thread-1 (start)'.
 
 #### direct get web page
 ```
-In [2]: r = scrapy.Request(url=" https://www.worldometers.info/world-population
-   ...: /population-by-country/")
+In [2]: r = scrapy.Request(url=" https://www.worldometers.info/world-population/population-by-country/")
 
 In [3]: fetch(r)
 2022-12-03 20:52:34 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET :///robots.txt>: Unsupported URL scheme '': no handler available for that scheme
@@ -411,4 +410,62 @@ In [6]: view(response)
 Out[6]: True
 ```
 
+#### XPath expression & CSS selectors
 + ctrl-shift c (inspect)
+```
+# XPath expression
+In [16]: title = response.xpath("//h1")
+
+In [17]: title
+Out[17]: [<Selector xpath='//h1' data='<h1>Countries in the world by populat...'>]
+
+In [18]: title = response.xpath("//h1/text()")
+
+In [19]: title
+Out[19]: [<Selector xpath='//h1/text()' data='Countries in the world by population ...'>]
+
+In [20]: title.get()
+Out[20]: 'Countries in the world by population (2022)'
+
+# CSS selectors
+In [22]: title_css = response.css("h1::text")
+
+In [23]: title_css
+Out[23]: [<Selector xpath='descendant-or-self::h1/text()' data='Countries in the world by population ...'>]
+
+In [26]: title_css.get()
+Out[26]: 'Countries in the world by population (2022)'
+
+
+# XPath expression
+In [30]: countries = response.xpath("//td/a/text()").getall()
+
+In [31]: countries
+Out[31]:
+['China',
+ 'India',
+ 'United States',
+ 'Indonesia',
+ 'Pakistan',
+ 'Brazil',
+ 'Nigeria',
+ ......
+
+ 'Holy See']
+
+# CSS selectors
+In [34]: countries_css = response.css("td a::text").getall()
+
+In [35]: countries_css
+Out[35]:
+['China',
+ 'India',
+ 'United States',
+ 'Indonesia',
+ 'Pakistan',
+ 'Brazil',
+ 'Nigeria',
+ ......
+ 
+ 'Holy See']
+```
