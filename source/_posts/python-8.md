@@ -69,6 +69,9 @@ Allow: /watch
 
 ```
 
+#### vs code plugin
++ Python extension for Visual Studio Code(Microsoft)
+
 ### scrapy install
 
 #### install
@@ -468,4 +471,106 @@ Out[35]:
  ......
  
  'Holy See']
+```
+
+#### modify worldmeters\worldmeters\spiders\countries.py for XPath expression
+``` py
+import scrapy
+
+class CountriesSpider(scrapy.Spider):
+    name = 'countries'
+    allowed_domains = ['www.worldometers.info']
+    # start_urls = ['https://www.worldometers.info/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+
+    def parse(self, response):
+        title = response.xpath("//h1/text()").get()
+        countries = response.xpath("//td/a/text()").getall()
+
+        yield {
+          'tittle': title,
+          'counties': countries
+        }
+```
+
+#### run scrapy clawer
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+2022-12-06 12:03:18 [scrapy.utils.log] INFO: Scrapy 2.7.1 started (bot: worldmeters)
+2022-12-06 12:03:18 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.12, cssselect 1.2.0, parsel 1.7.0, w3lib 2.1.0, Twisted 22.10.0, Python 3.10.6 (tags/v3.10.6:9c7b4bd, Aug  1 2022, 21:53:49) [MSC v.1932 64 bit (AMD64)], pyOpenSSL 22.1.0 (OpenSSL 3.0.7 1 Nov 2022), cryptography 38.0.4, Platform Windows-10-10.0.19044-SP0
+2022-12-06 12:03:18 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'worldmeters',
+ 'NEWSPIDER_MODULE': 'worldmeters.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['worldmeters.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2022-12-06 12:03:18 [asyncio] DEBUG: Using selector: SelectSelector
+2022-12-06 12:03:18 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2022-12-06 12:03:18 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2022-12-06 12:03:18 [scrapy.extensions.telnet] INFO: Telnet Password: 6b21a23169d5dea4
+2022-12-06 12:03:18 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2022-12-06 12:03:18 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2022-12-06 12:03:18 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2022-12-06 12:03:18 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2022-12-06 12:03:18 [scrapy.core.engine] INFO: Spider opened
+2022-12-06 12:03:18 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2022-12-06 12:03:18 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2022-12-06 12:03:19 [scrapy.core.engine] DEBUG: Crawled (404) <GET https://www.worldometers.info/robots.txt> (referer: None)
+2022-12-06 12:03:19 [protego] DEBUG: Rule at line 2 without any user agent to enforce it on.
+2022-12-06 12:03:19 [protego] DEBUG: Rule at line 10 without any user agent to enforce it on.
+2022-12-06 12:03:19 [protego] DEBUG: Rule at line 12 without any user agent to enforce it on.
+2022-12-06 12:03:19 [protego] DEBUG: Rule at line 14 without any user agent to enforce it on.
+2022-12-06 12:03:19 [protego] DEBUG: Rule at line 16 without any user agent to enforce it on.
+2022-12-06 12:03:20 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/population-by-country/> (referer: None)
+2022-12-06 12:03:20 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/population-by-country/>
+{'tittle': 'Countries in the world by population (2022)', 'counties': ['China', 'India', 'United States', 'Indonesia', 'Pakistan', 'Brazil', 'Nigeria', 'Bangladesh', 'Russia', 'Mexico', 'Japan', 'Ethiopia', 'Philippines', 'Egypt', 'Vietnam', 'DR Congo', 'Turkey', 'Iran', 'Germany', 'Thailand', 'United Kingdom', 'France', 'Italy', 'Tanzania', 'South Africa', 'Myanmar', 'Kenya', 'South Korea', 'Colombia', 'Spain', 'Uganda', 'Argentina', 'Algeria', 'Sudan', 'Ukraine', 'Iraq', 'Afghanistan', 'Poland', 'Canada', 'Morocco', 'Saudi Arabia', 'Uzbekistan', 'Peru', 'Angola', 'Malaysia', 'Mozambique', 'Ghana', 'Yemen', 'Nepal', 'Venezuela', 'Madagascar', 'Cameroon', "Côte d'Ivoire", 'North Korea', 'Australia', 'Niger', 'Taiwan', 'Sri Lanka', 'Burkina Faso', 'Mali', 'Romania', 'Malawi', 'Chile', 'Kazakhstan', 'Zambia', 'Guatemala', 'Ecuador', 'Syria', 'Netherlands', 'Senegal', 'Cambodia', 'Chad', 'Somalia', 'Zimbabwe', 'Guinea', 'Rwanda', 'Benin', 'Burundi', 'Tunisia', 'Bolivia', 'Belgium', 'Haiti', 'Cuba', 'South Sudan', 'Dominican Republic', 'Czech Republic (Czechia)', 'Greece', 'Jordan', 'Portugal', 'Azerbaijan', 'Sweden', 'Honduras', 'United Arab Emirates', 'Hungary', 'Tajikistan', 'Belarus', 'Austria', 'Papua New Guinea', 'Serbia', 'Israel', 'Switzerland', 'Togo', 'Sierra Leone', 'Hong Kong', 'Laos', 'Paraguay', 'Bulgaria', 'Libya', 'Lebanon', 'Nicaragua', 'Kyrgyzstan', 'El Salvador', 'Turkmenistan', 'Singapore', 'Denmark', 'Finland', 'Congo', 'Slovakia', 'Norway', 'Oman', 'State of Palestine', 'Costa Rica', 'Liberia', 'Ireland', 'Central African Republic', 'New Zealand', 'Mauritania', 'Panama', 'Kuwait', 'Croatia', 'Moldova', 'Georgia', 'Eritrea', 'Uruguay', 'Bosnia and Herzegovina', 'Mongolia', 'Armenia', 'Jamaica', 'Qatar', 'Albania', 'Puerto Rico', 'Lithuania', 'Namibia', 'Gambia', 'Botswana', 'Gabon', 'Lesotho', 'North Macedonia', 'Slovenia', 'Guinea-Bissau', 'Latvia', 'Bahrain', 'Equatorial Guinea', 'Trinidad and Tobago', 'Estonia', 'Timor-Leste', 'Mauritius', 'Cyprus', 'Eswatini', 'Djibouti', 'Fiji', 'Réunion', 'Comoros', 'Guyana', 'Bhutan', 'Solomon Islands', 'Macao', 'Montenegro', 'Luxembourg', 'Western Sahara', 'Suriname', 'Cabo Verde', 'Micronesia', 'Maldives', 'Malta', 'Brunei ', 'Guadeloupe', 'Belize', 'Bahamas', 'Martinique', 'Iceland', 'Vanuatu', 'French Guiana', 'Barbados', 'New Caledonia', 'French Polynesia', 'Mayotte', 'Sao Tome & Principe', 'Samoa', 'Saint Lucia', 'Channel Islands', 'Guam', 'Curaçao', 'Kiribati', 'Grenada', 'St. Vincent & Grenadines', 'Aruba', 'Tonga', 'U.S. Virgin Islands', 'Seychelles', 'Antigua and Barbuda', 'Isle of Man', 'Andorra', 'Dominica', 'Cayman Islands', 'Bermuda', 'Marshall Islands', 'Northern Mariana Islands', 'Greenland', 'American Samoa', 'Saint Kitts & Nevis', 'Faeroe Islands', 'Sint Maarten', 'Monaco', 'Turks and Caicos', 'Saint Martin', 'Liechtenstein', 'San Marino', 'Gibraltar', 'British Virgin Islands', 'Caribbean Netherlands', 'Palau', 'Cook Islands', 'Anguilla', 'Tuvalu', 'Wallis & Futuna', 'Nauru', 'Saint Barthelemy', 'Saint Helena', 'Saint Pierre & Miquelon', 'Montserrat', 'Falkland Islands', 'Niue', 'Tokelau', 'Holy See']}
+2022-12-06 12:03:20 [scrapy.core.engine] INFO: Closing spider (finished)
+2022-12-06 12:03:20 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 491,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 18989,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/404': 1,
+ 'elapsed_time_seconds': 1.387354,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 6, 4, 3, 20, 290084),
+ 'httpcompression/response_bytes': 96257,
+ 'httpcompression/response_count': 2,
+ 'item_scraped_count': 1,
+ 'log_count/DEBUG': 11,
+ 'log_count/INFO': 10,
+ 'response_received_count': 2,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/404': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2022, 12, 6, 4, 3, 18, 902730)}
+2022-12-06 12:03:20 [scrapy.core.engine] INFO: Spider closed (finished)
 ```
