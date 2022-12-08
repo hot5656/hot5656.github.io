@@ -574,3 +574,155 @@ class CountriesSpider(scrapy.Spider):
  'start_time': datetime.datetime(2022, 12, 6, 4, 3, 18, 902730)}
 2022-12-06 12:03:20 [scrapy.core.engine] INFO: Spider closed (finished)
 ```
+
+### XPath expression & CSS selectors
+
+#### test html for CSS selectors
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>XPath and CSS Selectors</title>
+</head>
+
+<body>
+    <h1>CSS Selectors simplified</h1>
+    <div class="intro">
+        <p>
+            I'm paragraph within a div with a class set to intro
+            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
+        </p>
+        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
+    </div>
+    <p>Hi i'm placed immediately after a div with a class set to intro</p>
+    <span class='intro'>Div with a class attribute set to intro</span>
+
+    <ul id="items">
+        <li data-identifier="7">Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+
+    <a href="https://www.google.com">Google</a>
+    <a href="http://www.google.fr">Google France</a>
+
+    <p class='bold italic'>Hi, I have two classes</p>
+    <p class='bold'>Hi i'm bold</p>
+</body>
+
+</html>
+```
+
+#### test html for XPath expression
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>XPath and CSS Selectors</title>
+</head>
+
+<body>
+    <h1>XPath Selectors simplified</h1>
+
+    <div class="intro">
+        <p>
+            I'm paragraph within a div with a class set to intro
+            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
+        </p>
+        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
+    </div>
+
+    <div class="outro">
+        <p id="unique">I'm in a div with a class attribute set to outro</p>
+    </div>
+
+    <p>Hi i'm placed immediately after a div</p>
+
+    <span class='intro'>Div with a class attribute set to intro</span>
+
+    <ul id="items">
+        <li data-identifier="7">Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+
+    <a href="https://www.google.com">Google</a>
+    <a href="http://www.google.fr">Google France</a>
+</body>
+
+</html>
+```
+
+#### CSS selectors
+```
+li[data-identifier=7]
+a[href^='https']
+a[href$='fr']
+a[href*='google']
+
+div.intro
+div.intro p, #location
+
+# all children
+div.intro > p 
+#items  > li
+
+# 後面第一個(非內部)
+div.intro + p
+
+# 後面所有(非內部)
+div.intro ~ p
+
+# li 同層的 item
+li:nth-child(1), li:nth-child(3)
+li:nth-child(odd)
+li:nth-child(even)
+```
+
+#### XPath expression
+```
+//div[@class="intro" or @class='outro']/p/text()
+//a[starts-with(@href,'https')]
+
+# not support XPath version 1
+//a[ends-with(@href,'fr')] 
+
+//a[contains(@href,'fr')]
+//a[contains(@href,'google')]
+//a[contains(text(),'France')]
+//ul[@id='items']/li[1]
+//ul[@id='items']/li[position()=1 or position()=4]
+//ul[@id='items']/li[position()=1 or position()=last()]
+//ul[@id='items']/li[position()>1]
+
+//p[@id='unique']/parent::div
+//p[@id='unique']/parent::node()
+# 所有 ancestor
+//p[@id='unique']/ancestor::node()
+# 包含本身
+//p[@id='unique']/ancestor-or-self::node()
+
+# 之前的 element
+//p[@id='unique']/preceding::node()
+//p[@id='unique']/preceding::h1
+# nothing
+//p[@id='unique']/preceding::body
+# 之前的 element(同層)
+//p[@id='outside']/preceding-sibling::node()
+
+//div[@class='intro']/child::p
+//div[@class='intro']/child::node()
+# 後面所有 element
+//div[@class='intro']/following::node() 後面所有 element
+//div[@class='intro']/following-sibling::node()
+# 內層
+//div[@class='intro']/descendant::node()
+```
+
+### Ref
+[CSS selectors practice](https://try.jsoup.org/)
+[XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
