@@ -575,6 +575,172 @@ class CountriesSpider(scrapy.Spider):
 2022-12-06 12:03:20 [scrapy.core.engine] INFO: Spider closed (finished)
 ```
 
+### [Worldometers](https://www.worldometers.info/world-population/population-by-country/) Get Countries Population
+#### Get country name and link
+##### try xpath
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy shell "https://www.worldometers.info/world-population/population-by-country/"
+2022-12-09 12:24:35 [scrapy.utils.log] INFO: Scrapy 2.7.1 started (bot: worldmeters)
+......
+
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+2022-12-09 12:24:37 [asyncio] DEBUG: Using selector: SelectSelector
+In [1]:
+
+In [1]: countries = response.xpath("//td/a")
+
+In [2]: countries
+Out[2]:
+[<Selector xpath='//td/a' data='<a href="/world-population/china-popu...'>,
+ <Selector xpath='//td/a' data='<a href="/world-population/india-popu...'>,
+ ......
+ <Selector xpath='//td/a' data='<a href="/world-population/tokelau-po...'>,
+ <Selector xpath='//td/a' data='<a href="/world-population/holy-see-p...'>]
+
+In [3]:
+```
+
+##### countries.py
+```py
+import scrapy
+
+
+class CountriesSpider(scrapy.Spider):
+    name = 'countries'
+    allowed_domains = ['www.worldometers.info']
+    # start_urls = ['https://www.worldometers.info/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+
+    def parse(self, response):
+        countries = response.xpath("//td/a")
+        for country in countries:
+          name = country.xpath(".//text()").get()
+          link = country.xpath(".//@href").get()
+
+          yield {
+            'country_name': name,
+            'country_link': link
+          }
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+2022-12-09 13:54:27 [scrapy.utils.log] INFO: Scrapy 2.7.1 started (bot: worldmeters)
+......
+2022-12-09 13:54:28 [protego] DEBUG: Rule at line 16 without any user agent to enforce it on.
+2022-12-09 13:54:29 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/population-by-country/> (referer: None)
+2022-12-09 13:54:29 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/population-by-country/>
+{'country_name': 'China', 'country_link': '/world-population/china-population/'}
+2022-12-09 13:54:29 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/population-by-country/>
+{'country_name': 'India', 'country_link': '/world-population/india-population/'}
+2022-12-09 13:54:29 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/population-by-country/>
+{'country_name': 'United States', 'country_link': '/world-population/us-population/'}
+......
+2022-12-09 13:54:29 [scrapy.core.engine] INFO: Spider closed (finished)
+```
+
+#### fetch country link page
+##### countries.py
+``` py
+import scrapy
+
+
+class CountriesSpider(scrapy.Spider):
+    name = 'countries'
+    allowed_domains = ['www.worldometers.info']
+    # start_urls = ['https://www.worldometers.info/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+
+    def parse(self, response):
+        countries = response.xpath("//td/a")
+        for country in countries:
+          name = country.xpath(".//text()").get()
+          link = country.xpath(".//@href").get()
+
+          # absolute url
+          # absolute_url = f'https://www.worldometers.info{link}'
+          # absolute_url = response.urljoin(link)
+          # yield scrapy.Request(url=absolute_url)
+
+          # relative url
+          yield response.follow(url=link)
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+2022-12-09 14:17:54 [scrapy.utils.log] INFO: Scrapy 2.7.1 started (bot: worldmeters)
+2022-12-09 14:17:54 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.12, cssselect 1.2.0, parsel 1.7.0, w3lib 2.1.0, Twisted 22.10.0, Python 3.10.6 (tags/v3.10.6:9c7b4bd, Aug  1 2022, 21:53:49) [MSC v.1932 64 bit (AMD64)], pyOpenSSL 22.1.0 (OpenSSL 3.0.7 1 Nov 2022), cryptography 38.0.4, Platform Windows-10-10.0.19044-SP0
+2022-12-09 14:17:54 [scrapy.crawler] INFO: Overridden settings:
+......
+2022-12-09 14:17:55 [protego] DEBUG: Rule at line 16 without any user agent to enforce it on.
+2022-12-09 14:17:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/population-by-country/> (referer: None)
+2022-12-09 14:17:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/iran-population/> (referer: https://www.worldometers.info/world-population/population-by-country/)
+2022-12-09 14:17:57 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/mexico-population/> (referer: https://www.worldometers.info/world-population/population-by-country/)
+......
+ 'scheduler/dequeued/memory': 236,
+ 'scheduler/enqueued': 236,
+ 'scheduler/enqueued/memory': 236,
+ 'start_time': datetime.datetime(2022, 12, 9, 6, 17, 55, 174514)}
+2022-12-09 14:18:05 [scrapy.core.engine] INFO: Spider closed (shutdown)
+```
+
+#### get country's year and population
+##### countries.py
+``` py
+import scrapy
+import logging
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+
+  def parse(self, response):
+    countries = response.xpath("//td/a")
+    for country in countries:
+      name = country.xpath(".//text()").get()
+      link = country.xpath(".//@href").get()
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      yield response.follow(url=link, callback=self.parse_country)
+
+  def parse_country(self, response):
+    # show log
+    # logging.info(response.url)
+    rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    for row in rows:
+      year = row.xpath("./td[1]/text()").get()
+      population = row.xpath("./td[2]/strong/text()").get()
+      yield {
+        'year' : year,
+        'population': population
+      }
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+2022-12-09 17:07:25 [scrapy.utils.log] INFO: Scrapy 2.7.1 started (bot: worldmeters)
+......
+2022-12-09 17:07:27 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/philippines-population/>
+{'year': '2020', 'population': '109,581,078'}
+2022-12-09 17:07:27 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/philippines-population/>
+{'year': '2019', 'population': '108,116,615'}
+2022-12-09 17:07:27 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/philippines-population/>
+{'year': '2018', 'population': '106,651,394'}
+......
+```
+
+
 ### XPath expression & CSS selectors
 
 #### test html for CSS selectors
@@ -723,6 +889,10 @@ li:nth-child(even)
 //div[@class='intro']/descendant::node()
 ```
 
+
 ### Ref
 [CSS selectors practice](https://try.jsoup.org/)
 [XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
+[XPath Expressions and CSS Selectors](https://www.qafox.com/xpath-expressions-css-selectors/)
+[W3C XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
+[W3C CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.php)
