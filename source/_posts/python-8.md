@@ -740,6 +740,122 @@ class CountriesSpider(scrapy.Spider):
 ......
 ```
 
+#### class use global variable for country name(not work ...)
+##### countries.py
+``` py
+import scrapy
+import logging
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+  country_name = ''
+
+  def parse(self, response):
+    countries = response.xpath("//td/a")
+    for country in countries:
+      name = country.xpath(".//text()").get()
+      link = country.xpath(".//@href").get()
+
+      # class use global variable for country name
+      self.country_name = name
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      yield response.follow(url=link, callback=self.parse_country)
+
+  def parse_country(self, response):
+    # show log
+    # logging.info(response.url)
+    rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    for row in rows:
+      year = row.xpath("./td[1]/text()").get()
+      population = row.xpath("./td[2]/strong/text()").get()
+      yield {
+        'name' : self.country_name,
+        'year' : year,
+        'population': population
+      }
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+......
+2022-12-12 15:17:38 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/china-population/>
+{'name': 'Denmark', 'year': '2020', 'population': '1,439,323,776'}
+2022-12-12 15:17:38 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/china-population/>
+{'name': 'Norway', 'year': '2019', 'population': '1,433,783,686'}
+2022-12-12 15:17:38 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/china-population/>
+{'name': 'Norway', 'year': '2018', 'population': '1,427,647,786'}
+......
+```
+
+#### add meta for callback parameter
+##### countries.py
+``` py
+import scrapy
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+
+  def parse(self, response):
+    countries = response.xpath("//td/a")
+    for country in countries:
+      name = country.xpath(".//text()").get()
+      link = country.xpath(".//@href").get()
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      # add meta for callback parameter
+      yield response.follow(url=link, callback=self.parse_country, meta={'country_name': name})
+
+  def parse_country(self, response):
+    # add meta for callback parameter
+    name = response.request.meta['country_name']
+    rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    for row in rows:
+      year = row.xpath("./td[1]/text()").get()
+      population = row.xpath("./td[2]/strong/text()").get()
+      yield {
+        'country_name' : name,
+        'year' : year,
+        'population': population
+      }
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+......
+2022-12-12 15:25:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/uk-population/>
+{'country_name': 'United Kingdom', 'year': '2020', 'population': '67,886,011'}
+2022-12-12 15:25:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/uk-population/>
+{'country_name': 'United Kingdom', 'year': '2019', 'population': '67,530,172'}
+2022-12-12 15:25:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.worldometers.info/world-population/uk-population/>
+{'country_name': 'United Kingdom', 'year': '2018', 'population': '67,141,684'}
+......
+```
+
+#### next
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy genspider gdp_debt worldpopulationreview.com/countries/countries-by-national-debt
+Created spider 'gdp_debt' using template 'basic' in module:
+  worldmeters.spiders.gdp_debt
+```
 
 ### XPath expression & CSS selectors
 
