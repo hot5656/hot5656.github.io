@@ -850,12 +850,323 @@ class CountriesSpider(scrapy.Spider):
 ......
 ```
 
-#### next
+#### data generate by dataset(json, csv, xml) 
+``` bash
+# generate json file
+scrapy crawl countries -o population_dataset.json
+# generate csv file
+scrapy crawl countries -o population_dataset.csv
+# generate xml file
+scrapy crawl countries -o population_dataset.xml
+```
+
+``` json
+[
+{"country_name": "China", "year": "2020", "population": "1,439,323,776"},
+{"country_name": "China", "year": "2019", "population": "1,433,783,686"},
+{"country_name": "China", "year": "2018", "population": "1,427,647,786"},
+{"country_name": "China", "year": "2017", "population": "1,421,021,791"},
+......
+{"country_name": "India", "year": "1960", "population": "450,547,679"},
+{"country_name": "India", "year": "1955", "population": "409,880,595"}
+]
+```
+
+``` csv
+country_name,year,population
+China,2020,"1,439,323,776"
+China,2019,"1,433,783,686"
+China,2018,"1,427,647,786"
+......
+DR Congo,1965,"17,369,883"
+DR Congo,1960,"15,248,251"
+DR Congo,1955,"13,517,513"
+```
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<items>
+<item><country_name>China</country_name><year>2020</year><population>1,439,323,776</population></item>
+<item><country_name>China</country_name><year>2019</year><population>1,433,783,686</population></item>
+......
+<item><country_name>Philippines</country_name><year>1960</year><population>26,269,734</population></item>
+<item><country_name>Philippines</country_name><year>1955</year><population>22,177,058</population></item>
+</items>
+```
+
+### [Debt to GDP ratio by country](http://worldpopulationreview.com/countries/countries-by-national-debt/)
+#### create spider
 ```
 (myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy genspider gdp_debt worldpopulationreview.com/countries/countries-by-national-debt
 Created spider 'gdp_debt' using template 'basic' in module:
   worldmeters.spiders.gdp_debt
 ```
+
+#### countries.py
+``` py
+import scrapy
+
+
+class GdpDebtSpider(scrapy.Spider):
+    name = 'gdp_debt'
+    allowed_domains = ['worldpopulationreview.com']
+    # start_urls = ['http://worldpopulationreview.com/']
+    start_urls = ['https://worldpopulationreview.com/country-rankings/countries-by-national-debt/']
+
+    def parse(self, response):
+        rows = response.xpath("//tbody/tr")
+        for row in rows:
+            name = row.xpath("./td[1]/a/text()").get()
+            debt_rate = row.xpath("./td[2]/text()").get()
+
+            yield {
+                'country_name' : name,
+                'debt_rate' : debt_rate
+            }
+```
+
+#### run(wait new method)
+<font color=red>
+	Cannot get table "Debt to GDP Ratio by Country" : the web site reason
+</font>
+
+###  [tinydeal](https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html)
+
+#### open robots.txt
+search page name, if not found mean not restriction for scrape
+```
+User-agent: *
+Allow: /*main_page=top_brands 
+Allow: /*main_page=ws_search_result
+Allow: /*index.php?main_page=zone_2dollars
+Disallow: /*main_page=*
+Disallow: /bg/
+Disallow: /cs/
+Disallow: /da/
+Disallow: /el/
+Disallow: /fi/
+Disallow: /hu/
+Disallow: /hr/
+Disallow: /lt/
+Disallow: /no/
+Disallow: /pl/
+Disallow: /ro/
+Disallow: /sk/
+Disallow: /sl/
+Disallow: /sv/
+Disallow: /tr/
+Disallow: /ja/
+Disallow: /jp/
+Disallow: /ko/
+Disallow: /wordpress/
+Disallow: /new/
+Disallow: /*/includes/
+Disallow: /shop/products/
+Disallow: /index.php/*-si-*.html
+Disallow: /*-c-*-pg-1.html
+Disallow: */buy/*surl=
+Disallow: */buy/*-c-
+Disallow: /*pagesize=
+Disallow: /*sk=
+Disallow: /*?dp=
+Disallow: /*fb_comment_id=
+Disallow: /*reviews_id=
+Disallow: /*gotowhere
+Disallow: /*/cheap-product
+Disallow: /es/compra*-t-*
+Disallow: /pt/compra*-t-*
+Disallow: /fr/bon*-t-*
+Disallow: /de/kaufen*-t-*
+Disallow: /it/economico*-t-*
+Disallow: /ru/Купи*-t-*
+Disallow: /nl/*goedkoop*-t-*
+Disallow: /ar/بالأسعار-المعقولة*-t-*
+Disallow: /*is_input=
+
+
+User-agent: Yandex
+Allow: /*main_page=top_brands 
+Allow: /*main_page=ws_search_result
+Allow: /*index.php?main_page=zone_2dollars
+Disallow: /*main_page=*
+Disallow: /es/
+Disallow: /it/
+Disallow: /pt/
+Disallow: /fr/
+Disallow: /de/
+Disallow: /ar/
+Disallow: /bg/
+Disallow: /cs/
+Disallow: /da/
+Disallow: /el/
+Disallow: /fi/
+Disallow: /hu/
+Disallow: /hr/
+Disallow: /lt/
+Disallow: /nl/
+Disallow: /no/
+Disallow: /pl/
+Disallow: /ro/
+Disallow: /sk/
+Disallow: /sl/
+Disallow: /sv/
+Disallow: /tr/
+Disallow: /ja/
+Disallow: /jp/
+Disallow: /ko/
+Disallow: /wordpress/
+Disallow: /customers_photo/
+Disallow: /new/
+Disallow: /*/includes/
+Disallow: /shop/products/
+Disallow: /index.php/*-si-*.html
+Disallow: /*-c-*-pg-1.html
+Disallow: */buy/*surl=
+Disallow: */buy/*-c-
+Disallow: /*pagesize=
+Disallow: /*sk=
+Disallow: /*?dp=
+Disallow: /*fb_comment_id=
+Disallow: /*reviews_id=
+Disallow: /*gotowhere
+Disallow: /*/cheap-product
+Disallow: /es/compra*-t-*
+Disallow: /pt/compra*-t-*
+Disallow: /fr/bon*-t-*
+Disallow: /de/kaufen*-t-*
+Disallow: /it/economico*-t-*
+Disallow: /ru/Купи*-t-*
+Disallow: /nl/*goedkoop*-t-*
+Disallow: /ar/بالأسعار-المعقولة*-t-*
+Disallow: /*is_input=
+
+User-Agent: Baiduspider
+Disallow: /
+User-Agent: 360Spider
+Disallow: /
+User-Agent: Sogouspider
+Disallow: /
+User-Agent: Sosospider
+Disallow: /
+User-agent: YoudaoBot
+Disallow: /
+User-agent: magpie-crawler
+Disallow: /
+
+User-agent: AdsBot-Google
+Disallow:
+User-agent: Googlebot-Image
+Disallow:
+
+Sitemap: http://www.tinydeal.com/sitemap.xml
+```
+
+
+```
+https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html
+```
+
+#### open web site then disable Javascript
++ open Chrome devtools
++ run command : Disable JavaScript
++ refresh web page
+
+#### create project and spider
+```
+myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject tinydeal
+New Scrapy project 'tinydeal', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\tinydeal
+
+You can start your first spider with:
+    cd tinydeal
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd tinydeal
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\tinydeal>scrapy genspider special_offers https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html
+Created spider 'special_offers' using template 'basic' in module:
+  tinydeal.spiders.special_offers
+```
+
+#### update special_offers.py
+``` py
+import scrapy
+
+class SpecialOffersSpider(scrapy.Spider):
+    name = 'special_offers'
+    allowed_domains = ['web.archive.org']
+    # start_urls = ['http://web.archive.org/']
+    # change web site
+    start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html']
+
+    def parse(self, response):
+        pass
+```
+
+#### update special_offers.py (get product information)
+``` py
+import scrapy
+
+class SpecialOffersSpider(scrapy.Spider):
+    name = 'special_offers'
+    allowed_domains = ['web.archive.org']
+    # start_urls = ['http://web.archive.org/']
+    # change web site
+    start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html']
+
+    def parse(self, response):
+        for product in response.xpath('//ul[@class="productlisting-ul"]/div/li'):
+          yield {
+            'title' : product.xpath('.//a[@class="p_box_title"]/text()').get(),
+            'url' : response.urljoin(product.xpath('.//a[@class="p_box_title"]/@href').get()),
+            'discounted_price' : product.xpath('.//div[@class="p_box_price"]/span[1]/text()').get(),
+            'original_price' : product.xpath('.//div[@class="p_box_price"]/span[2]/text()').get()
+          }
+```
+
+#### run 
+```
+scrapy crawl special_offers  -o dataset.json
+```
+
+#### settings.py - change json for utf-8 format(no show unicode)
+``` py
+# set JSON utf-8 format
+FEED_EXPORT_ENCODING = 'utf-8'
+```
+
+``` bash
+[
+  {
+    "title": "SanDisk A1 32GB UHS-I / Class 10 up to 98MB / s Micro SDHC Memory Card\u00a0EFM-530161",
+    "url": "https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/sandisk-a1-32gb-uhs-i-class-10-up-to-98mb-s-micro-sdhc-memory-card-p-165914.html",
+    "discounted_price": "$6.72",
+    "original_price": "$12.09 "
+  },
+  {
+    "title": "18g Super Strong Sealant Fix Metal Adhesive Sealing Glue Bond\u00a0HHI-557389",
+    "url": "https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/18g-super-strong-sealant-fix-metal-adhesive-sealing-glue-bond-p-177571.html",
+    "discounted_price": "$1.40",
+    "original_price": "$3.76 "
+  },
+
+
+# set FEED_EXPORT_ENCODING = 'utf-8'
+[
+  {
+    "title": "SanDisk A1 32GB UHS-I / Class 10 up to 98MB / s Micro SDHC Memory Card EFM-530161",
+    "url": "https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/sandisk-a1-32gb-uhs-i-class-10-up-to-98mb-s-micro-sdhc-memory-card-p-165914.html",
+    "discounted_price": "$6.72",
+    "original_price": "$12.09 "
+  },
+  {
+    "title": "18g Super Strong Sealant Fix Metal Adhesive Sealing Glue Bond HHI-557389",
+    "url": "https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/18g-super-strong-sealant-fix-metal-adhesive-sealing-glue-bond-p-177571.html",
+    "discounted_price": "$1.40",
+    "original_price": "$3.76 "
+  },
+```
+
 
 ### XPath expression & CSS selectors
 
@@ -1005,6 +1316,14 @@ li:nth-child(even)
 //div[@class='intro']/descendant::node()
 ```
 
+### Tool
+#### Evaluate and validate XPath/CSS selectors in Chrome Developer Tools
++ open Chrome Devtools
++ select Elements
++ Press `Ctrl` + `F` enable DOM searching
+
+#### VscCode automatically formatted the JSON file
++ press `Alt` + `sheft` + `F`
 
 ### Ref
 [CSS selectors practice](https://try.jsoup.org/)
