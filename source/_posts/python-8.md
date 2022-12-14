@@ -1167,6 +1167,293 @@ FEED_EXPORT_ENCODING = 'utf-8'
   },
 ```
 
+#### special_offers.py - dealing with pagination(csv)
+``` py
+import scrapy
+
+
+class SpecialOffersSpider(scrapy.Spider):
+    name = 'special_offers'
+    allowed_domains = ['web.archive.org']
+    # start_urls = ['http://web.archive.org/']
+    # change web site
+    start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html']
+
+    def parse(self, response):
+        for product in response.xpath('//ul[@class="productlisting-ul"]/div/li'):
+            yield {
+                'title' : product.xpath('.//a[@class="p_box_title"]/text()').get(),
+                'url' : response.urljoin(product.xpath('.//a[@class="p_box_title"]/@href').get()),
+                'discounted_price' : product.xpath('.//div[@class="p_box_price"]/span[1]/text()').get(),
+                'original_price' : product.xpath('.//div[@class="p_box_price"]/span[2]/text()').get()
+            }
+
+        next_page = response.xpath('//a[@class="nextPage"]/@href').get()
+        if next_page:
+            yield scrapy.Request(url=next_page, callback=self.parse)
+```
+
+``` bash
+# only get until page 9
+scrapy crawl special_offers -o dataset.csv
+......
+{'downloader/request_bytes': 7557,
+ 'downloader/request_count': 19,
+ 'downloader/request_method_count/GET': 19,
+ 'downloader/response_bytes': 541040,
+ 'downloader/response_count': 19,
+ 'downloader/response_status_count/200': 9,
+ 'downloader/response_status_count/302': 9,
+ 'downloader/response_status_count/404': 1,
+ 'elapsed_time_seconds': 7.098086,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 14, 6, 8, 40, 825326),
+ 'httpcompression/response_bytes': 3199518,
+ 'httpcompression/response_count': 9,
+ 'item_scraped_count': 495,
+ 'log_count/DEBUG': 517,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 8,
+ 'response_received_count': 10,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/404': 1,
+ 'scheduler/dequeued': 18,
+ 'scheduler/dequeued/memory': 18,
+ 'scheduler/enqueued': 18,
+ 'scheduler/enqueued/memory': 18,
+ 'start_time': datetime.datetime(2022, 12, 14, 6, 8, 33, 727240)}
+2022-12-14 14:08:40 [scrapy.core.engine] INFO: Spider closed (finished)
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\tinydeal>
+```
+
+#### change User-Agent
+
+##### check scrapy heads
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\tinydeal>scrapy shell "https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html"
+......
+2022-12-14 14:19:55 [asyncio] DEBUG: Using selector: SelectSelector
+# show the flow
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    <scrapy.crawler.Crawler object at 0x00000265CAFC3850>
+[s]   item       {}
+[s]   request    <GET https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html>
+[s]   response   <200 https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html>
+[s]   settings   <scrapy.settings.Settings object at 0x00000265CAFC37F0>
+[s]   spider     <SpecialOffersSpider 'special_offers' at 0x265cb41db70>
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+2022-12-14 14:19:56 [asyncio] DEBUG: Using selector: SelectSelector
+# request header
+In [1]: request.headers
+Out[1]:
+{b'Accept': b'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+ b'Accept-Language': b'en',
+ b'User-Agent': b'Scrapy/2.7.1 (+https://scrapy.org)',
+ b'Accept-Encoding': b'gzip, deflate'}
+
+# response request headers
+In [3]: response.request.headers
+Out[3]:
+{b'Accept': b'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+ b'Accept-Language': b'en',
+ b'User-Agent': b'Scrapy/2.7.1 (+https://scrapy.org)',
+ b'Accept-Encoding': b'gzip, deflate'}
+
+In [4]:
+```
+
+##### check browser user agent
+<div style="max-width:1000px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
+##### change User-Agent by settings.py(2 ways option)
+``` py
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+#USER_AGENT = 'tinydeal (+http://www.yourdomain.com)'
+# change user agent
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+```
+
+```py
+# Override the default request headers:
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#}
+# change default heads
+DEFAULT_REQUEST_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+}
+```
+
+##### change User-Agent by .py
+``` py
+import scrapy
+
+
+class SpecialOffersSpider(scrapy.Spider):
+    name = 'special_offers'
+    allowed_domains = ['web.archive.org']
+    # start_urls = ['http://web.archive.org/']
+    # change web site
+
+    # change user agent
+    # start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html']
+    def start_requests(self):
+        yield scrapy.Request(url='https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html', callback=self.parse, headers={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        })
+
+    def parse(self, response):
+        for product in response.xpath('//ul[@class="productlisting-ul"]/div/li'):
+            yield {
+                'title': product.xpath('.//a[@class="p_box_title"]/text()').get(),
+                'url': response.urljoin(product.xpath('.//a[@class="p_box_title"]/@href').get()),
+                'discounted_price': product.xpath('.//div[@class="p_box_price"]/span[1]/text()').get(),
+                'original_price': product.xpath('.//div[@class="p_box_price"]/span[2]/text()').get(),
+                # show response.request User-Agent
+                'User-Agent': response.request.headers['User-Agent']
+            }
+
+        next_page = response.xpath('//a[@class="nextPage"]/@href').get()
+        if next_page:
+            # change user agent
+            yield scrapy.Request(url=next_page, callback=self.parse, headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+            })
+```
+
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\tinydeal>scrapy crawl special_offers
+......
+2022-12-14 15:20:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html>
+{'title': '18g Super Strong Sealant Fix Metal Adhesive Sealing Glue Bond\xa0HHI-557389', 'url': 'https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/18g-super-strong-sealant-fix-metal-adhesive-sealing-glue-bond-p-177571.html', 'discounted_price': '$1.40', 'original_price': '$3.76 ', 'User-Agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-14 15:20:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html>
+{'title': '64GB USB 2.0 Flash Drive USB Pen Drive U Disk\xa0EFM-561923', 'url': 'https://web.archive.org/web/20190225123327/https:/www.tinydeal.com/64gb-usb-20-flash-drive-usb-pen-drive-u-disk-p-178875.html', 'discounted_price': '$6.42', 'original_price': '$19.08 ', 'User-Agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+```
+
+### glassesshop
+
+#### create project and spider
+``` bash
+myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject glassesshop
+New Scrapy project 'glassesshop', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\glassesshop
+
+You can start your first spider with:
+    cd glassesshop
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd glassesshop
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\glassesshop>scrapy genspider products https://www.glassesshop.com/bestsellers
+Created spider 'products' using template 'basic' in module:
+  glassesshop.spiders.products
+```
+
+#### https://www.glassesshop.com/robots.txt
+
+```
+User-agent: *
+Disallow: /login/
+Disallow: /register/
+Disallow: /promotion/
+Disallow: /cart/
+Disallow: /lens?*
+Disallow: /lens/new?*
+Disallow: *?currency*
+Disallow: *?source*
+Disallow: *?sort*
+Disallow: *?utm_source*
+Disallow: *&currency*
+Disallow: *?referer*
+Disallow: *?PageSpeed*
+
+Sitemap: https://www.glassesshop.com/sitemap.xml
+```
+
+#### products.py
+```py
+import scrapy
+
+
+class ProductsSpider(scrapy.Spider):
+    name = 'products'
+    allowed_domains = ['www.glassesshop.com']
+    start_urls = ['https://www.glassesshop.com/bestsellers']
+    page_index = 1
+
+    def parse(self, response):
+        for product in response.xpath('//div[@class="col-12 pb-5 mb-lg-3 col-lg-4 product-list-row text-center product-list-item"]'):
+            yield {
+                'product_name': product.xpath('.//div[@class="p-title"]/a/text()').get().strip(),
+                'product_price': product.xpath('.//div[@class="p-price"]/div/span/text()').get(),
+                'product_url': product.xpath('.//div[@class="product-img-outer"]/a/@href').getall(),
+                'product_image': product.xpath('.//img[@class="lazy d-block w-100 product-img-default"]/@data-src').get().split('?')[0],
+                'page_number': self.page_index
+            }
+
+        self.page_index += 1
+        next_page = response.xpath('//a[@class="page-link"][@rel="next"]/@href').get()
+        if next_page:
+            yield {
+                'link' : next_page
+            }
+            yield scrapy.Request(url=next_page, callback=self.parse)
+```
+
+#### run
+```
+scrapy crawl products -o products.json
+```
+
+#### json
+``` json
+[
+    {
+        "product_name": "Union",
+        "product_price": "$35.95",
+        "product_url": [
+            "https://www.glassesshop.com/eyeglasses/fz1750",
+            "https://www.glassesshop.com/eyeglasses/fz1733",
+            "https://www.glassesshop.com/eyeglasses/fz1731"
+        ],
+        "product_image": "https://res.glassesshop.com/products/202108/610a547c82bdc.jpg",
+        "page_number": 1
+    },
+    {
+        "product_name": "Placerville",
+        "product_price": "$14.98",
+        "product_url": [
+            "https://www.glassesshop.com/eyeglasses/fz2025",
+            "https://www.glassesshop.com/eyeglasses/fz2022",
+            "https://www.glassesshop.com/eyeglasses/fz2023",
+            "https://www.glassesshop.com/eyeglasses/fz2024"
+        ],
+        "product_image": "https://res.glassesshop.com/products/202209/63292118e1589.jpg",
+        "page_number": 1
+    },
+		......
+    {
+        "product_name": "Cloud",
+        "product_price": "$45.95",
+        "product_url": [
+            "https://www.glassesshop.com/eyeglasses/sup1238",
+            "https://www.glassesshop.com/eyeglasses/sup1239",
+            "https://www.glassesshop.com/eyeglasses/sup1240"
+        ],
+        "product_image": "https://res.glassesshop.com/products/202109/613efbdd8b577.jpg",
+        "page_number": 4
+    }
+]
+```
 
 ### XPath expression & CSS selectors
 
