@@ -1,76 +1,11 @@
 ---
-title: Python Scrapy
+title: Python Scrapy Example
 abbrlink: d5e4
 date: 2022-12-04 21:06:54
 categories: Coding
 tags:
 	- python
 ---
-
-### 說明
-
-#### 5 components
-+ Spiders
-+ Spiders (spider Middleware-extracting data)
-	+ scrapy.spider
-	+ crawlspider
-+ Pipelines
-+ Middleware(Downloader Middeware)
-+ Engine
-+ Scheduler
-
-<!--more-->
-
-#### Spider type
-+ XMLFeedSpider
-+ CSVFeedSpider
-+ SitemapSpider
-
-#### Robots.txt (websites)
-+ User-Agent
-+ Allow
-+ Disallow
-
-```
-# example website : https://www.facebook.com/robots.txt
-# Notice: Collection of data on Facebook through automated means is
-# prohibited unless you have express written permission from Facebook
-# and may only be conducted for the limited purpose contained in said
-# permission.
-# See: http://www.facebook.com/apps/site_scraping_tos_terms.php
-
-User-agent: Applebot
-Disallow: /ajax/
-Disallow: /album.php
-Disallow: /checkpoint/
-......
-
-User-agent: Googlebot
-Disallow: /ajax/
-Disallow: /album.php
-Disallow: /checkpoint/
-......
-
-User-agent: Applebot
-Allow: /ajax/bootloader-endpoint/
-Allow: /ajax/pagelet/generic.php/PagePostsSectionPagelet
-Allow: /careers/
-Allow: /safetycheck/
-......
-
-User-agent: Googlebot
-Allow: /*/videos/
-Allow: /ajax/bootloader-endpoint/
-Allow: /ajax/pagelet/generic.php/PagePostsSectionPagelet
-Allow: /careers/
-Allow: /safetycheck/
-Allow: /watch
-......
-
-```
-
-#### vs code plugin
-+ Python extension for Visual Studio Code(Microsoft)
 
 ### scrapy install
 
@@ -86,6 +21,8 @@ pip install pylint
 pip install autopep8
 pip install ipython
 ```
+
+<!--more-->
 
 #### scrapy version & help
 ```
@@ -240,7 +177,7 @@ class CountriesSpider(scrapy.Spider):
     name = 'countries'
     allowed_domains = ['www.worldometers.info']
 		# change http: to https:
-    start_urls = ['https://www.worldometers.info/']
+    start_urls = ['https://www.worldometers.info']
 
     def parse(self, response):
         pass
@@ -343,59 +280,6 @@ RuntimeError: There is no current event loop in thread 'Thread-1 (start)'.
   current.result = callback(  # type: ignore[misc]
 ```
 
-#### direct get web page
-```
-In [2]: r = scrapy.Request(url=" https://www.worldometers.info/world-population/population-by-country/")
-
-In [3]: fetch(r)
-2022-12-03 20:52:34 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET :///robots.txt>: Unsupported URL scheme '': no handler available for that scheme
-Traceback (most recent call last):
-  File "D:\app\python_env\myenv10_scrapy\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
-    result = context.run(
-  File "D:\app\python_env\myenv10_scrapy\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
-    return g.throw(self.type, self.value, self.tb)
-  File "D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\core\downloader\middleware.py", line 49, in process_request
-    return (yield download_func(request=request, spider=spider))
-  File "D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\utils\defer.py", line 72, in mustbe_deferred
-    result = f(*args, **kw)
-  File "D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 74, in download_request
-    raise NotSupported(f"Unsupported URL scheme '{scheme}': {self._notconfigured[scheme]}")
-scrapy.exceptions.NotSupported: Unsupported URL scheme '': no handler available for that scheme
----------------------------------------------------------------------------
-NotSupported                              Traceback (most recent call last)
-NotSupported: Unsupported URL scheme '': no handler available for that scheme
-
-During handling of the above exception, another exception occurred:
-
-NotSupported                              Traceback (most recent call last)
-Cell In[3], line 1
-----> 1 fetch(r)
-
-File D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\shell.py:110, in Shell.fetch(self, request_or_url, spider, redirect, **kwargs)
-    108 response = None
-    109 try:
---> 110     response, spider = threads.blockingCallFromThread(
-    111         reactor, self._schedule, request, spider)
-    112 except IgnoreRequest:
-    113     pass
-
-File D:\app\python_env\myenv10_scrapy\lib\site-packages\twisted\internet\threads.py:120, in blockingCallFromThread(reactor, f, *a, **kw)
-    118 result = queue.get()
-    119 if isinstance(result, failure.Failure):
---> 120     result.raiseException()
-    121 return result
-
-File D:\app\python_env\myenv10_scrapy\lib\site-packages\twisted\python\failure.py:504, in Failure.raiseException(self)
-    499 def raiseException(self) -> NoReturn:
-    500     """
-    501     raise the original exception, preserving traceback
-    502     information if available.
-    503     """
---> 504     raise self.value.with_traceback(self.tb)
-
-NotSupported: Unsupported URL scheme '': no handler available for that scheme
-```
-
 #### show body
 ```
 In [5]: response.body
@@ -481,7 +365,7 @@ class CountriesSpider(scrapy.Spider):
     name = 'countries'
     allowed_domains = ['www.worldometers.info']
     # start_urls = ['https://www.worldometers.info/']
-    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
     def parse(self, response):
         title = response.xpath("//h1/text()").get()
@@ -610,7 +494,7 @@ class CountriesSpider(scrapy.Spider):
     name = 'countries'
     allowed_domains = ['www.worldometers.info']
     # start_urls = ['https://www.worldometers.info/']
-    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
     def parse(self, response):
         countries = response.xpath("//td/a")
@@ -651,7 +535,7 @@ class CountriesSpider(scrapy.Spider):
     name = 'countries'
     allowed_domains = ['www.worldometers.info']
     # start_urls = ['https://www.worldometers.info/']
-    start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
     def parse(self, response):
         countries = response.xpath("//td/a")
@@ -697,7 +581,7 @@ class CountriesSpider(scrapy.Spider):
   name = 'countries'
   allowed_domains = ['www.worldometers.info']
   # start_urls = ['https://www.worldometers.info/']
-  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
   def parse(self, response):
     countries = response.xpath("//td/a")
@@ -750,7 +634,7 @@ class CountriesSpider(scrapy.Spider):
   name = 'countries'
   allowed_domains = ['www.worldometers.info']
   # start_urls = ['https://www.worldometers.info/']
-  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
   country_name = ''
 
   def parse(self, response):
@@ -806,7 +690,7 @@ class CountriesSpider(scrapy.Spider):
   name = 'countries'
   allowed_domains = ['www.worldometers.info']
   # start_urls = ['https://www.worldometers.info/']
-  start_urls = ['https://www.worldometers.info/world-population/population-by-country/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
   def parse(self, response):
     countries = response.xpath("//td/a")
@@ -911,7 +795,7 @@ class GdpDebtSpider(scrapy.Spider):
     name = 'gdp_debt'
     allowed_domains = ['worldpopulationreview.com']
     # start_urls = ['http://worldpopulationreview.com/']
-    start_urls = ['https://worldpopulationreview.com/country-rankings/countries-by-national-debt/']
+    start_urls = ['https://worldpopulationreview.com/country-rankings/countries-by-national-debt']
 
     def parse(self, response):
         rows = response.xpath("//tbody/tr")
@@ -1454,167 +1338,3 @@ scrapy crawl products -o products.json
     }
 ]
 ```
-
-### XPath expression & CSS selectors
-
-#### test html for CSS selectors
-``` html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>XPath and CSS Selectors</title>
-</head>
-
-<body>
-    <h1>CSS Selectors simplified</h1>
-    <div class="intro">
-        <p>
-            I'm paragraph within a div with a class set to intro
-            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
-        </p>
-        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
-    </div>
-    <p>Hi i'm placed immediately after a div with a class set to intro</p>
-    <span class='intro'>Div with a class attribute set to intro</span>
-
-    <ul id="items">
-        <li data-identifier="7">Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-    </ul>
-
-    <a href="https://www.google.com">Google</a>
-    <a href="http://www.google.fr">Google France</a>
-
-    <p class='bold italic'>Hi, I have two classes</p>
-    <p class='bold'>Hi i'm bold</p>
-</body>
-
-</html>
-```
-
-#### test html for XPath expression
-``` html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>XPath and CSS Selectors</title>
-</head>
-
-<body>
-    <h1>XPath Selectors simplified</h1>
-
-    <div class="intro">
-        <p>
-            I'm paragraph within a div with a class set to intro
-            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
-        </p>
-        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
-    </div>
-
-    <div class="outro">
-        <p id="unique">I'm in a div with a class attribute set to outro</p>
-    </div>
-
-    <p>Hi i'm placed immediately after a div</p>
-
-    <span class='intro'>Div with a class attribute set to intro</span>
-
-    <ul id="items">
-        <li data-identifier="7">Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-    </ul>
-
-    <a href="https://www.google.com">Google</a>
-    <a href="http://www.google.fr">Google France</a>
-</body>
-
-</html>
-```
-
-#### CSS selectors
-```
-li[data-identifier=7]
-a[href^='https']
-a[href$='fr']
-a[href*='google']
-
-div.intro
-div.intro p, #location
-
-# all children
-div.intro > p 
-#items  > li
-
-# 後面第一個(非內部)
-div.intro + p
-
-# 後面所有(非內部)
-div.intro ~ p
-
-# li 同層的 item
-li:nth-child(1), li:nth-child(3)
-li:nth-child(odd)
-li:nth-child(even)
-```
-
-#### XPath expression
-```
-//div[@class="intro" or @class='outro']/p/text()
-//a[starts-with(@href,'https')]
-
-# not support XPath version 1
-//a[ends-with(@href,'fr')] 
-
-//a[contains(@href,'fr')]
-//a[contains(@href,'google')]
-//a[contains(text(),'France')]
-//ul[@id='items']/li[1]
-//ul[@id='items']/li[position()=1 or position()=4]
-//ul[@id='items']/li[position()=1 or position()=last()]
-//ul[@id='items']/li[position()>1]
-
-//p[@id='unique']/parent::div
-//p[@id='unique']/parent::node()
-# 所有 ancestor
-//p[@id='unique']/ancestor::node()
-# 包含本身
-//p[@id='unique']/ancestor-or-self::node()
-
-# 之前的 element
-//p[@id='unique']/preceding::node()
-//p[@id='unique']/preceding::h1
-# nothing
-//p[@id='unique']/preceding::body
-# 之前的 element(同層)
-//p[@id='outside']/preceding-sibling::node()
-
-//div[@class='intro']/child::p
-//div[@class='intro']/child::node()
-# 後面所有 element
-//div[@class='intro']/following::node() 後面所有 element
-//div[@class='intro']/following-sibling::node()
-# 內層
-//div[@class='intro']/descendant::node()
-```
-
-### Tool
-#### Evaluate and validate XPath/CSS selectors in Chrome Developer Tools
-+ open Chrome Devtools
-+ select Elements
-+ Press `Ctrl` + `F` enable DOM searching
-
-#### VscCode automatically formatted the JSON file
-+ press `Alt` + `sheft` + `F`
-
-### Ref
-[CSS selectors practice](https://try.jsoup.org/)
-[XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
-[XPath Expressions and CSS Selectors](https://www.qafox.com/xpath-expressions-css-selectors/)
-[W3C XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
-[W3C CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.php)
