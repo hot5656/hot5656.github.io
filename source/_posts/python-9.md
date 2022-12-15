@@ -385,6 +385,11 @@ Usage
 parse: error: Invalid -m/--meta value, pass a valid json string to -m or --meta. Example: --meta='{"foo" : "bar"}'
 ```
 
+```
+scrapy parse --spider=gdb_debt -c parse https://worldpopulationreview.com/country-rankings/countries-by-national-debt
+scrapy crawl gdp_debt
+```
+
 ### XPath expression & CSS selectors
 
 #### test html for CSS selectors
