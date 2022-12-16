@@ -373,7 +373,52 @@ class SpecialOffersSpider(scrapy.Spider):
 ```
 
 ### Debug
-#### Parse Command¶
+#### Parse Command
+<font color=red>
+	Seem scrapy has issue
+</font>
+
+``` py
+import scrapy
+# from scrapy.shell import inspect_response
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
+
+  def parse(self, response):
+    countries = response.xpath("//td/a")
+    for country in countries:
+      name = country.xpath(".//text()").get()
+      link = country.xpath(".//@href").get()
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      # add meta for callback parameter
+      yield response.follow(url=link, callback=self.parse_country, meta={'country_name': name})
+
+  def parse_country(self, response):
+    # inspect_response(response, self)
+
+    # add meta for callback parameter
+    name = response.request.meta['country_name']
+    rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    for row in rows:
+      year = row.xpath("./td[1]/text()").get()
+      population = row.xpath("./td[2]/strong/text()").get()
+      yield {
+        'country_name' : name,
+        'year' : year,
+        'population': population
+      }
+```
+
 ``` bash
 # seem scrapy have meta's issue
 (myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>
@@ -385,10 +430,278 @@ Usage
 parse: error: Invalid -m/--meta value, pass a valid json string to -m or --meta. Example: --meta='{"foo" : "bar"}'
 ```
 
+#### Scrapy Shell
+<font color=red>
+	Seem scrapy has issue
+</font>
+
+``` py
+import scrapy
+from scrapy.shell import inspect_response
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
+
+  def parse(self, response):
+    countries = response.xpath("//td/a")
+    for country in countries:
+      name = country.xpath(".//text()").get()
+      link = country.xpath(".//@href").get()
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      # add meta for callback parameter
+      yield response.follow(url=link, callback=self.parse_country, meta={'country_name': name})
+
+  def parse_country(self, response):
+    inspect_response(response, self)
+
+    # add meta for callback parameter
+    # name = response.request.meta['country_name']
+    # rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    # for row in rows:
+    #   year = row.xpath("./td[1]/text()").get()
+    #   population = row.xpath("./td[2]/strong/text()").get()
+    #   yield {
+    #     'country_name' : name,
+    #     'year' : year,
+    #     'population': population
+    #   }
 ```
-scrapy parse --spider=gdb_debt -c parse https://worldpopulationreview.com/country-rankings/countries-by-national-debt
-scrapy crawl gdp_debt
+
+``` bash
+scrapy crawl countries
+# It doesn't open scrapy shell after run
+# seem scrapy issue 
 ```
+
+#### Open in browser
+``` py
+import scrapy
+from scrapy.utils.response import open_in_browser
+
+class CountriesSpider(scrapy.Spider):
+  name = 'countries'
+  allowed_domains = ['www.worldometers.info']
+  # start_urls = ['https://www.worldometers.info/']
+  start_urls = ['https://www.worldometers.info/world-population/population-by-country']
+
+  def parse(self, response):
+    # countries = response.xpath("//td/a")
+    # for country in countries:
+    #   name = country.xpath(".//text()").get()
+    #   link = country.xpath(".//@href").get()
+
+      # absolute url
+      # absolute_url = f'https://www.worldometers.info{link}'
+      # absolute_url = response.urljoin(link)
+      # yield scrapy.Request(url=absolute_url)
+
+      # relative url
+      # add meta for callback parameter
+    yield response.follow(url="https://www.worldometers.info/world-population/china-population/", callback=self.parse_country, meta={'country_name': 'China'})
+
+  def parse_country(self, response):
+    open_in_browser(response)
+
+    # add meta for callback parameter
+    # name = response.request.meta['country_name']
+    # rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
+    # for row in rows:
+    #   year = row.xpath("./td[1]/text()").get()
+    #   population = row.xpath("./td[2]/strong/text()").get()
+    #   yield {
+    #     'country_name' : name,
+    #     'year' : year,
+    #     'population': population
+    #   }
+```
+
+``` bash
+scrapy crawl countries
+# then browser open
+```
+
+``` bash
+# Anaconda download
+# install virtual machine
+# install scrapy
+(virtual_3_7_spider) C:\Users\robertkao>conda install -c conda-forge scrapy==1.6 pylint autopep8 -y
+# check version
+(virtual_3_7_spider) C:\Users\robertkao>scrapy
+```
+
+``` bash
+(virtual_3_7_spider) D:\work\run\python_crawler>scrapy startproject worldometers
+New Scrapy project 'worldometers', using template directory 'D:\app\Anaconda3\envs\virtual_3_7_spider\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\worldometers
+
+You can start your first spider with:
+    cd worldometers
+    scrapy genspider example example.com
+
+(virtual_3_7_spider) D:\work\run\python_crawler>cd worldometers
+
+(virtual_3_7_spider) D:\work\run\python_crawler\worldometers>scrapy genspider countries www.worldometers.info/world-population/population-by-country
+Created spider 'countries' using template 'basic' in module:
+  worldometers.spiders.countries
+```
+
+``` py
+# -*- coding: utf-8 -*-
+import scrapy
+
+class CountriesSpider(scrapy.Spider):
+    name = 'countries'
+    allowed_domains = ['www.worldometers.info']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country']
+
+    def parse(self, response):
+        pass
+```
+
+``` bash
+scrapy shell
+# found error : ImportError: cannot import name 'HTTPClientFactory' from 'twisted.web.client' (unknown location)
+# change twisted version from 22.4.0 to 21.7.0 solved the problem
+conda uninstall twisted
+conda install twisted==21.7.0 -y
+# test scrapy shell ok
+scrapy shell
+```
+
+``` py
+# -*- coding: utf-8 -*-
+import scrapy
+
+
+class CountriesSpider(scrapy.Spider):
+    name = 'countries'
+    allowed_domains = ['www.worldometers.info']
+    start_urls = ['https://www.worldometers.info/world-population/population-by-country']
+
+    def parse(self, response):
+        title = response.xpath("//h1/text()").get()
+        countries = response.xpath("//td/a/text()").getall()
+
+        yield {
+          'tittle': title,
+          'counties': countries
+        }
+```
+
+``` bash
+# test ok
+scrapy crawl countries
+```
+
+``` bash
+PS D:\work\run\python_crawler\102-conda\worldometers> scrapy parse --spider=countries -c parse_country --meta='{\"country_name\" : \"China\"}' https://www.worldometers.info/world-population/china-population/
+2022-12-16 16:16:28 [scrapy.utils.log] INFO: Scrapy 2.6.2 started (bot: worldometers)
+2022-12-16 16:16:28 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 1.21.0, Twisted 22.2.0, Python 3.9.13 (main, Aug 25 2022, 23:51:50) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 22.0.0 (OpenSSL 1.1.1s  1 Nov 2022), cryptography 37.0.1, Platform Windows-10-10.0.19044-SP0
+2022-12-16 16:16:28 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'worldometers',
+ 'NEWSPIDER_MODULE': 'worldometers.spiders',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['worldometers.spiders']}
+2022-12-16 16:16:28 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.selectreactor.SelectReactor
+2022-12-16 16:16:28 [scrapy.extensions.telnet] INFO: Telnet Password: 446a57845c238b66
+2022-12-16 16:16:28 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2022-12-16 16:16:28 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2022-12-16 16:16:28 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2022-12-16 16:16:28 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2022-12-16 16:16:28 [scrapy.core.engine] INFO: Spider opened
+2022-12-16 16:16:28 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2022-12-16 16:16:28 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6024
+2022-12-16 16:16:29 [scrapy.core.engine] DEBUG: Crawled (404) <GET https://www.worldometers.info/robots.txt> (referer: None)
+2022-12-16 16:16:29 [protego] DEBUG: Rule at line 2 without any user agent to enforce it on.
+2022-12-16 16:16:29 [protego] DEBUG: Rule at line 10 without any user agent to enforce it on.
+2022-12-16 16:16:29 [protego] DEBUG: Rule at line 12 without any user agent to enforce it on.
+2022-12-16 16:16:29 [protego] DEBUG: Rule at line 14 without any user agent to enforce it on.
+2022-12-16 16:16:29 [protego] DEBUG: Rule at line 16 without any user agent to enforce it on.
+2022-12-16 16:16:29 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.worldometers.info/world-population/china-population/> (referer: None)
+2022-12-16 16:16:29 [scrapy.core.engine] INFO: Closing spider (finished)
+2022-12-16 16:16:29 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 494,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 13588,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/404': 1,
+ 'elapsed_time_seconds': 1.187387,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 16, 8, 16, 29, 771491),
+ 'httpcompression/response_bytes': 67695,
+ 'httpcompression/response_count': 2,
+ 'log_count/DEBUG': 8,
+ 'log_count/INFO': 10,
+ 'response_received_count': 2,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/404': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2022, 12, 16, 8, 16, 28, 584104)}
+2022-12-16 16:16:29 [scrapy.core.engine] INFO: Spider closed (finished)
+
+>>> STATUS DEPTH LEVEL 1 <<<
+# Scraped Items  ------------------------------------------------------------
+[{'country_name': 'China', 'population': '1,439,323,776', 'year': '2020'},
+ {'country_name': 'China', 'population': '1,433,783,686', 'year': '2019'},
+ {'country_name': 'China', 'population': '1,427,647,786', 'year': '2018'},
+ {'country_name': 'China', 'population': '1,421,021,791', 'year': '2017'},
+ {'country_name': 'China', 'population': '1,414,049,351', 'year': '2016'},
+ {'country_name': 'China', 'population': '1,406,847,870', 'year': '2015'},
+ {'country_name': 'China', 'population': '1,368,810,615', 'year': '2010'},
+ {'country_name': 'China', 'population': '1,330,776,380', 'year': '2005'},
+ {'country_name': 'China', 'population': '1,290,550,765', 'year': '2000'},
+ {'country_name': 'China', 'population': '1,240,920,535', 'year': '1995'},
+ {'country_name': 'China', 'population': '1,176,883,674', 'year': '1990'},
+ {'country_name': 'China', 'population': '1,075,589,361', 'year': '1985'},
+ {'country_name': 'China', 'population': '1,000,089,235', 'year': '1980'},
+ {'country_name': 'China', 'population': '926,240,885', 'year': '1975'},
+ {'country_name': 'China', 'population': '827,601,394', 'year': '1970'},
+ {'country_name': 'China', 'population': '724,218,968', 'year': '1965'},
+ {'country_name': 'China', 'population': '660,408,056', 'year': '1960'},
+ {'country_name': 'China', 'population': '612,241,554', 'year': '1955'}]
+
+# Requests  -----------------------------------------------------------------
+[]
+
+PS D:\work\run\python_crawler\102-conda\worldometers> 
+```
+
 
 ### XPath expression & CSS selectors
 

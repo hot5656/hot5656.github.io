@@ -811,7 +811,7 @@ class GdpDebtSpider(scrapy.Spider):
 
 #### run(wait new method)
 <font color=red>
-	Cannot get table "Debt to GDP Ratio by Country" : the web site reason
+	Cannot get table "Debt to GDP Ratio by Country" : the web site reason(data generate by JavaScript)
 </font>
 
 ###  [tinydeal](https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html)
