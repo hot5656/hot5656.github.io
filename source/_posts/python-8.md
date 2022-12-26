@@ -1338,3 +1338,465 @@ scrapy crawl products -o products.json
     }
 ]
 ```
+
+### imdb(crawl template)
+
+#### create project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject imdb
+New Scrapy project 'imdb', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\imdb
+
+You can start your first spider with:
+    cd imdb
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd imdb
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy genspider -t crawl best_movies imdb.com
+Created spider 'best_movies' using template 'crawl' in module:
+  imdb.spiders.best_movies
+```
+
+#### best_movies.py
+``` py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BestMoviesSpider(CrawlSpider):
+    name = 'best_movies'
+    allowed_domains = ['imdb.com']
+    start_urls = ['http://imdb.com/']
+
+    rules = (
+        Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+        # other link extractor condition
+        # Rule(LinkExtractor(deny=r'Items/'), callback='parse_item', follow=True),
+        # Rule(LinkExtractor(restrict_xpaths='//a[@class="active"]'), callback='parse_item', follow=True),
+        # Rule(LinkExtractor(restrict_css=''), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        item = {}
+        #item['domain_id'] = response.xpath('//input[@id="sid"]/@value').get()
+        #item['name'] = response.xpath('//div[@id="name"]').get()
+        #item['description'] = response.xpath('//div[@id="description"]').get()
+        return item
+```
+
+#### get link
+
+##### best_movies.py
+``` py
+# best_movies.py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BestMoviesSpider(CrawlSpider):
+    name = 'best_movies'
+    allowed_domains = ['imdb.com']
+    start_urls = ['https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc']
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths='//h3[@class="lister-item-header"]/a'), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        print("************")
+        print(response.url)
+```
+
+##### settings.py
+``` py
+# settings.py
+# if no change head, reaposne code 403
+# change default heads
+DEFAULT_REQUEST_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+} 
+```
+
+##### run
+``` bash
+# run
+myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+......
+2022-12-21 11:35:30 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc> (referer: None)
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+************
+https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0071562/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+************
+https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt
+************
+https://www.imdb.com/title/tt0071562/?ref_=adv_li_tt
+************
+https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+************
+https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 11:35:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+......
+```
+
+#### get movies information
+##### runner.py
+``` py
+# runner.py for imdb.spiders.best_movies
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+# set crawl code
+from imdb.spiders.best_movies import BestMoviesSpider
+
+# get configure
+process = CrawlerProcess(settings=get_project_settings())
+# set crawl entry
+process.crawl(BestMoviesSpider)
+process.start()
+```
+
+##### best_movies.py
+``` py
+# best_movies.py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BestMoviesSpider(CrawlSpider):
+    name = 'best_movies'
+    allowed_domains = ['imdb.com']
+    start_urls = ['https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc']
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths='//h3[@class="lister-item-header"]/a'), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        yield {
+            'title': response.xpath("//div[@class='sc-80d4314-1 fbQftq']/h1/text()").get(),
+            'year': response.xpath("//span[@class='sc-8c396aa2-2 itZqyK']/text()").get(),
+            'duration': ''.join(response.xpath("//ul[@class='ipc-inline-list ipc-inline-list--show-dividers sc-8c396aa2-0 kqWovI baseAlt']/li[3]/text()").getall()),
+            'genre': response.xpath("//div[@class='ipc-chip-list__scroller']/a/span/text()").getall(),
+            'rating': response.xpath("//div[@data-testid='hero-rating-bar__aggregate-rating__score']/span[1]/text()").get(),
+            'movie_url': response.url
+        }
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+......
+2022-12-21 15:57:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt>
+{'title': '十二怒漢', 'year': '1957', 'duration': '1h 36m', 'genre': ['Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt'}
+2022-12-21 15:57:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 15:57:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 15:57:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt>
+{'title': '辛德勒的名單', 'year': '1993', 'duration': '3h 15m', 'genre': ['Biography', 'Drama', 'History'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt'}
+2022-12-21 15:57:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt>
+{'title': '教父', 'year': '1972', 'duration': '2h 55m', 'genre': ['Crime', 'Drama'], 'rating': '9.2', 'movie_url': 'https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt'}
+2022-12-21 15:57:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 15:57:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 15:57:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt>
+{'title': '黑色追緝令', 'year': '1994', 'duration': '2h 34m', 'genre': ['Crime', 'Drama'], 'rating': '8.9', 'movie_url': 'https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt'}
+2022-12-21 15:57:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt>
+......
+{'downloader/request_bytes': 30424,
+ 'downloader/request_count': 52,
+ 'downloader/request_method_count/GET': 52,
+ 'downloader/response_bytes': 9412156,
+ 'downloader/response_count': 52,
+ 'downloader/response_status_count/200': 52,
+ 'elapsed_time_seconds': 15.156407,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 21, 9, 5, 16, 429558),
+ 'httpcompression/response_bytes': 51156690,
+ 'httpcompression/response_count': 50,
+ # item_scraped_count
+ 'item_scraped_count': 50,
+ 'log_count/DEBUG': 109,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 1,
+ 'response_received_count': 52,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 51,
+ 'scheduler/dequeued/memory': 51,
+ 'scheduler/enqueued': 51,
+ 'scheduler/enqueued/memory': 51,
+ 'start_time': datetime.datetime(2022, 12, 21, 9, 5, 1, 273151)}
+2022-12-21 17:05:16 [scrapy.core.engine] INFO: Spider closed (finished)
+```
+
+#### Following liks in pagination
+
+##### best_movies.py
+``` py
+# best_movies.py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BestMoviesSpider(CrawlSpider):
+    name = 'best_movies'
+    allowed_domains = ['imdb.com']
+    start_urls = ['https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc']
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths="//h3[@class='lister-item-header']/a"), callback='parse_item', follow=True),
+		Rule(LinkExtractor(restrict_xpaths="(//a[@class='lister-page-next next-page'])[2]"))
+    )
+
+    def parse_item(self, response):
+        yield {
+            'title': response.xpath("//div[@class='sc-80d4314-1 fbQftq']/h1/text()").get(),
+            'year': response.xpath("//span[@class='sc-8c396aa2-2 itZqyK']/text()").get(),
+            'duration': ''.join(response.xpath("//ul[@class='ipc-inline-list ipc-inline-list--show-dividers sc-8c396aa2-0 kqWovI baseAlt']/li[3]/text()").getall()),
+            'genre': response.xpath("//div[@class='ipc-chip-list__scroller']/a/span/text()").getall(),
+            'rating': response.xpath("//div[@data-testid='hero-rating-bar__aggregate-rating__score']/span[1]/text()").get(),
+            'movie_url': response.url
+        }
+```
+
+##### run
+``` bash
+# run
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+......
+2022-12-21 17:12:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 17:12:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 17:12:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt>
+{'title': '十二怒漢', 'year': '1957', 'duration': '1h 36m', 'genre': ['Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt'}
+2022-12-21 17:12:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 17:12:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt>
+{'title': '辛德勒的名單', 'year': '1993', 'duration': '3h 15m', 'genre': ['Biography', 'Drama', 'History'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt'}
+2022-12-21 17:12:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 17:12:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt>
+{'title': '黑暗騎士', 'year': '2008', 'duration': '2h 32m', 'genre': ['Action', 'Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt'}
+2022-12-21 17:12:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt>
+{'title': '刺激1995', 'year': '1994', 'duration': '2h 22m', 'genre': ['Drama'], 'rating': '9.3', 'movie_url': 'https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt'}
+......
+{'downloader/request_bytes': 135320,
+ 'downloader/request_count': 186,
+ 'downloader/request_method_count/GET': 186,
+ 'downloader/response_bytes': 33685481,
+ 'downloader/response_count': 186,
+ 'downloader/response_status_count/200': 186,
+ 'elapsed_time_seconds': 37.338221,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 21, 9, 15, 57, 911814),
+ 'httpcompression/response_bytes': 183562546,
+ 'httpcompression/response_count': 181,
+ 'item_scraped_count': 181,
+ 'log_count/DEBUG': 374,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 4,
+  # item_scraped_count
+ 'response_received_count': 186,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 185,
+ 'scheduler/dequeued/memory': 185,
+ 'scheduler/enqueued': 185,
+ 'scheduler/enqueued/memory': 185,
+ 'start_time': datetime.datetime(2022, 12, 21, 9, 15, 20, 573593)}
+2022-12-21 17:15:57 [scrapy.core.engine] INFO: Spider closed (finished)
+```
+
+#### add reguest heads
+
+##### best_movies.py
+``` py
+# best_movies.py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BestMoviesSpider(CrawlSpider):
+    name = 'best_movies'
+    allowed_domains = ['imdb.com']
+
+	# change user agent
+    # start_urls = ['https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc']
+    user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+
+    def start_requests(self):
+        yield scrapy.Request(url='https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc', headers={
+        	'User-Agent': self.user_agent
+        })
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths="//h3[@class='lister-item-header']/a"), callback='parse_item', follow=True, process_request='set_user_agent'),
+		# add next page rule
+		Rule(LinkExtractor(restrict_xpaths="(//a[@class='lister-page-next next-page'])[2]"))
+    )
+
+
+	# for scrappier 2.0
+    def set_user_agent(self, request, spider):
+        request.headers['User-Agent'] = self.user_agent
+        return request
+
+    def parse_item(self, response):
+        yield {
+            'title': response.xpath("//div[@class='sc-80d4314-1 fbQftq']/h1/text()").get(),
+            'year': response.xpath("//span[@class='sc-8c396aa2-2 itZqyK']/text()").get(),
+            'duration': ''.join(response.xpath("//ul[@class='ipc-inline-list ipc-inline-list--show-dividers sc-8c396aa2-0 kqWovI baseAlt']/li[3]/text()").getall()),
+            'genre': response.xpath("//div[@class='ipc-chip-list__scroller']/a/span/text()").getall(),
+            'rating': response.xpath("//div[@data-testid='hero-rating-bar__aggregate-rating__score']/span[1]/text()").get(),
+            'movie_url': response.url,
+            'user-agent': response.request.headers['User-Agent']
+        }
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+......
+2022-12-21 20:08:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc> (referer: None)
+2022-12-21 20:08:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt>
+{'title': 'Pulp Fiction', 'year': '1994', 'duration': '2h 34m', 'genre': ['Crime', 'Drama'], 'rating': '8.9', 'movie_url': 'https://www.imdb.com/title/tt0110912/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0071562/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0071562/?ref_=adv_li_tt>
+{'title': 'The Godfather Part II', 'year': '1974', 'duration': '3h 22m', 'genre': ['Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0071562/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt>
+{'title': 'The Lord of the Rings: The Return of the King', 'year': '2003', 'duration': '3h 21m', 'genre': ['Action', 'Adventure', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0167260/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt>
+{'title': 'The Dark Knight', 'year': '2008', 'duration': '2h 32m', 'genre': ['Action', 'Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0468569/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt>
+{'title': 'The Shawshank Redemption', 'year': '1994', 'duration': '2h 22m', 'genre': ['Drama'], 'rating': '9.3', 'movie_url': 'https://www.imdb.com/title/tt0111161/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt>
+{'title': "Schindler's List", 'year': '1993', 'duration': '3h 15m', 'genre': ['Biography', 'Drama', 'History'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0108052/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt>
+{'title': '12 Angry Men', 'year': '1957', 'duration': '1h 36m', 'genre': ['Crime', 'Drama'], 'rating': '9.0', 'movie_url': 'https://www.imdb.com/title/tt0050083/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt>
+{'title': 'The Godfather', 'year': '1972', 'duration': '2h 55m', 'genre': ['Crime', 'Drama'], 'rating': '9.2', 'movie_url': 'https://www.imdb.com/title/tt0068646/?ref_=adv_li_tt', 'user-agent': b'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
+2022-12-21 20:08:55 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://www.imdb.com/title/tt15097216/?ref_=adv_li_tt> (referer: https://www.imdb.com/search/title/?genres=drama&groups=top_250&sort=user_rating,desc)
+2022-12-21 20:08:55 [scrapy.core.scraper] DEBUG: Scraped from <200 https://www.imdb.com/title/tt15097216/?ref_=adv_li_tt>
+.....
+{'downloader/request_bytes': 153035,
+ 'downloader/request_count': 186,
+ 'downloader/request_method_count/GET': 186,
+ 'downloader/response_bytes': 33336260,
+ 'downloader/response_count': 186,
+ 'downloader/response_status_count/200': 186,
+ 'elapsed_time_seconds': 37.364846,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 21, 12, 9, 27, 445944),
+ 'httpcompression/response_bytes': 182944864,
+ 'httpcompression/response_count': 181,
+ 'item_scraped_count': 181,
+ 'log_count/DEBUG': 374,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 4,
+ 'response_received_count': 186,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 185,
+ 'scheduler/dequeued/memory': 185,
+ 'scheduler/enqueued': 185,
+ 'scheduler/enqueued/memory': 185,
+ 'start_time': datetime.datetime(2022, 12, 21, 12, 8, 50, 81098)}
+2022-12-21 20:09:27 [scrapy.core.engine] INFO: Spider closed (finished)
+```
+
+### books.toscrape.com
+#### generate project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject toscrape
+New Scrapy project 'toscrape', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\toscrape
+You can start your first spider with:
+    cd toscrape
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd toscrape
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\toscrape>scrapy genspider -t crawl books www.udemy.com/course/web-scraping-in-python-using-scrapy-and-splash/learn/lecture/16263060#overview
+Created spider 'books' using template 'crawl' in module:
+  toscrape.spiders.books
+```
+
+#### books.py
+``` py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class BooksSpider(CrawlSpider):
+    name = 'books'
+    allowed_domains = ['books.toscrape.com']
+    start_urls = ['http://books.toscrape.com/']
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths='//h3/a'), callback='parse_item', follow=True),
+        Rule(LinkExtractor(restrict_xpaths="//li[@class='next']/a"))
+    )
+
+
+    def parse_item(self, response):
+        yield {
+            'book_name': response.xpath("//h1/text()").get(),
+            'book_price': response.xpath("//p[@class='price_color']/text()").get()
+        }
+```
+
+#### run
+``` bash
+scrapy crawl books -o books.csv
+......
+2022-12-21 22:31:40 [scrapy.core.scraper] DEBUG: Scraped from <200 http://books.toscrape.com/catalogue/jane-eyre_27/index.html>
+{'book_name': 'Jane Eyre', 'book_price': '£38.43'}
+2022-12-21 22:31:40 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://books.toscrape.com/catalogue/page-50.html> (referer: http://books.toscrape.com/catalogue/page-49.html)
+2022-12-21 22:31:41 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://books.toscrape.com/catalogue/frankenstein_20/index.html> (referer: http://books.toscrape.com/catalogue/page-50.html)
+2022-12-21 22:31:41 [scrapy.core.scraper] DEBUG: Scraped from <200 http://books.toscrape.com/catalogue/frankenstein_20/index.html>
+{'book_name': 'Frankenstein', 'book_price': '£38.00'}
+2022-12-21 22:31:41 [scrapy.core.engine] INFO: Closing spider (finished)
+2022-12-21 22:31:41 [scrapy.extensions.feedexport] INFO: Stored csv feed (1000 items) in: books.csv
+2022-12-21 22:31:41 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 379636,
+ 'downloader/request_count': 1051,
+ 'downloader/request_method_count/GET': 1051,
+ 'downloader/response_bytes': 22126017,
+ 'downloader/response_count': 1051,
+ 'downloader/response_status_count/200': 1050,
+ 'downloader/response_status_count/404': 1,
+ 'dupefilter/filtered': 5979,
+ 'elapsed_time_seconds': 50.440181,
+ 'feedexport/success_count/FileFeedStorage': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2022, 12, 21, 14, 31, 41, 402564),
+ 'item_scraped_count': 1000,
+ 'log_count/DEBUG': 2055,
+ 'log_count/INFO': 11,
+ 'request_depth_max': 51,
+ 'response_received_count': 1051,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/404': 1,
+ 'scheduler/dequeued': 1050,
+ 'scheduler/dequeued/memory': 1050,
+ 'scheduler/enqueued': 1050,
+ 'scheduler/enqueued/memory': 1050,
+ 'start_time': datetime.datetime(2022, 12, 21, 14, 30, 50, 962383)}
+2022-12-21 22:31:41 [scrapy.core.engine] INFO: Spider closed (finished)
+```

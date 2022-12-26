@@ -167,6 +167,32 @@ def make_coff(coffee, money):
     profile += money
 ```
 
+#### string
++ join 
+``` py
+# array join to string
+# .join() with sets
+test = {'2', '1', '3'}
+s = ', '
+print(s.join(test))
+# 2, 3, 1
+test = {'Python', 'Java', 'Ruby'}
+s = '->->'
+print(s.join(test))
+# Python->->Ruby->->Java
+''.join(response.xpath("//ul[@class='ipc-inline-list ipc-inline-list--show-dividers sc-8c396aa2-0 kqWovI baseAlt']/li[3]/text()").getall())
+```
+
++ normalize-space
+``` py
+# All leading whitespace is removed.
+# All trailing whitespace is removed.
+# Within the string, any sequence of whitespace characters is replaced with a single space.
+# Removes all new lines and tabs present in a string
+str = "   cher      cher     tech     "
+normalize-space(string) // outputs "cher cher tech"
+```
+
 #### array
 ``` py
 rticles = []
@@ -536,3 +562,4 @@ trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).fi
 + [set() 函数](https://www.runoob.com/python/python-func-set.html)
 + [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
 + [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
++ [chercher.tech](https://chercher.tech/)
