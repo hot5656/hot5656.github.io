@@ -118,6 +118,11 @@ pip install autopep8
 pip install ipython
 ```
 
+#### install pymongo & dnspython(for MongoDB)
+``` bash
+pip install pymongo dnspython
+```
+
 #### install scrapy by conda
 ##### insatll scrapy
 ``` bash
@@ -577,6 +582,130 @@ class BestMoviesSpider(CrawlSpider):
             'user-agent': response.request.headers['User-Agent']
         }
 ```
+### Pipelines
+#### enabel pipelines
++ add log at open_spider and close_spider
++ get setting value
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# enable pipleline
+ITEM_PIPELINES = {
+   'imdb.pipelines.ImdbPipeline': 300
+   # if add filter, need have higher pripority
+   # 'imdb.pipelines.FillterDuplicate': 100,
+}
+
+MONGO_URL = "Hello World"
+```
+
+##### pipelines.py
+``` py
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+# add loggin to open_spider and close_spider
+import logging
+
+class ImdbPipeline:
+
+    # add get setting value
+    @classmethod
+    def from_crawler(cls, crawler):
+        logging.warning(crawler.settings.get("MONGO_URL"))
+        return cls()
+
+    # add loggin to open_spider and close_spider
+    def open_spider(self, spider):
+        logging.warning("SPIDER OPEND FROM PIPLINE")
+
+    # add loggin to open_spider and close_spider
+    def close_spider(self, spider):
+        logging.warning("SPIDER CLOSE FROM PIPLINE")
+
+    def process_item(self, item, spider):
+        return item
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+......
+# get setting value
+2022-12-27 13:54:48 [root] WARNING: Hello World
+2022-12-27 13:54:48 [scrapy.middleware] INFO: Enabled item pipelines:
+['imdb.pipelines.ImdbPipeline']
+2022-12-27 13:54:48 [scrapy.core.engine] INFO: Spider opened
+# open spider
+2022-12-27 13:54:48 [root] WARNING: SPIDER OPEND FROM PIPLINE
+......
+2022-12-27 13:55:29 [scrapy.core.engine] INFO: Closing spider (finished)
+# close spider
+2022-12-27 13:55:29 [root] WARNING: SPIDER CLOSE FROM PIPLINE
+2022-12-27 13:55:29 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+......
+```
+
+#### Store data in MongoDB
+##### pipelines.py
+``` py
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+# for MongoDB
+import pymongo
+
+# for MongoDB - changhe name
+class MongodbPipeline:
+    collection_name = "best_movies"
+
+    def open_spider(self, spider):
+        # for MongoDB
+        self.client = pymongo.MongoClient("mongodb+srv://robert:testtest@cluster0.vpuxrtz.mongodb.net/?retryWrites=true&w=majority")
+        self.db = self.client["IMDB"]
+
+    def close_spider(self, spider):
+        # for MongoDB
+        self.client.close()
+
+    def process_item(self, item, spider):
+        # for MongoDB
+        self.db[self.collection_name].insert_one(item)
+        return item
+```
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# enable pipleline - for MongoDB
+ITEM_PIPELINES = {
+   'imdb.pipelines.MongodbPipeline': 300
+}
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+```
+
+##### MongoDB
+<div style="max-width:700px">
+	{% asset_img pic13.png pic13 %}
+</div>
+
 
 ### Debug
 #### Parse Command
