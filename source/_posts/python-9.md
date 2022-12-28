@@ -707,6 +707,274 @@ ITEM_PIPELINES = {
 </div>
 
 
+#### Store data in SQLite3
+##### pipelines.py
+``` py
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+# for MongoDB
+import pymongo
+# for SQlite
+import sqlite3
+# for mongodb client link
+import mongodb_altas
+# delete imdb if exist
+# import os
+
+# for MongoDB - changhe name
+class MongodbPipeline:
+    collection_name = "best_movies"
+
+    def open_spider(self, spider):
+        # for MongoDB
+        # for mongodb client link
+        self.client = pymongo.MongoClient(mongodb_altas.mogodb_link)
+        self.db = self.client["IMDB"]
+
+    def close_spider(self, spider):
+        # for MongoDB
+        self.client.close()
+
+    def process_item(self, item, spider):
+        # for MongoDB
+        self.db[self.collection_name].insert_one(item)
+        return item
+
+# for SQlite
+class SQLitePipeline:
+
+    def open_spider(self, spider):
+        # delete imdb if exist
+        # if os.path.exists("imdb.db"):
+        #     os.remove("imdb.db")
+
+        self.connection = sqlite3.connect("imdb.db")
+        self.c = self.connection.cursor()
+        try:
+            self.c.execute('''
+                CREATE TABLE best_movies(
+                    title TEXT,
+                    year TEXT,
+                    duration TEXT,
+                    genre TEXT,
+                    rating TEXT,
+                    movie_url TEXT
+                )
+            ''')
+            self.connection.commit()
+        except sqlite3.OperationalError:
+            pass
+
+    def close_spider(self, spider):
+        self.connection.close()
+
+    def process_item(self, item, spider):
+        self.c.execute("""
+                INSERT INTO best_movies (title,year,duration,genre,rating,movie_url) values(?,?,?,?,?,?)
+            """,(
+                item.get('title'),
+                item.get('year'),
+                item.get('duration'),
+                ','.join(item.get('genre')),
+                item.get('rating'),
+                item.get('movie_url')
+            ))
+        self.connection.commit()
+        return item
+```
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# enable pipleline - for MongoDB
+# ITEM_PIPELINES = {
+#    'imdb.pipelines.MongodbPipeline': 300
+# }
+# enable pipleline - for SQlite
+# for SQlite
+ITEM_PIPELINES = {
+   'imdb.pipelines.SQLitePipeline': 300
+}
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\imdb>scrapy crawl best_movies
+```
+
+##### SQLite3
+<div style="max-width:700px">
+	{% asset_img pic14.png pic14 %}
+</div>
+
+
+### Scrapy API
+#### [Quotes to Scrape](http://quotes.toscrape.com/scroll)
+##### check API from chrom
+<div style="max-width:700px">
+	{% asset_img pic15.png pic15 %}
+</div>
+
+<div style="max-width:700px">
+	{% asset_img pic16.png pic16 %}
+</div>
+
+##### create project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject demo_api
+New Scrapy project 'demo_api', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\demo_api
+You can start your first spider with:
+    cd demo_api
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd demo_api
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_api>scrapy genspider quotes quotes.toscrape.com
+Created spider 'quotes' using template 'basic' in module:
+  demo_api.spiders.quotes
+```
+
+##### quotes.py
+``` py
+import scrapy
+import json
+
+class QuotesSpider(scrapy.Spider):
+    name = 'quotes'
+    allowed_domains = ['quotes.toscrape.com']
+    start_urls = ['http://quotes.toscrape.com/api/quotes?page=1']
+
+    def parse(self, response):
+        # print(response.body)
+        resp = json.loads(response.body)
+        quotes = resp.get('quotes')
+        # print(quotes)
+        for quote in quotes:
+            yield {
+                'author': quote.get('author').get('name'),
+                'tags': quote.get('tags'),
+                'quote_test': quote.get('text')
+            }
+
+        page_next = resp.get('has_next')
+        if page_next:
+            next_page_number = resp.get('page') + 1
+            yield scrapy.Request(
+                url=f'http://quotes.toscrape.com/api/quotes?page={next_page_number}',
+                callback = self.parse
+            )
+```
+
+##### run
+``` bash
+PS D:\work\run\python_crawler\101-scrapy\demo_api> scrapy crawl quotes
+```
+
+#### [OPEN LIBRARY](https://openlibrary.org/subjects/picture_books)
+##### check API from chrom
+<div style="max-width:700px">
+	{% asset_img pic17.png pic17 %}
+</div>
+
+<div style="max-width:700px">
+	{% asset_img pic18.png pic18 %}
+</div>
+
+<div style="max-width:700px">
+	{% asset_img pic19.png pic19 %}
+</div>
+
+<div style="max-width:700px">
+	{% asset_img pic20.png pic20 %}
+</div>
+
+##### create spider
+``` bash
+PS D:\work\run\python_crawler\101-scrapy\demo_api> scrapy genspider ebooks "openlibrary.org/subjects/picture_books.json?limit=12&offset=12"
+Created spider 'ebooks' using template 'basic' in module:
+  demo_api.spiders.ebooks
+```
+
+##### ebooks.py
+``` py
+import scrapy
+from scrapy.exceptions import CloseSpider
+import json
+
+
+class EbookSpider(scrapy.Spider):
+    name = 'ebooks'
+    allowed_domains = ['openlibrary.org']
+    start_urls = ['https://openlibrary.org/subjects/picture_books.json?limit=12&offset=0']
+
+    INCREMENT_BY = 12
+    offset = 0
+
+    def parse(self, response):
+        resp = json.loads(response.body)
+
+        ebooks = resp.get('works')
+        print(ebooks)
+        for ebook in ebooks:
+            yield {
+                'title': ebook.get('title'),
+                'subject': ebook.get('subject')
+            }
+
+        if len(ebooks) == 0:
+            raise CloseSpider("Reached last page...")
+
+        self.offset  += self.INCREMENT_BY
+        yield scrapy.Request(
+            url=f'https://openlibrary.org/subjects/picture_books.json?limit=12&offset={self.offset}',
+            callback = self.parse
+        )
+``` 
+
+##### run
+``` bash
+PS D:\work\run\python_crawler\101-scrapy\demo_api> scrapy crawl ebooks
+.....
+2022-12-28 17:18:33 [scrapy.core.scraper] DEBUG: Scraped from <200 https://openlibrary.org/subjects/picture_books.json?limit=12&offset=15192>
+{'title': 'The red tractor', 'subject': ['Juvenile fiction', 'Farm life', 'Picture books', 'Fiction']}
+2022-12-28 17:18:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://openlibrary.org/subjects/picture_books.json?limit=12&offset=15204> (referer: https://openlibrary.org/subjects/picture_books.json?limit=12&offset=15192)
+[]
+2022-12-28 17:18:34 [scrapy.core.engine] INFO: Closing spider (Reached last page...)
+2022-12-28 17:18:34 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 1525,
+ 'downloader/request_count': 5,
+ 'downloader/request_method_count/GET': 5,
+ 'downloader/response_bytes': 55307,
+ 'downloader/response_count': 5,
+ 'downloader/response_status_count/200': 5,
+ 'elapsed_time_seconds': 3.215997,
+ 'finish_reason': 'Reached last page...',
+ 'finish_time': datetime.datetime(2022, 12, 28, 9, 18, 34, 167565),
+ 'httpcompression/response_bytes': 199,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 25,
+ 'log_count/DEBUG': 33,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 3,
+ 'response_received_count': 5,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 4,
+ 'scheduler/dequeued/memory': 4,
+ 'scheduler/enqueued': 4,
+ 'scheduler/enqueued/memory': 4,
+ 'start_time': datetime.datetime(2022, 12, 28, 9, 18, 30, 951568)}
+2022-12-28 17:18:34 [scrapy.core.engine] INFO: Spider closed (Reached last page...)
+``` 
+
 ### Debug
 #### Parse Command
 <font color=red>
@@ -1125,6 +1393,7 @@ li:nth-child(even)
 #### vs code plugin
 + Python extension for Visual Studio Code(Microsoft)
 + Python Environment Manager
++ SQLite : explore and query SQLite databases.
 
 #### excel 開  utf-8 .csv file
 <div style="width:500px">

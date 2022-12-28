@@ -555,6 +555,141 @@ else:
 trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).find('a')['href'], 'utf-8')
 ```
 
+### special function
+#### put password to local file
+##### pipelines.py
+``` py
+# for mongodb client link
+import mongodb_altas
+
+class MongodbPipeline:
+    collection_name = "best_movies"
+
+    def open_spider(self, spider):
+        # for mongodb client link
+        self.client = pymongo.MongoClient(mongodb_altas.mogodb_link)
+        self.db = self.client["IMDB"]
+``` 
+
+##### mongodb_altas.py
+``` py
+mogodb_link = "m......"
+```
+
+#### delete file if exist
+``` py
+# delete imdb if exist
+import os
+
+if os.path.exists("imdb.db"):
+    os.remove("imdb.db")
+```
+
+#### MongoDB
+``` py
+# for MongoDB
+import pymongo
+# for mongodb client link
+import mongodb_altas
+
+# for MongoDB - changhe name
+class MongodbPipeline:
+    collection_name = "best_movies"
+
+    def open_spider(self, spider):
+        # for MongoDB
+        # for mongodb client link
+        self.client = pymongo.MongoClient(mongodb_altas.mogodb_link)
+        self.db = self.client["IMDB"]
+
+    def close_spider(self, spider):
+        # for MongoDB
+        self.client.close()
+
+    def process_item(self, item, spider):
+        # for MongoDB
+        self.db[self.collection_name].insert_one(item)
+        return item
+```
+
+#### SQlite
+``` py
+# for SQlite
+import sqlite3
+# for mongodb client link
+import os
+
+# for SQlite
+class SQLitePipeline:
+
+    def open_spider(self, spider):
+
+        self.connection = sqlite3.connect("imdb.db")
+        self.c = self.connection.cursor()
+        try:
+            self.c.execute('''
+                CREATE TABLE best_movies(
+                    title TEXT,
+                    year TEXT,
+                    duration TEXT,
+                    genre TEXT,
+                    rating TEXT,
+                    movie_url TEXT
+                )
+            ''')
+            self.connection.commit()
+        except sqlite3.OperationalError:
+            pass
+
+    def close_spider(self, spider):
+        self.connection.close()
+
+    def process_item(self, item, spider):
+        self.c.execute("""
+                INSERT INTO best_movies (title,year,duration,genre,rating,movie_url) values(?,?,?,?,?,?)
+            """,(
+                item.get('title'),
+                item.get('year'),
+                item.get('duration'),
+                ','.join(item.get('genre')),
+                item.get('rating'),
+                item.get('movie_url')
+            ))
+        self.connection.commit()
+        return item
+```
+
+#### exception
+``` py
+# sqlite3 example
+import sqlite3
+
+self.connection = sqlite3.connect("imdb.db")
+self.c = self.connection.cursor()
+try:
+    self.c.execute('''
+        CREATE TABLE best_movies(
+            title TEXT,
+            year TEXT,
+            duration TEXT,
+            genre TEXT,
+            rating TEXT,
+            movie_url TEXT
+        )
+    ''')
+    self.connection.commit()
+except sqlite3.OperationalError:
+    pass
+
+# check json format
+def is_json(myjson):
+  try:
+    json.loads(myjson)
+  except ValueError as e:
+    return False
+  return True
+```
+
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
@@ -563,3 +698,4 @@ trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).fi
 + [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
 + [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
 + [chercher.tech](https://chercher.tech/)
++ [Python SQLite tutorial using sqlite3](https://pynative.com/python-sqlite/)
