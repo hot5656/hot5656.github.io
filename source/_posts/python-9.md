@@ -878,7 +878,7 @@ PS D:\work\run\python_crawler\101-scrapy\demo_api> scrapy crawl quotes
 ```
 
 #### [OPEN LIBRARY](https://openlibrary.org/subjects/picture_books)
-##### check API from chrom
+##### check API from chrome
 <div style="max-width:700px">
 	{% asset_img pic17.png pic17 %}
 </div>
@@ -974,6 +974,133 @@ PS D:\work\run\python_crawler\101-scrapy\demo_api> scrapy crawl ebooks
  'start_time': datetime.datetime(2022, 12, 28, 9, 18, 30, 951568)}
 2022-12-28 17:18:34 [scrapy.core.engine] INFO: Spider closed (Reached last page...)
 ``` 
+
+### Login to websites
+#### [Quote to Scrape](https://quotes.toscrape.com/login)
+
+##### check from chrome
+<div style="max-width:700px">
+	{% asset_img pic21.png pic21 %}
+</div>
+
+<div style="max-width:700px">
+	{% asset_img pic22.png pic22 %}
+</div>
+
+##### create project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject demo_login
+New Scrapy project 'demo_login', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\demo_login
+You can start your first spider with:
+    cd demo_login
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd demo_login
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy genspider quotes_login quotes.toscrape.com/login
+Created spider 'quotes_login' using template 'basic' in module:
+  demo_login.spiders.quotes_login
+```
+
+##### quotes_login.py
+``` py
+import scrapy
+from scrapy import FormRequest
+
+
+class QuotesLoginSpider(scrapy.Spider):
+    name = 'quotes_login'
+    allowed_domains = ['quotes.toscrape.com']
+    start_urls = ['https://quotes.toscrape.com/login']
+
+    def parse(self, response):
+        csrf_token = response.xpath('//input[@name="csrf_token"]/@value').get()
+        yield FormRequest.from_response(
+            response,
+            # no formxpath also ok
+            # formxpath='//form',
+            formdata= {
+                'csrf_token': csrf_token,
+                'username': 'admin',
+                'password': 'admin'
+            },
+            callback = self.after_login
+        )
+
+    def after_login(self, response):
+        if response.xpath("//a[@href='/logout']").get():
+            print('logged in...')
+``` 
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy crawl quotes_login
+......
+2022-12-29 11:48:34 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET http://quotes.toscrape.com/> from <POST https://quotes.toscrape.com/login>
+2022-12-29 11:48:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://quotes.toscrape.com/> (referer: None)
+logged in...
+2022-12-29 11:48:34 [scrapy.core.engine] INFO: Closing spider (finished)
+......
+```
+
+#### [Open Library](https://openlibrary.org/account/login)
+##### create spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy genspider openlibrary_login openlibrary.org/account/login
+Created spider 'openlibrary_login' using template 'basic' in module:
+  demo_login.spiders.openlibrary_login
+```
+
+##### open_library.py
+``` py
+username = 'xxx@....'
+password = 'p...'
+```
+
+##### openlibrary_login.py
+``` py
+import scrapy
+from scrapy import FormRequest
+import open_library
+
+
+class OpenlibaryLoginSpider(scrapy.Spider):
+    name = 'openlibrary_login'
+    allowed_domains = ['openlibrary.org']
+    start_urls = ['https://openlibrary.org/account/login']
+
+    def parse(self, response):
+        yield FormRequest.from_response(
+            response,
+            formid='register',
+            formdata = {
+                'username': open_library.username,
+                'password': open_library.password,
+                'redirect': '/',
+                'debug_token': '',
+                'login': '登录'
+            },
+            callback = self.after_login
+        )
+
+    def after_login(self, response):
+        print("=================")
+        if  response.xpath("//input[@type='password']").get():
+            print('login failed...')
+        else:
+            print('logged in...')
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy crawl openlibrary_login
+......
+=================
+logged in...
+......
+```
+
+
 
 ### Debug
 #### Parse Command
