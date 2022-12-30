@@ -1100,7 +1100,236 @@ logged in...
 ......
 ```
 
+#### [Aarchive Org](https://archive.org/account/login)
+##### create spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy genspider openlibrary_login2 archive.org/account/login
+Created spider 'openlibrary_login2' using template 'basic' in module:
+  demo_login.spiders.openlibrary_login2
+```
 
+##### openlibrary_login2.py
+``` py
+import scrapy
+from scrapy import FormRequest
+import open_library
+
+
+class OpenlibaryLoginSpider(scrapy.Spider):
+    name = 'openlibrary_login2'
+    allowed_domains = ['archive.org']
+    start_urls = ['https://archive.org/account/login']
+
+    def parse(self, response):
+        yield FormRequest.from_response(
+            response,
+            # formxpath also need
+            formxpath='//form[@class="iaform login-form"]',
+            formdata = {
+                'username': open_library.username,
+                'password': open_library.password,
+                # 'remember': response.xpath("//input[@name='remember']/@value").get(),
+                # 'referer': response.xpath("//input[@name='referer']/@value").get(),
+                # 'login': response.xpath("//input[@name='login']/@value").get(),
+                'login': 'true',
+                'remember': 'true',
+                'referer': 'https://archive.org/',
+                'submit-to-login': 'Log in'
+            },
+            callback = self.after_login
+        )
+
+    def after_login(self, response):
+        print("=================")
+        if  response.xpath("//input[@type='password']").get():
+            print('login failed...')
+        else:
+            print('logged in...')
+```
+
+##### run
+```
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy crawl openlibrary_login2
+=================
+......
+logged in...
+......
+```
+
+#### [Quote to Scrape](https://quotes.toscrape.com/login) - Script
+##### create spider
+``` bash
+myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy genspider quotes_login2 quotes.toscrape.com/login
+Created spider 'quotes_login2' using template 'basic' in module:
+  demo_login.spiders.quotes_login2
+```
+
+##### quotes_login2.py
+``` py
+import scrapy
+from scrapy_splash import SplashRequest, SplashFormRequest
+
+
+class QuotesLogin2Spider(scrapy.Spider):
+    name = 'quotes_login2'
+    allowed_domains = ['quotes.toscrape.com']
+    start_urls = ['http://quotes.toscrape.com/']
+
+
+    script = '''
+        -- https://quotes.toscrape.com/login
+        function main(splash, args)
+            assert(splash:go(args.url))
+            assert(splash:wait(0.5))
+            return splash:html()
+        en
+    '''
+
+    def start_requests(self):
+        yield SplashRequest(
+            url='https://quotes.toscrape.com/login',
+            endpoint='execute',
+            args = {
+                'lua_source': self.script
+            },
+            callback=self.parse
+        )
+
+    def parse(self, response):
+        csrf_token = response.xpath('//input[@name="csrf_token"]/@value').get()
+        yield SplashFormRequest.from_response(
+            response,
+            # no formxpath also ok
+            formxpath='//form',
+            formdata= {
+                'csrf_token': csrf_token,
+                'username': 'admin',
+                'password': 'admin'
+            },
+            callback = self.after_login
+        )
+
+    def after_login(self, response):
+        if response.xpath("//a[@href='/logout']").get():
+            print('logged in...')
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_login>scrapy crawl openlibrary_login2
+......
+=================
+logged in...
+......
+```
+
+### ByPass Cloudflare
+#### [CoinMarketCap](https://web.archive.org/web/20190101085451/https://coinmarketcap.com/) - block by status code 429(too many request)
+##### create project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject coinmarketcap
+New Scrapy project 'coinmarketcap', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\coinmarketcap
+You can start your first spider with:
+    cd coinmarketcap
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd coinmarketcap
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy genspider -t crawl coins https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
+Created spider 'coins' using template 'crawl' in module:
+  coinmarketcap.spiders.coins
+```
+
+##### coins.py
+``` py
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class CoinsSpider(CrawlSpider):
+    name = 'coins'
+    allowed_domains = ['web.archive.org']
+    start_urls = ['https://web.archive.org/web/20190101085451/https://coinmarketcap.com/']
+
+    rules = (
+        Rule(LinkExtractor(restrict_xpaths="//a[@class='currency-name-container link-secondary']"), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        item = {}
+        #item['domain_id'] = response.xpath('//input[@id="sid"]/@value').get()
+        #item['name'] = response.xpath('//div[@id="name"]').get()
+        #item['description'] = response.xpath('//div[@id="description"]').get()
+        yield {
+            'name': response.xpath("normalize-space((//h1/text())[2])").get(),
+            'rank': response.xpath("//span[@class='label label-success']/text()").get(),
+            'price(USD)': response.xpath("//span[@class='h2 text-semi-bold details-panel-item--price__value']/text()").get()
+        }
+        return item
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy crawl coins
+......
+2022-12-30 11:53:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101221303/https://coinmarketcap.com/currencies/ethereum/> (referer: https://web.archive.org/web/20190101085451/https://coinmarketcap.com/)
+2022-12-30 11:53:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20181231070605/https://coinmarketcap.com/currencies/bitcoin-cash/>
+{'name': 'Bitcoin Cash', 'rank': ' Rank 4', 'price(USD)': '160.12'}
+2022-12-30 11:53:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101221303/https://coinmarketcap.com/currencies/ethereum/>
+{'name': 'Ethereum', 'rank': ' Rank 3', 'price(USD)': '139.89'}
+# return code 429
+2022-12-30 11:53:54 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://web.archive.org/web/20190104162538/https://coinmarketcap.com/currencies/bitcoin-sv/> (failed 2 times): 429 Unknown Status
+2022-12-30 11:53:54 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://web.archive.org/web/20190104162517/https://coinmarketcap.com/currencies/theta/> from <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/theta/>
+2022-12-30 11:53:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190104162631/https://coinmarketcap.com/currencies/iota/> (referer: https://web.archive.org/web/20190101085451/https://coinmarketcap.com/)
+2022-12-30 11:53:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190104162631/https://coinmarketcap.com/currencies/iota/>
+......
+```
+
+#### fix block by status code 429
+##### install 
+``` bash
+xxx pip install scrapy_cloudflare_middleware
+
+xxx pip install cloudscraper
+
+pip install aroay-cloudscraper
+```
+
+##### settings.py
+``` py
+DOWNLOADER_MIDDLEWARES = {
+    # The priority of 560 is important, because we want this middleware to kick in just before the scrapy built-in `RetryMiddleware`.
+    'scrapy_cloudflare_middleware.middlewares.CloudFlareMiddleware': 560
+}
+```
+
+#### CloudFlare Middleware modify
+D:\app\python_env\myenv10_scrapy\Lib\site-packages\scrapy_cloudflare_middleware\middlewares.py
+``` py
+class CloudFlareMiddleware:
+    """Scrapy middleware to bypass the CloudFlare's anti-bot protection"""
+
+    @staticmethod
+    def is_cloudflare_challenge(response):
+        """Test if the given response contains the cloudflare's anti-bot protection"""
+
+        return (
+            # add handle for status code 429
+            # response.status == 503
+            response.status == 503 or response.status == 429
+            and response.headers.get('Server', '').startswith(b'cloudflare')
+            and 'jschl_vc' in response.text
+            and 'jschl_answer' in response.text
+        )
+```
+
+#### 2
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy genspider  coins2 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
+Created spider 'coins2' using template 'basic' in module:
+  coinmarketcap.spiders.coins2
+```
 
 ### Debug
 #### Parse Command
@@ -1533,9 +1762,11 @@ li:nth-child(even)
 
 
 ### Ref
-[CSS selectors practice](https://try.jsoup.org/)
-[XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
-[XPath Expressions and CSS Selectors](https://www.qafox.com/xpath-expressions-css-selectors/)
-[W3C XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
-[W3C CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.php)
-[Debugging Spiders(document)](https://docs.scrapy.org/en/latest/topics/debug.html)
++ [CSS selectors practice](https://try.jsoup.org/)
++ [XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
++ [XPath Expressions and CSS Selectors](https://www.qafox.com/xpath-expressions-css-selectors/)
++ [W3C XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
++ [W3C CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.php)
++ [Debugging Spiders(document)](https://docs.scrapy.org/en/latest/topics/debug.html)
++ [Check for Cloudflare](https://checkforcloudflare.selesti.com/)
++ [scrapy-cloudflare-middleware](https://github.com/clemfromspace/scrapy-cloudflare-middleware)
