@@ -1286,14 +1286,10 @@ class CoinsSpider(CrawlSpider):
 ......
 ```
 
-#### fix block by status code 429
+#### fix block by status code 429(依課程修改但沒有用)
 ##### install 
 ``` bash
-xxx pip install scrapy_cloudflare_middleware
-
-xxx pip install cloudscraper
-
-pip install aroay-cloudscraper
+pip install scrapy_cloudflare_middleware
 ```
 
 ##### settings.py
@@ -1304,7 +1300,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 ```
 
-#### CloudFlare Middleware modify
+##### CloudFlare Middleware modify
 D:\app\python_env\myenv10_scrapy\Lib\site-packages\scrapy_cloudflare_middleware\middlewares.py
 ``` py
 class CloudFlareMiddleware:
@@ -1324,11 +1320,35 @@ class CloudFlareMiddleware:
         )
 ```
 
-#### 2
+#### fix block by status code 429 - call splash(有問題未完成)
+##### create spider
 ``` bash
 (myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy genspider  coins2 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
 Created spider 'coins2' using template 'basic' in module:
   coinmarketcap.spiders.coins2
+```
+
+#### fiverr - block 403
+##### create project and spider
+```
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>scrapy startproject fiverr
+New Scrapy project 'fiverr', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\git\python_crawler\101-scrapy\fiverr
+You can start your first spider with:
+    cd fiverr
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>cd fiverr
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\fiverr>scrapy genspider -t crawl items www.fiverr.com/categories/online-marketing?source=category_tree
+Created spider 'items' using template 'crawl' in module:
+  fiverr.spiders.items
+```
+
+##### install beautifulsoup4 and cloudscraper
+``` bash
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\simple>pip install beautifulsoup4
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\simple>pip install cloudscraper
 ```
 
 ### Debug
