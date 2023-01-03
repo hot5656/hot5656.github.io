@@ -1320,17 +1320,316 @@ class CloudFlareMiddleware:
         )
 ```
 
-#### fix block by status code 429 - call splash(有問題未完成)
-##### create spider
+##### run
 ``` bash
-(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy genspider  coins2 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\coinmarketcap>scrapy crawl coins
+......
+2023-01-03 09:30:12 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190228115956/https://coinmarketcap.com/currencies/moac/> (referer: https://web.archive.org/web/20190101085451/https://coinmarketcap.com/)
+2023-01-03 09:30:12 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190228115956/https://coinmarketcap.com/currencies/moac/>
+{'name': 'MOAC', 'rank': ' Rank 95', 'price(USD)': '0.598146'}
+# also found stauso code 429
+2023-01-03 09:30:12 [scrapy.downloadermiddlewares.retry] ERROR: Gave up retrying <GET https://web.archive.org/web/20190104162556/https://coinmarketcap.com/currencies/tron/> (failed 3 times): 429 Unknown Status
+2023-01-03 09:30:12 [scrapy.core.engine] DEBUG: Crawled (429) <GET https://web.archive.org/web/20190104162556/https://coinmarketcap.com/currencies/tron/> (referer: https://web.archive.org/web/20190101085451/https://coinmarketcap.com/)
+2023-01-03 09:30:12 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://web.archive.org/web/20190209111611/https://coinmarketcap.com/currencies/maximine-coin/> from <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/maximine-coin/>
+2023-01-03 09:30:12 [scrapy.downloadermiddlewares.retry] ERROR: Gave up retrying <GET https://web.archive.org/web/20190104162547/https://coinmarketcap.com/currencies/litecoin/> (failed 3 times): 429 Unknown Status
+2023-01-03 09:30:12 [scrapy.core.engine] DEBUG: Crawled (429) <GET https://web.archive.org/web/20190104162547/https://coinmarketcap.com/currencies/litecoin/> (referer: https://web.archive.org/web/20190101085451/https://coinmarketcap.com/)
+2023-01-03 09:30:12 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://web.archive.org/web/20190104162550/https://coinmarketcap.com/currencies/mixin/> from <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/mixin/>
+2023-01-03 09:30:12 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (302) to <GET https://web.archive.org/web/20190104162513/https://coinmarketcap.com/currencies/hypercash/> from <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/hypercash/>
+......
+```
+
+#### fix block by status code 429 - call splash(還是會回429)
+##### create projector and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\106-scrapy-splash>scrapy startproject coinmarketcap
+New Scrapy project 'coinmarketcap', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\106-scrapy-splash\coinmarketcap
+You can start your first spider with:
+    cd coinmarketcap
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\106-scrapy-splash>cd coinmarketcap
+(myenv10_scrapy) D:\work\run\python_crawler\106-scrapy-splash\coinmarketcap>scrapy genspider  coins2 web.archive.org/web/20190101085451/https://coinmarketcap.com/
 Created spider 'coins2' using template 'basic' in module:
   coinmarketcap.spiders.coins2
 ```
 
-#### fiverr - block 403
-##### create project and spider
+##### basic setting
+``` py
+# put lastest
+SPLASH_URL = 'http://localhost:8050'
+
+# Enable or disable downloader middlewares
+# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+#DOWNLOADER_MIDDLEWARES = {
+#    'livecoin.middlewares.LivecoinDownloaderMiddleware': 543,
+#}
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+
+# Enable or disable spider middlewares
+# See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+#SPIDER_MIDDLEWARES = {
+#    'livecoin.middlewares.LivecoinSpiderMiddleware': 543,
+#}
+SPIDER_MIDDLEWARES = {
+    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}
+
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 ```
+
+##### coins2.py
+``` py
+import scrapy
+from scrapy_splash import SplashRequest
+
+
+class Coins2Spider(scrapy.Spider):
+    name = 'coins2'
+    allowed_domains = ['web.archive.org']
+    # start_urls = ['https://web.archive.org/web/20190101085451/https://coinmarketcap.com/']
+
+    script = '''
+        -- https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
+        function main(splash, args)
+            assert(splash:go(args.url))
+            assert(splash:wait(5))
+            return splash:html()
+        end
+    '''
+
+    script2 = '''
+        -- https://web.archive.org/web/20190101085451/https://coinmarketcap.com/
+        function main(splash, args)
+            assert(splash:go(args.url))
+            assert(splash:wait(1))
+            return splash:html()
+        end
+    '''
+
+    def start_requests(self):
+        yield SplashRequest(
+            url='https://web.archive.org/web/20190101085451/https://coinmarketcap.com/',
+            endpoint='execute',
+            args = {
+                'lua_source': self.script
+            },
+            callback=self.parse
+        )
+
+    def parse(self, response):
+        coins = response.xpath("//a[@class='currency-name-container link-secondary']")
+        i = 1
+        for coin in coins:
+            print(f"({i})============")
+            i += 1
+            yield SplashRequest(
+                url = f'https://web.archive.org{coin.xpath(".//@href").get()}',
+                endpoint='execute',
+                args = {
+                    'lua_source': self.script2
+                },
+                callback=self.parse_next
+            )
+
+    def parse_next(self, response):
+        print("next ============")
+        yield {
+            'name': response.xpath("normalize-space((//h1/text())[2])").get(),
+            'rank': response.xpath("//span[@class='label label-success']/text()").get(),
+            'price(USD)': response.xpath("//span[@class='h2 text-semi-bold details-panel-item--price__value']/text()").get()
+        }
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\106-scrapy-splash\coinmarketcap>scrapy crawl coins2
+......
+2023-01-03 09:59:04 [scrapy.core.engine] DEBUG: Crawled (404) <GET https://web.archive.org/robots.txt> (referer: None)
+2023-01-03 09:59:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/ via http://localhost:8050/execute> (referer: None)
+(1)============
+(2)============
+......
+(100)============
+# found status code 429
+2023-01-03 09:59:19 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'source': '[string "..."]', 'line_number': 4, 'error': 'http429', 'type': 'LUA_ERROR', 'message': 'Lua error: [string "..."]:4: http429'}}
+2023-01-03 09:59:19 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/waves/ via http://localhost:8050/execute> (failed 1 times): 429 Unknown Status
+2023-01-03 09:59:30 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/tezos/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:31 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/tezos/>
+{'name': 'Tezos', 'rank': ' Rank 22', 'price(USD)': '0.482671'}
+2023-01-03 09:59:33 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/usd-coin/ via http://localhost:8050/execute> (referer: None)
+2023-01-03 09:59:33 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/bitcoin/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:33 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/usd-coin/>
+{'name': 'USD Coin', 'rank': ' Rank 24', 'price(USD)': '1.02'}
+next ============
+2023-01-03 09:59:33 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/bitcoin/>
+{'name': 'Bitcoin', 'rank': ' Rank 1', 'price(USD)': '3763.14'}
+2023-01-03 09:59:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/ethereum-classic/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/ethereum-classic/>
+{'name': 'Ethereum Classic', 'rank': ' Rank 17', 'price(USD)': '5.11'}
+2023-01-03 09:59:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/dogecoin/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/dogecoin/>
+{'name': 'Dogecoin', 'rank': ' Rank 23', 'price(USD)': '0.002353'}
+2023-01-03 09:59:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/neo/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:35 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/neo/>
+{'name': 'NEO', 'rank': ' Rank 18', 'price(USD)': '7.81'}
+2023-01-03 09:59:36 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/maker/ via http://localhost:8050/execute> (referer: None)
+next ============
+2023-01-03 09:59:36 [scrapy.core.scraper] DEBUG: Scraped from <200 https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/maker/>
+{'name': 'Maker', 'rank': ' Rank 20', 'price(USD)': '458.21'}
+# found status code 429
+2023-01-03 09:59:37 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'source': '[string "..."]', 'line_number': 4, 'error': 'http429', 'type': 'LUA_ERROR', 'message': 'Lua error: [string "..."]:4: http429'}}
+2023-01-03 09:59:37 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/cardano/ via http://localhost:8050/execute> (failed 1 times): 429 Unknown Status
+......
+```
+
+#### [CoinMarketCap](https://web.archive.org/web/20190101085451/https://coinmarketcap.com/) - bs4 + cloudscraper
+##### install beautifulsoup4
+``` bash
+pip install beautifulsoup4
+pip install cloudscraper
+```
+
+##### bypass_coinmarket.py
+``` py
+from bs4 import BeautifulSoup as beauty
+import cloudscraper
+
+scraper = cloudscraper.create_scraper(delay=10, browser='chrome')
+url = "https://web.archive.org/web/20190101085451/https://coinmarketcap.com/"
+
+info = scraper.get(url).text
+soup = beauty(info, "html.parser")
+soup = soup.find_all('a', 'currency-name-container link-secondary')
+
+for data in soup:
+    sub_url = f"https://web.archive.org{data['href']}"
+    print("===============")
+    # print(data.get_text())
+    print(sub_url)
+
+    info2 = scraper.get(sub_url).text
+    soup2 = beauty(info2, "html.parser")
+    if soup2.find('span', 'label label-success'):
+        h1_str = soup2.find('h1').text.strip().split('\x0a')
+        print(f"name: {h1_str[0]}")
+        print(f"rank: {soup2.find('span', 'label label-success').text}")
+        print(f"price(USD): {soup2.find('span', 'h2 text-semi-bold details-panel-item--price__value').text}")
+    else:
+        print(f"error link: {data.get_text()}")
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\simple>python bypass_coinmarket.py
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/bitcoin/
+name: Bitcoin
+rank:  Rank 1
+price(USD): 3763.14
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/ripple/
+name: XRP
+rank:  Rank 2
+price(USD): 0.376038
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/ethereum/
+name: Ethereum
+rank:  Rank 3
+price(USD): 139.89
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/bitcoin-cash/
+name: Bitcoin Cash
+rank:  Rank 4
+price(USD): 160.12
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/eos/
+name: EOS
+rank:  Rank 5
+price(USD): 2.63
+# some link have problem
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/stellar/
+error link: Stellar
+......
+# some link have problem
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/crypto-com/
+error link
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/zcoin/
+name: Zcoin
+rank:  Rank 93
+price(USD): 5.43
+===============
+https://web.archive.org/web/20190101085451/https://coinmarketcap.com/currencies/theta/
+name: THETA
+rank:  Rank 98
+price(USD): 0.049800
+```
+
+#### [fiverr](https://www.fiverr.com/categories/online-marketing) - bs4 + cloudscraper
++ debug=True, 可顯示一些 message, return code 有時 307, 有時 403 不正確回應
+
+##### bypass_fiverr.py
+``` py
+from bs4 import BeautifulSoup as beauty
+import cloudscraper
+
+# scraper = cloudscraper.create_scraper(delay=10, browser='chrome',debug=True)
+scraper = cloudscraper.create_scraper(delay=10, browser='chrome')
+url = "https://www.fiverr.com/categories/online-marketing"
+
+
+info = scraper.get(url).text
+# print("0 ===============")
+# print(info)
+soup = beauty(info, "html.parser")
+# print("1 ===============")
+# print(soup)
+soup = soup.find_all('a', 'item-name')
+print("2 ===============")
+print(soup)
+
+for data in soup:
+    sub_url = 'https://www.fiverr.com'+data['href']
+    print("===============")
+    print(data.get_text())
+    # print(sub_url)
+
+    # info2 = scraper.get(sub_url).text
+    # soup2 = beauty(info2, "html.parser")
+    # if soup2.find('p', 'sc-subtitle'):
+    #     print(f"title: {soup2.find('h1').text}")
+    #     print(f"description: {soup2.find('p', 'sc-subtitle').text}")
+    # else :
+    #     print("error")
+    #     print(f"title: {soup2.find('h1')}")
+    #     print(f"description: {soup2.find('p', 'sc-subtitle')}")
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\simple>python bypass_fiverr.py
+2 ===============
+[]
+```
+
+#### [fiverr](https://www.fiverr.com/categories/online-marketing) - block 403
++ crawl_items, basic_items 執行都有問題
++ 執行 crawl_items, 好像也會執行到 basic_items
+
+##### create project and spider
+``` bash
 (myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>scrapy startproject fiverr
 New Scrapy project 'fiverr', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
     D:\work\git\python_crawler\101-scrapy\fiverr
@@ -1338,17 +1637,56 @@ You can start your first spider with:
     cd fiverr
     scrapy genspider example example.com
 
-(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>
 (myenv10_scrapy) D:\work\git\python_crawler\101-scrapy>cd fiverr
-(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\fiverr>scrapy genspider -t crawl items www.fiverr.com/categories/online-marketing?source=category_tree
-Created spider 'items' using template 'crawl' in module:
-  fiverr.spiders.items
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\fiverr>scrapy genspider -t crawl crawl_items www.fiverr.com/categories/online-marketing?source=category_tree
+Created spider 'crawl_items' using template 'crawl' in module:
+  fiverr.spiders.crawl_items
+(myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\fiverr>scrapy genspider basic_items www.fiverr.com/categories/online-marketing?source=category_tree
+Created spider 'basic_items' using template 'crawl' in module:
+  fiverr.spiders.basic_items
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\fiverr>scrapy crawl crawl_items
+10 ==============
+<Selector xpath=None data='<html lang="en-US"><head><meta charse...'>
+11 ==============
+[]
+12 ==============
+......
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\fiverr>scrapy crawl basic_items
+10 ==============
+<Selector xpath=None data='<html lang="en-US"><head><meta charse...'>
+11 ==============
+[]
+12 ==============
+......
 ```
 
 ##### install beautifulsoup4 and cloudscraper
 ``` bash
 (myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\simple>pip install beautifulsoup4
 (myenv10_scrapy) D:\work\git\python_crawler\101-scrapy\simple>pip install cloudscraper
+```
+
+### Downloading Files Using Scrapy 
+#### [mp3-59](https://ftp.icm.edu.pl/packages/mp3/59/)
+
+##### create project and spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>scrapy startproject demo_downloader
+New Scrapy project 'demo_downloader', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\101-scrapy\demo_downloader
+You can start your first spider with:
+    cd demo_downloader
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy>cd demo_downloader
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy genspider mp3_downloader ftp.icm.edu.pl/packages/mp3/59/
+Created spider 'mp3_downloader' using template 'basic' in module:
+  demo_downloader.spiders.mp3_downloader
 ```
 
 ### Debug

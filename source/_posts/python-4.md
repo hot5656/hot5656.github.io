@@ -181,6 +181,13 @@ s = '->->'
 print(s.join(test))
 # Python->->Ruby->->Java
 ''.join(response.xpath("//ul[@class='ipc-inline-list ipc-inline-list--show-dividers sc-8c396aa2-0 kqWovI baseAlt']/li[3]/text()").getall())
+
+# string show hex
+result = ' '.join(hex(ord(char)) for char in h1_str)
+print(result)  # 👉️ 0x61 0x70 0x70 0x6c 0x65
+
+# split by hex code 0x0a
+h1_str = soup2.find('h1').text.strip().split('\x0a')
 ```
 
 + normalize-space
