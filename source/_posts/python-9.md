@@ -273,6 +273,12 @@ Created spider 'best_movies' using template 'crawl' in module:
 #### run 
 ``` bash
 (myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\worldmeters>scrapy crawl countries
+
+# no show log
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy crawl mp3_downloader --nolog
+
+# show warning
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy crawl mp3_downloader -L WARN
 ```
 
 #### data generate by dataset(json, csv, xml) 
@@ -1687,6 +1693,240 @@ You can start your first spider with:
 (myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy genspider mp3_downloader ftp.icm.edu.pl/packages/mp3/59/
 Created spider 'mp3_downloader' using template 'basic' in module:
   demo_downloader.spiders.mp3_downloader
+```
+
+##### mp3_downloader.py
+``` py
+import scrapy
+
+class Mp3DownloaderSpider(scrapy.Spider):
+    name = 'mp3_downloader'
+    allowed_domains = ['ftp.icm.edu.pl']
+    start_urls = ['https://ftp.icm.edu.pl/packages/mp3/59/']
+
+    def parse(self, response):
+        # //following::tr[4]/td[2]/a[not(contains(@href,'jpg'))] - also ok
+        for link in response.xpath("//following::tr[4]/td[2]/a[contains(@href,'mp3')]"):
+            relative_url = link.xpath(".//@href").get()
+            absolute_url = response.urljoin(relative_url)
+            print("==============")
+            print(f"absolute_url : {absolute_url}")
+            yield {
+                'Title':  relative_url,
+                'file_urls': [absolute_url]
+            }
+```
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#ITEM_PIPELINES = {
+#    'demo_downloader.pipelines.DemoDownloaderPipeline': 300,
+#}
+ITEM_PIPELINES = {
+    'scrapy.pipelines.files.FilesPipeline': 1,
+    # 'demo_downloader.pipelines.CustomFilePipeLines': 1,
+}
+FILES_STORE = 'mp3'
+```
+
+##### items.py
+``` py
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+class DemoDownloaderItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    # pass
+    Title = scrapy.Field()
+    file_urls = scrapy.Field()
+    files = scrapy.Field()
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy crawl mp3_downloader
+.....
+2023-01-04 13:45:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/> (referer: None)
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Feel_in_luv_with_an_alien__F_cK_K.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Feel_in_luv_with_an_alien__F_cK_K.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Oda_Do_Mlodosci.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Oda_Do_Mlodosci.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3> referred in <None>
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Shalala_Boom_Were_Going_to_Kiss_Uncle_Down.mp3
+2023-01-04 13:45:54 [scrapy.pipelines.files] DEBUG: File (uptodate): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Shalala_Boom_Were_Going_to_Kiss_Uncle_Down.mp3> referred in <None>
+2023-01-04 13:45:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+# scrapy.Field
+# save file full/7d1835bbcc24b42fb05911df015306bfb3e80087.mp3
+{'Title': 'Blood__AAA_version.mp3', 
+'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3'], 
+'files': [
+	{	'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3', 
+		'path': 'full/7d1835bbcc24b42fb05911df015306bfb3e80087.mp3', 
+		'checksum': '8013d9ea5f6d3d596f76d8047b41a7f9', 
+		'status': 'uptodate'
+	}]}
+2023-01-04 13:45:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3', 'path': 'full/cbccc9a40c2019c3ce88467c78191bfd8cd9af8f.mp3', 'checksum': 'c323a1ff9802b7e4a5b2447350b388a9', 'status': 'uptodate'}]}
+2023-01-04 13:45:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'Feel_in_luv_with_an_alien__F_cK_K.mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Feel_in_luv_with_an_alien__F_cK_K.mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Feel_in_luv_with_an_alien__F_cK_K.mp3', 'path': 'full/0d71bff3e1f0e797bb62f4c61428856110ecc123.mp3', 'checksum': 'df42fcb95c2a89f57d75af27584f3634', 'status': 'uptodate'}]}
+2023-01-04 13:45:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'Klan_Soundtrack__hardcore_version.mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3', 'path': 'full/666dda5772db9d8bc5a1d8829156b42f05d52e20.mp3', 'checksum': 'e45ea17db6cb6d3a62a5fe2cad1aea54', 'status': 'uptodate'}]}
+2023-01-04 13:45:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3', 'path': 'full/15d1d6111af5b0ea7984fa70312d9c6cdce4287b.mp3', 'checksum': '815f83bd1d41fe0504fabe26569eb30d', 'status': 'uptodate'}]}
+.....
+```
+
+#### [mp3-59](https://ftp.icm.edu.pl/packages/mp3/59/) - fix file name
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#ITEM_PIPELINES = {
+#    'demo_downloader.pipelines.DemoDownloaderPipeline': 300,
+#}
+ITEM_PIPELINES = {
+    # 'scrapy.pipelines.files.FilesPipeline': 1,
+    'demo_downloader.pipelines.CustomFilePipeLines': 1,
+}
+FILES_STORE = 'mp3'
+```
+
+##### pipelines.py
+``` py
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+# from itemadapter import ItemAdapter
+
+
+# class DemoDownloaderPipeline:
+#     def process_item(self, item, spider):
+#         return item
+
+
+
+# from scrapy.pipelines.files import FilesPipeline
+import scrapy.pipelines.files as scrapy_file
+
+
+class CustomFilePipeLines(scrapy_file.FilesPipeline):
+    def file_path(self, request, response=None, info=None, *, item=None):
+        print("CustomFilePipeLines　===========")
+        print(item.get('Title'))
+        return item.get('Title')
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\101-scrapy\demo_downloader>scrapy crawl mp3_downloader
+......
+2023-01-04 14:00:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/> (referer: None)
+# by mp3_downloader.py
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3
+# by pipelines.py
+CustomFilePipeLines　===========
+Blood__AAA_version.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
+CustomFilePipeLines　===========
+DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Feel_in_luv_with_an_alien__F_cK_K.mp3
+CustomFilePipeLines　===========
+Feel_in_luv_with_an_alien__F_cK_K.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3
+CustomFilePipeLines　===========
+Klan_Soundtrack__hardcore_version.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3
+CustomFilePipeLines　===========
+Na_Na_Na__F_cK_K_Family_hardcore_remix.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Oda_Do_Mlodosci.mp3
+CustomFilePipeLines　===========
+Oda_Do_Mlodosci.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3
+CustomFilePipeLines　===========
+Prognoza_Pogody.mp3
+==============
+absolute_url : https://ftp.icm.edu.pl/packages/mp3/59/Shalala_Boom_Were_Going_to_Kiss_Uncle_Down.mp3
+CustomFilePipeLines　===========
+Shalala_Boom_Were_Going_to_Kiss_Uncle_Down.mp3
+# get 1st 
+2023-01-04 14:00:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3> (referer: None)
+# download 1st 
+2023-01-04 14:00:15 [scrapy.pipelines.files] DEBUG: File (downloaded): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3> referred in <None>
+CustomFilePipeLines　===========
+Blood__AAA_version.mp3
+CustomFilePipeLines　===========
+Blood__AAA_version.mp3
+2023-01-04 14:00:15 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+# scrapy.Field 1st
+# save file Blood__AAA_version.mp3
+{'Title': 'Blood__AAA_version.mp3', 
+'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3'], 
+'files': [
+	{	'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Blood__AAA_version.mp3', 
+		'path': 'Blood__AAA_version.mp3', 
+		'checksum': '8013d9ea5f6d3d596f76d8047b41a7f9', 
+		'status': 'downloaded'
+	}]}
+2023-01-04 14:00:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3> (referer: None)
+2023-01-04 14:00:15 [scrapy.pipelines.files] DEBUG: File (downloaded): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3> referred in <None>
+CustomFilePipeLines　===========
+Prognoza_Pogody.mp3
+CustomFilePipeLines　===========
+Prognoza_Pogody.mp3
+2023-01-04 14:00:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'Prognoza_Pogody.mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Prognoza_Pogody.mp3', 'path': 'Prognoza_Pogody.mp3', 'checksum': '7adb9211d73199b0e6c347fff5b718cb', 'status': 'downloaded'}]}
+2023-01-04 14:00:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3> (referer: None)
+2023-01-04 14:00:16 [scrapy.pipelines.files] DEBUG: File (downloaded): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3> referred in <None>
+CustomFilePipeLines　===========
+Klan_Soundtrack__hardcore_version.mp3
+CustomFilePipeLines　===========
+Klan_Soundtrack__hardcore_version.mp3
+2023-01-04 14:00:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'Klan_Soundtrack__hardcore_version.mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/Klan_Soundtrack__hardcore_version.mp3', 'path': 'Klan_Soundtrack__hardcore_version.mp3', 'checksum': 'e45ea17db6cb6d3a62a5fe2cad1aea54', 'status': 'downloaded'}]}
+2023-01-04 14:00:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3> (referer: None)
+2023-01-04 14:00:16 [scrapy.pipelines.files] DEBUG: File (downloaded): Downloaded file from <GET https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3> referred in <None>
+CustomFilePipeLines　===========
+DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
+CustomFilePipeLines　===========
+DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
+2023-01-04 14:00:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://ftp.icm.edu.pl/packages/mp3/59/>
+{'Title': 'DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3', 'file_urls': ['https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3'], 'files': [{'url': 'https://ftp.icm.edu.pl/packages/mp3/59/DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3', 'path': 'DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3', 'checksum': 'c323a1ff9802b7e4a5b2447350b388a9', 'status': 'downloaded'}]}
+......
 ```
 
 ### Debug
