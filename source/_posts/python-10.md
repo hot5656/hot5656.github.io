@@ -103,7 +103,7 @@ docker.io/scrapinghub/splash:latest
 8ef8d76a1942: Pulling fs layer
 ```
 
-#### run splash(cmd)
+#### run splash(cmd) - default timeout 90s
 ``` bash
 C:\Users\robertkao>docker run -it -p 8050:8050 scrapinghub/splash
 2022-12-22 07:19:18+0000 [-] Log opened.
@@ -121,6 +121,26 @@ QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-splash'
 2022-12-22 07:19:18.354491 [-] Site starting on 8050
 2022-12-22 07:19:18.354579 [-] Starting factory <twisted.web.server.Site object at 0x7fa4041ee5c0>
 2022-12-22 07:19:18.354902 [-] Server listening on http://0.0.0.0:8050
+```
+
+#### run splash(cmd) - set timeout to 3600s
+``` bash
+C:\Users\robertkao>docker run -it -p 8050:8050 scrapinghub/splash --max-timeout 3600
+2023-01-06 02:35:38+0000 [-] Log opened.
+2023-01-06 02:35:38.524319 [-] Xvfb is started: ['Xvfb', ':870545562', '-screen', '0', '1024x768x24', '-nolisten', 'tcp']
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-splash'
+2023-01-06 02:35:38.610007 [-] Splash version: 3.5
+2023-01-06 02:35:38.645337 [-] Qt 5.14.1, PyQt 5.14.2, WebKit 602.1, Chromium 77.0.3865.129, sip 4.19.22, Twisted 19.7.0, Lua 5.2
+2023-01-06 02:35:38.645542 [-] Python 3.6.9 (default, Jul 17 2020, 12:50:27) [GCC 8.4.0]
+2023-01-06 02:35:38.645685 [-] Open files limit: 1048576
+2023-01-06 02:35:38.645762 [-] Can't bump open files limit
+2023-01-06 02:35:38.665818 [-] proxy profiles support is enabled, proxy profiles path: /etc/splash/proxy-profiles
+2023-01-06 02:35:38.666088 [-] memory cache: enabled, private mode: enabled, js cross-domain access: disabled
+2023-01-06 02:35:38.813553 [-] verbosity=1, slots=20, argument_cache_max_entries=500, max-timeout=3600.0
+2023-01-06 02:35:38.813828 [-] Web UI: enabled, Lua: enabled (sandbox: enabled), Webkit: enabled, Chromium: enabled
+2023-01-06 02:35:38.814301 [-] Site starting on 8050
+2023-01-06 02:35:38.814452 [-] Starting factory <twisted.web.server.Site object at 0x7fd3d806e5f8>
+2023-01-06 02:35:38.815222 [-] Server listening on http://0.0.0.0:8050
 ```
 
 #### open Splash by chrome
@@ -472,3 +492,4 @@ class QuoteListSpider(scrapy.Spider):
 + [Splash Scripts Reference](https://splash.readthedocs.io/en/stable/scripting-ref.html)
 + [Scrapinghub](https://github.com/scrapinghub/splash)
 + [scrapy-plugins](https://github.com/scrapy-plugins/scrapy-splash)
++ [Aquarium](https://github.com/TeamHG-Memex/aquarium)
