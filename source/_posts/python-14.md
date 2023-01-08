@@ -1004,6 +1004,22 @@ class ListingSpider(scrapy.Spider):
  'start_time': datetime.datetime(2023, 1, 6, 8, 48, 11, 603595)}
 ```
 
+### [Steam Store](https://store.steampowered.com/search/?filter=topsellers)
+#### 01
+##### create project and spider
+``` bash
+myenv10_scrapy) D:\work\git\python_crawler\108-scrapy-practice>scrapy startproject steam
+New Scrapy project 'steam', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\git\python_crawler\108-scrapy-practice\steam
+You can start your first spider with:
+    cd steam
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\git\python_crawler\108-scrapy-practice>cd steam
+(myenv10_scrapy) D:\work\git\python_crawler\108-scrapy-practice\steam>scrapy genspider best_selling https://store.steampowered.com/search/?filter=topsellers
+Created spider 'best_selling' using template 'basic' in module:
+  steam.spiders.best_selling
+``` 
 
 ### Ref
 + [Postman](https://www.postman.com/downloads/)
