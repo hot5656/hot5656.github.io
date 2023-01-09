@@ -388,6 +388,12 @@ Out[5]: True
 FEED_EXPORT_ENCODING = 'utf-8'
 ```
 
+#### set close scrapy for item count
+``` py
+CLOSESPIDER_ITEMCOUNT = 100
+```
+
+
 #### set User-Agent(2 way)
 ``` py
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

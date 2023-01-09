@@ -11,6 +11,7 @@ tags:
 #### check scrapy methoud
 + JavaScript Require?
 + check API supported - Network > Fetch/XHR
++ check pagination
 
 
 <!--more-->
@@ -1005,7 +1006,7 @@ class ListingSpider(scrapy.Spider):
 ```
 
 ### [Steam Store](https://store.steampowered.com/search/?filter=topsellers)
-#### 01
+#### get best selling games
 ##### create project and spider
 ``` bash
 myenv10_scrapy) D:\work\git\python_crawler\108-scrapy-practice>scrapy startproject steam
@@ -1020,6 +1021,216 @@ You can start your first spider with:
 Created spider 'best_selling' using template 'basic' in module:
   steam.spiders.best_selling
 ``` 
+
+##### scrapy shell test 
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\steam>scrapy shell https://store.steampowered.com/search/?filter=topsellers
+......
+In [1]: games = response.xpath("//div[@id='search_resultsRows']/a")
+In [2]: games
+Out[2]:
+[<Selector xpath="//div[@id='search_resultsRows']/a" data='<a href="https://store.steampowered.c...'>,
+......
+ <Selector xpath="//div[@id='search_resultsRows']/a" data='<a href="https://store.steampowered.c...'>,
+ <Selector xpath="//div[@id='search_resultsRows']/a" data='<a href="https://store.steampowered.c...'>,
+ <Selector xpath="//div[@id='search_resultsRows']/a" data='<a href="https://store.steampowered.c...'>]
+
+In [3]: for game in games:
+   ...:     url = game.xpath(".//@href").get()
+   ...:     print(url)
+   ...:
+https://store.steampowered.com/app/1172470/Apex_Legends/?snr=1_7_7_7000_150_1
+https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/?snr=1_7_7_7000_150_1
+https://store.steampowered.com/app/1938090/Call_of_Duty_Modern_Warfare_II/?snr=1_7_7_7000_150_1
+https://store.steampowered.com/app/230410/Warframe/?snr=1_7_7_7000_150_1
+......
+https://store.steampowered.com/app/1049590/Eternal_Return/?snr=1_7_7_7000_150_1
+https://store.steampowered.com/app/1599660/Sackboy_A_Big_Adventure/?snr=1_7_7_7000_150_1
+https://store.steampowered.com/app/1680880/Forspoken/?snr=1_7_7_7000_150_1
+
+In [5]: games[5].xpath(".//div[@class='col search_capsule']/img/@src").get()
+Out[5]: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1377580/capsule_sm_120.jpg?t=1672884608'
+
+In [8]: games[5].xpath(".//div[@class='col search_released responsive_secondrow']/text()").get()
+Out[8]: '12 May, 2021'
+```
+
+##### experiment.py - for test 
+``` py
+classes = [
+    'platform_img win',
+    'platform_img mac',
+    'platform_img linux',
+    'vr_supported'
+]
+
+def get_platforms(list_classes):
+    platforms = []
+    for item in list_classes:
+        platform = item.split(' ')[-1]
+        if platform == 'win':
+            platforms.append('Windows')
+        if platform == 'mac':
+            platforms.append('Mac os')
+        if platform == 'linux':
+            platforms.append('Linux')
+        if platform == 'vr_supported':
+            platforms.append('VR supported')
+    return platforms
+
+print(get_platforms(classes))
+```
+
+``` bash
+PS D:\work\run\python_crawler\108-scrapy-practice\steam\steam> python .\experiment.py
+['Windows', 'Mac os', 'Linux', 'VR supported']
+```
+
+##### items.py
+``` py
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class SteamItem(scrapy.Item):
+    game_url = scrapy.Field()
+    img_url = scrapy.Field()
+    game_name = scrapy.Field()
+    release_date = scrapy.Field()
+    platforms = scrapy.Field()
+    reviews_summary = scrapy.Field()
+    original_price = scrapy.Field()
+    discounted_price = scrapy.Field()
+    discount_rate = scrapy.Field()
+```
+
+##### best_selling.py
+``` py
+import scrapy
+from ..items import SteamItem
+from w3lib.html import remove_tags
+
+
+class BestSellingSpider(scrapy.Spider):
+    name = 'best_selling'
+    allowed_domains = ['store.steampowered.com']
+    start_urls = ['https://store.steampowered.com/search/?filter=topsellers']
+
+    def get_platforms(self, list_classes):
+        platforms = []
+        for item in list_classes:
+            platform = item.split(' ')[-1]
+            if platform == 'win':
+                platforms.append('Windows')
+            if platform == 'mac':
+                platforms.append('Mac os')
+            if platform == 'linux':
+                platforms.append('Linux')
+            if platform == 'vr_supported':
+                platforms.append('VR supported')
+        return platforms
+
+    def remove_html(self, review_summary):
+        cleaned_review_summary = ''
+        try:
+            cleaned_review_summary = remove_tags(review_summary)
+        except TypeError:
+            cleaned_review_summary = 'No reviews'
+        return cleaned_review_summary
+
+    def clean_discount_rate(self, discount_rate):
+        if discount_rate:
+            return discount_rate.lstrip('-')
+        return discount_rate
+
+    def get_original_price(self, selector_obj):
+        original_price = ''
+        div_with_discount = selector_obj.xpath(".//div[contains(@class, 'discounted')]")
+        if div_with_discount:
+            original_price = selector_obj.xpath(".//span/strike/text()").get()
+        else:
+            original_price = selector_obj.xpath("normalize-space(.//div[contains(@class, 'search_price')]/text())").get()
+        return original_price
+
+    def clean_discounted_price(self, discounted_price):
+        if discounted_price:
+            return discounted_price.strip()
+        return discounted_price
+
+    def parse(self, response):
+        steam_item = SteamItem()
+        games = response.xpath("//div[@id='search_resultsRows']/a")
+        for game in games:
+            steam_item['game_url'] = game.xpath(".//@href").get()
+            steam_item['img_url'] = game.xpath(".//div[@class='col search_capsule']/img/@src").get()
+            steam_item['game_name'] = game.xpath(".//span[@class='title']/text()").get()
+            steam_item['release_date'] = game.xpath(".//div[@class='col search_released responsive_secondrow']/text()").get()
+            steam_item['platforms'] = self.get_platforms(game.xpath(".//span[contains(@class,'platform_img') or @class='VR Supported']/@class").getall())
+            steam_item['reviews_summary'] = self.remove_html(game.xpath(".//span[contains(@class,'search_review_summary')]/@data-tooltip-html").get())
+            steam_item['discount_rate'] = self.clean_discount_rate(game.xpath(".//div[contains(@class,'search_discount')]/span/text()").get())
+            steam_item['original_price'] = self.get_original_price(game.xpath(".//div[contains(@class,'search_price_discount_combined')]"))
+            steam_item['discounted_price'] = self.clean_discounted_price(game.xpath("(.//div[contains(@class, 'search_price discounted')]/text())[2]").get())
+            yield steam_item
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\steam>scrapy crawl best_selling
+......
+{'discount_rate': None,
+ 'discounted_price': None,
+ 'game_name': 'Apex Legends™',
+ 'game_url': 'https://store.steampowered.com/app/1172470/Apex_Legends/?snr=1_7_7_7000_150_1',
+ 'img_url': 'https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/capsule_sm_120.jpg?t=1670431796',
+ 'original_price': 'Free to Play',
+ 'platforms': ['Windows'],
+ 'release_date': '4 Nov, 2020',
+ 'reviews_summary': 'Very Positive84% of the 565,774 user reviews for this '
+                    'game are positive.'}
+2023-01-09 14:47:15 [scrapy.core.scraper] DEBUG: Scraped from <200 https://store.steampowered.com/search/?filter=topsellers>
+{'discount_rate': None,
+ 'discounted_price': None,
+ 'game_name': 'Counter-Strike: Global Offensive',
+ 'game_url': 'https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/?snr=1_7_7_7000_150_1',
+ 'img_url': 'https://cdn.cloudflare.steamstatic.com/steam/apps/730/capsule_sm_120.jpg?t=1668125812',
+ 'original_price': 'Free to Play',
+ 'platforms': ['Windows', 'Mac os', 'Linux'],
+ 'release_date': '21 Aug, 2012',
+ 'reviews_summary': 'Very Positive88% of the 6,853,032 user reviews for this '
+                    'game are positive.'}
+......
+{'downloader/request_bytes': 479,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 44770,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 2,
+ 'elapsed_time_seconds': 0.64364,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2023, 1, 9, 6, 47, 15, 164996),
+ 'httpcompression/response_bytes': 712081,
+ 'httpcompression/response_count': 1,
+ # item count
+ 'item_scraped_count': 50,
+ 'log_count/DEBUG': 60,
+ 'log_count/INFO': 10,
+ 'response_received_count': 2,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/200': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2023, 1, 9, 6, 47, 14, 521356)}
+2023-01-09 14:47:15 [scrapy.core.engine] INFO: Spider closed (finished)
+```
+
+#### pagination
 
 ### Ref
 + [Postman](https://www.postman.com/downloads/)
