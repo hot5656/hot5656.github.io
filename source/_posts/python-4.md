@@ -190,16 +190,6 @@ print(result)  # 👉️ 0x61 0x70 0x70 0x6c 0x65
 h1_str = soup2.find('h1').text.strip().split('\x0a')
 ```
 
-+ normalize-space
-``` py
-# All leading whitespace is removed.
-# All trailing whitespace is removed.
-# Within the string, any sequence of whitespace characters is replaced with a single space.
-# Removes all new lines and tabs present in a string
-str = "   cher      cher     tech     "
-normalize-space(string) // outputs "cher cher tech"
-```
-
 #### array
 ``` py
 rticles = []
@@ -695,6 +685,42 @@ def is_json(myjson):
   except ValueError as e:
     return False
   return True
+```
+
+### Packages
+#### w3lib - A Python library of web-related functions
+``` py
+# add for splash user+password(run Aquarium)
+from w3lib.http import basic_auth_header
+yield SplashRequest(
+    url= abs_url,
+    endpoint='execute',
+    callback= self.parse_summary,
+    args = {
+        'lua_source': self.script
+    },
+    meta = {
+        'cat': category,
+        'fea': features,
+        'pri': price,
+        'city': city,
+        'url': abs_url
+    },
+    # add for splash user+password(run Aquarium)
+    splash_headers={
+        'Authorization': basic_auth_header('user', 'userpass')
+    }
+)
+
+# remove html tag
+from w3lib.html import remove_tags
+def remove_html(self, review_summary):
+    cleaned_review_summary = ''
+    try:
+        cleaned_review_summary = remove_tags(review_summary)
+    except TypeError:
+        cleaned_review_summary = 'No reviews'
+    return cleaned_review_summary
 ```
 
 ### Ref

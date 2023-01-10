@@ -381,6 +381,25 @@ Out[5]: True
 ```
 
 
+### Packages
+#### Selector
+``` py
+from scrapy.selector import Selector
+
+# process from GET(json format)
+def parse(self, response):
+    resp_dict = json.loads(response.body)
+    html = resp_dict.get('d').get('Result').get('html')
+    sel = Selector(text=html)
+    listings = sel.xpath("//div[@class='shell']")
+
+    # print html or write to file
+    print(html)
+    print("=====================")
+    with open('index.html', 'w') as f:
+        f.write(html)
+```
+
 ### settings.py
 #### set JSON utf-8 format
 ``` py
@@ -2187,44 +2206,17 @@ process.start()
 	+ scrapy shell(inspect_response) - not ok 
 	+ Parse Command - not ok
 
-### XPath expression & CSS selectors
+### XPath expression
 
-#### test html for CSS selectors
-``` html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>XPath and CSS Selectors</title>
-</head>
-
-<body>
-    <h1>CSS Selectors simplified</h1>
-    <div class="intro">
-        <p>
-            I'm paragraph within a div with a class set to intro
-            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
-        </p>
-        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
-    </div>
-    <p>Hi i'm placed immediately after a div with a class set to intro</p>
-    <span class='intro'>Div with a class attribute set to intro</span>
-
-    <ul id="items">
-        <li data-identifier="7">Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-    </ul>
-
-    <a href="https://www.google.com">Google</a>
-    <a href="http://www.google.fr">Google France</a>
-
-    <p class='bold italic'>Hi, I have two classes</p>
-    <p class='bold'>Hi i'm bold</p>
-</body>
-
-</html>
+#### Xpath guide
+##### function
++ normalize-space
+``` py
+# All leading whitespace is removed.
+# All trailing whitespace is removed.
+# Within the string, any sequence of whitespace characters is replaced with a single space.
+# Removes all new lines and tabs present in a string
+category = listing.xpath("normalize-space(.//span[@class='category']/div/text())").get()
 ```
 
 #### test html for XPath expression
@@ -2267,32 +2259,6 @@ process.start()
 </body>
 
 </html>
-```
-
-#### CSS selectors
-```
-li[data-identifier=7]
-a[href^='https']
-a[href$='fr']
-a[href*='google']
-
-div.intro
-div.intro p, #location
-
-# all children
-div.intro > p 
-#items  > li
-
-# 後面第一個(非內部)
-div.intro + p
-
-# 後面所有(非內部)
-div.intro ~ p
-
-# li 同層的 item
-li:nth-child(1), li:nth-child(3)
-li:nth-child(odd)
-li:nth-child(even)
 ```
 
 #### XPath expression
@@ -2341,6 +2307,72 @@ li:nth-child(even)
 //div[contains(@class,"ReactVirtualized__Table__row tableRow___3EtiS ")]
 ```
 
+### CSS selectors
+
+#### test html for CSS selectors
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>XPath and CSS Selectors</title>
+</head>
+
+<body>
+    <h1>CSS Selectors simplified</h1>
+    <div class="intro">
+        <p>
+            I'm paragraph within a div with a class set to intro
+            <span id="location">I'm a span with ID set to location and i'm within a paragraph</span>
+        </p>
+        <p id="outside">I'm a paragraph with ID set to outside and i'm within a div with a class set to intro</p>
+    </div>
+    <p>Hi i'm placed immediately after a div with a class set to intro</p>
+    <span class='intro'>Div with a class attribute set to intro</span>
+
+    <ul id="items">
+        <li data-identifier="7">Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+
+    <a href="https://www.google.com">Google</a>
+    <a href="http://www.google.fr">Google France</a>
+
+    <p class='bold italic'>Hi, I have two classes</p>
+    <p class='bold'>Hi i'm bold</p>
+</body>
+
+</html>
+```
+
+#### CSS selectors
+```
+li[data-identifier=7]
+a[href^='https']
+a[href$='fr']
+a[href*='google']
+
+div.intro
+div.intro p, #location
+
+# all children
+div.intro > p 
+#items  > li
+
+# 後面第一個(非內部)
+div.intro + p
+
+# 後面所有(非內部)
+div.intro ~ p
+
+# li 同層的 item
+li:nth-child(1), li:nth-child(3)
+li:nth-child(odd)
+li:nth-child(even)
+```
+
 ### Tool
 #### Evaluate and validate XPath/CSS selectors in Chrome Developer Tools
 + open Chrome Devtools
@@ -2364,6 +2396,8 @@ li:nth-child(even)
 	{% asset_img pic12.png pic12 %}
 </div>
 
+#### Chrome plugin
++ [JSON Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
 
 ### Ref
 + [CSS selectors practice](https://try.jsoup.org/)
@@ -2374,3 +2408,5 @@ li:nth-child(even)
 + [Debugging Spiders(document)](https://docs.scrapy.org/en/latest/topics/debug.html)
 + [Check for Cloudflare](https://checkforcloudflare.selesti.com/)
 + [scrapy-cloudflare-middleware](https://github.com/clemfromspace/scrapy-cloudflare-middleware)
++ [XPath document](https://developer.mozilla.org/en-US/docs/Web/XPath)
++ [XPath Tutorial](https://www.tutorialspoint.com/xpath/index.htm)
