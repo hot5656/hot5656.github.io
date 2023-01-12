@@ -1,5 +1,5 @@
 ---
-title:  Python Scrapy Practice
+title:  Python Scrapy Practice(Advanced)
 abbrlink: ccd2
 date: 2023-01-05 09:18:23
 categories: Coding
@@ -1800,6 +1800,145 @@ class MoreBestSpider(scrapy.Spider):
 ......
 ```
 
+### [Zillow](https://www.zillow.com/)
+#### 1st run
+##### generate project & spider
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice>scrapy startproject zillow
+New Scrapy project 'zillow', using template directory 'D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project', created in:
+    D:\work\run\python_crawler\108-scrapy-practice\zillow
+You can start your first spider with:
+    cd zillow
+    scrapy genspider example example.com
+
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice>cd zillow
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy genspider zillow_houses www.zillow.com
+Created spider 'zillow_houses' using template 'basic' in module:
+  zillow.spiders.zillow_houses
+```
+
+##### settings.py change
+``` py
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+#USER_AGENT = 'zillow (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+
+# Obey robots.txt rules
+# disable Obey robots.txt
+ROBOTSTXT_OBEY = False
+
+# add download delay
+DOWNLOAD_DELAY = 10
+```
+
+##### utils.py
+``` py
+URL = 'https://www.zillow.com/...'
+```
+
+##### zillow_houses.py
+``` py
+import scrapy
+from ..utils import URL
+
+
+class ZillowHousesSpider(scrapy.Spider):
+    name = 'zillow_houses'
+    allowed_domains = ['www.zillow.com']
+    start_urls = [URL]
+
+    def parse(self, response):
+        print(response.body)
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy crawl zillow_houses
+......
+```
+
+#### add cookie to headers(It doesn't need, but for test)
+##### utils.py
+``` py
+from http.cookies import SimpleCookie
+
+URL = 'https://www.zillow.com/...'
+
+def cookie_parser():
+    cookie_string = 'x-amz-continuous-deployment-state=...'
+    cookie = SimpleCookie()
+    cookie.load(cookie_string)
+
+    cookies = {}
+
+    # print(cookie.items())
+    for key, morsel in  cookie.items():
+        cookies[key] = morsel.value
+
+    # print(cookies)
+    return cookies
+
+# cookie_parser()
+```
+
+##### zillow_houses.py
+``` py
+import scrapy
+from ..utils import URL, cookie_parser
+
+
+class ZillowHousesSpider(scrapy.Spider):
+    name = 'zillow_houses'
+    allowed_domains = ['www.zillow.com']
+
+    def start_requests(self):
+        yield scrapy.Request(
+            url=URL,
+            callback=self.parse,
+            # this site not need cookie, just try put cookie
+            cookies=cookie_parser()
+        )
+
+    def parse(self, response):
+        with open('initial_response.json', 'wb') as f:
+            f.write(response.body)
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy crawl zillow_houses
+```
+
+##### initial_response.json
+``` json
+{
+    "user": {
+        "isLoggedIn": false,
+        "email": "",
+        "displayName": "",
+        "hasHousingConnectorPermission": false,
+        "savedSearchCount": 0,
+        "savedHomesCount": 0,
+        "personalizedSearchGaDataTag": "Home Recs",
+        "personalizedSearchTraceID": "63bfac101b43a418c290f126f636f3b8",
+        "searchPageRenderedCount": 0,
+        "guid": "c77aeb82-e78d-4e30-ae12-99ebf68ee40c",
+        "zuid": "",
+        "isBot": false,
+        "userSpecializedSEORegion": false
+    },
+    "mapState": {
+        "customRegionPolygonWkt": null,
+        "schoolPolygonWkt": null,
+        "isCurrentLocationSearch": false,
+        "userPosition": {
+            "lat": null,
+            "lon": null
+        }
+    },
+		......
+}
+```
 
 ### Ref
 + [Postman](https://www.postman.com/downloads/)

@@ -2398,6 +2398,7 @@ li:nth-child(even)
 
 #### Chrome plugin
 + [JSON Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
++ [ModHeader - Modify HTTP headers](https://chrome.google.com/webstore/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en)
 
 ### Ref
 + [CSS selectors practice](https://try.jsoup.org/)
