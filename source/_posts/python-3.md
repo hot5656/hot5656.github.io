@@ -379,3 +379,4 @@ listbox.pack()
 + [Tkinter 8.5 reference](https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/) : a GUI for Python
 + [Tk Commands](http://tcl.tk/man/tcl8.6/TkCmd/contents.htm) : 較清楚
 + [Tkinter 教學](https://steam.oxxostudio.tw/category/python/tkinter/start.html)
++ [Python Tkinter](https://docs.python.org/3/library/tkinter.html)

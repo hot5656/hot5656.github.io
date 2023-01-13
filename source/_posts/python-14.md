@@ -1940,5 +1940,470 @@ class ZillowHousesSpider(scrapy.Spider):
 }
 ```
 
+#### Pagination
+##### utils.py
+``` py
+from http.cookies import SimpleCookie
+from urllib.parse import urlparse, parse_qs, urlencode
+import json
+
+URL = 'https://www.zillow.com/search/GetSearchPageState.htm...'
+
+def cookie_parser():
+    cookie_string = 'x-amz-continuous-deployment-state=...'
+    cookie = SimpleCookie()
+    cookie.load(cookie_string)
+
+    cookies = {}
+
+    # print(cookie.items())
+    for key, morsel in  cookie.items():
+        cookies[key] = morsel.value
+
+    # print(cookies)
+    return cookies
+
+def parse_new_url(url, page_number):
+    url_parsed = urlparse(url)
+    # convert string to dict
+    query_string = parse_qs(url_parsed.query)
+    search_query_state = json.loads(query_string.get('searchQueryState')[0])
+    search_query_state['pagination'] = {'currentPage':page_number}
+    query_string.get('searchQueryState')[0] = search_query_state
+    # doseq=1, no change field sequencce
+    encode_qs = urlencode(query_string, doseq=1)
+    new_url = f"https://www.zillow.com/search/GetSearchPageState.htm?{encode_qs}"
+    return new_url
+
+# cookie_parser()
+# parse_new_url(URL, 6)
+```
+
+##### items.py
+``` py
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+from scrapy.loader.processors import TakeFirst
+
+
+class ZillowItem(scrapy.Item):
+    index = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    id = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    img_url = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    detail_url = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    status_type = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    status_text = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    price = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    address = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    beds = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    baths = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    area_sqft = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    latitude = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    longitude = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    broker_name = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+```
+
+##### zillow_houses.py
+``` py
+import scrapy
+from scrapy.loader import ItemLoader
+from ..utils import URL, cookie_parser, parse_new_url
+from ..items import ZillowItem
+import json
+
+class ZillowHousesSpider(scrapy.Spider):
+    name = 'zillow_houses'
+    allowed_domains = ['www.zillow.com']
+    index = 1
+
+    def start_requests(self):
+        yield scrapy.Request(
+            url=URL,
+            callback=self.parse,
+            # this site not need cookie, just try put cookie
+            cookies=cookie_parser(),
+            meta = {
+                'currentPage': 1
+            }
+        )
+
+    def parse(self, response):
+        # with open('initial_response.json', 'wb') as f:
+        #     f.write(response.body)
+        current_page = response.meta['currentPage']
+        json_resp = json.loads(response.body)
+        # print(type(json_resp))
+        houses = json_resp['cat1']['searchResults']['listResults']
+        for house in houses:
+            loader = ItemLoader(item=ZillowItem())
+            loader.add_value('id', house['id'])
+            loader.add_value('img_url', house['imgSrc'])
+            loader.add_value('detail_url', house['detailUrl'])
+            loader.add_value('status_type', house['statusType'])
+            loader.add_value('status_text', house['statusText'])
+            loader.add_value('price', house['price'])
+            loader.add_value('address', house['address'])
+            loader.add_value('beds', house['beds'])
+            loader.add_value('baths', house['baths'])
+            loader.add_value('area_sqft', house['area'])
+            # dict field 某些地方一定要用 get()
+            loader.add_value('latitude', house.get('latLong').get('latitude'))
+            loader.add_value('longitude', house.get('latLong').get('longitude'))
+            loader.add_value('broker_name', house.get('brokerName'))
+            loader.add_value('index', self.index)
+            self.index += 1
+            yield loader.load_item()
+
+        total_pages = json_resp.get('cat1').get('searchList').get('totalPages')
+        if current_page< total_pages:
+            current_page += 1
+            print(f"----> {current_page}")
+            yield scrapy.Request(
+                url=parse_new_url(URL, current_page),
+                callback=self.parse,
+                cookies=cookie_parser(),
+                meta = {
+                    'currentPage': current_page
+                }
+            )
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy crawl zillow_houses -o miami.json
+```
+
+#### download images
+##### install pillow
+``` bash
+pip install pillow
+```
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#ITEM_PIPELINES = {
+#    'zillow.pipelines.ZillowPipeline': 300,
+#}
+# download images - activa images pipeline
+ITEM_PIPELINES = {
+   'scrapy.pipelines.images.ImagesPipeline': 1
+}
+
+IMAGES_STORE = '.'
+```
+
+##### items.py
+``` py
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+from scrapy.loader.processors import TakeFirst
+
+
+class ZillowItem(scrapy.Item):
+    index = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    id = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    # img_url = scrapy.Field(
+    #     output_processor = TakeFirst()
+    # )
+    # download images
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
+    detail_url = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    status_type = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    status_text = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    price = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    address = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    beds = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    baths = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    area_sqft = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    latitude = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    longitude = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+    broker_name = scrapy.Field(
+        output_processor = TakeFirst()
+    )
+```
+
+##### zillow_houses.py
+``` py
+import scrapy
+from scrapy.loader import ItemLoader
+from ..utils import URL, cookie_parser, parse_new_url
+from ..items import ZillowItem
+import json
+
+class ZillowHousesSpider(scrapy.Spider):
+    name = 'zillow_houses'
+    allowed_domains = ['www.zillow.com']
+    index = 1
+
+    def start_requests(self):
+        yield scrapy.Request(
+            url=URL,
+            callback=self.parse,
+            # this site not need cookie, just try put cookie
+            cookies=cookie_parser(),
+            meta = {
+                'currentPage': 1
+            }
+        )
+
+    def parse(self, response):
+        # with open('initial_response.json', 'wb') as f:
+        #     f.write(response.body)
+        current_page = response.meta['currentPage']
+        json_resp = json.loads(response.body)
+        # print(type(json_resp))
+        houses = json_resp['cat1']['searchResults']['listResults']
+        for house in houses:
+            loader = ItemLoader(item=ZillowItem())
+            loader.add_value('id', house['id'])
+            # download images
+            loader.add_value('image_urls', house['imgSrc'])
+            loader.add_value('detail_url', house['detailUrl'])
+            loader.add_value('status_type', house['statusType'])
+            loader.add_value('status_text', house['statusText'])
+            loader.add_value('price', house['price'])
+            loader.add_value('address', house['address'])
+            loader.add_value('beds', house['beds'])
+            loader.add_value('baths', house['baths'])
+            loader.add_value('area_sqft', house['area'])
+            # dict field 某些地方一定要用 get()
+            loader.add_value('latitude', house.get('latLong').get('latitude'))
+            loader.add_value('longitude', house.get('latLong').get('longitude'))
+            loader.add_value('broker_name', house.get('brokerName'))
+            loader.add_value('index', self.index)
+            self.index += 1
+            yield loader.load_item()
+
+        total_pages = json_resp.get('cat1').get('searchList').get('totalPages')
+        if current_page< total_pages:
+            current_page += 1
+            print(f"----> {current_page}")
+            # yield scrapy.Request(
+            #     url=parse_new_url(URL, current_page),
+            #     callback=self.parse,
+            #     cookies=cookie_parser(),
+            #     meta = {
+            #         'currentPage': current_page
+            #     }
+            # )
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy crawl zillow_houses
+......
+{'address': '10855 SW 82nd Ave, Miami, FL 33156',
+ 'area_sqft': 2327,
+ 'baths': 3.0,
+ 'beds': 3,
+ 'broker_name': 'ON Florida Realty, LLC.',
+ 'detail_url': 'https://www.zillow.com/homedetails/10855-SW-82nd-Ave-Miami-FL-33156/44283802_zpid/',
+ 'id': '44283802',
+# image information 
+ 'image_urls': ['https://photos.zillowstatic.com/fp/44ae5bc3430d05f820acbd7d367abc67-p_e.jpg'],
+ 'images': [{'checksum': '3efad256f0ec1c55213d06974679f999',
+             'path': 'full/e3d76a1cf0b56690a53be6c861f5ef5b670727f2.jpg',
+             'status': 'downloaded',
+             'url': 'https://photos.zillowstatic.com/fp/44ae5bc3430d05f820acbd7d367abc67-p_e.jpg'}],
+ 'index': 1,
+ 'latitude': 25.669407,
+ 'longitude': -80.3265,
+ 'price': '$1,195,000',
+ 'status_text': 'House for sale',
+ 'status_type': 'FOR_SALE'}
+```
+
+#### change image name to id
+##### pipelines.py
+``` py
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+# change download image name
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy import Request
+
+class ZillowPipeline(ImagesPipeline):
+    # change download image name
+    def get_media_requests(self, item, info):
+        urls = ItemAdapter(item).get(self.images_urls_field, [])
+        return [Request(u, meta={'houseID': item.get('id')}) for u in urls]
+
+    # change download image name
+    def file_path(self, request, response=None, info=None, *, item=None):
+        image_name = request.meta['houseID']
+        return f'full/{image_name}.jpg'
+```
+
+##### settings.py
+``` py
+# Configure item pipelines
+# See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#ITEM_PIPELINES = {
+#    'zillow.pipelines.ZillowPipeline': 300,
+#}
+# download images - activa images pipeline
+ITEM_PIPELINES = {
+#    'scrapy.pipelines.images.ImagesPipeline': 1
+    'zillow.pipelines.ZillowPipeline': 1
+}
+
+IMAGES_STORE = '.'
+```
+
+##### run 
+``` bash
+(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\zillow>scrapy crawl zillow_houses
+.....
+{'address': '10822 SW 165th Ter, Miami, FL 33157',
+ 'area_sqft': 1595,
+ 'baths': 2.0,
+ 'beds': 5,
+ 'broker_name': 'Sigma Real Estate & Investment',
+ 'detail_url': 'https://www.zillow.com/homedetails/10822-SW-165th-Ter-Miami-FL-33157/44298616_zpid/',
+ 'id': '44298616',
+# image information
+ 'image_urls': ['https://photos.zillowstatic.com/fp/b5c1b3a40c525c8c96002c8a969b550d-p_e.jpg'],
+ 'images': [{'checksum': 'dded82b1a953d6d9ac5e681ec894b7b4',
+             'path': 'full/44298616.jpg',
+             'status': 'downloaded',
+             'url': 'https://photos.zillowstatic.com/fp/b5c1b3a40c525c8c96002c8a969b550d-p_e.jpg'}],
+ 'index': 1,
+ 'latitude': 25.615082,
+ 'longitude': -80.368904,
+ 'price': '$899,000',
+ 'status_text': 'House for sale',
+ 'status_type': 'FOR_SALE'}
+```
+
+### Desktop App
+#### gui
+##### gui_app.py
+``` py
+from tkinter import *
+
+app = Tk()
+
+# Spider List
+spider_label = Label(app, text='Chose a spider')
+spider_label.grid(row=0, column=0, sticky=W, pady=10, padx=10)
+
+spider_text = StringVar(app)
+spider_text.set('Chose a spider')
+spiders = ['Spider_1', 'Spider_2']
+
+spider_dropdown = OptionMenu(app, spider_text, *spiders)
+spider_dropdown.grid(row=0, column=1, columnspan=2)
+
+# Feed Type
+feed_label = Label(app, text='Chose a feed')
+feed_label.grid(row=1, column=0, sticky=W, pady=10, padx=10)
+
+feed_text = StringVar(app)
+feed_text.set('Chose a feed')
+feeds = ['JSON', 'CSV']
+
+feed_dropdown = OptionMenu(app, feed_text, *feeds)
+feed_dropdown.grid(row=1, column=1, columnspan=2)
+
+# Path Entry
+folder_path_text = StringVar(app)
+folder_path_entry = Entry(app, textvariable=folder_path_text)
+folder_path_entry.grid(row=2, column=0, pady=10, padx=10)
+
+# Dataset Entry
+dataset_path_text = StringVar(app)
+dataset_path_entry = Entry(app, textvariable=dataset_path_text, width=10)
+dataset_path_entry.grid(row=2, column=1, pady=10, padx=10)
+
+browse_btn = Button(app, text='Browse')
+browse_btn.grid(row=2, column=2)
+
+execute_btn = Button(app, text='Execute')
+execute_btn.grid(row=3, column=0, columnspan=3)
+
+app.title('Spider Executer')
+app.geometry('320x200')
+app.resizable(False, False)
+app.mainloop()
+```
+
+##### run
+``` bash
+PS D:\work\run\python_crawler\108-scrapy-practice\zillow> python .\gui_app.py
+```
+<div style="max-width:400px">
+	{% asset_img pic6.png pic6 %}
+</div>
+
+
 ### Ref
 + [Postman](https://www.postman.com/downloads/)
