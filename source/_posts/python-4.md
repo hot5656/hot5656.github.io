@@ -188,6 +188,9 @@ print(result)  # 👉️ 0x61 0x70 0x70 0x6c 0x65
 
 # split by hex code 0x0a
 h1_str = soup2.find('h1').text.strip().split('\x0a')
+
+# replace 
+image_name = post.get('titleImage').get('asset').get('_ref').replace('image-', '').replace('-', '.')
 ```
 
 #### array
@@ -217,6 +220,9 @@ record = {
     '成交筆數': data[8]
 }
 info.append(record)
+
+# list strip
+new_tags = [item.strip() for item in tags]
 ```
 
 #### Dictionaries

@@ -2386,6 +2386,7 @@ li:nth-child(even)
 + Python extension for Visual Studio Code(Microsoft)
 + Python Environment Manager
 + SQLite : explore and query SQLite databases.
++ Sort JSON array : sort json array by certain field
 
 #### excel 開  utf-8 .csv file
 <div style="width:500px">
