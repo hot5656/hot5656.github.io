@@ -36,3 +36,35 @@ from twisted.internet import reactor
 2023-01-17 09:15:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://foootball.cc?page=2>: HTTP status code is not handled or not allowed
 ......
 ```
+
+### Lua error: [string "function main(splash, args) ..."]:2: network3
++ remove assert : 其實還是錯,只是未被中斷
++ splash 關掉再開可解決
+
+``` lua
+function main(splash, args)
+  assert(splash:go(args.url))
+  assert(splash:wait(0.5))
+  return {
+    html = splash:html(),
+    png = splash:png(),
+    har = splash:har(),
+  }
+end
+```
+
+``` lua
+-- remove assert ok --
+function main(splash, args)
+  splash:go(args.url)
+  splash:wait(0.5)
+  return {
+    html = splash:html(),
+    png = splash:png(),
+    har = splash:har(),
+  }
+end
+```
+
+Ref
++ [How to get more information about a 400 ScriptError](https://github.com/scrapinghub/splash/issues/874)

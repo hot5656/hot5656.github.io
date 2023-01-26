@@ -3,6 +3,7 @@ title: PostgreSQL
 tags:
   - database
   - docker
+  - python
 abbrlink: 217b
 date: 2023-01-19 09:13:34
 categories: Back End
@@ -207,13 +208,13 @@ remove Constraints's Default
 	{% asset_img pic17.png pic17 %}
 </div>
 
-#### access DB
-##### install psycopg2
+### access DB
+#### install psycopg2
 ``` bash
 pip install psycopg2
 ```
 
-##### db_access.py - add data
+#### db_access.py - add data
 ``` py
 import psycopg2
 from datetime import datetime
@@ -260,16 +261,16 @@ cursor.close()
 conn.close()
 ```
 
-##### run 
+#### run 
 ``` bash
 (myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome\ithome>python db_access.py
 資料庫連線成功!
 資料新增成功!
 ```
 
-##### show DB
+#### show DB
 <div style="max-width:700px">
-	{% asset_img pic13.png pic13 %}
+	{% asset_img pic10.png pic10 %}
 </div>
 
 ### SQL command
