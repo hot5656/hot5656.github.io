@@ -846,6 +846,53 @@ ITEM_PIPELINES = {
 </div>
 
 
+### Middleware
+#### install fake-useragent
+``` bash
+pip install fake-useragent
+```
+
+#### UserAgent
+##### settings.py
+``` py
+# Enable or disable downloader middlewares
+# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+#DOWNLOADER_MIDDLEWARES = {
+#    'ithome2.middlewares.Ithome2DownloaderMiddleware': 543,
+#}
+DOWNLOADER_MIDDLEWARES = {
+   'ithome2.middlewares.Item2AgentMiddleware': 543,
+}
+```
+
+##### middlewares.py
+``` py
+from scrapy import signals
+
+# useful for handling different item types with a single interface
+from itemadapter import is_item, ItemAdapter
+
+# add user agent
+from fake_useragent import UserAgent
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+
+class Item2AgentMiddleware(UserAgentMiddleware):
+    def __init__(self, user_agent=''):
+        self.user_agent = user_agent
+
+    def process_request(self, request, spider):
+        ua = UserAgent()
+        request.headers['User-Agent'] = ua.random
+
+
+    def process_response(self, request, response, spider):
+        # log test
+        spider.logger.info(f'Item2AgentMiddleware-process_response User-Agent of [{request.url}] is [{request.headers["User-Agent"]}]')
+
+        return response
+```
+
+
 ### Scrapy API
 #### [Quotes to Scrape](http://quotes.toscrape.com/scroll)
 ##### check API from chrom
@@ -2373,6 +2420,62 @@ li:nth-child(odd)
 li:nth-child(even)
 ```
 
+### run by python
+#### python run process
+##### run_scrapy_subprocess.py
+``` py
+import subprocess
+
+# python run process
+subprocess.run('scrapy crawl articles')
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome2>python run_scrapy_subprocess.py
+```
+
+#### scrapy run crawler Process
+##### run_scrapy_crawlerprocess.py
+``` py
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+
+# scrapy run crawler Process
+process = CrawlerProcess(get_project_settings())
+process.crawl('articles')
+process.start()
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome2>python run_scrapy_crawlerprocess.py
+```
+
+
+#### run by Twisted reactor
+##### run_scrapy_crawlerrunner.py
+``` py
+from  scrapy.crawler import CrawlerRunner
+from scrapy.utils.project import get_project_settings
+from scrapy.utils.reactor import install_reactor
+# need put in front of "from twisted.internet import reactor"
+install_reactor('twisted.internet.asyncioreactor.AsyncioSelectorReactor')
+from twisted.internet import reactor
+
+# run by Twisted reactor
+runner = CrawlerRunner(get_project_settings())
+d = runner.crawl('articles')
+
+d.addBoth(lambda _: reactor.stop())
+reactor.run()
+```
+
+##### run
+``` bash
+(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome2>python run_scrapy_crawlerrunner.py
+```
+
 ### Tool
 #### Evaluate and validate XPath/CSS selectors in Chrome Developer Tools
 + open Chrome Devtools
@@ -2401,6 +2504,13 @@ li:nth-child(even)
 + [JSON Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
 + [ModHeader - Modify HTTP headers](https://chrome.google.com/webstore/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en)
 
+### Wait
++ [scrapy detail](https://docs.scrapy.org/en/latest/topics/architecture.html)
++ python 正規表達式 - import re
++ CSS selectors
++ python @classmethod
++ Python MongoDB
+
 ### Ref
 + [CSS selectors practice](https://try.jsoup.org/)
 + [XPath expression practice](https://scrapinghub.github.io/xpath-playground/)
@@ -2413,3 +2523,5 @@ li:nth-child(even)
 + [XPath document](https://developer.mozilla.org/en-US/docs/Web/XPath)
 + [XPath Tutorial](https://www.tutorialspoint.com/xpath/index.htm)
 + [Downloading and processing files and images](https://docs.scrapy.org/en/latest/topics/media-pipeline.html)
++ [Architecture overview](https://docs.scrapy.org/en/latest/topics/architecture.html)
++ [fake-useragent](https://github.com/fake-useragent/fake-useragent)
