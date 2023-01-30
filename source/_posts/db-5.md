@@ -147,6 +147,50 @@ client.close()
 </div>
 
 ### Coding
+#### link to MongoDB
+##### pipelines.py
+``` py
+# useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+import psycopg2
+from pymongo import MongoClient
+from datetime import datetime
+import ithome.env as env
+import ithome.mongodb_altas as mongodb_altas
+
+class MongoPipeline:
+    def open_spider(self, spider):
+        # DB 不用先建也 ok
+        # user = env.MONGO_USER
+        # password = env.MONGO_PASSWORD
+        # host = 'localhost'
+        # port =  27017
+        # dbname = 'ithome'
+
+
+        # MONGO_URI = f'mongodb://{user}:{password}@{host}:{port}/'
+        # self.client = MongoClient(MONGO_URI)
+
+        dbname = 'IMDB'
+        MONGO_URI = mongodb_altas.mogodb_link
+        self.client = MongoClient(MONGO_URI)
+
+        # self.client = MongoClient('mongodb://%s:%s@%s:%s/' % (
+        #     'mongoadmin',   # 資料庫帳號
+        #     'mg123456',     # 資料庫密碼
+        #     'localhost',    # 資料庫位址
+        #     '27017'         # 資料庫埠號
+        # ))
+        print('資料庫連線成功！')
+
+
+        self.db = self.client[dbname]
+        self.article_collection = self.db.articles
+        self.response_collection = self.db.response
+
+    def close_spider(self, spider):
+        self.client.close()
+```
 #### multiple collection
 ##### settings.py
 ``` py
