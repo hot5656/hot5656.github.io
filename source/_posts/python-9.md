@@ -2134,6 +2134,59 @@ DeeJay_Somic_-_Nowy_Vizir(the_commercial_compilation).mp3
 ......
 ```
 
+### download image by python
+``` py
+import scrapy
+from scrapy_splash import SplashRequest
+import ppt.items as items
+from scrapy.loader import ItemLoader
+import urllib
+import os
+
+
+class BeautySpider(scrapy.Spider):
+    JPG = '.jpg'
+    PNG = '.png'
+    IMAGE_FOLDER = 'images'
+    IMAGE_MAX = 5
+    name = 'beauty'
+    allowed_domains = ['www.ptt.cc']
+    URL_ENTRY = 'https://www.ptt.cc/bbs/Beauty/index.html'
+    index = 1
+
+    ......
+
+    def post_parse(self, response):
+        if self.index < self.IMAGE_MAX:
+            title = response.xpath("(//div[@class='article-metaline']//span[@class='article-meta-value'])[2]/text()").get()
+            lists = response.xpath("//div[@class='richcontent']")
+            list_index = 1
+            for list in lists:
+                image_url = list.xpath(".//img/@src").get()
+                loader = ItemLoader(item=items.PptPostItem())
+                loader.add_value('image_urls', [image_url])
+                loader.add_value('index', self.index)
+                if self.PNG in image_url:
+                    file_name = f"{title}{list_index}{self.PNG}"
+                elif self.JPG in image_url:
+                    file_name = f"{title}{list_index}{self.JPG}"
+                else:
+                    file_name = f"{title}{list_index}None{self.JPG}"
+                list_index += 1
+
+                self.image_download(image_url, file_name, self.IMAGE_FOLDER)
+                self.index += 1
+                yield loader.load_item()
+
+                if self.index > self.IMAGE_MAX:
+                    break
+
+    def image_download(self, url, name, folder):
+        dir=os.path.abspath(folder)
+        work_path=os.path.join(dir,name)
+        urllib.request.urlretrieve(url, work_path)
+```
+
 ### Debug
 #### Parse Command
 <font color=red>
