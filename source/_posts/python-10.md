@@ -635,9 +635,14 @@ class BeautySpider(scrapy.Spider):
 
 ### Issue
 #### ScrapyDeprecationWarning(function to_native_str. Use to_unicode instead.)
+##### 1st method - seem better 
++ install scrapy to version 2.8.0
++ install scrapy-spkash to 0.9.0
+
+##### 2nd method
 ScrapyDeprecationWarning: Call to deprecated function to_native_str. Use to_unicode instead.
    	url = to_native_str(url)
-##### scrapy_splash/request.py 
+###### scrapy_splash/request.py 
 ``` py
 # ScrapyDeprecationWarning: Call to deprecated function to_native_str. Use to_unicode instead.
 #   url = to_native_str(url)

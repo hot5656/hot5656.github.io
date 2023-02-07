@@ -433,6 +433,12 @@ DEFAULT_REQUEST_HEADERS = {
 }
 ```
 
+#### save Scrapy crawl Command output
+```
+LOG_STDOUT = True
+LOG_FILE = 'scrapy_output.txt'
+``` 
+
 ### coding
 #### starting spider .py
 ``` py

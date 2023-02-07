@@ -8,27 +8,264 @@ tags:
 ---
 
 ### Command
-#### install selenium
+#### install
+##### install selenium
 ``` bash 
 pip install selenium
 ```
 
-#### install webdriver_manager
+##### install webdriver_manager(support auto download driver)
 ```
 pip install webdriver_manager
 ```
 
-#### install scrapy-selenium
+##### install scrapy-selenium
 ```
 pip install scrapy-selenium
 ```
 <!--more-->
 
-#### download browser driver(check same as currenct use)
+##### download browser driver(check same as currenct use)
 + [Chrome driver](https://sites.google.com/chromium.org/driver/downloads) 
 
+
+#### Selenium 功能
+##### basic
+``` py
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+# 出現以下錯誤, 增加 options mask
+# [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]
+# [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+# set browser not auto quit()
+options.add_experimental_option('detach', True)
+
+# add argument headless - no open browser
+# options.add_argument('--headless')
+
+# auto install driver
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver.get("https://www.dcard.tw/f")
+
+# show title
+print(driver.title)
+
+# quit browser
+driver.quit()
+```
+
+##### option
+``` py
+from selenium import webdriver
+
+# 出現以下錯誤, 增加 options mask
+# [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]
+# [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+# set browser not auto quit()
+options.add_experimental_option('detach', True)
+
+# 防止跳出通知
+chrome_options = webdriver.ChromeOptions()
+prefs = {
+    "profile.default_content_setting_values.notifications": 2
+}
+chrome_options.add_experimental_option("prefs", prefs)
+```
+
+##### find element
+``` py
+from selenium.webdriver.common.by import By
+
+search_input = driver.find_element(By.ID, "keyword")
+
+elements = driver.find_elements(By.CLASS_NAME, 'foo')
+
+obj = driver.find_element(By.NAME, "IamBanana")
+obj = driver.find_element(By.LINK_TEXT, "https://rootttt.com.tw")
+obj = driver.find_element(By.CSS_SELECTOR, "#car span.blue.wow")
+
+# 定位<form>標籤
+form = driver.find_element(By.XPATH, "//form[@id='fm1']")
+print(form.get_attribute("type"))
+# 定位密碼欄位
+pwd = driver.find_element(By.XPATH, "//form[@id='fm1']/section[2]/input")
+print(pwd.get_attribute("type"))
+# 定位登入按鈕
+clear = driver.find_element(By.XPATH, "//input[@class='btn-submit']")
+print(clear.get_attribute("type"))
+
+# CLASS_NAME = 'class name'
+# CSS_SELECTOR = 'css selector'
+# ID = 'id'
+# LINK_TEXT = 'link text'
+# NAME = 'name'
+# PARTIAL_LINK_TEXT = 'partial link text'
+# TAG_NAME = 'tag name'
+# XPATH = 'xpath'
+```
+
+##### get data
+``` py
+# text
+print(driver.find_element_by_id("signupModalButton").text)
+
+# html
+product_sel = Selector(text=product.get_attribute('innerHTML'))
+
+# attribute 
+elements = driver.find_elements_by_id("link")
+element.get_attribute('href')
+
+# property
+element = driver.find_element_by_link_text("Courses")
+print(element.get_property('href'))
+
+#tag name
+elements = driver.find_elements_by_name("passwd")
+element.tag_name
+
+```
+
+##### send keys
+``` py
+from selenium.webdriver.common.keys import Keys
+# input string
+search_input.send_keys('iphone 12')
+
+time.sleep(3)
+
+# clear string
+search_input.clear()
+
+# input string
+search_input.send_keys('iphone 14 pro')
+
+# input special key
+search_input.send_keys(Keys.ENTER)
+
+# ctrl-c , ctrl-v
+element.send_keys(Keys.CONTROL, "c")
+element.send_keys(Keys.CONTROL, "v")
+
+# some special key
+TAB 
+```
+
+##### click
+``` py
+phone_1st = driver.find_element(By.CLASS_NAME, "prdImg")
+phone_1st.click()
+```
+
+##### submit
+``` py
+# 送出表單
+element = driver.find_element_by_id('Hi')
+element.submit()
+```
+
+##### Explicit Waits
+``` py
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+try:
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "toothUl"))
+    )
+    phone_1st = driver.find_element(By.CLASS_NAME, "prdImg")
+    phone_1st.click()
+finally:
+    # driver.quit()
+    pass
+```
+
+##### forward/backward
+``` py
+# 最大化視窗
+driver.maximize_window()
+
+....
+
+# 前一頁
+driver.back()
+
+time.sleep(3)
+
+# 下一頁
+driver.forward()
+
+# 重新整理
+driver.fresh()
+
+
+# 關閉視窗
+driver.close()
+
+# 關閉瀏覽器
+driver.quit()
+```
+
+##### information
+``` py
+# show title
+print(driver.title)
+```
+
+#### special coding
+##### convert element to Selector
+``` py
+from scrapy.selector import Selector
+
+products = driver.find_elements(By.XPATH, "//div[@class='listArea']/ul/li")
+for product in products:
+    # element to Selector
+    product_sel = Selector(text=product.get_attribute('innerHTML'))
+    title = product_sel.xpath(".//h3[@class='prdName']/text()").get()
+    print(title)
+```
+
 ### Coding
-#### selenium run by python
+#### selenium run by python #1
+##### 1st - test1.py
+``` py
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+# 出現以下錯誤, 增加 options mask
+# [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]
+# [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+# set browser not auto quit()
+options.add_experimental_option('detach', True)
+
+# add argument headless - no open browser
+# options.add_argument('--headless')
+
+# auto install driver
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver.get("https://www.dcard.tw/f")
+
+# show title
+print(driver.title)
+
+# quit browser
+driver.quit()
+```
+
+
+#### selenium run by python #2
 ##### basic run selenium
 ###### copy chromedriver.exe to /app/ChromeDrive
 
@@ -475,3 +712,5 @@ class ExampleSpider(scrapy.Spider):
 ### Ref
 + [Selenium with Python](https://selenium-python.readthedocs.io/)
 + [Scrapy with selenium](https://github.com/clemfromspace/scrapy-selenium)
++ [Selenium 函式庫](https://steam.oxxostudio.tw/category/python/spider/selenium.html)
++ [Scrapy Selenium Guide](https://scrapeops.io/python-scrapy-playbook/scrapy-selenium/)
