@@ -2501,7 +2501,7 @@ category = listing.xpath("normalize-space(.//span[@class='category']/div/text())
 ```
 
 #### XPath expression
-```
+``` py
 //div[@class="intro" or @class='outro']/p/text()
 //a[starts-with(@href,'https')]
 
@@ -2544,6 +2544,11 @@ category = listing.xpath("normalize-space(.//span[@class='category']/div/text())
 
 # contain class
 //div[contains(@class,"ReactVirtualized__Table__row tableRow___3EtiS ")]
+
+# tag svg 
+//*[local-name() = 'svg'][contains(@aria-label, '搜尋')]
+# aria-label field
+//input[contains(@aria-label, '搜尋輸入')]
 ```
 
 ### CSS selectors

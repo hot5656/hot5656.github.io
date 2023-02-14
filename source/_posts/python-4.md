@@ -193,8 +193,18 @@ h1_str = soup2.find('h1').text.strip().split('\x0a')
 image_name = post.get('titleImage').get('asset').get('_ref').replace('image-', '').replace('-', '.')
 ```
 
-#### array
+#### array/list
 ``` py
+# 生成空 list
+info = list()
+record = {
+    '日期': data[0],
+    '開盤價': data[3],
+    '收盤價': data[6],
+    '成交筆數': data[8]
+}
+info.append(record)
+
 rticles = []
 divs = soup.find_all('div', 'r-ent')
 for d in divs:
@@ -207,22 +217,30 @@ for d in divs:
             'href': href,
             'author': author
         })
-```
-
-#### list
-``` py
-# 生成空 list
-info = list()
-record = {
-    '日期': data[0],
-    '開盤價': data[3],
-    '收盤價': data[6],
-    '成交筆數': data[8]
-}
-info.append(record)
 
 # list strip
 new_tags = [item.strip() for item in tags]
+
+# list for generate
+article_upvotes =[int(score.text.split()[0]) for score in soup.find_all("span", class_='score')]
+
+# for reverse
+for movie in reversed(movies):
+    file.write(f"{movie.text}\n")
+
+#get index
+largest_number = max(article_upvotes)
+largest_index = article_upvotes.index(largest_number)
+
+# change array process sequence
+numbers = [3,5,7,9,11]
+for number in numbers[len(numbers)::-1]:
+    print(number)
+# 11
+# 9
+# 7
+# 5
+# 3
 ```
 
 #### Dictionaries
@@ -494,6 +512,12 @@ import os
 STOCK_DB_FILE = 'stockPrice.db'
 if os.path.isfile(STOCK_DB_FILE):
     os.remove(STOCK_DB_FILE)
+
+# generate dirctory
+path = os.path.join(keyword)
+os.mkdir(path)
+save_as = os.path.join(path, f"{keyword}{count}.jpg")
+wget.download(pic.get_attribute('src'), save_as)
 ```
 
 #### timedate
@@ -556,6 +580,18 @@ else:
 ``` py
 # 修正中文 show 亂碼
 trailer_url = unquote(movie_info.find('div', {'class': 'release_movie_name'}).find('a')['href'], 'utf-8')
+```
+
+#### urllib - dowload file
+``` py
+import urllib
+import os
+
+def image_download(self, url, name, folder):
+    dir=os.path.abspath(folder)
+    work_path=os.path.join(dir,name)
+    print(f"-->{name}")
+    # urllib.request.urlretrieve(url, work_path)
 ```
 
 ### special function
@@ -727,6 +763,19 @@ def remove_html(self, review_summary):
     except TypeError:
         cleaned_review_summary = 'No reviews'
     return cleaned_review_summary
+```
+
+#### wget - downloa file
+``` py
+import os
+import wget
+
+# generate dirctory
+path = os.path.join(keyword)
+os.mkdir(path)
+
+save_as = os.path.join(path, f"{keyword}{count}.jpg")
+wget.download(pic.get_attribute('src'), save_as)
 ```
 
 ### Ref

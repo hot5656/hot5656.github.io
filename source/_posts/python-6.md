@@ -15,14 +15,13 @@ BeautifulSoup
 
 <!--more-->
 
-### package
-#### Request 
-##### install
+### Request 
+#### install
 ```
 pip install requests
 ```
 
-##### GET 
+#### GET 
 ``` python 
 import requests
 
@@ -45,7 +44,7 @@ def get_web_page(url):
         return resp.text
 ```
 
-##### POST
+#### POST
 ``` python
 import requests
 
@@ -56,20 +55,20 @@ x = requests.post(url, json = myobj)
 print(x.text)
 ```
 
-##### other methods
+#### other methods
 + delete(url, args)	: Sends a DELETE request to the specified url
 + head(url, args) : Sends a HEAD request to the specified url
 + patch(url, data, args) : Sends a PATCH request to the specified url
 + put(url, data, args) : Sends a PUT request to the specified url
 + request(method, url, args) : Sends a request of the specified method to the specified url
 
-#### BeautifulSoup 網頁解析
-##### install
+### BeautifulSoup 
+#### install
 ```
 pip install beautifulsoup4
 ```
 
-##### example
+#### example
 ``` python
 import requests
 from bs4 import BeautifulSoup
@@ -112,8 +111,58 @@ if __name__ == '__main__':
     main()
 ```
 
-##### html 解析
+#### parse
 ``` py
+# 不需另行安裝
+soup = BeautifulSoup(resp.text, 'html.parser')
+
+# need instll lxml 
+import lxml
+# 較快速
+soup = BeautifulSoup(content, "lxml")
+
+# need instll html5lib 
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(dom, 'html5lib')
+```
+
+#### html 解析
+##### get data
+``` py
+print(soup.title)      		# <title>Angela's Personal Site</title>
+print(soup.title.name)  	# show tag: title
+print(soup.title.string)  # Angela's Personal Site
+print(soup.prettify()) 		# 美化排列
+
+# get text
+link.text
+# get href
+link.get('href')
+``` 
+
+##### find
+``` py
+# find 1st tag
+print(soup.a)   # 1st tag a
+print(soup.p)   # 1st tag p
+print(soup.li)  # 1st tag li
+
+# find all tag
+links = soup.find_all('a')
+print(links)
+for link in links:
+    # all accept
+    # print(link.get_text())
+    # print(link.getText())
+    # print(link.text)
+    # get link
+    print(link.get('href'))
+
+# find tag add condition
+print(soup.find("h1", id='name'))
+# class is keyword, change to class_
+print(soup.find("h3", class_='heading'))
+
 # find()
 paging_div = soup.find('div', 'btn-group btn-group-paging')
 push_str = d.find('div', 'nrec').text
@@ -164,21 +213,36 @@ for div in divs:
 for div in divs:
   print([s for s in div.stripped_strings])
 
+# find li iclude a tag
+next = soup.find('li', {'class': 'nexttxt'}).find('a')
+# get tag a's href
+print('next url = ' + next['href'])
+```
+
+##### select
+``` py
+# select 1st
+print(soup.select_one("p a"))
+print(soup.select_one("#name"))
+# select all
+print(soup.select(".heading"))
+```
+
+##### separent/sibling/children
+``` py
 # parent and sibling
 price = link.parent.previous_sibling.text
 # children
 all_tds = [td for td in row.children]
+```
+
+##### others
+``` py
 # check attrs
 if 'href' in all_tds[3].a.attrs :
   href = all_tds[3].a['href']
 else:
   href = None;
-
-# find li iclude a tag
-next = soup.find('li', {'class': 'nexttxt'}).find('a')
-
-# get tag a's href
-print('next url = ' + next['href'])
 
 # some example
 movie_info = movie.find('div', {'class': 'release_info'})
@@ -203,21 +267,16 @@ if movie_info:
   }
 ```
 
-##### 解析後建立 html5 物件
-``` python
-# need instll html5lib 
-from bs4 import BeautifulSoup
-soup = BeautifulSoup(dom, 'html5lib')
-```
 
-#### Selenium
 
-##### install
+### Selenium
+
+#### install
 ```
 pip install selenium
 ```
 
-##### example 1
+#### example 1
 ``` py
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -256,7 +315,7 @@ if __name__ == '__main__':
   browser.quit()
 ```
 
-##### example 2 - get html from element
+#### example 2 - get html from element
 ``` py
 news =  browser.find_elements(By.CLASS_NAME, "story-list__news")
 i = 1

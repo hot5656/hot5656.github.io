@@ -78,6 +78,15 @@ prefs = {
     "profile.default_content_setting_values.notifications": 2
 }
 chrome_options.add_experimental_option("prefs", prefs)
+
+# 使用無痕模式,應沒有甚麼用
+# options.add_argument("--incognito")  
+# ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+# 使用偽造的 user-agent,應沒有甚麼用
+# options.add_argument("user-agent={}".format(ua))
+
+# add argument headless - no open browser
+options.add_argument('--headless')
 ```
 
 ##### find element
@@ -132,6 +141,12 @@ print(element.get_property('href'))
 elements = driver.find_elements_by_name("passwd")
 element.tag_name
 
+```
+
+
+##### run javascript
+``` py
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 ```
 
 ##### send keys
@@ -218,6 +233,32 @@ driver.quit()
 ``` py
 # show title
 print(driver.title)
+```
+
+##### cookie
+``` py
+# show cookie
+print(driver.get_cookies())
+```
+
+##### save page to image
+``` py
+# save page to image
+driver.save_screenshot("datacamp.png")
+```
+
+##### write page to file
+``` py
+import codecs
+import os
+
+# open file in write mode with encoding
+name = os.path.join("", "index.html")
+file = codecs.open(name, "w", "utf−8")
+# obtain page source
+h = driver.page_source
+# write page source content to file
+file.write(h)
 ```
 
 #### special coding
