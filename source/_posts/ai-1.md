@@ -4,7 +4,7 @@ abbrlink: ce78
 date: 2023-03-09 11:39:44
 categories: Coding
 tags:
-	- openai
+	- ai
 ---
 
 ### 1st example 
@@ -37,7 +37,7 @@ console.log(response.data)
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "copy key from openai",
 });
 const openai = new OpenAIApi(configuration);
 
