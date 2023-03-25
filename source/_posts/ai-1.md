@@ -67,7 +67,7 @@ console.log(response.data)
 }
 ```
 
-### run 
+#### run 
 ``` bash
 D:\work\run\openapi>node index.js
 {
@@ -99,7 +99,7 @@ D:\work\run\openapi>node index.js
 ```
 
 ### Tool
-+ [ChatGPT Prompt Genius]: Discover, share, import, and use the best prompts for ChatGPT
++ [ChatGPT Prompt Genius](https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo): Discover, share, import, and use the best prompts for ChatGPT
 + [ChatGPT for Google](https://chrome.google.com/webstore/detail/chatgpt-for-google/jgjaeacdkonaoafenlfkkkmbaopkbilf): google search 同時問 chatGPT
 + [WebChatGPT](https://chrome.google.com/webstore/detail/webchatgpt-chatgpt-with-i/lpfemeioodjbpieminkklglpmhlngfcn): 在ChatGPT上問了一個問題，它就會到Google上搜尋數條相關的連結，並把這些資料整理成一段簡短的敘述
 + [AIPRM for ChatGPT](https://chrome.google.com/webstore/detail/aiprm-for-chatgpt/ojnbohmppadfgpejeebfnmnknjdlckgj): Prompts for ChatGPT
