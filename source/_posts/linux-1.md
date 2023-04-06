@@ -10,9 +10,40 @@ tags:
 ### Command
 <!--more-->
 
-#### net
-##### netstat
+#### system
 ``` bash
+# system info
+# the system is ubuntu 20.04, u2204s is I give wrong host name
+kyp@u2204s:~/app/my-app$ uname -a
+	Linux u2204s 5.4.0-146-generic #163-Ubuntu SMP Fri Mar 17 18:26:02 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+# release
+kyp@u2204s:~/app/my-app$ lsb_release -a
+	No LSB modules are available.
+	Distributor ID: Ubuntu
+	Description:    Ubuntu 20.04.6 LTS
+	Release:        20.04
+	Codename:       focal
+
+# change mode 
+sudo chmod 666 /var/run/docker.sock
+```
+
+#### user and group
+``` bash
+# user kyp add group docker
+sudo usermod -aG docker kyp
+```
+
+#### process
+``` bash
+# ps : show standrd process information
+ps -ef 
+```
+
+#### net
+``` bash
+# net stat
 # -a  : list all
 # -t  : list all tcp
 # -u  : list all udp 
@@ -60,6 +91,23 @@ kyp@u2204s:~$ ip a
         valid_lft forever preferred_lft forever
 ```
 
+### install package
+#### node
+``` bash
+# install node 18
+sudo apt update && sudo apt upgrade
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install nodejs
+kyp@u2204s:~/test_m$ node --version
+	v18.15.0
+```
+
+#### yarn
+``` bash
+# install yarn
+sudo apt install yarn
+kyp@u2204s:~$ yarn --version
+```
 
 ``` bash
 clear
