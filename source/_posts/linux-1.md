@@ -91,14 +91,28 @@ kyp@u2204s:~$ ip a
         valid_lft forever preferred_lft forever
 ```
 
+### application
+#### set root password
+``` bash
+sudo passwd root
+su -
+```
+
 ### install package
 #### node
 ``` bash
+# remove from ubuntu server
+$ node --version
+	v10.19.0
+$ which node
+	/usr/bin/node
+$ sudo apt remove nodejs
+
 # install node 18
 sudo apt update && sudo apt upgrade
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install nodejs
-kyp@u2204s:~/test_m$ node --version
+$ node --version
 	v18.15.0
 ```
 
@@ -108,6 +122,42 @@ kyp@u2204s:~/test_m$ node --version
 sudo apt install yarn
 kyp@u2204s:~$ yarn --version
 ```
+
+#### npm
+``` bash
+sudo apt install npm
+```
+
+#### ftp server
+``` bash
+# ftp server 
+sudo apt install vsftpd
+sudo systemctl start vsftpd
+# 重開機時啟動
+sudo systemctl enable vsftpd
+
+# set ftp write eneable
+sudo cp /etc/vsftpd.conf  /etc/vsftpd.conf_default
+sudo nano /etc/vsftpd.conf
+# # Uncomment this to enable any form of FTP write command.
+# write_enable=YES
+sudo systemctl restart vsftpd.service
+
+# show status
+$ sudo systemctl status vsftpd
+	? vsftpd.service - vsftpd FTP server
+			Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled; vendor preset: enabled)
+			Active: active (running) since Mon 2023-04-10 02:23:42 UTC; 12s ago
+			Process: 2675 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited, status=0/SUCCESS)
+		Main PID: 2684 (vsftpd)
+				Tasks: 1 (limit: 4609)
+			Memory: 680.0K
+			CGroup: /system.slice/vsftpd.service
+							mq2684 /usr/sbin/vsftpd /etc/vsftpd.conf
+	Apr 10 02:23:42 u2204s systemd[1]: Starting vsftpd FTP server...
+	Apr 10 02:23:42 u2204s systemd[1]: Started vsftpd FTP server.
+```
+
 
 ``` bash
 clear
@@ -290,65 +340,14 @@ kyp@u2204s:~$ find -name notes.txt
   ./notes.txt
 ```
 
-``` bash
-# ftp server 
-sudo apt install vsftpd
-sudo systemctl start vsftpd
-sudo systemctl enable vsftpd
-sudo cp /etc/vsftpd.conf  /etc/vsftpd.conf_default
-
-kyp@u2204s:~$ sudo nano /etc/vsftpd.conf
-# # Uncomment this to enable any form of FTP write command.
-# write_enable=YES
-sudo systemctl restart vsftpd.service
-
-# change root password
-sudo passwd root
-
-su -
-
-```
-
-#### vscode ftp-simple plugin
-
-#### react
-
-``` bash
-# install node/npm
-npx create-react-app my-app
-cd my-app
-npm start
 
 
-# product 
-npm run build
-# sudo npm install -g serve
-# 
-# kyp@u2204s:~/app/my-app$ serve -s build
-#  ERROR  Cannot copy server address to clipboard: Couldn't find the `xsel` binary and fallback didn't # work. On Debian/Ubuntu you can install xsel with: sudo apt install xsel.
-# 
-# sudo apt install xsel
-# 
-# kyp@u2204s:~/app/my-app$ sudo serve -s build
-#  ERROR  Cannot copy server address to clipboard: Both xsel and fallback failed.
-# sudo apt-get install xclip
-# 
-# kyp@u2204s:~/app/my-app$ sudo serve -s build
-#  ERROR  Cannot copy server address to clipboard: Both xsel and fallback failed.
-# 
-# 
-kyp@u2204s:~/app/my-app$ sudo serve -s build --no-clipboard
-http://192.168.18.2:3000
 
-# error 
-kyp@u2204s:~/meteor$ npm start
-> meteorfrontend@0.1.0 start
-> react-scripts start
-sh: 1: react-scripts: not found
-# run npm install
-kyp@u2204s:~/meteor$ npm install
-# re-try
-npm start
 
-```
+
+
+
+
+
+
 

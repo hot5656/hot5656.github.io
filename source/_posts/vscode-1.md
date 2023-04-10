@@ -126,17 +126,34 @@ Commonly Used --> Editor:Word Wrap
 + Git History :  see git log
 + colorize : color 可見可選
 + WhatFont : 網頁字型、字體樣式自動偵測工具
-+	AutoFileName : 程式中自動選擇檔案
-+	Beautify : Beautify javascript, JSON, CSS, Sass, and HTML in Visual Studio Code.
-+	EJS language support : 2019 - EJS language support for Visual Studio Code.
-+	ES7+ React/Redux/React-Native snippets : JavaScript and React/Redux snippets in ES7+ with Babel plugin features for VS Code
-+	ESLint : Integrates ESLint JavaScript into VS Code.
-+	Fake Image Snippet Collection :  some nice fake image service for prototyping use
-+	Favorites : Add files and directories to workspace favorites. 
-+	hex-to-rgba : Allows designers to convert selected Hex Code to RGBA
-+	Highlight Matching Tag : Highlights matching closing and opening tags
-+	JavaScript (ES6) code snippets : Code snippets for JavaScript in ES6 syntax
-+	jQuery Code Snippets : jQuery Code Snippets
-+	Jupyter : Jupyter Extension for Visual Studio Code
-+	Prettier - Code formatter : Code formatter using prettier
++ AutoFileName : 程式中自動選擇檔案
++ Beautify : Beautify javascript, JSON, CSS, Sass, and HTML in Visual Studio Code
++ EJS language support : 2019 - EJS language support for Visual Studio Code.
++ ES7+ React/Redux/React-Native snippets : JavaScript and React/Redux snippets in ES7+ with Babel plugin features for VS Code
++ ESLint : Integrates ESLint JavaScript into VS Code.
++ Fake Image Snippet Collection :  some nice fake image service for prototyping use
++ Favorites : Add files and directories to workspace favorites. 
++ hex-to-rgba : Allows designers to convert selected Hex Code to RGBA
++ Highlight Matching Tag : Highlights matching closing and opening tags
++ JavaScript (ES6) code snippets : Code snippets for JavaScript in ES6 syntax
++ jQuery Code Snippets : jQuery Code Snippets
++ Jupyter : Jupyter Extension for Visual Studio Code
++ Prettier - Code formatter : Code formatter using prettier
++ ftp-simple : ftp editer(ftp-simple-temp.json)
+	``` json
+	[
+		{
+			"name": "ununtu server",
+			"host": "192.168.126.187",
+			"port": 21,
+			"type": "ftp",
+			"username": "user",
+			"password": "password",
+			"path": "/",
+			"autosave": true,
+			"confirm": false
+		}
+	]
+	```
+
 

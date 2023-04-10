@@ -37,6 +37,84 @@ JSON Web Token (JWT) : 用來在 身份提供者 和 服務提供者 間傳遞�
 + Fragment : 一個 component 讓你一次 render 多個 element 而不需要額外的 wrapper
 + useReducer : 可執行 dispatch
 
+### react start
+#### install react and run by development
+``` bash
+# create react project
+# must install node/npm
+npx create-react-app my-app
+cd my-app
+# run for development
+npm start
+	You can now view my-app in the browser.
+		Local:            http://localhost:3000
+		On Your Network:  http://192.168.126.187:3000
+	Note that the development build is not optimized.
+	To create a production build, use npm run build.
+
+# broweser : http://192.168.126.187:3000
+```
+
+#### modify as simple hello (./src/App.js)
+``` js
+import './App.css';
+
+function App() {
+	return <h1>Hello from React</h1>;
+}
+
+export default App;
+```
+
+#### run as product 
+``` bash
+# build for product(gererate build directory) 
+npm run build
+	> my-app@0.1.0 build
+	> react-scripts build
+	Creating an optimized production build...
+	Compiled successfully.
+	File sizes after gzip:
+		46.41 kB  build/static/js/main.209d13e7.js
+		1.78 kB   build/static/js/787.28cb0dcd.chunk.js
+		541 B     build/static/css/main.073c9b0a.css
+	The project was built assuming it is hosted at /.
+	You can control this with the homepage field in your package.json.
+	The build folder is ready to be deployed.
+	You may serve it with a static server:
+		npm install -g serve
+		serve -s build
+	Find out more about deployment here:
+	https://cra.link/deployment
+
+# install HTTP server 
+sudo npm install -g serve
+
+# quickly test for product version
+# run http server data from build directory
+# ERROR 不用在意,因為只是將 server address copy 到剪貼簿,方便使用
+serve -s build
+ ERROR  Cannot copy server address to clipboard: Couldn't find the `xsel` binary and fallback didn't work. On Debian/Ubuntu you can install xsel with: sudo apt install xsel.
+      Serving!                                  
+      - Local:    http://localhost:3000         
+      - Network:  http://192.168.126.187:3000   
+
+# broweser : http://192.168.126.187:3000   
+```
+
+#### issue npm start:react-scripts: not found
+``` bash
+npm start
+	> meteorfrontend@0.1.0 start
+	> react-scripts start
+	sh: 1: react-scripts: not found
+# run npm install
+npm install
+# re-try
+npm start
+```
+
+
 ### todolist simulate
 ``` html
 <!DOCTYPE html>

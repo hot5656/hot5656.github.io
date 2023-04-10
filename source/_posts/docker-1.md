@@ -1462,7 +1462,10 @@ kyp@u2204s:~$ sudo ls /media/sf_share/mxter -al
 mkdir -p sym_mxter
 sudo ln -s /media/sf_mxter/ sym_mxter
 # kyp add to GROUP vboxsf
-sudo	usermod	-G	vboxsf	kyp
+sudo	usermod	-a -G	vboxsf	kyp
+# remove group 
+sudo usermod -d vboxsf kyp
+
 # remove symblic link for directory
 rm -r sym_mxter
 
@@ -1474,6 +1477,19 @@ sudo docker container ls
 
 
 
+
+# remove user from group
+sudo usermod -d vboxsf kyp
+	usermod: user kyp is currently used by process 1392
+# check process for user
+kyp@u2204s:~$ ps -u kyp
+    PID TTY          TIME CMD
+   1392 ?        00:00:00 systemd
+   1396 ?        00:00:00 (sd-pam)
+   1403 pts/0    00:00:00 bash
+   9328 ?        00:00:00 dbus-daemon
+   9387 ?        00:05:49 vsftpd
+  10041 pts/0    00:00:00 ps
 
 
 ```
@@ -1549,6 +1565,7 @@ docker version
 # add to group docker
 sudo chmod 666 /var/run/docker.sock
 sudo usermod -aG docker kyp
+
 
 # share link 
 kyp@u2204s:~$ sudo df -h
