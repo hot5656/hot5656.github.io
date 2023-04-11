@@ -8,17 +8,189 @@ tags:
 ---
 
 ### Command
+
 <!--more-->
+
+#### install
+``` bash
+# run guest addition CD(ubuntu desktop version)
+cd /media/kyp/VBOX_GAS_7.0.6/
+./autorun.sh
+```
+
+#### terminal
+``` bash
+open terminal : CTRL-ALT-F3
+return to GUI : ALT-F2
+
+clear
+# Ctrl + u : clear left
+# Ctrl + l : clear up
+reset # clear screen 
+
+# history 
+history 10
+  781  ls --help
+  782  clear
+  783  aronpos his
+  784  apropos his
+  785  apropos he
+  786  apropos his
+  787  clear
+  788  hsitory
+  789  history
+  790  history 10
+history 5
+  787  clear
+  788  hsitory
+  789  history
+  790  history 10
+  791  history 5
+# run command No 781
+!781
+	ls --help 
+# clear history 
+kyp@u2204s:~/gitdocker$ history -c
+kyp@u2204s:~/gitdocker$ history
+    1  history
+
+# show directory
+cd ~
+pwd
+	/home
+#same as ls -al
+ll 
+# add dir 
+mkdir temp
+# tree use tera term not show correct
+sudo apt install tree
+tree
+```
+
+#### files
+``` bash
+# file - if file exist, update the file's date
+touch newfile1.txt
+echo > newfile2.txt
+> newfile3.txt
+echo "Anybody in here?"
+	Anybody in here?
+# Ctrl-d close the file
+cat > newfile4.txt
+	1
+	2
+	3
+	
+# -r
+cp
+mv
+rm
+```
+
+#### help
+``` bash
+# what is
+whatis clear
+	clear (1)            - clear the terminal screen
+kyp@u2204s:~/gitdocker$ whatis ls
+	ls (1)               - list directory contents
+whatis docker
+	docker (1)           - Docker image and container command line interface
+kyp@u2204s:~/gitdocker$ whatis reset
+	reset (1)            - terminal initialization
+# help
+history --help
+ls --help
+# man 
+man ls
+# for get command
+apropos his
+	byobu-ugraph (1)     - helper script for notification history graphs
+	cloud-id (1)         - Report the canonical cloud-id for this instance
+	docker-history (1)   - Show the history of an image
+	docker-image-history (1) - Show the history of an image
+	git-merge (1)        - Join two or more development histories together
+	history (3readline)  - GNU History Library
+	lcf (1)              - Determine which of the historical versions of a config...
+	pam_pwhistory (8)    - PAM module to remember last passwords
+	run-this-one (1)     - run just one instance at a time of some command and un...
+	sg_emc_trespass (8)  - change ownership of SCSI LUN from another Service-Proc...
+	tracepath (8)        - traces path to a network host discovering MTU along th...
+
+# get file
+kyp@u2204s:~/temp$ wget https://www.gutenberg.org/files/1112/1112.txt
+
+# more
+# -s          squeeze multiple blank lines into one
+mv 1112.txt romeo_poem.txt
+whatis more
+more --help
+more romeo_poem.txt
+more -10 romeo_poem.txt
+more +145 romeo_poem.txt
+more -s romeo_poem.txt
+
+# less
+# pageUp,pageDown
+less romeo_poem.txt
+# search 
+less -p "Romeo" romeo_poem.txt
+# serach don'r care letter case
+less -Ip "romeo" romeo_poem.txt
+# show line number
+less -NIp "romeo" romeo_poem.txt
+
+# head
+# show hed 10 lines
+head romeo_poem.txt
+# show 3 lines
+head -3 romeo_poem.txt
+# show 47 charcater
+head -c 47 romeo_poem.txt
+
+# tail
+# show tail 10 line
+tail romeo_poem.txt
+# show tail 3 line
+tail -3 romeo_poem.txt
+# tail 5 character
+tail -c 5 romeo_poem.txt
+```
+
+#### editer 
+``` bash
+# nano
+Ctrl+C : show position
+Ctrl+K : cut line
+Ctrl+U : post
+Ctrl+6 : select/unselect
+Esc+6  : copy select 
+Ctrl+W : search
+Esc+W  : search next
+Ctrl+\ : search+replace
+Ctrl+shift+- : goto line
+Esc+U  : undo
+
+# vi
+# vimtutor
+```
+
+#### find 
+``` bash
+kyp@u2204s:~$ find / -name passwd
+  .....
+kyp@u2204s:~$ find -name notes.txt
+```
 
 #### system
 ``` bash
 # system info
 # the system is ubuntu 20.04, u2204s is I give wrong host name
-kyp@u2204s:~/app/my-app$ uname -a
+uname -a
 	Linux u2204s 5.4.0-146-generic #163-Ubuntu SMP Fri Mar 17 18:26:02 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 
 # release
-kyp@u2204s:~/app/my-app$ lsb_release -a
+lsb_release -a
 	No LSB modules are available.
 	Distributor ID: Ubuntu
 	Description:    Ubuntu 20.04.6 LTS
@@ -27,18 +199,66 @@ kyp@u2204s:~/app/my-app$ lsb_release -a
 
 # change mode 
 sudo chmod 666 /var/run/docker.sock
+
+# password file
+cat /etc/passwd
+  kyp:x:1000:1000:Robert:/home/kyp:/bin/bash
+  lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
+  telnetd:x:113:120::/nonexistent:/usr/sbin/nologin
+
+# list directory space
+sudo du -d 1 -h
+	20K     ./user1
+	632M    ./kyp
+	632M    .
+
+# clear space command
+sudo apt-get autoclean
+sudo apt-get autoremove
 ```
 
 #### user and group
 ``` bash
 # user kyp add group docker
 sudo usermod -aG docker kyp
+# show user kyp's group
+groups kyp
+	kyp : kyp adm cdrom sudo dip plugdev lxd vboxsf docker
+
+# add kyp to sudo(root) 
+usermod -a -G sudo kyp
+
+# edit sudoers
+sudo visudo
+# checker sudoers
+sudo visudo -c
+
+# whoami
+whoami
+	root
+
+# switch user 
+su - robert
+# switch to roo
+su -
+
+# add user
+sudo adduser robert
 ```
 
 #### process
 ``` bash
 # ps : show standrd process information
 ps -ef 
+# list user kyp process
+ps -u kyp
+    PID TTY          TIME CMD
+   1392 ?        00:00:00 systemd
+   1396 ?        00:00:00 (sd-pam)
+   1403 pts/0    00:00:00 bash
+   9328 ?        00:00:00 dbus-daemon
+   9387 ?        00:05:49 vsftpd
+  10041 pts/0    00:00:00 ps
 ```
 
 #### net
@@ -126,6 +346,11 @@ kyp@u2204s:~$ yarn --version
 #### npm
 ``` bash
 sudo apt install npm
+# audit
+npm audit	: 查看是否 node_modules 有相關資安漏洞
+npm audit fix	: 自動修正相關漏洞
+npm update : 更新可更新的 node_modules
+npm prune	 : 清理 node_modules 中不需要的檔案
 ```
 
 #### ftp server
@@ -158,196 +383,62 @@ $ sudo systemctl status vsftpd
 	Apr 10 02:23:42 u2204s systemd[1]: Started vsftpd FTP server.
 ```
 
-
+#### telnet server
 ``` bash
-clear
-# Ctrl + u : clear left
-# Ctrl + l : clear up
-reset # clear screen 
-kyp@u2204s:~/gitdocker$ whatis clear
-clear (1)            - clear the terminal screen
-kyp@u2204s:~/gitdocker$ whatis ls
-ls (1)               - list directory contents
-kyp@u2204s:~/gitdocker$ whatis docker
-docker (1)           - Docker image and container command line interface
-kyp@u2204s:~/gitdocker$ whatis reset
-reset (1)            - terminal initialization
-
-kyp@u2204s:~/gitdocker$ help history
-history: history [-c] [-d offset] [n] or history -anrw [filename] or history -ps arg [arg...]
-......
-
-kyp@u2204s:~/gitdocker$ help ls
--bash: help: no help topics match `ls'.  Try `help help' or `man -k ls' or `info ls'.
-
-kyp@u2204s:~/gitdocker$ man ls
-kyp@u2204s:~/gitdocker$ ls --help
-
-# for get command
-kyp@u2204s:~/gitdocker$ apropos his
-byobu-ugraph (1)     - helper script for notification history graphs
-cloud-id (1)         - Report the canonical cloud-id for this instance
-docker-history (1)   - Show the history of an image
-docker-image-history (1) - Show the history of an image
-git-merge (1)        - Join two or more development histories together
-history (3readline)  - GNU History Library
-lcf (1)              - Determine which of the historical versions of a config...
-pam_pwhistory (8)    - PAM module to remember last passwords
-run-this-one (1)     - run just one instance at a time of some command and un...
-sg_emc_trespass (8)  - change ownership of SCSI LUN from another Service-Proc...
-tracepath (8)        - traces path to a network host discovering MTU along th...
-
-# history 
-kyp@u2204s:~/gitdocker$ history 10
-  781  ls --help
-  782  clear
-  783  aronpos his
-  784  apropos his
-  785  apropos he
-  786  apropos his
-  787  clear
-  788  hsitory
-  789  history
-  790  history 10
-kyp@u2204s:~/gitdocker$ history 5
-  787  clear
-  788  hsitory
-  789  history
-  790  history 10
-  791  history 5
-kyp@u2204s:~/gitdocker$ !781
-ls --help 
-.....
-kyp@u2204s:~/gitdocker$ history 10
-  784  apropos his
-  785  apropos he
-  786  apropos his
-  787  clear
-  788  hsitory
-  789  history
-  790  history 10
-  791  history 5
-  792  ls --help
-  793  history 10
-
-# clear history 
-kyp@u2204s:~/gitdocker$ history -c
-kyp@u2204s:~/gitdocker$ history
-    1  history
+install telnet server
+sudo apt install telnetd -y
+sudo systemctl status inetd
 ```
 
+#### console konole
 ``` bash
-pwd
-#same as ls -al
-ll 
-# dir
-mkdir temp
-# tree use tera term not show correct
-sudo apt install tree
-tree
-
-# file - if file exist, update the file's date
-kyp@u2204s:~$ touch newfile1.txt
-kyp@u2204s:~$ echo > newfile2.txt
-kyp@u2204s:~$ > newfile3.txt
-# Ctrl-d close the file
-kyp@u2204s:~$ cat > newfile4.txt
-1
-2
-3
+sudo apt install konole
 ```
 
+### issue fix
+#### [ubuntu server 擴容(LVM)磁碟 解決磁碟不足的情況(VirtualBox)](https://www.796t.com/content/1542570486.html)
+##### check disk size
 ``` bash
-# -r
-cp
-mv
-rm
+df -h
+```
+<div style="max-width:700px">
+	{% asset_img pic1.png pic1 %}
+</div>
 
-# get file
-kyp@u2204s:~/temp$ wget https://www.gutenberg.org/files/1112/1112.txt
+##### 顯示存在的卷組
+``` bash
+# use 29G, free 29G
+sudo vgdisplay
+```
+<div style="max-width:600px">
+	{% asset_img pic2.png pic2 %}
+</div>
 
-# -s          squeeze multiple blank lines into one
-mv 1112.txt romeo_poem.txt
-whatis more
-more --help
-more romeo_poem.txt
-more -10 romeo_poem.txt
-more +145 romeo_poem.txt
-more -s romeo_poem.txt
+##### 擴充size
+``` bash
+# to 50G
+sudo lvextend -L 50G /dev/mapper/ubuntu--vg-ubuntu--lv
 
-# pageUp,pageDown
-less romeo_poem.txt
-# search 
-less -p "Romeo" romeo_poem.txt
-# serach don'r care letter case
-less -Ip "romeo" romeo_poem.txt
-# show line number
-less -NIp "romeo" romeo_poem.txt
-
-# show hed 10 lines
-head romeo_poem.txt
-# show 3 lines
-head -3 romeo_poem.txt
-# show 47 charcater
-head -c 47 romeo_poem.txt
-# show tail 10 line
-tail romeo_poem.txt
-# show tail 3 line
-tail -3 romeo_poem.txt
-# tail 5 character
-tail -c 5 romeo_poem.txt
+# to all
+sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
 ```
 
+<div style="max-width:800px">
+	{% asset_img pic3.png pic3 %}
+</div>
+
+<div style="max-width:800px">
+	{% asset_img pic4.png pic4 %}
+</div>
+
+##### 重新計算磁碟大小
 ``` bash
-# nano
-Ctrl+C : show position
-Ctrl+K : cut line
-Ctrl+U : post
-Ctrl+6 : select/unselect
-Esc+6  : copy select 
-Ctrl+W : search
-Esc+W  : search next
-Ctrl+\ : search+replace
-Ctrl+shift+- : goto line
-Esc+U  : undo
-
-# vi
-# vimtutor
+sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 ```
+<div style="max-width:800px">
+	{% asset_img pic5.png pic5 %}
+</div>
 
-``` bash
-kyp@u2204s:/home$ whoami
-kyp
-
-kyp@u2204s:/home$ echo "Anybody in here?"
-Anybody in here?
-
-kyp@u2204s:/home$ pwd
-/home
-
-kyp@u2204s:/home$ cd ~
-
-kyp@u2204s:~$ cat /etc/passwd
-  kyp:x:1000:1000:Robert:/home/kyp:/bin/bash
-  lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false
-  telnetd:x:113:120::/nonexistent:/usr/sbin/nologin
-
-kyp@u2204s:~$ find / -name passwd
-  .....
-kyp@u2204s:~$ find -name notes.txt
-kyp@u2204s:~$ touch notes.txt
-kyp@u2204s:~$ find -name notes.txt
-  ./notes.txt
-```
-
-
-
-
-
-
-
-
-
-
-
+### Ref 
++ [install Ubuntu 22.04 Server on VirtualBox](https://linux.how2shout.com/how-to-install-ubuntu-22-04-server-on-virtualbox/)
 

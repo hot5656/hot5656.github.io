@@ -26,6 +26,7 @@ docker version
 # modify not add sudo for docker command
 kyp@u2204s:/demo$ sudo chmod 666 /var/run/docker.sock
 # this is more importent
+# remove group : sudo usermod -d vboxsf kyp
 kyp@u2204s:/demo$ sudo usermod -aG docker kyp
   [sudo] password for kyp:
 kyp@u2204s:/demo$ docker image ls
@@ -1383,9 +1384,57 @@ C:\Users\robertkao>docker image ls
 #### CI(continuous integration) with github and dockerhub
 it doesn't support dockerhub free account
 
+#### build from VirtualBox share folder 
+``` bash
+# show all disk
+sudo df -h
+	Filesystem                         Size  Used Avail Use% Mounted on
+	udev                               1.9G     0  1.9G   0% /dev
+	tmpfs                              394M  1.2M  393M   1% /run
+	/dev/mapper/ubuntu--vg-ubuntu--lv   29G   21G  6.6G  76% /
+	tmpfs                              2.0G     0  2.0G   0% /dev/shm
+	tmpfs                              5.0M     0  5.0M   0% /run/lock
+	tmpfs                              2.0G     0  2.0G   0% /sys/fs/cgroup
+	/dev/loop1                          64M   64M     0 100% /snap/core20/1828
+	/dev/loop2                          50M   50M     0 100% /snap/snapd/18596
+	/dev/loop0                          64M   64M     0 100% /snap/core20/1852
+	/dev/loop4                          92M   92M     0 100% /snap/lxd/24061
+	/dev/loop3                          50M   50M     0 100% /snap/snapd/18357
+	/dev/sda2                          2.0G  108M  1.7G   6% /boot
+	share                              932G  265G  668G  29% /media/sf_share
+	temp_share                         932G  265G  668G  29% /media/sf_temp_share
+	tmpfs                              394M     0  394M   0% /run/user/1000
+# kyp add to GROUP vboxsf
+	sudo	usermod	-a -G	vboxsf	kyp
+# show user kyp's group
+groups kyp
+	kyp : kyp adm cdrom sudo dip plugdev lxd vboxsf docker
+
+
+# add symbolic sym_share to /media/sf_share
+# remove symbolic as below 
+# rm -r sym_share
+ln -s /media/sf_share sym_share
+ls ./sym_share -al
+	lrwxrwxrwx 1 kyp kyp 15 Apr 11 01:57 ./sym_share -> /media/sf_share
+cd sym_share
+ls -al
+	total 4
+	drwxrwx--- 1 root vboxsf    0 Apr 10 08:46 .
+	drwxr-xr-x 6 root root   4096 Apr 10 08:49 ..
+	drwxrwx--- 1 root vboxsf    0 Apr 10 08:46 awesome-compose
+
+# try build docker compose
+cd awesome-compose/react-nginx/
+ls
+	compose.yaml  Dockerfile  output.png  package.json  package-lock.json  public  README.md  src
+docker compose up -d
+
+#browser :　http://192.168.126.187
+```
 
 ### other build
-#### awesome-compose/react-nginx
+#### [awesome-compose/react-nginx](https://github.com/docker/awesome-compose)
 ``` bash
 # awesome-compose/react-nginx
 docker compose up -d
@@ -1409,14 +1458,12 @@ kyp@u2204s:~/awesome-compose/react-nginx$ docker compose ls
 	compose_frontend    running(1)          /home/kyp/compose_frontend/docker-compose.yaml
 ```
 
-
-#### dockerizing-a-react-app
+#### [dockerizing-a-react-app](https://jsramblings.com/dockerizing-a-react-app/)
 ``` bash
-# dockerfile compose
-https://jsramblings.com/dockerizing-a-react-app/
+# clone react project from : https://github.com/jsramblings/react-webpack-setup
 
 # dockerfile
-kyp@u2204s:~/app/my-app$ cat ./Dockerfile
+cat ./Dockerfile
 	# ==== CONFIGURE =====
 	# Use a Node 16 base image
 	FROM node:16-alpine
@@ -1438,11 +1485,21 @@ kyp@u2204s:~/app/my-app$ cat ./Dockerfile
 	CMD [ "npx", "serve", "build" ]
 
 # build
-docker build -t my-app:2.0 .
-# run
-docker run -d --name m20 -p 3000:3000 my-app:2.0
+# docker build -t my-app:2.0 .
+docker build  -t dockerized-react .
+# images ls
+docker images
+	REPOSITORY             TAG         IMAGE ID       CREATED          SIZE
+	dockerized-react       latest      669dd6f91099   11 seconds ago   179MB
 
-# browser http://192.168.18.10:3000/
+# run
+# docker run -d --name m20 -p 3000:3000 my-app:2.0
+docker run -p 3000:3000 -d dockerized-react
+docker container ls
+	CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+	d95649978f3c   dockerized-react   "docker-entrypoint.s"   13 seconds ago   Up 11 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   jovial_wu
+
+# browser : http://192.168.126.187:3000/
 
 # - itd not work
 # -d：run指令的無數值參數，背景執行
@@ -1450,171 +1507,28 @@ docker run -d --name m20 -p 3000:3000 my-app:2.0
 # -t, --tty=false             Allocate a pseudo-TTY
 ```
 
+### Tool
+#### [dive](https://github.com/wagoodman/dive/blob/master/README.md)
+##### install 
 ``` bash
-  151  sudo df -h
-  152  sudo ls /media/sf_share/ -al
-  153  sudo chmod 666 /media/sf_share -r
-  154  sudo chmod 666 /media/sf_share
-  155  sudo ls /media/sf_share/ -al
-kyp@u2204s:~$ sudo ls /media/sf_share/mxter -al
-
-# add symblic for dir
-mkdir -p sym_mxter
-sudo ln -s /media/sf_mxter/ sym_mxter
-# kyp add to GROUP vboxsf
-sudo	usermod	-a -G	vboxsf	kyp
-# remove group 
-sudo usermod -d vboxsf kyp
-
-# remove symblic link for directory
-rm -r sym_mxter
-
-sudo docker build -t node1:1.0 .
-sudo docker run -itd --name n1 node1:1.0 .
-sudo docker image ls
-sudo docker container ls 
-
-
-
-
-
-# remove user from group
-sudo usermod -d vboxsf kyp
-	usermod: user kyp is currently used by process 1392
-# check process for user
-kyp@u2204s:~$ ps -u kyp
-    PID TTY          TIME CMD
-   1392 ?        00:00:00 systemd
-   1396 ?        00:00:00 (sd-pam)
-   1403 pts/0    00:00:00 bash
-   9328 ?        00:00:00 dbus-daemon
-   9387 ?        00:05:49 vsftpd
-  10041 pts/0    00:00:00 ps
-
-
+wget https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
+sudo apt install ./dive_0.9.2_linux_amd64.deb
+# check version
+dive --version
+	dive 0.9.2
 ```
 
-
-
-
+##### run 
 ``` bash
-# error 
-Step 9/13 : RUN yarn build
- ---> Running in cff7a710582f
-yarn run v1.22.19
-$ react-scripts build
-/app/node_modules/schema-utils/node_modules/ajv-keywords/dist/index.js:25
-        throw new Error("Unknown keyword " + keyword);
-        ^
-
-Error: Unknown keyword formatMinimum
-    at get (/app/node_modules/schema-utils/node_modules/ajv-keywords/dist/index.js:25:15)
-    at ajvKeywords (/app/node_modules/schema-utils/node_modules/ajv-keywords/dist/index.js:10:13)
-    at Object.<anonymous> (/app/node_modules/schema-utils/dist/validate.js:65:1)
-    at Module._compile (node:internal/modules/cjs/loader:1196:14)
-    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1250:10)
-    at Module.load (node:internal/modules/cjs/loader:1074:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:909:12)
-    at Module.require (node:internal/modules/cjs/loader:1098:19)
-    at require (node:internal/modules/cjs/helpers:108:18)
-    at Object.<anonymous> (/app/node_modules/schema-utils/dist/index.js:6:5)
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-The command '/bin/sh -c yarn build' returned a non-zero code: 1
-
-# fix by 
-npm install ajv-keywords@latest
-
-# fix
-rm -rf node_modules
-npm cache clean --force
-npm install
-
-npm outdated
-
-# error
-Step 9/13 : RUN yarn build
- ---> Running in 9a3b32bc17ee
-yarn run v1.22.19
-$ react-scripts build
-Creating an optimized production build...
-Failed to compile.
-
-./src/App.js
-Cannot find module: 'pages'. Make sure this package is installed.
-
-You can install this package by running: yarn add pages.
-
-
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-The command '/bin/sh -c yarn build' returned a non-zero code: 1
+dive node:16-alpine
 ```
 
-``` bash
-# difault 
-npm audit fix
-```
-
-``` bash
-# install docker 
-curl https://releases.rancher.com/install-docker/20.10.sh | sh
-# check docker version
-docker version
-
-# add to group docker
-sudo chmod 666 /var/run/docker.sock
-sudo usermod -aG docker kyp
-
-
-# share link 
-kyp@u2204s:~$ sudo df -h
-Filesystem                         Size  Used Avail Use% Mounted on
-udev                               1.9G     0  1.9G   0% /dev
-tmpfs                              394M  1.2M  393M   1% /run
-/dev/mapper/ubuntu--vg-ubuntu--lv   29G  8.0G   19G  30% /
-tmpfs                              2.0G     0  2.0G   0% /dev/shm
-tmpfs                              5.0M     0  5.0M   0% /run/lock
-tmpfs                              2.0G     0  2.0G   0% /sys/fs/cgroup
-/dev/loop1                          50M   50M     0 100% /snap/snapd/18357
-/dev/loop0                          64M   64M     0 100% /snap/core20/1852
-/dev/loop3                          64M   64M     0 100% /snap/core20/1828
-/dev/loop2                          92M   92M     0 100% /snap/lxd/24061
-/dev/loop4                          50M   50M     0 100% /snap/snapd/18596
-/dev/sda2                          2.0G  108M  1.7G   6% /boot
-mxter_2nd                         1.9T  1.3T  626G  67% /media/sf_mxter_2nd
-tmpfs                              394M     0  394M   0% /run/user/1000
-
-# kyp add to GROUP vboxsf
-sudo usermod -G vboxsf kyp
-
-# add symblic for direcory(correct)
-mkdir -p sym_mxter
-sudo ln -s /media/sf_mxter_2nd sym_mxter
-
-# other 
-# user's group
-groups kyp
-# add kyp to sudo(root) 
-usermod -a -G sudo kyp
-# edit sudoers
-sudo visudo
-# checker sudoers
-sudo visudo -c
-
-# build image 
-docker build  -t  mex:1.0 -f ./dockerfile .
-
-docker run -d -p 3000:3000 mex:1.0
-
-# browser : http://192.168.18.6:3000/
-```
 
 ### Ref 
 + [Install Docker Engine](https://docs.docker.com/engine/install/)
-+ [Installing Docker](https://ranchermanager.docs.rancher.com/v2.5/getting-started/installation-and-upgrade/installation-requirements/install-docker)
-+ [Got permission denied while trying to connect to the Docker daemon socket at unix](https://newbedev.com/got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket-at-unix-var-run-docker-sock-post-http-2fvar-2frun-2fdocker-sock-v1-24-auth-dial-unix-var-run-docker-sock-connect-permission-denied-code-example)
++ [Installing Docker script](https://ranchermanager.docs.rancher.com/v2.5/getting-started/installation-and-upgrade/installation-requirements/install-docker)
 + [Awesome Compose](https://github.com/docker/awesome-compose)
-+ [react-nginx-docker](https://github.com/bbachi/react-nginx-docker)
 + [Jennifer Docker 筆記本](https://cutejaneii.gitbook.io/docker/)
 + [Reactjs Build Production](https://www.copycat.dev/blog/reactjs-build-production/)
++ [Docker學習筆記](https://peihsinsu.gitbooks.io/docker-note-book/content/)
++ [dockerhub](https://hub.docker.com/search?q=)
