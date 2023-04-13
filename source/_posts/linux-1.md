@@ -213,8 +213,27 @@ sudo du -d 1 -h
 	632M    .
 
 # clear space command
+# clear not use apt : /var/cache/apt/archives
 sudo apt-get autoclean
 sudo apt-get autoremove
+# show apt
+sudo du -ch /var/cache/apt/archives
+	4.0K    /var/cache/apt/archives/partial
+	6.0G    /var/cache/apt/archives
+	6.0G    total
+# clean all local apt : /var/cache/apt/archives
+sudo du -ch /var/cache/apt/archives
+	4.0K    /var/cache/apt/archives/partial
+	112K    /var/cache/apt/archives
+	112K    total
+
+# snap 
+# Snappy是一個軟體部署和軟體套件管理系統。其套件稱為snap，工具名為snapd
+snap list
+	Name    Version        Rev    Tracking       Publisher   Notes
+	core20  20230308       1852   latest/stable  canonical?  base
+	lxd     4.0.9-a29c6f1  24061  4.0/stable/   canonical?  -
+	snapd   2.58.3         18596  latest/stable  canonical?  snapd
 ```
 
 #### user and group
@@ -339,8 +358,16 @@ $ node --version
 #### yarn
 ``` bash
 # install yarn
-sudo apt install yarn
-kyp@u2204s:~$ yarn --version
+# it's too old version
+# sudo apt install yarn
+# kyp@u2204s:~$ yarn --version
+
+# update latest yan version
+# nodejs isn't too old
+sudo npm install -g corepack
+corepack prepare yarn@stable --activate
+yarn --version
+	3.5.0
 ```
 
 #### npm
@@ -393,6 +420,19 @@ sudo systemctl status inetd
 #### console konole
 ``` bash
 sudo apt install konole
+```
+
+#### ssh server
+``` bash
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+
+#### ssh client
+``` bash
+sudo apt-get install openssh-client
+ssh kyp@192.168.126.187
 ```
 
 ### issue fix

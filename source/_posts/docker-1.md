@@ -101,7 +101,40 @@ docker run -it node:16-alpine sh
 ``` bash
 # run and enter shell
 docker run -it ubuntu bash
+```
 
+#### image save to a file 
+``` bash
+# list image
+docker images
+	REPOSITORY   TAG         IMAGE ID       CREATED          SIZE
+	react-app1   latest      92d8fb9b8254   17 seconds ago   258MB
+	node         16-alpine   8cf71856f96e   2 weeks ago      117MB
+# save to file
+docker save react-app1 > react-app1.tar
+du -sh react-app1.tar
+	266M    react-app1.tar
+# remove all image
+docker rmi -f $(docker image ls -a -q)
+docker images
+	REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+# 展開 image tar
+	f1417ff83b31: Loading layer  7.338MB/7.338MB
+	1d8bcb7a961e: Loading layer  104.8MB/104.8MB
+	b951f8a113f5: Loading layer  7.806MB/7.806MB
+	3cddc64f59e2: Loading layer  3.584kB/3.584kB
+	a93e00947ff6: Loading layer  2.048kB/2.048kB
+	4d9eba5ebde1: Loading layer  25.33MB/25.33MB
+	70c82472bdf8: Loading layer  133.1MB/133.1MB
+	879d9422df55: Loading layer    150kB/150kB
+	Loaded image: react-app1:latest
+docker images
+	REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+	react-app1   latest    92d8fb9b8254   16 minutes ago   258MB
+# run
+docker run -d -p 3000:3000 react-app1
+
+# http://192.168.126.187:3000/
 ```
 
 #### add new docker image tag(point to same IMAGE_ID)
@@ -212,7 +245,7 @@ robert@ununtu220402:~$ sudo docker inspect test
 #delete multi container
 robert@ununtu220402:~$ sudo docker rm -f $(sudo docker container ls -a -q)
 #delete multi image
-robert@ununtu220402:~$ sudo docker rmi -f $(sudo docker container ls -a -q)
+robert@ununtu220402:~$ sudo docker rmi -f $(sudo docker image ls -a -q)
 ```
 
 #### delete network
@@ -1484,6 +1517,32 @@ cat ./Dockerfile
 	# Start the app
 	CMD [ "npx", "serve", "build" ]
 
+# dockerfile(yarn)
+cat ./Dockerfile
+	# ==== CONFIGURE =====
+	# Use a Node 16 base image
+	FROM node:16-alpine
+	# Set the working directory to /app inside the container
+	WORKDIR /app
+	# Copy app files
+	COPY . .
+	# ==== BUILD =====
+	# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+	# RUN npm ci
+	RUN yarn install --immutable --immutable-cache --check-cache
+
+	# Build the app
+	# RUN npm run build
+	RUN yarn build
+
+	# ==== RUN =======
+	# Set the env to "production"
+	ENV NODE_ENV production
+	# Expose the port on which the app will be running (3000 is the default that `serve` uses)
+	EXPOSE 3000
+	# Start the app
+	CMD [ "npx", "serve", "build" ]
+
 # build
 # docker build -t my-app:2.0 .
 docker build  -t dockerized-react .
@@ -1505,6 +1564,129 @@ docker container ls
 # -d：run指令的無數值參數，背景執行
 # -i, --interactive=false     Keep STDIN open even if not attached
 # -t, --tty=false             Allocate a pseudo-TTY
+```
+
+### dockerfile compare
+#### 1st case
+#### build by host
+``` bash
+# yarn install : not success
+yarn install --immutable --immutable-cache --check-cache
+# build
+yarn build
+# run 
+sudo yarn start
+
+# http://192.168.126.187:3000/
+```
+##### original
+``` bash
+# docker build -t me:1.0 .
+# docker run -d -p 3000:3000 me:1.0
+# http://192.168.126.187:3000/
+
+# Node.js 16
+FROM  node:16-alpine as install
+
+# work directory
+WORKDIR /app
+
+# copy package.json
+COPY package*.json ./
+
+# yarn install 
+RUN yarn install --silents
+COPY . .
+
+FROM  node:16-alpine  as build
+WORKDIR /app
+COPY --from=install /app .
+
+RUN yarn build
+
+FROM  node:16-alpine 
+WORKDIR /app
+
+COPY --from=build /app .
+# run
+CMD [ "yarn", "start" ]
+```
+
+##### copy from build already
+``` bash
+# must build already
+# docker build -t me:2.1 .
+# docker run -d -p 3000:80 me:2.1
+# http://192.168.126.187:3000/
+
+# Use below nginx version
+FROM nginx:1.15.2-alpine
+# Copy the build folder of the react app
+COPY ./build /var/www
+# Copy the ngnix configrations
+COPY deployments/nginx.conf /etc/nginx/nginx.conf
+# Expose it on port 80
+#EXPOSE 3000
+ENTRYPOINT ["nginx","-g","daemon off;"]
+```
+
+##### simple build
+``` bash
+# 產生如下錯誤,可能要修改 code, 可能內外 build 有差異
+# docker build -t me:3.0 .
+#		Step 9/11 : RUN yarn build
+#		---> Running in 298ba1f84b72
+#		yarn run v1.22.19
+#		$ react-scripts build
+#		Creating an optimized production build...
+#		Failed to compile.
+#			Module not found: Error: Can't resolve 'config/CONSTANTS' in '/app/src/services/vote/2022highschooluniform'
+#
+#			info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+#			error Command failed with exit code 1.
+#			The command '/bin/sh -c yarn build' returned a non-zero code: 1
+
+
+# Node.js 18
+FROM  node:18-alpine
+
+# work directory
+WORKDIR /app
+# Copy app files
+# COPY . .
+COPY package*.json ./
+COPY *.js ./
+COPY deployments ./deployments
+COPY public ./public
+COPY src ./src
+
+
+# ==== BUILD =====
+# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+# RUN yarn install --immutable --immutable-cache --check-cache
+RUN yarn install --silents
+
+# Build the app
+RUN yarn build
+
+# ==== RUN =======
+# Set the env to "production"
+# ENV NODE_ENV production
+# Expose the port on which the app will be running (3000 is the default that `serve` uses)
+EXPOSE 3000
+# Start the app
+CMD [ "npx", "serve", "build" ]
+```
+
+##### the image size
+``` bash
+docker images
+	REPOSITORY   TAG             IMAGE ID       CREATED          SIZE
+	me           2.1             0ffde4282fa4   32 minutes ago   96.4MB
+	me           1.0             062745f0e5e9   4 hours ago      790MB
+	node         16-alpine       8cf71856f96e   2 weeks ago      117MB
+	node         18-alpine       305c985a481f   2 weeks ago      175MB
+	nginx        1.15.2-alpine   36f3464a2197   4 years ago      18.6MB
 ```
 
 ### Tool
@@ -1532,3 +1714,4 @@ dive node:16-alpine
 + [Reactjs Build Production](https://www.copycat.dev/blog/reactjs-build-production/)
 + [Docker學習筆記](https://peihsinsu.gitbooks.io/docker-note-book/content/)
 + [dockerhub](https://hub.docker.com/search?q=)
++ [Docker 入門到實踐](https://philipzheng.gitbook.io/docker_practice/)

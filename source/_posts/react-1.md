@@ -53,6 +53,11 @@ npm start
 	To create a production build, use npm run build.
 
 # broweser : http://192.168.126.187:3000
+
+# yarn
+yarn
+yarn start
+# if error : yarn cache clean && yarn install
 ```
 
 #### modify as simple hello (./src/App.js)
