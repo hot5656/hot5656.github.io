@@ -8,6 +8,10 @@ tags:
 	- tool
 ---
 
+### command 
++ run command :　Ctrl+Shift+p
+　+ dark mode
+	+ disable javascript
 
 ### Chrome special key
 + ``Esc`` - 停止載入目前網頁

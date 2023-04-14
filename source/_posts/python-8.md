@@ -952,7 +952,7 @@ https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.htm
 
 #### open web site then disable Javascript
 + open Chrome devtools
-+ run command : Disable JavaScript
++ run command(Ctrl+Shift+p) : Disable JavaScript
 + refresh web page
 
 #### create project and spider
