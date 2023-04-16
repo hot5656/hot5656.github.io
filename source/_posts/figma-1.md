@@ -21,8 +21,15 @@ Glassmorphism
 + Alt : duplicate object
 + Del : delete object
 + shift+ left mouse : select object
++ object copy : Ctrl+C
++ object past : Ctrl+D
++ destance : select object1, hover object2 + ATL
 
 frame vs group : frame support elemrnt clip
+SaaS : software service website
+landing page 
 
 + [Stripe](https://stripe.com/)
 + [Auto Layout in Figma](https://designcode.io/figma-handbook-auto-layout)
++ [Figma for Beginners tutorial ](https://help.figma.com/hc/en-us/sections/4405269443991-Figma-for-Beginners-tutorial-4-parts-)
++ [dribbble](https://dribbble.com/)
