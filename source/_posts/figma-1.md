@@ -29,7 +29,17 @@ frame vs group : frame support elemrnt clip
 SaaS : software service website
 landing page 
 
+color psychology 
+primary color : Blue(for mamy person favorite)
+	red : catch attention (warm)
+	green : nature, 2nd person favorite 
+typeface :
+	sefif 
+	sans serif()
+Wireframe : 排版草圖與資訊架構
+
 + [Stripe](https://stripe.com/)
 + [Auto Layout in Figma](https://designcode.io/figma-handbook-auto-layout)
 + [Figma for Beginners tutorial ](https://help.figma.com/hc/en-us/sections/4405269443991-Figma-for-Beginners-tutorial-4-parts-)
 + [dribbble](https://dribbble.com/)
++ [whimsical](https://whimsical.com/): hub for visual collaboration
