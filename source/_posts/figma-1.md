@@ -27,6 +27,17 @@ Glassmorphism
 
 + grid on/of toggle : Shift+G
 
++ two object destance : 
+	+ slect 1st object
+	+ Alt
+	+ hover 2nd object
+
++ nested object destance :
+	+ slect 1st object
+	+ Ctrl + Alt
+	+ hover 2nd object
+
+
 frame vs group : frame support elemrnt clip
 SaaS : software service website
 landing page 
