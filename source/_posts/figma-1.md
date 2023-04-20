@@ -1,62 +1,160 @@
 ---
-title: figma-1
+title: Figma 說明
 abbrlink: 1ab
 date: 2023-04-14 09:52:30
-categories:
+categories: UI/UX
 tags:
+	- figma
 ---
 
-### xx
+### 說明
+#### 名詞
+SaaS : software service website
+landing page : 一頁式網站被廣泛的應用在各種渠道，如：電商、IG、Facebook、Email、PPC、Ad 等平台，目的在讓目標客群能在最短時間透過該頁面決定採取下一個動作 ( 報名、預約、填寫表單、下單購買、訂閱 ) ，轉化成為潛在客戶 ( Lead ) 。
+Wireframe : 排版草圖與資訊架構
 
-skeuomorphism
-flat design
-dark mode
-Neumorphism
-Glassmorphism
+<!--more-->
 
+#### design style
++ skeuomorphism
++ flat design
++ dark mode
++ Neumorphism
++ Glassmorphism
+
+#### concept
++ color psychology 
+	+ primary color : Blue(for mamy person favorite)
+	+ red : catch attention (warm)
+	+ green : nature, 2nd person favorite 
++ typeface :
+	+ serif : 有襯線的字體，襯線是字形筆畫的起始段與末端的裝飾細節部分。
+	+ sans serif : 指沒有襯線的字體，與襯線字體相反，完全拋棄裝飾襯線，只剩下主幹，造型簡明有力，更具現代感，起源也很晚。適用於標題、廣告，瞬間的識別性高。
+
+
+### Figma
+#### one structure
++ moodboard
++ Wireframe
++ Web view
++ Mobile view
++ design system
+
+
+#### function
+##### frame vs group 
+frame support element clip
+
+##### Frame 
+###### Desktop
+<div style="max-width:700px">
+	{% asset_img pic41.png pic41 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic42-0.png pic42-0 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic42-1.png pic42-1 %}
+</div>
+
+###### manual input size(384px)
+<div style="max-width:700px">
+	{% asset_img pic43.png pic43 %}
+</div>
+
+##### layoud grid
+###### Desktop
+<div style="max-width:700px">
+	{% asset_img pic51.png pic51 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic52.png pic52 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic53.png pic53 %}
+</div>
+
+#### shortcut Key 
 + undo : Ctrl+Z
 + sharp alignment(width=height) : shift
-+ canvas zoom : Ctrl+ mouse wheel
-+ canvas left/right : shift+ mouse wheel
-+ Alt : duplicate object
-+ Del : delete object
-+ shift+ left mouse : select object
++ canvas zoom : Ctrl + mouse wheel
++ canvas left/right : shift + mouse wheel
++ duplicate object : Alt
++ delete object : Del
++ select object : shift+ left mouse
 + object copy : Ctrl+C
 + object past : Ctrl+D
-+ destance : select object1, hover object2 + ATL
-
 + grid on/of toggle : Shift+G
-
 + two object destance : 
 	+ slect 1st object
 	+ Alt
 	+ hover 2nd object
-
 + nested object destance :
 	+ slect 1st object
 	+ Ctrl + Alt
 	+ hover 2nd object
 
+#### design system
+##### color
+###### create color style
+<div style="max-width:700px">
+	{% asset_img pic11.png pic11 %}
+</div>
 
-frame vs group : frame support elemrnt clip
-SaaS : software service website
-landing page 
+###### choose from color style 
+<div style="max-width:500px">
+	{% asset_img pic12.png pic12 %}
+</div>
+<div style="max-width:500px">
+	{% asset_img pic13.png pic13 %}
+</div>
 
-color psychology 
-primary color : Blue(for mamy person favorite)
-	red : catch attention (warm)
-	green : nature, 2nd person favorite 
-typeface :
-	sefif 
-	sans serif()
-Wireframe : 排版草圖與資訊架構
+##### typeface
+###### create typeface stype
+<div style="max-width:700px">
+	{% asset_img pic21.png pic21 %}
+</div>
+
+###### choose from typeface 
+<div style="max-width:500px">
+	{% asset_img pic22.png pic22 %}
+</div>
+<div style="max-width:500px">
+	{% asset_img pic23.png pic23 %}
+</div>
+
+#### icons
+##### [Figma community - free MIT](https://www.figma.com/community/file/1037713680282700724/Icon-Design-System---Eva-Icons)
+<div style="max-width:700px">
+	{% asset_img pic31.png pic31 %}
+</div>
+
+###### create color variant
+<div style="max-width:500px">
+	{% asset_img pic32.png pic32 %}
+</div>
+<div style="max-width:500px">
+	{% asset_img pic33.png pic33 %}
+</div>
+
+###### use icons
+<div style="max-width:700px">
+	{% asset_img pic34.png pic34 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic35.png pic35 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic36.png pic36 %}
+</div>
 
 
-
+### Ref
 + [Stripe](https://stripe.com/)
 + [Auto Layout in Figma](https://designcode.io/figma-handbook-auto-layout)
 + [Figma for Beginners tutorial ](https://help.figma.com/hc/en-us/sections/4405269443991-Figma-for-Beginners-tutorial-4-parts-)
 + [dribbble](https://dribbble.com/)
-+ [whimsical](https://whimsical.com/): hub for visual collaboration
++ [whimsical](https://whimsical.com/): hub for visual collaboration(useful for wireframe)
 + [Core Design System](https://coredesignsystem.com/)
 + [Figma Community](https://www.figma.com/community)
++ [Behance](https://www.behance.net/galleries/ui-ux)
