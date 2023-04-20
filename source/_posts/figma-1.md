@@ -74,6 +74,12 @@ frame support element clip
 	{% asset_img pic53.png pic53 %}
 </div>
 
+###### Mobile(384px)
+<div style="max-width:700px">
+	{% asset_img pic54.png pic54 %}
+</div
+
+
 #### shortcut Key 
 + undo : Ctrl+Z
 + sharp alignment(width=height) : shift
@@ -123,8 +129,8 @@ frame support element clip
 	{% asset_img pic23.png pic23 %}
 </div>
 
-#### icons
-##### [Figma community - free MIT](https://www.figma.com/community/file/1037713680282700724/Icon-Design-System---Eva-Icons)
+##### icons
+###### [Figma community - free MIT](https://www.figma.com/community/file/1037713680282700724/Icon-Design-System---Eva-Icons)
 <div style="max-width:700px">
 	{% asset_img pic31.png pic31 %}
 </div>
@@ -148,6 +154,34 @@ frame support element clip
 	{% asset_img pic36.png pic36 %}
 </div>
 
+
+##### layoud grid style
+###### Desktop
+<div style="max-width:700px">
+	{% asset_img pic61.png pic61 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic62.png pic62 %}
+</div>
+
+###### Mobile(384px)
+<div style="max-width:700px">
+	{% asset_img pic63.png pic63 %}
+</div>
+
+###### add layoud grid
+<div style="max-width:700px">
+	{% asset_img pic64.png pic64 %}
+</div>
+
+##### component
+###### add simple component
+<div style="max-width:500px">
+	{% asset_img pic71.png pic71 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic72.png pic72 %}
+</div>
 
 ### Ref
 + [Stripe](https://stripe.com/)
