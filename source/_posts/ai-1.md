@@ -88,15 +88,60 @@ D:\work\run\openapi>node index.js
 ```
 
 ### midjourney
-#### info : see account information
+#### [login Discord](https://discord.com/)
+#### [login Midjourney](https://www.midjourney.com/auth/signin/)
+
+#### command
 ``` bash
+# info : see account information
 /info
+
+# image generate
+/imagine prompt:
+
+# show setting
+/settings 
 ```
 
-#### image generate
+#### prompt
 ``` bash
-/imagine prompt:
+# 主題, 畫風, 顏色/光線, 作畫模式 ....(", " 分開)
+# --v 4 : version 4
+# --ar 1:1 : 比例
+# yellow palette : 黃色風格
+# --test --creative : 官方測試較細膩(不知是否還有用)
+# octane render : 3D
 ```
+
+#### Setup Your Own Midjourney Server
+<div style="max-width:700px">
+	{% asset_img pic11.png pic11 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic12.png pic12 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic13.png pic13 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic14.png pic14 %}
+</div>
+
+#### COMMINITY FORUMS
++ prompt-faqs  
+
+#### chatGPT generate prompt
+##### 蘋果妹 
+``` 
+I'm using an image generating ai called Midjourney. I want you to act as a Midjourney prompt generator.I will add/before the subject I want to generate. you are going generate
+appropriate prompts under different circumstances, For example, if I type /sports shoes
+product image, you are going to generate prompts like"Realistic true details photography
+of sports shoes, y2k, lively, bright colors, product photography, Sony A7R IV, clean sharp
+focus"
+```
+
+#### style reference
+##### [Midjourney Keywords & Styles](https://marigoldguide.notion.site/marigoldguide/52ac9968a8da4003a825039022561a30?v=a697f852c05840478b8b504da455cfef)
 
 ### Tool
 + [ChatGPT Prompt Genius](https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo): Discover, share, import, and use the best prompts for ChatGPT
@@ -108,3 +153,5 @@ D:\work\run\openapi>node index.js
 ### Ref
 + [OpenAI](https://platform.openai.com/)
 + [showGPT.co/](https://showgpt.co/)
++ [MidJourney Prompt Helper](https://prompt.noonshot.com/)
++ [OpenArt](https://openart.ai/discovery)

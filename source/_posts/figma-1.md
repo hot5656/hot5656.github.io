@@ -12,6 +12,7 @@ tags:
 SaaS : software service website
 landing page : 一頁式網站被廣泛的應用在各種渠道，如：電商、IG、Facebook、Email、PPC、Ad 等平台，目的在讓目標客群能在最短時間透過該頁面決定採取下一個動作 ( 報名、預約、填寫表單、下單購買、訂閱 ) ，轉化成為潛在客戶 ( Lead ) 。
 Wireframe : 排版草圖與資訊架構
+CTA : call To Action
 
 <!--more-->
 
@@ -77,8 +78,18 @@ frame support element clip
 ###### Mobile(384px)
 <div style="max-width:700px">
 	{% asset_img pic54.png pic54 %}
-</div
+</div>
 
+##### auto layout
+###### between
+<div style="max-width:700px">
+	{% asset_img picc1.png picc1 %}
+</div>
+
+###### absolute
+<div style="max-width:500px">
+	{% asset_img picc1.png picc1 %}
+</div>
 
 #### shortcut Key 
 + undo : Ctrl+Z
@@ -87,10 +98,11 @@ frame support element clip
 + canvas left/right : shift + mouse wheel
 + duplicate object : Alt
 + delete object : Del
-+ select object : shift+ left mouse
-+ object copy : Ctrl+C
-+ object past : Ctrl+D
-+ grid on/of toggle : Shift+G
++ select object : shift + left mouse
++ object copy : Ctrl + C
++ object past : Ctrl + D
++ grid on/of toggle : Shift + G
++ auto layout : Shift + A
 + two object destance : 
 	+ slect 1st object
 	+ Alt
@@ -175,12 +187,75 @@ frame support element clip
 </div>
 
 ##### component
+<div style="max-width:500px">
+	{% asset_img pice1.png pice1 %}
+</div>
+
 ###### add simple component
 <div style="max-width:500px">
 	{% asset_img pic71.png pic71 %}
 </div>
 <div style="max-width:700px">
 	{% asset_img pic72.png pic72 %}
+</div>
+
+###### multiple variant
+<div style="max-width:700px">
+	{% asset_img pic81.png pic81 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic82.png pic82 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic83.png pic83 %}
+</div>
+
+###### multiple variant - TCA
+<div style="max-width:700px">
+	{% asset_img pic91.png pic91 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic92.png pic92 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic93.png pic93 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic94.png pic94 %}
+</div>
+
+###### multiple variant - Button
+<div style="max-width:700px">
+	{% asset_img pica1.png pica1 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica2.png pica2 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica3.png pica3 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica4.png pica4 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica5.png pica5 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica6.png pica6 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica7.png pica7 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica8.png pica8 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pica9.png pica9 %}
+</div>
+
+###### multiple variant - Input
+<div style="max-width:500px">
+	{% asset_img picd1.png picd1 %}
 </div>
 
 ### Ref
