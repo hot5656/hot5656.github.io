@@ -101,17 +101,71 @@ D:\work\run\openapi>node index.js
 
 # show setting
 /settings 
+
+回推這張圖片的提示詞
+/describe
 ```
 
 #### prompt
+##### parameter
 ``` bash
 # 主題, 畫風, 顏色/光線, 作畫模式 ....(", " 分開)
 # --v 4 : version 4
-# --ar 1:1 : 比例
+# --v 5 : version 5
+# --seed :取得這張圖的編號
+# --ar 16:10 : 比例
+#     --ar 16:10 A computer screen might have a ratio of
+#     --ar 1:1 Default aspect ratio.
+#     --ar 5:4 Common frame and print ratio.
+#     --ar 3:2 Common in print photography.
+#     --ar 7:4 Close to HD TV screens and smartphone screens. 
+# --no leaf : 不要什麼元素(葉子)
+# --c 0-100 : 數字愈高畫風愈特別
+# --q .5 :　Quality, changes how much time is spent generating an image
+#     .25, .5, and 1(default)
+# --s 0-1000 : Stylize - 細節改變,數值愈大改變愈大
+#     Low stylization values produce images that closely match the prompt but are less artistic.
+#     High stylization values create images that are very artistic but less connected to the prompt.
+# --iw 0.9 : Image Weight(圖像佔有的比重)
+# --niji :　二次元化（不能同時用-iw)
+# --video : create a short movie
+# ============================
+# --stop : accepts values: 10–100, 較小值產生模糊效果
+# --seed :　0–4294967295，uses a seed number to create a field of visual noise,相同的數值可產生相近的圖
+# --tile : generates images that can be used as repeating 
+# --r : parameter runs a Job multiple times
+#      --repeat is available for Standard and Pro subscribers
+#      --repeat accepts values 2–10 for Standard subscribers.
+#      --repeat accepts values 2–40 for Pro subscribers.
+# ============================
 # yellow palette : 黃色風格
-# --test --creative : 官方測試較細膩(不知是否還有用)
 # octane render : 3D
+# =============================
+# --test --creative : 官方測試較細膩(不知是否還有用)
 ```
+
+##### web design
+###### [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
+``` bash
+# web design for... or modern web design for...
+#   web design for a generic SaaS startup --ar 3:2
+#   web design for a flight discount service
+#   web design for a flight discount service --no shading realism photo details
+# Use "--ar 3:2" if you are creating web designs
+#   web design for a plant database, minimal vector flat --no photo detail realistic
+#   web design for a plant database, minimal vector flat --no photo detail realistic --ar 3:2
+#   web design for a plant database, minimal vector flat --no photo detail realistic
+#   web design for a plant database, minimal vector flat --no photo detail realistic --ar 3:2
+# To frame or not to frame? - macbook m1 mockup (macbook m1 樣機)
+#   web design for a hotel website --no shading realism details --seed 1024912
+#   web design for a hotel website macbook m1 mockup --no shading realism details --seed 1024912
+# Design only device - computer window 
+#   web design for a flight discount service --no shading realism photo details --seed 1024912
+#   web design for a flight discount service --no shading realism photo details device computer window --seed 1024912
+```
+
+###### [How to Build the Best Midjourney Web Designs](https://www.saplingcorp.com/journals/20/midjourney-web-design-prompts)
+
 
 #### Setup Your Own Midjourney Server
 <div style="max-width:700px">
@@ -155,3 +209,21 @@ focus"
 + [showGPT.co/](https://showgpt.co/)
 + [MidJourney Prompt Helper](https://prompt.noonshot.com/)
 + [OpenArt](https://openart.ai/discovery)
++ Midjounery Prompt
+  + [Midjounery Parameter List](https://docs.midjourney.com/docs/parameter-list?ref=blog.chichu.co)
+  + [Prompt Hero](https://prompthero.com/)
+  + [An advanced guide to writing prompts for Midjourney](https://medium.com/mlearning-ai/an-advanced-guide-to-writing-prompts-for-midjourney-text-to-image-aa12a1e33b6)
++ Web Design 
+  + [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
+  + [Web Design Mockups With Device](https://prompts.aituts.com/web-design-mockups-with-device)
+  + [How to Build the Best Midjourney Web Designs](https://www.saplingcorp.com/journals/20/midjourney-web-design-prompts)
+  + [40+Midjourney Prompts to Create Outstanding UI Design](https://bootcamp.uxdesign.cc/midjourney-prompts-to-create-outstanding-ui-design-ef947bf63007)
+  + [How To Make A Website Look Professional With Midjourney](https://wgmimedia.com/how-to-make-a-website-with-midjourney/)
+  + [How To Create A Website Design Using Midjourney](https://medium.com/geekculture/how-to-create-a-website-design-using-midjourney-fe0d784ba716)
+  + [Lexica](https://lexica.art/prompt/e69892f5-348d-4afc-875a-ef9efb2b0e3c)
++ Logo Design
+  + [How To Use Midjourney For Logo Design](https://www.ebaqdesign.com/blog/midjourney-logo-design)
++ Landing page
+  + [21 of the Best Landing Page Design Examples You Need to See in 2022](https://blog.hubspot.com/marketing/landing-page-examples-list)
+  + [54 inspiring landing page design ideas](https://99designs.com/blog/creative-inspiration/landing-page-design-inspiration/)
+  + [Top Landing Page Website Inspiration](https://onepagelove.com/inspiration/landing-page)
