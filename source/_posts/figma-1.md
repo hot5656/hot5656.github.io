@@ -33,6 +33,8 @@ CTA : call To Action
 	+ sans serif : 指沒有襯線的字體，與襯線字體相反，完全拋棄裝飾襯線，只剩下主幹，造型簡明有力，更具現代感，起源也很晚。適用於標題、廣告，瞬間的識別性高。
 
 
+### [whimsical](https://whimsical.com/)
+
 ### Figma
 #### one structure
 + moodboard
@@ -267,3 +269,5 @@ frame support element clip
 + [Core Design System](https://coredesignsystem.com/)
 + [Figma Community](https://www.figma.com/community)
 + [Behance](https://www.behance.net/galleries/ui-ux)
++ [Figma中文手冊](https://figmachina.com/guide/)
++ [google Fonts](https://fonts.google.com/)
