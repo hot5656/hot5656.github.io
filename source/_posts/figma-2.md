@@ -1,5 +1,5 @@
 ---
-title: Travel Website 
+title: Pet Care Website 
 abbrlink: eb
 date: 2023-04-21 21:19:23
 categories: UI/UX
@@ -8,7 +8,7 @@ tags:
 	- web design
 ---
 
-### design guide   
+### some reference design guide   
 #### color scheme :
 + Soft pink: #F7CAC9
 + Pale yellow: #FFF0B8
@@ -49,31 +49,20 @@ a serif font for headings, a sans-serif font for body text
 ##### Desktop Web Typography Guidelines
 
 
-### prompt
-#### pet care 
+### Midjoueney prompt 
+#### pet care(from chatGPT) 
 ```
 web design for unique pet care, We will use a blue palette with shades of light and dark blues for your website, The combination of blues will give your website a calm and peaceful vibe, use the "Source Han Sans" and "Source Han Serif" fonts for your website, Both fonts are easy to read and will give your website a professional look,include a navigation bar at the top of the website with a "Home" tab, "Services" tab, "Contact" tab, and a "News and Tips" tab, its language is traditional Chinese, --ar 3:2
 ```
 
-#### pet shop
+#### pet shop(get from some people from community)
 ```
 a website for a pet shop. homepage - header with logo, navigation menu, grid of properties, wide banner photo. then under a few prodoucts picturs with prices. then a gallery of picturs and lead form. clean and arranged design , realistic, high resolution, very detailed, user friendly, Intuitive navigation, visually appealing, layout and content, ui, ux, side by side Behance Dribbble, realistic, photorealistic, 8k
 ```
 
-#### tab
-+ [ref](https://www.campbowwow.com/)
+#### descript from chatGPT
 ```
-color 
-	primary : A51D37
-	secondary : 52738A
-	Info : F2F8FC
-
-
 萌寵坊
-
-
-
-
 首頁
 	歡迎來到寵物天堂
 	Introduction:
@@ -128,15 +117,6 @@ color
 ```
 
 ### Ref
-+ [雄獅旅遊](https://www.liontravel.com/category/zh-tw/index)
-+ [東南旅行社](https://www.settour.com.tw/)
-+ [五福旅遊](https://www.lifetour.com.tw/)
-+ [燦星旅遊](https://www.startravel.com.tw/)
-+ [The Global Nomad](https://www.theglobalnomad.info/home)
-+ [Huffman Travel](https://www.huffmantravel.com/)
-+ [Roam Travel Company](https://www.roamtravelcompany.com/)
-+ [Classic Travel Connection](https://www.classictravelconnection.com/)
-+ [Poe Travel](https://www.poetravel.com/)
 + Pet Care Websites
 	+ [18 Best Pet Care Websites Design Inspiration 2023](https://colorlib.com/wp/pet-care-websites/)
 	+ [100+ Best Pet Care, Grooming & Petsitting Websites](https://whatpixel.com/petcare-website-gallery/)

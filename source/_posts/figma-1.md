@@ -36,7 +36,7 @@ CTA : call To Action
 ### [whimsical](https://whimsical.com/)
 
 ### Figma
-#### one structure
+#### design structure
 + moodboard
 + Wireframe
 + Web view
@@ -91,6 +91,27 @@ frame support element clip
 ###### absolute
 <div style="max-width:500px">
 	{% asset_img picc1.png picc1 %}
+</div>
+
+##### load font to local(windows)
+###### [download Figma Font installers then install](https://www.figma.com/downloads/)
+<div style="max-width:700px">
+	{% asset_img picf1.png picf1 %}
+</div>
+
+###### [download Font](https://fonts.google.com/?subset=chinese-traditional&noto.script=Hant)
+<div style="max-width:700px">
+	{% asset_img picf2.png picf2 %}
+</div>
+
+###### unzip Font then install
+<div style="max-width:700px">
+	{% asset_img picf3.png picf3 %}
+</div>
+
+###### use Font in Figma
+<div style="max-width:700px">
+	{% asset_img picf4.png picf4 %}
 </div>
 
 #### shortcut Key 
