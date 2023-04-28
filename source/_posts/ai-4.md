@@ -44,4 +44,6 @@ tags:
 + [Adulting: The Coloring Book That Prepares You For Life](https://www.amazon.com/dp/B0BTRTDGKH/ref=cm_sw_r_as_gl_api_gl_i_YF50JMH9GTW8WSZBTK6T?linkCode=ml1&tag=bigbrofragran-20)
 + [The Fastest Way To Create A Coloring Book: ChatGPT, MidJourney, Amazon KDP | 5 Simple Steps](https://www.youtube.com/watch?v=sNkQbyOL7ps)
 + [Easy Piano Sheet Music for Kids:](https://www.amazon.com/Easy-Piano-Sheet-Music-Kids/dp/B08BTX5H2J/ref=sr_1_1?crid=IGO9Q3A6711T&keywords=Easy+Piano+Sheet+Mucic+for+Kids+A+beginners+First+Book+of+Easy+to+play+Classics&qid=1682578709&s=books&sprefix=easy+piano+sheet+mucic+for+kids+a+beginners+first+book+of+easy+to+play+classics%2Cstripbooks-intl-ship%2C244&sr=1-1)
-
++ book manafacture 
+	+ [bookow](https://bookow.com/resources.php)
+	+ [KDP cover calculator)](https://kdp.amazon.com/cover-calculator)
