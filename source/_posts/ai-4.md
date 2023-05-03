@@ -76,22 +76,50 @@ Having an adult conversation about insurance policies with your friends.
 39 Celebrating when you successfully follow a complicated recipe, --cb
 40 Feeling accomplished when you successfully assemble a complicated piece of technology, like a TV or sound system, --cb
 
+41 Complaining about how early your neighbors mow their lawn on weekends, --cb
+42 Celebrating when you successfully unclog a drain without calling a plumber, --cb
+43 Feeling accomplished when you successfully parallel park your car, --cb
+44 Opting for a night in with a good book over a night out with friends, --cb
+45 Feeling proud when you successfully negotiate a raise or promotion at work, --cb
+46 Opting for a night of relaxation and stretching instead of a night out with friends, --cb
+47 Getting excited about buying a new set of Tupperware containers, --cb
+48 Being proud of yourself for learning how to sew a button on a shirt, --cb
+49 Being proud of yourself for learning how to change a tire, --cb
+50 Feeling accomplished when you successfully complete a DIY home renovation project, --cb
+
+51 Feeling accomplished when you finally manage to declutter your closet, --cb
+52 Getting excited about a new set of kitchen knives or cookware, --cb
+53 Complaining about how loud your upstairs neighbors are, --cb
+54 Feeling proud when you successfully negotiate a better deal on a major purchase, --cb
+55 Being proud of yourself for starting a garden and growing your own vegetables, --cb
+56 Getting excited about buying a new set of hangers that match, --cb
+57 Being proud of yourself for learning how to change a diaper or feed a baby, --cb
+58 Celebrating when you successfully complete a home improvement project without injuring yourself, --cb
+59 Feeling accomplished when you finally figure out how to fix a glitch on your computer or phone, --cb
+60 Complaining about how long it takes to recover from a hangover, --cb
 
 
-
-
-
+31 Getting excited about a good deal on toilet cleaner, --cb
+32 Complaining about how early it gets dark in the winter, --cb(x)
+33 Being proud of yourself for making your own cleaning supplies, --cb(x)
+34 Feeling accomplished when you successfully navigate a complicated tax form, --cb(x)
+35 Opting for a night in with a good book instead of going out to party, --cb
+36 Getting excited about buying a new set of storage containers, --cb
+37 Complaining about how hard it is to get a good night's sleep, --cb
+38 Being proud of yourself for starting a garden and growing your own vegetables, --cb(v)
+39 Celebrating when you successfully bake a complicated cake from scratch, --cb
+40 Feeling accomplished when you successfully set up a complex home entertainment system, --cb
 
 31 Having a favorite brand of toilet paper, --cb (x)
 32 Getting excited about buying a new set of kitchen towels, --cb(v)
 33 Celebrating when you manage to balance your budget for the month, --cb(v)
-34 Complaining about how early your neighbors mow their lawn on weekends, --cb
-35 Feeling accomplished when you successfully parallel park your car, --cb
-36 Opting for a night in with a good book over a night out with friends, --cb
-37 Getting excited about buying a new set of Tupperware containers, --cb
-38 Being proud of yourself for learning how to change a tire, --cb
-39 Celebrating when you successfully assemble a piece of IKEA furniture, --cb
-40 Feeling accomplished when you finally manage to declutter your closet, --cb
+34 Complaining about how early your neighbors mow their lawn on weekends, --cb(v)
+35 Feeling accomplished when you successfully parallel park your car, --cb(v)
+36 Opting for a night in with a good book over a night out with friends, --cb(v)
+37 Getting excited about buying a new set of Tupperware containers, --cb(v)
+38 Being proud of yourself for learning how to change a tire, --cb(v)
+39 Celebrating when you successfully assemble a piece of IKEA furniture, --cb(x)
+40 Feeling accomplished when you finally manage to declutter your closet, --cb(v)
 
 
 #### 自動後帶 prompt
