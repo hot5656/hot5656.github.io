@@ -197,6 +197,9 @@ focus"
 #### style reference
 ##### [Midjourney Keywords & Styles](https://marigoldguide.notion.site/marigoldguide/52ac9968a8da4003a825039022561a30?v=a697f852c05840478b8b504da455cfef)
 
+
+### [DALL-E2](https://openai.com/product/dall-e-2)
+
 ### Tool
 + [ChatGPT Prompt Genius](https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo): Discover, share, import, and use the best prompts for ChatGPT
 + [ChatGPT for Google](https://chrome.google.com/webstore/detail/chatgpt-for-google/jgjaeacdkonaoafenlfkkkmbaopkbilf): google search 同時問 chatGPT

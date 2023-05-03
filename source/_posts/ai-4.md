@@ -54,6 +54,45 @@ Having an adult conversation about insurance policies with your friends.
 19 Being excited about finding a new grocery store that has better deals, --cb
 20 Feeling like a boss when you successfully negotiate a better price for something, --cb
 
+21 Getting excited about buying a new set of kitchen towels, --cb
+22 Opting for comfortable shoes over stylish ones, --cb
+23 Celebrating when you finally get all your bills paid on time, --cb
+24 Complaining about your noisy neighbors to your landlord, --cb
+25 Feeling proud when you fix something in your house without calling a repairman, --cb
+26 Realizing you have a preference for certain types of cleaning products, --cb
+27 Getting excited about buying a new kitchen gadget, like a fancy blender or food processor, --cb
+28 Being proud of yourself for learning how to properly fold fitted sheets, --cb
+29 Feeling accomplished when you manage to fix a leaky faucet, --cb
+30 Celebrating when you finally manage to fold all your laundry and put it away, --cb
+
+31 Realizing that you can't eat junk food for every meal anymore, --cb
+32 Getting excited about a new set of bath towels, --cb
+33 Complaining about the noisy birds outside your window at 5 AM, --cb
+34 Being proud of yourself for starting a retirement savings account, --cb
+35 Feeling accomplished when you successfully deep clean your kitchen, --cb
+36 Opting for a night of self-care instead of a night out with friends, --cb
+37 Getting excited about buying a new set of matching hangers for your closet, --cb
+38 Celebrating when you manage to balance your budget for the month, --cb
+39 Celebrating when you successfully follow a complicated recipe, --cb
+40 Feeling accomplished when you successfully assemble a complicated piece of technology, like a TV or sound system, --cb
+
+
+
+
+
+
+
+31 Having a favorite brand of toilet paper, --cb (x)
+32 Getting excited about buying a new set of kitchen towels, --cb(v)
+33 Celebrating when you manage to balance your budget for the month, --cb(v)
+34 Complaining about how early your neighbors mow their lawn on weekends, --cb
+35 Feeling accomplished when you successfully parallel park your car, --cb
+36 Opting for a night in with a good book over a night out with friends, --cb
+37 Getting excited about buying a new set of Tupperware containers, --cb
+38 Being proud of yourself for learning how to change a tire, --cb
+39 Celebrating when you successfully assemble a piece of IKEA furniture, --cb
+40 Feeling accomplished when you finally manage to declutter your closet, --cb
+
 
 #### 自動後帶 prompt
 ``` bash
