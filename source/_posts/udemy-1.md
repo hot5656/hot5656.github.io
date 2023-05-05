@@ -4,7 +4,7 @@ tags:
   - udemy
 abbrlink: 51ee
 date: 2023-04-28 09:51:42
-categories:
+categories: 知識
 ---
 
 ### course 
@@ -18,6 +18,12 @@ categories:
 + devops
 + ui ux
 + docker
++ web crawler
++ midjourney
++ Passive Income
++ Fiverr
++ Figma
+
 
 #### Forex
 ##### broker check

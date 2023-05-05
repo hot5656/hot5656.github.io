@@ -1,18 +1,33 @@
 ---
-title: ai-4
+title: Book create
 abbrlink: 67d3
 date: 2023-04-27 09:47:23
-categories:
+categories: AI
 tags:
+	- book
+	- chatGPT
+	- midjounery
 ---
 
-### book
+### Wine & Doodles
 + title :Wine & Doodles: A Coloring Book for the Sophisticated and Stressed
 + size: 6*9
++ ISBN: 9798393502904
++ Author: Thomas Baker
++ description
+	```
+	Unleash your inner artist with this stunning coloring book for adults. With simple designs and patterns, each page is a canvas just waiting for your personal touch.
+
+	Perfect for a relaxing night in, this coloring book offers a wide range of designs to suit all tastes.
+
+	And the benefits of coloring go far beyond simply having fun. Studies have shown that coloring can reduce stress and anxiety, improve focus and concentration, and even promote mindfulness and meditation.
+
+	So whether you're a seasoned artist or just looking for a fun and relaxing activity, this coloring book is the perfect way to unwind after a long day. So grab your favorite colored pencils or markers, put on some calming music, and let your creativity run wild!
+	```
 
 <!--more-->
 
-#### ask chatGPT
+#### [ask chatGPT](https://chat.openai.com/c/d5088c76-f5ab-49e1-bcf8-e5997e8d94ab)
 + could you give me a funny list of examples of "adulting"?
 + I want to make a humorous coloring book for adults, please give me some titles for reference 
 ```
@@ -28,10 +43,41 @@ Being happy about a new set of towels and bed sheets.
 Having an adult conversation about insurance policies with your friends.
 ```
 
++ What are the relevant keyword for a book like this if I publish it on Amazon?
+	```
+	Coloring book for adults
+	Wine-themed coloring book
+	Stress-relieving coloring book
+	Sophisticated coloring book
+	Wine lover gift
+	Adult coloring book with quotes
+	Intricate coloring book designs
+	Relaxing coloring book
+	Coloring book for wine enthusiasts
+	Creative outlet coloring book
+
+	Remember to choose keywords that accurately reflect the content of your book while also being relevant to your target audience. You can also use tools like Amazon's Keyword Tool or Google Keyword Planner to research popular search terms related to coloring books and wine to help you optimize your book's discoverability.
+	```
+
 + could you give me anothe a funny list of examples of "adulting"?
 
-### [Midjuorney create miage](https://discord.com/)
-#### prompt for Wine & Doodles: A Coloring Book for the Sophisticated and Stressed
++  write up a description of the coloring book for adults that depicts those topics?
+
++  just some words to the book reader that print on the front page from the list of topics
+	```
+	Relax and unwind with these intricate designs
+	Find your inner peace as you color your stress away
+	Express your creativity with these stunning patterns and motifs
+	Take a break from the hustle and bustle of daily life and lose yourself in these pages
+	Find your zen with the soothing colors and shapes in this coloring book
+	Let the stress melt away as you immerse yourself in these beautiful illustrations
+	Discover the therapeutic benefits of coloring with this calming and inspiring book
+	Create a work of art with every stroke of your pencil or marker
+	Unleash your imagination and escape into a world of color and beauty
+	```
+
+#### [Midjuorney create miage](https://discord.com/)
+##### generate image
 1 Getting excited about buying new cleaning supplies  --cb
 2 Choosing to stay in on a Friday night because you're too tired to go out, --cb
 3 Spending your entire weekend doing laundry and grocery shopping, --cb
@@ -122,7 +168,7 @@ Having an adult conversation about insurance policies with your friends.
 40 Feeling accomplished when you finally manage to declutter your closet, --cb(v)
 
 
-#### 自動後帶 prompt
+##### 自動後帶 prompt
 ``` bash
 # 只能帶 Parameters 
 # example 
@@ -133,7 +179,7 @@ Having an adult conversation about insurance policies with your friends.
 ```
 
 
-# 自訂 parameter
+##### 自訂 parameter
 ``` bash
 # --cb : color book
 # vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 
@@ -149,13 +195,14 @@ Having an adult conversation about insurance policies with your friends.
 
 
 ### Ref
-+ [create miage](https://discord.com/) 
-+ [Settings and Presets](https://docs.midjourney.com/docs/settings-and-presets)
-+ [Book Template](https://selfpublishing.com/book-template/)
-+ [Free Editable Book Templates in Word](https://usedtotech.com/free-book-templates-in-word/)
-+ [Adulting: The Coloring Book That Prepares You For Life](https://www.amazon.com/dp/B0BTRTDGKH/ref=cm_sw_r_as_gl_api_gl_i_YF50JMH9GTW8WSZBTK6T?linkCode=ml1&tag=bigbrofragran-20)
++ [KDP](https://kdp.amazon.com/en_US/)
 + [The Fastest Way To Create A Coloring Book: ChatGPT, MidJourney, Amazon KDP | 5 Simple Steps](https://www.youtube.com/watch?v=sNkQbyOL7ps)
-+ [Easy Piano Sheet Music for Kids:](https://www.amazon.com/Easy-Piano-Sheet-Music-Kids/dp/B08BTX5H2J/ref=sr_1_1?crid=IGO9Q3A6711T&keywords=Easy+Piano+Sheet+Mucic+for+Kids+A+beginners+First+Book+of+Easy+to+play+Classics&qid=1682578709&s=books&sprefix=easy+piano+sheet+mucic+for+kids+a+beginners+first+book+of+easy+to+play+classics%2Cstripbooks-intl-ship%2C244&sr=1-1)
-+ book manafacture 
-	+ [bookow](https://bookow.com/resources.php)
-	+ [KDP cover calculator)](https://kdp.amazon.com/cover-calculator)
++ [create image(discord midjourney)](https://discord.com/) 
++ [How To Create A PDF Book Cover For Amazon KDP On Canva](https://www.youtube.com/watch?v=uiGHUDeufjw)
++ reference KDP book
+	+ [Easy Piano Sheet Music for Kids:](https://www.amazon.com/Easy-Piano-Sheet-Music-Kids/dp/B08BTX5H2J/ref=sr_1_1?crid=IGO9Q3A6711T&keywords=Easy+Piano+Sheet+Mucic+for+Kids+A+beginners+First+Book+of+Easy+to+play+Classics&qid=1682578709&s=books&sprefix=easy+piano+sheet+mucic+for+kids+a+beginners+first+book+of+easy+to+play+classics%2Cstripbooks-intl-ship%2C244&sr=1-1)
+	+ [Adulting: The Coloring Book That Prepares You For Life](https://www.amazon.com/dp/B0BTRTDGKH/ref=cm_sw_r_as_gl_api_gl_i_YF50JMH9GTW8WSZBTK6T?linkCode=ml1&tag=bigbrofragran-20)
+	+ [People of Walmart Adult Coloring Book](https://www.amazon.com/People-Walmart-com-Adult-Coloring-Book/dp/1945056088/ref=zg_bs_8622801011_sccl_1/137-7428592-4706564?psc=1)
++ Book Template
+	+[KDP template](https://kdp.amazon.com/en_US/help/topic/G201834230)
+	+[USED TO Tech template](https://usedtotech.com/)

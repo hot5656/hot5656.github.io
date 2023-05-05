@@ -2,9 +2,9 @@
 title: chatgpt for coding
 abbrlink: '6553'
 date: 2023-03-20 10:59:07
-categories: Coding
+categories: AI
 tags:
-	- ai
+	- chatGPT
 ---
 
 ### QR code API

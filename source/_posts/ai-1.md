@@ -2,9 +2,11 @@
 title: OpenAI 說明
 abbrlink: ce78
 date: 2023-03-09 11:39:44
-categories: Coding
+categories: AI
 tags:
-	- ai
+	- chatGPT
+	- midjounery
+	- DALL-E2
 ---
 
 ### 1st example 
@@ -212,6 +214,9 @@ focus"
 + [showGPT.co/](https://showgpt.co/)
 + [MidJourney Prompt Helper](https://prompt.noonshot.com/)
 + [OpenArt](https://openart.ai/discovery)
++ Othet AI
+	+ [Midjourney免費替代！Leonardo AI](https://www.youtube.com/watch?v=hjtpP2QyZu0)
+	+ [Leonardo.Ai](https://leonardo.ai/)
 + Midjounery Prompt
   + [Midjounery Parameter List](https://docs.midjourney.com/docs/parameter-list?ref=blog.chichu.co)
   + [Prompt Hero](https://prompthero.com/)

@@ -2,9 +2,9 @@
 title: chatgpt for web coding
 abbrlink: a592
 date: 2023-03-22 11:06:59
-categories: Coding
+categories: AI
 tags:
-	- ai
+	- chatGPT
 ---
 
 ### chatgpt prompt for todo-list 
