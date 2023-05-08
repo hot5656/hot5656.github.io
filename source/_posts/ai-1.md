@@ -89,6 +89,15 @@ D:\work\run\openapi>node index.js
 }
 ```
 
+
+### [course - Content Creation with Midjourney](https://www.udemy.com/course/content-creation-with-midjourney/)
+#### Entering Effective prompt
++ Be Specific(具體)
++ Command List (midjourney command)
++ include context(上下文)
++ Take advantage of images database(參考其他生成圖像)
+
+
 ### midjourney
 #### [login Discord](https://discord.com/)
 #### [login Midjourney](https://www.midjourney.com/auth/signin/)
@@ -145,6 +154,12 @@ D:\work\run\openapi>node index.js
 # =============================
 # --test --creative : 官方測試較細膩(不知是否還有用)
 ```
+
+##### prompt example
++ Andreas Achenbach style
+
+##### special words
++ realistic
 
 ##### web design
 ###### [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
@@ -217,10 +232,16 @@ focus"
 + Othet AI
 	+ [Midjourney免費替代！Leonardo AI](https://www.youtube.com/watch?v=hjtpP2QyZu0)
 	+ [Leonardo.Ai](https://leonardo.ai/)
++ Midjounery Prompt tool
+	+ [MidJourney Prompt Helper-noonshot](https://prompt.noonshot.com/)
+	+ [Midjourney-futuretools](https://www.futuretools.io/tools/midjourney)
+	+ [Community Showcase](https://www.midjourney.com/showcase/recent/)
 + Midjounery Prompt
   + [Midjounery Parameter List](https://docs.midjourney.com/docs/parameter-list?ref=blog.chichu.co)
   + [Prompt Hero](https://prompthero.com/)
   + [An advanced guide to writing prompts for Midjourney](https://medium.com/mlearning-ai/an-advanced-guide-to-writing-prompts-for-midjourney-text-to-image-aa12a1e33b6)
+  + [midjourney library styles](https://www.midlibrary.io/)
+
 + Web Design 
   + [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
   + [Web Design Mockups With Device](https://prompts.aituts.com/web-design-mockups-with-device)
