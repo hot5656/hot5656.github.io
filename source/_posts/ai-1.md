@@ -226,12 +226,22 @@ focus"
 
 ### Ref
 + [OpenAI](https://platform.openai.com/)
-+ [showGPT.co/](https://showgpt.co/)
++ [showGPT.co](https://showgpt.co/)
 + [MidJourney Prompt Helper](https://prompt.noonshot.com/)
 + [OpenArt](https://openart.ai/discovery)
 + Othet AI
-	+ [Midjourney免費替代！Leonardo AI](https://www.youtube.com/watch?v=hjtpP2QyZu0)
-	+ [Leonardo.Ai](https://leonardo.ai/)
+  + [Midjourney免費替代！Leonardo AI](https://www.youtube.com/watch?v=hjtpP2QyZu0)
+  + [Leonardo.Ai](https://leonardo.ai/)
++ Create Content Tool
+  + Generate Script
+    + [chatGPT](https://chat.openai.com)
+  + Convert Serval image to a video
+    + [Pictory](https://pictory.ai/pricing)
+  + Convert text to audio
+    + [ElevenLabs](https://beta.elevenlabs.io/)
+  + Other 
+    + [Photo Video Maker](https://www.veed.io/create/photo-video-maker)
+    + [elai](https://elai.io/)
 + Midjounery Prompt tool
 	+ [MidJourney Prompt Helper-noonshot](https://prompt.noonshot.com/)
 	+ [Midjourney-futuretools](https://www.futuretools.io/tools/midjourney)
