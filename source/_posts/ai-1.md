@@ -118,15 +118,23 @@ D:\work\run\openapi>node index.js
 ```
 
 #### prompt
+
+#####
++ 主題跟背景
++ 風格與媒介:插畫,平面設計,照片(illustraion,painting,phtograph)
++ 顏色與氛圍
+
 ##### parameter
 ``` bash
 # 主題, 畫風, 顏色/光線, 作畫模式 ....(", " 分開)
 # ===========================================
 # --v 1,--v 2,--v 3,--v 4,--v 5,--v 5.1,--niji 4,--niji 5 
-# --v 4 : version 4 (好像比較華麗)
-# --v 5.1 : version 5.1 (好像比較樸實)
+# --v 4 : version 4 (好像比較華麗,有氛圍感)
+# --v 5 : version 5 (比較逼真)
+# --v 5.1 : 帶個人觀點,短的prompt校變更好,較像V5
 # --niji 4,--niji 5 : 漫畫風格
 # =========================================== 
+# raw mode:較像v5,擅長處理很長的prompt
 # --style raw: 僅 v 5.1 提供, 強調盡量符合使用者提示
 # =========================================== 
 # --q .5 :　Quality, changes how much time is spent generating an image(精細程度)
@@ -165,6 +173,8 @@ D:\work\run\openapi>node index.js
 # =========================================== 
 # --chaos
 # --c 0-100 : 數字愈高畫風愈特別
+# =========================================== 
+# --repeat 4 : 重複送出4次
 # =========================================== 
 # --seed :取得這張圖的編號
 # --iw 0.9 : Image Weight(圖像佔有的比重)
@@ -314,6 +324,10 @@ Running Jobs: None
 + Othet AI
   + [Midjourney免費替代！Leonardo AI](https://www.youtube.com/watch?v=hjtpP2QyZu0)
   + [Leonardo.Ai](https://leonardo.ai/)
+  + [niji journey](https://nijijourney.com/zh/):動漫風格
+  + [DreamStudio](https://beta.dreamstudio.ai/generate)
+  + [Playground AI](https://playgroundai.com/)
+  + [Bing Image Creator](https://www.bing.com/images/create?form=FLPGEN)
 + Create Content Tool
   + Generate Script
     + [chatGPT](https://chat.openai.com)
@@ -337,6 +351,7 @@ Running Jobs: None
   + [Prompt Hero](https://prompthero.com/)
   + [An advanced guide to writing prompts for Midjourney](https://medium.com/mlearning-ai/an-advanced-guide-to-writing-prompts-for-midjourney-text-to-image-aa12a1e33b6)
   + [midjourney library styles](https://www.midlibrary.io/)
+  + [MidJourney-Styles-and-Keywords-Reference](https://github.com/willwulfken/MidJourney-Styles-and-Keywords-Reference)
 
 + Web Design 
   + [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
