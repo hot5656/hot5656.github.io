@@ -121,28 +121,57 @@ D:\work\run\openapi>node index.js
 ##### parameter
 ``` bash
 # 主題, 畫風, 顏色/光線, 作畫模式 ....(", " 分開)
-# --v 4 : version 4
-# --v 5 : version 5
-# --seed :取得這張圖的編號
+# ===========================================
+# --v 1,--v 2,--v 3,--v 4,--v 5,--v 5.1,--niji 4,--niji 5 
+# --v 4 : version 4 (好像比較華麗)
+# --v 5.1 : version 5.1 (好像比較樸實)
+# --niji 4,--niji 5 : 漫畫風格
+# =========================================== 
+# --style raw: 僅 v 5.1 提供, 強調盡量符合使用者提示
+# =========================================== 
+# --q .5 :　Quality, changes how much time is spent generating an image(精細程度)
+#     .25, .5, and 1(default),2
+# =========================================== 
+# --s 0-1000 : Stylize - 數值愈大藝術性越高(與提示相關越小)
+#     Low stylization values produce images that closely match the prompt but are less artistic.
+#     High stylization values create images that are very artistic but less connected to the prompt.
+# =========================================== 
+# remix mode: Variations 可輸入提示
+# =========================================== 
 # --ar 16:10 : 比例
 #     --ar 16:10 A computer screen might have a ratio of
 #     --ar 1:1 Default aspect ratio.
 #     --ar 5:4 Common frame and print ratio.
 #     --ar 3:2 Common in print photography.
 #     --ar 7:4 Close to HD TV screens and smartphone screens. 
+# =========================================== 
 # --no leaf : 不要什麼元素(葉子)
+# --no water trees
+# =========================================== 
+# 提示圖像: 1.load picture, 2.drop to command, 3.add other promp 
+# --iw:.5~2(v5), 越大相關性越高
+# prompt example: /imagine prompt flowers.jpg birthday cake --iw .5
+# =========================================== 
+# ::多提示
+# hot:: dog produced a dog that is hot. 
+# hot::2, dog::1 = makes the word hot twice as important as the word dog
+# =========================================== 
+# /blend :混和兩張圖
+# =========================================== 
+# --seed :　0–4294967295，uses a seed number to create a field of visual noise,相同的數值可產生相近的圖
+# =========================================== 
+# video only support version 3 (4 and 5 not support, add envolope can see it)
+# a hacker sitting in front of a computer::3, and hacking:2, in a dock enviornment, duotone green::3 and blcke::1 --video --v 3 
+# =========================================== 
+# --chaos
 # --c 0-100 : 數字愈高畫風愈特別
-# --q .5 :　Quality, changes how much time is spent generating an image
-#     .25, .5, and 1(default)
-# --s 0-1000 : Stylize - 細節改變,數值愈大改變愈大
-#     Low stylization values produce images that closely match the prompt but are less artistic.
-#     High stylization values create images that are very artistic but less connected to the prompt.
+# =========================================== 
+# --seed :取得這張圖的編號
 # --iw 0.9 : Image Weight(圖像佔有的比重)
 # --niji :　二次元化（不能同時用-iw)
 # --video : create a short movie
 # ============================
 # --stop : accepts values: 10–100, 較小值產生模糊效果
-# --seed :　0–4294967295，uses a seed number to create a field of visual noise,相同的數值可產生相近的圖
 # --tile : generates images that can be used as repeating 
 # --r : parameter runs a Job multiple times
 #      --repeat is available for Standard and Pro subscribers
@@ -155,11 +184,34 @@ D:\work\run\openapi>node index.js
 # --test --creative : 官方測試較細膩(不知是否還有用)
 ```
 
+##### option(自訂 parameter) 
+``` bash
+# --cb : color book
+# vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 
+/prefer option set option:cb    value:vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 
+# outline border, vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3
+/prefer option set option:cb    value:outline border, vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 
+
+# list option
+/prefer option list 
+	wallpaper: --w 1920 --h 1024 --hd
+	cb: vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3
+```
+
 ##### prompt example
 + Andreas Achenbach style
 
 ##### special words
 + realistic
++ 32 bit isometric : 3D
++ water sketch : 水素描
++ movie poster : 電影海報
++ anime : 動畫
++ minimalist : 極簡主義
++ 8k 
+
+##### other control 
++ develop : 可收到4張分開圖,及 seed 值
 
 ##### web design
 ###### [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
@@ -214,6 +266,36 @@ focus"
 #### style reference
 ##### [Midjourney Keywords & Styles](https://marigoldguide.notion.site/marigoldguide/52ac9968a8da4003a825039022561a30?v=a697f852c05840478b8b504da455cfef)
 
+#### info record
+
+##### 2023/05/10
+```
+Subscription: Basic (Active monthly, renews next on 2023年5月23日 11:54)
+Job Mode: Fast
+Visibility Mode: Public
+Fast Time Remaining: 107.72/200.0 minutes (53.86%)
+Lifetime Usage: 158 images (3.81 hours)
+Relaxed Usage: 0 images (0.00 hours)
+
+Queued Jobs (fast): 0
+Queued Jobs (relax): 0
+Running Jobs: None
+```
+
+##### 2023/05/10-2
+```
+Subscription: Basic (Active monthly, renews next on 2023年5月23日 11:54)
+Job Mode: Fast
+Visibility Mode: Public
+Fast Time Remaining: 106.90/200.0 minutes (53.45%)
+Lifetime Usage: 159 images (3.82 hours)
+Relaxed Usage: 0 images (0.00 hours)
+
+Queued Jobs (fast): 0
+Queued Jobs (relax): 0
+Running Jobs: None
+```
+
 
 ### [DALL-E2](https://openai.com/product/dall-e-2)
 
@@ -240,8 +322,12 @@ focus"
   + Convert text to audio
     + [ElevenLabs](https://beta.elevenlabs.io/)
   + Other 
-    + [Photo Video Maker](https://www.veed.io/create/photo-video-maker)
+    + [Photo Video Maker](https://www.veed.io/create/photo-video-maker):image+script --> video
     + [elai](https://elai.io/)
++ Thumbnail tool
+	+ [picsart](https://picsart.com/)
+	+ [picmaker](https://www.picmaker.com/youtube-thumbnail-maker)
+	+ [fotor](https://www.fotor.com/design/youtube-thumbnail.html)
 + Midjounery Prompt tool
 	+ [MidJourney Prompt Helper-noonshot](https://prompt.noonshot.com/)
 	+ [Midjourney-futuretools](https://www.futuretools.io/tools/midjourney)
