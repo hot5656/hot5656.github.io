@@ -209,6 +209,9 @@ D:\work\run\openapi>node index.js
 ```
 
 ##### prompt example
++ t-shirt design graphic of a synth-wave chicken wearing sunglasses in front of a minimalistic sunset with a contour and dark background --no mockup --v 4
+
+##### prompt subset
 + Andreas Achenbach style
 
 ##### special words
@@ -222,6 +225,22 @@ D:\work\run\openapi>node index.js
 
 ##### other control 
 + develop : 可收到4張分開圖,及 seed 值
+
+##### T-shirt
+```
+Etsy
+2000
+
++ [Etsy](https://www.etsy.com/)
++ [TMhunt](http://tmhunt.com/]): check trademark
++ [replicate nightmareai](https://replicate.com/nightmareai/real-esrgan): 放大 size
+	T-shirt: 1024*6
+	W:4500, H:5400, resolution:300, orientation:portrait mode,
+	DPI 
+Kittl
+Canva
+photopea
+```
 
 ##### web design
 ###### [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
@@ -352,7 +371,8 @@ Running Jobs: None
   + [An advanced guide to writing prompts for Midjourney](https://medium.com/mlearning-ai/an-advanced-guide-to-writing-prompts-for-midjourney-text-to-image-aa12a1e33b6)
   + [midjourney library styles](https://www.midlibrary.io/)
   + [MidJourney-Styles-and-Keywords-Reference](https://github.com/willwulfken/MidJourney-Styles-and-Keywords-Reference)
-
++ Sell
+  + [Analog Dreams](https://analogdreams.threadless.com/)
 + Web Design 
   + [Midjourney Web Design: The Complete Prompt Guide](https://aituts.com/midjourney-web-design/)
   + [Web Design Mockups With Device](https://prompts.aituts.com/web-design-mockups-with-device)
