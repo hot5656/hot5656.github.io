@@ -215,13 +215,37 @@ D:\work\run\openapi>node index.js
 + Andreas Achenbach style
 
 ##### special words
-+ realistic
 + 32 bit isometric : 3D
 + water sketch : 水素描
 + movie poster : 電影海報
 + anime : 動畫
 + minimalist : 極簡主義
-+ 8k 
++ 8k
+
++ softly blended hues : 柔和的混合色調
++ timeless beauty : 永恆的美麗
++ Photobash : 照片
++ 32k uhd : 超高清 
++ realistic : 寫實
++ desertwave : 沙漠波
++ reportage style : 報導文學風格
++ Wide-angle lens : 廣角鏡頭
++ --q 2 : 高精細程度
++ --style raw : 盡量符合使用者提示(v 5.1)
++ --ar 4:3 : 相片比例
++ --v 5.1
+
++ Simple and engaging : 簡單而引人入勝
++ low - detailed illustrations : 低細節圖
++ black and white coloring page for kids cartoon 
+
+
+##### How to Create Consistent Characters in Midjourney
++ draw 1 charater likest, --ar 3:2 the upscare
++ Upload Your Image
++ ..., full body image --ar 3:2 
++ get seed : seed 1083266338( give name Magnus)
+
 
 ##### other control 
 + develop : 可收到4張分開圖,及 seed 值
@@ -327,6 +351,12 @@ Running Jobs: None
 
 
 ### [DALL-E2](https://openai.com/product/dall-e-2)
+
+
+### ideas
++ chatgpt midjourney picture book 
+  + children story book
+	+ [bookbolt](https://bookbolt.io/):research
 
 ### Tool
 + [ChatGPT Prompt Genius](https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo): Discover, share, import, and use the best prompts for ChatGPT
