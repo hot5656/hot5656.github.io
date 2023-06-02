@@ -2,8 +2,9 @@
 title: Chrome Extension
 abbrlink: a8c7
 date: 2023-05-23 16:52:05
-categories:
+categories: Coding
 tags:
+	- chrome
 ---
 
 ### setup
@@ -12,6 +13,8 @@ tags:
 npm init
 npm install types @types/chrome
 ```
+
+<!--more-->
 
 + chrome://extensions --> on developer mode(開發人員模式)
 
@@ -45,6 +48,24 @@ chrome.runtime.onInstalled.addListener(()=>{
 })
 ```
 
+#### content.js
+
+
++ Source --> Ctrl + O : search file
++ webstore google
+
+``` bash
+# power-shell
+# compress all file to .zip
+Compress-Archive src output.zip
+```
+
++ Storage areas
+  + storage.local
+  + storage.sync
+
 ### Ref
 + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
++ [webstore google](https://chrome.google.com/webstore/category/extensions)
++ [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
 

@@ -13,6 +13,9 @@ categories: 知識
 + chatgpt
 + hacking
 + trading forex
+
+<!--more-->
+
 + bot
 + english
 + devops
