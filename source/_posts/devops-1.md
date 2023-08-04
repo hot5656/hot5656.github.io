@@ -232,6 +232,23 @@ choco install maven -y
 choco install awscli -y
 ```
 
+
+``` bash
+# uninstall Firefox ESR
+choco uninstall firefoxesr
+# install Firefox ESR to specific directory
+choco install firefoxesr --params "/InstallDir:d:\app\Mozilla Firefox"
+# other inatsll special 
+# 對於MSI 安裝程序而言，通常如下傳遞參數：
+# -ia "INSTALLDIR=""D:\Program Files"""
+# unknow
+choco install yarn -ia "INSTALLDIR=""D:\env\yarn\"
+# 對於NSIS（NullSoft Scriptable Install System）安裝程序，它使用 /D 開關指定安裝路徑，那麼參數傳遞方式如下：
+# -ia "'/D=/path/to/install/dir'"
+# unknow
+choco install notepadplusplus -ia "'/D=D:\env\notepadplusplus'"
+```
+
 ### Ref
 + [DevOps Material](https://github.com/imnowdevops/ddc-material)
 + [vprofile project](https://github.com/devopshydclub/vprofile-project)
