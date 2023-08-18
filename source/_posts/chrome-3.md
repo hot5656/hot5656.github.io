@@ -24,8 +24,6 @@ tags:
 	{% asset_img pic31.png pic31 %}
 </div>
 
-#### publishing to chrome store
-##### [Chrome Store](https://chrome.google.com/webstore/category/extensions?utm_source=app-launcher&authuser=0)
 
 ##### modify manifest.json name&description
 ``` json
@@ -61,11 +59,29 @@ tags:
 }
 ```
 
-##### prepare for publish(move source to src,compress to .zip)
+#### prepare for publish(move source to src,compress to .zip)
 <div style="max-width:300px">
 	{% asset_img pic32.png pic32 %}
 </div>
 
+#### Extension other function
++ options_page
++ notifications
++ Context Menu
+
+
+#### tool
+##### vscode setup
++ install Prettier - Code formatter
++ default format(Workspaces)
+<div style="max-width:700px">
+	{% asset_img pic61.png pic61 %}
+</div>
+
++ Format On Save
+<div style="max-width:700px">
+	{% asset_img pic62.png pic62 %}
+</div>
 
 ### Function
 #### chrome storage(加入 storage 後,有時要移除再載入才會正常)
@@ -542,6 +558,164 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 });
 ```
 
+#### TypeScript build
+##### install TypeScript module
+``` bash
+# install TypeScript
+npm install typescript --save-dev
+```
+
+##### change all .js files to .ts + fix some typescript error
+###### background.ts
+``` js
+// import * as message from "./backgroundMessaging.js"
+// typescript fix
+importScripts("./backgroundMessaging.js");
+
+
+chrome.runtime.onInstalled.addListener((tab) => {
+	console.log(tab)
+	console.log('Extension installed')
+})
+
+chrome.bookmarks.onCreated.addListener(() => {
+	console.log('Bookmark saved')
+})
+
+// 不需要有此 function
+// chrome.action.onClicked.addListener( () => {
+// 	console.log('chrome action click')
+// })
+```
+
+###### content.ts
+``` js
+window.onload = () => {
+	const button = document.createElement('button');
+	button.id = 'darkModeButton';
+	// button.textContent = "DO IT DACK";
+	button.textContent =  chrome.i18n.getMessage("enableDarkModeText");
+
+	const input = document.createElement('input');
+	input.type = 'checkbox';
+	input.id = 'darkSetting'
+
+	// add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
+	// document.querySelector("#buttons").prepend(button);
+	document.querySelector("#end").prepend(button, input, 'Auto apply?');
+	button.addEventListener('click', () => {
+		chrome.storage.local.get(['enabled'], (result) => {
+			const isEnable = !result.enabled;
+			// typescript fix
+			const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+			// (document.getElementById('darkSetting') as HTMLInputElement).checked = isEnable;
+			settingCheckbox.checked = isEnable;
+			storeSetting();
+		})
+
+		enableDarkMode(true)
+	});
+
+	// save dark mode to chrome storage
+	input.addEventListener('click', () => storeSetting())
+
+	// save dark mode to chrome storage
+	checkSetting();
+}
+
+// save dark mode to chrome storage
+function checkSetting() {
+	chrome.storage.local.get(['enabled', 'color'], (result) => {
+		const isEnable = result.enabled
+		// console.log(isEnable)
+		// console.log(result.color)
+
+		// typescript fix
+		const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+		settingCheckbox.checked = isEnable;
+		if (isEnable) {
+			enableDarkMode(true);
+		}
+	})
+}
+
+// save dark mode to chrome storage
+function storeSetting() {
+	const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+	const isEnabled = settingCheckbox.checked;
+	const setting = { enabled: isEnabled, color:'purple'} ;
+
+	chrome.storage.local.set(setting, () => {
+		// console.log('store', setting);
+		;
+	})
+	enableDarkMode(isEnabled);
+}
+
+function enableDarkMode(flag) {
+	// typescript fix
+	const websiteBody = document.getElementsByTagName('ytd-app')[0] as HTMLElement;
+	if (flag) {
+		websiteBody.style.backgroundColor= 'black';
+	}
+	else {
+		websiteBody.style.backgroundColor= '';
+	}
+}
+```
+
+##### add tsconfig.json
+``` json
+{
+	"compilerOptions": {
+		"outDir": "./dist",
+		"allowJs": true,
+		"target": "es5"
+	},
+	"include": ["./src/**/*"]
+}
+```
+
+##### add build command - package.json
+``` json
+{
+  "name": "01-xx",
+  "version": "1.0.0",
+  "description": "1st chrome ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chrome": "^0.0.243",
+    "types": "^0.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
+```
+
+##### build typescript
+``` bash
+npm run build
+```
+
+<div style="max-width:400px">
+	{% asset_img pic57.png pic57 %}
+</div>
+
+#### Webpack
+``` bash
+# have some issue - just list need instal package
+npm install webpack webpack-cli --save-dev
+npm install glob --save-dev
+npm install ts-loader --save-dev
+npm install copy-webpack-plugin --save-dev
+```
 
 ### Start
 
@@ -954,13 +1128,47 @@ chrome.bookmarks.onCreated.addListener(() => {
 	{% asset_img pic46.png pic46 %}
 </div>
 
-### TypeScrips
-``` bash
-# install typescript
- npm install typescript --save-dev
-```
+### Timer Basic
++ manifest.json
+	+ manifest_version
+	+ name
+	+ version
+	+ description
+	+ icons
+
+	+ action
+
+	+ options_page
+
+	+ permissions
+
+	+ background
+
+
++ action
+	+ popup.*
+	+ setBadgeText
++ options_page
+	+ options.*
++ storage
+	+ permissions
+	+ chrome.storage.sync.set
+	+ chrome.storage.sync.get
+	+ chrome.storage.local.set
+	+ chrome.storage.local.get
++ background
+	+ "service_worker": "background.js"
++ alarm API
+	+ permissions
+	+ chrome.alarms.create
+	+ chrome.alarms.onAlarm.addListener(
++ notifications API
+	+ permissions
+	+ this.registration.showNotification
+
 
 ### Ref
 + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
 + [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
 + [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
++ [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
