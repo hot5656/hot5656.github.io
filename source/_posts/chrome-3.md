@@ -1130,19 +1130,19 @@ chrome.bookmarks.onCreated.addListener(() => {
 
 ### Timer Basic
 + manifest.json
-	+ manifest_version
-	+ name
-	+ version
-	+ description
-	+ icons
+	+ manifest_version(1)
+	+ name(1)
+	+ version(1)
+	+ description(1)
+	+ icons(1)
 
-	+ action
+	+ action(2)
 
-	+ options_page
+	+ options_page(3)
 
-	+ permissions
+	+ permissions(4)
 
-	+ background
+	+ background(5)
 
 
 + action
@@ -1156,9 +1156,9 @@ chrome.bookmarks.onCreated.addListener(() => {
 	+ chrome.storage.sync.get
 	+ chrome.storage.local.set
 	+ chrome.storage.local.get
-+ background
++ background(sometime sleep)
 	+ "service_worker": "background.js"
-+ alarm API
++ alarm API(trigger continue run)
 	+ permissions
 	+ chrome.alarms.create
 	+ chrome.alarms.onAlarm.addListener(
@@ -1166,9 +1166,875 @@ chrome.bookmarks.onCreated.addListener(() => {
 	+ permissions
 	+ this.registration.showNotification
 
+#### manifest.json
+``` json
+{
+	"manifest_version": 3,
+	"name": "Timer Extension",
+	"version": "1.0.0",
+	"description": "Hellow Chrome world!",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"action": {
+		"icons": {
+			"16": "icon.png",
+			"24": "icon.png",
+			"32": "icon.png"
+		},
+		"default_title": "Timer Extension Action Title",
+		"default_popup": "popup.html"
+	},
+	"options_page": "options.html",
+	"permissions": [
+		"storage",
+		"alarms",
+		"notifications"
+	],
+	"background": {
+		"service_worker": "background.js"
+	}
+}
+```
+
+#### background.js
+``` js
+// console.log("Hello from the background script!");
+// console.log(this);
+
+// let time = 0;
+//
+// setInterval(() => {
+//   time += 1;
+//   console.log(time);
+// }, 1000);
+
+chrome.alarms.create({
+  periodInMinutes: 1 / 60,
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  // console.log(alarm);
+
+  chrome.storage.local.get(["timer", "isRunning"], (res) => {
+    // console.log("background");
+
+    const time = res.timer ?? 0;
+    const isRunning = res.isRunning ?? true;
+
+    if (!isRunning) {
+      return;
+    }
+
+    chrome.storage.local.set({
+      timer: time + 1,
+    });
+
+    chrome.action.setBadgeText({
+      text: `${time + 1}`,
+    });
+
+    chrome.storage.sync.get("notificationTime", (res) => {
+      const notificationTime = res.notificationTime ?? 10000;
+      if (time % notificationTime == 0) {
+        this.registration.showNotification("Chrome Timer Extension", {
+          body: `${notificationTime} senconds has passed! (time = ${time})`,
+          icon: "icon.png",
+        });
+        // console.log("tick", notificationTime, time);
+      }
+    });
+
+    // if (time % 100 == 0) {
+    //   this.registration.showNotification("Chrome Timer Extension", {
+    //     body: "100 senconds has passed!",
+    //     icon: "icon.png",
+    //   });
+    // }
+  });
+});
+```
+
+#### popup
+##### popup.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer Extension(popup)</title>
+	<link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+	<h1>Timer Extension</h1>
+	<h2 id="time"></h2>
+	<h2 id="name"></h2>
+	<h2 id="timer"></h2>
+	<button id="start">Start Timer</button>
+	<button id="stop">Stop Timer</button>
+	<button id="reset">Reset Timer</button>
+</body>
+<script src="popup.js"></script>
+
+</html>
+```
+
+##### popup.css
+``` css
+body {
+  width: 400px;
+  height: 400px;
+}
+
+h1 {
+  color: blue;
+}
+```
+
+##### popup.js
+``` js
+const timeElement = document.getElementById("time");
+const nameElement = document.getElementById("name");
+const timerElement = document.getElementById("timer");
+
+function updateTimeElement() {
+  // console.log("popup");
+
+  const currentTime = new Date().toLocaleTimeString();
+  timeElement.textContent = `The Time is: ${currentTime}`;
+
+  chrome.storage.local.get(["timer"], (resp) => {
+    const time = resp.timer ?? 0;
+    timerElement.textContent = `The timer is at: ${time} seconds`;
+  });
+}
+
+updateTimeElement();
+setInterval(updateTimeElement, 1000);
+
+// move to background.js
+// chrome.action.setBadgeText(
+//   {
+//     text: "TIME",
+//   },
+//   () => {
+//     console.log("Finished setting badge text.");
+//   }
+// );
+
+chrome.storage.sync.get(["name"], (res) => {
+  // if undefine or null return string
+  const name = res.name ?? "???";
+  nameElement.textContent = `Your name is: ${name}`;
+});
+
+// start, stop, reset
+const startBtn = document.getElementById("start");
+const stopBtn = document.getElementById("stop");
+const resetBtn = document.getElementById("reset");
+
+startBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    isRunning: true,
+  });
+});
+
+stopBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    isRunning: false,
+  });
+});
+
+resetBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    timer: 0,
+    isRunning: false,
+  });
+});
+```
+
+#### options
+##### options.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer Entension Options</title>
+	<link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+	<h1>Timer Extension Options</h1>
+	<input id="name-input" type="text" placeholder="Enter your name">
+	<input id="time-input" type="number" placeholder="Enter notification time in seconds">
+	<button id="save-btn">Save Options</button>
+</body>
+<script src="options.js"></script>
+
+</html>
+```
+
+##### options.css
+``` css
+h1 {
+  color: green;
+}
+```
+
+##### options.js
+``` js
+// console.log("Hello from the options page!");
+
+const nameInput = document.getElementById("name-input");
+const timeInput = document.getElementById("time-input");
+const saveBtn = document.getElementById("save-btn");
+
+saveBtn.addEventListener("click", () => {
+  // console.log(nameInput.value);
+
+  const name = nameInput.value;
+  const notificationTime = timeInput.value;
+  chrome.storage.sync.set(
+    {
+      // name: name
+      name,
+      notificationTime,
+    }
+    // () => {
+    //   console.log(`Name is set to ${name}`);
+    // }
+  );
+});
+
+chrome.storage.sync.get(["name", "notificationTime"], (res) => {
+  // console.log(res);
+
+  // if undefine or null return string
+  nameInput.value = res.name ?? "";
+  timeInput.value = res.notificationTime ?? 1000;
+});
+
+setInterval(() => {
+  // console.log("options");
+}, 1000);
+```
+
+### Pomotoro Timer
+#### manifest.json
+``` json
+{
+	"manifest_version": 3,
+	"name": "Pomotoro Timer",
+	"version": "1.0.0",
+	"description": "Helps you focus on some things!",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"action": {
+		"default_icon": "icon.png",
+		"default_title": "Pomodoro Timer",
+		"default_popup": "popup/popup.html"
+	},
+	"permissions": [
+		"storage",
+		"alarms",
+		"notifications"
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"options_page": "options/options.html"
+}
+```
+
+#### popup.*
+##### popup.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="popup.css">
+	<title>Pomodoro Timer</title>
+</head>
+
+<body>
+	<div class="header">
+		<img src="../icon.png">
+	</div>
+	<h1 id="time">00:00</h1>
+	<div id="btn-container">
+		<button id="start-timer-btn">Start Timer</button>
+		<button id="reset-timer-btn">Reset Timer</button>
+		<button id="add-task-btn">Add Task</button>
+	</div>
+	<div id="task-container">
+		<!-- <input type="text">
+		<input type="button" value="x"> -->
+	</div>
+</body>
+<script src="popup.js"></script>
+
+</html>
+```
+
+##### popup.css
+``` css
+body {
+  height: 400px;
+  width: 350px;
+  background-color: indianred;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  background-color: whitesmoke;
+  padding: 5px;
+  margin: -8px;
+}
+
+#time {
+  text-align: center;
+  font-size: 50px;
+  margin: 10px;
+  font-weight: normal;
+  color: whitesmoke;
+}
+
+#btn-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#btn-container > button {
+  color: indianred;
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  font-weight: bold;
+  width: 100px;
+  cursor: pointer;
+}
+
+#task-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.task-input {
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px 10px;
+  width: 250px;
+}
+
+.task-delete {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  color: indianred;
+  font-weight: 700;
+  height: 25px;
+  width: 25px;
+}
+```
+
+##### popup.js
+``` cs
+var tasks = [];
+
+function updateTime() {
+  chrome.storage.local.get(["timer", "timeOption"], (res) => {
+    const time = document.getElementById("time");
+    const minutes = `${res.timeOption - Math.ceil(res.timer / 60)}`.padStart(
+      2,
+      "0"
+    );
+    const seconds =
+      res.timer % 60 != 0 ? `${60 - (res.timer % 60)}`.padStart(2, "0") : "00";
+    time.textContent = `${minutes}:${seconds}`;
+    // time.textContent = res.timer;
+  });
+}
+
+updateTime();
+chrome.storage.local.get(["isRunning"], (res) => {
+  const startTimerBtn = document.getElementById("start-timer-btn");
+  startTimerBtn.textContent = res.isRunning ? "Pause Timer" : "Start Timer";
+});
+
+setInterval(updateTime, 1000);
+
+const startTimerBtn = document.getElementById("start-timer-btn");
+startTimerBtn.addEventListener("click", () => {
+  chrome.storage.local.get(["isRunning"], (res) => {
+    chrome.storage.local.set(
+      {
+        isRunning: !res.isRunning,
+      },
+      () => {
+        startTimerBtn.textContent = !res.isRunning
+          ? "Pause Timer"
+          : "Start Timer";
+      }
+    );
+  });
+});
+
+const resetTimerBtn = document.getElementById("reset-timer-btn");
+resetTimerBtn.addEventListener("click", () => {
+  chrome.storage.local.set(
+    {
+      timer: 0,
+      isRunning: false,
+    },
+    () => {
+      startTimerBtn.textContent = "Start Timer";
+    }
+  );
+});
+
+const addTaskBtn = document.getElementById("add-task-btn");
+addTaskBtn.addEventListener("click", () => addTask());
+
+chrome.storage.sync.get(["tasks"], (res) => {
+  tasks = res.tasks ? res.tasks : [];
+  renderTasks();
+});
+
+function saveTasks() {
+  chrome.storage.sync.set({
+    tasks,
+  });
+}
+
+function renderTask(taskNum) {
+  const taskRow = document.createElement("div");
+
+  const text = document.createElement("input");
+  text.type = "text";
+  text.placeholder = "Enter a task...";
+  text.value = tasks[taskNum];
+  text.classList = "task-input";
+  text.addEventListener("change", () => {
+    tasks[taskNum] = text.value;
+    saveTasks();
+    // console.log(taskNum, tasks);
+  });
+
+  const deleteBtn = document.createElement("input");
+  deleteBtn.type = "button";
+  deleteBtn.value = "x";
+  deleteBtn.className = "task-delete";
+  deleteBtn.addEventListener("click", () => {
+    deleteTask(taskNum);
+  });
+
+  taskRow.appendChild(text);
+  taskRow.appendChild(deleteBtn);
+
+  const taskContainer = document.getElementById("task-container");
+  taskContainer.appendChild(taskRow);
+}
+
+function addTask() {
+  const taskNum = tasks.length;
+  tasks.push("");
+  renderTask(taskNum);
+  saveTasks();
+}
+
+function deleteTask(taskNum) {
+  tasks.splice(taskNum, 1);
+  renderTasks();
+  saveTasks();
+}
+
+function renderTasks() {
+  const taskContainer = document.getElementById("task-container");
+  taskContainer.textContent = "";
+  tasks.forEach((taskText, taskNum) => {
+    renderTask(taskNum);
+  });
+}
+```
+
+#### options.*
+##### options.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="options.css">
+	<title>Pomodoro Timer Extension Options</title>
+</head>
+
+<body>
+	<h1>Pomodoro Timer Options</h1>
+	<label>
+		<h2>
+			Deafult Timer Mintues (1 - 60):
+		</h2>
+		<input id="time-option" type="number" min="1" max="60" value="25">
+	</label>
+	<button id="save-btn">Save Options</button>
+</body>
+<script src="options.js"></script>
+
+</html>
+```
+
+##### options.css
+``` css
+body {
+  background-color: indianred;
+}
+
+h1 {
+  color: whitesmoke;
+  text-align: center;
+  font-size: 50px;
+  margin: 10px;
+  font-weight: normal;
+}
+
+h2 {
+  font-weight: normal;
+  color: whitesmoke;
+}
+
+#time-option {
+  outline: none;
+  border: none;
+  width: 300px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+#save-btn {
+  display: block;
+  margin-top: 40px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 10px;
+  color: indianred;
+  font-weight: bold;
+  cursor: pointer;
+}
+```
+
+##### options.js
+``` cs
+const timeOption = document.getElementById("time-option");
+timeOption.addEventListener("change", (event) => {
+  const val = event.target.value;
+  if (val < 1 || val > 60) {
+    timeOption.value = 25;
+  }
+});
+
+const saveBtn = document.getElementById("save-btn");
+saveBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    timer: 0,
+    timeOption: timeOption.value,
+    isRunning: false,
+  });
+});
+
+chrome.storage.local.get(["timeOption"], (res) => {
+  timeOption.value = res.timeOption;
+  console.log(res);
+});
+```
+
+### TV Show
++ background.js
+	+ chrome.runtime
+	+ chrome.contextMenus
+	+ chrome.search
+	+ chrome.tabs
++ Content scripts
++ Message
+	+ chrome.runtime.sendMessage
+	+ chrome.runtime.onMessage.addListener
+	+ chrome.tabs.sendMessage
++ Data Fetching:fetch()
++ chrome.tts (synthesized text-to-speech)
+
+#### manifest.json
+``` json
+{
+	"manifest_version": 3,
+	"name": "TV Show Search",
+	"description": "Search for all your favourite TV shows!",
+	"version": "1.0",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"action": {
+		"default_icon": "icon.png",
+		"default_title": "TV Show Search",
+		"default_popup": "popup/popup.html"
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"permissions": [
+		"contextMenus",
+		"search",
+		"tabs",
+		"storage",
+		"tts"
+	],
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"exclude_matches": [
+				"https://store.google.com/*"
+			],
+			"css": [
+				"contentScript.css"
+			],
+			"js": [
+				"contentScript.js"
+			]
+		}
+	]
+}
+```
+
+#### background.js
+``` js
+chrome.runtime.onInstalled.addListener((details) => {
+  chrome.storage.local.set({
+    shows: [],
+  });
+
+  // console.log(details);
+  chrome.contextMenus.create({
+    title: "Search TV Show",
+    id: "contextMenu1",
+    contexts: ["page", "selection"],
+  });
+
+  chrome.contextMenus.create({
+    title: "Read This Text",
+    id: "contextMenu2",
+    contexts: ["page", "selection"],
+  });
+
+  // call 3rd party API
+  chrome.contextMenus.onClicked.addListener((event) => {
+    if (event.menuItemId === "contextMenu1") {
+      fetch(`https://api.tvmaze.com/search/shows?q=${event.selectionText}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          chrome.storage.local.set({
+            shows: data,
+          });
+        });
+    } else if (event.menuItemId === "contextMenu2") {
+      chrome.tts.speak(event.selectionText, {
+        // support auto detect
+        // lang: "zh",
+        rate: 2,
+      });
+    }
+  });
+
+  // search
+  // chrome.contextMenus.onClicked.addListener((event) => {
+  //   console.log(event);
+  //   // google search
+  //   // chrome.search.query({
+  //   //   disposition: "NEW_TAB",
+  //   //   // imdb TV show
+  //   //   text: `imdb ${event.selectionText}`,
+  //   // });
+
+  //   // check open website
+  //   // chrome.tabs.query(
+  //   //   {
+  //   //     currentWindow: true,
+  //   //   },
+  //   //   (tabs) => {
+  //   //     console.log(tabs);
+  //   //   }
+  //   // );
+
+  //   // create window
+  //   chrome.tabs.create({
+  //     url: `https://www.imdb.com/find/?q=${event.selectionText}&ref_=nv_sr_sm`,
+  //   });
+  // });
+
+  // children menu
+  // chrome.contextMenus.create({
+  //   title: "Test Context Menu 1",
+  //   id: "contextMenu1-1",
+  //   parentId: "contextMenu1",
+  //   contexts: ["page", "selection"],
+  // });
+  // chrome.contextMenus.create({
+  //   title: "Test Context Menu 2",
+  //   id: "contextMenu1-2",
+  //   parentId: "contextMenu1",
+  //   contexts: ["page", "selection"],
+  // });
+});
+
+// console.log("background script running");
+
+// receive message from content
+// chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+//   console.log("msg(background):", msg);
+//   console.log("sender(background):", sender);
+//   // console.log("sendResponse:", sendResponse);
+//   sendResponse("receive message from background");
+
+//   chrome.tabs.sendMessage(sender.tab.id, "Got your message from background!");
+// });
+```
+
+#### contentScript.js
+``` js
+// console.log("Hello from the content script!");
+
+// confirm("Hello from the content script!");
+// const aTags = document.getElementsByTagName("a");
+// for (const tag of aTags) {
+//   // tag.textContent = "Hello world!";
+//   if (tag.textContent.includes("i")) {
+//     tag.style = "background-color: yellow;";
+//   }
+// }
+
+const text = [];
+const aTags = document.getElementsByTagName("a");
+for (const tag of aTags) {
+  text.push(tag.textContent);
+}
+
+chrome.storage.local.set({
+  text,
+});
+
+// send message to background
+// chrome.runtime.sendMessage(null, text, (response) => {
+//   console.log("I'm from the send response function:" + response);
+// });
+
+// receive message from background
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   console.log("message(content):" + message);
+//   console.log("sender(content):", sender);
+// });
+```
+
+#### contentScript.css
+``` css
+body {
+  /* background-color: palegreen !important; */
+}
+```
+
+#### popup.*
+##### popup.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>TV Show Search</title>
+  </head>
+  <body></body>
+  <script src="popup.js"></script>
+</html>
+```
+
+##### popup.css
+``` css
+body {
+  height: 300px;
+  width: 300px;
+}
+```
+
+##### popup.js
+``` js
+// receive message from content(same as background)
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   console.log("message(popup):" + message);
+//   console.log("sender(popup):", sender);
+// });
+
+// show 3rd party json from storage
+chrome.storage.local.get(["shows"], (res) => {
+  console.log(res);
+
+  for (const show of res.shows) {
+    renderShow(show);
+  }
+});
+
+function renderShow(show) {
+  const showDiv = document.createElement("div");
+
+  const title = document.createElement("h3");
+  title.textContent = show.show.name;
+
+  const image = document.createElement("img");
+  image.src = show.show.image ? show.show.image.medium : null;
+
+  showDiv.appendChild(title);
+  showDiv.appendChild(image);
+  document.body.appendChild(showDiv);
+}
+```
 
 ### Ref
 + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
 + [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
 + [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
 + [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
+
++ [API reference](https://developer.chrome.com/docs/extensions/reference/)
++ [Content scripts](https://developer.chrome.com/docs/extensions/mv3/content_scripts/)
++ [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
++ [TVMAZE](https://www.tvmaze.com/api#show-search)
