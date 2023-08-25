@@ -72,6 +72,7 @@ tags:
 
 #### tool
 ##### vscode setup
+###### basic for JavaScript
 + install Prettier - Code formatter
 + default format(Workspaces)
 <div style="max-width:700px">
@@ -82,6 +83,18 @@ tags:
 <div style="max-width:700px">
 	{% asset_img pic62.png pic62 %}
 </div>
+
+###### some for Rectc &  TypeScript
++ prettier single quote
+<div style="max-width:700px">
+	{% asset_img pic63.png pic63 %}
+</div>
+
++ prettier semi
+<div style="max-width:700px">
+	{% asset_img pic64.png pic64 %}
+</div>
+
 
 ### Function
 #### chrome storage(加入 storage 後,有時要移除再載入才會正常)
@@ -2028,13 +2041,108 @@ function renderShow(show) {
 }
 ```
 
-### Ref
-+ [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
-+ [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
-+ [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
-+ [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
+### React Extension
+#### npm init 
+``` bash
+# npm init
+$ npm init
+	package name: (j04-react) react-extension
+	version: (1.0.0)
+	description: Chrome extension in React!
+	entry point: (index.js)
+	test command:
+	git repository:
+	keywords:
+	author: Robert
+	license: (ISC)
+```
 
-+ [API reference](https://developer.chrome.com/docs/extensions/reference/)
-+ [Content scripts](https://developer.chrome.com/docs/extensions/mv3/content_scripts/)
-+ [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-+ [TVMAZE](https://www.tvmaze.com/api#show-search)
+#### test simple TypeScript compile 
+##### install TypeScript
+``` bash
+# install typescript
+npm install typescript --save-dev
+```
+
+##### test.ts
+``` ts
+const test: string = 'hello'
+```
+
+##### compile
+``` bash
+npx tsc *.ts
+```
+
+#### test React TypeScript compile 
+##### install React
+``` bash
+# ======== course modify
+# npm i react@17.0.1 --save-dev
+npm i react --save-dev
+```
+
+##### tsconfig.json
+``` json
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "es6",
+    "target": "es6",
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+##### src/test.jsx
+``` jsx
+import React from 'react'
+
+const test = <p>Hellow Wrold!</p>
+```
+
+##### compile
+``` bash
+npx tsc *.ts
+# src/test.js
+# import React from 'react';
+# const test = React.createElement("p", null, "Hellow Wrold!");
+```
+
+#### test webpack
+##### install 
+``` bash
+# install webpack and webpack-cli
+npm i webpack --save-dev
+npm i webpack-cli --save-dev
+
+# install TypeScript loader
+npm i ts-loader --save-dev
+
+npm i --save-dev copy-webpack-plugin
+``` 
+
+
+### Ref
++ Basic ref
+	+ [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
+	+ [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
+	+ [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
+	+ [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
+
++ TV shwo extension ref
+	+ [API reference](https://developer.chrome.com/docs/extensions/reference/)
+	+ [Content scripts](https://developer.chrome.com/docs/extensions/mv3/content_scripts/)
+	+ [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+	+ [TVMAZE](https://www.tvmaze.com/api#show-search)
+
++ React extension ref
+	+ [VS Code Terminal Basics](https://code.visualstudio.com/docs/terminal/basics#_windows)
+	+ [Boilerplate Github Link](https://github.com/JasonXian/react-chrome-extension-boilerplate)
+	+ [TypeScript tsconfig documentation](https://www.typescriptlang.org/tsconfig)
+	+ [React documentation](https://reactjs.org/docs/getting-started.html)
+	+ [Webpack documentation](https://webpack.js.org/concepts/)
+	+ [DefinitelyTyped chrome extension types](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/chrome)
