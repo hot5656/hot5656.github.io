@@ -4,7 +4,7 @@ abbrlink: a8c7
 date: 2023-05-23 16:52:05
 categories: Coding
 tags:
-	- chrome
+  - chrome
 ---
 
 ### 說明
@@ -21,47 +21,47 @@ tags:
 #### search source file
 + Source --> Ctrl + O : search file
 <div style="max-width:1000px">
-	{% asset_img pic31.png pic31 %}
+  {% asset_img pic31.png pic31 %}
 </div>
 
 
 ##### modify manifest.json name&description
 ``` json
 {
-	"name": "YouTube dark mode",
-	"version": "1.0.0",
-	"description": "This extension turn YouTube background to black",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": ["content.js"],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "YouTube dark mode",
+  "version": "1.0.0",
+  "description": "This extension turn YouTube background to black",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
 #### prepare for publish(move source to src,compress to .zip)
 <div style="max-width:300px">
-	{% asset_img pic32.png pic32 %}
+  {% asset_img pic32.png pic32 %}
 </div>
 
 #### Extension other function
@@ -76,23 +76,23 @@ tags:
 + install Prettier - Code formatter
 + default format(Workspaces)
 <div style="max-width:700px">
-	{% asset_img pic61.png pic61 %}
+  {% asset_img pic61.png pic61 %}
 </div>
 
 + Format On Save
 <div style="max-width:700px">
-	{% asset_img pic62.png pic62 %}
+  {% asset_img pic62.png pic62 %}
 </div>
 
 ###### some for Rectc &  TypeScript
 + prettier single quote
 <div style="max-width:700px">
-	{% asset_img pic63.png pic63 %}
+  {% asset_img pic63.png pic63 %}
 </div>
 
 + prettier semi
 <div style="max-width:700px">
-	{% asset_img pic64.png pic64 %}
+  {% asset_img pic64.png pic64 %}
 </div>
 
 
@@ -105,101 +105,101 @@ tags:
 ##### manifest.json
 ``` json
 {
-	"name": "YouTube dark mode",
-	"version": "1.0.0",
-	"description": "This extension turn YouTube background to black",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": ["content.js"],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks",
-		"storage"
-	],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "YouTube dark mode",
+  "version": "1.0.0",
+  "description": "This extension turn YouTube background to black",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks",
+    "storage"
+  ],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
 ##### content.js
 ``` js
 window.onload = () => {
-	const button = document.createElement('button');
-	button.id = 'darkModeButton';
-	button.textContent = "DO IT DACK";
+  const button = document.createElement('button');
+  button.id = 'darkModeButton';
+  button.textContent = "DO IT DACK";
 
-	const input = document.createElement('input');
-	input.type = 'checkbox';
-	input.id = 'darkSetting'
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.id = 'darkSetting'
 
-	// add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
-	// document.querySelector("#buttons").prepend(button);
-	document.querySelector("#end").prepend(button, input, 'Auto apply?');
-	button.addEventListener('click', () => {
-		chrome.storage.local.get(['enabled'], (result) => {
-			const isEnable = !result.enabled;
-			document.getElementById('darkSetting').checked = isEnable;
-			storeSetting();
-		})
+  // add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
+  // document.querySelector("#buttons").prepend(button);
+  document.querySelector("#end").prepend(button, input, 'Auto apply?');
+  button.addEventListener('click', () => {
+    chrome.storage.local.get(['enabled'], (result) => {
+      const isEnable = !result.enabled;
+      document.getElementById('darkSetting').checked = isEnable;
+      storeSetting();
+    })
 
-		enableDarkMode(true)
-	});
+    enableDarkMode(true)
+  });
 
-	// save dark mode to chrome storage
-	input.addEventListener('click', () => storeSetting())
+  // save dark mode to chrome storage
+  input.addEventListener('click', () => storeSetting())
 
-	// save dark mode to chrome storage
-	checkSetting();
+  // save dark mode to chrome storage
+  checkSetting();
 }
 
 // save dark mode to chrome storage
 function checkSetting() {
-	chrome.storage.local.get(['enabled', 'color'], (result) => {
-		const isEnable = result.enabled
-		console.log(isEnable)
-		console.log(result.color)
+  chrome.storage.local.get(['enabled', 'color'], (result) => {
+    const isEnable = result.enabled
+    console.log(isEnable)
+    console.log(result.color)
 
-		document.getElementById('darkSetting').checked = isEnable;
-		if (isEnable) {
-			enableDarkMode(true);
-		}
-	})
+    document.getElementById('darkSetting').checked = isEnable;
+    if (isEnable) {
+      enableDarkMode(true);
+    }
+  })
 }
 
 // save dark mode to chrome storage
 function storeSetting() {
-	const isEnabled = document.getElementById('darkSetting').checked;
-	const setting = { enabled: isEnabled, color:'purple'} ;
+  const isEnabled = document.getElementById('darkSetting').checked;
+  const setting = { enabled: isEnabled, color:'purple'} ;
 
-	chrome.storage.local.set(setting, () => {
-		console.log('store', setting);
-	})
-	enableDarkMode(isEnabled);
+  chrome.storage.local.set(setting, () => {
+    console.log('store', setting);
+  })
+  enableDarkMode(isEnabled);
 }
 
 function enableDarkMode(flag) {
-	if (flag) {
-		document.getElementsByTagName('ytd-app')[0].style.backgroundColor= 'black';
-	}
-	else {
-		document.getElementsByTagName('ytd-app')[0].style.backgroundColor= '';
-	}
+  if (flag) {
+    document.getElementsByTagName('ytd-app')[0].style.backgroundColor= 'black';
+  }
+  else {
+    document.getElementsByTagName('ytd-app')[0].style.backgroundColor= '';
+  }
 }
 ```
 
@@ -207,41 +207,41 @@ function enableDarkMode(flag) {
 ##### manifest.json
 ``` json
 {
-	"name": "YouTube dark mode",
-	"version": "1.0.0",
-	"description": "This extension turn YouTube background to black",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js",
-		"//": "background.js support import",
-		"type": "module"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": [
-				"content.js",
-				"contentMessaging.js"
-			],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks",
-		"storage",
-		"tabs"
-	],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "YouTube dark mode",
+  "version": "1.0.0",
+  "description": "This extension turn YouTube background to black",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js",
+    "//": "background.js support import",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": [
+        "content.js",
+        "contentMessaging.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs"
+  ],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
@@ -250,39 +250,39 @@ function enableDarkMode(flag) {
 import * as message from "./backgroundMessaging.js"
 
 chrome.runtime.onInstalled.addListener((tab) => {
-	console.log(tab)
-	console.log('Extension installed')
+  console.log(tab)
+  console.log('Extension installed')
 })
 
 chrome.bookmarks.onCreated.addListener(() => {
-	console.log('Bookmark saved')
+  console.log('Bookmark saved')
 })
 
 // 不需要有此 function
 // chrome.action.onClicked.addListener( () => {
-// 	console.log('chrome action click')
+//   console.log('chrome action click')
 // })
 ```
 
 ##### backgroundMessaging.js
 ``` js
 // chrome.bookmarks.onMoved.addListener(() => {
-// 	console.log('Bookmark moved')
+//   console.log('Bookmark moved')
 // })
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	console.log('message', message);
-	console.log('sender',sender);
-	sendResponse({ content: "background response" });
+  console.log('message', message);
+  console.log('sender',sender);
+  sendResponse({ content: "background response" });
 });
 
 
 chrome.bookmarks.onMoved.addListener(() => {
-	// send to active windows
-	chrome.tabs.query({ active: true, currentWindow: true}, 
-		tabs => {
-			chrome.tabs.sendMessage(tabs[0].id, {name: 'Robert'});
-		}
-	);
+  // send to active windows
+  chrome.tabs.query({ active: true, currentWindow: true}, 
+    tabs => {
+      chrome.tabs.sendMessage(tabs[0].id, {name: 'Robert'});
+    }
+  );
 });
 ```
 
@@ -293,18 +293,18 @@ chrome.bookmarks.onMoved.addListener(() => {
 window.onload(testMessage());
 
 function testMessage() {
-	chrome.runtime.sendMessage(
-		{ payload: "Hellow from a content" }, 
-		// backback function for receive side
-		(response) => {
-			console.log(response);
-		}
-	);
+  chrome.runtime.sendMessage(
+    { payload: "Hellow from a content" }, 
+    // backback function for receive side
+    (response) => {
+      console.log(response);
+    }
+  );
 }
 
 chrome.runtime.onMessage.addListener((message, sender) => {
-	console.log('message', message);
-	console.log('sender',sender);
+  console.log('message', message);
+  console.log('sender',sender);
 });
 ```
 
@@ -314,54 +314,54 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 + move bookmark
 
 <div style="max-width:1000px">
-	{% asset_img pic33.png pic33 %}
+  {% asset_img pic33.png pic33 %}
 </div>
 
 <div style="max-width:1000px">
-	{% asset_img pic34.png pic34 %}
+  {% asset_img pic34.png pic34 %}
 </div>
 
 #### cross-origin http request(XHR)
 ##### manifest.json
 ``` json
 {
-	"name": "YouTube dark mode",
-	"version": "1.0.0",
-	"description": "This extension turn YouTube background to black",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js",
-		"//": "background.js support import",
-		"type": "module"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": [
-				"content.js",
-				"contentMessaging.js",
-				"contentRequests.js"
-			],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks",
-		"storage",
-		"tabs"
-	],
-	"host_permissions": ["https://api.github.com/"],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "YouTube dark mode",
+  "version": "1.0.0",
+  "description": "This extension turn YouTube background to black",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js",
+    "//": "background.js support import",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": [
+        "content.js",
+        "contentMessaging.js",
+        "contentRequests.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": ["https://api.github.com/"],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
@@ -375,16 +375,16 @@ const requestSender = new XMLHttpRequest()
 requestSender.onreadystatechange = apiHandler;
 
 
-// 0	UNSENT	客戶端已被建立，但 open() 方法尚未被呼叫。
-// 1	OPENED	open() 方法已被呼叫。
-// 2	HEADERS_RECEIVED	send() 方法已被呼叫，而且可取得 header 與狀態。
-// 3	LOADING	回應資料下載中，此時 responseText 會擁有部分資料。
-// 4	DONE	完成下載操作。
+// 0  UNSENT  客戶端已被建立，但 open() 方法尚未被呼叫。
+// 1  OPENED  open() 方法已被呼叫。
+// 2  HEADERS_RECEIVED  send() 方法已被呼叫，而且可取得 header 與狀態。
+// 3  LOADING  回應資料下載中，此時 responseText 會擁有部分資料。
+// 4  DONE  完成下載操作。
 function apiHandler(response) {
-	if (requestSender.readyState === 4  && requestSender.status === 200) {
-		// console.log(response)
-		console.log(response.target.response)
-	}
+  if (requestSender.readyState === 4  && requestSender.status === 200) {
+    // console.log(response)
+    console.log(response.target.response)
+  }
 }
 
 // sync
@@ -406,143 +406,143 @@ requestSender.send();
 
 ##### result
 <div style="max-width:1000px">
-	{% asset_img pic35.png pic35 %}
+  {% asset_img pic35.png pic35 %}
 </div>
 
 #### internationalization(localization)
 ##### manifest.json
 ``` json
 {
-	"name": "__MSG_appName__",
-	"version": "1.0.0",
-	"description": "__MSG_appDescription__",
-	"manifest_version": 3,
-	"default_locale": "en",
-	"background": {
-		"service_worker": "background.js",
-		"//": "background.js support import",
-		"type": "module"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": [
-				"content.js",
-				"contentMessaging.js",
-				"contentRequests.js"
-			],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks",
-		"storage",
-		"tabs"
-	],
-	"host_permissions": ["https://api.github.com/"],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "__MSG_appName__",
+  "version": "1.0.0",
+  "description": "__MSG_appDescription__",
+  "manifest_version": 3,
+  "default_locale": "en",
+  "background": {
+    "service_worker": "background.js",
+    "//": "background.js support import",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": [
+        "content.js",
+        "contentMessaging.js",
+        "contentRequests.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": ["https://api.github.com/"],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
 ##### add message for English and Traditional Chinese
 <div style="max-width:300px">
-	{% asset_img pic55.png pic55 %}
+  {% asset_img pic55.png pic55 %}
 </div>
 
 ##### _locales/en/messages.json
 ``` json
 {
-	"appName": {
-		"message": "YouTube dark mode"
-	},
-	"appDescription": {
-		"message": "This extension turn YouTube background to black"
-	},
-	"enableDarkModeText":{
-		"message": "DO IT DARK"
-	}
+  "appName": {
+    "message": "YouTube dark mode"
+  },
+  "appDescription": {
+    "message": "This extension turn YouTube background to black"
+  },
+  "enableDarkModeText":{
+    "message": "DO IT DARK"
+  }
 }
 ```
 
 ##### _locales/zh_TW/messages.json
 ``` json
 {
-	"appName": {
-		"message": "YouTube 深色模式"
-	},
-	"appDescription": {
-		"message": "此擴展將 YouTube 背景變成黑色"
-	},
-	"enableDarkModeText":{
-		"message": "深色模式"
-	}
+  "appName": {
+    "message": "YouTube 深色模式"
+  },
+  "appDescription": {
+    "message": "此擴展將 YouTube 背景變成黑色"
+  },
+  "enableDarkModeText":{
+    "message": "深色模式"
+  }
 }
 ```
 
 ##### reload extension(default Traditional Chinese)
 <div style="max-width:500px">
-	{% asset_img pic51.png pic51 %}
+  {% asset_img pic51.png pic51 %}
 </div>
 
 ##### change language to english then reload extension
 <div style="max-width:1000px">
-	{% asset_img pic52.png pic52 %}
+  {% asset_img pic52.png pic52 %}
 </div>
 
 <div style="max-width:1000px">
-	{% asset_img pic53.png pic53 %}
+  {% asset_img pic53.png pic53 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic54.png pic54 %}
+  {% asset_img pic54.png pic54 %}
 </div>
 
 
 ##### change button text(content.js) 
 ``` js
 window.onload = () => {
-	const button = document.createElement('button');
-	button.id = 'darkModeButton';
-	// button.textContent = "DO IT DACK";
-	button.textContent =  chrome.i18n.getMessage("enableDarkModeText");
+  const button = document.createElement('button');
+  button.id = 'darkModeButton';
+  // button.textContent = "DO IT DACK";
+  button.textContent =  chrome.i18n.getMessage("enableDarkModeText");
 
-	const input = document.createElement('input');
-	input.type = 'checkbox';
-	input.id = 'darkSetting'
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.id = 'darkSetting'
 
-	// add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
-	// document.querySelector("#buttons").prepend(button);
-	document.querySelector("#end").prepend(button, input, 'Auto apply?');
-	button.addEventListener('click', () => {
-		chrome.storage.local.get(['enabled'], (result) => {
-			const isEnable = !result.enabled;
-			document.getElementById('darkSetting').checked = isEnable;
-			storeSetting();
-		})
+  // add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
+  // document.querySelector("#buttons").prepend(button);
+  document.querySelector("#end").prepend(button, input, 'Auto apply?');
+  button.addEventListener('click', () => {
+    chrome.storage.local.get(['enabled'], (result) => {
+      const isEnable = !result.enabled;
+      document.getElementById('darkSetting').checked = isEnable;
+      storeSetting();
+    })
 
-		enableDarkMode(true)
-	});
+    enableDarkMode(true)
+  });
 
-	// save dark mode to chrome storage
-	input.addEventListener('click', () => storeSetting())
+  // save dark mode to chrome storage
+  input.addEventListener('click', () => storeSetting())
 
-	// save dark mode to chrome storage
-	checkSetting();
+  // save dark mode to chrome storage
+  checkSetting();
 }
 ```
 
 <div style="max-width:1000px">
-	{% asset_img pic56.png pic56 %}
+  {% asset_img pic56.png pic56 %}
 </div>
 
 #### fix show 2 "DO IT DARK" button
@@ -555,19 +555,19 @@ window.onload = () => {
 testMessage()
 
 function testMessage() {
-	chrome.runtime.sendMessage(
-		{ payload: "Hellow from a content" }, 
-		// backback function for receive side
-		(response) => {
-			// console.log(response);
-			;
-		}
-	);
+  chrome.runtime.sendMessage(
+    { payload: "Hellow from a content" }, 
+    // backback function for receive side
+    (response) => {
+      // console.log(response);
+      ;
+    }
+  );
 }
 
 chrome.runtime.onMessage.addListener((message, sender) => {
-	console.log('message', message);
-	console.log('sender',sender);
+  console.log('message', message);
+  console.log('sender',sender);
 });
 ```
 
@@ -587,105 +587,105 @@ importScripts("./backgroundMessaging.js");
 
 
 chrome.runtime.onInstalled.addListener((tab) => {
-	console.log(tab)
-	console.log('Extension installed')
+  console.log(tab)
+  console.log('Extension installed')
 })
 
 chrome.bookmarks.onCreated.addListener(() => {
-	console.log('Bookmark saved')
+  console.log('Bookmark saved')
 })
 
 // 不需要有此 function
 // chrome.action.onClicked.addListener( () => {
-// 	console.log('chrome action click')
+//   console.log('chrome action click')
 // })
 ```
 
 ###### content.ts
 ``` js
 window.onload = () => {
-	const button = document.createElement('button');
-	button.id = 'darkModeButton';
-	// button.textContent = "DO IT DACK";
-	button.textContent =  chrome.i18n.getMessage("enableDarkModeText");
+  const button = document.createElement('button');
+  button.id = 'darkModeButton';
+  // button.textContent = "DO IT DACK";
+  button.textContent =  chrome.i18n.getMessage("enableDarkModeText");
 
-	const input = document.createElement('input');
-	input.type = 'checkbox';
-	input.id = 'darkSetting'
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.id = 'darkSetting'
 
-	// add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
-	// document.querySelector("#buttons").prepend(button);
-	document.querySelector("#end").prepend(button, input, 'Auto apply?');
-	button.addEventListener('click', () => {
-		chrome.storage.local.get(['enabled'], (result) => {
-			const isEnable = !result.enabled;
-			// typescript fix
-			const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
-			// (document.getElementById('darkSetting') as HTMLInputElement).checked = isEnable;
-			settingCheckbox.checked = isEnable;
-			storeSetting();
-		})
+  // add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
+  // document.querySelector("#buttons").prepend(button);
+  document.querySelector("#end").prepend(button, input, 'Auto apply?');
+  button.addEventListener('click', () => {
+    chrome.storage.local.get(['enabled'], (result) => {
+      const isEnable = !result.enabled;
+      // typescript fix
+      const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+      // (document.getElementById('darkSetting') as HTMLInputElement).checked = isEnable;
+      settingCheckbox.checked = isEnable;
+      storeSetting();
+    })
 
-		enableDarkMode(true)
-	});
+    enableDarkMode(true)
+  });
 
-	// save dark mode to chrome storage
-	input.addEventListener('click', () => storeSetting())
+  // save dark mode to chrome storage
+  input.addEventListener('click', () => storeSetting())
 
-	// save dark mode to chrome storage
-	checkSetting();
+  // save dark mode to chrome storage
+  checkSetting();
 }
 
 // save dark mode to chrome storage
 function checkSetting() {
-	chrome.storage.local.get(['enabled', 'color'], (result) => {
-		const isEnable = result.enabled
-		// console.log(isEnable)
-		// console.log(result.color)
+  chrome.storage.local.get(['enabled', 'color'], (result) => {
+    const isEnable = result.enabled
+    // console.log(isEnable)
+    // console.log(result.color)
 
-		// typescript fix
-		const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
-		settingCheckbox.checked = isEnable;
-		if (isEnable) {
-			enableDarkMode(true);
-		}
-	})
+    // typescript fix
+    const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+    settingCheckbox.checked = isEnable;
+    if (isEnable) {
+      enableDarkMode(true);
+    }
+  })
 }
 
 // save dark mode to chrome storage
 function storeSetting() {
-	const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
-	const isEnabled = settingCheckbox.checked;
-	const setting = { enabled: isEnabled, color:'purple'} ;
+  const settingCheckbox = document.getElementById('darkSetting') as HTMLInputElement;
+  const isEnabled = settingCheckbox.checked;
+  const setting = { enabled: isEnabled, color:'purple'} ;
 
-	chrome.storage.local.set(setting, () => {
-		// console.log('store', setting);
-		;
-	})
-	enableDarkMode(isEnabled);
+  chrome.storage.local.set(setting, () => {
+    // console.log('store', setting);
+    ;
+  })
+  enableDarkMode(isEnabled);
 }
 
 function enableDarkMode(flag) {
-	// typescript fix
-	const websiteBody = document.getElementsByTagName('ytd-app')[0] as HTMLElement;
-	if (flag) {
-		websiteBody.style.backgroundColor= 'black';
-	}
-	else {
-		websiteBody.style.backgroundColor= '';
-	}
+  // typescript fix
+  const websiteBody = document.getElementsByTagName('ytd-app')[0] as HTMLElement;
+  if (flag) {
+    websiteBody.style.backgroundColor= 'black';
+  }
+  else {
+    websiteBody.style.backgroundColor= '';
+  }
 }
 ```
 
 ##### add tsconfig.json
 ``` json
 {
-	"compilerOptions": {
-		"outDir": "./dist",
-		"allowJs": true,
-		"target": "es5"
-	},
-	"include": ["./src/**/*"]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": ["./src/**/*"]
 }
 ```
 
@@ -718,7 +718,7 @@ npm run build
 ```
 
 <div style="max-width:400px">
-	{% asset_img pic57.png pic57 %}
+  {% asset_img pic57.png pic57 %}
 </div>
 
 #### Webpack
@@ -737,7 +737,7 @@ npm install copy-webpack-plugin --save-dev
 
 + chrome://extensions --> on developer mode(開發人員模式)
 <div style="max-width:500px">
-	{% asset_img pic1.png pic1 %}
+  {% asset_img pic1.png pic1 %}
 </div>
 
 
@@ -752,25 +752,25 @@ npm install types @types/chrome
 ##### add manifest.json
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3
 }
 ```
 
 ##### load chrome extension from local
 
 <div style="max-width:500px">
-	{% asset_img pic2.png pic2 %}
+  {% asset_img pic2.png pic2 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic3.png pic3 %}
+  {% asset_img pic3.png pic3 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic4.png pic4 %}
+  {% asset_img pic4.png pic4 %}
 </div>
 
 
@@ -778,161 +778,161 @@ npm install types @types/chrome
 ###### manifest.json
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	}
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  }
 }
 ```
 
 ###### add background.js
 ``` js
 chrome.runtime.onInstalled.addListener(()=>{
-	console.log('installed')
+  console.log('installed')
 })
 ```
 
 ###### reload and see result 
 <div style="max-width:500px">
-	{% asset_img pic5.png pic5 %}
+  {% asset_img pic5.png pic5 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic6.png pic6 %}
+  {% asset_img pic6.png pic6 %}
 </div>
 
 <div style="max-width:700px">
-	{% asset_img pic7.png pic7 %}
+  {% asset_img pic7.png pic7 %}
 </div>
 
 <div style="max-width:700px">
-	{% asset_img pic8.png pic8 %}
+  {% asset_img pic8.png pic8 %}
 </div>
 
 ##### add bookmarks event
 ###### background.js
 ``` js
 chrome.runtime.onInstalled.addListener(() => {
-	console.log('installed')
+  console.log('installed')
 })
 
 chrome.bookmarks.onCreated.addListener(() => {
-	console.log('Bookmark saved')
+  console.log('Bookmark saved')
 })
 ```
 ###### reload(error)
 <div style="max-width:500px">
-	{% asset_img pic5.png pic5 %}
+  {% asset_img pic5.png pic5 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic9.png pic9 %}
+  {% asset_img pic9.png pic9 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic10.png pic10 %}
+  {% asset_img pic10.png pic10 %}
 </div>
 
 ###### manifest.json add permissions for bookmarks
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"permissions": [
-		"bookmarks"
-	]
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "bookmarks"
+  ]
 }
 ```
 
 ###### clear error then reload
 <div style="max-width:500px">
-	{% asset_img pic11.png pic11 %}
+  {% asset_img pic11.png pic11 %}
 </div>
 <div style="max-width:500px">
-	{% asset_img pic12.png pic12 %}
+  {% asset_img pic12.png pic12 %}
 </div>
 
 ###### open new page + save bookmark --> see triger bookmarks.onCreated
 <div style="max-width:500px">
-	{% asset_img pic13.png pic13 %}
+  {% asset_img pic13.png pic13 %}
 </div>
 <div style="max-width:500px">
-	{% asset_img pic14.png pic14 %}
+  {% asset_img pic14.png pic14 %}
 </div>
 
 #### add content scripts(add text "Dark mode") - change website page
 ##### manifest.json add content_scripts
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"js": ["content.js"]
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	]
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ]
 }
 ```
 
 ##### try Youtube add string "Dark mode"
 <div style="max-width:1000px">
-	{% asset_img pic21.png pic21 %}
+  {% asset_img pic21.png pic21 %}
 </div>
 
 ##### add content.js
 ``` js
 window.onload = () => {
-	document.querySelector("#buttons").prepend("Dark mode")
+  document.querySelector("#buttons").prepend("Dark mode")
 }
 ```
 
 ##### reload extension
 <div style="max-width:500px">
-	{% asset_img pic22.png pic22 %}
+  {% asset_img pic22.png pic22 %}
 </div>
 
 
 ##### manifest.json add matches
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"js": ["content.js"]
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	]
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ]
 }
 ```
 
 ##### reload then refresh youtube website
 <div style="max-width:1000px">
-	{% asset_img pic23.png pic23 %}
+  {% asset_img pic23.png pic23 %}
 </div>
 
 
@@ -940,149 +940,149 @@ window.onload = () => {
 ##### content.js
 ``` js
 window.onload = () => {
-	const button = document.createElement('button');
-	button.id = 'darkModeButton';
-	button.textContent = "DO IT DACK";
-	// add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
-	// document.querySelector("#buttons").prepend(button);
-	document.querySelector("#end").prepend(button);
-	button.addEventListener('click', () => enableDarkMode());
+  const button = document.createElement('button');
+  button.id = 'darkModeButton';
+  button.textContent = "DO IT DACK";
+  // add button ,若使用 #buttons 最後不能顯示,可能是原程式蓋掉加入之button
+  // document.querySelector("#buttons").prepend(button);
+  document.querySelector("#end").prepend(button);
+  button.addEventListener('click', () => enableDarkMode());
 }
 
 function enableDarkMode() {
-	document.getElementsByTagName('ytd-app')[0].style.backgroundColor= 'black';
+  document.getElementsByTagName('ytd-app')[0].style.backgroundColor= 'black';
 }
 ```
 
 ##### manifest.json : add exclude_matches, run_at
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": ["content.js"],
-			"//": "調整 js 開始執行時間",
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	]
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "//": "調整 js 開始執行時間",
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ]
 }
 ```
 
 <div style="max-width:1000px">
-	{% asset_img pic24.png pic24 %}
+  {% asset_img pic24.png pic24 %}
 </div>
 
 <div style="max-width:1000px">
-	{% asset_img pic25.png pic25 %}
+  {% asset_img pic25.png pic25 %}
 </div>
 
 #### user interface(change icon) 
 ##### add icon
 <div style="max-width:300px">
-	{% asset_img pic41.png pic41 %}
+  {% asset_img pic41.png pic41 %}
 </div>
 
 ##### manifest.json : add icon
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": ["content.js"],
-			"//": "調整 js 開始執行時間",
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	}
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "//": "調整 js 開始執行時間",
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  }
 }
 ```
 
 ##### result 
 <div style="max-width:500px">
-	{% asset_img pic42.png pic42 %}
+  {% asset_img pic42.png pic42 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic43.png pic43 %}
+  {% asset_img pic43.png pic43 %}
 </div>
 
 #### user interface(show title and popup window) 
 ##### manifest.json
 ``` json
 {
-	"name": "My first extension",
-	"version": "1.0.0",
-	"description": "This is my very first coll extension",
-	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://*.youtube.com/*"],
-			"//": "排除某些執行 url",
-			"exclude_matches": ["https://*.youtube.com/watch*"],
-			"js": ["content.js"],
-			"run_at": "document_end"
-		}
-	],
-	"permissions": [
-		"bookmarks"
-	],
-	"icons": {
-		"16": "user.png",
-		"48": "user.png",
-		"128": "user.png"
-	},
-	"action": {
-		"default_title": "Created by Robert.",
-		"default_popup": "popup.html"
-	}
+  "name": "My first extension",
+  "version": "1.0.0",
+  "description": "This is my very first coll extension",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "//": "排除某些執行 url",
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks"
+  ],
+  "icons": {
+    "16": "user.png",
+    "48": "user.png",
+    "128": "user.png"
+  },
+  "action": {
+    "default_title": "Created by Robert.",
+    "default_popup": "popup.html"
+  }
 }
 ```
 
 ##### background.js
 ``` js
 chrome.runtime.onInstalled.addListener((tab) => {
-	console.log(tab)
-	console.log('installed')
+  console.log(tab)
+  console.log('installed')
 })
 
 chrome.bookmarks.onCreated.addListener(() => {
-	console.log('Bookmark saved')
+  console.log('Bookmark saved')
 })
 
 // 不需要有此 function
 // chrome.action.onClicked.addListener( () => {
-// 	console.log('chrome action click')
+//   console.log('chrome action click')
 // })
 ```
 
@@ -1091,25 +1091,25 @@ chrome.bookmarks.onCreated.addListener(() => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-	<img src="./user.png" width="40">
-	Head over to YouTube and a new icon wall appear!
+  <img src="./user.png" width="40">
+  Head over to YouTube and a new icon wall appear!
 </body>
 </html>
 ```
 
 ##### result
 <div style="max-width:500px">
-	{% asset_img pic44.png pic44 %}
+  {% asset_img pic44.png pic44 %}
 </div>
 
 <div style="max-width:500px">
-	{% asset_img pic45.png pic45 %}
+  {% asset_img pic45.png pic45 %}
 </div>
 
 #### user interface(add href button) 
@@ -1118,97 +1118,97 @@ chrome.bookmarks.onCreated.addListener(() => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-	<img src="./user.png" width="40">
-	Head over to YouTube and a new icon wall appear!
-	<!-- add href button(need add target open another page)-->
-	<a href="https://google.com.tw" target="_balck">
-		<button>Visit homepage</button>
-	</a>
-	<!-- add js -->
-	<script src="popup.js"></script>
+  <img src="./user.png" width="40">
+  Head over to YouTube and a new icon wall appear!
+  <!-- add href button(need add target open another page)-->
+  <a href="https://google.com.tw" target="_balck">
+    <button>Visit homepage</button>
+  </a>
+  <!-- add js -->
+  <script src="popup.js"></script>
 </body>
 </html>
 ```
 
 ##### result
 <div style="max-width:500px">
-	{% asset_img pic46.png pic46 %}
+  {% asset_img pic46.png pic46 %}
 </div>
 
 ### Timer Basic
 + manifest.json
-	+ manifest_version(1)
-	+ name(1)
-	+ version(1)
-	+ description(1)
-	+ icons(1)
+  + manifest_version(1)
+  + name(1)
+  + version(1)
+  + description(1)
+  + icons(1)
 
-	+ action(2)
+  + action(2)
 
-	+ options_page(3)
+  + options_page(3)
 
-	+ permissions(4)
+  + permissions(4)
 
-	+ background(5)
+  + background(5)
 
 
 + action
-	+ popup.*
-	+ setBadgeText
+  + popup.*
+  + setBadgeText
 + options_page
-	+ options.*
+  + options.*
 + storage
-	+ permissions
-	+ chrome.storage.sync.set
-	+ chrome.storage.sync.get
-	+ chrome.storage.local.set
-	+ chrome.storage.local.get
+  + permissions
+  + chrome.storage.sync.set
+  + chrome.storage.sync.get
+  + chrome.storage.local.set
+  + chrome.storage.local.get
 + background(sometime sleep)
-	+ "service_worker": "background.js"
+  + "service_worker": "background.js"
 + alarm API(trigger continue run)
-	+ permissions
-	+ chrome.alarms.create
-	+ chrome.alarms.onAlarm.addListener(
+  + permissions
+  + chrome.alarms.create
+  + chrome.alarms.onAlarm.addListener(
 + notifications API
-	+ permissions
-	+ this.registration.showNotification
+  + permissions
+  + this.registration.showNotification
 
 #### manifest.json
 ``` json
 {
-	"manifest_version": 3,
-	"name": "Timer Extension",
-	"version": "1.0.0",
-	"description": "Hellow Chrome world!",
-	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
-	},
-	"action": {
-		"icons": {
-			"16": "icon.png",
-			"24": "icon.png",
-			"32": "icon.png"
-		},
-		"default_title": "Timer Extension Action Title",
-		"default_popup": "popup.html"
-	},
-	"options_page": "options.html",
-	"permissions": [
-		"storage",
-		"alarms",
-		"notifications"
-	],
-	"background": {
-		"service_worker": "background.js"
-	}
+  "manifest_version": 3,
+  "name": "Timer Extension",
+  "version": "1.0.0",
+  "description": "Hellow Chrome world!",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "icons": {
+      "16": "icon.png",
+      "24": "icon.png",
+      "32": "icon.png"
+    },
+    "default_title": "Timer Extension Action Title",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
 ```
 
@@ -1277,21 +1277,21 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Timer Extension(popup)</title>
-	<link rel="stylesheet" href="popup.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer Extension(popup)</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-	<h1>Timer Extension</h1>
-	<h2 id="time"></h2>
-	<h2 id="name"></h2>
-	<h2 id="timer"></h2>
-	<button id="start">Start Timer</button>
-	<button id="stop">Stop Timer</button>
-	<button id="reset">Reset Timer</button>
+  <h1>Timer Extension</h1>
+  <h2 id="time"></h2>
+  <h2 id="name"></h2>
+  <h2 id="timer"></h2>
+  <button id="start">Start Timer</button>
+  <button id="stop">Stop Timer</button>
+  <button id="reset">Reset Timer</button>
 </body>
 <script src="popup.js"></script>
 
@@ -1379,18 +1379,18 @@ resetBtn.addEventListener("click", () => {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Timer Entension Options</title>
-	<link rel="stylesheet" href="options.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer Entension Options</title>
+  <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
-	<h1>Timer Extension Options</h1>
-	<input id="name-input" type="text" placeholder="Enter your name">
-	<input id="time-input" type="number" placeholder="Enter notification time in seconds">
-	<button id="save-btn">Save Options</button>
+  <h1>Timer Extension Options</h1>
+  <input id="name-input" type="text" placeholder="Enter your name">
+  <input id="time-input" type="number" placeholder="Enter notification time in seconds">
+  <button id="save-btn">Save Options</button>
 </body>
 <script src="options.js"></script>
 
@@ -1446,29 +1446,29 @@ setInterval(() => {
 #### manifest.json
 ``` json
 {
-	"manifest_version": 3,
-	"name": "Pomotoro Timer",
-	"version": "1.0.0",
-	"description": "Helps you focus on some things!",
-	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
-	},
-	"action": {
-		"default_icon": "icon.png",
-		"default_title": "Pomodoro Timer",
-		"default_popup": "popup/popup.html"
-	},
-	"permissions": [
-		"storage",
-		"alarms",
-		"notifications"
-	],
-	"background": {
-		"service_worker": "background.js"
-	},
-	"options_page": "options/options.html"
+  "manifest_version": 3,
+  "name": "Pomotoro Timer",
+  "version": "1.0.0",
+  "description": "Helps you focus on some things!",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_icon": "icon.png",
+    "default_title": "Pomodoro Timer",
+    "default_popup": "popup/popup.html"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options/options.html"
 }
 ```
 
@@ -1479,27 +1479,27 @@ setInterval(() => {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="popup.css">
-	<title>Pomodoro Timer</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+  <title>Pomodoro Timer</title>
 </head>
 
 <body>
-	<div class="header">
-		<img src="../icon.png">
-	</div>
-	<h1 id="time">00:00</h1>
-	<div id="btn-container">
-		<button id="start-timer-btn">Start Timer</button>
-		<button id="reset-timer-btn">Reset Timer</button>
-		<button id="add-task-btn">Add Task</button>
-	</div>
-	<div id="task-container">
-		<!-- <input type="text">
-		<input type="button" value="x"> -->
-	</div>
+  <div class="header">
+    <img src="../icon.png">
+  </div>
+  <h1 id="time">00:00</h1>
+  <div id="btn-container">
+    <button id="start-timer-btn">Start Timer</button>
+    <button id="reset-timer-btn">Reset Timer</button>
+    <button id="add-task-btn">Add Task</button>
+  </div>
+  <div id="task-container">
+    <!-- <input type="text">
+    <input type="button" value="x"> -->
+  </div>
 </body>
 <script src="popup.js"></script>
 
@@ -1702,22 +1702,22 @@ function renderTasks() {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="options.css">
-	<title>Pomodoro Timer Extension Options</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="options.css">
+  <title>Pomodoro Timer Extension Options</title>
 </head>
 
 <body>
-	<h1>Pomodoro Timer Options</h1>
-	<label>
-		<h2>
-			Deafult Timer Mintues (1 - 60):
-		</h2>
-		<input id="time-option" type="number" min="1" max="60" value="25">
-	</label>
-	<button id="save-btn">Save Options</button>
+  <h1>Pomodoro Timer Options</h1>
+  <label>
+    <h2>
+      Deafult Timer Mintues (1 - 60):
+    </h2>
+    <input id="time-option" type="number" min="1" max="60" value="25">
+  </label>
+  <button id="save-btn">Save Options</button>
 </body>
 <script src="options.js"></script>
 
@@ -1791,61 +1791,61 @@ chrome.storage.local.get(["timeOption"], (res) => {
 
 ### TV Show
 + background.js
-	+ chrome.runtime
-	+ chrome.contextMenus
-	+ chrome.search
-	+ chrome.tabs
+  + chrome.runtime
+  + chrome.contextMenus
+  + chrome.search
+  + chrome.tabs
 + Content scripts
 + Message
-	+ chrome.runtime.sendMessage
-	+ chrome.runtime.onMessage.addListener
-	+ chrome.tabs.sendMessage
+  + chrome.runtime.sendMessage
+  + chrome.runtime.onMessage.addListener
+  + chrome.tabs.sendMessage
 + Data Fetching:fetch()
 + chrome.tts (synthesized text-to-speech)
 
 #### manifest.json
 ``` json
 {
-	"manifest_version": 3,
-	"name": "TV Show Search",
-	"description": "Search for all your favourite TV shows!",
-	"version": "1.0",
-	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
-		"128": "icon.png"
-	},
-	"action": {
-		"default_icon": "icon.png",
-		"default_title": "TV Show Search",
-		"default_popup": "popup/popup.html"
-	},
-	"background": {
-		"service_worker": "background.js"
-	},
-	"permissions": [
-		"contextMenus",
-		"search",
-		"tabs",
-		"storage",
-		"tts"
-	],
-	"content_scripts": [
-		{
-			"matches": [
-				"<all_urls>"
-			],
-			"exclude_matches": [
-				"https://store.google.com/*"
-			],
-			"css": [
-				"contentScript.css"
-			],
-			"js": [
-				"contentScript.js"
-			]
-		}
-	]
+  "manifest_version": 3,
+  "name": "TV Show Search",
+  "description": "Search for all your favourite TV shows!",
+  "version": "1.0",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_icon": "icon.png",
+    "default_title": "TV Show Search",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "contextMenus",
+    "search",
+    "tabs",
+    "storage",
+    "tts"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "https://store.google.com/*"
+      ],
+      "css": [
+        "contentScript.css"
+      ],
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ]
 }
 ```
 
@@ -2046,15 +2046,15 @@ function renderShow(show) {
 ``` bash
 # npm init
 $ npm init
-	package name: (j04-react) react-extension
-	version: (1.0.0)
-	description: Chrome extension in React!
-	entry point: (index.js)
-	test command:
-	git repository:
-	keywords:
-	author: Robert
-	license: (ISC)
+  package name: (j04-react) react-extension
+  version: (1.0.0)
+  description: Chrome extension in React!
+  entry point: (index.js)
+  test command:
+  git repository:
+  keywords:
+  author: Robert
+  license: (ISC)
 ```
 
 #### test simple TypeScript compile 
@@ -2112,37 +2112,330 @@ npx tsc *.ts
 # const test = React.createElement("p", null, "Hellow Wrold!");
 ```
 
-#### test webpack
-##### install 
+#### React Extension Template- webpack
+##### Notes
+###### .ts vs .tsx
++ .jsx 是javascript文件並表明使用了JSX語法。
++ .ts 是typescript 文件的擴展名
++ .tsx 表明是typescript 文件並使用了JSX語法。
+
+##### install package
 ``` bash
+# npm init
+$ npm init
+# install TypeScript
+npm install typescript --save-dev
+
 # install webpack and webpack-cli
 npm i webpack --save-dev
 npm i webpack-cli --save-dev
-
 # install TypeScript loader
 npm i ts-loader --save-dev
-
+# install copy-webpack-plugin
 npm i --save-dev copy-webpack-plugin
+# install html-webpack-plugin
+npm i --save-dev html-webpack-plugin
+# install react-dom
+npm i --save-dev react-dom
+# install style-loader/css-loader
+npm i --save-dev style-loader
+npm i --save-dev css-loader
+# install @types
+npm i --save-dev @types/react
+npm i --save-dev @types/react-dom
+npm i --save-dev @types/chrome
+# install webpack-merge
+npm i --save-dev webpack-merge
+# install clean-webpack-plugin
+npm i --save-dev clean-webpack-plugin
+
+# develop build
+npm run start
+# product build
+npm run build
 ``` 
 
+##### package.json
+``` json
+{
+	"name": "react-extension",
+	"version": "1.0.0",
+	"description": "Chrome extension in React!",
+	"scripts": {
+		"start": "webpack --watch --progress --config webpack.dev.js",
+		"build": "webpack --watch --progress --config webpack.prod.js"
+	},
+	"author": "Robert",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/chrome": "^0.0.244",
+		"@types/react": "^18.2.21",
+		"@types/react-dom": "^18.2.7",
+		"clean-webpack-plugin": "^4.0.0",
+		"copy-webpack-plugin": "^11.0.0",
+		"css-loader": "^6.8.1",
+		"html-webpack-plugin": "^5.5.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"style-loader": "^3.3.3",
+		"ts-loader": "^9.4.4",
+		"typescript": "^5.2.2",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4",
+		"webpack-merge": "^5.9.0"
+	}
+}
+```
+
+##### tsconfig.json : TypeScript configuration
+``` json
+{
+  "compilerOptions": {
+    "jsx": "react",               // jsx 為 react 檔
+    "module": "commonjs",         // 指定生成哪種模組
+    "target": "es6",              // 指定編譯生成的JS版本
+    "moduleResolution": "node",   // 選擇模組解析策略 : 支持使用import d from 'cjs'的方式引入commonjs包
+    "esModuleInterop": true       // 兼容模組導入的方式
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+##### webpack configuration
+###### webpack.dev.js : development configuration
+``` js
+const { merge } = require('webpack-merge')
+const common = require('./webpack.common.js')
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'cheap-module-source-map',
+})
+```
+
+###### webpack.prod.js : production configuration
+``` js
+const { merge } = require('webpack-merge')
+const common = require('./webpack.common.js')
+
+module.exports = merge(common, {
+  mode: 'production',
+})
+```
+
+###### webpack.common.js :  common configuration
+``` js
+const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+module.exports = {
+  entry: {
+    // process tsx/ts
+    popup: path.resolve('src/popup/popup.tsx'),
+    options: path.resolve('src/options/options.tsx'),
+    background: path.resolve('src/background/background.ts'),
+    contentScript: path.resolve('src/contentScript/contentScript.ts'),
+  },
+  module: {
+    rules: [
+      // process txs/ts rule
+      {
+        use: 'ts-loader',
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+      },
+      // support load .css
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+      },
+      // 指定 jpg,jpeg ...處理方式
+      {
+        type: 'asset/resource',
+        test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
+      },
+    ],
+  },
+  plugins: [
+    // clean ./dist file
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false, //  run when switch product/develop
+    }),
+    new CopyPlugin({
+      patterns: [
+        // copy src/static files
+        {
+          from: path.resolve('src/static'),
+          to: path.resolve('dist'),
+        },
+      ],
+    }),
+    // direction call HtmlPlugin
+    // also generate .html
+    // new HtmlPlugin({
+    //   title: 'React Extension',
+    //   filename: 'popup.html',
+    //   template: 'src/popup/template.html',
+    //   chunks: ['popup'],
+    // }),
+    // change call HtmlPlugin by function
+    // also generate .html
+    ...getHTMLPlugins(['popup', 'options']),
+  ],
+  resolve: {
+    // 處理省略副檔名的檔案
+    extensions: ['.tsx', '.tx', '.js'],
+  },
+  // set output path
+  output: {
+    filename: '[name].js',
+    path: path.resolve('dist'),
+  },
+  // 依據選擇的mode執行不同的優化
+  optimization: {
+    // 設定區要分割檔案區塊的項目
+    splitChunks: {
+      // 表示要用甚麼樣的方式去提取文件
+      // async：只處理動態引入的模塊
+      // all：不論是動態還是非動態引入的模塊，同時進行優化打包
+      // initial：把非動態模塊打包，動態模塊進行優化打包
+      chunks: 'all',
+    },
+  },
+}
+
+// change call HtmlPlugin by function
+function getHTMLPlugins(chunks) {
+  return chunks.map(
+    (chunk) =>
+      new HtmlPlugin({
+        title: 'React Extension',
+        filename: `${chunk}.html`,
+        chunks: [chunk],
+      })
+  )
+}
+```
+
+##### popup
+###### popup.tsx
+``` tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './popup.css'
+
+function App() {
+  return (
+    <div>
+      <img src="icon.png" />
+    </div>
+  )
+}
+
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(<App />)
+```
+
+###### popup.css
+``` css
+body {
+  background-color: #1c1c1c;
+}
+```
+
+##### options
+###### options.tsx
+``` tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './options.css'
+
+function App() {
+  return (
+    <div>
+      <img src="icon.png" />
+    </div>
+  )
+}
+
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(<App />)
+```
+
+###### options.css
+``` css
+body {
+  background-color: #1c1c1c;
+}
+```
+
+##### background.ts
+``` ts
+// console.log('Background Script')
+// TODO: background script
+chrome.runtime.onInstalled.addListener(() => {
+  // TODO: on installed function
+})
+```
+
+##### contentScript.ts
+``` ts
+// TODO: content script
+// console.log('contentScript running!')
+```
+
+### Weather Extersion
+#### install
+``` bash
+npm i
+
+# install material ui
+npm install --save--dev @mui/material @emotion/react @emotion/styled
+# install Roboto font
+npm install --save--dev @fontsource/roboto
+
+# icon
+npm i --save-dev @mui/icons-material
+
+# 3849-8a5a87e9de-2e62840319b-c0f1bac
+```
+
+``` bash
+```
 
 ### Ref
 + Basic ref
-	+ [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
-	+ [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
-	+ [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
-	+ [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
+  + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
+  + [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/)
+  + [chrome - Choose locales to support](https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support)
+  + [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
 
 + TV shwo extension ref
-	+ [API reference](https://developer.chrome.com/docs/extensions/reference/)
-	+ [Content scripts](https://developer.chrome.com/docs/extensions/mv3/content_scripts/)
-	+ [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-	+ [TVMAZE](https://www.tvmaze.com/api#show-search)
+  + [API reference](https://developer.chrome.com/docs/extensions/reference/)
+  + [Content scripts](https://developer.chrome.com/docs/extensions/mv3/content_scripts/)
+  + [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+  + [TVMAZE](https://www.tvmaze.com/api#show-search)
 
 + React extension ref
-	+ [VS Code Terminal Basics](https://code.visualstudio.com/docs/terminal/basics#_windows)
-	+ [Boilerplate Github Link](https://github.com/JasonXian/react-chrome-extension-boilerplate)
-	+ [TypeScript tsconfig documentation](https://www.typescriptlang.org/tsconfig)
-	+ [React documentation](https://reactjs.org/docs/getting-started.html)
-	+ [Webpack documentation](https://webpack.js.org/concepts/)
-	+ [DefinitelyTyped chrome extension types](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/chrome)
+  + [VS Code Terminal Basics](https://code.visualstudio.com/docs/terminal/basics#_windows)
+  + [Boilerplate Github Link](https://github.com/JasonXian/react-chrome-extension-boilerplate)
+  + [TypeScript tsconfig documentation](https://www.typescriptlang.org/tsconfig)
+  + [React documentation](https://reactjs.org/docs/getting-started.html)
+  + [Webpack documentation](https://webpack.js.org/concepts/)
+  + [DefinitelyTyped chrome extension types](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/chrome)
+
++ Weather Extension
+  + [Open Weather API](https://openweathermap.org/api)
+  + [Material UI components](https://material-ui.com/getting-started/installation/)
+  + [Open Weather API weather conditions reference](https://openweathermap.org/weather-conditions)
+  + [Source for weather icon](https://www.flaticon.com/)
+	+ [How to Use TypeScript in React Apps](https://www.freecodecamp.org/news/using-typescript-in-react-apps/)
