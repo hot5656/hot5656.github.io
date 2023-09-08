@@ -3356,7 +3356,7 @@ settings.json
 ### 參考資料
 + [styled components](https://styled-components.com/docs/basics)
 + [tagged template](https://pjchender.blogspot.com/2017/01/javascript-es6-template-literalstagged.html)
-+	[Babel is a JavaScript compiler](https://babeljs.io)
++ [Babel is a JavaScript compiler](https://babeljs.io)
 + [Prettier](https://prettier.io/)
 + [React Setting Up Your Editor](https://create-react-app.dev/docs/setting-up-your-editor)
 + [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)

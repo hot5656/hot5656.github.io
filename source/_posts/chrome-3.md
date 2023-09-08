@@ -744,9 +744,13 @@ npm install copy-webpack-plugin --save-dev
 
 #### 1st project
 ##### init + install type
-```
+``` bash
 npm init
 npm install types @types/chrome
+
+# install yarn by npm
+npm install --global yarn
+yarn --version
 ```
 
 ##### add manifest.json
@@ -2438,4 +2442,13 @@ npm i --save-dev @mui/icons-material
   + [Material UI components](https://material-ui.com/getting-started/installation/)
   + [Open Weather API weather conditions reference](https://openweathermap.org/weather-conditions)
   + [Source for weather icon](https://www.flaticon.com/)
+
++ Common
 	+ [How to Use TypeScript in React Apps](https://www.freecodecamp.org/news/using-typescript-in-react-apps/)
+	+ [TypeScript 新手指南](https://willh.gitbook.io/typescript-tutorial/)
+	+ [TypeScript](https://www.typescriptlang.org/docs/handbook/)
+	+ [React](https://react.dev/reference/react)
+	+ [React Chinese](https://zh-hans.react.dev/reference/react)
+	+ [使用 State Hook - old](https://zh-hant.legacy.reactjs.org/docs/hooks-state.html)
+	+ [W3school HTML DOM Documents](https://www.w3schools.com/jsref/dom_obj_document.asp)
+	+ [MDN 使用 Promise](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Using_promises)
