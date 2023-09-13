@@ -2326,7 +2326,7 @@ function getHTMLPlugins(chunks) {
 
 ##### popup
 ###### popup.tsx
-``` tsx
+``` jsx
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './popup.css'
@@ -2355,7 +2355,7 @@ body {
 
 ##### options
 ###### options.tsx
-``` tsx
+``` js
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './options.css'
@@ -2409,11 +2409,812 @@ npm install --save--dev @fontsource/roboto
 
 # icon
 npm i --save-dev @mui/icons-material
-
-# 3849-8a5a87e9de-2e62840319b-c0f1bac
 ```
 
-``` bash
+#### webpack.common.js
+``` js
+const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+module.exports = {
+  entry: {
+    // process tsx/ts
+    popup: path.resolve('src/popup/popup.tsx'),
+    options: path.resolve('src/options/options.tsx'),
+    background: path.resolve('src/background/background.ts'),
+    contentScript: path.resolve('src/contentScript/contentScript.tsx'),
+  },
+  module: {
+    rules: [
+      // process txs/ts rule
+      {
+        use: 'ts-loader',
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+      },
+      // support load .css
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+      },
+      // 指定 jpg,jpeg ...處理方式
+      {
+        type: 'asset/resource',
+        test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
+      },
+    ],
+  },
+  plugins: [
+    // clean ./dist file
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false, //  run when switch product/develop
+    }),
+    new CopyPlugin({
+      patterns: [
+        // copy src/static files
+        {
+          from: path.resolve('src/static'),
+          to: path.resolve('dist'),
+        },
+      ],
+    }),
+    // direction call HtmlPlugin
+    // also generate .html
+    // new HtmlPlugin({
+    //   title: 'React Extension',
+    //   filename: 'popup.html',
+    //   template: 'src/popup/template.html',
+    //   chunks: ['popup'],
+    // }),
+    // change call HtmlPlugin by function
+    // also generate .html
+    ...getHTMLPlugins(['popup', 'options']),
+  ],
+  resolve: {
+    // 處理省略副檔名的檔案
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  // set output path
+  output: {
+    filename: '[name].js',
+    path: path.resolve('dist'),
+  },
+  // 依據選擇的mode執行不同的優化
+  optimization: {
+    // 設定區要分割檔案區塊的項目
+    splitChunks: {
+      // 表示要用甚麼樣的方式去提取文件
+      // async：只處理動態引入的模塊
+      // all：不論是動態還是非動態引入的模塊，同時進行優化打包
+      // initial：把非動態模塊打包，動態模塊進行優化打包
+      // chunks: 'all',
+      // 因 contentScript 不能 share Recat module, 所以不執行 chunks(優化) %?%
+      chunks(chunk) {
+        return chunk.name !== 'contentScript'
+      },
+    },
+  },
+}
+
+// change call HtmlPlugin by function
+function getHTMLPlugins(chunks) {
+  return chunks.map(
+    (chunk) =>
+      new HtmlPlugin({
+        title: 'Weather Extension',
+        filename: `${chunk}.html`,
+        chunks: [chunk],
+      })
+  )
+}
+```
+
+#### manifest.json 
+``` json
+{
+	"manifest_version": 3,
+	"name": "Weather Extension",
+	"description": "Chrome Extension for Weather",
+	"version": "1.0.0",
+	"permissions": [
+		"tabs",
+		"alarms",
+		"contextMenus",
+		"storage"
+	],
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"action": {
+		"default_popup": "popup.html",
+		"default_title": "Weather Extension",
+		"default_icon": "icon.png"
+	},
+	"options_page": "options.html",
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"contentScript.js"
+			]
+		}
+	]
+}
+```
+
+#### background.ts
+``` ts
+import { fetchOpenWeatherData } from '../utils/api'
+import {
+  getStoredCities,
+  setStoredCities,
+  getStoredOptions,
+  setStoredOptions,
+} from '../utils/storage'
+
+chrome.runtime.onInstalled.addListener(() => {
+  setStoredCities([])
+  setStoredOptions({
+    hasAutoOverlay: false,
+    homeCity: '',
+    tempScale: 'metric',
+  })
+
+  // context menu %?%
+  chrome.contextMenus.create({
+    contexts: ['selection'],
+    title: 'Add city to weather extension',
+    id: 'weatherExtension',
+  })
+
+  // alarm %?%
+  chrome.alarms.create({
+    // periodInMinutes: 60,
+    // 10 sec
+    periodInMinutes: 10 / 60,
+  })
+})
+
+// context menu %?%
+chrome.contextMenus.onClicked.addListener((event) => {
+  getStoredCities().then((cities) => {
+    setStoredCities([...cities, event.selectionText])
+  })
+})
+
+// alarm %?%
+chrome.alarms.onAlarm.addListener(() => {
+  getStoredOptions().then((options) => {
+    if (options.homeCity === '') {
+      return
+    }
+
+    fetchOpenWeatherData(options.homeCity, options.tempScale).then((data) => {
+      const temp = Math.round(data.main.temp)
+      const symbol = options.tempScale === 'metric' ? '\u2103' : '\u2109'
+
+      // chrome extension badge %?%
+      chrome.action.setBadgeText({
+        text: `${temp}${symbol}`,
+      })
+    })
+  })
+})
+``` 
+
+#### utils
+##### api.ts
+``` ts
+import { OPEN_WEATHER_API_KEY } from './env'
+
+export interface OpenWeatherData {
+  name: string
+  main: {
+    feels_like: number
+    humidity: number
+    pressure: number
+    temp: number
+    temp_max: number
+    temp_min: number
+  }
+  weather: {
+    description: string
+    icon: string
+    id: number
+    main: string
+  }[]
+  wind: {
+    deg: number
+    speed: number
+  }
+}
+
+// 定義欄位 type %?%
+export type OpenWeatherTempScale = 'metric' | 'imperial'
+
+export async function fetchOpenWeatherData(
+  city: string,
+  tempScale: OpenWeatherTempScale
+): Promise<OpenWeatherData> {
+  const res = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&appid=${OPEN_WEATHER_API_KEY}`
+  )
+
+  if (!res.ok) {
+    // 建立自定義的 Error object  %?%
+    throw new Error('City not found')
+  }
+
+  // 會傳回所有欄位,僅定義有使用之欄位type  %?%
+  const data: OpenWeatherData = await res.json()
+  return data
+}
+
+export function getWeatherIconSrc(iconCode: string) {
+  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+}
+```
+
+##### storage.ts
+``` ts
+import { OpenWeatherTempScale } from './api'
+
+// set LocalStorage interface
+export interface LocalStorage {
+  cities?: string[]
+  options?: LocalStorageOptions
+}
+
+export interface LocalStorageOptions {
+  hasAutoOverlay: boolean
+  homeCity: string
+  tempScale: OpenWeatherTempScale
+}
+
+export type LocalStorageKeys = keyof LocalStorage
+
+// set/get options
+export function setStoredCities(cities: string[]): Promise<void> {
+  const vals: LocalStorage = {
+    cities,
+  }
+  return new Promise((resolve) => {
+    chrome.storage.local.set(vals, () => {
+      resolve()
+    })
+  })
+}
+
+export function getStoredCities(): Promise<string[] | []> {
+  const keys: LocalStorageKeys[] = ['cities']
+  return new Promise((resolve) => {
+    chrome.storage.local.get(keys, (res: LocalStorage) => {
+      // 若無 res.cities 傳回 [] %?%
+      resolve(res.cities ?? [])
+    })
+  })
+}
+
+// set/get option
+export function setStoredOptions(options: LocalStorageOptions): Promise<void> {
+  const vals: LocalStorage = {
+    options,
+  }
+  return new Promise((resolve) => {
+    chrome.storage.local.set(vals, () => {
+      resolve()
+    })
+  })
+}
+
+export function getStoredOptions(): Promise<LocalStorageOptions> {
+  const keys: LocalStorageKeys[] = ['options']
+  return new Promise((resolve) => {
+    chrome.storage.local.get(keys, (res: LocalStorage) => {
+      resolve(res.options)
+    })
+  })
+}
+```
+
+##### messages.ts
+``` ts
+export enum Messages {
+  TOGGLE_OVERLAY,
+}
+```
+
+#### components
+##### WeatherCard.tsx
+``` js
+import React, { useEffect, useState } from 'react'
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+} from '@mui/material'
+import {
+  getWeatherIconSrc,
+  fetchOpenWeatherData,
+  OpenWeatherData,
+  OpenWeatherTempScale,
+} from '../utils/api'
+import './WearthCard.css'
+
+const WeatherCardContainer: React.FC<{
+  children: React.ReactNode
+  onDelete?: () => void
+}> = ({ children, onDelete }) => {
+  return (
+    <Box mx={'4px'} my={'16px'}>
+      <Card>
+        <CardContent>{children}</CardContent>
+        <CardActions>
+          {onDelete && (
+            <Button color="secondary" onClick={onDelete}>
+              <Typography className="weatherCard-body">Delete</Typography>
+            </Button>
+          )}
+        </CardActions>
+      </Card>
+    </Box>
+  )
+}
+
+// 定義欄位 type %?%
+type WeatherCardState = 'loading' | 'error' | 'ready'
+
+const WeatherCard: React.FC<{
+  city: string
+  tempScale: OpenWeatherTempScale
+  onDelete?: () => void
+}> = ({ city, tempScale, onDelete }) => {
+  const [weatherData, setWeatherData] = useState<OpenWeatherData | null>(null)
+  const [cardState, setCardState] = useState<WeatherCardState>('loading')
+  useEffect(() => {
+    fetchOpenWeatherData(city, tempScale)
+      .then((data) => {
+        // console.log(data)
+        setWeatherData(data)
+        setCardState('ready')
+      })
+      .catch((err) => setCardState('error'))
+  }, [city, tempScale])
+
+  if (cardState == 'loading' || cardState == 'error') {
+    return (
+      <WeatherCardContainer onDelete={onDelete}>
+        <Typography className="weatherCrad-title">{city}</Typography>
+        <Typography className="weatherCard-body">
+          {cardState == 'loading'
+            ? 'Loading...'
+            : 'Error: could not retrive weather data for this city.'}
+        </Typography>
+      </WeatherCardContainer>
+    )
+  }
+  return (
+    <WeatherCardContainer onDelete={onDelete}>
+      <Grid container justifyContent="space-around">
+        <Grid item>
+          <Typography className="weatherCrad-title">
+            {weatherData.name}
+          </Typography>
+          <Typography className="weatherCard-temp">
+            {Math.round(weatherData.main.temp)}
+          </Typography>
+          <Typography variant="body1">
+            Feels like: {Math.round(weatherData.main.feels_like)}
+          </Typography>
+        </Grid>
+        <Grid item>
+          {weatherData.weather.length > 0 && (
+            <>
+              <img src={getWeatherIconSrc(weatherData.weather[0].icon)} />
+              <Typography className="weatherCard-body">
+                {weatherData.weather[0].main}
+              </Typography>
+            </>
+          )}
+        </Grid>
+      </Grid>
+    </WeatherCardContainer>
+  )
+}
+
+export default WeatherCard
+```
+
+##### WearthCard.css
+``` css
+.weatherCard-title {
+  font-size: 24px !important;
+}
+
+.weatherCard-body {
+  font-size: 16px !important;
+  text-align: ecnter !important;
+}
+
+.weatherCard-temp {
+  font-size: 46px !important;
+  text-align: ecnter !important;
+}
+```
+
+#### options
+##### options.tsx
+``` js
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom/client'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Switch,
+  TextField,
+  Typography,
+} from '@mui/material'
+import '@fontsource/roboto'
+import './options.css'
+import {
+  LocalStorageOptions,
+  getStoredOptions,
+  setStoredOptions,
+} from '../utils/storage'
+
+type FormState = 'ready' | 'saving'
+
+const App: React.FC<{}> = () => {
+  const [options, setOptions] = useState<LocalStorageOptions | null>(null)
+  const [formState, setFormState] = useState<FormState>('ready')
+
+  useEffect(() => {
+    getStoredOptions().then((options) => setOptions(options))
+  }, [])
+
+  const handleHomeCityChange = (homeCity: string) => {
+    setOptions({
+      ...options,
+      homeCity,
+    })
+  }
+
+  const handleAutoOverayChange = (hasAutoOverlay: boolean) => {
+    setOptions({
+      ...options,
+      hasAutoOverlay,
+    })
+  }
+
+  const handleSaveButtonClick = () => {
+    setFormState('saving')
+    setStoredOptions(options).then(() => {
+      setTimeout(() => {
+        setFormState('ready')
+      }, 1000)
+    })
+  }
+
+  if (!options) {
+    return null
+  }
+
+  const isFieldsDisabled = formState === 'saving'
+
+  return (
+    <Box mx="10%" my="2%">
+      <Card>
+        <CardContent>
+          <Grid container direction="column" spacing="10">
+            <Grid item>
+              <Typography variant="h4">Weather Extension Options</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">Home City name</Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter a home city name"
+                value={options.homeCity}
+                onChange={(event) => handleHomeCityChange(event.target.value)}
+                disabled={isFieldsDisabled}
+                variant="standard"
+              />
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">
+                Auto toggle overlay on webpage load
+              </Typography>
+              <Switch
+                color="primary"
+                checked={options.hasAutoOverlay}
+                onChange={(event, checked) => handleAutoOverayChange(checked)}
+                disabled={isFieldsDisabled}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSaveButtonClick}
+                disabled={isFieldsDisabled}
+              >
+                {formState === 'ready' ? 'Save' : 'Saving...'}
+              </Button>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Box>
+  )
+}
+
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(<App />)
+```
+
+##### options.css
+``` css
+body {
+  background-color: #f5f5f5;
+  font-family: 'Roboto';
+}
+```
+
+#### popup
+##### popup.tsx
+``` js
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Box, Grid, InputBase, Paper, IconButton } from '@mui/material'
+import {
+  Add as AddIcon,
+  PictureInPicture as PictureInPictureIcon,
+} from '@mui/icons-material'
+import '@fontsource/roboto'
+import './popup.css'
+import WeatherCard from '../components/WeatherCard'
+import {
+  getStoredCities,
+  setStoredCities,
+  getStoredOptions,
+  setStoredOptions,
+  LocalStorageOptions,
+} from '../utils/storage'
+import { Messages } from '../utils/messages'
+
+const App: React.FC<{}> = () => {
+  const [cities, setCities] = useState<string[]>([])
+  const [cityInput, setCityInput] = useState<string>('')
+  const [options, setOptions] = useState<LocalStorageOptions | null>(null)
+
+  useEffect(() => {
+    getStoredCities().then((cities) => setCities(cities))
+    getStoredOptions().then((options) => setOptions(options))
+  }, [])
+
+  // add city
+  const handleCityButtonClick = () => {
+    if (cityInput == '') {
+      return
+    }
+    const updateCities = [...cities, cityInput]
+    setStoredCities(updateCities).then(() => {
+      setCities(updateCities)
+      setCityInput('')
+    })
+  }
+
+  // delete city
+  const handleCityDeleteButtonClick = (index: number) => {
+    cities.splice(index, 1)
+    const updateCites = [...cities]
+    setStoredCities(updateCites).then(() => {
+      setCities(updateCites)
+    })
+  }
+
+  // toggle show temperature type
+  const handleTempScaleButtonClick = () => {
+    const updateOptions: LocalStorageOptions = {
+      ...options,
+      tempScale: options.tempScale === 'metric' ? 'imperial' : 'metric',
+    }
+    setStoredOptions(updateOptions).then(() => {
+      setOptions(updateOptions)
+    })
+  }
+
+  // Overlay control
+  const handleOverlayButtonClick = () => {
+    // send message from current tab %?%
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      (tabs) => {
+        if (tabs.length > 0) {
+          // console.log('tabs =>', tabs)
+          // send when url = https://* %?%
+          // 若未設定 在 chrome://extensions/ 或 blank tab 會有問題
+          // need set tabs at "permissions" %?%
+          // 未設定抓不到 url
+          if (tabs[0].url.match('https://*')) {
+            chrome.tabs.sendMessage(tabs[0].id, Messages.TOGGLE_OVERLAY)
+          }
+        }
+      }
+    )
+  }
+
+  if (!options) {
+    return null
+  }
+
+  return (
+    <Box mx="8px" my="16px">
+      <Grid container justifyContent="space-evenly">
+        <Grid item>
+          <Paper>
+            <Box px="15px" py="5px">
+              <InputBase
+                placeholder="Add a city name"
+                value={cityInput}
+                onChange={(event) => setCityInput(event.target.value)}
+              />
+              <IconButton onClick={handleCityButtonClick}>
+                <AddIcon />
+              </IconButton>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper>
+            <Box py="4px">
+              <IconButton onClick={handleTempScaleButtonClick}>
+                {/* %?% options != null show 後面內容 */}
+                {options != null &&
+                  (options.tempScale === 'metric' ? '\u2103' : '\u2109')}
+              </IconButton>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper>
+            <Box py="4px">
+              <IconButton onClick={handleOverlayButtonClick}>
+                <PictureInPictureIcon />
+              </IconButton>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
+      {options != null && options.homeCity != '' && (
+        <WeatherCard city={options.homeCity} tempScale={options.tempScale} />
+      )}
+      {cities.map((city, index) => (
+        <WeatherCard
+          city={city}
+          tempScale={options.tempScale}
+          key={index}
+          onDelete={() => {
+            handleCityDeleteButtonClick(index)
+          }}
+        />
+      ))}
+      <Box height="16px"> </Box>
+    </Box>
+  )
+}
+
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(<App />)
+```
+
+
+##### popup.css
+``` css
+body {
+  background-color: #f5f5f5;
+  width: 360px;
+  height: 512px;
+  font-family: 'Robot';
+}
+```
+
+#### contentScript
+##### contentScript.tsx
+``` js
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Card } from '@mui/material'
+import WeatherCard from '../components/WeatherCard'
+import { getStoredOptions, LocalStorageOptions } from '../utils/storage'
+import { Messages } from '../utils/messages'
+import './contentScript.css'
+
+const App: React.FC<{}> = () => {
+  const [options, setOptions] = useState<LocalStorageOptions | null>(null)
+  const [isActive, setIsActive] = useState<boolean>(false)
+
+  useEffect(() => {
+    getStoredOptions().then((options) => {
+      setOptions(options)
+      setIsActive(options.hasAutoOverlay)
+    })
+  }, [])
+
+  useEffect(() => {
+    // message receive %?%
+    chrome.runtime.onMessage.addListener((msg) => {
+      // console.log('msg:', msg)
+      if (msg == Messages.TOGGLE_OVERLAY) {
+        setIsActive(!isActive)
+      }
+    })
+  }, [isActive])
+
+  if (!options) {
+    return null
+  }
+
+  return (
+    <>
+      {isActive && (
+        <Card className="overlayCard">
+          <WeatherCard
+            city={options.homeCity}
+            tempScale={options.tempScale}
+            onDelete={() => {
+              setIsActive(false)
+            }}
+          />
+        </Card>
+      )}
+    </>
+  )
+}
+
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+const root = ReactDOM.createRoot(rootElement)
+
+root.render(<App />)
+```
+
+##### contentScript.css
+``` css
+.overlayCard {
+  position: fixed;
+  left: 5%;
+  top: 15%;
+  max-width: 240px;
+  max-height: 240px;
+  background-color: #f5f5f5 !important;
+  z-index: 99999;
+}
 ```
 
 ### Ref

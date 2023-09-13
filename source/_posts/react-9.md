@@ -8,6 +8,9 @@ tags:
 ---
 
 ### 基本
+
+<!--more-->
+
 #### useState : 更新新值, React 就會 re-render
 ``` js
 import React, { useState } from "react";
@@ -84,8 +87,6 @@ npm run start
 
 # browser http://localhost:3000/
 ```
-
-<!--more-->
 
 ##### index.js
 ``` js

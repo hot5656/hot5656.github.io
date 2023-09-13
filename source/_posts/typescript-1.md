@@ -164,6 +164,22 @@ push(a, 1, 2, 3);
 
 ```
 
+##### 型別別名(定義型別)
+``` js
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    } else {
+        return n();
+    }
+}
+
+
+```
+
 #### example 
 ``` ts
 function sayHello(person: string) {
