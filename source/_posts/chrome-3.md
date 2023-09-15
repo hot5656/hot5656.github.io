@@ -2046,6 +2046,12 @@ function renderShow(show) {
 ```
 
 ### React Extension
+#### 說明
+##### .ts vs .tsx
++ .jsx 是javascript文件並表明使用了JSX語法。
++ .ts 是typescript 文件的擴展名
++ .tsx 表明是typescript 文件並使用了JSX語法。
+
 #### npm init 
 ``` bash
 # npm init
@@ -2117,11 +2123,6 @@ npx tsc *.ts
 ```
 
 #### React Extension Template- webpack
-##### Notes
-###### .ts vs .tsx
-+ .jsx 是javascript文件並表明使用了JSX語法。
-+ .ts 是typescript 文件的擴展名
-+ .tsx 表明是typescript 文件並使用了JSX語法。
 
 ##### install package
 ``` bash
@@ -3217,6 +3218,272 @@ root.render(<App />)
 }
 ```
 
+### AdBlock Extension
+#### 說明
+##### API
++ chrome.webRequest : 分析,攔截,中斷,處理 traffic
+
+
+#### install
+``` bash
+# remove popup and options
+# change "manifest_version": 2 - webRequestBlocking not support by version 3
+
+# https://www.nytimes.com/section/opinion/editorials
+
+npm i
+```
+
+#### version 2
+##### manifest.json
+``` json
+{
+	"manifest_version": 2,
+	"name": "AdBlock Extension",
+	"description": "Chrome Extension for AdBlock",
+	"version": "1.0.0",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"contentScript.js"
+			]
+		}
+	]
+}
+```
+
+##### background.ts
+``` js
+chrome.webRequest.onBeforeRequest.addListener(
+  (details) => {
+    const url = details.url
+    const filters = ['gooleadserves', 'googlesyndication', 'g.doubleclick']
+    for (const filter of filters) {
+      if (url.indexOf(filter) != -1) {
+        // print ==> https://securepubads.g.doubleclick.net/tag/js/gpt.js
+        console.log(url)
+        return {
+          cancel: true,
+        }
+      }
+    }
+
+    return {
+      cancel: false,
+    }
+    // console.log('details:', details)
+    // set block
+    // return {
+    //   cancel: true,
+    // }
+  },
+  {
+    // block all
+    urls: ['<all_urls>'],
+    // no block
+    // urls: [''],
+    // define block
+    // urls: [
+    //   '<all_urls>',
+    //   '*://*.gooleadserves.com/*',
+    //   '*://*.tpc.googlesyndication.com/*',
+    //   '*://googleads.g.doubleclick.net/*',
+    //   '*://tpc.googlesyndication.com/*',
+    // ],
+  },
+  ['blocking']
+)
+```
+
+#### version 3
+##### manifest.json
+``` json
+{
+	"manifest_version": 3,
+	"name": "AdBlock Extension",
+	"description": "Chrome Extension for AdBlock",
+	"version": "1.0.0",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"permissions": [
+		"declarativeNetRequest"
+	],
+	"declarative_net_request": {
+		"rule_resources": [
+			{
+				"id": "ruleset_1",
+				"enabled": true,
+				"path": "rules_1.json"
+			}
+		]
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"contentScript.js"
+			]
+		}
+	]
+}
+```
+
+##### rules_1.json
+``` json
+[
+	{
+		"id": 1,
+		"priority": 1,
+		"action": {
+			"type": "block"
+		},
+		"condition": {
+			"urlFilter": "googlesyndication",
+			"resourceTypes": [
+				"image"
+			]
+		}
+	},
+	{
+		"id": 1,
+		"priority": 1,
+		"action": {
+			"type": "block"
+		},
+		"condition": {
+			"urlFilter": "googleadservices",
+			"resourceTypes": [
+				"image"
+			]
+		}
+	},
+	{
+		"id": 1,
+		"priority": 1,
+		"action": {
+			"type": "block"
+		},
+		"condition": {
+			"urlFilter": "doubleclick",
+			"resourceTypes": [
+				"image"
+			]
+		}
+	}
+]
+```
+
+#### version block by JS
+##### manifest.json ("enabled": false 不使用 declarativeNetRequest)
+``` json
+{
+	"manifest_version": 3,
+	"name": "AdBlock Extension",
+	"description": "Chrome Extension for AdBlock",
+	"version": "1.0.0",
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"permissions": [
+		"declarativeNetRequest"
+	],
+	"declarative_net_request": {
+		"rule_resources": [
+			{
+				"id": "ruleset_1",
+				"enabled": false,
+				"path": "rules_1.json"
+			}
+		]
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"contentScript.js"
+			]
+		}
+	]
+}
+```
+
+##### contentScript.tsx
+``` js
+// remove ad by JavaScript
+// set to "enabled": false,
+//
+// "declarative_net_request": {
+// 	"rule_resources": [
+// 		{
+// 			"id": "ruleset_1",
+// 			"enabled": false,
+// 			"path": "rules_1.json"
+// 		}
+// 	]
+// },
+
+// 對特定網頁執行特定功能 %?%
+const rules: {
+  [url: string]: () => void
+} = {
+  'https://www.nytimes.com/section/opinion/editorials':
+    filterNYTOpinionEeditorials2,
+}
+
+// block by id
+function filterNYTOpinionEeditorials() {
+  const app = document.getElementById('site-content')
+  const wrapper = document.getElementById('top-wrapper')
+  app.removeChild(wrapper)
+}
+
+// block by class
+function filterNYTOpinionEeditorials2() {
+  const divs = document.getElementsByTagName('div')
+  for (const div of divs) {
+    if (div.className.indexOf('ad') != -1) {
+      div.style.display = 'none'
+    }
+  }
+}
+
+if (document.URL in rules) {
+  console.log('document.URL:', document.URL)
+  rules[document.URL]()
+}
+```
+
 ### Ref
 + Basic ref
   + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
@@ -3243,6 +3510,18 @@ root.render(<App />)
   + [Material UI components](https://material-ui.com/getting-started/installation/)
   + [Open Weather API weather conditions reference](https://openweathermap.org/weather-conditions)
   + [Source for weather icon](https://www.flaticon.com/)
+
++ AdBlock Extension
+	+ [Chrome extension APIs reference](https://developer.chrome.com/docs/extensions/reference/)
+	+ [Easy List](https://easylist.to/)
+	+ [uBlock Origin source code:](https://github.com/gorhill/uBlock)
+	+ [Adblock Plus source code](https://gitlab.com/eyeo/adblockplus)
+	+ [Chromium blog about new net request API](https://blog.chromium.org/2019/06/web-request-and-declarative-net-request.html)
+	+ [XDA developers blog about new request API](https://www.xda-developers.com/google-chrome-manifest-v3-ad-blocker-extension-api/)
+
++ chrome extension publish
+	+ [Chrome developer documentation for publishing](https://developer.chrome.com/docs/webstore/register/)
+	+ [Chrome Web Store dev console](https://chrome.google.com/webstore/devconsole/)
 
 + Common
 	+ [How to Use TypeScript in React Apps](https://www.freecodecamp.org/news/using-typescript-in-react-apps/)
