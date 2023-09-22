@@ -321,6 +321,90 @@ $ node http_server1.js
 </div>
 
 
+### change WSL position
+``` bash
+# list all 
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* Ubuntu-20.04           Stopped         2
+  docker-desktop-data    Stopped         2
+  docker-desktop         Stopped         2
+
+# enter wsl
+PS C:\Windows\system32> wsl
+robert@905P000729:/mnt/c/Windows/system32$ pwd
+/mnt/c/Windows/system32
+robert@905P000729:/mnt/c/Windows/system32$ explorer.exe .
+
+
+# change WSL position
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* Ubuntu-20.04           Stopped         2
+  docker-desktop-data    Stopped         2
+  docker-desktop         Stopped         2
+
+# tar
+PS C:\Windows\system32> wsl --export Ubuntu-20.04  "D:\app\wls_tar\Ubuntu-20.04-ex.tar"
+
+# remove
+PS C:\Windows\system32> wsl --unregister Ubuntu-20.04
+取消註冊中...
+
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* docker-desktop-data    Stopped         2
+  docker-desktop         Stopped         2
+
+# import 
+PS C:\Windows\system32> wsl --import Ubuntu-20.04  "D:\app\wsl_run\Ubuntu-20.04" "D:\app\wls_tar\Ubuntu-20.04-ex.tar"
+
+
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* docker-desktop-data    Stopped         2
+  Ubuntu-20.04           Stopped         2
+  docker-desktop         Stopped         2
+
+# remove 1 host
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* docker-desktop-data    Stopped         2
+  Ubuntu-20.04           Stopped         2
+  docker-desktop         Stopped         2
+  Debian                 Stopped         2
+PS C:\Windows\system32> wsl --unregister Debian
+取消註冊中...
+PS C:\Windows\system32> wsl --list --verbos
+  NAME                   STATE           VERSION
+* docker-desktop-data    Stopped         2
+  Ubuntu-20.04           Stopped         2
+  docker-desktop         Stopped         2
+```
+
+### nvm(Node Version Manager)-Node 版本管理器
+``` bash
+# list instlled node.js
+nvm ls
+    18.17.1
+
+# nvm install ：安裝特定版本的 Node.js
+nvm install 18
+	Downloading node.js version 18.17.1 (64-bit)...
+	Extracting node and npm...
+	Complete
+
+# nvm use：當前命令列套用特定版本的 Node.js
+nvm use 18
+Now using node v18.17.1 (64-bit)
+```
+
+### Ref
++ [Node Version Manager](https://github.com/nvm-sh/nvm)
++ [NVM Install Guide](https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/)
++ [NVM download-windows](https://github.com/coreybutler/nvm-windows/releases) : file nvm-setup.exe
+
+
 
 
 

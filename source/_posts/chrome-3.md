@@ -97,6 +97,49 @@ tags:
 
 
 ### Function
+#### version 2
+##### manifest.json
+``` json
+{
+  "name": "__MSG_appName__",
+  "version": "1.0.0",
+  "description": "__MSG_appDescription__",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "background": {
+    "scripts": ["background.js", "backgroundMessaging.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.youtube.com/*"],
+      "exclude_matches": ["https://*.youtube.com/watch*"],
+      "js": [
+        "content.js", 
+        "contentMessaging.js",
+        "contentRequests.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "bookmarks", 
+    "storage", 
+    "tabs", 
+    "https://api.github.com/"
+  ],
+  "icons": {
+    "16": "darkIcon.png",
+    "48": "darkIcon.png",
+    "128": "darkIcon.png"
+  },
+  "browser_action": {
+    "default_title": "Created by Tomas, enjoy! :)",
+    "default_popup": "popup.html"
+  }
+}
+```
+
 #### chrome storage(加入 storage 後,有時要移除再載入才會正常)
 + Storage areas
   + storage.local
@@ -3484,6 +3527,15 @@ if (document.URL in rules) {
 }
 ```
 
+### 
+
+``` bash
+npm i --save-dev axios
+npm i --save-dev striptags
+```
+
+
+
 ### Ref
 + Basic ref
   + [Manifest file format](https://developer.chrome.com/docs/extensions/mv3/manifest/)
@@ -3532,3 +3584,7 @@ if (document.URL in rules) {
 	+ [使用 State Hook - old](https://zh-hant.legacy.reactjs.org/docs/hooks-state.html)
 	+ [W3school HTML DOM Documents](https://www.w3schools.com/jsref/dom_obj_document.asp)
 	+ [MDN 使用 Promise](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Using_promises)
+	+ [ICONS8](https://icons8.com/)
+	+ [HACKERNOON](https://hackernoon.com/)
+	+ [JavaScript Tutorial](https://www.javascripttutorial.net/)
+	+ [Chrome 扩展V3 中文文档](https://doc.yilijishu.info/chrome/)
