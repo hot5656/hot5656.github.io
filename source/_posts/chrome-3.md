@@ -3588,3 +3588,4 @@ npm i --save-dev striptags
 	+ [HACKERNOON](https://hackernoon.com/)
 	+ [JavaScript Tutorial](https://www.javascripttutorial.net/)
 	+ [Chrome 扩展V3 中文文档](https://doc.yilijishu.info/chrome/)
+	+ [Chrome插件開發全攻略](https://ssshooter.com/2020-08-26-chrome-extension/)

@@ -79,6 +79,13 @@ tags:
 }
 ```
 
+``` js
+async function sleep_ms(ms) {
+  console.log('start timer')
+  await new Promise((resolve) => setTimeout(resolve, ms))
+  console.log(`after ${ms / 1000} second`)
+}
+```
 
 ### Ref
 + reference source 
