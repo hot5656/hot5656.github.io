@@ -96,4 +96,9 @@ async function sleep_ms(ms) {
 	+ [youtube-captions](https://github.com/ADengrc/youtube-captions) : Youtube double subtitle　
 	+ [antd-chrome-extension-boilerplate](https://github.com/shenmaxg/antd-chrome-extension-boilerplate) : react + antd for chrome-extension development
 	+ [XHook](https://github.com/jpillora/xhook)
+	+ [Ajax-hook 原理解析](https://www.jianshu.com/p/7337ac624b8e)
+	+ [JS XHR HOOK js 实现 ajax](https://houbb.github.io/2022/07/09/js-xhr-hook)
+	+ [ajax-hook](https://github.com/wendux/ajax-hook)
+	+ [用Chrome 擴充實現修改ajax 請求的回應](https://www.zhihu.com/column/p/24189002)
+	+ [Hook Ajax](https://greasyfork.org/en/scripts/426753-hook-ajax)
 
