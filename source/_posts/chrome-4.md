@@ -101,4 +101,5 @@ async function sleep_ms(ms) {
 	+ [ajax-hook](https://github.com/wendux/ajax-hook)
 	+ [用Chrome 擴充實現修改ajax 請求的回應](https://www.zhihu.com/column/p/24189002)
 	+ [Hook Ajax](https://greasyfork.org/en/scripts/426753-hook-ajax)
-
++ js-reference
++ [getElementsByClassName](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName)
