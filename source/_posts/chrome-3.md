@@ -70,6 +70,23 @@ tags:
 + Context Menu
 
 
+#### Extension using react warning
+##### exceed the recommended size limit
+WARNING in asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+###### webpack.config.js change size 
+``` json
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
+```
+###### webpack.config.js disable size check
+``` json
+  performance: {
+    hints: false,
+  },
+```
+
 #### tool
 ##### vscode setup
 ###### basic for JavaScript
@@ -3589,3 +3606,8 @@ npm i --save-dev striptags
 	+ [JavaScript Tutorial](https://www.javascripttutorial.net/)
 	+ [Chrome 扩展V3 中文文档](https://doc.yilijishu.info/chrome/)
 	+ [Chrome插件開發全攻略](https://ssshooter.com/2020-08-26-chrome-extension/)
++ publish
+	+ [Register your developer account](https://developer.chrome.com/docs/webstore/register/)
+	+ [Register as a Chrome Web Store Developer](https://chrome.google.com/webstore/devconsole/register?hl=en)
+	+ [Easy Clipboard](https://chrome.google.com/webstore/detail/easy-clipboard/lkpiolleljimgohflbgekkbeoiajighj?hl=zh-TW)
+	+ [NflxMultiSubs](https://chrome.google.com/webstore/detail/nflxmultisubs-netflix-mul/pjhnilfooknlkdonmjnleaomamfehkli?hl=zh-TW)
