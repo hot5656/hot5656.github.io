@@ -86,6 +86,15 @@ async function sleep_ms(ms) {
   console.log(`after ${ms / 1000} second`)
 }
 ```
+### subtitle 
+#### Ted subtitle
+Simon Sinek [How great leaders inspire action](https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action) subtitle
+英文:[https://www.ted.com/talks/subtitles/id/848/lang/en](https://www.ted.com/talks/subtitles/id/848/lang/en)
+中文:[https://www.ted.com/talks/subtitles/id/848/lang/zh-tw](https://www.ted.com/talks/subtitles/id/848/lang/zh-tw)
+get id :
+<div style="max-width:1000px">
+  {% asset_img pic1.png pic1 %}
+</div>
 
 ### Ref
 + reference source 
@@ -101,5 +110,6 @@ async function sleep_ms(ms) {
 	+ [ajax-hook](https://github.com/wendux/ajax-hook)
 	+ [用Chrome 擴充實現修改ajax 請求的回應](https://www.zhihu.com/column/p/24189002)
 	+ [Hook Ajax](https://greasyfork.org/en/scripts/426753-hook-ajax)
+	+ [Ted subtitle merge](https://github.com/willard1218/Ted-subtitle-merge)
 + js-reference
-+ [getElementsByClassName](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName)
+	+ [getElementsByClassName](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName)
