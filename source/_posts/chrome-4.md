@@ -7,94 +7,522 @@ tags:
   - chrome
 ---
 
-### example
-
-#### Super-Subtitles
-##### manifest.json
-``` json
-{
-    "name": "Super Sub",
-    "manifest_version": 3,
-    "version": "1.0",
-    "description": "Learn the meaning of words while watching the videos on YouTube and Netflix",
-    "action": {
-      "default_title": "Super Subtitle"  // popup title
-    },
-    "permissions": [
-      "storage",
-      "activeTab",
-      "scripting",
-      "tabs"
-    ],
-    "icons": {	// icons position
-      "16": "logo/supersub16.png",
-      "32": "logo/supersub32.png",
-      "48": "logo/supersub48.png",
-      "128": "logo/supersub128.png"
-    },
-    "background": {
-      "service_worker": "background.js"	// background JS
-    },
-    "content_scripts": [{
-      "matches": ["https://www.youtube.com/watch*"], // content.js run url
-      "js" : ["content.js"],	// content JS
-      "run_at" : "document_idle"	// run when anything load complete(default) 
-    }],
-    "host_permissions": [
-      "https://www.youtube.com/*"	// API 使用位址
-    ]
-  }
-```
+### reference code 
+#### chrome extension
+##### link click listen
 
 <!--more-->
-#### youtube-captions
-#####  manifest.json
-``` json
-{
-  "name": "YouTube™双字幕",
-  "manifest_version": 2,
-  "version": "1.4.3",
-  "description": "点击一下即可开启中英双字幕,适用于YouTube™",
-  "author": "Dengrc",
-  "permissions": ["tabs", "storage"],
-  "icons": {
-    "128": "images/icon128.png"
-  },
-	// popup title v2
-  "browser_action": {
-    "default_title": "YouTube™双字幕"
-  },
-  "content_scripts": [{
-    "matches": ["https://www.youtube.com/*"],	// content.js run url
-    "js": ["js/content.js"],									// content JS
-    "run_at": "document_start",								// run when start
-    "all_frames": true												// script 可注入所有frame, false: 只能注入最上層 frame
-  }],
-  "background": {
-    "scripts": ["js/background.js"],
-    "persistent": false
-  },
-	// 聲明資源才可使用
-  "web_accessible_resources": ["js/injected.js", "js/xhook.min.js"]
+
+``` js
+// Attach the click event listener to the entire document
+document.addEventListener('click', handleLinkClick)
+
+// Function to handle link clicks
+function handleLinkClick(event) {
+  let isRun = false
+  // console.log('=====================================')
+  // console.log('handleLinkClick', event)
+
+  setTimeout(() => {
+    if (typeof event.target.className === 'string') {
+      if (event.target.className === 'subtitle-label') {
+        checkActiveChange()
+        isRun = true
+      }
+    }
+    if ('childNodes' in event.target && !isRun) {
+      if (event.target.childNodes.length >= 2) {
+        if (event.target.childNodes[1].className === 'subtitle-label') {
+          checkActiveChange()
+          isRun = true
+        }
+      }
+    }
+
+    if (!isRun) {
+      if (event.target.baseURI.includes('lecture')) {
+        let courseStateElements = document.querySelector('#course-satae')
+        if (!courseStateElements) {
+          dualMode = false
+          checkInterval()
+        }
+      }
+    }
+  }, 300)
+}
+``` 
+
+##### message from popup to contentScript
+###### messageType.js
+``` js
+export const DOWNLOAD_SUBTITLE = 'download chinese subtitle'
+export const SHOW_ACTIVE = 'show active'
+export const LANGUGAES_INFO = 'languages info'
+export const UDAL_MODE = 'dual mode'
+```
+
+###### popup.js
+``` js
+import { LANGUGAES_INFO, UDAL_MODE } from '../utils/messageType'
+
+sendMessageToContentScript(LANGUGAES_INFO, { message: LANGUGAES_INFO })
+sendMessageToContentScript(UDAL_MODE, {
+  message: UDAL_MODE,
+  duleMode: event.target.value === DUAL_ON,
+  secondLanguage: languageType2,
+})
+
+function sendMessageToContentScript(messageType, messages) {
+  // console.log('sendMessageToContentScript:', messages)
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    (tabs) => {
+      // console.log(tabs)
+      if (tabs.length > 0) {
+        // console.log(tabs[0].url)
+        if (
+          tabs[0].url.includes('lecture') &&
+          tabs[0].url.match('https://www.coursera.org/learn/*')
+        ) {
+          chrome.tabs.sendMessage(tabs[0].id, messages, (response) => {
+            if (chrome.runtime.lastError) {
+              console.error(chrome.runtime.lastError)
+            }
+
+            // console.log('response:', response)
+            if (response) {
+              setResponseMessage(response.message)
+              if (messageType === LANGUGAES_INFO) {
+                setLanguageOptions(response.languages)
+                if (response.languages.length > 0) {
+                  chrome.storage.sync.get(
+                    ['language2ndCoursera', 'dualTitleCoursera'],
+                    (res) => {
+                      // console.log('sync.get(popupo):', res)
+
+                      if (res.language2ndCoursera) {
+                        setlanguageType2(res.language2ndCoursera)
+                      }
+                      // console.log(
+                      //   'setlanguageType2:',
+                      //   res.language2ndCoursera
+                      // )
+
+                      setDualMode(res.dualTitleCoursera ? DUAL_ON : DUAL_OFF)
+                    }
+                  )
+                }
+              }
+            } else {
+              setResponseMessage('no response message....')
+            }
+          })
+
+          // console.log('send message...')
+        } else {
+          setResponseMessage('Not the Correct Website ...')
+        }
+      }
+    }
+  )
 }
 ```
 
+###### contentScript.js
 ``` js
-async function sleep_ms(ms) {
-  console.log('start timer')
-  await new Promise((resolve) => setTimeout(resolve, ms))
-  console.log(`after ${ms / 1000} second`)
+import { LANGUGAES_INFO, UDAL_MODE } from '../utils/messageType'
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.message === LANGUGAES_INFO) {
+    sendResponse({
+      // message: 'receive get languages info', - no show
+      message: '',
+      courseName: courseName,
+      languages: languages,
+    })
+  } else if (message.message === UDAL_MODE) {
+    // sendResponse({ message: 'dual mode setting' }) - no show
+    sendResponse({ message: '' })
+    // console.log('DUAL_MODE....', message)
+    if (message.secondLanguage !== '' && message.duleMode) {
+      if (message.duleMode) {
+        let activeLanguage = getActiveLanguage()
+        // console.log('combine:', activeLanguage, message.secondLanguage)
+        if (activeLanguage !== '') {
+          if (
+            activeMode !== TRANSLATE_DUAL ||
+            message.secondLanguage !== active2ndLanguage
+          ) {
+            combine(activeLanguage, message.secondLanguage)
+            setTranslateState(dualMode, TRANSLATE_DUAL, message.secondLanguage)
+          }
+        }
+      }
+    } else {
+      if (activeMode == TRANSLATE_DUAL) {
+        setTranslateState(dualMode, TRANSLATE_SINGLE, '')
+        // activeMode = TRANSLATE_SINGLE
+        setSingleSubtitle()
+      }
+    }
+  }
+})
+```
+
+##### message from contentScript to background
+###### contentScript.js
+``` js
+import { DOWNLOAD_SUBTITLE } from '../utils/messageType'
+
+function downloadChinesetitle(subtitleUri) {
+  let xhr = new XMLHttpRequest()
+  xhr.open('GET', subtitleUri, false)
+  xhr.send()
+  if (xhr.status === 200) {
+    console.log(xhr.responseText)
+    chrome.runtime.sendMessage({
+      message: DOWNLOAD_SUBTITLE,
+      name: courseName,
+      lenguage: downloadLanguage,
+      subtitle: xhr.responseText,
+    })
+  } else {
+    throw new Error('Network response was not ok')
+  }
 }
 ```
-### subtitle 
-#### Ted subtitle
-Simon Sinek [How great leaders inspire action](https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action) subtitle
-英文:[https://www.ted.com/talks/subtitles/id/848/lang/en](https://www.ted.com/talks/subtitles/id/848/lang/en)
-中文:[https://www.ted.com/talks/subtitles/id/848/lang/zh-tw](https://www.ted.com/talks/subtitles/id/848/lang/zh-tw)
-get id :
-<div style="max-width:1000px">
-  {% asset_img pic1.png pic1 %}
-</div>
+
+###### background.js
+``` js
+import { DOWNLOAD_SUBTITLE } from '../utils/messageType'
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === DOWNLOAD_SUBTITLE) {
+    console.log(request)
+    saveFile(`${request.name}_${request.lenguage}.vtt`, request.subtitle)
+  }
+})
+```
+
+##### background savefile
+``` js
+saveFile(`${request.name}_${request.lenguage}.vtt`, request.subtitle)
+
+function saveFile(fileName, content) {
+  console.log('fileName:', fileName)
+
+  // Create a Blob containing the text content
+  // for str must  type: 'text/srt' (txt is type: 'text/plain')
+  const blob = new Blob([content], { type: 'text/vtt' })
+
+  // Convert the Blob to a data URL
+  const reader = new FileReader()
+  reader.onload = function () {
+    const dataURL: string | ArrayBuffer | null = reader.result
+    if (typeof dataURL === 'string') {
+      // Use the chrome.downloads.download API to initiate the download
+      chrome.downloads.download(
+        {
+          url: dataURL,
+          filename: fileName,
+        },
+        function (downloadId) {
+          // Handle the download initiation, if needed
+          if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError)
+          } else {
+            // console.log('Download initiated with ID:', downloadId)
+          }
+        }
+      )
+    } else {
+      // Handle the case where dataURL is not a string (e.g., if there's an error)
+      console.error('Failed to create data URL')
+    }
+  }
+  reader.readAsDataURL(blob)
+}
+```
+
+##### upload file to a video src
+``` js
+function App() {
+  return (
+    <>
+      {talkIdState != '' && (
+        <div id="insert-div">
+          <button
+            id="generate-subtitle"
+            onClick={handleGenerateSubtitle}
+          ></button>
+          <button
+            id="download-english-subtitle"
+            onClick={handleDownloadEnglishSubtitle}
+          ></button>
+          <div id="load-countdown" style={subDivStyle}>
+            {countString}
+            {downcounter}
+          </div>
+          <input
+            type="file"
+            accept=".vtt"
+            onChange={handleSubtitleFileChange}
+          />
+        </div>
+      )}
+    </>
+  )
+}
+
+// Event handler to handle file selection
+function handleSubtitleFileChange(event) {
+  const selectedFile = event.target.files[0]
+
+  if (selectedFile) {
+    // Handle the selected file, e.g., read its contents
+    const reader = new FileReader()
+
+    reader.onload = function (e) {
+      const vttData = e.target.result
+      const subtitleUrl = URL.createObjectURL(event.target.files[0])
+
+      console.log('subtitleUrl:', subtitleUrl)
+      let trackElement = document.querySelector(
+        'track[srclang="en"]'
+      ) as HTMLTrackElement
+      if (trackElement) {
+        trackElement.src = subtitleUrl
+        console.log('trackElement:', trackElement)
+      } else {
+        trackElement = document.querySelector(
+          'track[kind="subtitles"]'
+        ) as HTMLTrackElement
+        if (trackElement) {
+          trackElement.src = subtitleUrl
+          console.log('trackElement:', trackElement)
+        }
+      }
+
+      // it's seem the 1st use subtitle-some video need remove
+      // if not remove --> show original subtitle
+      // if overwrite video not continue run
+      let videoElement = document.querySelector(
+        'video[playsinline="playsinline"]'
+      ) as HTMLTrackElement
+      if (videoElement) {
+        // videoElement.src = subtitleUrl
+        videoElement.removeAttribute('src')
+      }
+
+      const showElement = document.getElementById(
+        'insert-subtitle'
+      ) as HTMLElement
+      showElement.style.display = 'none'
+      // Now you can use vttData, which contains the content of the selected .vtt file
+      // You can then proceed to update your video's subtitles as needed
+    }
+
+    reader.readAsText(selectedFile)
+  }
+}
+```
+
+##### content put src
+``` js
+setDualSubtitle(content)
+
+function setDualSubtitle(subtitle) {
+  // Create a Blob from the WebVTT content
+  const blob = new Blob([subtitle], { type: 'text/vtt' })
+  // Create a data URL from the Blob
+  const dataUrl = URL.createObjectURL(blob)
+
+  const activeElement = document.querySelector('li.active span')
+  if (activeElement) {
+    // console.log('activeElement:', activeElement)
+    let ariaLabel = activeElement.getAttribute('aria-label')
+    let trackElement = document.querySelector(
+      `track[label="${ariaLabel}"]`
+    ) as HTMLTrackElement
+    if (trackElement) {
+      if (!trackElement.hasAttribute('data-src')) {
+        trackElement.setAttribute('data-src', trackElement.src)
+      }
+      trackElement.src = dataUrl
+    }
+  }
+}
+```
+
+
+#### js 
+##### add one div before one
+``` js
+// add div
+const firstChild = document.querySelector('.closed-captions')
+console.log('firstChild', firstChild)
+if (firstChild) {
+  const bodyElement = document.querySelector('.video-wrapper')
+  const rootElement = document.createElement('div')
+  console.log('bodyElement', bodyElement)
+  console.log('rootElement', rootElement)
+  rootElement.id = 'second-subtitle'
+  // rootElement.className = 'horizontal-box'
+  bodyElement.insertBefore(rootElement, firstChild)
+
+  const root = createRoot(rootElement)
+  root.render(<SecondSubtitle />)
+}
+```
+
+##### get/set and check attribute
+``` js
+let nameElement = document.querySelector('link[hreflang="x-default"]')
+if (nameElement) {
+	courseName = nameElement.getAttribute('href')
+	if (!courseName.includes('lecture')) {
+		courseName = 'x'
+		// console.log('no lecture')
+		// stop the interval
+		clearInterval(intervalId)
+	} else {
+		dualMode = addCourseStateDiv(dualMode)
+	}
+}
+
+function getLenguageUri(language) {
+  let subtitleUrl = ''
+  let trackElement = document.querySelector(
+    `track[label="${language}"]`
+  ) as HTMLTrackElement
+  if (trackElement) {
+    if (trackElement.hasAttribute('data-src')) {
+      subtitleUrl = trackElement.getAttribute('data-src')
+    } else {
+      subtitleUrl = trackElement.src
+    }
+  } else {
+    // console.log('no ', language)
+  }
+  return subtitleUrl
+}
+
+function setSingleSubtitle() {
+  const activeElement = document.querySelector('li.active span')
+  if (activeElement) {
+    let ariaLabel = activeElement.getAttribute('aria-label')
+    let trackElement = document.querySelector(
+      `track[label="${ariaLabel}"]`
+    ) as HTMLTrackElement
+    if (trackElement) {
+      if (trackElement.hasAttribute('data-src')) {
+        trackElement.setAttribute('src', trackElement.getAttribute('data-src'))
+      }
+    }
+  }
+}
+```
+
+##### get attribute as object
+``` js
+let languageElements = document.querySelectorAll('video track')
+// console.log(` ${timer} ms, languageElements : `, languageElements)
+languages = []
+for (let element of languageElements as NodeListOf<HTMLTrackElement>) {
+	languages.push({
+		label: element.label,
+		srclang: element.srclang,
+		src: element.src,
+	})
+}
+```
+
+##### style control
+``` js
+const element = document.getElementById('exampleElement');
+// check style exist
+if (element.style.color !== undefined) {
+  // The 'color' style property exists
+} else {
+  // The 'color' style property does not exist
+}
+// set style 
+element.style.color = 'red';
+// get style value
+const color = window.getComputedStyle(element).color;
+
+// remove style
+const element = document.getElementById('exampleElement'); 
+if (element) {
+  element.removeAttribute('style');
+}
+
+// remove style item
+const element = document.getElementById('exampleElement'); 
+if (element) {
+  element.style.removeProperty('color');
+}
+```
+
+##### check button disable
+``` js
+const myButton = document.getElementById('myButton') as HTMLButtonElement 
+if (myButton) {
+  if (myButton.disabled) {
+    console.log('The button is disabled.');
+  } else {
+    console.log('The button is enabled.');
+  }
+}
+
+```
+
+##### check iframe content
+``` js
+let iframe = document.querySelector(
+	'iframe#unit-iframe'
+) as HTMLIFrameElement
+
+console.log('iframeElement', iframe)
+
+if (iframe && iframe.contentDocument) {
+	// Check if the iframe and its contentDocument are available
+	let tcElement = iframe.contentDocument.querySelector('div.tc-wrapper')
+	console.log('tcElement4', tcElement)
+} else {
+	console.log('iframe or contentDocument is null')
+}
+```
+
+##### interval and timeout
+``` js
+let ACTIVE_COUNT_MAX = 10
+let activerCount = 1
+const intervalId = setInterval(() => {
+  console.log('activerCount:', activerCount)
+
+  if (activerCount >= ACTIVE_COUNT_MAX) {
+    clearInterval(intervalId)
+  }
+  activerCount++
+}, 1000)
+
+setTimeout(() => {
+	if (typeof event.target.className === 'string') {
+		if (event.target.className === 'subtitle-label') {
+			checkActiveChange()
+			isRun = true
+		}
+	}
+	
+}, 300)
+```
+
+##### special function
+
 
 ### Ref
 + reference source 
