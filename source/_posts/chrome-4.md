@@ -357,24 +357,325 @@ function setDualSubtitle(subtitle) {
 }
 ```
 
+##### add inject
+###### manifest.json
+``` json
+{
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"injected.js"
+			],
+			"matches": [
+				"https://learning.edx.org/*"
+			]
+		}
+	]
+}
+```
+
+###### contentScript.tsx
+``` js
+// add injected
+const script = document.createElement('script')
+script.src = chrome.runtime.getURL('injected.js')
+document.body.appendChild(script)
+```
+
+###### injected.js
+``` js
+window.addEventListener('load', function () {
+  console.log('injected ....')
+})
+```
+
+##### send message to inject 
+###### contentScript.tsx
+``` js
+window.postMessage(
+	{
+		// from: 'contentScript',
+		channel: 'myExtension',
+		message: 'loaded',
+	},
+	'*'
+)
+```
+
+###### injected.js
+``` js
+window.addEventListener('message', (e) => {
+	// check self send
+  if (e.origin !== window.location.origin) {
+    return
+  }
+  messages = e.data
+  console.log('msg:', messages)
+
+  const iframe = document.querySelector('iframe#unit-iframe')
+  if (iframe) {
+    const iframeContent = iframe.contentDocument.body.innerHTML
+    console.log('Iframe content:', iframeContent)
+    console.log('Iframe content2:', iframe.contentDocument)
+    console.log('Iframe content3:', iframe.contentDocument.body)
+  }
+  const videoSelElement = document.querySelector('.btn-link.video-sources')
+  console.log('videoSelElement:', videoSelElement)
+})
+```
+
+##### background run script
+###### manifest.json
+``` json
+{
+	"permissions": ["scripting"]
+}
+```
+###### contentScript.tsx
+``` js
+chrome.runtime.sendMessage({
+  message: 'to background',
+})
+```
+
+###### background.ts
+``` js
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === 'to background') {
+    console.log(request)
+    const tabId = sender.tab.id
+    chrome.scripting.executeScript(
+      {
+        target: { tabId: tabId },
+        // @ts-ignore
+        function: (() => {
+          const iframe = document.querySelector('iframe')
+          const doc = iframe?.contentDocument
+          console.log('iframe', iframe)
+          return iframe
+          // return doc?.body.innerText
+        }) as () => any,
+      },
+      (result) => {
+        // result will contain iframe body innerText
+        console.log(result)
+      }
+    )
+	}
+}
+```
+
+##### background wait message and fetch url(this case limite by CORS)
+###### contentScript.tsx
+``` js
+let iframeElement = document.getElementById(
+	'unit-iframe'
+) as HTMLIFrameElement
+
+chrome.runtime.sendMessage(
+	{
+		message: 'get iframe content',
+		url: iframeElement.src,
+	},
+	(response) => {
+		console.log('response.content', response.content)
+	}
+)
+```
+
+###### background.ts
+``` js
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === 'get iframe content') {
+    fetch(request.url, { mode: 'no-cors' })
+      .then((res) => {
+        console.log('res', res)
+        res.text()
+      })
+      .then((data) => sendResponse({ content: data }))
+
+    return true
+  }
+}
+```
+
+##### window.parent.postMessage(this case limited by CORS)
+###### manifest.json
+``` json
+{
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"injected.js",
+				"script.js"
+			],
+			"matches": [
+				"https://learning.edx.org/*"
+			]
+		}
+	]
+}
+```
+
+###### contentScript.tsx
+``` js
+let iframeElement = document.getElementById(
+	'unit-iframe'
+) as HTMLIFrameElement
+
+
+const scriptIframeElement = document.querySelector(
+	'script-iframe-content'
+)
+if (!scriptIframeElement) {
+	const scriptElement = document.createElement('script')
+	scriptElement.setAttribute('src', 'script.js')
+	scriptElement.id = 'script-iframe-content'
+
+	// Append the script element to the body
+	iframeElement.appendChild(scriptElement)
+	console.log('scriptElement', scriptElement)
+}
+
+window.addEventListener('message', function (event) {
+  if (event.data && event.data.type === 'getIframeContent') {
+    // Access the iframe content
+    // const iframeContent = event.source.document.body.innerHTML;
+    console.log('iframeContent event', event)
+  }
+})
+```
+
+###### script.js
+``` js
+window.parent.postMessage({ type: 'getIframeContent' }, '*')
+```
+
+##### video player
+``` js
+function NewVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const handleVideoFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = event.target
+    const selectedFile = fileInput.files?.[0]
+
+    if (selectedFile) {
+      const videoElement = videoRef.current
+
+      // Create a Blob URL for the selected video file
+      const blobURL = URL.createObjectURL(selectedFile)
+
+      // Set the Blob URL as the source for the video
+      if (videoElement) {
+        videoElement.src = blobURL
+
+        // Load the new source
+        videoElement.load()
+      }
+    }
+  }
+
+  const handleSubtitleFileChange = async (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const fileInput = event.target
+    const selectedFile = fileInput.files?.[0]
+
+    if (selectedFile) {
+      const videoElement = videoRef.current
+
+      // Clear existing tracks
+      if (videoElement && videoElement.textTracks) {
+        const textTracks = videoElement.textTracks
+        for (let i = textTracks.length - 1; i >= 0; i--) {
+          const track = textTracks[i]
+          track.mode = 'hidden'
+        }
+      }
+
+      const subtitleBlob = new Blob([selectedFile], {
+        type: 'text/vtt',
+      })
+      const subtitleBlobURL = URL.createObjectURL(subtitleBlob)
+
+      const trackElement = document.createElement('track')
+      trackElement.src = subtitleBlobURL
+      trackElement.kind = 'subtitles'
+      trackElement.srclang = 'en'
+      trackElement.label = 'English'
+      trackElement.default = true
+
+			const handleToggleSubtitles = () => {
+				var video = document.getElementById('my-video')
+				// Get the first text track (assuming there's only one)
+				// @ts-ignore
+				var textTrack = video.textTracks[0]
+
+				// Toggle the mode between showing and hiding subtitles
+				if (textTrack.mode === 'showing') {
+					textTrack.mode = 'hidden'
+				} else {
+					textTrack.mode = 'showing'
+				}
+				console.log('video', video)
+				console.log('textTrack', textTrack)
+			}
+
+      // Append the track element to the video
+      if (videoElement) {
+        videoElement.appendChild(trackElement)
+        videoElement.load()
+      }
+    }
+  }
+
+  return (
+    <>
+      <h1>HTML5 Video Player with MP4 and Subtitles</h1>
+      <input type="file" accept="video/mp4" onChange={handleVideoFileChange} />
+      <input type="file" accept=".vtt" onChange={handleSubtitleFileChange} />
+      <video id="my-video" controls width="600" ref={videoRef}></video>
+			{/* <br />
+						<button onClick={handleToggleSubtitles}>Toggle subtitle</button> */}
+    </>
+  )
+}
+
+function addNewVideo() {
+  const newVideoElement = document.querySelector('#new-video')
+  if (!newVideoElement) {
+    const unitElement = document.querySelector('.unit-iframe-wrapper')
+    if (unitElement) {
+      const parentElement = document.querySelector('.unit')
+      const renewVideoElement = document.createElement('div')
+      renewVideoElement.id = 'new-video'
+      parentElement.insertBefore(renewVideoElement, unitElement)
+
+      const root = createRoot(renewVideoElement)
+      root.render(<NewVideo />)
+    }
+  }
+}
+```
 
 #### js 
 ##### add one div before one
 ``` js
-// add div
-const firstChild = document.querySelector('.closed-captions')
-console.log('firstChild', firstChild)
-if (firstChild) {
-  const bodyElement = document.querySelector('.video-wrapper')
-  const rootElement = document.createElement('div')
-  console.log('bodyElement', bodyElement)
-  console.log('rootElement', rootElement)
-  rootElement.id = 'second-subtitle'
-  // rootElement.className = 'horizontal-box'
-  bodyElement.insertBefore(rootElement, firstChild)
+function addNewVideo() {
+  const newVideoElement = document.querySelector('#new-video')
+  if (!newVideoElement) {
+    const unitElement = document.querySelector('.unit-iframe-wrapper')
+    if (unitElement) {
+      const parentElement = document.querySelector('.unit')
+      const renewVideoElement = document.createElement('div')
+      renewVideoElement.id = 'new-video'
+      parentElement.insertBefore(renewVideoElement, unitElement)
 
-  const root = createRoot(rootElement)
-  root.render(<SecondSubtitle />)
+      const root = createRoot(renewVideoElement)
+      root.render(<NewVideo />)
+    }
+  }
 }
 ```
 
@@ -521,8 +822,25 @@ setTimeout(() => {
 }, 300)
 ```
 
-##### special function
+#### TypeScript
+##### disable 
+``` js
+const handleToggleSubtitles = () => {
+	var video = document.getElementById('my-video')
+	// Get the first text track (assuming there's only one)
+	// @ts-ignore
+	var textTrack = video.textTracks[0]
 
+	// Toggle the mode between showing and hiding subtitles
+	if (textTrack.mode === 'showing') {
+		textTrack.mode = 'hidden'
+	} else {
+		textTrack.mode = 'showing'
+	}
+	console.log('video', video)
+	console.log('textTrack', textTrack)
+}
+```
 
 ### Ref
 + reference source 
