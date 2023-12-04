@@ -741,6 +741,22 @@ for (let element of languageElements as NodeListOf<HTMLTrackElement>) {
 }
 ```
 
+##### class control
+``` js
+// remove class
+const videoElement = document.querySelector('#video')
+videoElement.classList.remove('video-24')
+
+// add class
+if (fontSize !== 'video-16') {
+   videoElement.classList.add(fontSize)
+}
+
+// toggle class
+let videoShow = document.getElementById('video-show')
+videoShow.classList.toggle('fullscreen')
+```
+
 ##### style control
 ``` js
 const element = document.getElementById('exampleElement');
@@ -820,6 +836,136 @@ setTimeout(() => {
 	}
 	
 }, 300)
+```
+
+##### kep press
+``` js
+// set Esc event
+document.addEventListener('keydown', function (e) {
+  console.log("document.addEventListener('keydown'", e)
+  if (e.key === 'Escape') {
+		...
+  }
+})
+
+// simulate Esc press
+let escEvent = new KeyboardEvent("keydown", {
+  bubbles: true, cancelable: true, keyCode: 27
+   /* 27 is the keycode for ESC */
+});
+document.dispatchEvent(escEvent);
+
+
+// Create a new keyboard event for Ctrl + Alt + F
+var keyEvent = new KeyboardEvent('keydown', {
+  key: 'F',
+  code: 'KeyF',
+  ctrlKey: true,
+  altKey: true,
+  bubbles: true,
+})
+// Dispatch the key event on the element
+videoShow.dispatchEvent(keyEvent)
+
+// listen Ctrl + Alt + F
+const videoContainer = document.getElementById('video-show')
+videoContainer.addEventListener('keydown', function (event) {
+  if (event.ctrlKey && event.altKey && event.code === 'KeyF') {
+    // Your code for handling Ctrl + Alt + F goes here
+    console.log('Ctrl + Alt + F was pressed!')
+		....
+  }
+})
+```
+
+##### full screen
+``` html
+<div id="video-show">
+	<video id="my-video" controls width="100%" ref={videoRef}></video>
+	<div id="subtitle-container">
+		<p id="subtitle-text" ref={subtitleContainerRef}></p>
+	</div>
+</div>
+```
+
+``` js
+// enter full screen(div-#video-show)
+{
+  const videoContainer = document.getElementById('video-show')
+  const videoElement = document.getElementById('my-video')
+
+  videoElement.addEventListener('click', () => {
+    if (videoContainer.requestFullscreen) {
+      videoContainer.requestFullscreen()
+      // @ts-ignore
+    } else if (videoContainer.mozRequestFullScreen) {
+      /* Firefox */
+      // @ts-ignore
+      videoContainer.mozRequestFullScreen()
+      // @ts-ignore
+    } else if (videoContainer.webkitRequestFullscreen) {
+      /* Chrome, Safari and Opera */
+      // @ts-ignore
+      videoContainer.webkitRequestFullscreen()
+      // @ts-ignore
+    } else if (videoContainer.msRequestFullscreen) {
+      /* IE/Edge */
+      // @ts-ignore
+      videoContainer.msRequestFullscreen()
+    }
+  })
+}
+
+// set video not enter full screen
+document.addEventListener('fullscreenchange', function () {
+  // The fullscreenchange event can sometimes fire more than once in certain browsers when requesting fullscreen.
+  // 	1. First when fullscreen is requested
+  // 	2. Second when fullscreen is exited
+
+  console.log('document.fullscreenElement : ', document.fullscreenElement)
+
+  if (document.fullscreenElement === myVideo) {
+    console.log('fullscreenchange')
+
+    if (document.fullscreenElement) {
+      console.log('exitFullscreen..')
+      // document.exitFullscreen()
+    }
+
+    isVirtualFullscreen = !isVirtualFullscreen
+    console.log('isVirtualFullscreen', isVirtualFullscreen)
+  }
+})
+```
+
+##### button click
+``` js
+function buttonClick() {
+  var myButton = document.getElementById('full-screen')
+  myButton.click()
+}
+```
+
+##### video click
+``` js
+const myVideo = document.getElementById('my-video')
+myVideo.click()
+```
+
+##### simulate click
+``` js
+function triggeeClick() {
+  const myVideo = document.getElementById('my-video')
+
+  // Create a new mouse click event
+  var clickEvent = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+  })
+
+  myVideo.dispatchEvent(clickEvent)
+}
 ```
 
 #### TypeScript
