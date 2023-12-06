@@ -759,14 +759,31 @@ videoShow.classList.toggle('fullscreen')
 
 ##### style control
 ``` js
-const element = document.getElementById('exampleElement');
-// check style exist
-if (element.style.color !== undefined) {
-  // The 'color' style property exists
+// check style exist #1
+const videoTitle = document.getElementById('subtitle-text') as HTMLElement
+const videoTitletyle = window.getComputedStyle(videoTitle)
+if (subtitleMode === SUBTITLE_MODE[SUBTITLE_MODE_OFF]) {
+  // @ts-ignore
+  if (!videoTitletyle.style) {
+    videoTitle.style.display = 'none'
+  }
+  return
 } else {
-  // The 'color' style property does not exist
+  // @ts-ignore
+  if (videoTitle.style) {
+    videoTitle.style.removeProperty('display')
+  }
 }
+
+// check style exist #2
+if (element.style.color !== undefined) {
+	// The 'color' style property exists
+} else {
+	// The 'color' style property does not exist
+}
+
 // set style 
+const element = document.getElementById('exampleElement');
 element.style.color = 'red';
 // get style value
 const color = window.getComputedStyle(element).color;
@@ -967,6 +984,14 @@ function triggeeClick() {
   myVideo.dispatchEvent(clickEvent)
 }
 ```
+##### string replace
+``` js
+// % replace by percent
+element = element.replace(/%/g, 'percent')
+
+// : or . remove
+linesSutitle1[i].split(' --> ')[0].replace(/[:.]/g, '')
+```
 
 #### TypeScript
 ##### disable 
@@ -988,6 +1013,28 @@ const handleToggleSubtitles = () => {
 }
 ```
 
+#### API
+##### Translate
+``` js
+let xhr = new XMLHttpRequest()
+xhr.open(
+	'GET',
+	// `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${language_code}&dt=t&q=${element}`,
+	`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${secondLanguage}&dt=t&q=${tempSubtitle}`,
+	false
+)
+xhr.send()
+
+if (xhr.status === 200) {
+	let data = JSON.parse(xhr.responseText)
+	let newWords = data[0][0][0]
+	console.log('newWords', newWords)
+	currentSubtitle = newWords + '\n' + currentSubtitle
+} else {
+	throw new Error('Network response was not ok')
+}
+```
+
 ### Ref
 + reference source 
 	+ [SubtitlesForYoutube](https://github.com/yashagarwal1411/SubtitlesForYoutube) : Youtube Drop .SRT for subtitle
@@ -1005,3 +1052,4 @@ const handleToggleSubtitles = () => {
 	+ [Ted subtitle merge](https://github.com/willard1218/Ted-subtitle-merge)
 + js-reference
 	+ [getElementsByClassName](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName)
+	+ [Language codes](https://docs.developers.optimizely.com/recommendations/docs/language-codes)
