@@ -755,6 +755,13 @@ if (fontSize !== 'video-16') {
 // toggle class
 let videoShow = document.getElementById('video-show')
 videoShow.classList.toggle('fullscreen')
+
+// check include class
+if (myDiv.classList.contains('full')) {
+  console.log('The div has the class "full".');
+} else {
+  console.log('The div does not have the class "full".');
+}
 ```
 
 ##### style control
