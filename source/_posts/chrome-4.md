@@ -659,6 +659,57 @@ function addNewVideo() {
 }
 ```
 
+##### background oninstalled 
+``` js
+chrome.runtime.onInstalled.addListener((details) => {
+  console.log('background installed', details)
+
+  chrome.storage.sync.set(
+    {
+      doubleTitleUdemy: true,
+      languageTypeUdemy: 'zh-Hant',
+    },
+    function () {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError)
+      } else {
+        console.log('Data successfully saved')
+      }
+    }
+  )
+})
+```
+
+##### page change 
+``` js
+// background
+// Listen for tab updates
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete') {
+    // Send a message to the content script
+    chrome.tabs.sendMessage(tabId, { action: 'pageLoaded' })
+  }
+  // console.log('changeInfo', changeInfo)
+})
+```
+
+``` js
+// content script
+// Function to handle page load
+function handlePageLoad() {
+  // Perform actions when the page is loaded
+  console.log('Page loaded!');
+}
+
+// Listen for messages from the background script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'pageLoaded') {
+    handlePageLoad();
+  }
+});
+```
+
+
 #### js 
 ##### add one div before one
 ``` js
@@ -998,6 +1049,107 @@ element = element.replace(/%/g, 'percent')
 
 // : or . remove
 linesSutitle1[i].split(' --> ')[0].replace(/[:.]/g, '')
+```
+
+##### video current time
+``` js
+let INTERVAL_STEP = 1000
+let activerCount = 1
+function checkInterval() {
+  const intervalId = setInterval(() => {
+    const videoElement = document.querySelector(
+      '#udemy video'
+    ) as HTMLVideoElement
+    console.log('videoElement', videoElement)
+
+    if (videoElement) {
+      videoElement.addEventListener('timeupdate', function () {
+        // Get the current time in seconds
+        var currentTime = videoElement.currentTime
+
+        // Display or use the current time as needed
+        console.log('Current Time: ' + currentTime)
+      })
+      clearInterval(intervalId)
+    }
+    console.log(` ${activerCount * INTERVAL_STEP} ms....`)
+    activerCount++
+  }, INTERVAL_STEP)
+}
+```
+
+##### check element changed
+``` js
+const textElement = document.querySelector(
+	'.captions-display--captions-cue-text--1W4Ia'
+)
+
+// Callback function to execute when mutations are observed
+const callback = function (mutationsList, observer) {
+	for (const mutation of mutationsList) {
+		if (
+			mutation.type === 'childList' ||
+			mutation.type === 'characterData'
+		) {
+			console.log('Text content changed:', textElement.textContent)
+		}
+	}
+}
+
+// Create an observer instance linked to the callback function
+const observer = new MutationObserver(callback)
+
+// Configuration of the observer:
+const config = {
+	childList: true,
+	subtree: true,
+}
+
+// Start observing the target node for configured mutations
+observer.observe(textElement, config)
+
+// Later, you can disconnect the observer
+// observer.disconnect();
+```
+
+##### check element clild changed
+``` js
+const containerElement = document.querySelector(
+	'.captions-display--captions-container--1SP58'
+)
+
+if (containerElement) {
+	const handleTextChange = (mutationsList) => {
+		for (const mutation of mutationsList) {
+			if (mutation.type === 'childList' || mutation.type === 'characterData' ) {
+				console.log('Container content changed')
+				checkTextElement()
+			}
+		}
+	}
+
+	const observer = new MutationObserver(handleTextChange)
+
+	const config = {
+		childList: true,
+		subtree: true,
+    characterData: true,
+	}
+
+	observer.observe(containerElement, config)
+}
+
+function checkTextElement() {
+  const textElement = document.querySelector(
+    '.captions-display--captions-cue-text--1W4Ia'
+  )
+
+  if (textElement) {
+    console.log('Text content:', textElement.textContent)
+  } else {
+    console.log('Text element not found')
+  }
+}
 ```
 
 #### TypeScript
