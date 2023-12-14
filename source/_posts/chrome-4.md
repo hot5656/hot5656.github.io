@@ -683,12 +683,16 @@ chrome.runtime.onInstalled.addListener((details) => {
 ##### page change 
 ``` js
 // background
-// Listen for tab updates
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
-    // Send a message to the content script
-    chrome.tabs.sendMessage(tabId, { action: 'pageLoaded' })
+    // console.log('changeInfo_in', changeInfo)
+    // check only support url
+    if (tab.url.match('https://www.udemy.com/')) {
+      // Send a message to the content script
+      chrome.tabs.sendMessage(tabId, { action: 'pageLoaded' })
+    }
   }
+  // console.log('tab:', tab)
   // console.log('changeInfo', changeInfo)
 })
 ```
