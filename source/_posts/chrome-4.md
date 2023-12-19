@@ -1198,6 +1198,95 @@ if (xhr.status === 200) {
 }
 ```
 
+### SQL
+``` bash
+# CRUD
+#		WHERE
+#		LIKE
+#		ORDER BY
+#		GROUP BY
+cs50>sqlite3 favorites.db
+	SQLite version 3.44.2 2023-11-24 11:41:44 (UTF-16 console I/O)
+Enter ".help" for usage hints.
+sqlite> .mode csv
+sqlite> .import favorites.csv favorites
+sqlite> .schema
+	CREATE TABLE IF NOT EXISTS "favorites"(
+	"Timestamp" TEXT, "language" TEXT, "problem" TEXT);
+sqlite> SELECT * FROM favorites;
+	"10/24/2022 8:33:26",C,Credit
+	...
+
+cs50>sqlite3 favorites.db
+	SQLite version 3.44.2 2023-11-24 11:41:44 (UTF-16 console I/O)
+	Enter ".help" for usage hints.
+sqlite> SELECT * FROM favorites;
+	10/24/2022 8:33:26|C|Credit
+	10/24/2022 10:32:26|Python|Runoff
+	10/24/2022 11:10:47|Python|Mario
+	10/24/2022 11:22:35|Python|Scratch
+	10/24/2022 11:39:06|Python|Readability
+	10/24/2022 11:53:00|Scratch|Scratch
+	......
+
+sqlite> SELECT language from favorites;
+
+sqlite> SELECT COUNT(*) from favorites; 
+	430
+
+sqlite> SELECT DISTINCT(language) FROM favorites; 
+	C
+	Python
+	Scratch
+
+sqlite> SELECT COUNT(DISTINCT(language)) FROM favorites;
+	3
+
+# change output to n
+sqlite> SELECT COUNT(DISTINCT(language)) as n FROM favorites;
+	3
+
+sqlite> SELECT COUNT(*) FROM favorites WHERE language = 'C';  
+	98
+sqlite> SELECT COUNT(*) FROM favorites WHERE language = 'C' AND problem = 'Mario' ;
+	3
+
+sqlite> SELECT language,COUNT(*) FROM favorites GROUP BY language;    
+	C|98
+	Python|270
+	Scratch|62
+
+sqlite> SELECT language,COUNT(*) FROM favorites GROUP BY language ORDER BY COUNT(*); 
+	Scratch|62
+	C|98
+	Python|270
+sqlite> SELECT language,COUNT(*) FROM favorites GROUP BY language ORDER BY COUNT(*) DESC;
+	Python|270
+	C|98
+	Scratch|62
+sqlite> SELECT language,COUNT(*) FROM favorites GROUP BY language ORDER BY COUNT(*) ASC;  
+	Scratch|62
+	C|98
+	Python|270
+sqlite> SELECT language,COUNT(*) FROM favorites GROUP BY language ORDER BY COUNT(*) DESC LIMIT 1;
+	Python|270
+
+sqlite> INSERT INTO favorites (language, problem) VALUES('SQL', 'Fiftyville'); 
+sqlite> SELECT language FROM favorites GROUP by language;          
+	C
+	Python
+	SQL
+	Scratch
+
+sqlite> UPDATE favorites SET language = 'C++' WHERE language = 'C';
+sqlite> SELECT * FROM favorites WHERE language = 'C++';
+	10/24/2022 8:33:26|C++|Credit
+	10/24/2022 13:26:23|C++|Bulbs
+	10/24/2022 13:37:30|C++|Speller
+
+sqlite> DELETE FROM favorites WHERE problem = 'Tideman';
+```
+
 ### Ref
 + reference source 
 	+ [SubtitlesForYoutube](https://github.com/yashagarwal1411/SubtitlesForYoutube) : Youtube Drop .SRT for subtitle
