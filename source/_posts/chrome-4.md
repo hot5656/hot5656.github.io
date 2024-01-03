@@ -713,6 +713,28 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 ```
 
+##### inject.js send message to contentScript.js  
+``` js
+// injected.js
+window.postMessage(
+  { type: 'FROM_INJECTED', message: 'update subtitle!' },
+  '*'
+)
+```
+
+``` js
+// contentScript.tsx
+window.addEventListener('message', (event) => {
+  if (event.source === window && event.data.type === 'FROM_INJECTED') {
+    // console.log(event.data.message)
+
+    let mysubtitleElement = document.querySelector('#my-subtitle')
+    if (!mysubtitleElement) {
+      handlePageLoad()
+    }
+  }
+})
+```
 
 #### js 
 ##### add one div before one
