@@ -148,6 +148,22 @@ Inference: R
 	• Otherwise, KB does not entail α.
 ```
 
+``` bash
+# →
+P     Q     P → Q
+false false true
+false true 	true
+true 	false false
+true 	true 	true
+
+# ↔
+P  		Q  		P ↔ Q
+false false	true
+false true  false
+true 	false false
+true	true 	true
+```
+
 #### example code
 ##### rain?
 ``` py
