@@ -7,6 +7,24 @@ tags:
 	- python
 ---
 
+### setup
+``` bash
+# check which python 
+python -c "import sys; print(sys.executable)"
+	D:\app\Python310\python.exe
+
+# chick install package 
+pip3 list  
+	Package            Version
+	------------------ ------------
+	apricot-select     0.6.1
+	attrs              20.3.0
+	....
+# change env for python
+# run by cmd
+D:\app\python_env\myenv11_01\Scripts\activate.bat
+```
+
 ###  基本
 #### import 
 ``` py
@@ -51,6 +69,26 @@ x = 7
 print(f'x < 5 and  x < 10 : {x < 5 and x < 10}')
 print(f'x < 5 or x < 4 : {x < 5 or x < 4}')
 print(f'not(x < 5 and x < 10) : {not (x < 5 and x < 10)}')
+```
+
+``` bash
+>>> type(3.5)
+	<class 'float'>
+>>> float(5)
+	5.0 
+>>> int(3.5)
+	3   
+>>> print(type(3))
+	<class 'int'>
+>>> 10/3
+	3.3333333333333335
+# 整數
+>>> 10//3
+	3
+>>> 10%3
+	1
+>>> 2**3
+	8
 ```
 
 #### global function and variable
@@ -104,6 +142,13 @@ i = 1
 while i < 6:
     print(i)
     i += 1
+
+for n in range(5):
+    ...
+for I in range(7,10):
+    ...
+for I in range(5,11,2):
+    ...
 ```
 
 #### function
@@ -191,6 +236,20 @@ h1_str = soup2.find('h1').text.strip().split('\x0a')
 
 # replace 
 image_name = post.get('titleImage').get('asset').get('_ref').replace('image-', '').replace('-', '.')
+```
+
+``` bash
+greet = "hi" + " " + " " + "Robert"
+3 * "eric"
+len("eric")
+"eric"[0]
+"eric"[1:ˇ2]
+"eric"[:3]
+"eric"[1:]
+"eric"[:]
+
+x = 1
+x_str = str(x)
 ```
 
 #### array/list
@@ -287,6 +346,112 @@ else:
 	print('input error')
 ```
 
+### syntax
+####  anonymous functions
+``` py
+    testGreedy(foods, maxUnits,
+               lambda x: 1/Food.getCost(x))
+```
+
+``` bash
+>>> f1 = lambda x: x
+>>> f1(2)
+2
+
+>>> f2 = lambda x,y: x + y
+>>> f2("Jery", "Tom")
+'JeryTom'
+
+>>> f3 = lambda x,y: 'factor' if (x%y ==0) else 'not factor'
+>>> f3(4,2)
+'factor'
+>>> f3(4,3) 
+'not factor'
+```
+
+####  class print function : __string__
+``` py
+class Food(object):
+    def __init__(self, n, v, w):
+        self.name = n
+        self.value = v
+        self.calories = w
+    def getValue(self):
+        return self.value
+    def getCost(self):
+        return self.calories
+    def density(self):
+        return self.getValue()/self.getCost()
+    def __str__(self):
+        return self.name + ': <' + str(self.value)\
+                 + ', ' + str(self.calories) + '>'
+```
+
+#### @classmethod
+``` py
+class MyClass:
+    class_variable = "I am a class variable"
+
+    def __init__(self, instance_variable):
+        self.instance_variable = instance_variable
+
+    # Regular instance method
+    def instance_method(self):
+        print(f"Instance method called with instance variable: {self.instance_variable}")
+
+    # Class method decorated with @classmethod
+    @classmethod
+    def class_method(cls):
+        print(f"Class method called with class variable: {cls.class_variable}")
+
+# Creating an instance of MyClass
+obj = MyClass("I am an instance variable")
+
+# Calling the instance method
+obj.instance_method()
+
+# Calling the class method
+MyClass.class_method()
+
+# class_method is a class method decorated with @classmethod. It can only access class variables, not instance variables. The first parameter, conventionally named cls, refers to the class itself.
+```
+
+#### dict - key by tuple
+``` py
+self.q = dict()
+self.q[tuple(state), action] = new_q
+
+def get_q_value(self, state, action):
+    """
+    Return the Q-value for the state `state` and the action `action`.
+    If no Q-value exists yet in `self.q`, return 0.
+    """
+    try:
+        return self.q[tuple(state), action]
+    except KeyError:
+        return 0
+
+# other exception
+for move in moves:
+    try:
+        q = self.q[tuple(state), move]
+    except:
+        q = 0
+```
+
+#### assert 
+``` py
+def divide(a, b):
+    # 若條件成立產生中斷
+    assert b != 0, "Division by zero is not allowed"
+    return a / b
+# AssertionError: Division by zero is not allowed
+
+# 無條件產生中斷
+assert False
+# AssertionError
+```
+
 ### IO
 
 #### input
@@ -366,6 +531,78 @@ print("get from file....")
 f.close()
 ```
 
+#### sorted
+``` py
+def buildMenu(names, values, calories):
+    """names, values, calories lists of same length.
+       name a list of strings
+       values and calories lists of numbers
+       returns list of Foods"""
+    menu = []
+    for i in range(len(values)):
+        item = Food(names[i], values[i], calories[i])
+        menu.append(Food(names[i], values[i],
+                          calories[i]))
+    return menu
+
+def greedy(items, maxCost, keyFunction):
+    itemsCopy = sorted(items, key = keyFunction,
+                       reverse = True)
+
+
+names = ['wine', 'beer', 'pizza', 'burger', 'fries',
+         'cola', 'apple', 'donut', 'cake']
+values = [89,90,95,100,90,79,50,10]
+calories = [123,154,258,354,365,150,95,195]
+foods = buildMenu(names, values, calories)
+testGreedy(foods, 1000, Food.getValue)
+```
+
+#### zip
+``` py
+# example 
+a = ("John", "Charles", "Mike")
+b = ("Jenny", "Christy", "Monica")
+x = zip(a, b)
+print(tuple(x))
+# (('John', 'Jenny'), ('Charles', 'Christy'), ('Mike', 'Monica'))
+
+# run
+for actual, predicted in zip(y_testing, predictions):
+    ....
+```
+
+#### copy
+``` py
+# copy to new variable
+state = game.piles.copy()
+```
+
+#### items
+``` py
+# self.q.items() returns a view of the dictionary's key-value pairs,
+class MyClass:
+    def __init__(self):
+        # Assume self.q is a dictionary
+        self.q = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'}
+
+    def iterate_dictionary(self):
+        # Using .items() to iterate over keys and values
+        for key, value in self.q.items():
+            print(f'Key: {key}, Value: {value}')
+
+# Creating an instance of MyClass
+obj = MyClass()
+
+# Calling the method to iterate over the dictionary
+obj.iterate_dictionary()
+```
+
+#### tuple - list --> tuple
+``` py
+q = self.q[tuple(state), move]
+```
+
 ### specific operation
 #### get page
 ``` py
@@ -405,6 +642,11 @@ def get_location(ip):
 ``` 
 
 ### Built-in function
+
+#### simple function
+``` py
+abs(x)
+```
 
 #### round
 ``` py
@@ -593,6 +835,39 @@ def image_download(self, url, name, folder):
     print(f"-->{name}")
     # urllib.request.urlretrieve(url, work_path)
 ```
+#### random
+``` py
+import random
+
+def rollDie():
+    """returns a random int between 1 and 6"""
+    return random.choice([1,2,3,4,5,6])
+ 
+def testRoll(n = 10):
+    result = ''
+    for i in range(n):
+        result = result + str(rollDie())
+    print(result)
+
+# 可使每次模擬都一樣
+random.seed(0)
+
+def runSim(goal, numTrials):
+    total = 0
+    for i in range(numTrials):
+        result = ''
+        for j in range(len(goal)):
+            result += str(rollDie())
+        if result == goal:
+            total += 1
+    print('Actual probability =',
+          round(1/(6**len(goal)), 8)) 
+    estProbability = round(total/numTrials, 8)
+    print('Estimated Probability  =',
+          round(estProbability, 8))
+    
+runSim('11111', 1000)		
+```
 
 ### special function
 #### put password to local file
@@ -730,6 +1005,27 @@ def is_json(myjson):
 ```
 
 ### Packages
+#### list
+``` bash
+# SciPy Python : 演算法庫和數學工具包
+pip3 install scipy
+# python-constraint : 實現對有限域上處理 CSPs（(Constraint Solving Problems -約束求解問題）的支持
+pip3 install python-constraint
+# scikit-learn : Scikit-learn是用於Python程式語言的自由軟體機器學習庫。它包含了各種分類、回歸和聚類算法，包括多層感知器、支持向量機、隨機森林、梯度提升、k-平均聚類和DBSCAN，它被設計協同於Python數值庫NumPy和和科學庫SciPy。
+pip3 install scikit-learn
+# TensorFlow : 是一個開源軟體庫，用於各種感知和語言理解任務的機器學習。目前廣泛地用於研究和生產中，比如Google商業產品，如語音辨識、Gmail、Google 相簿和搜尋
+pip3 install tensorflow
+# pygame : 專為電子遊戲設計。包含圖像、聲音。建立在SDL基礎上，允許即時電子遊戲研發而無需被低階語言，如C語言或是更低階的組合語言束縛。
+pip3 install pygame
+# nltk : 自然語言工具包是一套用Python編寫的用於英語的自然語言處理的函式庫和程序。
+# pylab : 將matplotlib的 pyplot 和 numpy 合併在一起
+# import pylab as plt - not found pylab now
+# Matplotlib : 用來繪圖、圖表呈現及數據表示非常重要的一個Package
+# import matplotlib.pyplot as plt
+pip install matplotlib
+# NumPy : 支援高階大規模的多維陣列與矩陣運算，此外也針對陣列運算提供大量的數學函數函式庫。
+pip3 install numpy
+```
 #### w3lib - A Python library of web-related functions
 ``` py
 # add for splash user+password(run Aquarium)
@@ -778,6 +1074,341 @@ save_as = os.path.join(path, f"{keyword}{count}.jpg")
 wget.download(pic.get_attribute('src'), save_as)
 ```
 
+#### csv
+``` py
+import csv
+
+evidence = []
+labels = []
+with open(filename) as f:
+    reader = csv.reader(f)
+		# jump 1st row
+    next(reader)
+
+    for row in reader:
+        evidence.append([
+            int(row[0]),
+            float(row[1]),
+            int(row[2]),
+            float(row[3]),
+            int(row[4]),
+            float(row[5]),
+            float(row[6]),
+            float(row[7]),
+            float(row[8]),
+            float(row[9]),
+            abbreviated_month_to_int(row[10]),
+            int(row[11]),
+            int(row[12]),
+            int(row[13]),
+            int(row[14]),
+            1 if row[15] == 'Returning_Visitor' else 0,
+            1 if row[16] == 'TRUE' else 0,
+        ])
+        labels.append(1 if row[-1] == 'TRUE' else 0)
+```
+
+#### matplotlib.pyplot
+##### basic
+``` py
+# import pylab as plt
+import matplotlib.pyplot as plt
+
+mySamples = []
+myLinear = []
+myQuadratic = []
+myCubic = []
+myExponential = []
+
+for i in range(0, 30):
+    mySamples.append(i)
+    myLinear.append(i)
+    myQuadratic.append(i**2)
+    myCubic.append(i**3)
+    myExponential.append(1.5**i)
+
+# first trial
+plt.plot(mySamples, myLinear)
+plt.plot(mySamples, myQuadratic)
+plt.plot(mySamples, myCubic)
+plt.plot(mySamples, myExponential)
+
+
+# second trial
+# 畫新圖
+plt.figure('lin')
+plt.plot(mySamples, myLinear)
+plt.figure('quad')
+plt.plot(mySamples, myQuadratic)
+plt.figure('cube')
+plt.plot(mySamples, myCubic)
+plt.figure('expo')
+plt.plot(mySamples, myExponential)
+
+# third trial
+plt.figure('lin')
+# 設定 x, y label
+plt.xlabel('sample points')
+plt.ylabel('linear function')
+plt.plot(mySamples, myLinear)
+plt.figure('quad')
+plt.plot(mySamples, myQuadratic)
+plt.figure('cube')
+plt.plot(mySamples, myCubic)
+plt.figure('expo')
+plt.plot(mySamples, myExponential)
+plt.figure('quad')
+
+
+# fourth trial
+plt.figure('lin')
+plt.plot(mySamples, myLinear)
+plt.figure('quad')
+plt.plot(mySamples, myQuadratic)
+plt.figure('cube')
+plt.plot(mySamples, myCubic)
+plt.figure('expo')
+plt.plot(mySamples, myExponential)
+plt.figure('lin')
+# add title
+plt.title('Linear')
+plt.figure('quad')
+plt.title('Quadratic')
+plt.figure('cube')
+plt.title('Cubic')
+plt.figure('expo')
+plt.title('Exponential')
+
+# fifth trial
+plt.figure('lin')
+# clear befor draw - 新的版本不需要
+plt.clf()
+plt.plot(mySamples, myLinear)
+plt.figure('quad')
+plt.clf()
+plt.plot(mySamples, myQuadratic)
+plt.figure('cube')
+plt.clf()
+plt.plot(mySamples, myCubic)
+plt.figure('expo')
+plt.clf()
+plt.plot(mySamples, myExponential)
+plt.figure('lin')
+plt.title('Linear')
+plt.figure('quad')
+plt.title('Quadratic')
+plt.figure('cube')
+plt.title('Cubic')
+plt.figure('expo')
+plt.title('Exponential')
+
+# sixth trial
+plt.figure('lin')
+plt.clf()
+# 設定 y 的 limit
+plt.ylim(0,1000)
+plt.plot(mySamples, myLinear)
+plt.figure('quad')
+plt.clf()
+plt.ylim(0,1000)
+plt.plot(mySamples, myQuadratic)
+plt.figure('lin')
+plt.title('Linear')
+plt.figure('quad')
+plt.title('Quadratic')
+
+# seventh trial
+plt.figure('lin quad')
+plt.clf()
+# put 2 plot in a picture
+plt.plot(mySamples, myLinear)
+plt.plot(mySamples, myQuadratic)
+plt.figure('cube exp')
+plt.clf()
+plt.plot(mySamples, myCubic)
+plt.plot(mySamples, myExponential)
+plt.figure('lin quad')
+plt.title('Linear vs. Quadratic')
+plt.figure('cube exp')
+plt.title('Cubic vs. Exponential')
+
+# eighth trial
+plt.figure('lin quad')
+plt.clf()
+# add plot's label
+plt.plot(mySamples, myLinear, label = 'linear')
+plt.plot(mySamples, myQuadratic, label = 'quadratic')
+plt.legend(loc = 'upper left')
+plt.title('Linear vs. Quadratic')
+plt.figure('cube exp')
+plt.clf()
+plt.plot(mySamples, myCubic, label = 'cubic')
+plt.plot(mySamples, myExponential, label = 'exponential')
+plt.legend()
+plt.title('Cubic vs. Exponential')
+
+# ninth trial
+plt.figure('lin quad')
+plt.clf()
+# change display
+# b,r,g : blue, red, green
+# -,o,^,-- : 線,點,三角形,虛線
+plt.plot(mySamples, myLinear, 'b-', label = 'linear')
+plt.plot(mySamples, myQuadratic,'ro', label = 'quadratic')
+plt.legend(loc = 'upper left')
+plt.title('Linear vs. Quadratic')
+plt.figure('cube exp')
+plt.clf()
+plt.plot(mySamples, myCubic, 'g^', label = 'cubic')
+plt.plot(mySamples, myExponential, 'r--',label = 'exponential')
+plt.legend()
+plt.title('Cubic vs. Exponential')
+
+# tenth trial
+plt.figure('lin quad')
+plt.clf()
+# 設定寬度
+plt.plot(mySamples, myLinear, 'b-', label = 'linear', linewidth = 2.0)
+plt.plot(mySamples, myQuadratic,'r', label = 'quadratic', linewidth = 3.0)
+plt.legend(loc = 'upper left')
+plt.title('Linear vs. Quadratic')
+plt.figure('cube exp')
+plt.clf()
+plt.plot(mySamples, myCubic, 'g--', label = 'cubic', linewidth = 4.0)
+plt.plot(mySamples, myExponential, 'r',label = 'exponential', linewidth = 5.0)
+plt.legend()
+plt.title('Cubic vs. Exponential')
+
+# eleventh trial
+plt.figure('lin quad')
+plt.clf()
+# 2 row, 1 column - 1st
+plt.subplot(211)
+plt.ylim(0, 900)
+plt.plot(mySamples, myLinear, 'b-', label = 'linear', linewidth = 2.0)
+# 2 row, 1 column - 2nd
+plt.subplot(212)
+plt.ylim(0, 900)
+plt.plot(mySamples, myQuadratic,'r', label = 'quadratic', linewidth = 3.0)
+# 選 plot label 位置 左上
+plt.legend(loc = 'upper left')
+plt.title('Linear vs. Quadratic')
+plt.figure('cube exp')
+plt.clf()
+# 1 row, 2 column - 1st
+plt.subplot(121)
+plt.ylim(0, 140000)
+plt.plot(mySamples, myCubic, 'g--', label = 'cubic', linewidth = 4.0)
+# 1 row, 2 column - 2nd
+plt.subplot(122)
+plt.ylim(0, 140000)
+plt.plot(mySamples, myExponential, 'r',label = 'exponential', linewidth = 5.0)
+# 選 plot label 位置 自動選
+plt.legend()
+plt.title('Cubic vs. Exponential')
+
+# twelfth trial
+plt.figure('cube exp log')
+plt.clf()
+plt.plot(mySamples, myCubic, 'g--', label = 'cubic', linewidth = 2.0)
+plt.plot(mySamples, myExponential, 'r',label = 'exponential', linewidth = 4.0)
+# y scale set by log
+plt.yscale('log')
+plt.legend()
+plt.title('Cubic vs. Exponential')
+plt.figure('cube exp linear')
+plt.clf()
+plt.plot(mySamples, myCubic, 'g--', label = 'cubic', linewidth = 2.0)
+plt.plot(mySamples, myExponential, 'r',label = 'exponential', linewidth = 4.0)
+plt.legend()
+plt.title('Cubic vs. Exponential')
+
+# show 圖
+plt.show()
+```
+
+##### 複利繪圖
+``` py
+import matplotlib.pyplot as plt
+
+# monthly : 每月儲存 dollars
+# rate : 利率
+# terms : 總月數
+def retire(monthly, rate, terms):
+    savings = [0]
+    base = [0]
+    monthlyRate = rate/12
+    for i in range(terms):
+        base += [i]
+        savings += [savings[-1]*(1 + monthlyRate) + monthly]
+    # 月份, all save money  list
+    return base, savings
+
+def displayRetirementWithMonthlies(monthlies, rate, terms):
+    plt.figure('retireMonth')
+    plt.clf()
+    for monthly in monthlies:
+        xvals, yvals = retire(monthly, rate, terms)
+        plt.plot(xvals, yvals, label = 'retire:'+str(monthly))
+        plt.legend(loc = 'upper left')
+
+# change money
+displayRetirementWithMonthlies([500, 600, 700, 800, 900, 1000, 1100], .05, 40* 12)
+
+def displayRetirementWithRates(monthly, rates, terms):
+    plt.figure('retireRate')
+    plt.clf()
+    for rate in rates:
+        xvals, yvals = retire(monthly, rate, terms)
+        plt.plot(xvals, yvals,
+                 label = 'retire:'+str(monthly)+ ':' + str(int(rate*100)))
+        plt.legend(loc = 'upper left')
+
+# change rate
+displayRetirementWithRates(800,[.03, .05, .07], 40*12)
+
+
+def displayRetirementWithMonthsAndRates(monthlies, rates, terms):
+    plt.figure('retireBoth')
+    plt.clf()
+    plt.xlim(30*12, 40*12)
+    for monthly in monthlies:
+        for rate in rates:
+            xvals, yvals = retire(monthly, rate, terms)
+            plt.plot(xvals, yvals,
+                     label = 'retire:'+str(monthly)+ ':' + str(int(rate*100)))
+            plt.legend(loc = 'upper left')
+
+# change money + rate
+displayRetirementWithMonthsAndRates([500, 700, 900, 1100],
+                                       [.03, .05, .07], 40*12)
+
+
+def displayRetirementWithMonthsAndRates2(monthlies, rates, terms):
+   plt.figure('retireBoth2')
+   plt.clf()
+   plt.xlim(30*12, 40*12)
+   monthLabels = ['r', 'b', 'g', 'k']
+   rateLabels = ['-', 'o', '--', '^']
+   for i in range(len(monthlies)):
+       monthly = monthlies[i]
+       monthLabel = monthLabels[i%len(monthLabels)]
+       for j in range(len(rates)):
+           rate = rates[j]
+           rateLabel = rateLabels[j%len(rateLabels)]
+           xvals, yvals = retire(monthly, rate, terms)
+           plt.plot(xvals, yvals, monthLabel+rateLabel,
+                    label = 'retire:'+str(monthly)+ ':' + str(int(rate*100)))
+           plt.legend(loc = 'upper left')
+
+# change money + rate : 不同圖形
+displayRetirementWithMonthsAndRates2([500, 700, 900, 1100],
+                                      [.03, .05, .07], 40*12)
+
+plt.show()
+```
+
+
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
@@ -787,3 +1418,5 @@ wget.download(pic.get_attribute('src'), save_as)
 + [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
 + [chercher.tech](https://chercher.tech/)
 + [Python SQLite tutorial using sqlite3](https://pynative.com/python-sqlite/)
++ [Python Exception](https://docs.python.org/3/library/exceptions.html)
++ [TensorFlow](https://playground.tensorflow.org/)

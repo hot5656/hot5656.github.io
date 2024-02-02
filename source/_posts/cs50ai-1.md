@@ -2,8 +2,8 @@
 title: CS50AI
 abbrlink: 3f52
 date: 2023-12-29 08:31:34
-categories:
-tags: Coding
+categories: Coding
+tags: 
 	- cs50
 	- python
 ---
