@@ -113,6 +113,27 @@ elif a == b:
     print("a and b are equal")
 else:
     print("a is greater than b")
+
+# one line if
+def is_even(n)
+		return True if n % 2 == 0 else False
+```
+
+``` py
+# match
+name = input("What's your name? ")
+
+match name:
+    case "Harry" | "Hermione" | "Ron":
+        print("Gryffidor")
+    case "Draco":
+        print("Slytherin")
+    case _:
+        print("Who?")
+# What's your name? Ron
+# Gryffidor
+# What's your name? Ted
+# Who?
 ```
 
 #### 迴圈
@@ -136,6 +157,10 @@ for x in range(2, 30, 3):  # 2,5,8 ..29
 # pass statement to avoid getting an error
 for x in [0, 1, 2]:
   	pass
+
+# not need variable
+for _ in range(3):
+    print("meow")
 
 # while
 i = 1
@@ -172,14 +197,146 @@ my_function(fname="Tobias", lname="Refsnes")
 def my_function(x):
     return 5 * x
 print(my_function(3))
+
+# return multiple value(return tuple)
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return (name, house)
+# name , house = get_student()
+# print(f"{name} from {house}")
+student = get_student()
+print(f"{student[0]} from {student[1]}")
+
+# default parameter
+def hello(to="world"):
+    print("hello,", to)
+hello()
+name = input("What's your name?")
+hello(name)
+# hello, world
+# What's your name?Robert 
+# hello, Robert
+```
+
+#### classes
+``` py 
+# simple 
+class Student():
+    ...
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+def get_student():
+    student = Student()
+    student.name = input("Name: ")
+    student.house = input("House: ")
+    return student
+
+if __name__ == "__main__":
+    main()
+```
+
+``` py
+#　example
+class Student():
+    def __init__(self, name, house):
+        # 因內部呼叫也會呼叫 .house(), __init__ 所以不用 check
+        # if house not in ["Gryffindor", "Hufflenuff", "Ravenclaw", "Slytherin"]:
+        #     raise ValueError("Invalid house")
+        self.name = name
+        self.house = house
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+
+    @property # _name's getter
+    def name(self):
+        # 因 function house same as variable house所以 variable 改為 _house
+        return self._name
+
+    @name.setter # _name's setter
+    def name(self,name):
+        # 'not name' same as 'name == ""'
+        if not name:
+            raise ValueError("Missing name")
+        self._name = name
+
+    @property # _house's getter
+    def house(self):
+        # 因 function house same as variable house所以 variable 改為 _house
+        return self._house
+
+    @house.setter # _house's setter
+    def house(self,house):
+        if house not in ["Gryffindor", "Hufflenuff", "Ravenclaw", "Slytherin"]:
+            raise ValueError("Invalid house")
+        # 因 function house same as variable house所以 variable 改為 _house
+        self._house = house
+
+def main():
+    student = get_student()
+    # _variable mean private, no modify it(but it can change)
+    # student._house = "Taipei"
+    print(student)
+
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
 ```
 
 #### 非被引用才執行
 ``` python
+def main():
+    name = input("What's your name?")
+    hello(name)
+
+def hello(to="world"):
+    print("hello,", to)
+
 # 非被引用才執行
 if __name__ == '__main__':
     main()
 ```
+
+#### create library
+``` py
+# sayings.py
+
+def main():
+    hello("world")
+    goodbye("world")
+
+def hello(name):
+    print(f"hello, {name}")
+
+def goodbye(name):
+    print(f"goodbye, {name}")
+
+if __name__ == "__main__":
+    main()
+```
+
+``` py
+# say.py
+
+import sys
+from sayings import hello
+
+if len(sys.argv) == 2:
+    hello(sys.argv[1])
+```
+
+``` bash
+python say.py Robert
+```
+
 
 ### 變數
 
@@ -344,6 +501,17 @@ if choice in MENU:
 	print(f'{item}')
 else:
 	print('input error')
+
+# case 2
+students = {
+    "Harry":"Gryffidor",
+    "Hermione":"Gryffidor",
+    "Ron":"Gryffidor",
+    "Draco":  "Slytherin"
+}
+
+for student in students:
+    print(student, students[student], sep=", ")
 ```
 
 ### syntax
@@ -367,6 +535,17 @@ else:
 'factor'
 >>> f3(4,3) 
 'not factor'
+```
+
+#### if + assign value
+``` py
+import re
+
+name = input("What's your name? ").strip()
+# if matches := ...
+if matches := re.search(r"^(.+), *(.+)$", name):
+    name = matches.group(2) + ' ' + matches.group(1)
+print(f"hello, {name}")
 ```
 
 ####  class print function : __string__
@@ -452,6 +631,17 @@ assert False
 # AssertionError
 ```
 
+#### code style
+``` bash
+# install
+pip3 install black
+# convert house.py meet PEP 8(auto)
+black house.py
+
+# another for code style
+#pip3 install pylint
+```
+
 ### IO
 
 #### input
@@ -463,6 +653,7 @@ name = input()
 
 #### print
 ``` py
+# print(*objects, sep=' ', end='\n', file=None, flush=False)
 money = 100
 name = "Robert"
 temperature = 25.2
@@ -487,6 +678,18 @@ while current_articles:
 # alignemnt position
 print(f'{i:02d} {time_tag:16s} {title}')
 print(f'({i:02d}) {article["ip"]:15s}-{article["location_data"]["country"]:15s} {article["title"]}')
+
+# int add ,
+z = 1023
+print(f"{z:,}")
+# 1,023
+
+# float print format
+z = 2/3
+print(z)
+# 0.6666666666666666
+print(f"{z:.2f}")
+# 0.67
 ```
 
 #### file I/O
@@ -533,6 +736,7 @@ f.close()
 
 #### sorted
 ``` py
+# sorted(iterable, /, *, key=None, reverse=False)
 def buildMenu(names, values, calories):
     """names, values, calories lists of same length.
        name a list of strings
@@ -641,6 +845,140 @@ def get_location(ip):
     return location_data
 ``` 
 
+#### Unit test - pytest
+##### case 1
+``` py
+# calculator.py
+def main():
+    x = int(input("What's x?"))
+    print("x squared is", square(x))
+
+def square(n):
+    # return n * n
+    return n + n
+
+if __name__ == "__main__":
+    main()
+```
+
+``` py
+# test_calculator.py
+import pytest
+from calculator import square
+
+def test_positive():
+    assert square(2) == 4
+    assert square(3) == 9
+
+def test_nagative():
+    assert square(-2) == 4
+    assert square(-3) == 9
+
+def test_zero():
+    assert square(0) == 0
+
+def test_str():
+    with pytest.raises(TypeError):
+        square("cat")
+```
+
+``` bash
+pytest .\test_calculator.py
+========================================================================= test session starts ==========================================================================
+platform win32 -- Python 3.11.0, pytest-8.0.1, pluggy-1.4.0
+rootdir: D:\work\run\python\python_100ds\cs50p
+collected 4 items                                                                                                                                                        
+test_calculator.py ....                                                                                                                                           [100%] 
+========================================================================== 4 passed in 0.01s ===========================================================================
+
+pytest .\test_calculator.py
+========================================================================= test session starts ==========================================================================
+platform win32 -- Python 3.11.0, pytest-8.0.1, pluggy-1.4.0
+rootdir: D:\work\run\python\python_100ds\cs50p
+collected 4 items
+test_calculator.py FF.F                                                                                                                                           [100%]
+=============================================================================== FAILURES =============================================================================== 
+____________________________________________________________________________ test_positive _____________________________________________________________________________ 
+    def test_positive():
+        assert square(2) == 4
+>       assert square(3) == 9
+E       assert 6 == 9
+E        +  where 6 = square(3)
+
+test_calculator.py:7: AssertionError
+____________________________________________________________________________ test_nagative _____________________________________________________________________________ 
+    def test_nagative():
+>       assert square(-2) == 4
+E       assert -4 == 4
+E        +  where -4 = square(-2)
+
+test_calculator.py:10: AssertionError
+_______________________________________________________________________________ test_str _______________________________________________________________________________ 
+    def test_str():
+>       with pytest.raises(TypeError):
+E       Failed: DID NOT RAISE <class 'TypeError'>
+
+test_calculator.py:17: Failed
+======================================================================= short test summary info ======================================================================== 
+FAILED test_calculator.py::test_positive - assert 6 == 9
+FAILED test_calculator.py::test_nagative - assert -4 == 4
+FAILED test_calculator.py::test_str - Failed: DID NOT RAISE <class 'TypeError'>
+===================================================================== 3 failed, 1 passed in 0.15s ======================================================================
+```
+
+##### case 2
+``` py
+# hello.py
+def main():
+    hello()
+    name = input("What's your name?")
+    print(hello(name))
+
+def hello(to="world"):
+    return(f"hello, {to}")
+
+if __name__ == '__main__':
+    main()
+```
+
+``` py
+# test_hello.py
+from hello import hello
+
+def test_default():
+    assert hello() == "hello, world"
+
+def test_argument():
+        assert hello("Robert") == "hello, Robert"
+```
+
+``` bash
+PS D:\work\run\python\python_100ds\cs50p> pytest .\test_hello.py
+========================================================================= test session starts ==========================================================================
+platform win32 -- Python 3.11.0, pytest-8.0.1, pluggy-1.4.0
+rootdir: D:\work\run\python\python_100ds\cs50p
+collected 2 items
+test_hello.py ..                                                                                                                                                  [100%] 
+========================================================================== 2 passed in 0.07s =========================================================================== 
+```
+
+##### multi test
+``` bash
+mkdir test
+cp .\test_hello.py  .\test\
+# __init__.py 保持空白即可
+code test/__init__.py
+cp .\test_calculator.py .\test\
+pytest test
+========================================================================= test session starts ==========================================================================
+platform win32 -- Python 3.11.0, pytest-8.0.1, pluggy-1.4.0
+rootdir: D:\work\run\python\python_100ds\cs50p
+collected 6 items
+test\test_calculator.py ....                                                                                                                                      [ 66%]
+test\test_hello.py ..                                                                                                                                             [100%]
+========================================================================== 6 passed in 0.23s =========================================================================== 
+```
+
 ### Built-in function
 
 #### simple function
@@ -650,10 +988,11 @@ abs(x)
 
 #### round
 ``` py
+# round(number, ndigits=None)¶
 # 4捨5入
 x = round(5.76543, 2)
 print(x)
-33 
+# 5.77
 ```
 
 #### set() 函数 - 創建一個無序不重複元素集
@@ -975,6 +1314,20 @@ class SQLitePipeline:
 
 #### exception
 ``` py
+# simple case
+while True:
+    try:
+        x = int(input("What's x? "))
+    except ValueError:
+				pass
+        # print("x is not an integer")
+    else:
+        break
+
+print(f"x is {x}")
+```
+
+``` py
 # sqlite3 example
 import sqlite3
 
@@ -1025,7 +1378,41 @@ pip3 install pygame
 pip install matplotlib
 # NumPy : 支援高階大規模的多維陣列與矩陣運算，此外也針對陣列運算提供大量的數學函數函式庫。
 pip3 install numpy
+# sys — System-specific parameters and functions
+# random — Generate pseudo-random numbers
+# statistics — Mathematical statistics functions
+
+# requests
+# pytest : for unite test
+pip3 install pytest
+# pillow
+pip3 install pillow
 ```
+
+#### sys
+``` py
+# sys module
+from sys import argv
+if len(argv) == 2:
+    print(f"hello, {argv[1]}")
+else:
+    print("hello, world")
+from sys import argv
+# sys module - 2
+for i in range(len(argv)):
+    print(argv[i])
+# ----------------
+for arg in argv:
+    print(arg)
+# sys module - 3
+import sys
+if len(sys.argv) != 2:
+    print("Missing command-line argument")
+    sys.exit(1)
+print(f"hello, {sys.argv[1]}")
+sys.exit(0)
+```
+
 #### w3lib - A Python library of web-related functions
 ``` py
 # add for splash user+password(run Aquarium)
@@ -1075,6 +1462,98 @@ wget.download(pic.get_attribute('src'), save_as)
 ```
 
 #### csv
+``` py
+## students.csv
+# home,name
+# "Number Four, Privet Drive", Harry
+# The Burrow,Ron
+# Malfory MAnor,Draco
+
+# students.py
+import csv
+
+students = []
+
+with open("students.csv") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        students.append({"name": row["name"], "home": row["name"]})
+
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']} is from {student['home']}")
+
+# python students.py
+# 	Harry is from  Harry
+# 	Draco is from Draco
+# 	Ron is from Ron
+```
+
+``` py
+# students.py - csv write
+import csv
+import os
+
+file_path = "students.csv"
+
+name = input("What's your name? ")
+home = input("Where's your from? ")
+
+if not os.path.exists(file_path):
+    with open(file_path, "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['name', 'home'])
+
+with open(file_path, "a", newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow([name, home])
+
+# python students.py
+# 	What's your name? Harry
+# 	Where's your from? Number Four, Privet Drive
+# python students.py
+# 	What's your name? Ron                      
+# 	Where's your from? The Burrow
+
+# # student.csv
+# name,home
+# Harry,"Number Four, Privet Drive"
+# Ron,The Burrow
+#
+```
+
+``` py
+# students.py - csv write by DictWriter
+import csv
+import os
+
+file_path = "students.csv"
+
+name = input("What's your name? ")
+home = input("Where's your from? ")
+
+if not os.path.exists(file_path):
+    with open(file_path, "w", newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=["name", "home"])
+        writer.writeheader()
+
+with open(file_path, "a", newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=["name", "home"])
+    writer.writerow({"name": name, "home": home})
+
+# python students.py
+# 	What's your name? Harry
+# 	Where's your from? Number Four, Privet Drive
+# python students.py
+# 	What's your name? Ron                      
+# 	Where's your from? The Burrow
+
+# # student.csv
+# name,home
+# Harry,"Number Four, Privet Drive"
+# Ron,The Burrow
+
+```
+
 ``` py
 import csv
 
@@ -1408,15 +1887,182 @@ displayRetirementWithMonthsAndRates2([500, 700, 900, 1100],
 plt.show()
 ```
 
+#### requests 
+##### install
+``` bash
+pip3 install requests
+
+# list requests
+pip3 list | grep requests
+	requests                     2.31.0
+	requests-oauthlib            1.3.1
+```
+
+##### get tunes song
+``` py 
+# python itunes.py weezer
+import requests
+import sys
+import json
+
+if len(sys.argv) != 2:
+    sys.exit()
+
+response = requests.get("https://itunes.apple.com/search?entity=song&limit=50&term=" + sys.argv[1])
+# print(json.dumps(response.json(), indent=2))
+
+o = response.json()
+for result in o["results"]:
+    print(result["trackName"])
+```
+
+#### Pillow
+##### costume1.gif
+<div style="max-width:100px">
+	<img src="costume1.gif" width = "100">
+</div>
+
+##### costume2.gif
+<div style="max-width:100px">
+	<img src="costume2.gif" width = "100"">
+	</div>
+
+##### costumes.gif
+<div style="max-width:100px">
+	<img src="costumes.gif" width = "100">
+</div>
+
+##### costume.py
+``` py
+import sys
+from PIL import Image
+
+images = []
+
+for arg in sys.argv[1:]:
+    image = Image.open(arg)
+    images.append(image)
+
+# loop=0 --> loop forever
+images[0].save(
+    "costumes.gif", save_all=True, append_images=[images[1]], duration=200, loop=0
+)
+```
+
+##### generate costumes.gif
+``` bash
+ python costumes.py costume1.gif costume2.gif
+```
+
+#### re - regular expression
+##### example 
+``` py
+# validate.py
+import re
+
+# .: any character except a newline
+# *: 0 or more repetitions
+# +: 1 or more repetitions
+# ?: 0 or 1 repetition
+# {m}: m repetitions,o{2} 含 "oo"
+# {m,n}: m-n repetitions
+# ^: matches the start of the string
+#    ^插入符號是比對前開頭,比如你輸入的搜尋條件是  ^eat，那麼你會搜尋到的結果會有 eat、eaten
+# $: matchs the end or the string just before the newline at the end of the string
+#    $ 錢字符號則是比對結尾,如果是 eat$，那麽搜尋到的結果可能是 creat、peat、leat
+# []: set of characters(包含)
+# [^]: complementing the set(不包含)
+# \w: [a-zA-Z0-9_]
+# \W: [^a-zA-Z0-9_]
+# \d: [0-9]
+# \D: [^0-9]
+# \s: [ \r\t\n\f]
+# \S: [^ \r\t\n\f]
+# A|B: either A or B
+# (...) : group
+# (?:...): non-capturing version
+
+# re.IGNORECASE : ignore case
+# re.MULTILINE: multiple line
+# re.DOTALL
+
+
+# re.search(pattern, string, flags=0)
+email = input("What's your email? ").strip()
+# if re.search(r"^[^@ ]+@[^@]+\.(edu|com|gov|net|org)$", email):
+if re.search(r"^\w+@\w+\.edu$", email, re.IGNORECASE):
+    print("Valid")
+else:
+    print("Invalid")
+```
+
+##### capture
+``` py
+# format.py
+# re capture
+import re
+
+name = input("What's your name? ").strip()
+# matches = re.search(r"^(.+), *(.+)$", name)
+# if matches:
+#     last, first = matches.groups()
+#     name = f"{first} {last}"
+if matches := re.search(r"^(.+), *(.+)$", name):
+    name = matches.group(2) + ' ' + matches.group(1)
+print(f"hello, {name}")
+
+# python .\format.py
+#  What's your name? Robert Kao
+#  hello, Robert Kao
+# python .\format.py
+#  What's your name? Kao,Robert
+#  hello, Robert Kao
+```
+
+##### get twitter name from URL
+``` py
+# twitter.py
+import re
+
+# (?:...): non-capturing version
+
+url = input("URL:").strip()
+
+# 對不照格式輸入無效
+username = re.sub(r"^(?:https?://)?(?:www\.)?twitter\.com/", "", url)
+print(f"re.sub Username: {username}")
+
+if matches := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/([a-z0-9_]+)$", url, re.IGNORECASE):
+    print(f"re.research Username: {matches.group(1)}")
+
+# python twitter.py
+# URL:http://www.twitter.com/robert
+# re.sub Username: robert
+# re.research Username: robert
+#
+# python twitter.py
+# URL:www.google.com
+# re.sub Username: www.google.com
+```
 
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)
++ [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
++ [Python Exception](https://docs.python.org/3/library/exceptions.html)
++ [Python Built-in Functions](https://docs.python.org/3/library/functions.html)
++ [Regular expression operations](https://docs.python.org/3/library/re.html)
++ [Classes](https://docs.python.org/3/tutorial/classes.html)
++ [class int](https://docs.python.org/3/library/functions.html#int)
++ [class list](https://docs.python.org/3/library/stdtypes.html#list)
++ [Python requests](https://pypi.org/project/requests/)
++ [PEP 8](https://peps.python.org/pep-0008/)
++ [pycodestyle](https://pycodestyle.pycqa.org/en/latest/)
++ [pytest](https://docs.pytest.org/en/8.0.x/)
++ [Pillow](https://pillow.readthedocs.io/en/stable/)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
 + [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
 + [set() 函数](https://www.runoob.com/python/python-func-set.html)
 + [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
-+ [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
 + [chercher.tech](https://chercher.tech/)
 + [Python SQLite tutorial using sqlite3](https://pynative.com/python-sqlite/)
-+ [Python Exception](https://docs.python.org/3/library/exceptions.html)
 + [TensorFlow](https://playground.tensorflow.org/)
