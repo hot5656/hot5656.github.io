@@ -220,9 +220,10 @@ hello(name)
 ```
 
 #### classes
+##### example
 ``` py 
 # simple 
-class Student():
+class Student:
     ...
 
 def main():
@@ -241,7 +242,7 @@ if __name__ == "__main__":
 
 ``` py
 #　example
-class Student():
+class Student:
     def __init__(self, name, house):
         # 因內部呼叫也會呼叫 .house(), __init__ 所以不用 check
         # if house not in ["Gryffindor", "Hufflenuff", "Ravenclaw", "Slytherin"]:
@@ -289,6 +290,104 @@ def get_student():
 
 if __name__ == "__main__":
     main()
+```
+
+##### class method
+``` py
+# class method
+# hat.py
+import random
+
+class Hat:
+    houses = ["Gryffindor", "Hufflenuff", "Ravenclaw", "Slytherin"]
+
+    # class method
+    @classmethod
+    # cls class 簡寫
+    def sort(cls, name):
+        print(name, "is in", random.choice(cls.houses))
+
+Hat.sort("Harry")
+```
+
+``` py
+# class method - create instance
+# students.py
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+
+    @classmethod
+    def get(cls):
+        name = input("Name: ")
+        house = input("House: ")
+        return cls(name, house)
+
+def main():
+    student = Student.get()
+    print(student)
+
+if __name__ == "__main__":
+    main()
+```
+
+##### inheritance
+``` py
+# inheritance
+# wizard.py
+
+class Wizard:
+    def __init__(self, name):
+        if not name:
+            raise ValueError("Missing name")
+        self.name = name
+
+class Student(Wizard):
+    def __init__(self, name, house):
+        # call parent class __init__()
+        super().__init__(name)
+        self.house = house
+
+class Professor(Wizard):
+    # call parent class __init__()
+    def __init__(self, name, subject):
+        super().__init__(name)
+        self.subject = subject
+
+wizard = Wizard("Albus")
+student = Student("Harry", "Gryffindor")
+processor = Professor("Severus", "Defense Against the Dark Arts")
+```
+
+##### operation overload
+``` py
+# operation overload
+# vault.py
+class Vault:
+    def __init__(self, galleous=0, sickles=0, knuts=0):
+        self.galleous = galleous
+        self.sickles = sickles
+        self.knuts = knuts
+
+    def __str__(self):
+        return f"{self.galleous} galleous, {self.sickles} sickles,{self.knuts} knuts"
+
+    def __add__(self, other):
+        galleous = self.galleous + other.galleous
+        sickles = self.sickles + other.sickles
+        knuts = self.knuts + other.knuts
+        return Vault(galleous, sickles, knuts)
+
+potter = Vault(100, 50,25)
+print(potter)
+ron = Vault(25, 50, 100)
+print(ron)
+total = potter + ron
+print(total)
 ```
 
 #### 非被引用才執行
@@ -409,7 +508,7 @@ x = 1
 x_str = str(x)
 ```
 
-#### array/list
+#### list
 ``` py
 # 生成空 list
 info = list()
@@ -448,7 +547,7 @@ for movie in reversed(movies):
 largest_number = max(article_upvotes)
 largest_index = article_upvotes.index(largest_number)
 
-# change array process sequence
+# change list process sequence
 numbers = [3,5,7,9,11]
 for number in numbers[len(numbers)::-1]:
     print(number)
@@ -458,6 +557,8 @@ for number in numbers[len(numbers)::-1]:
 # 5
 # 3
 ```
+
+#### tuple - 不能修改的List
 
 #### Dictionaries
 ``` py
@@ -641,6 +742,125 @@ black house.py
 # another for code style
 #pip3 install pylint
 ```
+
+#### set()
+``` py
+# set() : 儲存不重複
+# houses.py
+students = [
+    {"name": "Harry", "house": "Gryffidor"},
+    {"name": "Hermione", "house": "Gryffidor"},
+    {"name": "Ron", "house": "Gryffidor"},
+    {"name": "Draco", "house": "Slytherin"},
+    {"name": "Padma", "house": "Ravenclaw"},
+]
+
+houses = set()
+for student in students:
+    houses.add(student["house"])
+
+for house in sorted(houses):
+    print(house)
+```
+
+#### global - 在 function global variable 內寫入時要加 global variable
+``` py
+# bank.py
+balance = 3
+
+def main():
+    print("Balance:", balance)
+    deposit(100)
+    withdraw(50)
+    print("Balance:", balance)
+
+def deposit(n):
+    global balance
+    balance += n
+
+def withdraw(n):
+    global balance
+    balance -= n
+
+if __name__ == "__main__":
+    main()
+```
+
+#### constant - 大寫表常數,但使用上還是可以被更改
+``` py
+# constant
+MEOWS = 3
+for _ in range(MEOWS):
+    print("meow")
+```
+
+``` py
+# constant
+class Cat:
+    MEOWS = 3
+
+    def meow(self):
+        for _ in range(Cat.MEOWS):
+            print("meow")
+
+cat = Cat()
+cat.meow()
+```
+
+#### unpack - *:list, **:dict., (*args, **kwargs): multi parameter
+``` py
+# unpack.py
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) *29 + knuts
+
+coins = [100, 50, 25]
+# * unpack list
+print(total(*coins), "Knuts")
+
+# python unpack.py
+#   50775 Knuts
+```
+
+``` py
+# unpack.py
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) *29 + knuts
+
+coins = {"galleons": 100, "sickles": 50, "knuts": 25}
+# ** unpack dict
+print(total(**coins), "Knuts")
+
+# python unpack.py
+#   50775 Knuts
+```
+
+``` py
+# unpack.py
+def f(*args, **kwargs):
+    print("Positional:", args)
+    print("named:", kwargs)
+
+f(100, 50, 25)
+# return turple
+# Positional: (100, 50, 25)
+# named: {}
+f(100)
+# Positional: (100,)
+# named: {}
+
+f(galleons=100, sickles=50, knuts=25)
+# Positional: ()
+# return dict
+# named: {'galleons': 100, 'sickles': 50, 'knuts': 25}
+
+def print_mine(*args, **kwargs):
+    print("Positional:", args)
+    print("named:", kwargs)
+print_mine("This", "is", "CS50", sep='_', end='*')
+# Positional: ('This', 'is', 'CS50')
+# named: {'sep': '_', 'end': '*'}
+```
+
 
 ### IO
 
@@ -1208,6 +1428,137 @@ def runSim(goal, numTrials):
 runSim('11111', 1000)		
 ```
 
+#### argparse
+``` py
+# meows.py
+import argparse
+
+# add description for meows.py
+parser = argparse.ArgumentParser(description="Meow like a cat")
+# add -n's parameter help
+# add default value
+# auto convert parameter to int
+parser.add_argument("-n", default=1, help="number of times to meow", type=int)
+args = parser.parse_args()
+
+for _ in range(args.n):
+    print("meow")
+
+# python .\meows.py -h
+#    usage: meows.py [-h] [-n N]
+#    Meow like a cat
+#    options:
+#      -h, --help  show this help message and exit
+#      -n N        number of times to meow
+```
+
+#### map, list comprehensions
+``` py
+# map, list comprehensions
+# yell.py
+def main():
+    yell("This", "is", "CS50")
+    yell2("This", "is", "CS50")
+
+def yell(*words):
+    uppercased = map(str.upper, words)
+    print(type(uppercased))
+    print(uppercased)
+    print(*uppercased)
+
+
+# list comprehensions
+def yell2(*words):
+    uppercased = [word.upper() for word in words]
+    print(*uppercased)
+
+if __name__ == "__main__":
+    main()
+```
+
+#### filetr
+``` py
+# filter
+# gryffindors.py
+students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+]
+
+def is_gryffindor(s):
+    # print(s, s["house"], s["house"] == "Gryffindor")
+    return s["house"] == "Gryffindor"
+
+# gryffindors = filter(is_gryffindor, students)
+# for gryffindor in sorted(gryffindors, key=lambda s: s["name"]):
+#     print(gryffindor["name"])
+
+# gryffindors = [student["name"] for student in students if student["house"] == "Gryffindor"]
+# for gryffindor in sorted(gryffindors):
+#     print(gryffindor)
+
+gryffindors = filter(lambda s: s["house"] == "Gryffindor", students)
+for gryffindor in sorted(gryffindors, key=lambda s: s["name"]):
+    print(gryffindor["name"])
+
+# Harry
+# Hermione
+# Ron
+```
+
+#### dictionary comprehensions
+``` py
+# dictionary comprehensions
+# gryffindors.py
+students = ["Hermione", "Harry", "Ron"]
+gryffindors = [{"name": student, "house": "Gryffindor"} for student in students]
+print(gryffindors)
+# [{'name': 'Hermione', 'house': 'Gryffindor'}, {'name': 'Harry', 'house': 'Gryffindor'}, {'name': 'Ron', 'house': 'Gryffindor'}]
+```
+
+``` py
+students = ["Hermione", "Harry", "Ron"]
+gryffindors = {student: "Gryffindor" for student in students}
+print(gryffindors)
+# {'Hermione': 'Gryffindor', 'Harry': 'Gryffindor', 'Ron': 'Gryffindor'}
+```
+
+#### enumerate
+``` py
+# enumerate
+# gryffindors.py
+students = ["Hermione", "Harry", "Ron"]
+for i, student in enumerate(students):
+    print(i + 1, student)
+```
+
+#### generators - yield
+```  py
+# generators
+# sleep.py
+def main():
+    n = int(input("What's n? "))
+    for s in sheep(n):
+        print(s)
+
+# 1000000 can not run
+# def sheep(n):
+#     flock = []
+#     for i in range(n):
+#         flock.append("🐏" * i)
+#     return flock
+
+# generators - yield
+def sheep(n):
+    for i in range(n):
+        yield "🐏" * i
+
+if __name__ == "__main__":
+    main()
+```
+
 ### special function
 #### put password to local file
 ##### pipelines.py
@@ -1387,6 +1738,14 @@ pip3 install numpy
 pip3 install pytest
 # pillow
 pip3 install pillow
+
+# mypy
+pip3 install mypy - 型別檢查器
+
+# cowsay
+pip3 install
+# pyttsx3 - 文字轉語音(Text To Speech)
+pip3 install pyttsx3 
 ```
 
 #### sys
@@ -2045,6 +2404,79 @@ if matches := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/([a-z0-9_]+)$", 
 # re.sub Username: www.google.com
 ```
 
+#### mypy
+``` py
+# meows.py
+# add type define 
+def meow(n: int):
+        for _ in range(n):
+            print("meow")
+
+# slaso support add type define to variable
+number: int = input("Number:")
+meow(number)
+
+# mypy meows.py
+# 	meows.py:7: error: Argument 1 to "meow" has incompatible type "str"; expected "int"  [arg-type]
+# 	Found 1 error in 1 file (checked 1 source file)
+
+# meows.py -2
+# define return str
+def meow(n: int) -> str:
+        return "meow\n" * n
+number: int = int(input("Number:"))
+neows: str = meow(number)
+print(neows)
+```
+
+#### [Docstring](https://peps.python.org/pep-0257/) : just prepare for gernerate document
+``` py
+# meows.py
+def meow(n: int) -> str:
+    # meow n times
+    """
+    Meow n times.
+
+    :param n: Number of times to meow
+    :type n: int
+    :raise TypeError: If n is not an int
+    :return: A string of n meows, one per line
+    :rtype: str
+    """
+    return "meow\n" * n
+
+number: int = int(input("Number:"))
+neows: str = meow(number)
+print(neows)
+```
+
+#### coesay + audio 
+``` py
+# say.py
+import cowsay
+import pyttsx3
+
+engine = pyttsx3.init()
+this = input("What's this? ")
+cowsay.cow(this)
+engine.say(this)
+engine.runAndWait()
+
+# python say.py
+#     What's this? This is cs50
+#     ____________
+#     | This is cs50 |
+#     ============
+#                 \
+#                 \
+#                 ^__^
+#                 (oo)\_______
+#                 (__)\       )\/\
+#                     ||----w |
+#                     ||     ||
+
+```
+
 ### Ref
 + [python time module](https://docs.python.org/3/library/time.html)
 + [Regular expression operations](https://docs.python.org/3/library/re.html#re.compile)
@@ -2054,11 +2486,18 @@ if matches := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/([a-z0-9_]+)$", 
 + [Classes](https://docs.python.org/3/tutorial/classes.html)
 + [class int](https://docs.python.org/3/library/functions.html#int)
 + [class list](https://docs.python.org/3/library/stdtypes.html#list)
++ [ Parser for command-line arguments](https://docs.python.org/3/library/argparse.html)
++ [Data model:Special method names](https://docs.python.org/3/reference/datamodel.html#specialnames)
++ [enumerate](https://docs.python.org/3/library/functions.html#enumerate)
++ [map](https://docs.python.org/3/library/functions.html#map)
++ [filter](https://docs.python.org/3/library/functions.html#filter)
 + [Python requests](https://pypi.org/project/requests/)
 + [PEP 8](https://peps.python.org/pep-0008/)
 + [pycodestyle](https://pycodestyle.pycqa.org/en/latest/)
 + [pytest](https://docs.pytest.org/en/8.0.x/)
 + [Pillow](https://pillow.readthedocs.io/en/stable/)
++ [mypy](https://mypy.readthedocs.io/en/stable/)
++[Docstring](https://peps.python.org/pep-0257/)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
 + [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
 + [set() 函数](https://www.runoob.com/python/python-func-set.html)
