@@ -21,6 +21,12 @@ LSTMs
 
 <!--more-->
 
+#### Basic
+Classification 分類
+Regression 回歸
+Neurons 神經元
+Scikit-learn : 是用於Python程式語言的自由軟體機器學習庫
+
 #### Numpy
 Matrix arithmetic 
 Tensor(arrays)
