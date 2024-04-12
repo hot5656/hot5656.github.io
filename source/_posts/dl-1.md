@@ -68,6 +68,59 @@ Shape of data(X and Y)
 	- model.predict(X)
 
 ### Google Colab
+#### setting
+##### CPU, GPU
+執行階段 --> 變更執行階段類型
+
+##### uploae/download notebook file
+檔案 --> 上傳筆記本
+檔案 --> 下載
+
+
+##### command
+``` bash
+# runs shell
+!ls
+!pip list
+#! sed ..
+#! unzip file
+```
+
+#### magic command
+``` bash
+# show magic command
+%lsmagic
+
+# change director
+# !cd not work
+%cd dd
+
+# 計算單行執行時間
+%timeit a=1+2+3
+# 20.1 ns ± 3.89 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
+
+# 計算多行執行時間
+%%timeit
+sum=0
+for i in range(1, 10000):
+  sum += i
+# 803 µs ± 202 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)	
+
+# run one file
+#%fun file 
+
+# see variable 
+a = b = c = 100
+%whos 
+# Variable   Type    Data/Info
+# ----------------------------
+# a          int     100
+# b          int     100
+# c          int     100
+
+
+```
+
 #### Upload
 ##### Using wget
 ``` bash

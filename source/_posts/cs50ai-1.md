@@ -1245,6 +1245,7 @@ pip3 list
 	apricot-select     0.6.1
 	attrs              20.3.0
 	....
+	
 # change env for python
 # run by cmd
 D:\app\python_env\myenv11_01\Scripts\activate.bat

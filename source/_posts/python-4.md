@@ -7,7 +7,18 @@ tags:
 	- python
 ---
 
-### setup
+### MAP
++ {% post_link python-6 '# Request' %}
++ {% post_link python-6 '# BeautifulSoup' %}
++ {% post_link python-12 '# Selenium' %}:web瀏覽器的自動化
++ {% post_link python-9 '# Scrapy' %}
++ {% post_link python-9 '# XPath expression' %}
++ {% post_link python-9 '# CSS selectors' %}
++ {% post_link python-4 '# Packages' %}:packages list
++ {% post_link python-4 '# matplotlib.pyplot' %}:繪圖
++ {% post_link python-22 '# Numpy' %}
+
+#### select python
 ``` bash
 # check which python 
 python -c "import sys; print(sys.executable)"
@@ -23,6 +34,13 @@ pip3 list
 # change env for python
 # run by cmd
 D:\app\python_env\myenv11_01\Scripts\activate.bat
+
+# check which python 
+python -c "import sys; print(sys.executable)"
+	D:\app\Python310\python.exe
+
+# select by vScode
+F1 --> python:select Interpreter
 ```
 
 ###  基本
@@ -1946,7 +1964,388 @@ with open(filename) as f:
         labels.append(1 if row[-1] == 'TRUE' else 0)
 ```
 
-#### matplotlib.pyplot
+#### [matplotlib.pyplot](https://matplotlib.org/3.8.3/api/)
+##### example
+###### 折線圖
+``` py
+# 折線圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+listx = [1,5,7,8,13,16]
+listy = [15,50,80,40,70,50]
+# color: red, blue, green, yellow, black, white
+# linewidth/lw: default 1.0
+# linestyle/ls: -(default 實線), --(虛線), -.(虛點), :(點線),
+# marker:標記像式
+# .點 o圓 *星 h六邊形 H六邊形2 v/^正倒三角形 </>左右三角形 d鑽型 D鑽型2
+# +十字 x叉叉 s矩形 _橫線 |直線 p五角形 1234上左下右人字姓
+# markersize/ms:標記大小
+# color+ls+marker example 'g--*'
+plt.plot(listx, listy, color='red', lw='2.0', ls='-.', marker='*', ms=12
+         ,label='label')
+# 第二條
+listx2 = [2,4,6,8,11,16]
+listy2 = [10,40,80,30,50,60]
+plt.plot(listx2, listy2, "g-^", ms=12
+         ,label='label2')
+# label 位置:upper right(default)
+# plt.legend(loc = 'upper left')
+plt.legend()
+# 圖表,X,Y 標題
+# plt.title('Chart Title', fontsize=20)
+plt.title('圖表標題', fontsize=20)
+plt.xlabel('X-Label', fontsize=14)
+plt.ylabel('Y-Label', fontsize=14)
+# x,y 顯示範圍
+plt.xlim(0,20)
+plt.ylim(0, 100)
+# 格線 alpha(透明度)
+plt.grid(color="green", ls=":", lw=1, alpha=0.5)
+# 自訂刻度
+tickx = [2,4,6,8,10,12,14,16,18,20]
+plt.xticks(tickx)
+# plt.ytricks(ticky)
+# 刻度參數
+plt.tick_params(axis='both', labelsize='16', colors="green")
+# plt.tick_params(direction='out', length=6, width=2, colors='r',
+#                grid_color='r', grid_alpha=0.5)
+plt.show()
+```
+
+###### 長條圖
+``` py
+# 長條圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+listx = ['c', 'c++', 'c#', 'java', 'python']
+listy = [45, 28, 38, 32,50]
+# 長條圖 設 width
+plt.bar(listx, listy, width=0.5, color=['r', 'g', 'b'])
+# 圖表,X,Y 標題
+# plt.title('Chart Title', fontsize=20)
+plt.title('課程選修統計', fontsize=20)
+plt.xlabel('課程', fontsize=14)
+plt.ylabel('人數', fontsize=14)
+plt.show()
+```
+
+###### 橫條圖
+``` py
+# 橫條圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+listy = ['c', 'c++', 'c#', 'java', 'python']
+listx = [45, 28, 38, 32,50]
+# 橫條圖 設 height
+plt.barh(listy, listx, height=0.5, color=['r', 'g', 'b'])
+# 圖表,X,Y 標題
+# plt.title('Chart Title', fontsize=20)
+plt.title('課程選修統計', fontsize=20)
+plt.ylabel('課程', fontsize=14)
+plt.xlabel('人數', fontsize=14)
+plt.show()
+```
+
+###### 堆疊長條圖
+``` py
+# 堆疊長條圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+listx = ['c', 'c++', 'c#', 'java', 'python']
+listy1 = [25, 20, 20, 16, 28]
+listy2 = [20,  8, 18, 16, 22]
+# 長條圖 設 width
+plt.bar(listx, listy1, width=0.5, label='男')
+# buttom 設定連接位置
+plt.bar(listx, listy2, width=0.5, bottom=listy1 ,label='女')
+# 圖表,X,Y 標題
+# plt.title('Chart Title', fontsize=20)
+plt.title('課程選修統計', fontsize=20)
+plt.xlabel('課程', fontsize=14)
+plt.ylabel('人數', fontsize=14)
+# label 位置
+plt.legend()
+plt.show()
+```
+
+###### 並列長條圖
+``` py
+# 並列長條圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+width=0.25
+listx = ['c', 'c++', 'c#', 'java', 'python']
+# 並列長條圖,算 x 位置
+listx1 = [ x - width/2 for x in range(len(listx))]
+listx2 = [ x + width/2 for x in range(len(listx))]
+listy1 = [25, 20, 20, 16, 28]
+listy2 = [20,  8, 18, 16, 22]
+# 長條圖 設 width
+plt.bar(listx1, listy1, width=width, label='男')
+# buttom 設定連接位置
+plt.bar(listx2, listy2, width=width, label='女')
+# 圖表,X,Y 標題
+# plt.title('Chart Title', fontsize=20)
+plt.title('課程選修統計', fontsize=20)
+plt.xlabel('課程', fontsize=14)
+plt.ylabel('人數', fontsize=14)
+# 並列長條圖,show x tabel
+plt.xticks(range(len(listx)), labels=listx)
+# label 位置
+plt.legend(loc='upper center')
+plt.show()
+```
+
+###### 圓形圖
+``` py
+# 圓形圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+sizes = [25, 30, 15, 10]
+labels = ['北部', '西部', '東部', '南部']
+colors = ['red', 'green', 'blue', 'yellow']
+explode = (0, 0, 0.2, 0)
+# labels 項目標題
+# colors
+# explode 項目凸出距離, 0 正常
+# labeldistance 項目具圓心距離 1.1 表 1.1倍
+# autopct 項目百分比格式 %...%, %2.1f%%:整數2位小數1位
+# shadow 陰影
+# startangle 起始角度(逆時針算)
+plt.pie(sizes,
+        explode = explode,
+        labels = labels,
+        colors = colors,
+        labeldistance = 1.1,
+        autopct = '%2.1f%%',
+        pctdistance = 0.6,
+        shadow = True,
+        startangle = 90)
+# label 位置:upper right(default)
+# plt.legend(loc = 'best')
+# 會擋到
+# plt.legend()
+plt.show()
+```
+
+###### 直方圖(值的統計)
+``` py
+# 直方圖(值的統計)
+import matplotlib.pyplot as plt
+
+# bins bin數量
+# orientation 圖形方向 vertical(default)/horizontal
+data = [3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
+        3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
+        3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
+        3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
+        3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
+        ]
+# plt.hist(data, bins=10)
+plt.hist(data, bins=10, density=True)
+
+plt.xlabel('Value')
+plt.ylabel('Counts')
+plt.grid(True)
+plt.show()
+```
+
+###### 直方圖(值的統計) - 概率密度計算
+``` py
+# 直方圖(值的統計) - 概率密度計算
+import matplotlib.pyplot as plt
+import numpy as np
+
+data = [0.90513322, 0.15810074, 0.32891869, 0.03708101, 0.27432692, 0.32718963,
+        0.76349748, 0.67982328, 0.37927703, 0.23771415, 0.85356478, 0.85289975,
+        0.88362553, 0.76916029, 0.34394394, 0.7994356, 0.46121558, 0.60705721,
+        0.50982303, 0.38045841, 0.40422827, 0.29620067, 0.12077285, 0.41938933,
+        0.83631546, 0.03351526, 0.2107422, 0.34037895, 0.68802419, 0.34909733,
+        0.69598211, 0.02954847, 0.73337498, 0.58560771, 0.0880778, 0.25110801,
+        0.29567434, 0.23931488, 0.74423415, 0.53426499, 0.63710205, 0.85050719,
+        0.0219141, 0.13598411, 0.22482733, 0.34913734, 0.54646223, 0.59545045,
+        0.79510712, 0.68748215, 0.99978247, 0.26372471, 0.57559782, 0.02730514,
+        0.97328489, 0.25601602, 0.7447136, 0.53107671, 0.81301182, 0.01345121,
+        0.55230886, 0.5942061, 0.53807666, 0.75641069, 0.89824032, 0.98566657,
+        0.48525277, 0.83114744, 0.17032085, 0.59162258, 0.78336821, 0.82423893,
+        0.31521662, 0.72591383, 0.45586739, 0.28447144, 0.64501956, 0.77192904,
+        0.34181779, 0.96989949, 0.47152398, 0.04595838, 0.28884804, 0.30506038,
+        0.07965552, 0.13688494, 0.49999705, 0.66975644, 0.16643227, 0.08857587,
+        0.31085938, 0.50804045, 0.35961718, 0.53703562, 0.96675887, 0.1208318,
+        0.84330491, 0.85891426, 0.49863786, 0.16626874]
+
+# 計算直方圖
+hist, bins = np.histogram(data, bins=10, density=True)
+
+# 計算每个 bin 的概率密度
+bin_widths = np.diff(bins)
+probability_densities = hist / np.sum(hist * bin_widths)
+
+print("Bin edges:", bins)
+print("Probability densities:", probability_densities)
+plt.hist(data, bins=10, density=True)
+plt.show()
+```
+
+###### 散佈圖
+``` py
+# 散佈圖
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4,  5,  6,  7,  8]
+y = [1, 4, 9, 16, 7, 15, 17, 19]
+# s 標記大小
+# c 標記顏色
+# marker 標記樣式, default 'o'
+# alpha 透明度 0~1
+sizes = [20, 200, 100, 50, 500, 1000, 60, 90]
+colors = ['red', "green", "black", "orange", "purple", "pink", "cyan", "magenta"]
+plt.scatter(x, y, s=sizes, c=colors)
+plt.show()
+```
+
+###### 設定圖表區
+``` py
+ 設定圖表區
+import matplotlib.pyplot as plt
+
+# 第一張圖
+plt.figure
+plt.plot([1,2,3])
+
+# 第二張圖
+# figsize [寬,高](inches)
+# dpi 解析度
+# facecolor 背景顏色
+# edgecolor 邊緣顏色
+# linewidth 邊線寬度
+# frameon 是否有邊框
+plt.figure(
+    figsize=[10,4],
+    facecolor='whitesmoke',
+    edgecolor='r',
+    linewidth=10,
+    frameon=True
+)
+plt.plot([1,2,3])
+plt.show()
+```
+
+###### 欄列排列多張圖
+``` py
+# 欄列排列多張圖
+# subplot(橫列數,直欄數,圖表索引)
+import matplotlib.pyplot as plt
+
+# 上下圖
+# subplot(2,1,1)
+# subplot(2,1,2)
+plt.figure(figsize=[8,8])
+# fig 1
+plt.subplot(2,1,1)
+plt.title(label='#1 Chat 1')
+plt.plot([1,2,3], 'r:o')
+# fig 2
+plt.subplot(2,1,2)
+plt.title(label='#1 Chat 2')
+plt.plot([1,2,3], 'g--o')
+
+# 左右圖
+# subplot(1,2,1) subplot(1,2,2)
+plt.figure(figsize=[8,8])
+# fig 1
+plt.subplot(1,2,1)
+plt.title(label='#2 Chat 1')
+plt.plot([1,2,3], 'r:o')
+# fig 2
+plt.subplot(1,2,2)
+plt.title(label='#2 Chat 2')
+plt.plot([1,2,3], 'g--o')
+
+# 四張圖
+# subplot(2,2,1) subplot(2,2,2)
+# subplot(2,2,3) subplot(2,2,4)
+plt.figure(figsize=[8,8])
+# fig 1
+plt.subplot(2,2,1)
+plt.title(label='#3 Chat 1')
+plt.plot([1,2,3], 'r:o')
+# fig 2
+plt.subplot(2,2,2)
+plt.title(label='#3 Chat 2')
+plt.plot([1,2,3], 'g--o')
+# fig 3
+plt.subplot(2,2,3)
+plt.title(label='#3 Chat 3')
+plt.plot([1,2,3], 'b:o')
+# fig 4
+plt.subplot(2,2,4)
+plt.title(label='#3 Chat 4')
+plt.plot([1,2,3], 'y--o')
+plt.show()
+```
+
+###### 相對位置排列多張圖
+``` py
+# 相對位置排列多張圖
+# axes([與左邊界距離,與下邊界距離,寬,高]) 寬,高 相對外框
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,4])
+plt.axes([0.1,0.1,0.35,0.8])
+plt.title(label='#1 Chat 1')
+plt.plot([1,2,3], 'r:o')
+plt.axes([0.6,0.1,0.35,0.8])
+plt.title(label='#1 Chat 2')
+plt.plot([1,2,3], 'g--o')
+
+plt.figure(figsize=[8,4])
+plt.axes([0.1,0.1,0.8,0.8])
+plt.title(label='#2 Chat 1')
+plt.plot([1,2,3], 'r:o')
+plt.axes([0.55,0.2,0.2,0.2])
+plt.title(label='#2 Chat 2')
+plt.plot([1,2,3], 'g--o')
+
+plt.show()
+```
+
 ##### basic
 ``` py
 # import pylab as plt

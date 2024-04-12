@@ -7,6 +7,19 @@ abbrlink: ccd0
 date: 2021-03-28 18:29:25
 ---
 
+### control multiple version
+``` bash
+# show version
+py --version
+  Python 3.11.0
+# show install
+ -V:3.11 *        Python 3.11 (64-bit)
+ -V:3.10          Python 3.10 (64-bit)
+ -V:3.9
+# active Virtual environment
+d:\app\python_env\myenvflask_310\Scripts\activate
+```
+
 ### install(windows)
 
 #### download [python](https://www.python.org/downloads/) windows version
