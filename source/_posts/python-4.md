@@ -17,6 +17,7 @@ tags:
 + {% post_link python-4 '# Packages' %}:packages list
 + {% post_link python-4 '# matplotlib.pyplot' %}:繪圖
 + {% post_link python-22 '# Numpy' %}
++ {% post_link python-4 '# csv' %}
 
 #### select python
 ``` bash
