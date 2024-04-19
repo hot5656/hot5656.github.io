@@ -8,16 +8,34 @@ tags:
 ---
 
 ### MAP
-+ {% post_link python-6 '# Request' %}
-+ {% post_link python-6 '# BeautifulSoup' %}
-+ {% post_link python-12 '# Selenium' %}:web瀏覽器的自動化
-+ {% post_link python-9 '# Scrapy' %}
-+ {% post_link python-9 '# XPath expression' %}
-+ {% post_link python-9 '# CSS selectors' %}
-+ {% post_link python-4 '# Packages' %}:packages list
-+ {% post_link python-4 '# matplotlib.pyplot' %}:繪圖
-+ {% post_link python-22 '# Numpy' %}
-+ {% post_link python-4 '# csv' %}
++ crawler
+	+ {% post_link python-6 '# Request' %}
+	+ {% post_link python-6 '# BeautifulSoup' %}
+	+ {% post_link python-12 '# Selenium' %}:web瀏覽器的自動化
+	+ {% post_link python-9 '# Scrapy' %}
+	+ {% post_link python-9 '# XPath expression' %}
+	+ {% post_link python-9 '# CSS selectors' %}
+
+<!--more-->
++ packages
+	+ {% post_link python-4 '# Packages list' %}:packages list
+	+ {% post_link python-4 '# Packages matplotlib.pyplot' %}:繪圖
+	+ {% post_link python-22 '# Numpy' %}
+	+ {% post_link python-23 '# Pandas' %}
+	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
+	+ {% post_link python-4 '# Packages excell' %}:
+	+ {% post_link python-4 '# Packages google sheet' %}:google 試算表
+
++ function 
+	+ {% post_link python-4 '# Built-in function csv' %}
+	+ {% post_link python-4 '# Built-in function json' %}
+	+ {% post_link python-4 '# Built-in function sglite3' %}
+	+ {% post_link python-4 '# file I/O' %}
+
++ tool
+	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
+	+ {% post_link python-20 '# Jupyter Notebook' %}:
+	+ {% post_link python-2 '# PyCharm' %}
 
 #### select python
 ``` bash
@@ -59,8 +77,6 @@ from tkinter import *
 import turtle as t
 timmy = t.Turtle()
 ```
-
-<!--more-->
 
 #### pass
 ``` py
@@ -1220,6 +1236,146 @@ test\test_hello.py ..                                                           
 
 ### Built-in function
 
+#### csv 
+``` py
+## students.csv
+# home,name
+# "Number Four, Privet Drive", Harry
+# The Burrow,Ron
+# Malfory MAnor,Draco
+
+# students.py
+import csv
+
+students = []
+
+with open("students.csv") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        students.append({"name": row["name"], "home": row["name"]})
+
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']} is from {student['home']}")
+
+# python students.py
+# 	Harry is from  Harry
+# 	Draco is from Draco
+# 	Ron is from Ron
+```
+
+``` py
+# students.py - csv write
+import csv
+import os
+
+file_path = "students.csv"
+
+name = input("What's your name? ")
+home = input("Where's your from? ")
+
+if not os.path.exists(file_path):
+    with open(file_path, "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['name', 'home'])
+
+with open(file_path, "a", newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow([name, home])
+
+# python students.py
+# 	What's your name? Harry
+# 	Where's your from? Number Four, Privet Drive
+# python students.py
+# 	What's your name? Ron                      
+# 	Where's your from? The Burrow
+
+# # student.csv
+# name,home
+# Harry,"Number Four, Privet Drive"
+# Ron,The Burrow
+#
+```
+
+``` py
+# students.py - csv write by DictWriter
+import csv
+import os
+
+file_path = "students.csv"
+
+name = input("What's your name? ")
+home = input("Where's your from? ")
+
+if not os.path.exists(file_path):
+    with open(file_path, "w", newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=["name", "home"])
+        writer.writeheader()
+
+with open(file_path, "a", newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=["name", "home"])
+    writer.writerow({"name": name, "home": home})
+
+# python students.py
+# 	What's your name? Harry
+# 	Where's your from? Number Four, Privet Drive
+# python students.py
+# 	What's your name? Ron                      
+# 	Where's your from? The Burrow
+
+# # student.csv
+# name,home
+# Harry,"Number Four, Privet Drive"
+# Ron,The Burrow
+
+```
+
+``` py
+import csv
+
+evidence = []
+labels = []
+with open(filename) as f:
+    reader = csv.reader(f)
+		# jump 1st row
+    next(reader)
+
+    for row in reader:
+        evidence.append([
+            int(row[0]),
+            float(row[1]),
+            int(row[2]),
+            float(row[3]),
+            int(row[4]),
+            float(row[5]),
+            float(row[6]),
+            float(row[7]),
+            float(row[8]),
+            float(row[9]),
+            abbreviated_month_to_int(row[10]),
+            int(row[11]),
+            int(row[12]),
+            int(row[13]),
+            int(row[14]),
+            1 if row[15] == 'Returning_Visitor' else 0,
+            1 if row[16] == 'TRUE' else 0,
+        ])
+        labels.append(1 if row[-1] == 'TRUE' else 0)
+```
+
+
+``` py
+import csv
+
+# write 
+# with open('stockThisMonth.csv', 'w', encoding='UTF-8', newline='') as file: # excel 開檔,中文有問題
+with open('stockThisMonth.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['日期', '開盤價', '收盤價', '成交筆數'])
+        for info in collected_info:
+                print(info)
+                writer.writerow([info['日期'], info['開盤價'], info['收盤價'], info['成交筆數']])
+```
+
 #### simple function
 ``` py
 abs(x)
@@ -1244,22 +1400,82 @@ def get_author_ids(posts, pattern):
     return ids
 ```
 
-#### csv 
+#### json
 ``` py
-import csv
+# json
+import json
+# json.load(file) : load json file
+# json.loads(string) : load for json string
+# json.dump('filename', file) : save to json file
+# json.dumps(string) : save json string
 
-# write 
-# with open('stockThisMonth.csv', 'w', encoding='UTF-8', newline='') as file: # excel 開檔,中文有問題
-with open('stockThisMonth.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['日期', '開盤價', '收盤價', '成交筆數'])
-        for info in collected_info:
-                print(info)
-                writer.writerow([info['日期'], info['開盤價'], info['收盤價'], info['成交筆數']])
+# json load string
+class_str = """
+{
+    "class A" : [
+        {
+            "id": 1,
+            "name": "小美",
+            "Math": 65,
+            "Chinese": 62,
+            "English": 30
+
+        },
+        {
+            "id": 2,
+            "name": "王大明",
+            "Math": 65,
+            "Chinese": 62,
+            "English": 30
+
+        },
+        {
+            "id": 3,
+            "name": "Bill",
+            "Math": 92,
+            "Chinese": 90,
+            "English": 85
+        }
+    ]
+}
+"""
+datas = json.loads(class_str)
+print('-- json from string --')
+print(type(datas))
+for data in datas['class A']:
+    print(data)
+# <class 'dict'>
+# {'id': 1, 'name': '小美', 'Math': 65, 'Chinese': 62, 'English': 30}
+# {'id': 2, 'name': '王大明', 'Math': 65, 'Chinese': 62, 'English': 30}
+# {'id': 3, 'name': 'Bill', 'Math': 92, 'Chinese': 90, 'English': 85}
+
+# save to json file
+with open('class_a_1.json', 'w', encoding='utf-8') as f:
+    # ensure_ascii=False 顯示正確中文
+    json.dump(datas, f, ensure_ascii=False )
+
+# load json from file
+with open('class_a_1.json', 'r', encoding='utf-8') as f:
+    datas2 = json.load(f)
+print('-- json from file --')
+print(type(datas2))
+for data in datas2['class A']:
+    print(data)
+# <class 'dict'>
+# {'id': 1, 'name': '小美', 'Math': 65, 'Chinese': 62, 'English': 30}
+# {'id': 2, 'name': '王大明', 'Math': 65, 'Chinese': 62, 'English': 30}
+# {'id': 3, 'name': 'Bill', 'Math': 92, 'Chinese': 90, 'English': 85}
+
+# save to jason string
+class_str2 = json.dumps(datas2, ensure_ascii=False)
+print('-- json to string --')
+print(type(class_str2))
+print(class_str2)
+# <class 'str'>
+# {"class A": [{"id": 1, "name": "小美", "Math": 65, "Chinese": 62, "English": 30}, {"id": 2, "name": "王大明", "Math": 65, "Chinese": 62, "English": 30}, {"id": 3, "name": "Bill", "Math": 92, "Chinese": 90,
+# "English": 85}]}
 ```
 
-
-#### json
 ``` python
 import json
 
@@ -1293,7 +1509,197 @@ def is_json(myjson):
 ```
 
 
-#### sglite3
+#### SQLite
+
+##### [GUI SQLite tool](https://sqlitebrowser.org/dl/):DB Browser for SQLite
+
+##### 新增資料表,資料
+``` py
+# 新增資料表,資料
+import sqlite3
+import os
+
+# if file exist, delete it
+SCHOOL_DB_FILE = 'school.db'
+if os.path.isfile(SCHOOL_DB_FILE):
+    os.remove(SCHOOL_DB_FILE)
+
+# 新增資料表
+# 常用類型
+# INTERGER 整數,大小有 1,2,3,4,6,8 bytes
+# REAL float 8 byted
+# TEXT 不定長度字串 format UTF-8/UTF-16BE/UTF16LE
+# BLOB true/false
+conn = sqlite3.connect(SCHOOL_DB_FILE)
+sql_str = '''CREATE TABLE IF NOT EXISTS scores2
+("id" INTEGER PRIMARY KEY NOT NULL,
+ "name" TEXT NOT NULL,
+ "chinese" INTEGER NOT NULL,
+ "english" INTEGER NOT NULL,
+ "math" INTEGER NOT NULL
+)
+'''
+conn.execute(sql_str)
+# 更新
+conn.commit()
+# close DB connect
+conn.close()
+
+# 新增資料表
+conn = sqlite3.connect(SCHOOL_DB_FILE)
+datas = [[1, '大熊', 65, 62, 40],
+         [2, '小明', 85, 90, 87],
+         [3, '小美', 92, 90, 95]]
+for data in datas:
+    conn.execute("INSERT INTO scores2 (id, name, chinese, english, \
+        math) VALUES ({}, '{}', {}, {}, {})".format(data[0],\
+        data[1], data[2], data[3], data[4]))
+# 更新
+conn.commit()
+# close DB connect
+conn.close()
+
+# show table
+conn = sqlite3.connect('school.db')
+# cursor = conn.cursor()
+# cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+# tables = cursor.fetchall()
+tables = conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+print('-- tables --')
+for table in tables:
+    print(table)
+# close DB connect
+conn.close()
+
+# ('scores2',)
+```
+
+##### 資料查詢
+``` py
+# 資料查詢
+import sqlite3
+
+# fetchall() 讀取所有, 無資料傳回 None
+# fetchone() 讀取單筆, 無資料傳回 None
+
+# 讀取全部
+conn = sqlite3.connect('school.db')
+cursor = conn.execute("SELECT * FROM scores2")
+rows = cursor.fetchall()
+print(rows)
+for row in rows:
+    print(row[0], row[1])
+conn.close()
+# [(1, '大熊', 65, 62, 40), (2, '小明', 85, 90, 87), (3, '小美', 92, 90, 95)]
+# 1 大熊
+# 2 小明
+# 3 小美
+
+# 讀取單筆
+conn = sqlite3.connect('school.db')
+cursor = conn.execute("SELECT * FROM scores2")
+row = cursor.fetchone()
+print(row[0], row[1])
+conn.close()
+# 1 大熊
+```
+
+##### 資料修改
+``` py
+# 資料修改
+import sqlite3
+
+# 更新資料
+conn = sqlite3.connect('school.db')
+conn.execute("UPDATE scores2 SET name='{}' WHERE id={}".format('小王', 1))
+# 更新
+conn.commit()
+
+# 刪除資料
+conn.execute("DELETE FROM scores2 WHERE id={}".format(2))
+# 更新
+conn.commit()
+
+# print data
+rows = conn.execute("SELECT * from scores2")
+for row in rows:
+    print(row)
+
+# close DB connect
+conn.close()
+# (1, '小王', 65, 62, 40)
+# (3, '小美', 92, 90, 95)
+
+# 刪除資料表
+conn = sqlite3.connect('school.db')
+conn.execute("DROP TABLE scores2")
+# 更新
+conn.commit()
+# close DB connect
+conn.close()
+
+# show table
+conn = sqlite3.connect('school.db')
+# cursor = conn.cursor()
+# cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+# tables = cursor.fetchall()
+tables = conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+print('-- tables --')
+for table in tables:
+    print(table)
+# close DB connect
+conn.close()
+# -- tables --
+```
+
+##### other 1
+``` py
+# for SQlite
+import sqlite3
+# for mongodb client link
+import os
+
+# for SQlite
+class SQLitePipeline:
+
+    def open_spider(self, spider):
+
+        self.connection = sqlite3.connect("imdb.db")
+        self.c = self.connection.cursor()
+        try:
+            self.c.execute('''
+                CREATE TABLE best_movies(
+                    title TEXT,
+                    year TEXT,
+                    duration TEXT,
+                    genre TEXT,
+                    rating TEXT,
+                    movie_url TEXT
+                )
+            ''')
+            self.connection.commit()
+        except sqlite3.OperationalError:
+            pass
+
+    def close_spider(self, spider):
+        self.connection.close()
+
+    def process_item(self, item, spider):
+        self.c.execute("""
+                INSERT INTO best_movies (title,year,duration,genre,rating,movie_url) values(?,?,?,?,?,?)
+            """,(
+                item.get('title'),
+                item.get('year'),
+                item.get('duration'),
+                ','.join(item.get('genre')),
+                item.get('rating'),
+                item.get('movie_url')
+            ))
+        self.connection.commit()
+        return item
+```
+
+##### other 2
 ``` py
 import csv
 import sqlite3
@@ -1635,53 +2041,6 @@ class MongodbPipeline:
         return item
 ```
 
-#### SQlite
-``` py
-# for SQlite
-import sqlite3
-# for mongodb client link
-import os
-
-# for SQlite
-class SQLitePipeline:
-
-    def open_spider(self, spider):
-
-        self.connection = sqlite3.connect("imdb.db")
-        self.c = self.connection.cursor()
-        try:
-            self.c.execute('''
-                CREATE TABLE best_movies(
-                    title TEXT,
-                    year TEXT,
-                    duration TEXT,
-                    genre TEXT,
-                    rating TEXT,
-                    movie_url TEXT
-                )
-            ''')
-            self.connection.commit()
-        except sqlite3.OperationalError:
-            pass
-
-    def close_spider(self, spider):
-        self.connection.close()
-
-    def process_item(self, item, spider):
-        self.c.execute("""
-                INSERT INTO best_movies (title,year,duration,genre,rating,movie_url) values(?,?,?,?,?,?)
-            """,(
-                item.get('title'),
-                item.get('year'),
-                item.get('duration'),
-                ','.join(item.get('genre')),
-                item.get('rating'),
-                item.get('movie_url')
-            ))
-        self.connection.commit()
-        return item
-```
-
 #### exception
 ``` py
 # simple case
@@ -1751,6 +2110,13 @@ pip3 install numpy
 # sys — System-specific parameters and functions
 # random — Generate pseudo-random numbers
 # statistics — Mathematical statistics functions
+# 
+pip install pandas
+
+# openpyxl : access excel
+pip install openpyxl
+# lxml : access xtml
+pip install lxml
 
 # requests
 # pytest : for unite test
@@ -1837,132 +2203,6 @@ os.mkdir(path)
 
 save_as = os.path.join(path, f"{keyword}{count}.jpg")
 wget.download(pic.get_attribute('src'), save_as)
-```
-
-#### csv
-``` py
-## students.csv
-# home,name
-# "Number Four, Privet Drive", Harry
-# The Burrow,Ron
-# Malfory MAnor,Draco
-
-# students.py
-import csv
-
-students = []
-
-with open("students.csv") as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        students.append({"name": row["name"], "home": row["name"]})
-
-for student in sorted(students, key=lambda student: student["name"]):
-    print(f"{student['name']} is from {student['home']}")
-
-# python students.py
-# 	Harry is from  Harry
-# 	Draco is from Draco
-# 	Ron is from Ron
-```
-
-``` py
-# students.py - csv write
-import csv
-import os
-
-file_path = "students.csv"
-
-name = input("What's your name? ")
-home = input("Where's your from? ")
-
-if not os.path.exists(file_path):
-    with open(file_path, "w", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['name', 'home'])
-
-with open(file_path, "a", newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow([name, home])
-
-# python students.py
-# 	What's your name? Harry
-# 	Where's your from? Number Four, Privet Drive
-# python students.py
-# 	What's your name? Ron                      
-# 	Where's your from? The Burrow
-
-# # student.csv
-# name,home
-# Harry,"Number Four, Privet Drive"
-# Ron,The Burrow
-#
-```
-
-``` py
-# students.py - csv write by DictWriter
-import csv
-import os
-
-file_path = "students.csv"
-
-name = input("What's your name? ")
-home = input("Where's your from? ")
-
-if not os.path.exists(file_path):
-    with open(file_path, "w", newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=["name", "home"])
-        writer.writeheader()
-
-with open(file_path, "a", newline='') as file:
-    writer = csv.DictWriter(file, fieldnames=["name", "home"])
-    writer.writerow({"name": name, "home": home})
-
-# python students.py
-# 	What's your name? Harry
-# 	Where's your from? Number Four, Privet Drive
-# python students.py
-# 	What's your name? Ron                      
-# 	Where's your from? The Burrow
-
-# # student.csv
-# name,home
-# Harry,"Number Four, Privet Drive"
-# Ron,The Burrow
-
-```
-
-``` py
-import csv
-
-evidence = []
-labels = []
-with open(filename) as f:
-    reader = csv.reader(f)
-		# jump 1st row
-    next(reader)
-
-    for row in reader:
-        evidence.append([
-            int(row[0]),
-            float(row[1]),
-            int(row[2]),
-            float(row[3]),
-            int(row[4]),
-            float(row[5]),
-            float(row[6]),
-            float(row[7]),
-            float(row[8]),
-            float(row[9]),
-            abbreviated_month_to_int(row[10]),
-            int(row[11]),
-            int(row[12]),
-            int(row[13]),
-            int(row[14]),
-            1 if row[15] == 'Returning_Visitor' else 0,
-            1 if row[16] == 'TRUE' else 0,
-        ])
-        labels.append(1 if row[-1] == 'TRUE' else 0)
 ```
 
 #### [matplotlib.pyplot](https://matplotlib.org/3.8.3/api/)
@@ -2343,6 +2583,65 @@ plt.plot([1,2,3], 'r:o')
 plt.axes([0.55,0.2,0.2,0.2])
 plt.title(label='#2 Chat 2')
 plt.plot([1,2,3], 'g--o')
+
+plt.show()
+```
+
+###### 圖書分類銷售分析圖
+``` py
+# 圖書分類銷售分析圖
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+listx = ['商業理財','文學小說','藝術設計','人文科普','電腦語言','心靈養生','生活風格','親子共享']
+listm = [0.14,0.16,0.08,0.13,0.16,0.12,0.16,0.05]
+listf = [0.1,0.19,0.06,0.1,0.13,0.13,0.2,0.09]
+listm = [x*100 for x in listm]
+listf = [x*100 for x in listf]
+
+# plt.figure(figsize=[12,9])
+# plt.subplot(2,2,1)
+plt.figure(figsize=(12,9))
+plt.subplot(221)
+plt.title(label='分類比率-男性')
+plt.pie(listm, labels=listx, autopct = '%2.1f%%',)
+
+# plt.subplot(2,2,2)
+plt.subplot(222)
+plt.title(label='分類比率-女性')
+plt.pie(listf, labels=listx, autopct = '%2.1f%%',)
+
+# plt.subplot(2,2,3)
+plt.subplot(223)
+plt.title(label='分類長條圖')
+width1 = 0.4
+listx1 = [x - width1/2 for x in range(len(listx))]
+listx2 = [x + width1/2 for x in range(len(listx))]
+plt.bar(listx1, listm, width1)
+plt.bar(listx2, listf, width1)
+# x軸 標示 旋轉
+plt.xticks(range(len(listx)), labels=listx, rotation=45)
+
+plt.xlabel('圖書分類', fontsize=12)
+plt.ylabel('銷售比率(%)', fontsize=12)
+plt.legend()
+
+# plt.subplot(2,2,4)
+plt.subplot(224)
+plt.title(label='分類長折線圖')
+plt.plot(listx, listm, marker='s' ,label='男')
+plt.plot(listx, listf, marker='s' ,label='女')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.xlabel('圖書分類', fontsize=12)
+plt.ylabel('銷售比率(%)', fontsize=12)
+# x軸 標示 旋轉
+plt.legend()
 
 plt.show()
 ```
@@ -2803,6 +3102,54 @@ if matches := re.search(r"^(?:https?://)?(?:www\.)?twitter\.com/([a-z0-9_]+)$", 
 # URL:www.google.com
 # re.sub Username: www.google.com
 ```
+
+#### excel
+``` py
+# excel (only support .xlsx)
+import  openpyxl
+
+# 新增 excell
+# 活頁簿
+workbook = openpyxl.Workbook()
+# 工作表 #1
+sheet = workbook.worksheets[0]
+# 以位置寫入
+sheet['A1'] = '一年甲班'
+list_titles = ['座號','姓名','國文','英文','數學']
+# 新增一列
+sheet.append(list_titles)
+# add item
+list_datas = [[1, '大熊', 65, 62, 40],
+              [2, '小明', 85, 90, 87],
+              [3, '小美', 92, 90, 95]]
+for data in list_datas:
+    sheet.append(data)
+# save
+workbook.save('test.xlsx')
+
+# modify excel
+# load file
+workbook2 = openpyxl.load_workbook('test.xlsx')
+sheet = workbook2.worksheets[0]
+# sheet.max_row    列數
+# sheet.max_column 行數
+# sheet.cell(row,column) start from 1
+for i in range(1, sheet.max_row+1):
+    for j in range(1, sheet.max_column+1):
+        print(sheet.cell(row=i, column=j).value, end=' ' )
+    print()
+sheet['A1'] = '二年甲班'
+workbook2.save('test2.xlsx')
+# 一年甲班 None None None None
+# 座號 姓名 國文 英文 數學
+# 1 大熊 65 62 40
+# 2 小明 85 90 87
+# 3 小美 92 90 95
+```
+
+#### google sheet
+[https://console.cloud.google.com/](google API)
+
 
 #### mypy
 ``` py

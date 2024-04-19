@@ -14,6 +14,9 @@ tags:
 Linear Regression :線性迴歸
 Logistic Regression : 邏輯迴歸
 Deep Neural Netowrks : 深度神經網路
+
+<!--more-->
+
 K-Means Clustering : k 類聚
 Density Estimation : 密度估計
 Principal Components Analysis : 主成分分析
@@ -23,6 +26,7 @@ Markove Models,HMM : 馬可夫模
 Game Theory : 賽局理論
 Operation Research : 操作研究
 Portforlio Optimization : 投資優化
+
 ##### Matplotlib
 Line Charts:折線圖
 Scatterplot:散點圖
@@ -36,8 +40,6 @@ scatter matrix:散點矩陣圖
 <div style="max-width:500px">
   {% asset_img pic1.png pic1 %}
 </div>
-
-<!--more-->
 
 #### matrix multiplication
 <div style="max-width:500px">

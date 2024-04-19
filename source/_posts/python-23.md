@@ -1,0 +1,732 @@
+---
+title: python Pandas
+abbrlink: fe93
+date: 2024-04-17 11:36:16
+categories: Coding
+tags:
+	- python
+---
+
+### Series,DataFrame Create
+#### Series create - pandas 一維陣列
+
+<!--more-->
+
+``` py
+# Series create - pandas 一維陣列
+import pandas as pd
+
+# Series create
+se = pd.Series([1,2,3,4])
+print(type(se))
+print(se)
+print(se.values)
+print(se.index)
+# <class 'pandas.core.series.Series'>
+# 0    1
+# 1    2
+# 2    3
+# 3    4
+# dtype: int64
+# [1 2 3 4]
+# RangeIndex(start=0, stop=4, step=1)
+
+# 自訂索引
+stocks = ['p1', 'p2', 'p3', 'p4']
+prices  = [42, 510, 694, 2115]
+# index 索引
+se2 = pd.Series(prices, index=stocks)
+print('')
+print(se2)
+# p1      42
+# p2     510
+# p3     694
+# p4    2115
+# dtype: int64
+
+# create Series by dict
+dict1 = {'Taipei': '台北', 'Taichung': '台中', 'Kaohsiung': '高雄', }
+se3 = pd.Series(dict1)
+print('')
+print(se3)
+print(se3.values)
+print(se3.index)
+# Taipei       台北
+# Taichung     台中
+# Kaohsiung    高雄
+# dtype: object
+# ['台北' '台中' '高雄']
+# Index(['Taipei', 'Taichung', 'Kaohsiung'], dtype='object')
+
+# get value
+print('')
+print(se[2])
+print(se3['Kaohsiung'])
+# 3
+# 高雄
+```
+
+#### DataFrame create - pandas 二維陣列
+``` py
+# DataFrame create - pandas 二維陣列
+import pandas as pd
+# create DataFrame
+df = pd.DataFrame([[65,92,78,83,70],
+                   [90,72,76,93,56],
+                   [81,85,91,89,77],
+                   [79,53,47,94,80]])
+print('df1')
+print(type(df))
+print(df)
+# <class 'pandas.core.frame.DataFrame'>
+#     0   1   2   3   4
+# 0  65  92  78  83  70
+# 1  90  72  76  93  56
+# 2  81  85  91  89  77
+# 3  79  53  47  94  80
+
+# 自訂索引,行
+df2 = pd.DataFrame([[65,92,78,83,70],
+                   [90,72,76,93,56],
+                   [81,85,91,89,77],
+                   [79,53,47,94,80]],
+                  index=['大明','小王','張山','李四'],
+                  columns=['英文','國文','數學','社會','生活'])
+print('df2')
+print(df2)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 張山  81  85  91  89  77
+# 李四  79  53  47  94  80
+
+# create DataFrame by dict
+scores = {
+ '英文':{'大明':65, '小王':90, '張山':81, '李四':79},
+ '國文':{'大明':92, '小王':72, '張山':85, '李四':53},
+ '數學':{'大明':25, '小王':92, '張山':21, '李四':72},
+ '社會':{'大明':35, '小王':93, '張山':31, '李四':73},
+ '生活':{'大明':45, '小王':94, '張山':41, '李四':74}
+}
+df3 = pd.DataFrame(scores)
+print('df3')
+print(df3)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  25  35  45
+# 小王  90  72  92  93  94
+# 張山  81  85  21  31  41
+# 李四  79  53  72  73  74
+
+# create DataFrame by Series(dict)
+se1 = pd.Series({'大明':65, '小王':90, '張山':81, '李四':79})
+se2 = pd.Series({'大明':92, '小王':72, '張山':85, '李四':53})
+se3 = pd.Series({'大明':25, '小王':92, '張山':21, '李四':72})
+se4 = pd.Series({'大明':35, '小王':93, '張山':31, '李四':73})
+se5 = pd.Series({'大明':45, '小王':94, '張山':41, '李四':74})
+df4 = pd.DataFrame({
+        '英文':se1,
+        '國文':se2,
+        '數學':se3,
+        '社會':se4,
+        '生活':se5})
+print('df4')
+print(df4)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  25  35  45
+# 小王  90  72  92  93  94
+# 張山  81  85  21  31  41
+# 李四  79  53  72  73  74
+
+# create DataFrame by Series(concat)
+se1 = pd.Series({'大明':65, '小王':90, '張山':81, '李四':79})
+se2 = pd.Series({'大明':92, '小王':72, '張山':85, '李四':53})
+se3 = pd.Series({'大明':25, '小王':92, '張山':21, '李四':72})
+se4 = pd.Series({'大明':35, '小王':93, '張山':31, '李四':73})
+se5 = pd.Series({'大明':45, '小王':94, '張山':41, '李四':74})
+df5 = pd.concat([se1,se2,se3,se4,se5], axis=1)
+df5.columns = ['英文','國文','數學','社會','生活']
+print('df5')
+print(df5)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  25  35  45
+# 小王  90  72  92  93  94
+# 張山  81  85  21  31  41
+# 李四  79  53  72  73  74
+```
+
+### DataFrame
+#### DataFrame 取值
+``` py
+# DataFrame 取值
+import pandas as pd
+
+df = pd.DataFrame([[65,92,78,83,70],
+                   [90,72,76,93,56],
+                   [81,85,91,89,77],
+                   [79,53,47,94,80]],
+                  index=['大明','小王','張山','李四'],
+                  columns=['英文','國文','數學','社會','生活'])
+print(df)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 張山  81  85  91  89  77
+# 李四  79  53  47  94  80
+
+# 基本取值 column
+print('--basic--')
+print(df['數學'])
+print(df[['英文','數學']])
+# 基本取值 條件
+print(df[df['國文'] > 80])
+# 基本取值 以 values 取值
+print(df.values)
+print(df.values[1])
+print(df.values[1][2])
+# 大明    78
+# 小王    76
+# 張山    91
+# 李四    47
+# Name: 數學, dtype: int64
+#     英文  數學
+# 大明  65  78
+# 小王  90  76
+# 張山  81  91
+# 李四  79  47
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 張山  81  85  91  89  77
+# [[65 92 78 83 70]
+#  [90 72 76 93 56]
+#  [81 85 91 89 77]
+#  [79 53 47 94 80]]
+# [90 72 76 93 56]
+# 76
+
+# index+column 取值 .loc
+print('--.loc--')
+print(df.loc['小王','數學'])
+print(df.loc['小王',['英文','數學']])
+print(df.loc[['小王','李四'],['英文','數學']])
+print(df.loc['小王':'李四','英文':'數學'])
+print(df.loc['小王',:])
+print(df.loc['張山':,:])
+# 76
+# 英文    90
+# 數學    76
+# Name: 小王, dtype: int64
+#     英文  數學
+# 小王  90  76
+# 李四  79  47
+#     英文  國文  數學
+# 小王  90  72  76
+# 張山  81  85  91
+# 李四  79  53  47
+# 英文    90
+# 國文    72
+# 數學    76
+# 社會    93
+# 生活    56
+# Name: 小王, dtype: int64
+#     英文  國文  數學  社會  生活
+# 張山  81  85  91  89  77
+# 李四  79  53  47  94  80
+
+# index number+column number 取值 .iloc
+print('--.iloc--')
+print(df.iloc[3,4])
+print(df.iloc[0,[0,4]])
+print(df.iloc[[0,1],[2,3]])
+print(df.iloc[0:3,2:5])
+print(df.iloc[2,:])
+print(df.iloc[:2,2:5])
+print(df.iloc[1:,2:5])
+# 80
+# 英文    65
+# 生活    70
+# Name: 大明, dtype: int64
+#     數學  社會
+# 大明  78  83
+# 小王  76  93
+#     數學  社會  生活
+# 大明  78  83  70
+# 小王  76  93  56
+# 張山  91  89  77
+# 英文    81
+# 國文    85
+# 數學    91
+# 社會    89
+# 生活    77
+# Name: 張山, dtype: int64
+#     數學  社會  生活
+# 大明  78  83  70
+# 小王  76  93  56
+#     數學  社會  生活
+# 小王  76  93  56
+# 張山  91  89  77
+# 李四  47  94  80
+
+# 取 最前幾列/最後幾列
+print('--head/tail--')
+print(df.head(2))
+print(df.tail(2))
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+#     英文  國文  數學  社會  生活
+# 張山  81  85  91  89  77
+# 李四  79  53  47  94  80
+```
+
+#### DataFrame 操作
+``` py
+# DataFrame 操作
+import pandas as pd
+
+df = pd.DataFrame([[65,92,78,83,70],
+                   [90,72,76,93,56],
+                   [81,85,91,89,77],
+                   [79,53,47,94,80]],
+                  index=['大明','小王','李四','張山'],
+                  columns=['英文','國文','數學','社會','生活'])
+print(df)
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 李四  81  85  91  89  77
+# 張山  79  53  47  94  80
+
+# 排序
+# 依値排序
+# ascending True(default)遞增, False遞減
+print('--排序--')
+print(df.sort_values(by='數學', ascending=False))
+# 依索引排序
+# axis 0:index 1:column
+print(df.sort_index(axis=0))
+#     英文  國文  數學  社會  生活
+# 李四  81  85  91  89  77
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 張山  79  53  47  94  80
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 張山  79  53  47  94  80
+# 李四  81  85  91  89  77
+
+# 資料修改
+# copy
+df_copy = df.copy()
+df.iloc[0,0] = 99
+print('--修改--')
+print(df)
+#     英文  國文  數學  社會  生活
+# 大明  99  92  78  83  70
+# 小王  90  72  76  93  56
+# 李四  81  85  91  89  77
+# 張山  79  53  47  94  80
+
+# 刪除
+print('--刪除--')
+df = df_copy
+# 刪除列
+print(df.drop('李四'))
+# 刪除行
+print(df.drop('數學', axis=1))
+# 刪除連續列
+print(df.drop(df.index[1:4]))
+# 刪除連續行
+print(df.drop(df.columns[1:4], axis=1))
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+# 小王  90  72  76  93  56
+# 張山  79  53  47  94  80
+#     英文  國文  社會  生活
+# 大明  65  92  83  70
+# 小王  90  72  93  56
+# 李四  81  85  89  77
+# 張山  79  53  94  80
+#     英文  國文  數學  社會  生活
+# 大明  65  92  78  83  70
+#     英文  生活
+# 大明  65  70
+# 小王  90  56
+# 李四  81  77
+# 張山  79  80
+```
+
+#### 數值處理 - NaN 空值
+``` py
+# 數值處理 - NaN 空值
+import pandas as pd
+
+# NaN 表 空值
+# isnull() : check NaN
+# fillna(value, method): NaN 填入指定值
+# dropna(): NaN 刪除
+df = pd.read_csv('customer.csv')
+print(df)
+print('column NaN 統計:', df.isnull().sum())
+print('index 有 NaN 的筆數', df.isnull().any(axis=1).sum())
+print('column 有 NaN 的筆數', df.isnull().any(axis=0).sum())
+print('age NaN 的紀錄:',df[df['age'].isnull()])
+#          id name  gender   age    area         job
+# 0   1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1   1700002  吳俊諺     NaN   NaN  臺北市文山區     金融業和房地產
+# 2   1700003  蔡俊毅     NaN   NaN  臺北市文山區    教育體育  文化
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4   1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+# 5   1700005  袁劭彥    Male  42.0  臺北市文山區     金融業和房地產
+# 6   1700006  蔡登意     NaN   NaN     NaN     金融業和房地產
+# 7   1700007  吳景翔     NaN  39.0     NaN       農林牧漁業
+# 8   1700008  邱孝信     NaN  39.0     NaN     金融業和房地產
+# 9   1700009  陳明輝     NaN  57.0  基隆市中正區     金融業和房地產
+# 10  1700010  彭郁翔     NaN  55.0  基隆市中正區      住宿和餐飲業
+# 11  1700011  許合蓉  Female  61.0  新北市三重區      住宿和餐飲業
+# 12  1700012  武家豪    Male  53.0  新北市三重區       農林牧漁業
+# 13  1700013  郭信邦     NaN  48.0  新北市三重區      教育體育文化
+# 14  1700014  周聿綠  Female  57.0  基隆市中正區     金融業和房地產
+# column NaN 統計:
+# id        0
+# name      0
+# gender    8
+# age       3
+# area      3
+# job       0
+# dtype: int64
+# index 有 NaN 的筆數 8
+# column 有 NaN 的筆數 3
+# age NaN 的紀錄:         id name gender  age    area       job
+# 1  1700002  吳俊諺    NaN  NaN  臺北市文山區   金融業和房地產
+# 2  1700003  蔡俊毅    NaN  NaN  臺北市文山區  教育體育  文化
+# 6  1700006  蔡登意    NaN  NaN     NaN   金融業和房地產
+
+# put NaN to 0
+df_sample = df.copy()
+df_sample['age'] = df_sample['age'].fillna(value=0)
+print('-- fillna 0 --')
+print(df_sample.head())
+#         id name  gender   age    area         job
+# 0  1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1  1700002  吳俊諺     NaN   0.0  臺北市文山區     金融業和房地產
+# 2  1700003  蔡俊毅     NaN   0.0  臺北市文山區    教育體育  文化
+# 3  1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4  1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+
+# put NaN to value
+df_sample = df.copy()
+df_sample['age'] = df_sample['age'].fillna(value=df_sample['age'].mean())
+print('-- fillna mean() --')
+print(df_sample.head())
+#         id name  gender   age    area         job
+# 0  1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1  1700002  吳俊諺     NaN  45.0  臺北市文山區     金融業和房地產
+# 2  1700003  蔡俊毅     NaN  45.0  臺北市文山區    教育體育  文化
+# 3  1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4  1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+
+# put NaN as forward/back
+df_sample = df.copy()
+df_sample['age'] = df_sample['age'].ffill()
+df_sample['gender'] = df_sample['gender'].bfill()
+print('-- fillna forward-fill:fffill/back-fill:bfill --')
+print(df_sample.head())
+#         id name  gender   age    area         job
+# 0  1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1  1700002  吳俊諺  Female  21.0  臺北市文山區     金融業和房地產
+# 2  1700003  蔡俊毅  Female  21.0  臺北市文山區    教育體育  文化
+# 3  1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4  1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+
+# delete NaN record
+df_sample = df.copy()
+df_sample = df_sample.dropna()
+print('-- dropna --' )
+print(df_sample)
+#          id name  gender   age    area         job
+# 0   1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4   1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+# 5   1700005  袁劭彥    Male  42.0  臺北市文山區     金融業和房地產
+# 11  1700011  許合蓉  Female  61.0  新北市三重區      住宿和餐飲業
+# 12  1700012  武家豪    Male  53.0  新北市三重區       農林牧漁業
+# 14  1700014  周聿綠  Female  57.0  基隆市中正區     金融業和房地產
+```
+
+#### 數值處理 - 調整
+``` py
+# 數值處理 - 調整
+import pandas as pd
+
+df = pd.read_csv('customer.csv')
+print(df)
+#          id name  gender   age    area         job
+# 0   1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1   1700002  吳俊諺     NaN   NaN  臺北市文山區     金融業和房地產
+# 2   1700003  蔡俊毅     NaN   NaN  臺北市文山區    教育體育  文化
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4   1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+# 5   1700005  袁劭彥    Male  42.0  臺北市文山區     金融業和房地產
+# 6   1700006  蔡登意     NaN   NaN     NaN     金融業和房地產
+# 7   1700007  吳景翔     NaN  39.0     NaN       農林牧漁業
+# 8   1700008  邱孝信     NaN  39.0     NaN     金融業和房地產
+# 9   1700009  陳明輝     NaN  57.0  基隆市中正區     金融業和房地產
+# 10  1700010  彭郁翔     NaN  55.0  基隆市中正區      住宿和餐飲業
+# 11  1700011  許合蓉  Female  61.0  新北市三重區      住宿和餐飲業
+# 12  1700012  武家豪    Male  53.0  新北市三重區       農林牧漁業
+# 13  1700013  郭信邦     NaN  48.0  新北市三重區      教育體育文化
+# 14  1700014  周聿綠  Female  57.0  基隆市中正區     金融業和房地產
+
+
+# 去除重複
+df_sample = df.copy()
+# subset 判斷欄位
+# keep first第一筆, last最後一筆
+# inplace True : 原資料更新
+df_sample.drop_duplicates(subset='id', keep='first', inplace=True)
+print('-- delete duplicate --')
+print(df_sample)
+#          id name  gender   age    area         job
+# 0   1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1   1700002  吳俊諺     NaN   NaN  臺北市文山區     金融業和房地產
+# 2   1700003  蔡俊毅     NaN   NaN  臺北市文山區    教育體育  文化
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 5   1700005  袁劭彥    Male  42.0  臺北市文山區     金融業和房地產
+# 6   1700006  蔡登意     NaN   NaN     NaN     金融業和房地產
+
+# 資料內容置換
+# df.str.strip 去除左右空白
+# df.str.lstrip 去除左邊空白
+# df.str.rstrip 去除右邊空白
+# df.str.replace(old,new) 替換文字
+print('-- strip + replace --')
+df_sample = df.copy()
+df_sample['job'] = df_sample['job'].str.strip()
+df_sample['job'] = df_sample['job'].str.replace(' ', '')
+print(df_sample.head())
+        # id name  gender   age    area      job
+# 0  1700001  李國發    Male  21.0  新北市三重區  金融業和房地產
+# 1  1700002  吳俊諺     NaN   NaN  臺北市文山區  金融業和房地產
+# 2  1700003  蔡俊毅     NaN   NaN  臺北市文山區   教育體育文化
+# 3  1700004  姚鈺迪  Female  34.0  基隆市中正區   住宿和餐飲業
+# 4  1700004  姚鈺迪  Female  34.0  基隆市中正區   住宿和餐飲業
+
+# 欄位格式調整
+print('-- age type to int32 --')
+# Cannot convert non-finite values (NA or inf) to integer
+df_sample['age'] = df_sample['age'].ffill()
+print("df_sample['age'] type)", type(df_sample['age'].dtype) )
+df_sample['age'] = df_sample['age'].astype('int32')
+print("df_sample['age'] type)", type(df_sample['age'].dtype) )
+print(df_sample.head())
+# df_sample['age'] type) <class 'numpy.dtypes.Float64DType'>
+# df_sample['age'] type) <class 'numpy.dtypes.Int32DType'>
+#         id name  gender  age    area      job
+# 0  1700001  李國發    Male   21  新北市三重區  金融業和房地產
+# 1  1700002  吳俊諺     NaN   21  臺北市文山區  金融業和房地產
+# 2  1700003  蔡俊毅     NaN   21  臺北市文山區   教育體育文化
+# 3  1700004  姚鈺迪  Female   34  基隆市中正區   住宿和餐飲業
+# 4  1700004  姚鈺迪  Female   34  基隆市中正區   住宿和餐飲業
+```
+
+#### 資料篩選,分組運算
+``` py
+# 資料篩選,分組運算
+import pandas as pd
+
+df = pd.read_csv('customer.csv')
+print(df)
+#          id name  gender   age    area         job
+# 0   1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
+# 1   1700002  吳俊諺     NaN   NaN  臺北市文山區     金融業和房地產
+# 2   1700003  蔡俊毅     NaN   NaN  臺北市文山區    教育體育  文化
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
+# 4   1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
+# 5   1700005  袁劭彥    Male  42.0  臺北市文山區     金融業和房地產
+# 6   1700006  蔡登意     NaN   NaN     NaN     金融業和房地產
+# 7   1700007  吳景翔     NaN  39.0     NaN       農林牧漁業
+# 8   1700008  邱孝信     NaN  39.0     NaN     金融業和房地產
+# 9   1700009  陳明輝     NaN  57.0  基隆市中正區     金融業和房地產
+# 10  1700010  彭郁翔     NaN  55.0  基隆市中正區      住宿和餐飲業
+# 11  1700011  許合蓉  Female  61.0  新北市三重區      住宿和餐飲業
+# 12  1700012  武家豪    Male  53.0  新北市三重區       農林牧漁業
+# 13  1700013  郭信邦     NaN  48.0  新北市三重區      教育體育文化
+# 14  1700014  周聿綠  Female  57.0  基隆市中正區     金融業和房地產
+
+# 欄位條件
+print('-- 欄位條件 --')
+print(df[df['gender'] == 'Female'])
+#          id name  gender   age    area        job
+# 3   1700004  姚鈺迪  Female  34.0  基隆市中正區   住宿 和 餐飲業
+# 4   1700004  姚鈺迪  Female  34.0  基隆市中正區     住宿和餐飲業
+# 11  1700011  許合蓉  Female  61.0  新北市三重區     住宿和餐飲業
+# 14  1700014  周聿綠  Female  57.0  基隆市中正區    金融業和房地產
+
+# 欄位多條件
+print('-- 欄位多條件 --')
+print(df[(df['gender'] == 'Male') & (df['age'] > 50)])
+#          id name gender   age    area    job
+# 12  1700012  武家豪   Male  53.0  新北市三重區  農林牧漁業
+
+# 分組運算欄
+print("-- gender's age mean --")
+print(df.groupby('gender')['age'].mean())
+# gender
+# Female    46.500000
+# Male      38.666667
+# Name: age, dtype: float64
+
+# 彙總統計
+print("-- gender's age mean, min, max --")
+print(df.groupby('gender')['age'].agg(['mean', 'min', 'max']))
+#              mean   min   max
+# gender
+# Female  46.500000  34.0  61.0
+# Male    38.666667  21.0  53.0
+```
+
+### DataFrame data access
+#### read data
+``` py
+# read data
+# read_csv():.csv
+# read_json():.json
+# read_excel():xlsx
+# read_html():.html
+# read_sql() :SQLite
+
+import pandas as pd
+# sep : 分隔號, default ','
+# encoding : 編碼
+df1 = pd.read_csv('covid19.csv')
+print('csv', df1)
+df2 = pd.read_json('./covid19.json')
+print('json',df2)
+# read_excel need install openpyxl : pip install openpyxl
+df3 = pd.read_excel('./covid19.xlsx')
+print('excel',df3)
+# read_html need install lxml :
+# keep_default_na  是否去除空値
+url = 'https://www.tiobe.com/tiobe-index/'
+tables = pd.read_html(url, keep_default_na=False)
+# print(tables)
+print('html',tables[0].head(10))
+```
+
+#### write data
+``` py
+# write data
+# to_csv():.csv
+# to_json():.json
+# to_excel():xlsx
+# to_html():.html
+# to_sql() :SQLite
+import pandas as pd
+
+df = pd.DataFrame([[65,92,78,83,70],
+                   [90,72,76,93,56],
+                   [81,85,91,89,77],
+                   [79,53,47,94,80]],
+                  index=['大明','小王','李四','張山'],
+                  columns=['英文','國文','數學','社會','生活'])
+df.to_csv('scores2.csv')
+df.to_excel('scores2.xlsx')
+df.to_json('scores2.json')
+df.to_html('scores2.html')
+```
+
+### 繪圖
+#### 長條圖
+``` py
+# 繪圖 - 長條圖
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+#                             default
+# kind        圖形形式        Line(折線圖)
+# title       圖形標題        None
+# legend      顯示圖示說明    True
+# grid        格線           False
+# xlim        繪 x軸 刻度範圍 None
+# ylim        繪 y軸 刻度範圍 None
+# xtick       繪圖形 x軸刻度  None
+# ytick       繪圖形 y軸刻度  None
+# x           設定 x軸 資料   None
+# y           設定 y軸 資料   None
+# fontsize    設定 x,y軸刻度字體大小  None
+# figsize     設定圖形長度及寬度      None
+# kind: line(折線圖), hist(直方圖), scatter(散佈圖),
+#       bar(長條圖), barh(橫條圖), pie(圓餅圖)
+
+df = pd.DataFrame([[250,320,300,312,280],
+                   [280,300,280,290,315],
+                   [220,280,250,305,250]],
+                  index = ['北部','中部','南部',],
+                  columns = [2015,2016,2017,2018,2019])
+
+g1 = df.plot(kind='bar', title='長條圖', figsize=[10,5])
+g2 = df.plot(kind='barh', title='橫條圖', figsize=[10,5])
+g3 = df.plot(kind='bar', stacked=True, title='堆疊圖', figsize=[10,5])
+# also need srun plt.show()
+plt.show()
+```
+
+#### 折線圖
+``` py
+# 繪圖 - 折線圖
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+df = pd.DataFrame([[250,320,300,312,280],
+                   [280,300,280,290,315],
+                   [220,280,250,305,250]],
+                  index = ['北部','中部','南部',],
+                  columns = [2015,2016,2017,2018,2019])
+
+g1 = df.iloc[0].plot(kind='line', legend=True,
+                            xticks=range(2015,2020),
+                            title = '公司年度銷售表',
+                            figsize=[10,5])
+g1 = df.iloc[1].plot(kind='line', legend=True,
+                            xticks=range(2015,2020))
+g1 = df.iloc[2].plot(kind='line', legend=True,
+                            xticks=range(2015,2020))
+plt.show()
+```
+
+#### 圓餅圖
+``` py
+# 繪圖 - 圓餅圖
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+df = pd.DataFrame([[40,320,300,312,280],
+                   [280,300,280,290,30],
+                   [220,280,25,305,250]],
+                  index = ['北部','中部','南部',],
+                  columns = [2015,2016,2017,2018,2019])
+# subplots=True 多張圖放在一個區域
+df.plot(kind='pie', subplots=True, figsize=[20,20])
+plt.show()
+```
