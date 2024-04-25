@@ -10,7 +10,7 @@ tags:
 ### MAP
 + crawler
 	+ {% post_link python-6 '# Request' %}
-	+ {% post_link python-6 '# BeautifulSoup' %}
+	+ {% post_link python-6 '# BeautifulSoup' %}:(HTML 靜態解析)
 	+ {% post_link python-12 '# Selenium' %}:web瀏覽器的自動化
 	+ {% post_link python-9 '# Scrapy' %}
 	+ {% post_link python-9 '# XPath expression' %}
@@ -24,13 +24,14 @@ tags:
 	+ {% post_link python-23 '# Pandas' %}
 	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
 	+ {% post_link python-4 '# Packages excell' %}:
-	+ {% post_link python-4 '# Packages google sheet' %}:google 試算表
+	+ {% post_link python-24 '# Connect to google sheet' %}:google 試算表
 
 + function 
 	+ {% post_link python-4 '# Built-in function csv' %}
 	+ {% post_link python-4 '# Built-in function json' %}
 	+ {% post_link python-4 '# Built-in function sglite3' %}
 	+ {% post_link python-4 '# file I/O' %}
+	+ {% post_link python-4 '# re - regular expression' %}
 
 + tool
 	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
@@ -209,6 +210,10 @@ for I in range(7,10):
     ...
 for I in range(5,11,2):
     ...
+
+# add index
+for index, data in enumerate(datas):
+    data_preview = json.loads(data['data-preview'])
 ```
 
 #### function
@@ -1744,6 +1749,26 @@ path = os.path.join(keyword)
 os.mkdir(path)
 save_as = os.path.join(path, f"{keyword}{count}.jpg")
 wget.download(pic.get_attribute('src'), save_as)
+
+# add dirctory
+if not os.path.exists(FOLDER) :
+    os.makedirs(FOLDER)
+
+# download_image
+import imghdr
+def download_image(url, filename):
+    # get image
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        # check image type
+        image_type = imghdr.what(None, resp.content)
+        # save image
+        image_name = f"{filename}.{image_type}"
+        with open(os.path.join(FOLDER, image_name), 'wb') as file:
+            file.write(resp.content)
+        print(f"download image {image_name}.")
+    else:
+        print("Failed to download from '{url}'")
 ```
 
 #### timedate
@@ -2117,6 +2142,15 @@ pip install pandas
 pip install openpyxl
 # lxml : access xtml
 pip install lxml
+
+# for google sheet
+pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib gspread
+
+# BeautifulSoup
+pip install beautifulsoup4
+
+# for youtube download
+pip install pytube
 
 # requests
 # pytest : for unite test
@@ -3013,6 +3047,7 @@ images[0].save(
 ```
 
 #### re - regular expression
+##### [pythex](http://pythex.org/)
 ##### example 
 ``` py
 # validate.py
@@ -3052,6 +3087,62 @@ if re.search(r"^\w+@\w+\.edu$", email, re.IGNORECASE):
     print("Valid")
 else:
     print("Invalid")
+```
+
+##### basic function
+``` py
+import re
+# match(string) : 傳回符合字串object,不符合傳回Nonw
+# search(string) : 傳回第一組符合字串,不符合傳回Nonw
+# findall(string) : 傳回所有符合字串 by [],不符合傳回Nonw,無符合傳回空串列
+
+# === match(string) ===
+# 傳回物件
+# group():傳回符合表達式字串
+# start():傳回match開始位置
+# end():傳回match結束位置
+# span():傳回 match (開始位置,結束位置)
+m = re.match(r'[a-z]+','abc123xyz')
+print(m)
+if m != None:
+    print(m.group())
+    print(m.start())
+    print(m.end())
+    print(m.span())
+# <re.Match object; span=(0, 3), match='abc'>
+# abc
+# 0
+# 3
+# (0, 3)
+m = re.match(r'[a-z]+','123')
+print(m)
+# None
+
+# search(string)
+m = re.search(r'[a-z]+','abc123xyz')
+print("-- search --")
+print(m)
+if m != None:
+    print(m.group())
+    print(m.start())
+    print(m.end())
+    print(m.span())
+
+# findall(string)
+m = re.findall(r'[a-z]+','abc123xyz')
+print("-- findall --")
+print(m)
+# ['abc', 'xyz']
+
+# 正規表達式取代內容
+# re.sub(正規表達式,取代字串,搜尋字串,count=0)
+# count 表取代次數, 0 表全部取代
+result = re.sub("\d+", "*", "Password:1234, ID=5678")
+print(result)
+result = re.sub("\d+", "*", "Password:1234, ID=5678",count=1)
+print(result)
+# Password:*, ID=*
+# Password:*, ID=5678
 ```
 
 ##### capture
@@ -3146,10 +3237,6 @@ workbook2.save('test2.xlsx')
 # 2 小明 85 90 87
 # 3 小美 92 90 95
 ```
-
-#### google sheet
-[https://console.cloud.google.com/](google API)
-
 
 #### mypy
 ``` py

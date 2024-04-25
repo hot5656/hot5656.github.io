@@ -1,10 +1,11 @@
 ---
-title:  python Selenium 說明
+title:  python Selenium 說明(自動化測試)
 abbrlink: ce52
 date: 2022-12-24 19:33:33
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### Command

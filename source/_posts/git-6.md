@@ -5,6 +5,7 @@ date: 2021-04-19 13:40:04
 categories: Coding
 tags:
 	- git
+	- issue
 ---
 
 ### stdin is not a tty (Windows Git Bash)

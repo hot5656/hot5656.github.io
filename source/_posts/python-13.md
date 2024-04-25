@@ -1,10 +1,11 @@
 ---
-title: python Selenium Example
+title: python Selenium Example(自動化測試)
 abbrlink: e93
 date: 2022-12-24 19:34:17
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### computerdeals

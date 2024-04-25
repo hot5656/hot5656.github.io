@@ -1,10 +1,11 @@
 ---
-title: Python Scrapy Example
+title: Python Scrapy Example(爬蟲框架)
 abbrlink: d5e4
 date: 2022-12-04 21:06:54
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### scrapy install

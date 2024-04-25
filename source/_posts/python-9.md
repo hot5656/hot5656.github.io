@@ -1,10 +1,11 @@
 ---
-title: Python Scrapy 說明
+title: Python Scrapy 說明(爬蟲框架)
 abbrlink: '1525'
 date: 2022-12-15 11:22:47
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### 說明

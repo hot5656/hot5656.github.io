@@ -5,6 +5,7 @@ date: 2022-11-06 20:33:46
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### 概念
@@ -62,7 +63,7 @@ print(x.text)
 + put(url, data, args) : Sends a PUT request to the specified url
 + request(method, url, args) : Sends a request of the specified method to the specified url
 
-### BeautifulSoup 
+### BeautifulSoup(HTML 靜態解析) 
 #### install
 ```
 pip install beautifulsoup4
@@ -269,7 +270,9 @@ if movie_info:
 
 
 
-### Selenium
+### Selenium(自動化測試)
+[Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/)
+
 
 #### install
 ```

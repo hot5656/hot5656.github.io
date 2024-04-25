@@ -1,10 +1,11 @@
 ---
-title: Python ScrapyRT 說明
+title: Python ScrapyRT 說明(Scrapy realtime)
 abbrlink: c13
 date: 2023-01-10 14:14:20
 categories: Coding
 tags:
 	- python
+	- crawling
 ---
 
 ### command

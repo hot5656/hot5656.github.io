@@ -1,11 +1,12 @@
 ---
-title: Python Scrapy Issue
+title: Python Scrapy Issue(爬蟲框架)
 abbrlink: cd92
 date: 2023-01-16 09:41:39
 categories: Coding
 tags:
 	- python
 	- issue
+	- crawling
 ---
 
 ### reactor AsyncioSelectorReactor issue
