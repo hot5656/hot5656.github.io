@@ -32,6 +32,9 @@ tags:
 	+ {% post_link python-4 '# Built-in function sglite3' %}
 	+ {% post_link python-4 '# file I/O' %}
 	+ {% post_link python-4 '# re - regular expression' %}
+	+ {% post_link python-4 '# download image' %}
+	+ {% post_link python-4 '# URL unicode 轉成中文' %}
+	+ {% post_link python-4 '# 非同步模組 - concurrent.futures' %}
 
 + tool
 	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
@@ -1753,22 +1756,6 @@ wget.download(pic.get_attribute('src'), save_as)
 # add dirctory
 if not os.path.exists(FOLDER) :
     os.makedirs(FOLDER)
-
-# download_image
-import imghdr
-def download_image(url, filename):
-    # get image
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        # check image type
-        image_type = imghdr.what(None, resp.content)
-        # save image
-        image_name = f"{filename}.{image_type}"
-        with open(os.path.join(FOLDER, image_name), 'wb') as file:
-            file.write(resp.content)
-        print(f"download image {image_name}.")
-    else:
-        print("Failed to download from '{url}'")
 ```
 
 #### timedate
@@ -2109,6 +2096,116 @@ def is_json(myjson):
   except ValueError as e:
     return False
   return True
+```
+
+#### download image
+``` py
+from PIL import Image
+from io import BytesIO
+
+def download_image(url, filename):
+    # get image
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        # check image type
+        image_type = detect_image_type(resp.content)
+        # save image
+        image_name = f"{filename}.{image_type}"
+        with open(os.path.join(FOLDER, image_name), 'wb') as file:
+            file.write(resp.content)
+        print(f"download image {image_name}.")
+    else:
+        print("Failed to download from '{url}'")
+
+def detect_image_type(content):
+    try:
+        # Open the image from the content
+        with Image.open(BytesIO(content)) as img:
+        # open the image from file
+        # with Image.open(file_path) as img:
+            # Get the format of the image
+            image_format = img.format.lower()
+
+            # jpeg same as jpg
+            if image_format == 'jpeg':
+                return 'jpg'  # Return 'jpg' if the format is 'jpeg'
+            else:
+                return image_format
+            return img.format.lower()
+    except Exception as e:
+        print("Error:", e)
+        return None
+```
+
+#### URL unicode 轉成中文
+``` py
+# URL unicode 轉成中文
+# pip install googletrans==4.0.0-rc1
+from googletrans import Translator
+import urllib.parse
+def main():
+    url = "https://running.biji.co/index.php?q=album&act=photo_list&album_id=52183&cid=11282&start=1713672000&end=1713672600&type=place&subtitle=Running%20Holidays%EF%BC%8D2024%E6%96%B0%E5%8C%97%E5%B8%82%E9%90%B5%E9%81%93%E9%A6%AC%E6%8B%89%E6%9D%BE%E6%8E%A5%E5%8A%9B%E8%B3%BD-%E8%BF%BD%E7%81%AB%E8%BB%8A%E7%AC%AC7%E6%A3%92"
+    translated_url = translate_url(url)
+    print(translated_url)
+
+def translate_url(url):
+    translator = Translator()
+    translated_url = translator.translate(urllib.parse.unquote(url), dest='zh-TW').text
+    return translated_url
+
+if __name__ == '__main__':
+    main()
+
+# https://running.biji.co/index.php?q=album&act=photo_list&album_id=52183&cid=11282&start=1713672000&end=1713672600&type=place&subtitle=Running Holidays－2024新北市鐵道馬拉松接力
+# 賽-追火車第7棒
+```
+
+#### 非同步模組 - concurrent.futures
+``` py
+# 非同步模組 - concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
+
+time = 1
+def show(fruits):
+    global time
+    index = time
+    time += 1
+    for fruit in fruits:
+        print(f"({index} {fruit})")
+
+# (1 西瓜)
+# (1 百香果)
+# (2 西瓜)
+# (1 香蕉)
+# (1 橘子)
+# (3 西瓜)
+# (1 蘋果)
+# (3 百香果)
+# (3 香蕉)
+# (3 橘子)
+# (3 蘋果)
+# (2 百香果)
+# (2 香蕉)
+# (2 橘子)
+# (2 蘋果)
+
+fruits = ('西瓜', '百香果', '香蕉', '橘子', '蘋果')
+with ThreadPoolExecutor() as executor:
+    executor.submit(show, fruits)
+    executor.submit(show, fruits)
+    executor.submit(show, fruits)
+
+def show1(fruit):
+    print(fruit)
+print('-- executor.map --')
+with ThreadPoolExecutor(max_workers=4) as executor:
+    result = executor.map(show1, fruits)
+
+# 西瓜
+# 百香果
+# 香蕉
+# 橘子
+# 蘋果
 ```
 
 ### Packages
@@ -3331,7 +3428,7 @@ engine.runAndWait()
 + [pytest](https://docs.pytest.org/en/8.0.x/)
 + [Pillow](https://pillow.readthedocs.io/en/stable/)
 + [mypy](https://mypy.readthedocs.io/en/stable/)
-+[Docstring](https://peps.python.org/pep-0257/)
++ [Docstring](https://peps.python.org/pep-0257/)
 + [使用 WITH AS](https://openhome.cc/Gossip/Python/WithAs.html)
 + [讀寫JSON數據](http://python3-cookbook.readthedocs.io/zh_CN/latest/c06/p02_read-write_json_data.html)
 + [set() 函数](https://www.runoob.com/python/python-func-set.html)
