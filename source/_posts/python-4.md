@@ -20,6 +20,7 @@ tags:
 + packages
 	+ {% post_link python-4 '# Packages list' %}:packages list
 	+ {% post_link python-4 '# Packages matplotlib.pyplot' %}:繪圖
+    + {% post_link python-26 '# plotly' %}:繪圖
 	+ {% post_link python-22 '# Numpy' %}
 	+ {% post_link python-23 '# Pandas' %}
 	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
@@ -35,6 +36,7 @@ tags:
 	+ {% post_link python-4 '# download image' %}
 	+ {% post_link python-4 '# URL unicode 轉成中文' %}
 	+ {% post_link python-4 '# 非同步模組 - concurrent.futures' %}
+    + {% post_link python-4 '# windows set/show evn' %}
 
 + tool
 	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
@@ -2206,6 +2208,16 @@ with ThreadPoolExecutor(max_workers=4) as executor:
 # 香蕉
 # 橘子
 # 蘋果
+```
+
+#### windows set/show evn
+``` bash
+# window set/show evn by cmd
+set LINE_NOTIFY_TOKEN=string
+echo %LINE_NOTIFY_TOKEN%
+# window set/show evn by powershell
+$env:LINE_NOTIFY_TOKEN = "...."
+$env:LINE_NOTIFY_TOKEN
 ```
 
 ### Packages

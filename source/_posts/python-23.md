@@ -708,6 +708,14 @@ g1 = df.iloc[2].plot(kind='line', legend=True,
 plt.show()
 ```
 
+``` py
+pd_stock = pd.read_csv(file_name, encoding='utf-8')
+pd_stock.plot(kind='line', figsize=(12,6), x='日期',
+              y=['收盤價', '最低價', '最高價'])
+
+plt.show()
+```
+
 #### 圓餅圖
 ``` py
 # 繪圖 - 圓餅圖

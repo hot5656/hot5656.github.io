@@ -461,6 +461,353 @@ if __name__ == '__main__':
 ### 台灣股市分析統計圖
 [台灣證劵交易所](https://www.twse.com.tw/zh/)
 
+#### 年交易資訊
+``` py
+# 年交易資訊
+# https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date=20240430&stockNo=2317&response=json&_=1714460309678
+
+import pandas as pd
+import requests
+
+# 中華民國日期 to 西元
+def dateConvert(date_str):
+    date_list = date_str.split('/')
+    date_list[0] = str(int(date_list[0])+1911)
+    return '-'.join(date_list)
+
+# Create an empty list to store DataFrames
+all_dataframes = []
+
+# json to DataFrame(include all 2024 data)
+day_url_head = "https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date=2024"
+day_url_tail = "01&stockNo=2317&response=json&_=1714460309678"
+
+for index in range(0, 12):
+    response = requests.get(day_url_head + '{:02d}'.format(index+1) + day_url_tail)
+    month_records = response.json()
+
+    if month_records['total'] == 0 :
+        break
+
+    df = pd.DataFrame(month_records['data'],
+                    columns=month_records['fields'])
+    # for i in range(len(df['日期'])):
+    #     df.loc[i, '日期'] = dateConvert(df['日期'][i])
+    # print(df)
+
+    # Convert the '日期' column
+    df['日期'] = df['日期'].apply(dateConvert)
+
+    # Append the DataFrame to the list
+    all_dataframes.append(df)
+
+# Concatenate all DataFrames into one
+# ignore_index=True 索引重設
+final_dataframe = pd.concat(all_dataframes, ignore_index=True)
+
+# Print the final DataFrame
+print(final_dataframe)
+
+# save to csv file
+file_name = 'stock_2317_2024.csv'
+final_dataframe.to_csv(file_name, encoding='utf-8', index=False)
+```
+
+#### 月交易折線圖 - 收盤價, 最低價, 最高價
+``` py
+# 月交易折線圖 - 收盤價, 最低價, 最高價
+import pandas as pd
+import requests
+
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+import os
+
+# 中華民國日期 to 西元
+def dateConvert(date_str):
+    date_list = date_str.split('/')
+    date_list[0] = str(int(date_list[0])+1911)
+    return '-'.join(date_list)
+
+def load_file(file_name) :
+    day_url = 'https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date=20240430&stockNo=2317&response=json&_=1714460309678'
+    response = requests.get(day_url)
+    month_records = response.json()
+
+    df = pd.DataFrame(month_records['data'],
+                    columns=month_records['fields'])
+    #  save to csv file
+    df.to_csv(file_name, encoding='utf-8', index=False)
+
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+file_name = 'stock_2317_2024_04.csv'
+if not os.path.isfile(file_name):
+    load_file(file_name)
+
+pd_stock = pd.read_csv(file_name, encoding='utf-8')
+pd_stock.plot(kind='line', figsize=(12,6), x='日期',
+              y=['收盤價', '最低價', '最高價'])
+
+plt.show()
+```
+
+#### 年交易折線圖 - 收盤價, 最低價, 最高價
+``` py
+# 年交易折線圖 - 收盤價, 最低價, 最高價
+# https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date=20240430&stockNo=2317&response=json&_=1714460309678
+
+import pandas as pd
+import requests
+
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+import os
+import time
+
+# 中華民國日期 to 西元
+def dateConvert(date_str):
+    date_list = date_str.split('/')
+    date_list[0] = str(int(date_list[0])+1911)
+    return '-'.join(date_list)
+
+def load_file(file_name) :
+    # Create an empty list to store DataFrames
+    all_dataframes = []
+
+    # json to DataFrame(include all 2024 data)
+    day_url_head = "https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY?date=2023"
+    day_url_tail = "01&stockNo=2317&response=json&_=1714460309678"
+
+    for index in range(0, 12):
+        response = requests.get(day_url_head + '{:02d}'.format(index+1) + day_url_tail)
+        month_records = response.json()
+
+        if month_records['total'] == 0 :
+            break
+
+        df = pd.DataFrame(month_records['data'],
+                        columns=month_records['fields'])
+
+        # Convert the '日期' column
+        df['日期'] = df['日期'].apply(dateConvert)
+
+        # Append the DataFrame to the list
+        all_dataframes.append(df)
+
+        print(f"2023-{str(index+1)}")
+        time.sleep(2)
+
+    # Concatenate all DataFrames into one
+    # ignore_index=True 索引重設
+    final_dataframe = pd.concat(all_dataframes, ignore_index=True)
+
+    # Print the final DataFrame
+    print(final_dataframe)
+
+    # save to csv file
+    final_dataframe.to_csv(file_name, encoding='utf-8', index=False)
+
+
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+file_name = 'stock_2317_2023.csv'
+if not os.path.isfile(file_name):
+    load_file(file_name)
+
+pd_stock = pd.read_csv(file_name, encoding='utf-8')
+pd_stock.plot(kind='line', figsize=(12,6), x='日期',
+              y=['收盤價', '最低價', '最高價'])
+
+plt.show()
+```
+
+#### {% post_link python-26 '# 年交易折線圖 plotly - 收盤價, 最低價, 最高價' %}
+
+### 股市即時報價
+#### 即時股價讀取
+``` py
+# 即時股價讀取
+# pip install twstock
+import twstock
+
+stock = twstock.Stock('2317')
+print(f"最近31筆收盤價: \n{stock.price}\n")
+print(f"最近31筆盤中最高價: \n{stock.high}\n")
+print(f"最近31筆盤中最低價: \n{stock.low}\n")
+print(f"最近31筆日期資料: \n{stock.date}\n")
+print(f"最近6日期資料: \n{stock.date[-6:]}\n")
+real = twstock.realtime.get('2317')
+if (real['success']):
+    print(f"即時股票資料: \n{real}\n")
+else:
+    print('errer access.')
+
+stock_march = stock.fetch(2024, 3)
+print(f"2024年3月資料: {len(stock_march)} \nfirst={stock_march[0]}\n last={stock_march[-1]}\n")
+stock_from_march = stock.fetch_from(2024, 3)
+print(f"2024年3月至今: {len(stock_from_march)}\nfirst={stock_from_march[0]}\n last={stock_from_march[-1]}\n")
+print(f"1st date:{stock_from_march[0].date}")
+print(f"1st open:{stock_from_march[0].open}")
+
+# 最近31筆收盤價:
+# [132.0, 136.0, 136.0, 138.0, 142.5, 145.5, 145.5, 142.0, 148.5, 155.5, 150.0, 150.5, 159.0, 159.0, 158.0, 158.0, 154.5, 150.0, 150.5, 146.0, 141.0, 146.5, 148.0, 143.0, 143.0, 144.0, 156.0, 151.5, 155.0, 158.5, 156.0]
+
+# 最近31筆盤中最高價:
+# [133.0, 137.0, 136.0, 142.0, 145.0, 148.5, 147.5, 147.0, 150.0, 157.0, 157.5, 154.5, 159.5, 159.0, 160.0, 161.5, 160.0, 153.5, 153.5, 150.0, 143.0, 147.5, 148.5, 147.5, 145.5, 146.5, 157.0, 154.5, 158.0, 161.0, 161.0]
+
+# 最近31筆盤中最低價:
+# [127.0, 131.5, 130.0, 135.5, 139.0, 142.0, 143.0, 139.0, 143.0, 150.0, 150.0, 150.0, 151.0, 155.0, 156.5, 155.5, 154.0, 147.0, 148.5, 144.5, 137.5, 141.0, 144.5, 140.0, 141.5, 143.5, 146.5, 151.0, 154.0, 156.0, 156.0]
+
+# 最近31筆日期資料:
+# [datetime.datetime(2024, 3, 15, 0, 0), datetime.datetime(2024, 3, 18, 0, 0), datetime.datetime(2024, 3, 19, 0, 0), datetime.datetime(2024, 3, 20, 0, 0), datetime.datetime(2024, 3, 21, 0, 0), datetime.datetime(2024, 3, 22, 0, 0), datetime.datetime(2024, 3, 25, 0, 0), datetime.datetime(2024, 3, 26, 0, 0), datetime.datetime(2024, 3, 27, 0, 0), datetime.datetime(2024, 3, 28, 0, 0), datetime.datetime(2024, 3, 29, 0, 0), datetime.datetime(2024, 4, 1, 0, 0), datetime.datetime(2024, 4, 2, 0, 0), datetime.datetime(2024, 4, 3, 0, 0), datetime.datetime(2024, 4, 8, 0, 0), datetime.datetime(2024, 4, 9, 0, 0), datetime.datetime(2024, 4, 10, 0, 0), datetime.datetime(2024, 4, 11, 0, 0), datetime.datetime(2024, 4, 12, 0, 0), datetime.datetime(2024, 4, 15, 0, 0), datetime.datetime(2024, 4, 16, 0, 0), datetime.datetime(2024, 4, 17, 0, 0), datetime.datetime(2024, 4, 18, 0, 0), datetime.datetime(2024, 4, 19, 0, 0), datetime.datetime(2024, 4, 22, 0, 0), datetime.datetime(2024, 4, 23, 0, 0), datetime.datetime(2024, 4, 24, 0, 0), datetime.datetime(2024, 4, 25, 0, 0), datetime.datetime(2024, 4, 26, 0, 0), datetime.datetime(2024, 4, 29, 0, 0), datetime.datetime(2024, 4, 30, 0, 0)]
+
+# 最近6日期資料:
+# [datetime.datetime(2024, 4, 23, 0, 0), datetime.datetime(2024, 4, 24, 0, 0), datetime.datetime(2024, 4, 25, 0, 0), datetime.datetime(2024, 4, 26, 0, 0), datetime.datetime(2024, 4, 29, 0, 0), datetime.datetime(2024, 4, 30, 0, 0)]
+
+# 即時股票資料:
+# {'timestamp': 1714458600.0, 'info': {'code': '2317', 'channel': '2317.tw', 'name': '鴻海', 'fullname': '鴻海精密工業股份有限公司', 'time': '2024-04-30 14:30:00'}, 'realtime': {'latest_trade_price': '156.0000', 'trade_volume': '12296', 'accumulate_trade_volume': '71882', 'best_bid_price': ['156.0000', '155.5000', '155.0000', '154.5000', '154.0000'], 'best_bid_volume': ['431', '2825', '2767', '538', '734'], 'best_ask_price': ['156.5000', '157.0000', '157.5000', '158.0000', '158.5000'], 'best_ask_volume': ['571',
+# '776', '1911', '1753', '1873'], 'open': '159.5000', 'high': '161.0000', 'low': '156.0000'}, 'success': True}
+
+# 2024年3月資料: 21
+# first=Data(date=datetime.datetime(2024, 3, 1, 0, 0), capacity=28288633, turnover=2907270754, open=103.0, high=103.5, low=102.0, close=102.0, change=-1.0, transaction=11037)
+#  last=Data(date=datetime.datetime(2024, 3, 29, 0, 0), capacity=154117085, turnover=23632502947, open=157.0, high=157.5, low=150.0, close=150.0, change=-5.5, transaction=97343)
+
+# 2024年3月至今: 41
+# first=Data(date=datetime.datetime(2024, 3, 1, 0, 0), capacity=28288633, turnover=2907270754, open=103.0, high=103.5, low=102.0, close=102.0, change=-1.0, transaction=11037)
+#  last=Data(date=datetime.datetime(2024, 4, 30, 0, 0), capacity=73433543, turnover=11579053739, open=159.5, high=161.0, low=156.0, close=156.0, change=-2.5, transaction=39006)
+
+# 1st date:2024-03-01 00:00:00
+# 1st open:103.0
+```
+
+#### LINE Notify 通知
+##### LINE Notify 權狀申請
+[Line Notify](https://notify-bot.line.me/zh_TW/)
+
+<div style="max-width:500px">
+  {% asset_img pic5.png pic5 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic6.png pic6 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic7.png pic7 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic8.png pic8 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic9.png pic9 %}
+</div>
+
+##### code
+``` py
+# Line Notify 通知
+# [Line Notify](https://notify-bot.line.me/zh_TW/)
+# window set/show evn by cmd
+# set LINE_NOTIFY_TOKEN=string
+# echo %LINE_NOTIFY_TOKEN%
+# window set/show evn by powershell
+# $env:LINE_NOTIFY_TOKEN = "...."
+# $env:LINE_NOTIFY_TOKEN
+
+
+import requests
+import os
+
+notify_url = "https://notify-api.line.me/api/notify"
+msg = "get token by windows env..2"
+token = os.getenv("LINE_NOTIFY_TOKEN")
+
+headers = {
+    "Authorization": "Bearer " + token,
+    "Connect-Type" : "application/x-www-form-urlencoded"
+}
+payload = {"message": msg}
+
+notify = requests.post(notify_url,
+                headers = headers,
+                params = payload)
+if notify.status_code == 200:
+    print("Send LINE Notify success!")
+else:
+    print("Send LINE Notify fail!")
+
+```
+
+#### 股票即時通知
+``` py
+# 股票即時通知
+import twstock
+import requests
+import os
+import time
+from datetime import datetime
+
+def main():
+    STOCK_NO = '2317'
+    UP_PRICE = 150
+    DOWN_PRICE = 130
+    notify_url = "https://notify-api.line.me/api/notify"
+    token = os.getenv("LINE_NOTIFY_TOKEN")
+    headers = {
+        "Authorization": "Bearer " + token,
+        "Connect-Type" : "application/x-www-form-urlencoded"
+    }
+
+    while True :
+        price = get_real_stock(STOCK_NO)
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"time : {current_time}")
+        if price >= UP_PRICE:
+            send_line(1, price, STOCK_NO, notify_url, headers, current_time)
+        elif price <= DOWN_PRICE and price != 0:
+            send_line(2, price, STOCK_NO, notify_url, headers, current_time)
+        time.sleep(300)
+
+# mode = 1 可買
+# mode = 2 可買
+def send_line(mode, price, stock_no, notify_url, headers, current_time):
+    if mode == 1:
+        msg = f"{current_time} {stock_no} {price} 元可以賣出"
+    elif mode == 2:
+        msg = f"{current_time} {stock_no} {price} 元可以買入"
+
+    payload = {"message": msg}
+    notify = requests.post(notify_url,
+                    headers = headers,
+                    params = payload)
+    # if notify.status_code == 200:
+    #     print("Send LINE Notify success!")
+
+
+def get_real_stock(stock_no):
+    real = twstock.realtime.get(stock_no)
+    current_price = 0
+    if (real['success']):
+        current_price = float(real['realtime']['latest_trade_price'])
+        # print(f"即時股票資料: \n{float(real['realtime']['latest_trade_price'])}\n")
+    else:
+        print('errer access.')
+    return current_price
+
+if __name__ == '__main__':
+    main()
+```
+
 ### Ref
 + [Source and Video](https://www.gotop.com.tw/books/download.aspx?bookid=ACL067200)
 + [Blog](http://www.e-happy.com.tw/)
