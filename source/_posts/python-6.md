@@ -337,6 +337,13 @@ for new in news:
     i += 1
 ```
 
+### Chrome setting
+#### javascript disable/enable
++ ctrl-shift i (run Chrome DevTools)
++ ctrl-shift p (command)
+	+ javascript disable
+	+ javascript enable
+
 ### API
 #### Dcard API 2.0
 Base Url : https://www.dcard.tw/service/api/v2

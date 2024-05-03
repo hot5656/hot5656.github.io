@@ -15,6 +15,7 @@ tags:
 	+ {% post_link python-9 '# Scrapy' %}
 	+ {% post_link python-9 '# XPath expression' %}
 	+ {% post_link python-9 '# CSS selectors' %}
+	+ {% post_link python-6 '# javascript disable/enable' %}
 
 <!--more-->
 + packages
