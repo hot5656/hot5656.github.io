@@ -37,7 +37,8 @@ tags:
 	+ {% post_link python-4 '# download image' %}
 	+ {% post_link python-4 '# URL unicode 轉成中文' %}
 	+ {% post_link python-4 '# 非同步模組 - concurrent.futures' %}
-    + {% post_link python-4 '# windows set/show evn' %}
+  + {% post_link python-4 '# windows set/show evn' %}
+	+ {% post_link python-4 '# detect image type' %}
 
 + tool
 	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
@@ -515,8 +516,10 @@ def make_coff(coffee, money):
 ```
 
 #### string
-+ join 
+
 ``` py
+# join 
+
 # array join to string
 # .join() with sets
 test = {'2', '1', '3'}
@@ -552,6 +555,16 @@ len("eric")
 
 x = 1
 x_str = str(x)
+
+# remove head and tail space
+url = input("URL:").strip()
+
+# split string
+comapny = job.select_one(".company a").text.split('|')
+
+# replace string
+# df.str.replace(old,new) 替換文字
+df_sample['job'] = df_sample['job'].str.replace(' ', '')
 ```
 
 #### list
@@ -998,6 +1011,17 @@ content = f.read()
 dcard_shwo_api_title(content)
 print("get from file....")
 f.close()
+```
+
+``` py
+# remove file
+import os
+if os.path.exists(file_job):
+  os.remove(file_job)
+
+# create folder
+if not os.path.exists(FOLDER) :
+    os.makedirs(FOLDER)
 ```
 
 #### sorted
@@ -1769,15 +1793,24 @@ def twDateToGlobal(twDate):
     year, month, date = twDate.split("/")
     print(datetime.date(int(year), int(month), int(date)))
     return datetime.date(int(year), int(month), int(date))
+
+# current time
+from datetime import datetime
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+date_string = datetime.now().strftime("%Y-%m-%d")
 ```
 
 #### time
 ``` py
 import time
-
 current_date = time.strftime('%Y%m%d')
 current_year = time.strftime('%Y')
 current_month = time.strftime('%m')
+
+# sleep
+import time
+time.sleep(300)
+time.sleep(1.2)
 ```
 
 #### re
@@ -2221,6 +2254,28 @@ $env:LINE_NOTIFY_TOKEN = "...."
 $env:LINE_NOTIFY_TOKEN
 ```
 
+#### detect image type
+``` py
+def detect_image_type(content):
+    try:
+        # Open the image from the content
+        with Image.open(BytesIO(content)) as img:
+        # open the image from file
+        # with Image.open(file_path) as img:
+            # Get the format of the image
+            image_format = img.format.lower()
+
+            # jpeg same as jpg
+            if image_format == 'jpeg':
+                return 'jpg'  # Return 'jpg' if the format is 'jpeg'
+            else:
+                return image_format
+            return img.format.lower()
+    except Exception as e:
+        print("Error:", e)
+        return None
+```
+
 ### Packages
 #### list
 ``` bash
@@ -2423,6 +2478,11 @@ plt.bar(listx, listy, width=0.5, color=['r', 'g', 'b'])
 plt.title('課程選修統計', fontsize=20)
 plt.xlabel('課程', fontsize=14)
 plt.ylabel('人數', fontsize=14)
+
+# show 數值
+for i in range(len(listy)):
+    plt.text(i, listy[i], str(listy[i]), ha='center', va='bottom')
+
 plt.show()
 ```
 
@@ -2522,8 +2582,13 @@ from matplotlib.font_manager import fontManager
 fontManager.addfont('NotoSansTC-Regular.ttf')
 matplotlib.rc('font', family='Noto Sans TC')
 
+# title
+plt.title('區域圓形圖', fontsize=20)
+
 sizes = [25, 30, 15, 10]
-labels = ['北部', '西部', '東部', '南部']
+locations = ['北部', '西部', '東部', '南部']
+# label 加入數量
+labels = [f"{location} ({size})" for location, size in zip(locations, sizes)]
 colors = ['red', 'green', 'blue', 'yellow']
 explode = (0, 0, 0.2, 0)
 # labels 項目標題
@@ -2544,8 +2609,9 @@ plt.pie(sizes,
         startangle = 90)
 # label 位置:upper right(default)
 # plt.legend(loc = 'best')
-# 會擋到
-# plt.legend()
+# bbox_to_anchor 1.1:距中心位置 0.5:高度位置
+plt.legend(loc='best', bbox_to_anchor=(1.1, 0.5))
+
 plt.show()
 ```
 
@@ -3255,6 +3321,13 @@ print(result)
 # Password:*, ID=5678
 ```
 
+``` py
+# 擷取數字
+import re
+salary = salary.replace(",", "")
+salaries = re.findall(f"\d+\.?\d*", salary)
+```
+
 ##### capture
 ``` py
 # format.py
@@ -3346,6 +3419,22 @@ workbook2.save('test2.xlsx')
 # 1 大熊 65 62 40
 # 2 小明 85 90 87
 # 3 小美 92 90 95
+```
+
+``` py
+# write excel sheet tile
+import  openpyxl
+workbook = openpyxl.Workbook()
+sheet = workbook.worksheets[0]
+# write sheet title
+sheet.title = f"1111 {date_string} {job}"
+
+# read excel sheet title
+import pandas as pd
+jsb_file = "./job1.xlsx"
+xsl = pd.ExcelFile(jsb_file)
+# read sheet title
+print(xsl.sheet_names[0])
 ```
 
 #### mypy

@@ -809,9 +809,845 @@ if __name__ == '__main__':
 ```
 
 ### 網路書店排行榜
-#### 
+#### 取得新書分類排行資料
 ``` py
+# 取得新書排行榜資料
+# [博客來](https://www.books.com.tw/)
+# [博客來 新書](https://www.books.com.tw/web/books_newbook/)
+# [博客來 新書#2商業理財 暢銷度排序](https://www.books.com.tw/web/books_nbtopm_02/?o=5&v=1)
+# [博客來 新書#2商業理財 暢銷度排序 page2](https://www.books.com.tw/web/books_nbtopm_02/?o=5&v=1&page=2)
+# [博客來 新書#19電腦資訊 暢銷度排序](https://www.books.com.tw/web/books_nbtopm_02/?o=5&v=1)
+# 中文書分類 ".mod_b li a"
+# 新書數量 ".mod.type02_m019 .mod_a em"
+# 本頁新書 ".wrap .item .msg h4 a"
+# 下一頁 ".cnt_page .nxt"
+# 頁數 ".cnt_page .page span" 1st
+
+import requests
+from bs4 import BeautifulSoup
+import time
+
+NEW_BOOK_URL = "https://www.books.com.tw/web/books_newbook/"
+def main():
+    book_list = book_types(NEW_BOOK_URL)
+    for index,item in enumerate(book_list):
+        print(f"({index+1}) {item['title']}")
+        # get_books(index+1, item['url'], item['title'])
+        # time.sleep(1)
+    # get select book type
+    kind_no = int(input("輸入圖書分類:"))
+    if kind_no >= 1 and kind_no <= len(book_list):
+        get_books(kind_no, book_list[kind_no-1]['url'], book_list[kind_no-1]['title'])
+
+def get_books(index, url, title):
+    print(f"-- {index} {title} {url} --")
+    book_url = f"{url}?o=5&v=1"
+    try:
+        resp = requests.get(book_url)
+    except:
+        resp = None
+
+    pages = 0
+    start_index = 1
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+        try:
+            pages = int(soup.select_one(".cnt_page .page span").text)
+        except:
+            pages = 1
+        books_no = show_books(start_index, soup)
+        start_index += books_no
+
+    if (pages > 1):
+        for i in range(2, pages + 1):
+            # print(f"i={i}..")
+            book_url = f"{url}?o=5&v=1&page={str(i)}"
+            try:
+                resp = requests.get(book_url)
+            except:
+                resp = None
+            if resp and resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, "html.parser")
+                books_no = show_books(start_index, soup)
+                start_index += books_no
+
+def show_books(start_index, soup):
+    books = soup.select(".wrap .item")
+    for index,book in enumerate(books):
+        title = book.select_one(".msg h4 a").text
+        img_url = book.select_one(".cover")['src']
+        info = book.select_one(".info").text.split('，')
+        author = info[0]
+        publisher = info[1]
+        publish_date = info[2].split("：")[1]
+        price_box = book.select(".price strong")
+        if len(price_box) == 1:
+            special_discount = '100'
+            special_price = price_box[0].text
+        else:
+            special_discount = price_box[0].text
+            special_price = price_box[1].text
+
+        content = book.select_one(".txt_cont").text.strip().replace("\n", "").replace(" ", "")
+
+        print(f"    ({index+start_index}) {title}")
+        print(f"         圖片網址:{img_url}")
+        print(f"         作者:{author}")
+        print(f"         出版社:{publisher}")
+        print(f"         出版日期:{publish_date}")
+        if (special_discount != 100):
+            print(f"         折扣:{special_discount}折")
+
+        print(f"         優惠價:{special_price}元")
+        print(f"         內容:{content}")
+    return len(books)
+
+def book_types(book_url):
+    book_list = []
+    try :
+        resp = requests.get(book_url)
+    except:
+        resp = None
+
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        types = soup.select(".mod_b li a")
+        for type in types:
+            book_list.append(
+                    {
+                        'title': type.text,
+                        # 'url': type['href']
+                        'url': type['href'].split("?")[0]
+                    }
+                )
+        return book_list
+
+if __name__ == '__main__':
+    main()
 ```
+
+#### 新書分類排行資料存至 google 試算表
+``` py
+# 新書排行榜資料 存至 google sheet
+# [Google Sheets 指南](https://developers.google.com/sheets/api/guides/filters?hl=zh-tw)
+import gspread
+from google.oauth2.service_account import Credentials
+
+import requests
+from bs4 import BeautifulSoup
+import time
+
+NEW_BOOK_URL = "https://www.books.com.tw/web/books_newbook/"
+book_list_get = []
+def main():
+    # save_to_google_sheet()
+    # return
+
+    book_list = book_types(NEW_BOOK_URL)
+    for index,item in enumerate(book_list):
+        print(f"({index+1}) {item['title']}")
+        # get_books(index+1, item['url'], item['title'])
+        # time.sleep(1)
+    # get select book type
+    kind_no = int(input("輸入圖書分類:"))
+    if kind_no >= 1 and kind_no <= len(book_list):
+        get_books(kind_no, book_list[kind_no-1]['url'], book_list[kind_no-1]['title'])
+        # save to google sheet
+        save_to_google_sheet()
+        # for book in book_list_get:
+        #     print(book)
+    else:
+        print("分類錯誤!")
+
+def get_books(index, url, title):
+    print(f"-- {index} {title} {url} --")
+    book_url = f"{url}?o=5&v=1"
+    try:
+        resp = requests.get(book_url)
+    except:
+        resp = None
+
+    pages = 0
+    start_index = 1
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+        try:
+            pages = int(soup.select_one(".cnt_page .page span").text)
+        except:
+            pages = 1
+        books_no = show_books(title, start_index, soup)
+        start_index += books_no
+
+    if (pages > 1):
+        for i in range(2, pages + 1):
+            # print(f"i={i}..")
+            book_url = f"{url}?o=5&v=1&page={str(i)}"
+            try:
+                resp = requests.get(book_url)
+            except:
+                resp = None
+            if resp and resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, "html.parser")
+                books_no = show_books(title, start_index, soup)
+                start_index += books_no
+
+def show_books(type_title, start_index, soup):
+    global book_list_get
+
+    books = soup.select(".wrap .item")
+    for index,book in enumerate(books):
+        title = book.select_one(".msg h4 a").text
+        img_url = book.select_one(".cover")['src']
+        info = book.select_one(".info").text.split('，')
+        author = info[0]
+        publisher = info[1]
+        publish_date = info[2].split("：")[1]
+        price_box = book.select(".price strong")
+        if len(price_box) == 1:
+            special_discount = '100'
+            special_price = price_box[0].text
+        else:
+            special_discount = price_box[0].text
+            special_price = price_box[1].text
+
+        content = book.select_one(".txt_cont").text.strip().replace("\n", "").replace(" ", "")
+
+        # print(f"    ({index+start_index}) {title}")
+        # print(f"         圖片網址:{img_url}")
+        # print(f"         作者:{author}")
+        # print(f"         出版社:{publisher}")
+        # print(f"         出版日期:{publish_date}")
+        # if (special_discount != '100'):
+        #     print(f"         折扣:{special_discount}折")
+        # print(f"         優惠價:{special_price}元")
+        # print(f"         內容:{content}")
+        list_data = [type_title, title, img_url, author, publisher, publish_date, special_discount, special_price, content]
+        book_list_get.append(list_data)
+    return len(books)
+
+def book_types(book_url):
+    book_list = []
+    try :
+        resp = requests.get(book_url)
+    except:
+        resp = None
+
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        types = soup.select(".mod_b li a")
+        for type in types:
+            book_list.append(
+                    {
+                        'title': type.text,
+                        'url': type['href'].split("?")[0]
+                    }
+                )
+        return book_list
+
+def save_to_google_sheet():
+    global book_list_get
+
+    # control scope
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets"
+    ]
+
+    # credentials & id
+    creds = Credentials.from_service_account_file("tutorial-sheets-421106-4878ffb056ac.json", scopes=scopes)
+    client = gspread.authorize(creds)
+    sheet_id = '1m6s3HXmc6vtVuvbgF5MytNIGB1BgdnovDWdqT7pJZJs'
+
+    workbook = client.open_by_key(sheet_id)
+    # # get worksheets by list
+    # sheets = map(lambda a: a.title, workbook.worksheets())
+    # print(list(sheets))
+
+    # # get worksheets
+    # sheets = workbook.worksheets()
+    # print(sheets)
+    # # update 1 field
+    # sheets[0].update_acell('A1', "Hello")
+
+    # 清出工作表
+    # get active sheet
+    print("save books to google sheet..")
+    sheet = workbook.get_worksheet(0)
+    sheet.clear()
+    list_title = ["分類", "書名", "圖片網址", "作者", "出版社", "出版日期", "折扣", "優惠價", "內容"]
+    sheet.append_row(list_title)
+    for item in book_list_get:
+        sheet.append_row(item)
+        time.sleep(1.2) # delay 太短會中斷
+
+if __name__ == '__main__':
+    main()
+```
+
+### 人力銀行分析
+#### 1111 擷取職缺資料 存至 excel
+``` py
+# 1111 擷取職缺資料 存至 excel
+import requests
+from bs4 import BeautifulSoup
+import  openpyxl
+import os
+from datetime import datetime
+
+job_no = 0
+def main():
+    global job_no
+
+    page_index = 0
+    index = 1
+    # job = '前端工程師'
+    job = '硬體研發主管'
+    file_job = "job1.xlsx"
+    current_date = datetime.now()
+    date_string = current_date.strftime("%Y-%m-%d")
+
+    job_url = f'https://www.1111.com.tw/search/job?col=wc&ks={job}&tt=1&page='
+
+    list_titles =["職務名稱",
+            "工作網址",
+            "公司名稱",
+            "公司類別",
+            "工作地點",
+            "薪資",
+            "應徵人數",
+            "其他事項"]
+    # 新增 excell
+    # 活頁簿
+    workbook = openpyxl.Workbook()
+    workbook_temp = openpyxl.Workbook()
+    # 工作表 #1
+    sheet = workbook.worksheets[0]
+    sheet.title = f"1111 {date_string} {job}"
+    sheet_temp = workbook_temp.worksheets[0]
+    # 新增一列
+    sheet.append(list_titles)
+
+    rows_total = 0
+    while True:
+        page_index += 1
+        jobs = get_jobs(job_url+str(page_index), index)
+        if page_index == 1:
+            print(f"-- job_no = {job_no} --")
+        rows = len(jobs)
+        rows_total += rows
+        # if no more data break
+        if rows == 0:
+            break
+        for job in jobs:
+            show_job(f"({index}-{page_index},{rows})", job, sheet, sheet_temp)
+            index += 1
+        print(f"page {page_index} = {rows}")
+    print(f"rows_total = {rows_total}")
+
+    # save - overwrite is ok
+    workbook.save(file_job)
+
+def show_job(head, job, sheet, sheet_temp):
+    work = job.select_one(".title a")
+    title = work.text
+    work_url =  "https://www.1111.com.tw" + work['href']
+    comapny = job.select_one(".company a").text.split('|')
+    comapny_name = comapny[0]
+    comapny_category = comapny[1].strip()
+    work_location = job.select_one(".other a")['data-after']
+    salary = job.select_one(".other span")['data-after']
+    apply_people =  job.select_one(".people p").text.replace("應徵人數｜", "").replace(" 人", "")
+    other = job.select_one(".introduce").text
+
+    # check error
+    try:
+        sheet_temp.append([other])
+    except:
+        other="--wait--"
+
+    datas = [
+        title,
+        work_url,
+        comapny_name,
+        comapny_category,
+        work_location,
+        salary,
+        apply_people,
+        other
+    ]
+    try :
+        sheet.append(datas)
+    except :
+        print("=============")
+        print(datas)
+
+    # # 職務名稱
+    # print(f"{head} {title}")
+    # print(f"    工作網址: {work_url}")
+    # print(f"    公司名稱: {comapny_name}")
+    # print(f"    公司類別: {comapny_category}")
+    # print(f"    工作地點: {work_location}")
+    # print(f"    薪資:     {salary}")
+    # print(f"    應徵人數: {apply_people}")
+    # # print(f"    其他事項: {other}")
+
+def get_jobs(url, index):
+    global job_no
+
+    try:
+        resp = requests.get(url)
+    except:
+        resp = None
+
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        # count job number
+        if job_no == 0:
+            try:
+                job_no = int(soup.select_one(".top .left span").text)
+            except:
+                job_no = 0
+
+        try:
+            jobs = soup.select(".item__job")
+        except:
+             jobs = []
+
+        return jobs
+
+if __name__ == '__main__':
+    main()
+```
+
+#### 區域職缺統計圖 - 圓形圖
+``` py
+# 區域職缺統計圖 - 圓形圖
+import pandas as pd
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+# 加入中文字體
+fontManager.addfont('NotoSansTC-Regular.ttf')
+matplotlib.rc('font', family='Noto Sans TC')
+
+sources = ["1111", "104", "CakeResume"]
+for index,item in enumerate(sources):
+    print(f"({index+1}) {item}")
+kind_no = int(input("分析來源:"))
+if kind_no ==  1:
+    jsb_file = "./job1.xlsx"
+elif kind_no == 2:
+    jsb_file = "./job11.xlsx"
+elif kind_no == 3:
+    jsb_file = "./job21.xlsx"
+else:
+    print("input out of range...")
+    exit(1)
+
+xsl = pd.ExcelFile(jsb_file)
+df = pd.read_excel(jsb_file)
+cities = ["台北", "新北", "桃園", "台中", "高雄", "台南", "其他"]
+city_count = []
+
+city_total = 0
+for i in range(len(cities)-1):
+    mask = df['工作地點'].str.contains(cities[i]) & ~(df['工作地點'] == cities[i])
+    count = mask.sum()
+    city_total += count
+    city_count.append(count)
+
+city_count.append(len(df) - city_total)
+
+plt.title(xsl.sheet_names[0] + ' 職缺', fontsize=20)
+# label 加入數量
+labels = [f"{city} ({count})" for city, count in zip(cities, city_count)]
+plt.pie(
+    city_count,
+    labels = labels,
+    autopct = "%2.1f%%",
+    shadow = True,
+    startangle = 90
+)
+# bbox_to_anchor 1.1:距中心位置 0.5:高度位置
+plt.legend(loc='best', bbox_to_anchor=(1.1, 0.5))
+
+plt.show()
+```
+
+<div style="width:500px">
+	{% asset_img pic10.png pic10 %}
+</div>
+
+#### 區域薪資統計圖 - 長條圖
+``` py
+# 區域薪資統計圖 - 長條圖
+import pandas as pd
+import re
+import matplotlib.pyplot as plt
+# 加入中文字體
+import matplotlib
+from matplotlib.font_manager import fontManager
+
+def main():
+    # 加入中文字體
+    fontManager.addfont('NotoSansTC-Regular.ttf')
+    matplotlib.rc('font', family='Noto Sans TC')
+
+    sources = ["1111", "104", "CakeResume"]
+    for index,item in enumerate(sources):
+        print(f"({index+1}) {item}")
+    kind_no = int(input("分析來源:"))
+    if kind_no ==  1:
+        jsb_file = "./job1.xlsx"
+    elif kind_no == 2:
+        jsb_file = "./job11.xlsx"
+    elif kind_no == 3:
+        jsb_file = "./job21.xlsx"
+    else:
+        print("input out of range...")
+        exit(1)
+
+    xsl = pd.ExcelFile(jsb_file)
+    df = pd.read_excel(jsb_file)
+    cities = ["台北", "新北", "桃園", "台中", "高雄", "台南", "其他"]
+    salary_list = []
+
+    # get 六都資料
+    for i in range(len(cities)-1):
+        df1 = df[df['工作地點'].str.contains(cities[i])]
+        df1 = df1.reset_index(drop=True)
+        for j in range(len(df1)):
+            df1.iloc[j, 5] = get_salary(df1.iloc[j, 5])
+            # print(f"    {cities[i]}-{j} {df1.iloc[j, 5]}")
+         # 無內容無法算平均值
+        if len(df1['薪資']) == 0:
+            mean = 0
+        else:
+            mean = round(df1['薪資'].mean())
+        salary_list.append(mean)
+
+    # get 其他資料
+    cities_to_exclude = ["台北", "新北", "桃園", "台中", "高雄", "台南"]
+    df2 = df[~df['工作地點'].str.contains('|'.join(cities_to_exclude))]
+    df2 = df2.reset_index(drop=True)
+    for j in range(len(df2)):
+        df2.iloc[j, 5] = get_salary(df2.iloc[j, 5])
+        # print(f"    其他-{j} {df2.iloc[j, 5]}")
+    # 無內容無法算平均值
+    if len(df2['薪資']) == 0:
+        mean = 0
+    else:
+        mean = round(df2['薪資'].mean())
+    salary_list.append(mean)
+
+    # 長條圖 設 width
+    plt.bar(cities, salary_list, width=0.5)
+    # 圖表,X,Y 標題
+    # plt.title('Chart Title', fontsize=20)
+    plt.title(xsl.sheet_names[0] ,fontsize=20)
+    plt.xlabel('地區', fontsize=14)
+    plt.ylabel('薪資', fontsize=14)
+
+    # show 數值
+    for i in range(len(cities)):
+        plt.text(i, salary_list[i], str(salary_list[i]), ha='center', va='bottom')
+
+    plt.show()
+
+def get_salary(salary):
+    salary = salary.replace(",", "")
+    salaries = re.findall(f"\d+\.?\d*", salary)
+    # range 平均
+    if len(salaries) == 0:
+        if "待遇面議" in salary:
+            money = 40000
+        else :
+            money = float(salaries[0])
+    elif len(salaries) == 1:
+        money = float(salaries[0])
+    else:
+        money = (float(salaries[0]) + float(salaries[1])) / 2
+
+    # 萬 * 10000
+    if "萬" in salary:
+        money *= 10000
+    # 年薪 / 12
+    if "年" in salary:
+        money = money / 12
+
+    return round(money)
+
+if __name__ == '__main__':
+    main()
+```
+
+<div style="width:500px">
+	{% asset_img pic11.png pic11 %}
+</div>
+
+#### 104 擷取職缺資料 存至 excel
+``` py
+# 104 擷取職缺資料 存至 excel
+import requests
+from bs4 import BeautifulSoup
+import  openpyxl
+import os
+from datetime import datetime
+
+def main():
+    page_index = 0
+    index = 1
+    # job_request = '前端工程師'
+    job_request = '硬體研發主管'
+    file_job = "job11.xlsx"
+    current_date = datetime.now()
+    date_string = current_date.strftime("%Y-%m-%d")
+
+    list_titles =["職務名稱",
+            "工作網址",
+            "公司名稱",
+            "公司類別",
+            "工作地點",
+            "薪資",
+            "應徵人數",
+            "其他事項"]
+    # 新增 excell
+    # 活頁簿
+    workbook = openpyxl.Workbook()
+    workbook_temp = openpyxl.Workbook()
+    # 工作表 #1
+    sheet = workbook.worksheets[0]
+    sheet.title = f"104 {date_string} {job_request}"
+    sheet_temp = workbook_temp.worksheets[0]
+    # 新增一列
+    sheet.append(list_titles)
+
+    rows_total = 0
+    while True:
+        page_index += 1
+        job_url = f'https://www.104.com.tw/jobs/search/?ro=1&keyword={job_request}&expansionType=area,spec,com,job,wf,wktm&order=1&asc=0&page={page_index}&mode=s&jobsource=index_s&langFlag=0&langStatus=0&recommendJob=1&hotJob=1'
+        jobs = get_jobs(job_url+str(page_index))
+        rows = len(jobs)
+        rows_total += rows
+        if len(jobs) <= 0 :
+            break
+        for job in jobs:
+            show_job(f"({index}-{page_index},{rows})", job, sheet, sheet_temp)
+            # print(f"{index}-{page_index},{rows}")
+            index += 1
+        print(f"page {page_index} = {rows}")
+    print(f"rows_total = {rows_total}")
+
+    # save - overwrite is ok
+    workbook.save(file_job)
+
+def show_job(head, job, sheet, sheet_temp):
+    work = job.select_one(".b-tit a")
+    title = work.text
+    work_url =  work['href']
+    comapny_name = job.select_one(".b-list-inline.b-clearfix:not(.b-content) a").text.strip()
+    comapny_category = job.select(".b-list-inline.b-clearfix:not(.b-content) li")[-1].text
+    work_location = job.select_one(".b-list-inline.b-clearfix.job-list-intro.b-content li").text
+    try:
+        default = job.select_one(".job-list-tag .b-tag--default")
+        if default:
+            salary = default.text
+        else:
+            salary = job.select_one(".job-list-tag.b-content a").text
+    except:
+        salary = "*****************wait check *******************"
+
+    apply_people =  job.select_one(".b-block__right.b-pos-relative a").text.replace("人應徵", "")
+    try:
+        other = job.select_one(".job-list-item__info").text
+    except:
+        # 無列出
+        other = ""
+
+    # check error
+    try:
+        sheet_temp.append([other])
+    except:
+        other="--wait--"
+
+    datas = [
+        title,
+        work_url,
+        comapny_name,
+        comapny_category,
+        work_location,
+        salary,
+        apply_people,
+        other
+    ]
+    try :
+        sheet.append(datas)
+    except :
+        print("=============")
+        print(datas)
+
+    # # 職務名稱
+    # print(f"{head} {title}")
+    # print(f"    工作網址: {work_url}")
+    # print(f"    公司名稱: {comapny_name}")
+    # print(f"    公司類別: {comapny_category}")
+    # print(f"    工作地點: {work_location}")
+    # print(f"    薪資:     {salary}")
+    # print(f"    應徵人數: {apply_people}")
+    # print(f"    其他事項: {other}")
+
+def get_jobs(url):
+    jobs = []
+
+    try:
+        resp = requests.get(url)
+    except:
+        resp = None
+
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+        jobs = soup.select('article.b-block--top-bord:not(.b-block--ad)')
+
+    return jobs
+
+if __name__ == '__main__':
+    main()
+```
+
+#### CakeResume 擷取職缺資料 存至 excel
+``` py
+# CakeResume 擷取職缺資料 存至 excel
+# https://www.cakeresume.com/jobs/硬體研發工程師?job_type[0]=full_time&page=2
+import requests
+from bs4 import BeautifulSoup
+import  openpyxl
+import os
+from datetime import datetime
+
+def main():
+    page_index = 0
+    index = 1
+    # job_request = '前端工程師'
+    job_request = '硬體研發工程師'
+    file_job = "job21.xlsx"
+    current_date = datetime.now()
+    date_string = current_date.strftime("%Y-%m-%d")
+
+    list_titles =["職務名稱",
+            "工作網址",
+            "公司名稱",
+            "公司類別",
+            "工作地點",
+            "薪資",
+            "應徵人數",
+            "其他事項"]
+    # 新增 excell
+    # 活頁簿
+    workbook = openpyxl.Workbook()
+    workbook_temp = openpyxl.Workbook()
+    # 工作表 #1
+    sheet = workbook.worksheets[0]
+    sheet.title = f"104 {date_string} {job_request}"
+    sheet_temp = workbook_temp.worksheets[0]
+    # 新增一列
+    sheet.append(list_titles)
+
+    rows_total = 0
+    while True:
+        page_index += 1
+        job_url = f'https://www.cakeresume.com/jobs/{job_request}?job_type[0]=full_time&page={page_index}'
+        jobs = get_jobs(job_url)
+        rows = len(jobs)
+        rows_total += rows
+        if len(jobs) <= 0 :
+            break
+        for job in jobs:
+            show_job(f"({index}-{page_index},{rows})", job, sheet, sheet_temp)
+            # print(f"{index}-{page_index},{rows}")
+            index += 1
+        print(f"page {page_index} = {rows}")
+        # break
+    print(f"rows_total = {rows_total}")
+
+    # save - overwrite is ok
+    workbook.save(file_job)
+
+def show_job(head, job, sheet, sheet_temp):
+    work = job.select_one(".JobSearchItem_jobTitle__bu6yO")
+
+    title = work.text
+    work_url =  'https://www.cakeresume.com'+work['href']
+    comapny_name = job.select_one(".JobSearchItem_companyName__bY7JI").text
+    comapny_category = ""
+    infomation = job.select(".JobSearchItem_features__hR3pk .InlineMessage_label__LJGjW")
+    work_location = infomation[1].text
+
+    if "TWD" in infomation[1].text:
+        # 少填位置
+        work_location = "-- space --"
+        salary = infomation[1].text
+    else:
+        salary = infomation[2].text
+
+    apply_people =  infomation[0].text.split("・")[0]
+    other = job.select_one(".JobSearchItem_description__si5zg").text
+
+    # check error
+    try:
+        sheet_temp.append([other])
+    except:
+        other="--wait--"
+
+    datas = [
+        title,
+        work_url,
+        comapny_name,
+        comapny_category,
+        work_location,
+        salary,
+        apply_people,
+        other
+    ]
+    try :
+        # 若非 TWD 不計入
+        if "TWD" in salary:
+            sheet.append(datas)
+    except :
+        print("=============")
+        # print(f"{head} {title}")
+        print(datas)
+
+    # # 職務名稱
+    # print(f"{head} {title}")
+    # print(f"    工作網址: {work_url}")
+    # print(f"    公司名稱: {comapny_name}")
+    # print(f"    公司類別: {comapny_category}")
+    # print(f"    工作地點: {work_location}")
+    # print(f"    薪資:     {salary}")
+    # print(f"    應徵人數: {apply_people}")
+    # print(f"    其他事項: {other}")
+
+def get_jobs(url):
+    jobs = []
+
+    try:
+        resp = requests.get(url)
+    except:
+        resp = None
+
+    if resp and resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, "html.parser")
+        jobs = soup.select('.JobSearchItem_content__JriB9')
+
+    return jobs
+
+if __name__ == '__main__':
+    main()
+```
+
 
 ### Ref
 + [Source and Video](https://www.gotop.com.tw/books/download.aspx?bookid=ACL067200)
