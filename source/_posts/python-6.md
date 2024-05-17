@@ -45,6 +45,27 @@ def get_web_page(url):
         return resp.text
 ```
 
+``` py
+# 以 pamas 帶入參數
+url = "https://trends.google.com/trends/api/dailytrends"
+try:
+    # resp = requests.get(url)
+    # 以 pamas 帶入參數
+    payload = {
+        "hl": "zh-TW",
+        "tz": "-480",
+        "geo": "TW",
+        # 加上 ed 可指定日期,否則取兩日資料
+        # 但如當日,還是會取兩日資料
+        "ed": "20240513",
+        "hl": "zh-TW",
+        "ns": "15"
+    }
+    resp = requests.get(url, params=payload)
+except:
+    resp = None
+```
+
 #### POST
 ``` python
 import requests
@@ -54,6 +75,17 @@ myobj = {'somekey': 'somevalue'}
 x = requests.post(url, json = myobj)
 
 print(x.text)
+
+# example 2
+ajax_url = 'https://www.ibon.com.tw/retail_inquiry_ajax.aspx'
+payload = {
+    'strTargetField': 'COUNTY',
+    'strKeyWords': '基隆市'
+}
+try:
+    ajax_resp = requests.post(ajax_url, data=payload)
+except:
+    ajax_resp = None
 ```
 
 #### other methods

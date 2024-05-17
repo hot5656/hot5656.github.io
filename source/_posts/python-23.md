@@ -301,6 +301,9 @@ print(df)
 # ascending True(default)遞增, False遞減
 print('--排序--')
 print(df.sort_values(by='數學', ascending=False))
+print(df.sort_values(['診斷年份','診斷週別'], ascending=[True, False]))
+# inplace=True 表會直接更新 df
+df.sort_values(['診斷年份','診斷週別'], ascending=[True, False], inplace=True)
 # 依索引排序
 # axis 0:index 1:column
 print(df.sort_index(axis=0))
@@ -432,6 +435,7 @@ df_sample['age'] = df_sample['age'].ffill()
 df_sample['gender'] = df_sample['gender'].bfill()
 print('-- fillna forward-fill:fffill/back-fill:bfill --')
 print(df_sample.head())
+print(df_sample.head(10))
 #         id name  gender   age    area         job
 # 0  1700001  李國發    Male  21.0  新北市三重區   金融業 和房地產
 # 1  1700002  吳俊諺  Female  21.0  臺北市文山區     金融業和房地產
@@ -452,6 +456,16 @@ print(df_sample)
 # 11  1700011  許合蓉  Female  61.0  新北市三重區      住宿和餐飲業
 # 12  1700012  武家豪    Male  53.0  新北市三重區       農林牧漁業
 # 14  1700014  周聿綠  Female  57.0  基隆市中正區     金融業和房地產
+
+# 多項計算
+print(df.groupby('縣市')['確定病例數'].agg(['sum','count','max','min','mean']))
+# sum	count	max	min	mean
+# 縣市					
+# 南投縣	2	2	1	1	1.000000
+# 台中市	32	24	4	1	1.333333
+# 台北市	83	56	10	1	1.482143
+# 台南市	12	11	2	1	1.090909
+# 嘉義市	3	3	1	1	1.000000
 ```
 
 #### 數值處理 - 調整
@@ -568,6 +582,9 @@ print('-- 欄位多條件 --')
 print(df[(df['gender'] == 'Male') & (df['age'] > 50)])
 #          id name gender   age    area    job
 # 12  1700012  武家豪   Male  53.0  新北市三重區  農林牧漁業
+
+# 包含多內容
+print(df[df['縣市'].isin(["台北市","台中市","高雄市"])])
 
 # 分組運算欄
 print("-- gender's age mean --")

@@ -21,7 +21,8 @@ tags:
 + packages
 	+ {% post_link python-4 '# Packages list' %}:packages list
 	+ {% post_link python-4 '# Packages matplotlib.pyplot' %}:繪圖
-    + {% post_link python-26 '# plotly' %}:繪圖
+ 	+ {% post_link python-26 '# plotly' %}:繪圖
+	+ {% post_link python-29 '# matplotlib.pyplot 3D' %}:3D繪圖
 	+ {% post_link python-22 '# Numpy' %}
 	+ {% post_link python-23 '# Pandas' %}
 	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
@@ -38,7 +39,15 @@ tags:
 	+ {% post_link python-4 '# URL unicode 轉成中文' %}
 	+ {% post_link python-4 '# 非同步模組 - concurrent.futures' %}
   + {% post_link python-4 '# windows set/show evn' %}
-	+ {% post_link python-4 '# detect image type' %}
+  + {% post_link python-4 '# detect image type' %}
+
++ Web Framework : Django
+	+ {% post_link python-16 '# Flask' %}
+	+ {% post_link python-27 '# Gradio' %}
+
+
++ GUI : PyQt
+	+ {% post_link python-3 '# Tkinter' %}
 
 + tool
 	+ {% post_link dl-1 '# Google Colab' %}:python 雲端開發平台
@@ -561,6 +570,12 @@ url = input("URL:").strip()
 
 # split string
 comapny = job.select_one(".company a").text.split('|')
+# 第一個 "," 分割字串
+split_datas = resp.text.split(",", 1)
+print(len(split_datas))
+# 前2個 "," 分割字串
+split_datas = resp.text.split(",", 2)
+print(len(split_datas))
 
 # replace string
 # df.str.replace(old,new) 替換文字
@@ -569,6 +584,9 @@ df_sample['job'] = df_sample['job'].str.replace(' ', '')
 
 #### list
 ``` py
+# remove 1 item
+del tables[0]
+
 # 生成空 list
 info = list()
 record = {
@@ -1539,10 +1557,29 @@ def is_json(myjson):
   parsed = json.loads(content)
 
   # show json
-  ensure_ascii=False, show 中文
+  # ensure_ascii=False, show 中文
   print(json.dumps(parsed, indent=4, ensure_ascii=False))
 ```
 
+``` py
+# json to dict
+datas = json.loads(json_text)
+
+# print dict as good view
+# ensure_ascii=False show chinese correct
+print(json.dumps(datas, indent=2, ensure_ascii=False))
+
+# print dict key and variable
+for key , value in datas.items():
+    # print(f"{key}: {value}")
+    print(f"{key}: ..")
+
+for key , value in datas['default']['trendingSearchesDays'][0].items():
+    print(f"{key}: ..")
+
+# print dict as good view
+print(json.dumps(datas['default']['trendingSearchesDays'][0]['trendingSearches'][0], indent=2, ensure_ascii=False))
+```
 
 #### SQLite
 
@@ -2405,6 +2442,28 @@ wget.download(pic.get_attribute('src'), save_as)
 ```
 
 #### [matplotlib.pyplot](https://matplotlib.org/3.8.3/api/)
+##### use windows font + show 負號
+``` py
+import matplotlib.pyplot as plt
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+x = [x for x in range(1,11)]
+y = [3 * y - 18 for y in x]
+# 標記 每個 x 的 x 座標
+plt.xticks(x)
+# x 顯示範圍 0~10, y 顯示範圍 -20~15
+plt.axis([0,10, -20, 15])
+plt.plot(x,y, "-*")
+plt.xlabel('小孩人數')
+plt.ylabel('蘋果數量')
+plt.grid()
+
+plt.show()
+``` 
+
 ##### example
 ###### 折線圖
 ``` py
@@ -3435,6 +3494,18 @@ jsb_file = "./job1.xlsx"
 xsl = pd.ExcelFile(jsb_file)
 # read sheet title
 print(xsl.sheet_names[0])
+```
+
+``` py
+# create sheet
+# index=0 1st sheet
+sheet = workbook.create_sheet(title=county, index=index)
+
+# remove last sheet
+# last is orgiginal sheet
+last_sheet_name = workbook.sheetnames[-1]
+last_sheet = workbook[last_sheet_name]
+workbook.remove(last_sheet)
 ```
 
 #### mypy
