@@ -24,7 +24,9 @@ tags:
  	+ {% post_link python-26 '# plotly' %}:繪圖
 	+ {% post_link python-29 '# matplotlib.pyplot 3D' %}:3D繪圖
 	+ {% post_link python-22 '# Numpy' %}
+	+ {% post_link python-30 '# SciPy' %}
 	+ {% post_link python-23 '# Pandas' %}
+	+ {% post_link python-28 '# sympy' %}
 	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
 	+ {% post_link python-4 '# Packages excell' %}:
 	+ {% post_link python-24 '# Connect to google sheet' %}:google 試算表
@@ -960,6 +962,11 @@ print('Hi {name} give you {money} dollars, the temperature is {temp}'.format(nam
 print('hex number={:x}'.format(23))	# hex number=17
 print(f'    money= ${insert_money:.2f}, cost= ${cost}')
 
+# 使用 format
+num = 3.14159
+formatted_num = "{:.2f}".format(num)
+print(formatted_num)  # 輸出: 3.14
+
 # string direct using variable
 print(f'I am {name}')	# I am Robert
 
@@ -1040,6 +1047,38 @@ if os.path.exists(file_job):
 # create folder
 if not os.path.exists(FOLDER) :
     os.makedirs(FOLDER)
+```
+
+``` py
+import os
+
+# set() support 加入資料唯一
+# 儲存不重複
+words_set = set()
+while True:
+    article = input("transfer article : ")
+    name_files = article.split(".")
+    # check file exist
+    if len(name_files[0]) != 0:
+        if os.path.exists(article):
+            # read file
+            with open(article, "r") as file:
+                for line in file:
+                    words = line.split(" ")
+                    for word in words:
+                        words_set.add(word.strip())
+            # sort set() to list
+            words_sort = sorted(words_set)
+
+            words_file_name = f"words_{name_files[0]}.txt"
+            # write text file
+            with open(words_file_name, "w") as file:
+                for item in words_sort:
+                    file.write(item + "\n")
+        else:
+            print(f"not found file {article}")
+    else:
+        exit(0)
 ```
 
 #### sorted
@@ -2442,7 +2481,8 @@ wget.download(pic.get_attribute('src'), save_as)
 ```
 
 #### [matplotlib.pyplot](https://matplotlib.org/3.8.3/api/)
-##### use windows font + show 負號
+##### some special
+###### use windows font + show 負號
 ``` py
 import matplotlib.pyplot as plt
 # windows 使用 微軟正黑體
@@ -2463,6 +2503,29 @@ plt.grid()
 
 plt.show()
 ``` 
+
+###### plot add text
+``` py
+# 列出利潤 48 萬
+frofit2 = 48
+people2 = (frofit2 - ans[b]) / ans[a]
+print(f"f({people2}) = {frofit2}")
+plt.plot(people2, frofit2, "-o", color='red')
+# show 文字
+plt.text(people2-170, frofit2+5, f"({people2}, {frofit2})")
+```
+
+###### x, y軸距長度一致
+``` py
+# x, y軸距長度一致
+plt.axis('equal')
+```
+
+###### 表格顯示範圍
+``` py
+# 表格顯示範圍 x:0~20,y:0~20
+plt.axis([0, 20, 0, 20])
+```
 
 ##### example
 ###### 折線圖
