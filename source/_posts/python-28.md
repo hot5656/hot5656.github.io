@@ -7,6 +7,7 @@ tags:
 	- python
 	- book
 	- ML
+mathjax: true
 ---
 
 ### 名詞
@@ -185,6 +186,21 @@ number_roots = [root.evalf() for root in roots]
 print(number_roots)
 # [-1/2 - sqrt(3)*I/2, -1/2 + sqrt(3)*I/2]
 # [-0.5 - 0.866025403784439*I, -0.5 + 0.866025403784439*I]
+```
+
+##### FiniteSet - 建立集合
+``` py
+# sympy 模組與集合
+# sympy FiniteSet 可建立集合
+from sympy import FiniteSet
+A = FiniteSet(1, 2, 3)
+print(A)
+# {1, 2, 3}
+
+# 建立集合冪集
+a = A.powerset()
+print(a)
+# FiniteSet(EmptySet, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3})
 ```
 
 ### 聯立方程式
@@ -923,4 +939,272 @@ plt.show()
   {% asset_img pic17.png pic17 %}
 </div>
 
+###  排列與組合
+#### nPr(permutation-排列)
+```py
+# nPr(permutation-排列):從 n 個位數圖提出r個數字排列
+# n*(n-1)*(n-2)...
+# 4P3
+# [itertools](https://docs.python.org/3/library/itertools.html)
+import itertools
+n = {1, 2, 3, 4}
+r = 3
+A = set(itertools.permutations(n, r))
+print(f"元素數量 = {len(A)}")
+for a in A:
+    print(a)
+# 元素數量 = 24
+# (2, 1, 3)
+# (4, 2, 1)
+# .....
+
+# 5P2
+n2 = {"a", "b", "c", "d", "e"}
+r2 = 2
+A2 = set(itertools.permutations(n2, r2))
+print(f"元素數量 = {len(A2)}")
+for a2 in A2:
+    print(a2)
+# 元素數量 = 20
+# ('c', 'b')
+# ('e', 'a')
+# .....
+```
+
+#### 階層觀念
+```py
+# 階層觀念
+# 5 個客戶分別在5個城市,有多少拜訪路徑? 5!
+import itertools
+
+n = {"A", "B", "C", "D", "E"}
+r = 5
+A = set(itertools.permutations(n, r))
+print(f"元素數量 = {len(A)}")
+for a in A:
+    print(a)
+# 元素數量 = 120
+# ('C', 'D', 'E', 'A', 'B')
+# ('B', 'E', 'D', 'A', 'C')
+# ......
+
+# 30個城市客戶的路徑
+# 假設電腦每秒可計算 10000000000000(10兆) 路徑, 多久可算完
+import math
+
+N2 = 30
+combinations = math.factorial(N2)
+print(f"combinations = {combinations}")
+times = 10000000000000
+years = combinations/times/60/60/24/365
+print(f"計算 {years:.2f} 年")
+# combinations = 265252859812191058636308480000000
+# 計算 841111300774.32 年
+```
+
+#### 重複排列
+```py
+# 重複排列
+# n**r
+# 5個數字可重複排列於3個位置 5*5*5=125
+import itertools
+n = {1, 2, 3, 4, 5}
+A = set(itertools.product(n, n , n))
+print(f"元素數量 = {len(A)}")
+for a in A:
+    print(a)
+# 元素數量 = 125
+# (5, 3, 3)
+# (5, 4, 2)
+# .....
+```
+
+#### 組合(combination)
+<div style="max-width:500px">
+  {% asset_img pic18.png pic18 %}
+</div>
+
+```py
+# 組合(combination) - 從5數字中選出3個數字
+import itertools
+
+n = {1, 2, 3, 4, 5}
+r = 3
+A = set(itertools.combinations(n , 3))
+print(f"組合 = {len(A)}")
+for a in A:
+    print(a)
+# 組合 = 10
+# (2, 4, 5)
+# (1, 3, 5)
+
+# 計算2個骰子有多少組合
+n2 = {1, 2, 3, 4, 5, 6}
+A2 = set(itertools.combinations(n2 , 2))
+print(f"骰子組合 = {len(A2)}")
+# 骰子組合 = 15
+```
+
+### 機率
+#### 機率基本概念
+##### 計算隨機產生值,並繪出長條圖
+``` py
+# 隨機整數函數
+# import random
+
+# min = 1
+# max = 6
+# target1 = 1
+# target2 = 6
+# n = 10000
+# counter1 = 0
+# counter2 = 0
+# for i in range(n):
+#     once = random.randint(min, max)
+#     if once == target1:
+#         counter1 += 1
+#     if once == target2:
+#         counter2 += 1
+# print(f"total{n}, target {target1} {counter1} times, 機率{counter1/n}")
+# print(f"total{n}, target {target2} {counter2} times, 機率{counter2/n}")
+
+# 計算隨機產生值,並繪出長條圖
+# 隨機整數函數
+import random
+
+min = 1
+max = 6
+n = 10000
+dice = [0] * 6
+for i in range(n):
+    data = random.randint(min, max)
+    dice[data-1] += 1
+print(dice)
+
+import matplotlib.pyplot as plt
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+listx = range(1,7)
+plt.bar(listx, dice)
+
+plt.xlabel('數字', fontsize=14)
+plt.ylabel('次數', fontsize=14)
+# show 數值
+for i in range(len(dice)):
+    plt.text(i+1, dice[i], str(dice[i]), ha='center', va='bottom')
+
+plt.show()
+# [1618, 1699, 1674, 1692, 1696, 1621]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic23.png pic23 %}
+</div>
+
+##### 機率乘法與加法
+``` py
+# 機率乘法與加法
+# 員工中獎率計算
+# 7 支籤,2位中獎可抽獎
+
+# 分數計算
+from fractions import Fraction
+
+x = Fraction(2, 7) * Fraction(1 ,6)
+y = Fraction(5, 7) * Fraction(2, 6)
+p = x + y
+print(f"第一位中獎率 {Fraction(2, 7)}")
+print(f"第二位中獎率 {p} 轉成浮點數 {float(p)}")
+# 第一位中獎率 2/7
+# 第二位中獎率 2/7 轉成浮點數 0.2857142857142857
+```
+
+##### 餘事件與乘法
+``` py
+# 餘事件與乘法
+# 丟三次骰子,都不出現5的機率
+# 不出現5 : (5/6)*(6/5)*(5/6)
+# 所以出現5的機率:1-(5/6)*(6/5)*(5/6)
+from fractions import Fraction
+
+x = Fraction(5, 6)
+p1 = x**3
+p2 = 1 - p1
+print(f"不出現5的機率 {float(p1)}")
+print(f"出現5的機率 {float(p2)}")
+# 不出現5的機率 0.5787037037037037
+# 出現5的機率 0.4212962962962963
+```
+
+#### 條件機率
+<div style="max-width:500px">
+  {% asset_img pic19.png pic19 %}
+</div>
+<div style="max-width:500px">
+  {% asset_img pic20.png pic20 %}
+</div>
+
+#### 貝氏定理
+<div style="max-width:500px">
+  {% asset_img pic21.png pic21 %}
+</div>
+<div style="max-width:500px">
+  {% asset_img pic22.png pic22 %}
+</div>
+
+##### COVID-19 普篩準確度分析
+$$P(確診|陽性) = \frac{P(陽性|確診)⋅P(確診)}{P(陽性)} $$
+**快篩**
+- 靈敏度（敏感度）：99%（即0.99）
+- 假陽性率：1%（即0.01）
+- 先驗患病率：0.01%（即0.0001）
+
+**PCR**
+- 靈敏度（敏感度）：99.99%（即0.9999）
+- 假陽性率：0.01%（即0.0001）
+- 先驗患病率：0.01%（即0.0001）
+
+**計算快篩陽性確診率**
+P(陽性) = 確診＊0.99 + 非確診＊0.01 
+				= 0.0001*0.99 + (1-0.0001)*0.01
+				= 0.000099 + 0.009999
+				= 0.010098
+P​(確診|陽性) = 0.99*0.0001/0.010098 = 0.0098
+
+**計算PCR陽性確診率**
+P(陽性) = 確診＊0.9999 + 非確診＊0.0001 
+				= 0.0001*0.9999 + (1-0.0001)*0.0001
+				= 0.00009999 + 0.00009999
+				= 0.00019998
+P​(確診|陽性) = 0.9999*0.0001/0.00019998 = 0.5
+ 
+**結果**
+- 快篩陽性結果確診率：約0.98%
+- PCR陽性結果確診率 ：約50%
+
+快篩即使測試具有高靈敏度和特異性，當患病率非常低時，假陽性結果仍會顯著影響快篩測試的後驗概率，而PCR測試在低患病率的情況下能提供更準確的後驗概率。
+
+##### 醫學例子分析
+某疾病測試,對有疾病測出有真陽性為99%,對無疾病測出真陰性為99%,假設在某群體中,有疾病的機率為1%
+若一個人測出陽性,他有疾病的機率是多少?
+$$P(病|陽性) = \frac{P(陽性|病)⋅P(病)}{P(陽性)} $$
+P(陽性) = 病＊0.99 + 無病＊0.01 
+				= 0.01*0.99 + (1-0.01)*0.01
+				= 0.0099 + 0.0099
+				= 0.0198
+P​(病|陽性) = 0.99*0.01/0.0198 = 0.5
+
+``` py
+P_A = 0.01          #疾病率
+P_B_given_A = 0.99  #有疾病準確率
+# 陽性機率
+P_B = 0.01*0.99 + (1 - 0.01)*0.01
+#陽性有病機率
+P_A_given_B = P_B_given_A * P_A / P_B
+print(f"陽性有疾病的機率 {P_A_given_B}")
+# 陽性有疾病的機率 0.5
+```
 

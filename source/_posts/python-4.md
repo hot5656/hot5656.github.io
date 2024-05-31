@@ -42,6 +42,9 @@ tags:
 	+ {% post_link python-4 '# 非同步模組 - concurrent.futures' %}
   + {% post_link python-4 '# windows set/show evn' %}
   + {% post_link python-4 '# detect image type' %}
+  + {% post_link python-4 '# set() 集合' %}
+  + {% post_link python-4 '# itertools' %}
+  + {% post_link python-4 '# math' %}
 
 + Web Framework : Django
 	+ {% post_link python-16 '# Flask' %}
@@ -694,6 +697,215 @@ for student in students:
     print(student, students[student], sep=", ")
 ```
 
+#### set() 集合 
+##### 基本 
+``` py
+# 集合 set()
+# 集合資料不重複
+# 執行set(), 會刪除重複,但順序可能會被打亂
+lang = {"Python", "C", "Java"}
+A = set("Deepmind")
+print(type(lang), lang)
+print(type(A), A)
+# <class 'set'> {'Python', 'C', 'Java'}
+# <class 'set'> {'d', 'i', 'p', 'D', 'm', 'e', 'n'}
+
+# 空集合要用 set()
+empty_dict = {}
+empty_set = set()
+print(type(empty_dict))
+print(type(empty_set))
+# <class 'dict'>
+# <class 'set'>
+
+# 轉成 set() 刪除重複資料
+fruits1 = ["apple", "orange", "banana", "apple", "orange"]
+x = set(fruits1)
+fruits2 = list(x)
+print(fruits2)
+# ['orange', 'apple', 'banana']
+
+# set() add, remove
+data_list = ['Python', 'Java', 'English']
+languages = set()
+for item in data_list:
+    languages.add(item)
+print(type(languages), languages)
+# remove English from the set
+languages.remove('English')
+print(type(languages), languages)
+# <class 'set'> {'Python', 'Java', 'English'}
+# <class 'set'> {'Python', 'Java'}
+```
+
+``` py
+# set() : 儲存不重複
+# houses.py
+students = [
+    {"name": "Harry", "house": "Gryffidor"},
+    {"name": "Hermione", "house": "Gryffidor"},
+    {"name": "Ron", "house": "Gryffidor"},
+    {"name": "Draco", "house": "Slytherin"},
+    {"name": "Padma", "house": "Ravenclaw"},
+]
+
+houses = set()
+for student in students:
+    houses.add(student["house"])
+
+for house in sorted(houses):
+    print(house)
+```
+
+##### 集合操作
+
+<div style="max-width:500px">
+  {% asset_img pic1.png pic1 %}
+</div>
+
+``` py
+# 集合操作
+# & 交集 intersection
+# | 聯集 union
+# - 差集 difference
+# ^ 對稱差集 symmetric_difference
+math = {"Kevin", "Peter", "Eric"}
+physics = {"Peter", "Nelson", "Tom"}
+print(f"聯    集1: {math|physics}")
+print(f"交    集1: {math&physics}")
+print(f"差    集1: {math-physics}")
+print(f"對稱差集1: {math^physics}")
+
+print(f"聯    集2: {math.union(physics)}")
+print(f"交    集2: {math.intersection(physics)}")
+print(f"差    集2: {math.difference(physics)}")
+print(f"對稱差集2: {math.symmetric_difference(physics)}")
+# 聯    集1: {'Eric', 'Tom', 'Nelson', 'Kevin', 'Peter'}
+# 交    集1: {'Peter'}
+# 差    集1: {'Eric', 'Kevin'}
+# 對稱差集1: {'Eric', 'Tom', 'Kevin', 'Nelson'}
+#
+# 聯    集2: {'Eric', 'Tom', 'Nelson', 'Kevin', 'Peter'}
+# 交    集2: {'Peter'}
+# 差    集2: {'Eric', 'Kevin'}
+# 對稱差集2: {'Eric', 'Tom', 'Kevin', 'Nelson'}
+```
+
+##### 子集(subset), 宇集(superset) and 補集(屬於A, 但不在B)
+``` py
+# 子集(subset), 宇集(superset) and 補集(屬於A, 但不在B)
+
+# 子集(subset)
+A2 = {1, 2, 3}
+B2 = set()
+# B 屬於 A
+print(f"B2 為 A2 之 subset:{B2 <= A2}")
+# B 是 A 的 subset
+print(f"B2 為 A2 之 subset:{B2.issubset(A2)}")
+print(f"A2 為 A2 之 subset:{A2 <= A2}")
+# ========================
+A = {1, 2, 3, 4, 5, 6}
+B = {1, 3, 5}
+# B2 屬於 A2
+print(f"B 為 A 之 subset:{B <= A}")
+# B 是 A 的 subset
+print(f"B 為 A 之 subset:{B.issubset(A)}")
+# B2 為 A2 之 subset:True
+# B2 為 A2 之 subset:True
+# A2 為 A2 之 subset:True
+# B 為 A 之 subset:True
+# B 為 A 之 subset:True
+
+# 宇集(superset)
+# A 是 B2 的 superset
+print(f"B 為 A 之 superset:{A >= B}")
+# A 是 B2 的 superset
+print(f"B 為 A 之 superset:{A.issuperset(B)}")
+# B 為 A 之 superset:True
+# B 為 A 之 superset:True
+
+# 補集(屬於A, 但不在B)
+print(A-B)
+# {1, 2, 3}
+```
+
+##### 集合新增刪除
+``` py
+# 集合新增刪除
+# add() 新增
+# remove() 刪除
+# pop() 隨機刪除並回傳
+# clear() 清除所有元素
+A ={1, 2, 5}
+A.add(3)
+print(A)
+A.remove(2)
+print(A)
+ret = A.pop()
+print(f"pop {ret}")
+print(A)
+A.clear()
+print(A)
+# {1, 2, 3, 5}
+# {1, 3, 5}
+# pop 1
+# {3, 5}
+# set() : 表空集合
+```
+
+##### sympy 模組與集合
++ {% post_link python-28 '# FiniteSet - 建立集合' %}
+
+##### 集合相乘 - 笛卡兒積
+``` py
+# 集合相乘 - 笛卡兒積
+# 笛卡兒積指從2個集合各提出一個元素,所有可能集合,元素內容是元祖(tuple)
+from sympy import *
+A = FiniteSet("a", "b")
+B = FiniteSet("c", "d")
+AB = A * B
+for ab in AB:
+    print(f"{type(ab)} {ab}")
+# <class 'tuple'> (a, c)
+# <class 'tuple'> (b, c)
+# <class 'tuple'> (a, d)
+# <class 'tuple'> (b, d)
+
+C = FiniteSet("a", "b", "c", "d", "e")
+D = FiniteSet("f", "q")
+CD = C * D
+print(f"len of CD : {len(CD)}")
+for cd in CD:
+    print(f"{cd}")
+# len of CD : 10
+# (a, f)
+# (b, f)
+# (a, q)
+# (c, f)
+# (b, q)
+# (d, f)
+# (c, q)
+# (e, f)
+# (d, q)
+# (e, q)
+
+# 集合的 n 次方
+AA = FiniteSet("a", "b")
+AAA = AA**3
+print(f"len of AAA : {len(AAA)}")
+for a in AAA:
+    print(f"{a}")
+# len of AAA : 8
+# (a, a, a)
+# (b, a, a)
+# (a, b, a)
+# (b, b, a)
+# (a, a, b)
+# (b, a, b)
+# (a, b, b)
+# (b, b, b)
+```
+
 ### syntax
 ####  anonymous functions
 ``` py
@@ -820,26 +1032,6 @@ black house.py
 
 # another for code style
 #pip3 install pylint
-```
-
-#### set()
-``` py
-# set() : 儲存不重複
-# houses.py
-students = [
-    {"name": "Harry", "house": "Gryffidor"},
-    {"name": "Hermione", "house": "Gryffidor"},
-    {"name": "Ron", "house": "Gryffidor"},
-    {"name": "Draco", "house": "Slytherin"},
-    {"name": "Padma", "house": "Ravenclaw"},
-]
-
-houses = set()
-for student in students:
-    houses.add(student["house"])
-
-for house in sorted(houses):
-    print(house)
 ```
 
 #### global - 在 function global variable 內寫入時要加 global variable
@@ -2350,6 +2542,44 @@ def detect_image_type(content):
     except Exception as e:
         print("Error:", e)
         return None
+```
+
+#### [itertools](https://docs.python.org/3/library/itertools.html)
+```py
+import itertools
+
+# permutation-排列
+n = {1, 2, 3, 4}
+r = 3
+A = set(itertools.permutations(n, r))
+print(f"元素數量 = {len(A)}")
+for a in A:
+    print(a)
+
+# 重複排列
+# n**r
+# 5個數字可重複排列於3個位置 5*5*5=125
+n = {1, 2, 3, 4, 5}
+A = set(itertools.product(n, n , n))
+print(f"元素數量 = {len(A)}")
+for a in A:
+    print(a)
+
+# 組合(combination) - 從5數字中選出3個數字
+n = {1, 2, 3, 4, 5}
+r = 3
+A = set(itertools.combinations(n , 3))
+print(f"組合 = {len(A)}")
+for a in A:
+    print(a)
+```
+
+#### math
+``` py
+import math
+
+# 階層
+combinations = math.factorial(30)
 ```
 
 ### Packages
