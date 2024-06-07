@@ -1208,3 +1208,792 @@ print(f"陽性有疾病的機率 {P_A_given_B}")
 # 陽性有疾病的機率 0.5
 ```
 
+##### 垃圾郵件分類實作
+$$P(spam∣words) = \frac{P(words∣spam)⋅P(spam)}{P(words)} $$
+$$P(ham∣words) = \frac{P(words∣ham)⋅P(ham)}{P(words)} $$
+因為 P(words) 在兩個公式中是相同的，因此可以忽略：
+這樣，我們只需要比較 P(words∣spam)⋅P(spam) 和 P(words∣ham)⋅P(ham) 的大小即可。
+
+``` py
+# 垃圾郵件分類實作
+import numpy as np
+
+# 垃圾郵件數據
+spam_emails = [
+    "Get a free gift card now!",
+    "Limited time offer: Claim your prize!",
+    "You have won a free iPhone!"
+]
+# 非垃圾郵件數據
+ham_emails = [
+    "Meeting rescheduled for tomorrow",
+    "Can we discuss the repoet later?",
+    "Thank you for your prompt reply."
+]
+
+# 單詞計算
+def count_words(emails):
+    word_count= {}
+    for email in emails:
+        for word in email.split():
+            word = word.lower()
+            if word not in word_count:
+                word_count[word] = 1
+            else:
+                word_count[word] += 1
+    return word_count
+
+
+# check email 型別
+# 使用 ln(log 底數e)算機率的優點
+# 1. 避免數值下溢：當計算多個小機率值的乘積時，避免結果變得極小。
+# 2. 計算穩定性：轉換為求和運算使得計算更加穩定。
+# 3. 簡化比較：分類時直接比較對數和，比比較原始機率乘積更簡單。
+def classify_email(email):
+    words = email.lower().split()
+    spam_prob = np.log(prior_spam)
+    ham_prob = np.log(prior_ham)
+    # print(f"spam_prob={prior_spam}{spam_prob}")
+    # print(f"ham_prob={prior_ham}{ham_prob}")
+    for word in words:
+        # word 存在 get word value, 不存在 get 1/ (total_spam_words+2)
+        spam_prob += np.log(spam_word_prob.get(word, 1/ (total_spam_words+2)))
+        ham_prob += np.log(ham_word_prob.get(word, 1/ (total_ham_words+2)))
+    print(f"spam_prob:{spam_prob} ham_prob:{ham_prob}")
+    return "垃圾郵件" if spam_prob > ham_prob else "非垃圾郵件"
+
+# 計算每個字的機率, +1 避免機率為零的情況, 分母 +2 而不是+1，是為了更好的平滑效果。
+# 這樣做的目的是考慮訓練數據中未出現過的單詞。實際上，+2 是一個常見的變種，
+# 但你也可以看到其他變種，如+1 或者+V（單詞表的大小）
+def word_probability(word_count, total_count):
+    # 使用拉普拉斯平滑
+    return {word:(count+1)/(total_count+2) for word, count in word_count.items()}
+
+# 先驗機率 prior probabilities:無條件下的比例
+# 條件機率 conditional probabilities:依條件算出的機率(如單詞)
+prior_spam = len(spam_emails) / (len(spam_emails) + len(ham_emails))
+prior_ham = len(ham_emails) / (len(spam_emails) + len(ham_emails))
+print(f"垃圾郵件先驗機率:{prior_spam}")
+print(f"正常郵件先驗機率:{prior_ham}")
+print("="*70)
+
+# 計算單詞
+spam_word_count = count_words(spam_emails)
+ham_word_count  = count_words(ham_emails)
+print(f"垃圾郵件單詞:{spam_word_count}")
+print(f"正常郵件單詞:{ham_word_count}")
+print("="*70)
+
+# 計算單詞總數
+total_spam_words = sum(spam_word_count.values())
+total_ham_words = sum(ham_word_count.values())
+print(f"垃圾郵件總單詞:{total_spam_words}")
+print(f"正常郵件總單詞:{total_ham_words}")
+print("="*70)
+
+# 對郵件進行單詞機率計算
+spam_word_prob = word_probability(spam_word_count, total_spam_words)
+ham_word_prob = word_probability(ham_word_count, total_ham_words)
+print(f"垃圾郵件字典單詞機率:{spam_word_prob}")
+print(f"正常郵件字典單詞機率:{ham_word_prob}")
+print("="*70)
+
+# 測試分類器
+test_email = "Claims your free gift now"
+print(f"郵件:{test_email} 分類結果:{classify_email(test_email)}")
+test_email = "Can we discuss your decision tomorrow"
+print(f"郵件:{test_email} 分類結果:{classify_email(test_email)}")
+# spam_prob:-13.1869018985419 ham_prob:-14.451858789480825
+# 郵件:Claims your free gift now 分類結果:垃圾郵件
+# spam_prob:-17.974393641323946 ham_prob:-14.569641825137209
+# 郵件:Can we discuss your decision tomorrow 分類結果:非垃圾郵件
+```
+
+#### 蒙地卡羅模擬計算PI
+``` py
+# 蒙地卡羅模擬計算PI - 𝝿
+# 2 * 2 正方形
+# 圓面積/矩形面積 = PI / 4
+# PI = 4 * hins / 1000000
+import random
+
+trials = 1000000
+hits = 0
+for i in range(trials):
+    x = random.random()*2 - 1
+    y = random.random()*2 - 1
+    if x*x + y*y <= 1:
+        hits += 1
+PI = 4 * hits / trials
+print(f"PI={PI}")
+# PI = 3.144032
+```
+
+``` py
+# 蒙地卡羅模擬計算PI - 𝝿 繪圖
+import matplotlib.pyplot as plt
+import random
+import math
+
+trials = 5000
+hits = 0
+radius = 50
+for i in range(trials) :
+    x = random.randint(1, 100)
+    y = random.randint(1, 100)
+    if math.sqrt((x-50)**2 + (y-50)**2) <= radius:
+        plt.plot(x, y, "-o", c="y")
+        hits += 1
+    else:
+        plt.plot(x, y, "-o", c="g")
+
+PI = 4 * hits / trials
+print(f"PI={PI}")
+
+plt.axis('equal')
+plt.show()
+# PI=3.1272
+```
+
+<div style="max-width:500px">
+  {% asset_img pic24.png pic24 %}
+</div>
+
+### 二項式定理
+二項式定理主要是講解二項式次方的展開 $(x+y)^n$
+#### 二項式展開與規律性
+<div style="max-width:500px">
+  {% asset_img pic25.png pic25 %}
+</div>
+
+#### 找出 $x^{n-k}y^k$ 係數
+二項式定理如下:
+$$ (x+y)^n =  \sum_{k=0}^n\left( ^n_k\right)x^{n-k}y^k $$
+其中 $\left( ^n_k\right)$是二項式係數,表從n個物品中取出k個的方式數,公式如下
+$$ \left( ^n_k\right) = \frac{n!}{k!(n-k)} $$
+若推算 $(x+y)^5=x^5+5x^4y+10x^3y^2+10x^2y^3+5x^1y^4+y^5$
+k=0 --> $\frac{5!}{0!(5-0)!}=\frac{5!}{0!5!}=1$
+k=1 --> $\frac{5!}{1!(5-1)!}=\frac{5!}{1!4!}=5$
+k=2 --> $\frac{5!}{2!(5-2)!}=\frac{5!}{2!3!}=10$
+k=3 --> $\frac{5!}{3!(5-3)!}=\frac{5!}{3!2!}=10$
+k=4 --> $\frac{5!}{4!(5-4)!}=\frac{5!}{4!1!}=5$
+k=5 --> $\frac{5!}{5!(5-5)!}=\frac{5!}{5!0!}=1$
+
+#### 二項式應用於業務分析
+假設推銷成功率為0.75(所以失敗率為0.25)
+機率公式如下
+$ P(x=k)=\left( ^n_k\right)p^k(1-p)^{n-k}$
+##### 5次銷售皆失敗的機率
+x 表成功次數
+P(x=0) = 1 - 0.75 = 0.25
+5次銷售皆失敗的機率
+$ P(x=0)=(0.25)^5=0.0009765625=0.09765625\\% $
+
+##### 僅1次銷售成功的機率
+$ P(x=1)=\left( ^5_1\right)(0.75)(0.25)^4=5(0.75)(0.25)^4=0.0146484375=1.46484375\\% $
+##### 僅2次銷售成功的機率
+$ P(x=2)=\left( ^5_2\right)(0.75)^2(0.25)^3=10(0.75)^2(0.25)^3=0.087890625=8.7890625\\% $
+
+#### 業務分析機率計算集繪製長條圖
+``` py
+# 業務分析機率計算集繪製長條圖
+import matplotlib.pyplot as plt
+import math
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+def probability(k):
+    num = math.factorial(n)/(math.factorial(k)*math.factorial(n-k))
+    return num*success**(k)*fail**(n-k)
+
+n = 5
+success = 0.75
+# 修改次數及成功率
+# n = 10
+# success = 0.35
+fail = 1 - success
+p = []
+for k in range(0,n+1):
+    if k == 0:
+        p.append(fail**n)
+    elif k == n:
+        p.append(success**n)
+    else:
+        p.append(probability(k))
+
+# show 機率加總
+# total = 0
+# for value in p:
+#     total += value
+#     print(f"{value} {total}")
+
+print(p)
+listx = [i for i in range(0,n+1) ]
+plt.bar(listx, p)
+
+plt.title(f'銷售機率分析n={n} 成功率:{success}')
+plt.xlabel('銷售成功數')
+plt.ylabel('機率')
+
+plt.show()
+# 0.0009765625 0.0009765625
+# 0.0146484375 0.015625
+# 0.087890625 0.103515625
+# 0.263671875 0.3671875
+# 0.3955078125 0.7626953125
+# 0.2373046875 1.0
+# [0.0009765625, 0.0146484375, 0.087890625, 0.263671875, 0.3955078125, 0.2373046875]
+
+# [0.013462743344628911, 0.0724916949326172, 0.17565295310595708, 0.25221962497265626, 0.2376684927626953, 0.1535704107082031, 0.0689097996767578, 0.02120301528515624, 0.0042813780864257795, 0.0005123016513671872, 2.758547353515623e-05]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic26.png pic26 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic27.png pic27 %}
+</div>
+
+#### 使用 numpy binomial 產生業務分析資料繪圖
+``` py
+# 使用 numpy binomial 產生業務分析資料繪圖
+import matplotlib.pyplot as plt
+import numpy as np
+# pip install seaborn
+import seaborn as sns
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+n = 5
+success = 0.75
+# 修改次數及成功率
+# n = 10
+# success = 0.35
+# numpy.random.binomial 函數用於生成來自二項式分布的隨機樣本
+# n 次獨立試驗中，成功 k 次的可能性，每次試驗成功的概率為 𝑝, siz為生成資料數量
+samples = np.random.binomial(n=n , p=success, size=1000)
+# print(len(samples))
+# print(samples)
+# kde=True 會劃出核密度估計曲線
+sns.histplot(samples, kde=False)
+plt.title(f'銷售機率分析 Binomial ={n} 成功率:{success}')
+plt.xlabel('銷售成功數')
+plt.ylabel('成功次數')
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic28.png pic28 %}
+</div>
+
+### 指數
+#### 繪製執行時間關係圖(n=1~5)
+``` py
+# 繪製執行時間關係圖(n=1~5)
+# O(1), O(logn), O(n), O(nlogn), O(n*n)
+import matplotlib.pyplot as plt
+import numpy as np
+
+xpt = np.linspace(1,5,5)
+print(xpt)
+ypt1 = xpt / xpt
+ypt2 = np.log2(xpt)
+ypt3 = xpt
+ypt4 = xpt*np.log2(xpt)
+ypt5 = xpt*xpt
+print(ypt1)
+print(ypt2)
+print(ypt3)
+print(ypt4)
+print(ypt5)
+
+plt.plot(xpt, ypt1, '-o', label="O(1)")
+plt.plot(xpt, ypt2, '-o', label="O(logn)")
+plt.plot(xpt, ypt3, '-o', label="O(n)")
+plt.plot(xpt, ypt4, '-o', label="O(nlogn)")
+plt.plot(xpt, ypt5, '-o', label="O(n*n)")
+plt.legend(loc="best")
+plt.axis("equal")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic29.png pic29 %}
+</div>
+
+#### 繪製 $y=2^x, y=4^x$
+``` py
+# 繪製 y=2**x, y=4**x
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-3, 3, 30)
+y2 = 2 ** x
+y4 = 4 ** x
+
+plt.plot(x, y2, label="2**x")
+plt.plot(x, y4, label="4**x")
+plt.plot(0, 1, '-o')
+
+plt.legend(loc="best")
+plt.axis([-3, 3, 0, 20])
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic30.png pic30 %}
+</div>
+
+####  繪製 $y=0.5^x, y=0.25^x$
+``` py
+# 繪製 y=0.5**x, y=0.25**x(底數小於1)
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-3, 3, 30)
+y2 = 0.5 ** x
+y4 = 0.25 ** x
+
+plt.plot(x, y2, label="0.25**x")
+plt.plot(x, y4, label="0.5**x")
+plt.plot(0, 1, '-o')
+
+plt.legend(loc="best")
+plt.axis([-3, 3, 0, 20])
+plt.grid()
+plt.show()
+```
+<div style="max-width:500px">
+  {% asset_img pic31.png pic31 %}
+</div>
+
+### 對數
+#### 繪對數 2 及 0.5 的圖形
+``` py
+# 繪對數 2 及 0.5 的圖形
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+x1 = np.linspace(0.1, 10, 90)
+y1 = [math.log2(x) for x in x1 ]
+y2 = [math.log(x, 0.5) for x in x1 ]
+
+print(y1)
+print(y2)
+plt.plot(x1, y1, label="base=2")
+plt.plot(x1, y2, label="base=0.5")
+
+plt.legend(loc="best")
+# plt.axis([-3, 3, 0, 20])
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic32.png pic32 %}
+</div>
+
+### 歐拉數與邏輯函數 
+#### 歐拉數-Euler's Number
+$$ 歐拉數 e = \lim_{n \to \infty}\left( 1+\frac{1}{n} \right)^n \approx 2.718281778... $$
+##### 繪製歐拉數圖形
+``` py
+# 繪製歐拉數圖形
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0.1, 1000, 100000)
+y = [(1+1/x)**x for x in x]
+plt.plot(x, y, label="Euler's Number")
+
+plt.legend(loc="best")
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic33.png pic33 %}
+</div>
+
+#### 邏輯函數(logistic function)
+邏輯函數是一種常見的S(Sigmoid)函數值介於0~1之間,簡單邏輯函數定義如下
+$ y = f(x) = \frac{1}{1+e^{-x}} $
+
+##### 繪製邏輯函數
+``` py
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-5, 5, 10000)
+y = [1/(1+np.e**-x) for x in x]
+plt.plot(x, y, label="Logistic function")
+
+plt.axis([-5, 5, 0, 1])
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic34.png pic34 %}
+</div>
+
+##### Sigmoid 函數
+<div style="max-width:500px">
+  {% asset_img pic35.png pic35 %}
+</div>
+
+#### logit 函數
+logit是logistic的反函數,它將(0,1)區間數值轉為實數全域,讓我們可以將機率數值轉成實數,進行數學操作
+##### Odds
+Odds可翻譯為勝率,優勢比或賠率
+骰子投出6的機率 $ P = \frac{1}{6} % $
+骰子投出6的 $ Odds = \frac{P}{1-P} =  \frac{\frac{1}{6}}{\frac{5}{6}} = \frac{1}{5} $
+
+##### Odds 到 logit
+logit 就是 log of Odds(log 底數為 e)
+$logit = log(Odds) = log(\frac{P}{1-P}) = ln(\frac{P}{1-P})$
+logit 也常被稱為 對數勝率(log odds)
+若發生率為 0.7, $logist(0.7) = ln(\frac{0.7}{1-0.7})$
+
+##### 繪製 logit 函數
+``` py
+# 繪製 0.1 ~ 9.99 的 logit 函數
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0.01, 0.99, 100)
+y = [np.log(x/(1-x)) for x in x]
+plt.plot(x, y, label="logit function")
+plt.plot(0.5, np.log(0.5/(1-0.5)), "-o")
+print(np.log(0.5/(1-0.5)))
+
+plt.axis([0, 1, -5, 5])
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic36.png pic36 %}
+</div>
+
+##### 推算出錯率與回購率的關係
+無出錯回購率40%
+1次出錯回購率15%
+求2次出錯回購率?
+
+**無出錯賠率和對數賠率**
+P(x=0) = 0.4
+Odds(x=0)= 0.4/(1-0.4) = 0.666..
+logist(x=0) = ln(0.4/(1-0.4)) = -0.405..
+
+**1次錯賠率和對數賠率**
+P(x=1) = 0.15
+Odds(x=1)= 0.15/(1-0.15) = 0.176..
+logist(x=1) = ln(0.15/(1-0.15)) = -1.734..
+
+**logist模型設定**
+假設對數賠率與錯誤次數有關 Log Odds = ax + b
+x=0 
+b = -0.405
+x=1
+a + b = -1.734  --> a = -1.329
+所以模型是
+Log Odds = -1.329x - 0.405
+
+**預測2次錯回購率**
+***計算對數賠率***
+logist(x=2) = -1.329*2 - 0.405 = -3.063
+***轉換為賠率***
+$ Odds(x=2)= e^-3.063 = 0.046$
+***轉換為回購率***
+$ \frac{P}{1-P}=0.046 $
+P = 0.046 - 0.046P
+$ P = \frac{0.046}{1+0.046} = 0.044 = 4.4\\% $ 
+
+### 三角函數
+<div style="max-width:500px">
+  {% asset_img pic37.png pic37 %}
+</div>
+
+#### 角度弧度的換算
+``` py
+# 角度弧度的換算
+import numpy as np
+
+degrees = [30, 45, 60, 90, 120, 135, 150, 180]
+for degree in degrees:
+    print(f"角度={degree} 弧度={np.pi*degree/180:.3f}")
+# 角度=30 弧度=0.524
+# 角度=45 弧度=0.785
+# 角度=60 弧度=1.047
+# 角度=90 弧度=1.571
+# 角度=120 弧度=2.094
+# 角度=135 弧度=2.356
+# 角度=150 弧度=2.618
+# 角度=180 弧度=3.142
+```
+
+#### 計算弧長
+``` py
+# 計算弧長
+# 弧度 = 2𝝿r * degree/360
+import numpy as np
+
+r = 10
+degrees = [30, 60, 90, 120]
+for degree in degrees:
+    print(f"角度={degree:3d} 弧長={2*np.pi*r*degree/360:.3f}")
+# 角度= 30 弧長=5.236
+# 角度= 60 弧長=10.472
+# 角度= 90 弧長=15.708
+# 角度=120 弧長=20.944
+```
+
+#### 計算sin(), cos()
+``` py
+# 計算sin(), cos()
+import numpy as np
+
+degrees = [x*30 for x in range(0,13)]
+for d in degrees:
+    rad = np.radians(d)
+    sin = np.sin(rad)
+    cos = np.cos(rad)
+    print(f"度數:{d:3d}\t弧度:{rad:3.2f}\tsin{d:3d}={sin:3.2f} cos{d:3d}={cos:3.2f}")
+# 度數:  0        弧度:0.00       sin  0=0.00 cos  0=1.00
+# 度數: 30        弧度:0.52       sin 30=0.50 cos 30=0.87
+# 度數: 60        弧度:1.05       sin 60=0.87 cos 60=0.50
+# 度數: 90        弧度:1.57       sin 90=1.00 cos 90=0.00
+# 度數:120        弧度:2.09       sin120=0.87 cos120=-0.50
+# 度數:150        弧度:2.62       sin150=0.50 cos150=-0.87
+# 度數:180        弧度:3.14       sin180=0.00 cos180=-1.00
+# 度數:210        弧度:3.67       sin210=-0.50 cos210=-0.87
+# 度數:240        弧度:4.19       sin240=-0.87 cos240=-0.50
+# 度數:270        弧度:4.71       sin270=-1.00 cos270=-0.00
+# 度數:300        弧度:5.24       sin300=-0.87 cos300=0.50
+# 度數:330        弧度:5.76       sin330=-0.50 cos330=0.87
+# 度數:360        弧度:6.28       sin360=-0.00 cos360=1.00
+```
+
+#### 角度繪圓
+``` py
+# 角度繪圓
+import matplotlib.pyplot as plt
+# import numpy as np
+import math
+
+degrees = [x*15 for x in range(0,25)]
+x = [math.cos(math.radians(d)) for d in degrees]
+y = [math.sin(math.radians(d)) for d in degrees]
+
+plt.scatter(x, y)
+plt.plot(x,y)
+plt.axis("equal")
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic38.png pic38 %}
+</div>
+
+#### 產生一年的 sin, cos 值
+``` py
+# 產生一年的 sin, cos 值
+import pandas as pd
+import numpy as np
+
+dates = pd.date_range(start="2023-01-01", end="2023-12-31")
+df = pd.DataFrame(data={'date':dates})
+df['day_of_year'] = df['date'].dt.day_of_year
+df["sin_day_of_year"] = np.sin(2*np.pi*df["day_of_year"]/365)
+df["cos_day_of_year"] = np.cos(2*np.pi*df["day_of_year"]/365)
+print(df)
+#           date  day_of_year  sin_day_of_year  cos_day_of_year
+# 0   2023-01-01            1     1.721336e-02         0.999852
+# 1   2023-01-02            2     3.442161e-02         0.999407
+# 2   2023-01-03            3     5.161967e-02         0.998667
+# 3   2023-01-04            4     6.880243e-02         0.997630
+# 4   2023-01-05            5     8.596480e-02         0.996298
+# ..         ...          ...              ...              ...
+# 360 2023-12-27          361    -6.880243e-02         0.997630
+# 361 2023-12-28          362    -5.161967e-02         0.998667
+# 362 2023-12-29          363    -3.442161e-02         0.999407
+# 363 2023-12-30          364    -1.721336e-02         0.999852
+# 364 2023-12-31          365     6.432491e-16         1.000000
+```
+
+### 基礎統計與大型訊算子
+#### 數據中心指標
+平均數(mean)
+中位數(median):若中間有兩個數值則取平均值
+眾數(mode):數據中出現次數最高次數的數字
+
+``` py
+import numpy as np
+import statistics as st
+
+x = [66, 57, 25, 80, 60, 15, 120, 39, 80, 50]
+x2 = [66, 57, 25, 80, 60, 15, 120, 39, 80, 50, 77]
+print(f"加總: {sum(x)}")
+print(f"平均數: {sum(x)/len(x)}")
+print(f"平均數2: {np.mean(x)}")
+# 中位數
+print(f"中位數: {np.median(x)}")
+print(f"中位數2: {np.median(x2)}")
+# bincount 傳回 array lenth 為最大值 +1
+# x 陣列必需為正整數陣列, 傳回 array 為 0 ~ max 數字數量
+print(f"x bincount : {len(np.bincount(x))}")
+print(f"x2 bincount : {len(np.bincount(x2))}")
+# argmax 傳回最大值索引
+print(f"x argmax : {np.argmax(x)} {x[np.argmax(x)]}")
+print(f"x2 argmax : {np.argmax(x2)} {x2[np.argmax(x)]}")
+# argmin 傳回最小值索引
+print(f"x argmin : {np.argmin(x)} {x[np.argmin(x)]}")
+print(f"x2 argmin : {np.argmin(x2)} {x2[np.argmin(x)]}")
+# 眾數(mode):出現最高次數的數字
+print(f"x mode:{st.mode(x)}")
+
+# 加總: 592
+# 平均數: 59.2
+# 平均數2: 59.2
+# 中位數: 58.5
+# 中位數2: 60.0
+# x bincount : 121
+# x2 bincount : 121
+# x argmax : 6 120
+# x2 argmax : 6 120
+# x argmax : 5 15
+# x2 argmax : 5 15
+# x mode:80
+```
+
+#### 繪製成績分布圖
+##### 繪製成績長條圖
+``` py
+# 繪製成績長條圖
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as st
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+sc = [60,10,40,80,80,30,80,60,70,90,50,50,50,70,60,80,80,50,60,70,
+      70,40,30,70,60,80,20,80,70,50,90,80,40,40,70,60,80,30,20,70]
+print(f"平均成績 = {np.mean(sc)}")
+print(f"中位數成績 = {np.median(sc)}")
+print(f"眾數成績 = {st.mode(sc)}")
+
+hist = [0] * 9
+for s in sc :
+    n = int(s/10) - 1
+    hist[n] += 1
+# print(hist)
+
+x = np.arange(len(hist))
+plt.bar(x, hist, width=0.5 )
+
+plt.xticks(x, (10,20,30,40,50,60,70,80,90))
+plt.title("成績表")
+plt.xlabel("分數")
+plt.ylabel("學生人數")
+plt.show()
+# 平均成績 = 59.25
+# 中位數成績 = 60.0
+# 眾數成績 = 80
+```
+
+<div style="max-width:500px">
+  {% asset_img pic39.png pic39 %}
+</div>
+
+##### 繪製成績直方圖
+```py
+# 繪製成績直方圖
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as st
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+sc = [60,10,40,80,80,30,80,60,70,90,50,50,50,70,60,80,80,50,60,70,
+      70,40,30,70,60,80,20,80,70,50,90,80,40,40,70,60,80,30,20,70]
+
+plt.hist(sc, 9)
+
+plt.title("成績表")
+plt.xlabel("分數")
+plt.ylabel("學生人數")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic40.png pic40 %}
+</div>
+
+##### 繪製成績直方圖(兩個成績)
+```py
+# 繪製成績直方圖(兩個成績)
+import matplotlib.pyplot as plt
+import numpy as np
+import statistics as st
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+sc1 = [60,10,40,80,80,30,80,60,70,90,50,50,50,70,60,80,80,50,60,70,
+      70,40,30,70,60,80,20,80,70,50,90,80,40,40,70,60,80,30,20,70]
+sc2 = [50,10,60,80,70,30,80,60,30,90,50,50,50,90,70,60,50,80,50,70,
+      60,50,30,70,70,80,10,80,70,50,90,80,40,50,70,60,80,40,20,70]
+
+plt.hist([sc1, sc2], 9)
+
+plt.title("成績表")
+plt.xlabel("分數")
+plt.ylabel("學生人數")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic41.png pic41 %}
+</div>
+
+#### 數據分散指標
+##### 變異數
+**變異數**
+$$ 變異數 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
+**樣本變異數**
+樣本變異數除以(n-1)作為母體便異數的布偏愛(unbiased)估計量
+$$ 樣本變異數 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
+**變異數公式**
+<div style="max-width:500px">
+  {% asset_img pic42.png pic42 %}
+</div>
+
+**計算銷售數據變異數**
+``` py
+import numpy as np
+import statistics as st
+x = [66, 58, 25, 78, 58, 15, 120, 39, 82, 50]
+
+print(f"Numpy 母體變異數     : {np.var(x):6.2f}")
+print(f"Numpy 樣本變異數     : {np.var(x, ddof=1):6.2f}")
+print(f"Statistics 母體變異數: {st.pvariance(x):6.2f}")
+print(f"Statistics 樣本變異數: {st.variance(x):6.2f}")
+# Numpy 母體變異數     : 823.49
+# Numpy 樣本變異數     : 914.99
+# Statistics 母體變異數: 823.49
+# Statistics 樣本變異數: 914.99
+```
+
+

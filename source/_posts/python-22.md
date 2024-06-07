@@ -437,3 +437,196 @@ plt.show()
 <div style="max-width:500px">
   {% asset_img pic4.png pic4 %}
 </div>
+
+#### random
+##### rand(0~1(不含) 亂數) 
+``` py
+import numpy as np
+# 建立 1 個隨機數
+x = np.random.rand()
+print(x)
+# 0.573581507893057
+
+# 建立 3 個隨機數
+x = np.random.rand(3)
+print(x)
+# [0.50105985 0.28119421 0.30650016]
+
+# 建立 3 *2 個隨機數
+x = np.random.rand(3, 2)
+print(x)
+# [[0.25455927 0.00831485]
+#  [0.82411519 0.76705034]
+#  [0.42246107 0.2743811 ]]
+```
+
+##### randint(low~high(不含) 整數)
+``` py
+import numpy as np
+
+# 傳回1個 0~4 整數
+x = np.random.randint(5)
+print(x)
+# 2
+
+# 傳回3個 0~9 整數
+x = np.random.randint(10, size=3)
+print(x)
+# [2 3 0]
+
+# 傳回 3*2 個 0~9 整數
+x = np.random.randint(0, 10, size=(3,2))
+print(x)
+# [[2 0]
+#  [5 8]
+#  [2 5]]
+```
+
+``` py
+# 擲骰子,繪直方圖
+import numpy as np
+
+slides = 6
+n = 10000
+dice = np.random.randint(1, slides+1, size=n )
+
+import matplotlib.pyplot as plt
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+h = plt.hist(dice, bins=slides)
+print(f"x軸 {h[0]}")
+print(f"y軸 {h[1]}")
+
+plt.xlabel('點數')
+plt.ylabel('出現次數')
+plt.title(f"測試{n}次")
+
+plt.show()
+# bins y軸 [1650. 1647. 1650. 1736. 1633. 1684.]
+# bins x軸 [1.         1.83333333 2.66666667 3.5        4.33333333 5.16666667 6.        ]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic5.png pic5 %}
+</div>
+
+##### seed 每次執行產生相同隨機數
+``` py
+import numpy as np
+
+x = np.random.randint(10, size=10)
+print(x)
+
+# [3 7 0 8 3 1 9 7 0 2]
+# [5 2 6 2 9 6 9 3 8 8]
+# [5 6 1 4 6 4 7 9 8 3]
+```
+
+``` py
+import numpy as np
+
+# 設定 seed 可每次執行值都相同
+np.random.seed(10)
+x = np.random.randint(10, size=10)
+print(x)
+
+# [9 4 0 1 9 0 1 8 9 0]
+# [9 4 0 1 9 0 1 8 9 0]
+# [9 4 0 1 9 0 1 8 9 0]
+```
+
+##### shuffle 數據隨機重排, reshape 更改形狀
+``` py
+# shuffle 重新排列
+# reshape 更改形狀
+import numpy as np
+
+arr1 = np.arange(9)
+print("一維陣列")
+print(arr1)
+print("一維陣列重新排列")
+np.random.shuffle(arr1)
+print(arr1)
+
+arr2 = np.arange(9).reshape(3,3)
+print("二維陣列")
+print(arr2)
+print("二維陣列重新排列")
+np.random.shuffle(arr2)
+print(arr2)
+
+# 一維陣列
+# [0 1 2 3 4 5 6 7 8]
+# 一維陣列重新排列
+# [0 5 3 2 1 8 4 6 7]
+# 二維陣列
+# [[0 1 2]
+#  [3 4 5]
+#  [6 7 8]]
+# 二維陣列重新排列
+# [[3 4 5]
+#  [6 7 8]
+#  [0 1 2]]
+```
+
+##### choice 挑選已有數據
+``` py
+import numpy as np
+
+fruits = ["Apple", "Orange", "Grapes", "Banana", "Mango"]
+fruit1 = np.random.choice(fruits, 3)
+print(f"隨意選3種 : {fruit1}")
+
+fruit2 = np.random.choice(fruits, 5)
+print(f"隨意選5種(可重複) : {fruit2}")
+
+fruit3 = np.random.choice(fruits, 5, replace=False)
+print(f"隨意選5種(不可重複) : {fruit3}")
+
+fruit4 = np.random.choice(fruits, 5, p =[0.8, 0.05, 0.05, 0.05, 0.05])
+print(f"依權重選5種(可重複) : {fruit4}")
+
+fruit5 = np.random.choice(fruits, 5, p =[0.05, 0.05, 0.05, 0.05, 0.8])
+print(f"依權重選5種(可重複) : {fruit5}")
+
+# 隨意選3種 : ['Mango' 'Grapes' 'Orange']
+# 隨意選5種(可重複) : ['Apple' 'Grapes' 'Grapes' 'Orange' 'Grapes']
+# 隨意選5種(不可重複) : ['Banana' 'Mango' 'Apple' 'Orange' 'Grapes']
+# 依權重選5種(可重複) : ['Grapes' 'Apple' 'Apple' 'Banana' 'Apple']
+# 依權重選5種(可重複) : ['Apple' 'Mango' 'Mango' 'Mango' 'Apple']
+```
+
+##### 使用隨機數據陣列產生圖像
+``` py
+# 使用隨機數據陣列產生圖像
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.random.rand(10000)
+y = np.random.rand(10000)
+# 使用 cmap='hsv' 意味著顏色將按 HSV 顏色空間進行映射，色調從 0 到 1 對應于一個色環，涵蓋所有顏色。
+plt.scatter(x, y, c=y, cmap='hsv' )
+# 顯示顏色條
+plt.colorbar()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic6.png pic6 %}
+</div>
+
+#### binomial 生成來自二項式分布的隨機樣本
+``` py
+import numpy as np
+
+n = 5
+success = 0.75
+# numpy.random.binomial 函數用於生成來自二項分布的隨機樣本
+# n 次獨立試驗中，成功 k 次的可能性，每次試驗成功的概率為 𝑝, siz為生成資料數量
+samples = np.random.binomial(n=n , p=success, size=1000)
+print(len(samples))
+print(samples)
+```

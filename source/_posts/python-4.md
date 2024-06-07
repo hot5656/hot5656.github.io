@@ -23,6 +23,7 @@ tags:
 	+ {% post_link python-4 '# Packages matplotlib.pyplot' %}:繪圖
  	+ {% post_link python-26 '# plotly' %}:繪圖
 	+ {% post_link python-29 '# matplotlib.pyplot 3D' %}:3D繪圖
+	+ {% post_link python-31 '# Seaborn' %}:matplotlib 的高階 API(透過封裝的方式大幅度地簡化許多設定上的細節)
 	+ {% post_link python-22 '# Numpy' %}
 	+ {% post_link python-30 '# SciPy' %}
 	+ {% post_link python-23 '# Pandas' %}
@@ -2169,6 +2170,22 @@ def runSim(goal, numTrials):
 runSim('11111', 1000)		
 ```
 
+``` py
+import random
+
+x1 = random.random()*2 - 1
+x2 = random.randint(1, 100)
+
+# shuffle 數據隨機重排
+holdout = int(0.50 * len(data))
+random.shuffle(data)
+testing = data[:holdout]
+training = data[holdout:]
+
+houses = ["Gryffindor", "Hufflenuff", "Ravenclaw", "Slytherin"]
+print(name, "is in", random.choice(cls.houses))
+```
+
 #### argparse
 ``` py
 # meows.py
@@ -2299,6 +2316,16 @@ def sheep(n):
 if __name__ == "__main__":
     main()
 ```
+
+#### 計算函數
+##### pow() 指數運算
+``` bash
+>>> pow(4,3)
+64
+>>> pow(3,4)
+81
+```
+
 
 ### special function
 #### put password to local file
@@ -2755,6 +2782,21 @@ plt.axis('equal')
 ``` py
 # 表格顯示範圍 x:0~20,y:0~20
 plt.axis([0, 20, 0, 20])
+```
+
+###### 顯示顏色條
+``` py
+# 使用隨機數據陣列產生圖像
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.random.rand(10000)
+y = np.random.rand(10000)
+# 使用 cmap='hsv' 意味著顏色將按 HSV 顏色空間進行映射，色調從 0 到 1 對應于一個色環，涵蓋所有顏色。
+plt.scatter(x, y, c=y, cmap='hsv' )
+# 顯示顏色條
+plt.colorbar()
+plt.show()
 ```
 
 ##### example

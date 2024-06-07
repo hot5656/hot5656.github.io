@@ -325,7 +325,8 @@ $$
     \end{cases}
 \end{equation}
 
-
+### Ref
++ [如何在 Markdown 輸入數學公式及符號](https://blog.maxkit.com.tw/2020/02/markdown.html)
 
 
 
