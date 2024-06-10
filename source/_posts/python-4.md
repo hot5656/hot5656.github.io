@@ -3023,6 +3023,11 @@ data = [3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
         3,4,2,3,4,5,6,7,8,9,4,6,2,0,1,9,7,6,6,5,4,
         ]
 # plt.hist(data, bins=10)
+# density=True告訴plt.hist()函數要繪製一個標準化的直方圖
+# density=True被設置，這些值被歸一化，因此它們表示每個區間中資料點的比例，而不是絕對數量
+# bins是用於定義直方圖區間邊界的陣列。這些邊界包括了最小值到最大值之間的所有區間
+# count, bins, ignored = plt.hist(s, 30, density=True) 
+# ignored：是一個無用的值，它在這個情況下沒有被使用，所以可以忽略它。
 plt.hist(data, bins=10, density=True)
 
 plt.xlabel('Value')

@@ -18,3 +18,6 @@ pip install seaborn
 ### example
 #### 直方圖
 {% post_link python-28 '# 使用 numpy binomial 產生業務分析資料繪圖' %}
+
+#### kdeplot 繪製常態分佈曲線非常方便
+{% post_link python-28 '# normal()' %}

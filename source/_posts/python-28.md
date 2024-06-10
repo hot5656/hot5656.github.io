@@ -1831,7 +1831,7 @@ print(df)
 # 364 2023-12-31          365     6.432491e-16         1.000000
 ```
 
-### 基礎統計與大型訊算子
+### 基礎統計與大型運算子
 #### 數據中心指標
 平均數(mean)
 中位數(median):若中間有兩個數值則取平均值
@@ -1973,8 +1973,8 @@ plt.show()
 **變異數**
 $$ 變異數 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
 **樣本變異數**
-樣本變異數除以(n-1)作為母體便異數的布偏愛(unbiased)估計量
-$$ 樣本變異數 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
+樣本變異數除以(n-1)作為母體變異數的不偏愛(unbiased)估計量
+$$ 樣本變異數 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
 **變異數公式**
 <div style="max-width:500px">
   {% asset_img pic42.png pic42 %}
@@ -1996,4 +1996,279 @@ print(f"Statistics 樣本變異數: {st.variance(x):6.2f}")
 # Statistics 樣本變異數: 914.99
 ```
 
+##### 標準差(Standard Deviation-SD)
+變異數開根號就是標準差
+**母體標準差**
+$$ *母體標準差 = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i-\overline{x})^2}$$
+**樣本標準差**
+$$ 樣本標準差 = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\overline{x})^2}$$
+**標準差公式**
+<div style="max-width:500px">
+  {% asset_img pic43.png pic43 %}
+</div>
 
+**計算銷售數據標準差**
+``` py
+import numpy as np
+import statistics as st
+x = [66, 58, 25, 78, 58, 15, 120, 39, 82, 50]
+
+print(f"Numpy 母體標準差     : {np.std(x):.2f}")
+print(f"Numpy 樣本標準差     : {np.std(x, ddof=1):.2f}")
+print(f"Statistics 母體標準差: {st.pstdev(x):.2f}")
+print(f"Statistics 樣本標準差: {st.stdev(x):.2f}")
+# Numpy 母體標準差     : 28.70
+# Numpy 樣本標準差     : 30.25
+# Statistics 母體標準差: 28.70
+# Statistics 樣本標準差: 30.25
+```
+
+#### 迴歸分析
+##### 相關係數(Correlation Coefficient)
+相關係數絕對值小於0.3表低度相關,介於0.3和0.7表中度相關,大於0.7表高度相關
+
+<div style="max-width:500px">
+  {% asset_img pic44.png pic44 %}
+</div>
+
+$$ r = \frac{	\sum_{i=1}^{n}(x_i-\overline{x})(y_y-\overline{x})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} $$
+
+**天氣溫度與冰品營業額新關係數計算**
+``` py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# 天氣溫度
+temperature = [25,31,28,22,27,30,29,33,32,26]
+# 營業額
+rev = [900,1200,950,600,720,1000,1020,1500,1420,1100]
+
+print(f"相關係數 = {np.corrcoef(temperature, rev).round(2)}")
+# 相關係數 = [[1.   0.87]
+#  [0.87 1.  ]]
+
+plt.scatter(temperature, rev)
+plt.title("天氣溫度與冰品銷售")
+plt.xlabel("溫度")
+plt.ylabel("營業額")
+plt.show()
+```
+<div style="max-width:500px">
+  {% asset_img pic45.png pic45 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic46.png pic46 %}
+</div>
+
+##### 建立線性回歸模型與數據預測
+**建立迴歸模型係數**
+coef = np.polyfit(temperature, rev, 1)
+**建立迴歸直線函數**
+reg = np.poly1d(coef)
+``` py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# 天氣溫度
+temperature = [25,31,28,22,27,30,29,33,32,26]
+# 營業額
+rev = [900,1200,950,600,720,1000,1020,1500,1420,1100]
+
+# 建立迴歸模型係數
+coef = np.polyfit(temperature, rev, 1)
+# 建立迴歸直線函數
+reg = np.poly1d(coef)
+
+print(coef.round(2))
+print(reg)
+print(f"計算溫度 35 度時冰品銷售營業額 = {reg(35).round(0)}")
+# [  71.63 -986.22]
+# 71.63 x - 986.2
+# 計算溫度 35 度時冰品銷售營業額 = 1521.0
+
+plt.plot(temperature, reg(temperature) , color='red')
+
+plt.scatter(temperature, rev)
+plt.title("天氣溫度與冰品銷售")
+plt.xlabel("溫度")
+plt.ylabel("營業額")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic47.png pic47 %}
+</div>
+
+##### 二次函數回歸模型
+繪製二次函數圖形時,需先將數據依溫度排序,否則所繪製的迴歸圖形會有錯亂
+**建立二次函數迴歸模型係數**
+coef = np.polyfit(temperature, rev, 2)
+**建立二次函數迴歸方程式**
+reg = np.poly1d(coef)
+
+``` py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# 天氣溫度
+temperature = [22,25,26,27,28,29,30,31,32,33]
+# 營業額
+rev = [600,900,1100,720,950,1020,1000,1200,1420,1500]
+
+# 建立二次函數迴歸模型係數
+coef = np.polyfit(temperature, rev, 2)
+# 建立二次函數迴歸方程式
+reg = np.poly1d(coef)
+
+print(coef.round(2))
+print(reg)
+
+plt.plot(temperature, reg(temperature) , color='red')
+plt.scatter(temperature, rev)
+
+plt.title("天氣溫度與冰品銷售")
+plt.xlabel("溫度")
+plt.ylabel("營業額")
+plt.show()
+# [   4.64 -185.73 2530.84]
+#        2
+# 4.642 x - 185.7 x + 2531
+```
+
+<div style="max-width:500px">
+  {% asset_img pic48.png pic48 %}
+</div>
+
+##### 隨機函數的分布
+**常見Numpy的隨機函數**
+<div style="max-width:500px">
+  {% asset_img pic49.png pic49 %}
+</div>
+
+**常態分布(normal distribution)函數的數學公式**
+<div style="max-width:500px">
+  {% asset_img pic50.png pic50 %}
+</div>
+
+###### randn()
+``` py
+# randn產生1個或多個平均值是0,標準差是1的常態分佈隨機數
+# randn傳回實數,無特定range
+import matplotlib.pyplot as plt
+import numpy as np
+
+mu = 0
+sigma = 1
+s = np.random.randn(10000)
+
+# density=True告訴plt.hist()函數要繪製一個標準化的直方圖
+# density=True被設置，這些值被歸一化，因此它們表示每個區間中資料點的比例，而不是絕對數量
+# bins是用於定義直方圖區間邊界的陣列。這些邊界包括了最小值到最大值之間的所有區間
+# ignored：是一個無用的值，它在這個情況下沒有被使用，所以可以忽略它。
+count, bins, ignored = plt.hist(s, 30, density=True)
+print(f"{len(count)} count={count}")
+print(f"{len(bins)},bins={bins}")
+print(f"ignored={ignored}")
+plt.plot(bins, 1/(sigma * np.sqrt( 2* np.pi)) * np.exp( -(bins - mu)**2 / (2*sigma**2)) , linewidth=2, color='r')
+plt.show()
+``` 
+
+<div style="max-width:500px">
+  {% asset_img pic51.png pic51 %}
+</div>
+
+###### normal()
+``` py
+# normal 產生常態分佈函數的隨機數(可設定平均值及標準差)
+# normal 傳回實數,無特定range
+# seaborn.kdeplot 繪製常態分佈曲線非常方便
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+mu = 0
+sigma = 1
+s = np.random.normal(mu, sigma, 10000)
+
+count, bins, ignored = plt.hist(s, 30, density=True)
+# plt.plot(bins, 1/(sigma * np.sqrt( 2* np.pi)) * np.exp( -(bins - mu)**2 / (2*sigma**2)) , linewidth=2, color='r')
+sns.kdeplot(s)
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic52.png pic52 %}
+</div>
+
+###### uniform()/random()
+uniform(low, high, size) 平均分布的隨機函數
+low: default 0.0,隨機數下限值 
+high: default 1.0,隨機數上限值
+size: default 1,產生隨機數數量
+
+``` py
+# uniform(low, high, size) 平均分布的隨機函數
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# s = np.random.uniform(size=10000)
+s = np.random.random(10000)
+
+plt.hist(s, 30, density=True)
+sns.kdeplot(s)
+# plt.title("np.random.uniform 繪圖")
+plt.title("np.random.random 繪圖")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic53.png pic53 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic54.png pic54 %}
+</div>
+
+#### 向量
+#### 機器學習的向量知識
+<div style="max-width:500px">
+  {% asset_img pic55.png pic55 %}
+</div>
+
+#### 向量的長度
+$|\mathbf{a}| or ||\mathbf{a}||$
+對於一個n維的向量$\mathbf{a}$而言,長度計算如下
+$ ||\mathbf{a}|| = \sqrt{a_1^2 + a_2^2 + ... + a_n^2} $ 
+
+``` bash
+# np.linalg.norm 計算向量長度
+>>> import numpy as np
+>>> park = np.array([1,3])  
+>>> norm_park = np.linalg.norm(park)  
+>>> norm_park 
+3.1622776601683795 
+
+# 計算商店到公司的長度
+>>> store = np.array([2, 1])
+>>> office = np.array([4, 4])
+>>> store_office = office - store
+>>> norm_store_office = np.linalg.norm(store_office)  
+>>> norm_store_office                               
+3.605551275463989
+```
