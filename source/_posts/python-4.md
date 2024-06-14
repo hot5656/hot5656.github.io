@@ -31,6 +31,7 @@ tags:
 	+ {% post_link python-3 '# Tkinter' %}:Tk GUI
 	+ {% post_link python-4 '# Packages excell' %}:
 	+ {% post_link python-24 '# Connect to google sheet' %}:google 試算表
+	+ {% post_link python-32 '# scikit-learn' %}:用於Python程式語言的自由軟體機器學習庫
 
 + function 
 	+ {% post_link python-4 '# Built-in function csv' %}
@@ -2607,6 +2608,19 @@ import math
 
 # 階層
 combinations = math.factorial(30)
+
+# 求平方
+math.sqrt(distance)
+# 由cos值求角度
+rad = math.acos(cos_value)
+# 30個城市客戶的路徑
+N2 = 30
+combinations = math.factorial(N2)
+# cos/sin
+x = [math.cos(math.radians(d)) for d in degrees]
+y = [math.sin(math.radians(d)) for d in degrees]
+# 弧度轉角度
+deg = math.degrees(rad)
 ```
 
 ### Packages

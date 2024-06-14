@@ -1970,7 +1970,7 @@ plt.show()
 
 #### 數據分散指標
 ##### 變異數
-**變異數**
+**母體變異數**
 $$ 變異數 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2$$
 **樣本變異數**
 樣本變異數除以(n-1)作為母體變異數的不偏愛(unbiased)估計量
@@ -2245,7 +2245,7 @@ plt.show()
   {% asset_img pic54.png pic54 %}
 </div>
 
-#### 向量
+### 向量
 #### 機器學習的向量知識
 <div style="max-width:500px">
   {% asset_img pic55.png pic55 %}
@@ -2272,3 +2272,801 @@ $ ||\mathbf{a}|| = \sqrt{a_1^2 + a_2^2 + ... + a_n^2} $
 >>> norm_store_office                               
 3.605551275463989
 ```
+
+#### 向量方程式
+
+<div style="max-width:500px">
+  {% asset_img pic56.png pic56 %}
+</div>
+
+$\overrightarrow{a} = \left( ^{-1} _2\right)$
+$\overrightarrow{b} = \left( ^{1} _4\right)$
+$ p\overrightarrow{k} = \overrightarrow{b} - \overrightarrow{a} $
+$ \overrightarrow{b} = \overrightarrow{a} + p\overrightarrow{k} $
+$p\overrightarrow{k} = \left( ^{1-(-1)} _{4-2}\right) = \left( ^2 _2\right)$
+
+$\overrightarrow{k} = \left( ^{2} _2\right), p=1$
+
+#### 向量內積
+##### 偕同工作
+<div style="max-width:500px">
+  {% asset_img pic57.png pic57 %}
+</div>
+
+$ k = 	\parallel{b}\parallel \cos{θ} $
+``` bash
+>>> import math
+>>> 10*math.cos(math.radians(60))
+5.000000000000001
+```
+
+##### 向量內積的定義
+向量內積的幾何定義和代數定義是相同的，只是表達方式不同。具體來說，它們是兩個等價的定義，描述了同一個運算。
+
+向量內積(inner product) a⋅b (a dot b)
+###### 幾何定義向量內積
+$a⋅b = \parallel{a}\parallel \parallel{b}\parallel \cos{θ} $
+向量內積的另一層解釋是,第一個向量投影到第二個向量的長度
+1. 交換率
+  a⋅b = b⋅a
+2. 分配律
+<div style="max-width:500px">
+  {% asset_img pic58.png pic58 %}
+</div>
+
+a⋅(b+c) = a⋅b + a⋅c
+$\parallel{b+c}\parallel\cos{θ} = \parallel{b}\parallel\cos{α} + \parallel{c}\parallel\cos{β} $
+
+###### 代數定義向量內積
+$\mathbf{a} = (a_1 a_2 ... a_n)$
+$\mathbf{b} = (b_1 b_2 ... b_n)$
+$a⋅b = \sum_{n}^{i=1}a_ib_i = a_1b_1 +  a_2b_2 + ... + a_nb_n$
+若為2維空間 $a⋅b = a_1b_1 + a_2b_2 $
+例如2向量為 (1 3) (4 2) 向量內積計算如下:
+  1\*4 + 3\*2 = 10
+
+``` bash
+# 計算向量內積可使用 numpy.dot()
+>>> import numpy as np
+>>> a = np.array([1, 3])
+>>> b = np.array([4, 2])
+>>> np.dot(a, b)
+10
+```
+
+###### 幾何定義與代數定義是相等
+幾何定義
+$ a⋅b = \parallel{a}\parallel \parallel{b}\parallel \cos{θ} = a_1b_1 + a_2b_2 $
+假設向量 x(1 0), y(0 1)
+$\parallel{x}\parallel = \sqrt{1^2 + 0^2 } = 1$
+$\parallel{y}\parallel = \sqrt{0^2 + 1^2 } = 1$
+$ x⋅y = \parallel{x}\parallel \parallel{y}\parallel \cos{\frac{π}{2}} $ = 1\*1\*0 = 0
+$ x⋅x = \parallel{x}\parallel \parallel{x}\parallel \cos{0} $ = 1\*1\*1 = 1
+代數定義
+x⋅y = 0\*1 + 1\*0 = 0
+x⋅x = 1\*1 + 0\*0 = 1
+
+##### 兩條直線的夾角
+$a⋅b = \parallel{a}\parallel \parallel{b}\parallel \cos{θ} = a_1b_1 + a_2b_2$
+$ \cos{θ} = \frac{a_1b_1 + a_2b_2}{\parallel{a}\parallel \parallel{b}\parallel} $
+
+<div style="max-width:500px">
+  {% asset_img pic59.png pic59 %}
+</div>
+
+``` py
+# 計算兩條直線的夾角
+import numpy as np
+import math
+
+a = np.array([1,1])
+b = np.array([5,5])
+c = np.array([1,5])
+d = np.array([5,1])
+
+# 向量
+ab = b - a
+cd = d - c
+# 向量大小
+norm_ab = np.linalg.norm(ab)
+norm_cd = np.linalg.norm(cd)
+
+dot_ab_cd = np.dot(ab, cd)
+cos_value = dot_ab_cd/(norm_ab * norm_cd)
+cos_value = dot_ab_cd/(norm_ab * norm_cd)
+rad = math.acos(cos_value)
+deg = math.degrees(rad)
+print(f"角度是:{deg}")
+# 角度是:90.0
+```
+
+##### 向量內積的性質
+$ \cos{θ} = \frac{a_1b_1 + a_2b_2}{\parallel{a}\parallel \parallel{b}\parallel} $
+
+<div style="max-width:500px">
+  {% asset_img pic60.png pic60 %}
+</div>
+
+##### 餘弦相似度
+$ 弦相似度(consine similarity) = \cos{θ} = \frac{a_1b_1 + a_2b_2}{\parallel{a}\parallel \parallel{b}\parallel} $
+
+<div style="max-width:500px">
+  {% asset_img pic61.png pic61 %}
+</div>
+
+``` py
+# 判斷句子相似度
+import numpy as np
+
+def consine_similarity(va, vb):
+    norm_a = np.linalg.norm(va)
+    norm_b = np.linalg.norm(vb)
+    dot_ab = np.dot(va, vb)
+    return dot_ab/(norm_a * norm_b )
+
+a = np.array([2, 1, 1, 1, 0, 0, 0, 0])
+b = np.array([1, 1, 0, 0, 1, 1, 1, 0])
+c = np.array([1, 1, 0, 0, 1, 1, 0, 1])
+print(f" a 和 b 的相似度 : {consine_similarity(a, b)}")
+print(f" a 和 c 的相似度 : {consine_similarity(a, c)}")
+print(f" b 和 c 的相似度 : {consine_similarity(b, c)}")
+#  a 和 b 的相似度 : 0.5070925528371099
+#  a 和 c 的相似度 : 0.5070925528371099
+#  b 和 c 的相似度 : 0.7999999999999998
+```
+
+#### 皮爾遜相關係數(Pearson correlation coefiicient)
+<div style="max-width:500px">
+  {% asset_img pic62.png pic62 %}
+</div>
+
+##### 皮爾遜相關係數定義
+皮爾遜相關係數定義是兩個變數之間共變異數和標準差的商
+$$ r = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} $$
+
+##### 網路購物問卷調查案例解說
+2019年12月做問卷調查,2021年1月再對詢問對象調查商品繼續購買次數
+<div style="max-width:500px">
+  {% asset_img pic63.png pic63 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic64.png pic64 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic65.png pic65 %}
+</div>
+
+$ r = \frac{30}{\sqrt{18}\sqrt{196}} = 0.505$
+可以看出滿意度與下次購買有正相關,不過相關強度是中等
+
+``` py
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([8,9,10,7,8,9,5,7,9,8])
+y = np.array([12,15,16,18,6,11,3,12,11,16])
+
+x_mean = np.mean(x)
+y_mean = np.mean(y)
+
+xi_x =[v - x_mean for v in x]
+yi_x =[v - y_mean for v in y]
+
+data1 = [0] * 10
+data2 = [0] * 10
+data3 = [0] * 10
+for i in range(len(x)):
+    data1[i] = xi_x[i] * yi_x[i]
+    data2[i] = xi_x[i]**2
+    data3[i] = yi_x[i]**2
+
+v1 = np.sum(data1)
+v2 = np.sum(data2)
+v3 = np.sum(data3)
+r = v1/((v2**0.5)*(v3**0.5))
+print(f"coefficient={r:.3f}")
+# coefficient=0.505
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+
+xpt1 = np.linspace(0, 12, 12)
+ypt1 = [y_mean for xp in xpt1]
+ypt2 = np.linspace(0, 20, 20)
+xpt2 = [x_mean for xp in ypt2]
+
+plt.scatter(x, y)
+plt.plot(xpt1, ypt1, color="g")
+plt.plot(xpt2, ypt2, color="r")
+
+# plt.axis([0, 12, 0, 20])
+plt.title("滿意度 vs 再購買次數")
+plt.xlabel("滿意度")
+plt.ylabel("再購買次數")
+plt.grid()
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic66.png pic66 %}
+</div>
+
+##### 使用向量內積計算係數
+
+$a = (x_1-\overline{x}\ x_2-\overline{x} ... x_n-\overline{x}) $
+$b = (y_1-\overline{y}\ y_2-\overline{y} ... y_n-\overline{y}) $
+$r = \cos(θ) = 	\frac{a⋅b}{\parallel a \parallel \parallel b \parallel} $
+
+分子
+$ a⋅b = (x_1-\overline(x))(y_1-\overline(y)) + (x_2-\overline(x))(y_2-\overline(y)) + ... + (x_n-\overline(x))(y_n-\overline(y)) $
+$ = \sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y}) $
+
+分母
+$$ \parallel a \parallel = \sqrt{(x_1-\overline{x})^2 + (x_2-\overline{x})^2 + ... + (x_n-\overline{x})^2} = \sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2} $$
+$$ \parallel b \parallel = \sqrt{(y_1-\overline{y})^2 + (y_2-\overline{y})^2 + ... + (y_n-\overline{y})^2} = \sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2} $$
+
+推導結果
+$$ r = \cos(θ) = 	\frac{a⋅b}{\parallel a \parallel \parallel b \parallel} = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} $$
+
+#### 向量外積
+<div style="max-width:500px">
+  {% asset_img pic67.png pic67 %}
+</div>
+
+向量外積的定義如下：假設我們有兩個向量 𝑎 和 𝑏
+$ a =
+\left(
+\begin{matrix}
+	a_x	\\\\
+	a_y \\\\
+	a_z 
+\end{matrix}
+\right)
+$
+
+$ b =
+\left(
+\begin{matrix}
+	b_x	\\\\
+	b_y \\\\
+	b_z 
+\end{matrix}
+\right)
+$
+
+$ c = a × b = 
+\left(
+\begin{matrix}
+	c_x	\\\\
+	c_y \\\\
+	c_z 
+\end{matrix}
+\right)
+$
+$ c_x = a_yb_z - a_zb_y$
+$ c_y = a_zb_x - a_xb_z$
+$ c_z = a_xb_y - a_yb_x$
+
+公式
+$  a × b =
+\left|
+\begin{matrix}
+	i 	& j 	& k		\\\\
+	a_x & a_y & a_z \\\\
+	b_x & b_y & b_z 
+\end{matrix}
+\right|
+= 
+\left(
+\begin{matrix}
+	a_yb_z - a_zb_y	\\\\
+	a_zb_x - a_xb_z \\\\
+	a_xb_y - a_yb_x 
+\end{matrix}
+\right)
+$
+
+例子
+$ a =
+\left(
+\begin{matrix}
+	1	\\\\
+	2 \\\\
+	3 
+\end{matrix}
+\right)
+$
+$
+b =
+\left(
+\begin{matrix}
+	4	\\\\
+	5 \\\\
+	6 
+\end{matrix}
+\right)
+$
+
+$  a × b =
+\left|
+\begin{matrix}
+	i 	& j 	& k		\\\\
+	1 & 2 & 3 \\\\
+	4 & 5 & 6 
+\end{matrix}
+\right|
+= 
+\left(
+\begin{matrix}
+	2⋅6 - 3⋅5	\\\\
+	3⋅4 − 1⋅6 \\\\
+	1⋅5 − 2⋅4 
+\end{matrix}
+\right)
+= 
+\left(
+\begin{matrix}
+	12 - 15	\\\\
+	12 − 6 \\\\
+	5 − 8 
+\end{matrix}
+\right)
+= 
+\left(
+\begin{matrix}
+	-3	\\\\
+	6 	\\\\
+	-3 
+\end{matrix}
+\right)
+$
+
+<div style="max-width:500px">
+  {% asset_img pic69.png pic69 %}
+</div>
+
+``` py
+>>> import numpy as np
+>>> a = np.array([1, 2, 3])
+>>> b = np.array([4, 5, 6])
+>>> np.cross(a, b)
+array([-3,  6, -3])
+```
+
+#### 計算面積
+<div style="max-width:500px">
+  {% asset_img pic68.png pic68 %}
+</div>
+
+``` py
+# 計算兩個向量組成三角形面積
+import numpy as np
+import math
+
+a = np.array([4, 2])
+b = np.array([1, 3])
+# 計算角度再算面積
+# 計算向量大小
+norm_a = np.linalg.norm(a)
+norm_b = np.linalg.norm(b)
+# 計算內積
+dot_ab = np.dot(a, b)
+# a.b = |a||b|cos(θ)
+cos_value = dot_ab/(norm_a*norm_b)
+rad = math.acos(cos_value)
+# 算面積
+area = norm_a * norm_b * math.sin(rad)/2
+print(f"計算角度再算面積 area={area:.2f}")
+
+# 以外積計算面積
+ab_cross = np.cross(a,b)
+area2 =  ab_cross / 2
+print(f"以外積計算面積 area={area2:.2f}")
+# 計算角度再算面積 area=5.00
+# 以外積計算面積 area=5.00
+```
+
+### 矩陣
+#### 矩陣表達方式
+##### 矩陣的行與列
+2\*3矩陣
+$ A =
+\left(
+\begin{matrix}
+	1 & 2 & 3	\\\\
+	4 & 5 & 6	 
+\end{matrix}
+\right)
+$
+3\*2矩陣
+$ B =
+\left(
+\begin{matrix}
+	1 & 4 \\\\
+	2 & 5 \\\\
+	3 & 6  
+\end{matrix}
+\right)
+$
+
+##### 其他表示法
+$ \begin{pmatrix} 1 & 2 \\\\ 3 & 4 \end{pmatrix} $
+$ \begin{bmatrix} 1 & 2 \\\\ 3 & 4 \end{bmatrix} $
+$ \begin{vmatrix} 1 & 2 \\\\ 3 & 4 \end{vmatrix} $
+$ \begin{Vmatrix} 1 & 2 \\\\ 3 & 4 \end{Vmatrix} $
+
+#### 矩陣相加與相減
+矩陣大小要一樣直接相加減
+
+``` py
+import numpy as np
+
+A = np.matrix([[1,2,3], [4,5,6]])
+B = np.matrix([[4,5,6], [7,8,9]])
+print(f"A + B = {A + B}")
+print(f"A - B = {A - B}")
+# A + B = [[ 5  7  9]
+#          [11 13 15]]
+# A - B = [[-3 -3 -3]
+#          [-3 -3 -3]]
+```
+
+#### 矩陣相乘
+A * B, A矩陣的行數要等於 B矩陣的列數
+
+<div style="max-width:500px">
+  {% asset_img pic70.png pic70 %}
+</div>
+
+``` py
+import numpy as np
+
+A = np.matrix([[1,2],
+               [3, 4]])
+B = np.matrix([[5,6],
+               [7,8]])
+print(f"A * B = {A * B}")
+
+C = np.matrix([[ 1, 0, 2],
+               [-1, 3, 1]])
+D = np.matrix([[3,1],
+               [2,1],
+               [1,0]])
+print(f"C * D = {C * D}")
+# A * B = [[19 22]
+#          [43 50]]
+# C * D = [[5 1]
+#          [4 2]]
+```
+
+##### 計算甲和乙在超商及百貨公司採買各需多少錢
+<div style="max-width:500px">
+  {% asset_img pic71.png pic71 %}
+</div>
+
+``` py
+# 計算甲和乙在超商及百貨公司採買各需多少錢
+import numpy as np
+
+A = np.matrix([[2, 3, 1],
+               [3, 2, 5]])
+B = np.matrix([[30, 50],
+               [60, 80],
+               [50, 60]])
+print(f"A * B = {A * B}")
+# A * B = [[290 400]
+#          [460 610]]
+```
+
+##### 計算甲,乙各吃下多少熱量
+<div style="max-width:500px">
+  {% asset_img pic72.png pic72 %}
+</div>
+
+``` py
+# 計算甲,乙各吃下多少熱量
+import numpy as np
+
+A = np.matrix([[1, 2, 1],
+               [2, 1, 2]])
+B = np.matrix([[30],[50],[20]])
+print(f"A * B = {A * B}")
+# A * B = [[150]
+#          [150]]
+```
+
+#### 方形矩陣(square matrix)
+一個矩陣列數等於行數
+$$ A=\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \end{pmatrix} B=\begin{pmatrix} 1 & 2 & 3\\\\ 4 & 5 & 6\\\\ 7 & 8 & 9 \end{pmatrix}$$
+
+#### 單位矩陣(indentity matrix)
+一個方形矩陣由左上至右下對角線的元素為1,其他元素為0
+單位矩陣有時用E或I表示,單位矩陣與單位矩陣相乘,結果皆為原來的矩陣
+A * E = A
+E * A = A
+$$ A=\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \end{pmatrix} B=\begin{pmatrix} 1 & 0 & 0\\\\ 0 & 1 & 0\\\\ 0 & 0 & 1 \end{pmatrix}$$
+
+``` py
+import numpy as np
+
+A = np.matrix([[1, 2],
+               [3, 4]])
+B = np.matrix([[1, 0],
+               [0, 1]])
+print(f"A * B = {A * B}")
+print(f"B * A = {B * A}")
+# A * B = [[1 2]
+#          [3 4]]
+# B * A = [[1 2]
+#          [3 4]]
+```
+
+#### 反矩陣(inverse matrix)
+只有方矩陣才有反矩陣,一個矩陣乘以反矩陣可以得到E,A的反矩陣表示為$A^{-1}$
+$ A * A^{-1} = E$
+$ A^{-1} * A = E$
+
+2\*2 反矩陣公式如下
+$ A = \begin{pmatrix} a_{1 1} & a_{1 2} \\\\ a_{2 1} & a_{2 2} \end{pmatrix}  A^{-1} = \frac{1}{a_{1 1}a_{2 2} - a_{1 2}a_{2 1}}\begin{pmatrix} a_{2 2} & -a_{1 2} \\\\ -a_{2 1} & a_{1 1} \end{pmatrix} $
+
+反矩陣實例
+$ A = \begin{pmatrix} 2 & 3 \\\\ 5 & 7 \end{pmatrix}  A^{-1} = \frac{1}{14 - 15}\begin{pmatrix} 7 & -3 \\\\ -5 & 2 \end{pmatrix} = \begin{pmatrix} -7 & 3 \\\\ 5 & -2 \end{pmatrix}$
+
+``` py
+import numpy as np
+
+A = np.matrix([[2, 3],
+               [5, 7]])
+B = np.linalg.inv(A)
+product_1 = A * B
+product_2 = B * A
+
+print(f"A_inv = {B}")
+print(f"A * A_inv = {product_1}")
+print(f"A_inv * A = {product_2}")
+print(f"A * A_inv(round) = {product_1.round()}")
+print(f"A_inv * A(round) = {product_2.round()}")
+
+# A_inv = [[-7.  3.]
+#          [ 5. -2.]]
+# A * A_inv = [[ 1.00000000e+00 -4.44089210e-16]
+#              [-7.10542736e-15  1.00000000e+00]]
+# A_inv * A = [[ 1.00000000e+00 -8.88178420e-16]
+#              [-1.33226763e-15  1.00000000e+00]]
+# A * A_inv(round) = [[ 1. -0.]
+#                     [-0.  1.]]
+# A_inv * A(round) = [[ 1. -0.]
+#                     [-0.  1.]]
+```
+
+#### 用反矩陣解聯立方程式
+3x + 2y = 5
+x + 2y = -1
+
+$ \begin{pmatrix} 3 & 2 \\\\ 1 & 2 \end{pmatrix} \begin{pmatrix} x \\\\ y \end{pmatrix} = \begin{pmatrix} 5 \\\\ -1 \end{pmatrix} $
+
+$ \begin{pmatrix} 3 & 2 \\\\ 1 & 2 \end{pmatrix} 的反矩陣為 \begin{pmatrix} 0.5 & -0.5 \\\\ -2.5 & 0.75 \end{pmatrix}$
+
+$ \begin{pmatrix} 0.5 & -0.5 \\\\ -2.5 & 0.75 \end{pmatrix} \begin{pmatrix} 3 & 2 \\\\ 1 & 2 \end{pmatrix} \begin{pmatrix} x \\\\ y \end{pmatrix} = \begin{pmatrix} 0.5 & -0.5 \\\\ -2.5 & 0.75 \end{pmatrix} \begin{pmatrix} 5 \\\\ -1 \end{pmatrix} $
+$ \begin{pmatrix} 1 & 0 \\\\ 0 & 1 \end{pmatrix}  \begin{pmatrix} x \\\\ y \end{pmatrix} = \begin{pmatrix} 3 \\\\ -2 \end{pmatrix} $
+解為 x=3, y=-2
+
+``` py
+import numpy as np
+
+A = np.matrix([[3, 2],
+               [1, 2]])
+B = np.linalg.inv(A)
+C = np.matrix([[5],
+               [-1]])
+print(f"反矩陣 : {B}")
+print(f"E : {B*A}")
+print(f"解方程式 : {B*C}")
+# 反矩陣 : [[ 0.5  -0.5 ]
+#           [-0.25  0.75]]
+# E : [[1.00000000e+00 2.22044605e-16]
+#      [1.11022302e-16 1.00000000e+00]]
+# 解方程式 : [[ 3.]
+#            [-2.]]
+```
+
+#### 張量(Tensor)
+張量就是數據的結構,shape()可列出數字的外型
+``` py
+import numpy as np
+A = np.array([
+    [[1,2],
+     [3,4]],
+    [[5,6],
+     [7,8]],
+    [[9,10],
+     [11,12]],
+    ])
+print(f"A={A}")
+print(f"shape = {np.shape(A)}")
+# A=[[[ 1  2]
+#     [ 3  4]]
+#    [[ 5  6]
+#     [ 7  8]]
+#    [[ 9 10]
+#     [11 12]]]
+# shape = (3, 2, 2)
+```
+
+#### 轉置矩陣
+就是將矩陣內的列元素和行元素對調
+$ \begin{pmatrix} 0 & 2 & 4 & 6 \\\\ 1 & 3 & 5 & 7 \end{pmatrix}^T = \begin{pmatrix} 0 & 1 \\\\  2 & 3 \\\\  4 & 5 \\\\  6 & 7 \end{pmatrix} $
+
+``` py
+import numpy as np
+A = np.array([[0, 2, 4, 6],
+              [1, 3, 5, 7]])
+B = A.T
+print(f"轉置矩陣1 = {B}")
+C = np.transpose(A)
+print(f"轉置矩陣2 = {C}")
+# 轉置矩陣1 = [[0 1]
+#              [2 3]
+#              [4 5]
+#              [6 7]]
+# 轉置矩陣2 = [[0 1]
+#              [2 3]
+#              [4 5]
+#              [6 7]]
+```
+
+#### 轉置矩陣的應用
+皮爾遜相關係數
+$a = (x_1-\overline{x}\ x_2-\overline{x} ... x_n-\overline{x}) $
+$b = (y_1-\overline{y}\ y_2-\overline{y} ... y_n-\overline{y}) $
+$ r = \cos(θ) = 	\frac{a⋅b}{\parallel a \parallel \parallel b \parallel} = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} $
+
+$ a = \begin{pmatrix} x_1 - \overline{x} \\\\ x_2 - \overline{x} \\\\ ... \\\\ x_n - \overline{x} \end{pmatrix} b = \begin{pmatrix} y_1 - \overline{y} \\\\ y_2 - \overline{y} \\\\ ... \\\\ y_n - \overline{y} \end{pmatrix}$
+
+$ a^T⋅b = \begin{pmatrix} x_1 - \overline{x} \\\\ x_2 - \overline{x} \\\\ ... \\\\ x_n - \overline{x} \end{pmatrix} \begin{pmatrix} y_1 - \overline{y} \\\\ y_2 - \overline{y} \\\\ ... \\\\ y_n - \overline{y} \end{pmatrix} $
+上述是 1 * n 與 n * 1 矩陣,所以可以相乘的道純量,所以皮爾遜相關係數可改寫如下 
+$ r = \cos(θ) = 	\frac{a⋅b}{\parallel a \parallel \parallel b \parallel} = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} = \frac{a^T⋅b}{\sqrt{a^T⋅a}\sqrt{b^T⋅b}} $
+ps. 因為 $ \parallel a \parallel = \sqrt{a^T⋅a} $
+
+### 向量,矩陣與多元線性迴歸(20):不了解
+
+### 三次函數迴歸曲線實作
+#### 網購迴歸曲線繪製
+<div style="max-width:500px">
+  {% asset_img pic73.png pic73 %}
+</div>
+
+``` py
+# 網購迴歸曲線繪製
+# 購物網站 24 hour vs 購物人數
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+x = [ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,
+     12,13,14,15,16,17,19,21,22,23,24]
+y = [100, 88, 75, 60, 50, 55, 55, 56, 58, 58, 61,
+      63, 68, 71, 71, 75, 76, 88, 93, 97, 97, 100]
+
+# 建立一次函數迴歸模型係數
+# 建立一次函數迴歸方程式
+coef1 = np.polyfit(x, y, 1)
+model1 = np.poly1d(coef1)
+
+# 建立二次函數迴歸模型係數
+# 建立二次函數迴歸方程式
+coef2 = np.polyfit(x, y, 2)
+model2 = np.poly1d(coef2)
+
+# 建立三次函數迴歸模型係數
+# 建立三次函數迴歸方程式
+coef3 = np.polyfit(x, y, 3)
+model3 = np.poly1d(coef3)
+
+print(model1)
+print(model2)
+print(model3)
+
+plt.plot(x, model1(x) , color='blue', label="1次函")
+plt.plot(x, model2(x) , color='green', label="2次函")
+plt.plot(x, model3(x) , color='red', label="3次函")
+
+plt.scatter(x, y )
+plt.title("網路購物調查")
+plt.xlabel("時間")
+plt.ylabel("購物人數")
+plt.legend()
+plt.show()
+
+# 1.207 x + 59.03
+#         2
+# 0.2591 x - 5.279 x + 87.1
+#           3         2
+# -0.02715 x + 1.275 x - 15.51 x + 110.2
+```
+
+<div style="max-width:500px">
+  {% asset_img pic74.png pic74 %}
+</div>
+
+#### 使用 scikit-learn 評估迴歸模型
+{% post_link python-32 '# 評估模型' %}
+
+#### 預測未來值
+``` py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+x = [ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,
+     12,13,14,15,16,17,19,21,22,23,24]
+y = [100, 88, 75, 60, 50, 55, 55, 56, 58, 58, 61,
+      63, 68, 71, 71, 75, 76, 88, 93, 97, 97, 100]
+
+coef = np.polyfit(x, y, 3)
+model = np.poly1d(coef)
+print(f"18點購物人數預測 : {model(18):.2f}")
+print(f"20點購物人數預測 : {model(20):.2f}")
+
+plt.plot(18, model(18), "-o", color="red")
+plt.plot(20, model(20), "-o", color="red")
+plt.plot(x, model(x) , color='red')
+
+plt.scatter(x, y )
+plt.title("網路購物調查")
+plt.xlabel("時間")
+plt.ylabel("購物人數")
+plt.show()
+# 18點購物人數預測 : 85.63
+# 20點購物人數預測 : 92.62
+```
+<div style="max-width:500px">
+  {% asset_img pic75.png pic75 %}
+</div>
+
+#### 不適合三次函數迴歸數據(實例)
+不是所有數據皆可使用三次函數求迴歸模型
+``` py
+# 不適合三次函數迴歸數據(實例)
+from sklearn.metrics import r2_score, mean_squared_error
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+x = [ 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,
+     12,13,14,15,16,17,19,21,22,23,24]
+y = [100, 21, 75, 49, 15, 98, 55, 31, 33, 82, 61,
+      80, 32, 71, 99, 15, 66, 88, 21, 97, 30, 5]
+
+coef = np.polyfit(x, y, 3)
+model = np.poly1d(coef)
+print(f"MSE:{mean_squared_error(y, model(x)):.3f}")
+print(f"R2_Score:{r2_score(y, model(x)):.3f}")
+
+plt.plot(x, model(x) , color='red')
+
+plt.scatter(x, y )
+plt.title("網路購物調查")
+plt.xlabel("時間")
+plt.ylabel("購物人數")
+plt.show()
+# 適合三次函數
+# MSE:14.803
+# R2_Score:0.944
+# 不適合三次函數
+# MSE:813.885
+# R2_Score:0.151
+```
+
+<div style="max-width:500px">
+  {% asset_img pic76.png pic76 %}
+</div>

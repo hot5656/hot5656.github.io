@@ -630,3 +630,90 @@ samples = np.random.binomial(n=n , p=success, size=1000)
 print(len(samples))
 print(samples)
 ```
+
+#### 矩陣 matrix
+``` py
+import numpy as np
+
+A = np.matrix([[1,2],
+               [3, 4]])
+B = np.matrix([[5,6],
+               [7,8]])
+print(f"A + B = {A + B}")
+print(f"A * B = {A * B}")
+
+# 反矩陣
+A = np.matrix([[2, 3],
+               [5, 7]])
+B = np.linalg.inv(A)
+
+# 矩陣 shape()
+A = np.array([
+    [[1,2],
+     [3,4]],
+    [[5,6],
+     [7,8]],
+    [[9,10],
+     [11,12]],
+    ])
+print(f"shape = {np.shape(A)}")
+
+# 轉置矩陣
+A = np.array([[0, 2, 4, 6],
+              [1, 3, 5, 7]])
+B = A.T
+print(f"轉置矩陣1 = {B}")
+C = np.transpose(A)
+print(f"轉置矩陣2 = {C}")
+```
+
+#### other function
+``` py
+# 判斷是否危極限值
+if not(np.isinf(peak.fun)):
+# ln()
+spam_prob = np.log(prior_spam)
+# 生成樣本
+samples = np.random.binomial(n, p, size)
+# 度數轉成弧度
+rad = np.radians(d)
+# sin(), cos()
+sin = np.sin(rad)
+cos = np.cos(rad)
+
+# 平均數
+print(f"平均數: {np.mean(x)}")
+# 中位數
+print(f"中位數: {np.median(x)}")
+# bincount 傳回 array lenth 為最大值 +1(x 要全為正整數)
+print(f"x bincount : {len(np.bincount(x))}")
+# argmax 傳回最大值索引
+print(f"x argmax : {np.argmax(x)} {x[np.argmax(x)]}")
+# argmin 傳回最小值索引
+print(f"x argmin : {np.argmin(x)} {x[np.argmin(x)]}")
+# 眾數(mode):出現最高次數的數字
+print(f"x mode:{st.mode(x)}")
+
+# 變異數, 標準差, 相關係數
+print(f"Numpy 母體變異數     : {np.var(x):6.2f}")
+print(f"Numpy 樣本變異數     : {np.var(x, ddof=1):6.2f}")
+print(f"Numpy 母體標準差     : {np.std(x):.2f}")
+print(f"Numpy 樣本標準差     : {np.std(x, ddof=1):.2f}")
+print(f"相關係數 = {np.corrcoef(temperature, rev).round(2)}")
+
+# 建立迴歸模型係數
+# 建立迴歸直線函數
+coef = np.polyfit(temperature, rev, 1)
+reg = np.poly1d(coef)
+# 建立二次函數迴歸模型係數
+# 建立二次函數迴歸方程式
+coef = np.polyfit(temperature, rev, 2)
+reg = np.poly1d(coef)
+
+# 向量大小
+norm_ab = np.linalg.norm(ab)
+# 向量內積
+dot_ab_cd = np.dot(ab, cd)
+# 向量外積
+ab_cross = np.cross(a,b)
+```

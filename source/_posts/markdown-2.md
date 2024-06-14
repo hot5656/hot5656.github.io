@@ -294,6 +294,43 @@ $$
     3n+1, & \text{if $n$ is odd}
     \end{cases}
 \end{equation}
+
+# 矩陣與行列式
+$ a =
+\left(
+\begin{matrix}
+	a_x	\\\\
+	a_y \\\\
+	a_z 
+\end{matrix}
+\right)
+$
+
+$  a × b =
+\left|
+\begin{matrix}
+	i 	& j 	& k		\\\\
+	a_x & a_y & a_z \\\\
+	b_x & b_y & b_z 
+\end{matrix}
+\right|
+= 
+\left(
+\begin{matrix}
+	a_yb_z - a_zb_y	\\\\
+	a_zb_x - a_xb_z \\\\
+	a_xb_y - a_yb_x 
+\end{matrix}
+\right)
+$
+
+# \tag{1} 為後面的標示
+$$ \begin{matrix} 1 & 2 \\\\ 3 & 4 \end{matrix} \tag{1}$$
+$$ \begin{pmatrix} 1 & 2 \\\\ 3 & 4 \end{pmatrix} \tag{1'}$$
+$$ \begin{bmatrix} 1 & 2 \\\\ 3 & 4 \end{bmatrix} \tag{1-1}$$
+$$ \begin{Bmatrix} 1 & 2 \\\\ 3 & 4 \end{Bmatrix} \tag{*}$$
+$$ \begin{vmatrix} 1 & 2 \\\\ 3 & 4 \end{vmatrix} $$
+$$ \begin{Vmatrix} 1 & 2 \\\\ 3 & 4 \end{Vmatrix} $$
 ```
 
 質能方程式$E = mc^2$  
@@ -324,6 +361,42 @@ $$
     3n+1, & \text{if $n$ is odd}
     \end{cases}
 \end{equation}
+
+矩陣與行列式
+$ a =
+\left(
+\begin{matrix}
+	a_x	\\\\
+	a_y \\\\
+	a_z 
+\end{matrix}
+\right)
+$
+
+$  a × b =
+\left|
+\begin{matrix}
+	i 	& j 	& k		\\\\
+	a_x & a_y & a_z \\\\
+	b_x & b_y & b_z 
+\end{matrix}
+\right|
+= 
+\left(
+\begin{matrix}
+	a_yb_z - a_zb_y	\\\\
+	a_zb_x - a_xb_z \\\\
+	a_xb_y - a_yb_x 
+\end{matrix}
+\right)
+$
+
+$$ \begin{matrix} 1 & 2 \\\\ 3 & 4 \end{matrix} \tag{1}$$
+$$ \begin{pmatrix} 1 & 2 \\\\ 3 & 4 \end{pmatrix} \tag{1'}$$
+$$ \begin{bmatrix} 1 & 2 \\\\ 3 & 4 \end{bmatrix} \tag{1-1}$$
+$$ \begin{Bmatrix} 1 & 2 \\\\ 3 & 4 \end{Bmatrix} \tag{*}$$
+$$ \begin{vmatrix} 1 & 2 \\\\ 3 & 4 \end{vmatrix} $$
+$$ \begin{Vmatrix} 1 & 2 \\\\ 3 & 4 \end{Vmatrix} $$
 
 ### Ref
 + [如何在 Markdown 輸入數學公式及符號](https://blog.maxkit.com.tw/2020/02/markdown.html)
