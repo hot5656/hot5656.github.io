@@ -2551,23 +2551,8 @@ $ c_y = a_zb_x - a_xb_z$
 $ c_z = a_xb_y - a_yb_x$
 
 公式
-$  a × b =
-\left|
-\begin{matrix}
-	i 	& j 	& k		\\\\
-	a_x & a_y & a_z \\\\
-	b_x & b_y & b_z 
-\end{matrix}
-\right|
-= 
-\left(
-\begin{matrix}
-	a_yb_z - a_zb_y	\\\\
-	a_zb_x - a_xb_z \\\\
-	a_xb_y - a_yb_x 
-\end{matrix}
-\right)
-$
+
+$a × b = \begin{vmatrix} i 	& j 	& k		\\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \end{vmatrix} = \begin{pmatrix} a_yb_z - a_zb_y	\\\\ a_zb_x - a_xb_z \\\\ a_xb_y - a_yb_x \end{pmatrix}$
 
 例子
 $ a =
@@ -2590,39 +2575,7 @@ b =
 \right)
 $
 
-$  a × b =
-\left|
-\begin{matrix}
-	i 	& j 	& k		\\\\
-	1 & 2 & 3 \\\\
-	4 & 5 & 6 
-\end{matrix}
-\right|
-= 
-\left(
-\begin{matrix}
-	2⋅6 - 3⋅5	\\\\
-	3⋅4 − 1⋅6 \\\\
-	1⋅5 − 2⋅4 
-\end{matrix}
-\right)
-= 
-\left(
-\begin{matrix}
-	12 - 15	\\\\
-	12 − 6 \\\\
-	5 − 8 
-\end{matrix}
-\right)
-= 
-\left(
-\begin{matrix}
-	-3	\\\\
-	6 	\\\\
-	-3 
-\end{matrix}
-\right)
-$
+$ a × b = \begin{vmatrix} i 	& j 	& k		\\\\ 	1 & 2 & 3 \\\\ 4 & 5 & 6 \end{vmatrix} = \begin{pmatrix} 2⋅6 - 3⋅5	\\\\ 3⋅4 − 1⋅6 \\\\ 1⋅5 − 2⋅4 \end{pmatrix} = \begin{pmatrix} 12 - 15	\\\\ 12 − 6 \\\\ 5 − 8 \end{pmatrix} = \begin{pmatrix} -3	\\\\ 6 	\\\\ -3 \end{pmatrix} $
 
 <div style="max-width:500px">
   {% asset_img pic69.png pic69 %}
