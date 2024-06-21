@@ -653,6 +653,33 @@ df.to_json('scores2.json')
 df.to_html('scores2.html')
 ```
 
+### some special
+#### show DataFrame 對齊
+``` py
+# column 對齊資料
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+# 若含有中英文資料可以對齊
+pd.set_option('display.unicode.east_asian_width', True)
+
+print(df.head())
+#     ID    Education
+# 0  101         高中
+# 1  102         大學
+# 2  103         碩士
+# 3  104         博士
+# 4  105  high_school
+```
+
+### function
+#### get_dummies() 將類別變數轉為 one-hot 編碼
+{% post_link python-32 '# One-hot 編碼' %}
+
+#### rename() 用於重命名 DataFrame 或 Series 中的標籤
+{% post_link python-32 '# 特徵名稱由中文改為英文' %}
+
+#### map() 轉換資料為數值資料
+{% post_link python-32 '# 資料對應 map() 方法' %}
+
 ### 繪圖
 #### 長條圖
 ``` py
