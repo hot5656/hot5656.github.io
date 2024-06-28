@@ -1,5 +1,5 @@
 ---
-title: 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據
+title: (1) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據
 abbrlink: 39d2
 date: 2024-05-15 15:32:27
 categories: Coding
@@ -3025,3 +3025,1272 @@ plt.show()
 </div>
 
 ### 線性迴歸 - 波士頓房價
+#### 簡單資料測試
+##### 產生迴歸模型(身高.腰圍與體重的測試)
+<div style="max-width:500px">
+  {% asset_img pic77.png pic77 %}
+</div>
+
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+data = {
+    'height' : [162, 160, 167, 180, 177, 168, 189, 182, 176, 169],
+    'waist'  : [ 71,  81,  70,  90,  95,  80,  78, 100,  84,  80],
+    'weight' : [ 53,  62,  58,  71,  72,  69,  80,  91,  78,  70],
+}
+
+# 建立 DataFrmae
+df = pd.DataFrame(data)
+# 建立自變數和目標變數
+X = df[['height', 'waist']]
+y = df['weight']
+
+# 建立線性迴歸模型及擬合數據
+model = LinearRegression()
+model.fit(X, y)
+
+# 查看模型的截距與係數
+intercept = model.intercept_
+coefficients = model.coef_
+print(f"y截距(b0)  : {intercept:.3f}")
+print(f"斜率(b1,b2): {coefficients.round(3)}")
+
+# 組合線性迴歸方程式
+formula = f"y = {intercept:.3f}"
+for i, coef in enumerate(coefficients):
+    formula += f" + ({coef:.3f})*x{i+1}"
+print("線性迴歸方程式:")
+print(formula)
+
+# 輸入身高和腰圍
+h = eval(input("請輸入身高:"))
+w = eval(input("請輸入腰圍:"))
+# 輸入轉成陣列
+new_weight = pd.DataFrame(np.array([[h,w]]), columns=["height", "waist"])
+print(new_weight)
+
+predicted = model.predict(new_weight)
+print(f"預測體重:{predicted[0]:.2f}")
+# y截距(b0)  : -90.625
+# 斜率(b1,b2): [0.689 0.504]
+# 線性迴歸方程式:
+# y = -90.625 + (0.689)*x1 + (0.504)*x2
+# 請輸入身高:170
+# 請輸入腰圍:80
+#    height  waist
+# 0     170     80
+# 預測體重:66.87
+
+# 繪製 3D 散點圖
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(df['height'], df['waist'], df['weight'], color='blue')
+
+# 創建網格以顯示平面
+x_surf, y_surf = np.meshgrid(np.linspace(df['height'].min(), df['height'].max(), 100),
+                             np.linspace(df['waist'].min(), df['waist'].max(), 100))
+z_surf = intercept + coefficients[0] * x_surf + coefficients[1] * y_surf
+
+# 繪製擬合平面
+ax.plot_surface(x_surf, y_surf, z_surf, color='red', alpha=0.5)
+
+# 標籤
+ax.set_xlabel('Height')
+ax.set_ylabel('Waist')
+ax.set_zlabel('Weight')
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic78.png pic78 %}
+</div>
+
+##### 了解模型的優劣(R 平方係數)
+``` py
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+data = {
+    'height' : [162, 160, 167, 180, 177, 168, 189, 182, 176, 169],
+    'waist'  : [ 71,  81,  70,  90,  95,  80,  78, 100,  84,  80],
+    'weight' : [ 53,  62,  58,  71,  72,  69,  80,  91,  78,  70],
+}
+
+# 建立 DataFrmae
+df = pd.DataFrame(data)
+# 建立自變數和目標變數
+X = df[['height', 'waist']]
+y = df['weight']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型及擬合數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 查看模型的截距與係數
+intercept = model.intercept_
+coefficients = model.coef_
+print(f"y截距(b0)  : {intercept:.3f}")
+print(f"斜率(b1,b2): {coefficients.round(3)}")
+
+# 組合線性迴歸方程式
+formula = f"y = {intercept:.3f}"
+for i, coef in enumerate(coefficients):
+    formula += f" + ({coef:.3f})*x{i+1}"
+print("線性迴歸方程式:")
+print(formula)
+
+# 算預測值
+y_pred = model.predict(X_test)
+# 計算 R 平方數
+print(f"R2_Score:{r2_score(y_test, y_pred):.2f}")
+
+# y截距(b0)  : -92.547
+# 斜率(b1,b2): [0.71  0.482]
+# 線性迴歸方程式:
+# y = -92.547 + (0.710)*x1 + (0.482)*x2
+# R2_Score:0.73
+```
+
+#### 波士頓房價數據
+<div style="max-width:500px">
+  {% asset_img pic79.png pic79 %}
+</div>
+
+##### 列出資料數據
+``` py
+import pandas as pd
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+# item0 to item12 data
+data = boston.iloc[:, :13]
+# item13 data
+target = boston.iloc[:,13:14]
+
+# 列出資料外型
+print(f"資料外型        : {boston.shape}")
+print(f"自變數  樣品外型 : {data.shape}")
+print(f"目標變數樣品外型 : {target.shape}")
+
+# 列出3筆 自變數(特徵值)
+print(data.head(3))
+# 列出3筆 目標變數(房價)
+print(target.head(3))
+
+# 特徵值名稱
+print(f"{data.columns}")
+print(f"{target.columns}")
+
+# 資料外型        : (506, 14)
+# 自變數  樣品外型 : (506, 13)
+# 目標變數樣品外型 : (506, 1)
+#       CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  PTRATIO       B  LSTAT
+# 0  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296.0     15.3  396.90   4.98
+# 1  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242.0     17.8  396.90   9.14
+# 2  0.02729   0.0   7.07     0  0.469  7.185  61.1  4.9671    2  242.0     17.8  392.83   4.03
+#    MEDV
+# 0  24.0
+# 2  34.7
+# Index(['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX',
+#        'PTRATIO', 'B', 'LSTAT'],
+#       dtype='object')
+# Index(['MEDV'], dtype='object')
+```
+
+##### 資料處理
+``` py
+import pandas as pd
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+# item0 to item12 data
+data = boston.iloc[:, :13]
+# item13 data
+target = boston.iloc[:,13:14]
+
+# 顯示所有 columns
+pd.set_option('display.max_columns', None)
+# 設定顯示每 row 長度
+pd.set_option('display.width', 300)
+
+print(data.head())
+print(boston.head())
+
+# isnull() 檢查資料缺失
+print(boston.isnull().sum())
+# show 出相互皮爾遜相關係數
+# > ±.7      相關性強
+# ±.3 ~  ±.7 相關性中
+# ±.1 ~  ±.3 相關性弱
+# ≦ 0.1      相關性無
+print(boston.corr())
+
+# 使用程式挑最有相關的2個特徵
+print(boston.corr().abs().nlargest(3, 'MEDV').index)
+print(boston.corr().abs().nlargest(3, 'MEDV').values[:,13])
+
+#       CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  PTRATIO       B  LSTAT
+# 0  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296.0     15.3  396.90   4.98
+# 1  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242.0     17.8  396.90   9.14
+# 2  0.02729   0.0   7.07     0  0.469  7.185  61.1  4.9671    2  242.0     17.8  392.83   4.03
+# 3  0.03237   0.0   2.18     0  0.458  6.998  45.8  6.0622    3  222.0     18.7  394.63   2.94
+# 4  0.06905   0.0   2.18     0  0.458  7.147  54.2  6.0622    3  222.0     18.7  396.90   5.33
+#       CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  PTRATIO       B  LSTAT  MEDV
+# 0  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296.0     15.3  396.90   4.98  24.0
+# 1  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242.0     17.8  396.90   9.14  21.6
+# 2  0.02729   0.0   7.07     0  0.469  7.185  61.1  4.9671    2  242.0     17.8  392.83   4.03  34.7
+# 3  0.03237   0.0   2.18     0  0.458  6.998  45.8  6.0622    3  222.0     18.7  394.63   2.94  33.4
+# 4  0.06905   0.0   2.18     0  0.458  7.147  54.2  6.0622    3  222.0     18.7  396.90   5.33  36.2
+# CRIM       0
+# ZN         0
+# INDUS      0
+# CHAS       0
+# NOX        0
+# RM         0
+# AGE        0
+# DIS        0
+# RAD        0
+# TAX        0
+# PTRATIO    0
+# B          0
+# LSTAT      0
+# MEDV       0
+# dtype: int64
+#              CRIM        ZN     INDUS      CHAS       NOX        RM       AGE       DIS       RAD       TAX   PTRATIO         B     LSTAT      MEDV
+# CRIM     1.000000 -0.300774  0.590822  0.013922  0.634679 -0.190197  0.482013 -0.499501  0.838671  0.793392  0.362615 -0.377013  0.481907 -0.362077
+# ZN      -0.300774  1.000000 -0.533828 -0.042697 -0.516604  0.311991 -0.569537  0.664408 -0.311948 -0.314563 -0.391679  0.175520 -0.412995  0.360445
+# INDUS    0.590822 -0.533828  1.000000  0.062938  0.763651 -0.391676  0.644779 -0.708027  0.595129  0.720760  0.383248 -0.356977  0.603800 -0.483725
+# CHAS     0.013922 -0.042697  0.062938  1.000000  0.091203  0.091251  0.086518 -0.099176 -0.007368 -0.035587 -0.121515  0.048788 -0.053929  0.175260
+# NOX      0.634679 -0.516604  0.763651  0.091203  1.000000 -0.302188  0.731470 -0.769230  0.611441  0.668023  0.188933 -0.380051  0.590879 -0.427321
+# RM      -0.190197  0.311991 -0.391676  0.091251 -0.302188  1.000000 -0.240265  0.205246 -0.209847 -0.292048 -0.355501  0.128069 -0.613808  0.695360
+# AGE      0.482013 -0.569537  0.644779  0.086518  0.731470 -0.240265  1.000000 -0.747881  0.456022  0.506456  0.261515 -0.273534  0.602339 -0.376955
+# DIS     -0.499501  0.664408 -0.708027 -0.099176 -0.769230  0.205246 -0.747881  1.000000 -0.494588 -0.534432 -0.232471  0.291512 -0.496996  0.249929
+# RAD      0.838671 -0.311948  0.595129 -0.007368  0.611441 -0.209847  0.456022 -0.494588  1.000000  0.910228  0.464741 -0.444413  0.488676 -0.381626
+# TAX      0.793392 -0.314563  0.720760 -0.035587  0.668023 -0.292048  0.506456 -0.534432  0.910228  1.000000  0.460853 -0.441808  0.543993 -0.468536
+# PTRATIO  0.362615 -0.391679  0.383248 -0.121515  0.188933 -0.355501  0.261515 -0.232471  0.464741  0.460853  1.000000 -0.177383  0.374044 -0.507787
+# B       -0.377013  0.175520 -0.356977  0.048788 -0.380051  0.128069 -0.273534  0.291512 -0.444413 -0.441808 -0.177383  1.000000 -0.366087  0.333461
+# LSTAT    0.481907 -0.412995  0.603800 -0.053929  0.590879 -0.613808  0.602339 -0.496996  0.488676  0.543993  0.374044 -0.366087  1.000000 -0.737663
+# MEDV    -0.362077  0.360445 -0.483725  0.175260 -0.427321  0.695360 -0.376955  0.249929 -0.381626 -0.468536 -0.507787  0.333461 -0.737663  1.000000
+# Index(['MEDV', 'LSTAT', 'RM'], dtype='object')
+# [1.         0.73766273 0.69535995]
+```
+
+#### 使用最相關特徵做房價預估
+##### 繪製散點圖
+``` py
+# 繪製散點圖
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+# 建立兩個子圖畫布
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10,5))
+
+# 繪第1個子圖
+axs[0].scatter(boston['LSTAT'], boston['MEDV'])
+axs[0].set_title("低收入比例vs房價")
+axs[0].set_xlabel("低收入比例")
+axs[0].set_ylabel("房價")
+# 繪第2個子圖
+axs[1].scatter(boston['RM'], boston['MEDV'])
+axs[1].set_title("房間數vs房價")
+axs[1].set_xlabel("房間數")
+axs[1].set_ylabel("房價")
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic80.png pic80 %}
+</div>
+
+``` py
+# 繪製3D散點圖
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+# 畫單張圖
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
+
+# 繪製 3D 圖
+ax.scatter(boston['LSTAT'], boston['RM'], boston['MEDV'], color='b')  # 散佈圖
+
+# set title
+ax.set_title('3D散點圖', fontsize=16, color='b')
+# set label
+ax.set_xlabel('低收入比例', color='g')
+ax.set_ylabel('房間數', color='g')
+ax.set_zlabel('房價', color='g')
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic81.png pic81 %}
+</div>
+
+##### 獲得 R平方判定係數,截距與係數
+``` py
+# 獲得 R平方判定係數,截距與係數
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from joblib import dump
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型及擬合數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+intercept = model.intercept_
+coefficients = model.coef_
+print(f"y截距(b0)  : {intercept:.3f}")
+print(f"斜率(b1,b2): {coefficients.round(3)}")
+
+# 組合線性迴歸方程式
+formula = f"y = {intercept:.3f}"
+for i, coef in enumerate(coefficients):
+    formula += f" + ({coef:.3f})*x{i+1}"
+print("線性迴歸方程式:")
+print(formula)
+
+# 算預測值
+y_pred = model.predict(X_test)
+# 計算 R 平方數
+print(f"R2_Score:{r2_score(y_test, y_pred):.3f}")
+
+# 儲存模型
+dump(model, 'boston_model.joblib')
+
+# y截距(b0)  : 2.493
+# 斜率(b1,b2): [-0.659  4.539]        
+# 線性迴歸方程式:
+# y = 2.493 + (-0.659)*x1 + (4.539)*x2
+# R2_Score:0.675
+```
+
+##### 計算預估房價
+``` py
+# 計算預估房價
+from joblib import load
+import pandas as pd
+import numpy as np
+
+# 載入模型
+model = load('boston_model.joblib')
+lstat = eval(input("請輸入低收入比例 : "))
+rooms = eval(input("請輸入房間數     :"))
+
+# 用 模型計算房價
+data  = pd.DataFrame(np.c_[[lstat], [rooms]], columns =['LSTAT', 'RM'])
+price_pred = model.predict(data)
+print(f"用模型計算房價     : {price_pred[0]:.2f}")
+
+# 用 迴歸公式計算房價
+intercept = model.intercept_
+coeff = model.coef_
+price_cal = intercept + coeff[0] * lstat + coeff[1] * rooms
+print(f"用迴歸公式計算房價 : {price_cal:.2f}")
+# 請輸入低收入比例 : 4.98
+# 請輸入房間數     :6
+# 用模型計算房價     : 26.44
+# 用迴歸公式計算房價 : 26.44
+```
+
+##### 繪製實際房價與預估房價
+``` py
+# 繪製實際房價與預估房價
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型及擬合數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+print(f"真實房價\n {np.array(y_test.tolist())}")
+print("-"*70)
+print(f"預測房價\n {y_pred.round(1)}")
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+plt.scatter(y_test, y_pred)
+line_x = np.linspace(0, 50, 100)
+plt.plot(line_x, line_x, color='red')
+plt.title("實際房價vs預測房價")
+plt.xlabel("實際房價")
+plt.ylabel("預測房價")
+plt.show()
+
+# 真實房價
+#  [28.2 23.9 16.6 22.  20.8 23.  27.9 14.5 21.5 22.6 23.7 31.2 19.3 19.4
+#  19.4 27.9 13.9 50.  24.1 14.6 16.2 15.6 23.8 25.  23.5  8.3 13.5 17.5
+#  43.1 11.5 24.1 18.5 50.  12.6 19.8 24.5 14.9 36.2 11.9 19.1 22.6 20.7
+#  30.1 13.3 14.6  8.4 50.  12.7 25.  18.6 29.8 22.2 28.7 23.8  8.1 22.2
+#   6.3 22.1 17.5 48.3 16.7 26.6  8.5 14.5 23.7 37.2 41.7 16.5 21.7 22.7
+#  23.  10.5 21.9 21.  20.4 21.8 50.  22.  23.3 37.3 18.  19.2 34.9 13.4
+#  22.9 22.5 13.  24.6 18.3 18.1 23.9 50.  13.6 22.9 10.9 18.9 22.4 22.9
+#  44.8 21.7 10.2 15.4]
+# ----------------------------------------------------------------------
+# 預測房價
+#  [28.6 28.2 17.5 23.8 20.1 24.1 29.5 21.5 17.7 25.8 28.  30.7 19.5 22.
+#  22.1 20.  17.4 39.  25.6  5.4 20.8 17.1 26.2 27.6 28.  13.2 16.8 22.8
+#  31.8 13.2 28.7 15.8 37.1 20.  24.4 20.4 19.5 31.4  5.9 20.4 26.4 26.7
+#  27.5 14.6 18.7 18.5 36.6 18.4 23.7 24.6 26.5 24.  28.2 23.9  6.  27.4
+#   9.3 26.3 20.  37.3 21.7 28.3 15.4 19.7  7.6 30.9 38.7 26.5 22.9 21.4
+#  27.1  5.  15.8 24.9 21.  21.8 32.4 26.4 27.2 32.6 21.5 23.  31.6 17.2
+#  28.  28.  18.9 28.3 19.5 20.1 30.4 38.6 17.7 21.6 21.1 21.  26.  26.4
+#  37.3 22.  18.6 19.5]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic82.png pic82 %}
+</div>
+
+##### 繪製3D實際房價與預估房價
+``` py
+# 繪製3D實際房價與預估房價
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型及擬合數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+print(f"真實房價\n {np.array(y_test.tolist())}")
+print("-"*70)
+print(f"預測房價\n {y_pred.round(1)}")
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 多單張圖
+fig = plt.figure(figsize= (10, 6))
+ax1 = fig.add_subplot(121, projection='3d')
+ax2 = fig.add_subplot(122, projection='3d')
+
+# ax1
+# 繪製 3D 圖
+ax1.scatter(boston['LSTAT'], boston['RM'], boston['MEDV'], color='b')  # 散佈圖
+
+# 繪製擬合平面
+x = np.arange(0, 40, 1)    # 低收入比例
+y = np.arange(0, 10, 1)    # 房間數
+x_surf1, y_surf1 = np.meshgrid(x, y)
+z = lambda x, y: (model.intercept_ + model.coef_[0]*x + model.coef_[1]*y)
+ax1.plot_surface(x_surf1, y_surf1, z(x_surf1, y_surf1), color='None', alpha=0.2)
+
+# set title
+ax1.set_title('真實房價vs預估房價', fontsize=16, color='b')
+# set label
+ax1.set_xlabel('低收入比例', color='g')
+ax1.set_ylabel('房間數', color='g')
+ax1.set_zlabel('房價', color='g')
+
+# ax2
+# 繪製 3D 圖
+ax2.scatter(boston['LSTAT'], boston['RM'], boston['MEDV'], color='b')  # 散佈圖
+
+# 繪製擬合平面
+ax2.plot_surface(x_surf1, y_surf1, z(x_surf1, y_surf1), color='None', alpha=0.2)
+
+# set title
+ax2.set_title('真實房價vs預估房價', fontsize=16, color='b')
+# set label
+ax2.set_xlabel('低收入比例', color='g')
+ax2.set_ylabel('房間數', color='g')
+ax2.set_zlabel('房價', color='g')
+
+# 更改視角
+ax2.view_init(elev=30, azim=45)
+# 在 z 軸方向上抬高 30 度，同時在 xy 平面內旋轉 45 度。也就是說，觀察者的視角是在 z 軸上方 30 度，並且從 x 軸方向向 y 軸方向旋轉了 45 度。
+# elev (elevation)：高度角，表示從 xy 平面向上的角度。這個參數控制視角在 z 軸方向上的旋轉。
+#     當 elev=0 時，視角與 xy 平面平行。
+#     當 elev=90 時，視角在 z 軸的正上方。
+# azim (azimuth)：方位角，表示從 x 軸方向開始在 xy 平面內的旋轉角度。這個參數控制視角在 xy 平面內的旋轉。
+#     當 azim=0 時，視角沿著 x 軸正方向。
+#     當 azim=90 時，視角沿著 y 軸正方向。
+#     當 azim=45 時，視角位於 x 軸和 y 軸之間的 45 度角處。
+plt.show()
+
+# 真實房價
+#  [28.2 23.9 16.6 22.  20.8 23.  27.9 14.5 21.5 22.6 23.7 31.2 19.3 19.4
+#  19.4 27.9 13.9 50.  24.1 14.6 16.2 15.6 23.8 25.  23.5  8.3 13.5 17.5
+#  43.1 11.5 24.1 18.5 50.  12.6 19.8 24.5 14.9 36.2 11.9 19.1 22.6 20.7
+#  30.1 13.3 14.6  8.4 50.  12.7 25.  18.6 29.8 22.2 28.7 23.8  8.1 22.2
+#   6.3 22.1 17.5 48.3 16.7 26.6  8.5 14.5 23.7 37.2 41.7 16.5 21.7 22.7
+#  23.  10.5 21.9 21.  20.4 21.8 50.  22.  23.3 37.3 18.  19.2 34.9 13.4
+#  22.9 22.5 13.  24.6 18.3 18.1 23.9 50.  13.6 22.9 10.9 18.9 22.4 22.9
+#  44.8 21.7 10.2 15.4]
+# ----------------------------------------------------------------------
+# 預測房價
+#  [28.6 28.2 17.5 23.8 20.1 24.1 29.5 21.5 17.7 25.8 28.  30.7 19.5 22.
+#  22.1 20.  17.4 39.  25.6  5.4 20.8 17.1 26.2 27.6 28.  13.2 16.8 22.8
+#  31.8 13.2 28.7 15.8 37.1 20.  24.4 20.4 19.5 31.4  5.9 20.4 26.4 26.7
+#  27.5 14.6 18.7 18.5 36.6 18.4 23.7 24.6 26.5 24.  28.2 23.9  6.  27.4
+#   9.3 26.3 20.  37.3 21.7 28.3 15.4 19.7  7.6 30.9 38.7 26.5 22.9 21.4
+#  27.1  5.  15.8 24.9 21.  21.8 32.4 26.4 27.2 32.6 21.5 23.  31.6 17.2
+#  28.  28.  18.9 28.3 19.5 20.1 30.4 38.6 17.7 21.6 21.1 21.  26.  26.4
+#  37.3 22.  18.6 19.5]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic83.png pic83 %}
+</div>
+
+#### 多項式迴歸
+##### 繪製散點圖及迴歸直線
+``` py
+# 一元一次迴歸公式
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+df = pd.read_csv('data23_19.csv')
+
+X = pd.DataFrame(df.x)
+y = df.y
+
+print(df)
+print(X)
+print(y)
+
+model = LinearRegression()
+model.fit(X,y)
+y_pred = model.predict(X)
+print(f"R2_score = {model.score(X, y):.3f}")
+
+plt.plot(X, y_pred, color='g')
+plt.scatter(df.x, df.y)
+plt.show()
+
+#    x    y
+# 0  1  1.5
+# 1  2  3.0
+# 2  3  4.5
+# 3  4  4.2
+# 4  5  5.2
+# 5  6  5.5
+#    x
+# 0  1
+# 1  2
+# 2  3
+# 3  4
+# 4  5
+# 5  6
+# 0    1.5
+# 1    3.0
+# 2    4.5
+# 3    4.2
+# 4    5.2
+# 5    5.5
+# Name: y, dtype: float64
+# R2_score = 0.880
+```
+
+<div style="max-width:500px">
+  {% asset_img pic84.png pic84 %}
+</div>
+
+##### 生成一元二次特徵
+
+fit_transform() 結合 fit() 和 transform():
+- fit() : 用於學習模型參數
+- transform() : 利用fit()得到的參數來變換數據
+
+``` py
+# 生成一元二次多項式特徵值
+import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+
+# 設定基本數據
+X = np.array([[1], [2], [3], [4]])
+
+# 使用 PolynomialFeatures 生成一元二次特徵
+# 生成二次多項式
+degree = 2
+poly = PolynomialFeatures(degree)
+# fit : 學習數據的參數
+# transform : 加入數據
+X_poly = poly.fit_transform(X)
+
+print(X)
+# 列印生成多項式特徵
+print(poly.get_feature_names_out(input_features=['x']))
+print(X_poly)
+
+# 使用 PolynomialFeatures 生成一元四次特徵
+degree = 4
+poly4 = PolynomialFeatures(degree)
+X_poly4 = poly4.fit_transform(X)
+print(poly4.get_feature_names_out(input_features=['x']))
+print(X_poly4)
+
+# [[1]
+#  [2]
+#  [3]
+#  [4]]
+# ['1' 'x' 'x^2']
+# [[ 1.  1.  1.]
+#  [ 1.  2.  4.]
+#  [ 1.  3.  9.]
+#  [ 1.  4. 16.]]
+# ['1' 'x' 'x^2' 'x^3' 'x^4']
+# [[  1.   1.   1.   1.   1.]
+#  [  1.   2.   4.   8.  16.]
+#  [  1.   3.   9.  27.  81.]
+#  [  1.   4.  16.  64. 256.]]
+```
+
+``` py
+import pandas as pd
+from sklearn.preprocessing import PolynomialFeatures
+
+df = pd.read_csv('data23_19.csv')
+X = pd.DataFrame(df.x)
+print(df)
+print(X)
+
+# 使用 PolynomialFeatures 生成一元二次特徵
+degree = 2
+poly = PolynomialFeatures(degree)
+X_poly = poly.fit_transform(X)
+
+# 列印生成多項式特徵
+print(poly.get_feature_names_out())
+print(X_poly)
+
+#   x    y
+# 0  1  1.5
+# 1  2  3.0
+# 2  3  4.5
+# 3  4  4.2
+# 4  5  5.2
+# 5  6  5.5
+#    x
+# 0  1
+# 1  2
+# 2  3
+# 3  4
+# 4  5
+# 5  6
+# ['1' 'x' 'x^2']
+# [[ 1.  1.  1.]
+#  [ 1.  2.  4.]
+#  [ 1.  3.  9.]
+#  [ 1.  4. 16.]
+#  [ 1.  5. 25.]
+#  [ 1.  6. 36.]]
+```
+
+##### 多項式特徵應用在 LinearRegression
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('data23_19.csv')
+X = pd.DataFrame(df.x)
+y = df.y
+
+# 使用 PolynomialFeatures 生成一元二次特徵
+# degree = 2
+# degree = 3
+degree = 5
+poly = PolynomialFeatures(degree)
+X_poly = poly.fit_transform(X)
+
+# 建立一元二次多項式迴歸模型
+model = LinearRegression()
+model.fit(X_poly, y)
+y_poly_pred = model.predict(X_poly)
+
+# 輸出 R 平方係數
+print(f"R2 score = {model.score(X_poly, y):.2f}")
+
+# 截距與斜率
+intercept =  model.intercept_
+coeff = model.coef_
+print(f"截距 : {intercept:.3f}")
+print(f"係數  : {coeff.round(3)}")
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 建立兩個子圖畫布
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10,5))
+# 繪第1個子圖
+axs[0].scatter(X, y)
+axs[0].scatter(X, y_poly_pred, color='r')
+axs[0].plot(X, y_poly_pred)
+# axs[0].set_title("一元二次迴歸模型 - 點的連線")
+# axs[0].set_title("一元三次迴歸模型 - 點的連線")
+axs[0].set_title("一元五次迴歸模型 - 點的連線")
+# 繪第2個子圖
+xx = np.linspace(1, 6, 100)
+# y_curf = lambda x: (intercept + coeff[1]*x + coeff[2]*x*x)
+# y_curf = lambda x: (intercept + coeff[1]*x + coeff[2]*x*x + coeff[3]*x**3)
+y_curf = lambda x: (intercept + coeff[1]*x + coeff[2]*x**2 + coeff[3]*x**3 + coeff[4]*x**4 + coeff[5]*x**5)
+axs[1].plot(xx, y_curf(xx))
+axs[1].scatter(X, y)
+# axs[1].set_title("一元二次迴歸模型 - 曲線")
+# axs[1].set_title("一元三次迴歸模型 - 曲線")
+axs[1].set_title("一元五次迴歸模型 - 曲線")
+
+plt.show()
+
+# === 一元二次特徵 ====
+# R2 score = 0.95
+# 截距 : 0.020
+# 係數  : [ 0.     1.751 -0.143]
+# === 一元三次特徵 ====
+# R2 score = 0.96
+# 截距 : -1.333
+# 係數  : [ 0.     3.454 -0.707  0.054]
+# === 一元五次特徵 ====
+# R2 score = 1.00
+# 截距 : 16.700
+# 係數  : [  0.    -34.842  27.696  -9.425   1.454  -0.083]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic85.png pic85 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic86.png pic86 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic87.png pic87 %}
+</div>
+
+##### 機器學習的理想模型
+
+<div style="max-width:500px">
+  {% asset_img pic88.png pic88 %}
+</div>
+
+##### 使用二元二次方程式做房價預估
+###### 計算 R score
+``` py
+# 二元二次多項式模型
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import r2_score
+from joblib import dump
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 使用 PolynomialFeatures 生成二元二次特徵
+degree = 2
+poly = PolynomialFeatures(degree)
+X_train_poly = poly.fit_transform(X_train)
+# correct
+X_test_poly = poly.transform(X_test)
+# not correct
+# X_test_poly = poly.fit_transform(X_test)
+
+# 建立二元二次多項式迴歸模型
+model = LinearRegression()
+model.fit(X_train_poly, y_train)
+
+# 計算 R 平方數
+print(f"R score : {model.score(X_test_poly, y_test)}")
+
+# 查看模型截距與係數
+intercept = model.intercept_
+coeff = model.coef_
+print(f"截距 : {intercept}")
+# 多項式特徵
+print(poly.get_feature_names_out())
+print(f"係數 : {coeff}")
+
+# R score : 0.8217783992497054
+# 截距 : 62.51039478281932
+# ['1' 'LSTAT' 'RM' 'LSTAT^2' 'LSTAT RM' 'RM^2']
+# 係數 : [ 0.00000000e+00  3.28222887e-01 -1.54871817e+01  8.58456016e-03
+#  -2.22945786e-01  1.71576436e+00]
+```
+
+###### 計算預估房價
+``` py
+# 二元二次多項式模型 - 計算預估房價
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import r2_score
+from joblib import dump
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 使用 PolynomialFeatures 生成二元二次特徵
+degree = 2
+poly = PolynomialFeatures(degree)
+X_train_poly = poly.fit_transform(X_train)
+# correct
+X_test_poly = poly.transform(X_test)
+# not correct
+# X_test_poly = poly.fit_transform(X_test)
+
+# 建立二元二次多項式迴歸模型
+model = LinearRegression()
+model.fit(X_train_poly, y_train)
+
+y_pred = model.predict(X_test_poly)
+print(f"實際房價\n{np.array(y_test.tolist())}")
+print("-"*70)
+print(f"預估房價\n{y_pred.round(1)}")
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+plt.scatter(y_test, y_pred)
+line_x = np.linspace(0, 50, 100)
+plt.plot(line_x, line_x, color='red')
+plt.title("實際房價vs預測房價")
+plt.xlabel("實際房價")
+plt.ylabel("預測房價")
+plt.show()
+
+# 實際房價
+# [28.2 23.9 16.6 22.  20.8 23.  27.9 14.5 21.5 22.6 23.7 31.2 19.3 19.4
+#  19.4 27.9 13.9 50.  24.1 14.6 16.2 15.6 23.8 25.  23.5  8.3 13.5 17.5
+#  43.1 11.5 24.1 18.5 50.  12.6 19.8 24.5 14.9 36.2 11.9 19.1 22.6 20.7
+#  30.1 13.3 14.6  8.4 50.  12.7 25.  18.6 29.8 22.2 28.7 23.8  8.1 22.2
+#   6.3 22.1 17.5 48.3 16.7 26.6  8.5 14.5 23.7 37.2 41.7 16.5 21.7 22.7
+#  23.  10.5 21.9 21.  20.4 21.8 50.  22.  23.3 37.3 18.  19.2 34.9 13.4
+#  22.9 22.5 13.  24.6 18.3 18.1 23.9 50.  13.6 22.9 10.9 18.9 22.4 22.9
+#  44.8 21.7 10.2 15.4]
+# ----------------------------------------------------------------------
+# 預估房價
+# [28.4 27.8 15.4 23.4 20.9 22.4 30.  19.8 16.  24.7 27.6 31.8 18.8 21.4
+#  20.8 19.7 13.2 50.7 24.9 12.6 20.3 16.6 25.  27.3 28.1 11.9 14.4 21.7
+#  33.7 14.4 28.9 15.5 44.7 17.5 23.4 19.1 16.7 33.  18.6 18.4 25.8 26.2
+#  26.9 12.  16.2 14.  43.4 17.  22.6 23.  24.9 22.3 28.3 22.2 11.7 26.9
+#   9.1 26.1 18.4 45.6 19.1 28.1 14.6 16.8 10.5 32.  48.9 25.5 21.8 20.4
+#  26.8 14.4 18.7 22.9 19.1 21.2 34.7 25.5 26.6 35.1 18.9 21.9 33.2 13.1
+#  27.9 28.1 15.7 28.5 18.5 17.3 31.3 49.7 15.9 20.2 19.  19.5 24.7 25.5
+#  45.6 20.2 17.4 16.2]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic89.png pic89 %}
+</div>
+
+##### 繪製3D實際房價vs預估房價
+``` py
+# 二元二次多項式模型
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import r2_score
+from joblib import dump
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 使用 PolynomialFeatures 生成二元二次特徵
+degree = 2
+poly = PolynomialFeatures(degree)
+X_train_poly = poly.fit_transform(X_train)
+# # correct
+# X_test_poly = poly.transform(X_test)
+# not correct
+# X_test_poly = poly.fit_transform(X_test)
+
+# 建立二元二次多項式迴歸模型
+model = LinearRegression()
+model.fit(X_train_poly, y_train)
+
+# y_pred = model.predict(X_test_poly)
+# print(f"實際房價\n{np.array(y_test.tolist())}")
+# print("-"*70)
+# print(f"預估房價\n{y_pred.round(1)}")
+
+# 查看模型截距與係數
+intercept = model.intercept_
+coeff = model.coef_
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 多單張圖
+fig = plt.figure(figsize= (10, 6))
+ax1 = fig.add_subplot(121, projection='3d')
+ax2 = fig.add_subplot(122, projection='3d')
+
+# ax1
+# 繪製 3D 圖
+ax1.scatter(boston['LSTAT'], boston['RM'], boston['MEDV'], color='b')
+
+# 繪製擬合平面
+x = np.arange(0, 40, 1)    # 低收入比例
+y = np.arange(0, 10, 1)    # 房間數
+x_surf1, y_surf1 = np.meshgrid(x, y)
+z = lambda x, y: (model.intercept_ + \
+                  model.coef_[1]*x + \
+                  model.coef_[2]*y + \
+                  model.coef_[3]*x**2 + \
+                  model.coef_[4]*x*y + \
+                  model.coef_[5]*y**2 )
+ax1.plot_surface(x_surf1, y_surf1, z(x_surf1, y_surf1), color='None', alpha=0.2)
+
+# set title
+ax1.set_title('真實房價vs預估房價', fontsize=16, color='b')
+# set label
+ax1.set_xlabel('低收入比例', color='g')
+ax1.set_ylabel('房間數', color='g')
+ax1.set_zlabel('房價', color='g')
+
+# ax2
+# 繪製 3D 圖
+ax2.scatter(boston['LSTAT'], boston['RM'], boston['MEDV'], color='b')
+
+# 繪製擬合平面
+ax2.plot_surface(x_surf1, y_surf1, z(x_surf1, y_surf1), color='None', alpha=0.2)
+
+# set title
+ax2.set_title('真實房價vs預估房價', fontsize=16, color='b')
+# set label
+ax2.set_xlabel('低收入比例', color='g')
+ax2.set_ylabel('房間數', color='g')
+ax2.set_zlabel('房價', color='g')
+
+# 更改視角
+ax2.view_init(elev=30, azim=45)
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic90.png pic90 %}
+</div>
+
+#### 用所有的特徵執行波士頓房價預估
+- 使用所有的特徵值並未得到較好的預估結果
+- 使用2個特徵的二次多項式得到較好的結果
+- 較簡單的模型在預測未出現的數據有時表現得更好
+
+``` py
+# 用所有參數預估房價
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import r2_score, mean_squared_error
+from joblib import dump
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+# X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
+X = boston.drop('MEDV', axis=1)
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型並擬合訓練數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 進行預測
+y_pred = model.predict(X_test)
+
+# 計算模型性能指標
+r2 = r2_score(y_test, y_pred)
+print(f"R score : {r2.round(3)}")
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error(MSE) : {mse.round(3)}")
+
+# 查看模型截距與係數
+intercept =  model.intercept_
+coeff = model.coef_
+print(f"截距 : {intercept:.3f}")
+# 多項式特徵
+# print(poly.get_feature_names_out())
+print(f"係數 : {coeff.round(3)}")
+print("-"*70)
+print(f"實際房價\n{np.array(y_test.tolist())}")
+print("-"*70)
+print(f"預估房價\n{y_pred.round(1)}")
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 繪製實際房價與預測房價圖表
+plt.scatter(y_test, y_pred)
+# 繪製對角線
+plt.plot([min(y_test),max(y_test)], [min(y_test),max(y_test)], color='red', linestyle='--', lw=2)
+plt.title("實際房價vs預測房價")
+plt.xlabel("實際房價")
+plt.ylabel("預測房價")
+plt.show()
+
+# R score : 0.763
+# Mean Squared Error(MSE) : 23.441
+# 截距 : 42.031
+# 係數 : [ 5.0000e-02  5.3000e-02  2.4000e-02  2.3010e+00 -1.8746e+01  3.1110e+00
+#   5.0000e-03 -1.4020e+00  2.3000e-01 -1.1000e-02 -9.7900e-01  8.0000e-03
+#  -5.7700e-01]
+# ----------------------------------------------------------------------
+# 實際房價
+# [28.2 23.9 16.6 22.  20.8 23.  27.9 14.5 21.5 22.6 23.7 31.2 19.3 19.4
+#  19.4 27.9 13.9 50.  24.1 14.6 16.2 15.6 23.8 25.  23.5  8.3 13.5 17.5
+#  43.1 11.5 24.1 18.5 50.  12.6 19.8 24.5 14.9 36.2 11.9 19.1 22.6 20.7
+#  30.1 13.3 14.6  8.4 50.  12.7 25.  18.6 29.8 22.2 28.7 23.8  8.1 22.2
+#   6.3 22.1 17.5 48.3 16.7 26.6  8.5 14.5 23.7 37.2 41.7 16.5 21.7 22.7
+#  23.  10.5 21.9 21.  20.4 21.8 50.  22.  23.3 37.3 18.  19.2 34.9 13.4
+#  22.9 22.5 13.  24.6 18.3 18.1 23.9 50.  13.6 22.9 10.9 18.9 22.4 22.9
+#  44.8 21.7 10.2 15.4]
+# ----------------------------------------------------------------------
+# 預估房價
+# [32.2 28.  18.  21.6 18.1 20.  32.2 18.3 24.2 27.1 26.7 28.8 20.9 26.5
+#  23.3 20.5 17.4 38.1 30.4  8.5 20.9 16.3 25.3 25.  31.3 10.6 13.7 17.1
+#  36.4 14.2 21.5 13.7 42.9 18.1 21.9 20.3 17.  27.6  9.9 19.3 24.5 21.5
+#  29.4 15.4 18.8 13.9 39.9 18.2 26.2 20.  24.5 24.3 25.4 26.8  4.  24.1
+#  10.4 27.1 16.9 35.8 19.3 27.7 16.1 18.2 10.5 32.5 36.8 22.4 24.7 25.4
+#  23.7  7.8 15.6 20.6 20.5 20.7 33.8 28.1 25.6 34.5 18.6 23.8 34.5 12.7
+#  21.3 30.  16.6 24.6 19.  16.9 27.3 41.8 14.  23.2 17.4 21.9 23.2 29.
+#  37.  20.3 16.9 17.7]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic91.png pic91 %}
+</div>
+
+#### 殘差圖(Residual Plot)
+<div style="max-width:500px">
+  {% asset_img pic92.png pic92 %}
+</div>
+
+``` py
+# 殘差圖
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import r2_score, mean_squared_error
+from joblib import dump
+import matplotlib.pyplot as plt
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = boston.drop('MEDV', axis=1)
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# 建立線性迴歸模型並擬合訓練數據
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 進行預測
+y_pred = model.predict(X_test)
+
+# 計算殘差
+residuals = y_test - y_pred
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 繪製殘差圖
+plt.scatter(y_pred, residuals, alpha=0.5)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.title("波士頓房價殘插圖")
+plt.xlabel("預測房價")
+plt.ylabel("殘差")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic93.png pic93 %}
+</div>
+
+#### 梯度下降迴歸 SGDRegressor()
+
+<div style="max-width:500px">
+  {% asset_img pic94.png pic94 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic95.png pic95 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic96.png pic96 %}
+</div>
+
+``` py
+# 梯度下降迴歸
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.linear_model import SGDRegressor
+from sklearn.preprocessing import StandardScaler
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = boston.drop('MEDV', axis=1)
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+# SGDRegressor 對特徵的尺度敏感,先進行標準化
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# 建立線性迴歸模型並進行擬合訓練數據
+sgd_regressor = SGDRegressor(max_iter=1000, random_state=1)
+sgd_regressor.fit(X_train, y_train)
+
+# 使用測試集即進行預測
+y_pred = sgd_regressor.predict(X_test)
+
+# 計算訓練數據的R平方係數
+y_train_pred = sgd_regressor.predict(X_train)
+r2_train = r2_score(y_train, y_train_pred)
+print(f"訓練數據的R平方係數 : {r2_train.round(3)}")
+
+# 計算測試數據的R平方係數
+r2_test = r2_score(y_test, y_pred)
+print(f"測試數據的R平方係數 : {r2_test.round(3)}")
+
+# 計算模型的性能指標
+mse = mean_squared_error(y_test, y_pred)
+print(f"模型的性能指標(MSE) : {mse.round(3)}")
+
+# 訓練數據的R平方係數 : 0.719
+# 測試數據的R平方係數 : 0.762
+# 模型的性能指標(MSE) : 23.499
+```
+
+<div style="max-width:500px">
+  {% asset_img pic97.png pic97 %}
+</div>

@@ -115,6 +115,42 @@ plt.show()
   {% asset_img pic2.png pic2 %}
 </div>
 
+#### 創建網格坐標
++ {% post_link python-28 '# 產生迴歸模型(身高.腰圍與體重的測試)' %}
+
+``` py
+# np.meshgrid 用於創建網格坐標
+# 在科學計算和數據可視化中非常有用，特別是當你需要在網格上計算函數並繪製3D圖形時
+import numpy as np
+
+x = [0, 1, 2, 3, 4 ,5]
+y = [6 , 7 , 8, 9]
+
+XX, YY = np.meshgrid(x, y)
+print(f"XX\n{XX}")
+print(f"YY\n{YY}")
+
+ZZ = XX + 5 * YY
+print(f"ZZ\n{ZZ}")
+
+# XX
+# [[0 1 2 3 4 5]
+#  [0 1 2 3 4 5]
+#  [0 1 2 3 4 5]
+#  [0 1 2 3 4 5]]
+# YY
+# [[6 6 6 6 6 6]
+#  [7 7 7 7 7 7]
+#  [8 8 8 8 8 8]
+#  [9 9 9 9 9 9]]
+# ZZ
+# [[30 31 32 33 34 35]
+#  [35 36 37 38 39 40]
+#  [40 41 42 43 44 45]
+#  [45 46 47 48 49 50]]
+```
+
+
 
 ### Ref
 + [Matplotlib-The mplot3d toolkit](https://matplotlib.org/stable/users/explain/toolkits/mplot3d.html)

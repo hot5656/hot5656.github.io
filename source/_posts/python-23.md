@@ -276,6 +276,13 @@ print(df.tail(2))
 #     英文  國文  數學  社會  生活
 # 張山  81  85  91  89  77
 # 李四  79  53  47  94  80
+
+# DataFrmae 產生另一 DataFrmae
+# 建立 DataFrmae
+df = pd.DataFrame(data)
+# 建立自變數和目標變數
+X = df[['height', 'waist']]
+y = df['weight']
 ```
 
 #### DataFrame 操作
@@ -668,6 +675,69 @@ print(df.head())
 # 2  103         碩士
 # 3  104         博士
 # 4  105  high_school
+```
+
+#### option 設定
+``` py
+# 顯示所有 columns
+pd.set_option('display.max_columns', None)
+# 設定顯示每 row 長度
+pd.set_option('display.width', 300)
+```
+
+#### 檢查資料缺失
+``` py
+# isnull() 檢查資料缺失
+print(boston.isnull().sum())
+# column NaN 統計:
+# id        0
+# name      0
+# gender    8
+# age       3
+# area      3
+# job       0
+# dtype: int64
+```
+
+#### show 出相互皮爾遜相關係數
+``` py
+# show 出相互皮爾遜相關係數
+# > ±.7      相關性強
+# ±.3 ~  ±.7 相關性中
+# ±.1 ~  ±.3 相關性弱
+# ≦ 0.1      相關性無
+print(boston.corr())
+
+# 使用程式挑最有相關的2個特徵
+print(boston.corr().abs().nlargest(3, 'MEDV').index)
+print(boston.corr().abs().nlargest(3, 'MEDV').values[:,13])
+
+# show 出相互皮爾遜相關係數
+# > ±.7      相關性強
+# ±.3 ~  ±.7 相關性中
+# ±.1 ~  ±.3 相關性弱
+# ≦ 0.1      相關性無
+print(boston.corr())
+
+# 使用程式挑最有相關的2個特徵
+print(boston.corr().abs().nlargest(3, 'MEDV').index)
+print(boston.corr().abs().nlargest(3, 'MEDV').values[:,13])
+```
+
+#### 將兩個一維陣列組成二維陣列
+``` py
+# 將兩個一維陣列組成二維陣列
+import numpy as np
+
+a = np.array([1,2,3])
+b = np.array([4,5,6])
+c = np.c_[a, b]
+print(c)
+# [[1 4]
+#  [2 5]
+#  [3 6]]
+
+# X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
 ```
 
 ### function
