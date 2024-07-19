@@ -283,6 +283,10 @@ df = pd.DataFrame(data)
 # 建立自變數和目標變數
 X = df[['height', 'waist']]
 y = df['weight']
+
+# 移除部分column
+features = data.drop(["ID", "default.payment.next.month"], axis=1)
+X = df.drop(["Outcome"], axis=1)
 ```
 
 #### DataFrame 操作
@@ -655,6 +659,8 @@ df = pd.DataFrame([[65,92,78,83,70],
                   index=['大明','小王','李四','張山'],
                   columns=['英文','國文','數學','社會','生活'])
 df.to_csv('scores2.csv')
+# 不存索引
+df.to_csv('new_diabetes.csv', index=False)
 df.to_excel('scores2.xlsx')
 df.to_json('scores2.json')
 df.to_html('scores2.html')
@@ -683,6 +689,9 @@ print(df.head())
 pd.set_option('display.max_columns', None)
 # 設定顯示每 row 長度
 pd.set_option('display.width', 300)
+
+# 設定輸出到第二位小數
+pd.set_option('display.float_format', '{:.2f}'.format)
 ```
 
 #### 檢查資料缺失
@@ -698,6 +707,9 @@ print(boston.isnull().sum())
 # job       0
 # dtype: int64
 ```
+
+#### 缺失值處理
+{% post_link python-33 '# 處理潛在缺失值(0)' %}
 
 #### show 出相互皮爾遜相關係數
 ``` py
@@ -740,6 +752,69 @@ print(c)
 # X = pd.DataFrame(np.c_[boston['LSTAT'], boston['RM']], columns=['LSTAT', 'RM'])
 ```
 
+#### Series 轉成 array
+``` py
+print(f"測試真實分類\n{y_test.to_numpy()}")
+```
+
+#### 輸出數據統計資訊
+``` py
+print('輸出數據統計資訊')
+print(df.describe())
+
+# 輸出數據統計資訊
+#        Pregnancies  Glucose  BloodPressure  SkinThickness  Insulin    BMI  DiabetesPedigreeF
+# count       768.00   768.00         768.00         768.00   768.00 768.00
+# mean          3.85   120.89          69.11          20.54    79.80  31.99
+# 50%           3.00   117.00          72.00          23.00    30.50  32.00                      0.37  29.00     0.00
+# 75%           6.00   140.25          80.00          32.00   127.25  36.60                      0.63  41.00     1.00
+# max          17.00   199.00         122.00          99.00   846.00  67.10                      2.42  81.00     1.00
+```
+
+#### 輸出數據基本欄位資料
+``` py
+print(titanic.info())
+
+# <class 'pandas.core.frame.DataFrame'>
+# RangeIndex: 891 entries, 0 to 890
+# Data columns (total 15 columns):
+#  #   Column       Non-Null Count  Dtype
+# ---  ------       --------------  -----
+#  0   survived     891 non-null    int64
+#  1   pclass       891 non-null    int64
+#  2   sex          891 non-null    object
+#  3   age          714 non-null    float64
+#  4   sibsp        891 non-null    int64
+#  5   parch        891 non-null    int64
+#  6   fare         891 non-null    float64
+#  7   embarked     889 non-null    object
+#  8   class        891 non-null    category
+#  9   who          891 non-null    object
+#  10  adult_male   891 non-null    bool
+#  11  deck         203 non-null    category
+#  12  embark_town  889 non-null    object
+#  13  alive        891 non-null    object
+#  14  alone        891 non-null    bool
+# dtypes: bool(2), category(2), float64(2), int64(4), object(5)
+# memory usage: 80.7+ KB
+```
+
+#### 交叉分析
+- {% post_link python-33 '# 交叉分析表格介紹' %}
+- {% post_link python-33 '# 鐵達尼號交叉分析' %}
+
+#### 列出原符號和對應的數值
+``` py
+or column in df.columns:
+    if df[column].dtype == 'object':
+        le = LabelEncoder()
+        df[column] = le.fit_transform(df[column])
+        if column != 'TotalCharges':
+            # 列出原符號和對應的數值
+            label_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+            print(f"{column} {label_mapping}")
+```
+
 ### function
 #### get_dummies() 將類別變數轉為 one-hot 編碼
 {% post_link python-32 '# One-hot 編碼' %}
@@ -749,6 +824,34 @@ print(c)
 
 #### map() 轉換資料為數值資料
 {% post_link python-32 '# 資料對應 map() 方法' %}
+
+#### 中位數
+``` py
+# 年齡補上中位數年齡
+titanic_data['age'] = titanic_data['age'].fillna(titanic_data['age'].median())
+```
+
+#### 眾數
+``` py
+# 登船港口用眾位數取代缺失值
+# mode() 傳回的是一個包含眾數的 Series，因此需要取 [0] 來獲取第一個眾數
+titanic_data['embarked'] = titanic_data['embarked'].fillna(titanic_data['embarked'].mode()[0])
+```
+
+#### check column type
+``` py
+for column in df.columns:
+		# check column type
+    if df[column].dtype == 'object':
+        le = LabelEncoder()
+        df[column] = le.fit_transform(df[column])
+```
+
+#### 刪除缺失值
+``` py
+# 刪除缺失值,處理缺失數據(本例其實不需要)
+df= df.dropna()
+```
 
 ### 繪圖
 #### 長條圖

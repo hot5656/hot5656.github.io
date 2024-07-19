@@ -21,3 +21,17 @@ pip install seaborn
 
 #### kdeplot 繪製常態分佈曲線非常方便
 {% post_link python-28 '# normal()' %}
+
+#### 箱型圖
+{% post_link python-33 '# 特徵箱形圖' %}
+
+#### 熱圖
+{% post_link python-33 '# 繪製皮爾遜相關係數熱圖' %}
+
+### 數據
+``` py
+import seaborn as sns
+
+# load 鐵達尼數據
+titanic = sns.load_dataset('titanic')
+```

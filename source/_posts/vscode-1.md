@@ -111,6 +111,30 @@ Commonly Used --> Editor:Word Wrap
   },
 	"emmet.triggerExpansionOnTab": true,
 ```
+
+#### set path
+``` json
+{
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "env": {
+        "PATH": "${env:PATH};D:\\app\\python_other\\Graphviz-12.0.0-win64\\bin"
+      }
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "env": {
+        "PATH": "${env:PATH};D:\\app\\python_other\\Graphviz-12.0.0-win64\bin"
+      }
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}
+```
+
 ### JSON 設定
 + "editor.detectIndentation": false, - 不可選,否則排版會跟預期不同
 + "editor.renderWhitespace": "all", - 顯示空白

@@ -4262,6 +4262,12 @@ X_train, X_test, y_train, y_test = \
     train_test_split(X, y, test_size=0.2, random_state=1)
 
 # SGDRegressor 對特徵的尺度敏感,先進行標準化
+# fit_transform 用於訓練數據：
+#     fit 計算訓練數據的均值和方差
+#     transform 使用這些計算出的均值和方差對訓練數據進行標準化
+# transform 用於測試數據：
+#     只使用訓練數據計算出的均值和方差來標準化測試數據，不會重新計算均值和方差
+# 這樣做是為了避免數據洩漏，確保測試數據的標準化過程不受訓練數據的影響，同時保持測試數據的獨立性和真實性
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
