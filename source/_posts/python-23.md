@@ -428,6 +428,9 @@ print(df_sample.head())
 # 3  1700004  姚鈺迪  Female  34.0  基隆市中正區    住宿 和 餐飲業
 # 4  1700004  姚鈺迪  Female  34.0  基隆市中正區      住宿和餐飲業
 
+# 區失值填 0
+final_df.fillna(0, inplace=True)
+
 # put NaN to value
 df_sample = df.copy()
 df_sample['age'] = df_sample['age'].fillna(value=df_sample['age'].mean())
@@ -709,7 +712,15 @@ print(boston.isnull().sum())
 ```
 
 #### 缺失值處理
-{% post_link python-33 '# 處理潛在缺失值(0)' %}
+``` py
+# 將0值,替換為中位數
+for column in columns_with_potential_missing_values:
+    median = df[column].median()
+    df[column] = df[column].replace(to_replace=0, value=median )
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+```
 
 #### show 出相互皮爾遜相關係數
 ``` py
@@ -851,6 +862,58 @@ for column in df.columns:
 ``` py
 # 刪除缺失值,處理缺失數據(本例其實不需要)
 df= df.dropna()
+```
+
+#### 轉換日期
+``` py
+# Date 轉為日期型數據
+final_df['Date'] = pd.to_datetime(final_df['Date'], format='%d/%m/%Y')
+
+# 提出年份及月份
+final_df['Year'] = final_df['Date'].dt.year
+final_df['Month'] = final_df['Date'].dt.month
+```
+
+#### 更改 column name
+``` py
+final_df = final_df.rename(columns={'IsHoliday_x': 'IsHoliday'})
+```
+
+#### 合併 DataFrame
+``` py
+# 合併 features_df, sales_df, link key = 'Store' + 'Date'
+merged_df = pd.merge(sales_df, features_df, on=['Store', 'Date'], how='left')
+# 合併 stores_pd, link key = 'Store'
+final_df = pd.merge(merged_df, stores_pd, on=['Store'], how='left')
+```
+
+#### Type 轉為數字
+``` py
+# 將 Type 轉成類型數據
+# 將 Type 列的資料類型轉換為 category 類型
+# .cat.codes：將類別型資料轉換為對應的數字編碼。每個類別將被分配一個整數編碼（從0開始）
+final_df['Type'] = final_df['Type'].astype('category').cat.codes
+
+# 將類別轉成數字
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+```
+
+#### 資料 2D 轉 1D
+``` py
+# 資料 2D 轉 1D : y.values.ravel() 2D 轉 1D
+print(y)
+print(y.values.ravel())
+#      MEDV
+# 0    24.0
+# 1    21.6
+# 2    34.7
+# 3    33.4
+# 4    36.2
+# [24.  21.6 34.7 33.4 36.2 28.7 ...
 ```
 
 ### 繪圖

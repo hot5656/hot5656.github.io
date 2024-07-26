@@ -286,6 +286,15 @@ print(np.sort(b, axis=1))
 #  [0 1 3 5 6]]
 ```
 
+#### array 改為二維
+``` py
+# 假設X代表房子面積,y代表房價
+X = np.array([50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150])
+
+# X 改為二維
+X = X.reshape(-1, 1)
+```
+
 ### function
 #### [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html)
 ``` py

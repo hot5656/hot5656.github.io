@@ -1529,7 +1529,7 @@ for column in df.columns:
 X = df.drop('Churn', axis=1)
 y = df['Churn']
 X_train, X_test, y_train, y_test = \
-    train_test_split(X, y, test_size=0.3, random_state=5)
+    train_test_split(X, y, test_size=0.2, random_state=1)
 
 # 建立決策樹模型並進行訓練
 # dtc = DecisionTreeClassifier()
@@ -1542,7 +1542,7 @@ dtc.fit(X_train, y_train)
 y_pred = dtc.predict(X_test)
 
 # 準確率
-print(f"準確率 : {dtc.score(X_test, y_test):.2f}")
+print(f"準確率 : {dtc.score(X_test, y_test)}")
 
 # 計算混淆矩陣並輸出
 # 測試準確對照表
@@ -1569,18 +1569,18 @@ print(f"分類報告(Classification Report)\n{report}")
 # weighted avg       0.73      0.73      0.73      2113
 
 # max_depth=5
-# 準確率 : 0.79
+# 準確率 : 0.8048261178140526
 # 混淆矩陣(Confusion Matix):
-# [[1336  208]
-#  [ 234  335]]
+# [[953 108]
+#  [167 181]]
 # ----------------------------------------------------------------------
 # 分類報告(Classification Report)
 #               precision    recall  f1-score   support
-#            0       0.85      0.87      0.86      1544
-#            1       0.62      0.59      0.60       569
-#     accuracy                           0.79      2113
-#    macro avg       0.73      0.73      0.73      2113
-# weighted avg       0.79      0.79      0.79      2113
+#            0       0.85      0.90      0.87      1061
+#            1       0.63      0.52      0.57       348
+#     accuracy                           0.80      1409
+#    macro avg       0.74      0.71      0.72      1409
+# weighted avg       0.80      0.80      0.80      1409
 ```
 
 ##### 了解特徵對模型的重要性
@@ -1682,7 +1682,7 @@ labsel_encoder_target = LabelEncoder()
 df[target] = labsel_encoder_target.fit_transform(df[target])
 
 X_train, X_test, y_train, y_test = \
-    train_test_split(df[selected_features], df[target], test_size=0.3, random_state=5)
+    train_test_split(df[selected_features], df[target], test_size=0.2, random_state=1)
 
 # 建立決策樹模型並進行訓練
 # dtc = DecisionTreeClassifier()
@@ -1695,7 +1695,7 @@ dtc.fit(X_train, y_train)
 y_pred = dtc.predict(X_test)
 
 # 準確率
-print(f"準確率 : {dtc.score(X_test, y_test):.2f}")
+print(f"準確率 : {dtc.score(X_test, y_test)}")
 
 # 計算混淆矩陣並輸出
 # 測試準確對照表
@@ -1709,16 +1709,638 @@ report = classification_report(y_test, y_pred)
 print(f"分類報告(Classification Report)\n{report}")
 
 # max_depth=5
-# 準確率 : 0.79
+# 準確率 : 0.8090844570617459
 # 混淆矩陣(Confusion Matix):
-# [[1337  207]
-#  [ 234  335]]
+# [[962  99]
+#  [170 178]]
 # ----------------------------------------------------------------------
 # 分類報告(Classification Report)
 #               precision    recall  f1-score   support
-#            0       0.85      0.87      0.86      1544
-#            1       0.62      0.59      0.60       569
-#     accuracy                           0.79      2113
-#    macro avg       0.73      0.73      0.73      2113
-# weighted avg       0.79      0.79      0.79      2113
+#            0       0.85      0.91      0.88      1061
+#            1       0.64      0.51      0.57       348
+#     accuracy                           0.81      1409
+#    macro avg       0.75      0.71      0.72      1409
+# weighted avg       0.80      0.81      0.80      1409
 ```
+
+##### 交叉驗證 - 決策樹最佳深度調整
+GridSearchCV() 可用於有系統地遍歷多種參數組合
+
+<div style="max-width:500px">
+  {% asset_img pic27.png pic27 %}
+</div>
+
+``` py
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report, accuracy_score
+# from sklearn.metrics import confusion_matrix
+from sklearn.tree import DecisionTreeClassifier
+
+# 讀取數據
+df = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+selected_features = ['Contract','tenure','OnlineSecurity',
+                     'InternetService','MonthlyCharges']
+target = 'Churn'
+
+# 標籤轉成數值
+for column in selected_features:
+    if df[column].dtype == 'object':
+        le = LabelEncoder()
+        df[column] = le.fit_transform(df[column])
+# 目標變數轉成數值
+labsel_encoder_target = LabelEncoder()
+df[target] = labsel_encoder_target.fit_transform(df[target])
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(df[selected_features], df[target], test_size=0.2, random_state=1)
+
+# 設定調整參數
+params = {'max_depth': [3, 4, 5, 6, 7, 10, 15, 20]}
+# 建立決策樹模型
+clf = GridSearchCV(DecisionTreeClassifier(), params, cv=5)
+clf.fit(X_train, y_train)
+# 顯示最佳參數
+print(f"Best parameters:{clf.best_params_}")
+print("-"*70)
+# 進行預測
+y_pred = clf.predict(X_test)
+# 準確率
+print(f"準確率 : {accuracy_score(y_test, y_pred)}")
+print("-"*70)
+# 生成分類報告
+# 測試報告
+print(classification_report(y_test, y_pred))
+
+# Best parameters:{'max_depth': 5}
+# ----------------------------------------------------------------------
+# 準確率 : 0.8090844570617459
+# ----------------------------------------------------------------------
+#               precision    recall  f1-score   support
+#            0       0.85      0.91      0.88      1061
+#            1       0.64      0.51      0.57       348
+#     accuracy                           0.81      1409
+#    macro avg       0.75      0.71      0.72      1409
+# weighted avg       0.80      0.81      0.80      1409
+```
+
+#### Retail Data Analytics - 迴歸應用
+決策樹迴歸,可處理連續值(對比線性迴歸模型,更容易受到極端值的影響,並且可能在訓練數據不足下產生過度擬合)
+
+##### 用簡單數據預估房價
+
+``` py
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import numpy as np
+from sklearn import tree
+from graphviz import Source
+
+# 假設X代表房子面積,y代表房價
+X = np.array([50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150])
+y = np.array([150000, 180000, 200000, 230000, 260000, 280000,
+              300000, 330000, 360000, 380000, 400000 ])
+
+# X 改為二維
+X = X.reshape(-1, 1)
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=5)
+
+# 建立決策樹回歸模型
+tree_reg = DecisionTreeRegressor(max_depth=3, random_state=10)
+# 擬合模型
+tree_reg.fit(X_train, y_train)
+
+# 進行預測
+y_pred = tree_reg.predict(X_test)
+
+# R平方係數
+r2 = r2_score(y_test, y_pred)
+
+# 輸出預測結果
+print(f"R平方係數:{r2}")
+print(f"實際房價: {y_test}")
+print(f"預測房價: {y_pred}")
+
+
+grpah = Source(tree.export_graphviz(tree_reg, out_file=None))
+
+grpah.format = 'png'
+grpah.render(filename='tree_reg', view=True)
+
+# R平方係數:0.8671875
+# 實際房價: [280000 360000 200000]
+# 預測房價: [260000. 330000. 180000.]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic28.png pic28 %}
+</div>
+
+##### Retail Data Analytics
+
+<div style="max-width:500px">
+  {% asset_img pic29.png pic29 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic30.png pic30 %}
+</div>
+
+``` py
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+# 顯示所有 columns
+pd.set_option('display.max_columns', None)
+# 設定顯示每 row 長度
+pd.set_option('display.width', 300)
+
+# 讀取數據
+sales_df = pd.read_csv('sales.csv')
+features_df = pd.read_csv('features.csv')
+stores_pd = pd.read_csv('stores.csv')
+
+# 合併 features_df, sales_df, link key = 'Store' + 'Date'
+merged_df = pd.merge(sales_df, features_df, on=['Store', 'Date'], how='left')
+# 合併 stores_pd, link key = 'Store'
+final_df = pd.merge(merged_df, stores_pd, on=['Store'], how='left')
+
+# Date 轉為日期型數據
+final_df['Date'] = pd.to_datetime(final_df['Date'], format='%d/%m/%Y')
+
+# 提出年份及月份
+final_df['Year'] = final_df['Date'].dt.year
+final_df['Month'] = final_df['Date'].dt.month
+
+# 將 Type 轉成類型數據
+# 將 Type 列的資料類型轉換為 category 類型
+# .cat.codes：將類別型資料轉換為對應的數字編碼。每個類別將被分配一個整數編碼（從0開始）
+final_df['Type'] = final_df['Type'].astype('category').cat.codes
+
+# print 區失值統計
+# print(final_df.head())
+# print(final_df.isnull().sum())
+
+# 處理區失值
+final_df.fillna(0, inplace=True)
+
+
+# 刪除 IsHoliday_y, 將 IsHoliday_x 改為 IsHoliday
+final_df = final_df.drop('IsHoliday_y', axis=1)
+final_df = final_df.rename(columns={'IsHoliday_x': 'IsHoliday'})
+
+# 將結果存為 RetailDataAnalytics.csv
+final_df.to_csv('RetailDataAnalytics.csv', index=False)
+
+# 定義特徵變量和目標變量
+X = final_df.drop(['Weekly_Sales', 'Date'], axis=1)
+y = final_df['Weekly_Sales']
+
+# 劃分訓練集和測試集
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=5)
+
+# 建立決策樹回歸模型
+model = DecisionTreeRegressor(random_state=5)
+# 擬合模型
+model.fit(X_train, y_train)
+
+# 進行預測
+y_pred = model.predict(X_test)
+
+print(f"y_test={y_test.to_numpy()}")
+print(f"y_pred={y_pred}")
+
+# R平方係數
+r2 = r2_score(y_test, y_pred)
+print(f"R平方係數:{r2:.3f}")
+
+# y_test=[21376.88  2020.91  4372.62 ... 16527.55 37469.44   107.32]
+# y_pred=[1.680736e+04 1.787640e+03 4.751260e+03 ... 1.441381e+04 3.348333e+04
+#  2.557000e+01]
+# R平方係數:0.945
+```
+
+### 隨機森林樹-波士頓房價,鐵達尼號,Telco,收入分析
+決策樹簡單易懂,但資料若有變動常有不準的形況,隨機森林樹(Random Forest)是將一堆決策樹組織起來這樣可以獲得比較好的結果
+
+<div style="max-width:500px">
+  {% asset_img pic31.png pic31 %}
+</div>
+
+#### 波士頓房價 - 迴歸應用
+##### 簡單數據執行森林樹的應用
+``` py
+# 簡單數據執行隨機森林(迴歸應用)
+from sklearn.ensemble import RandomForestRegressor
+import numpy as np
+
+# 建立一個小型數據集
+X = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]])
+y = np.array([2, 4, 6, 8, 10, 12, 14, 16, 18, 20])
+
+# 建立森林隨機模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+estimators = 100
+rt = RandomForestRegressor(n_estimators=estimators, random_state=42)
+
+# 訓練模型
+rt.fit(X, y)
+
+#進行預測
+X_new = np.array([[5.5], [6.5], [7.5]])
+predictions = rt.predict(X_new)
+print(f"estimators = {estimators}")
+print(f"預測結果:{predictions}")
+
+# estimators = 100
+# 預測結果:[10.46 12.56 14.4 ]
+# estimators = 1000
+# 預測結果:[10.414 12.45  14.404]
+```
+
+##### 波士頓房價森林樹的應用
+得到比線性迴歸更好的R平方判定係數
+
+``` py
+from sklearn.ensemble import RandomForestRegressor
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score,mean_squared_error
+
+# boston data url : http://lib.stat.cmu.edu/datasets/boston
+boston = pd.read_csv("boston.csv", sep='\s+')
+
+X = boston.drop('MEDV', axis=1)
+y = boston['MEDV']
+
+# 分割測試數據與測試數據
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=1)
+
+
+# 建立森林隨機模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+rt = RandomForestRegressor(n_estimators=100, random_state=42)
+
+# 訓練模型
+rt.fit(X_train, y_train)
+
+#進行預測
+y_pred = rt.predict(X_test)
+
+# 計算評估指標
+r2 = r2_score(y_test, y_pred)
+print(f"R-squared : {r2:.3f}")
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error : {mse:.3f}")
+
+# R-squared : 0.914
+# Mean Squared Error : 8.523
+```
+
+#### 鐵達尼號 - 分類應用
+得到和決策樹相同的準確率
+``` py
+import seaborn as sns
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix,accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+# load 數據
+titanic_data = sns.load_dataset('titanic')
+# 選取有用特徵
+titanic_data = titanic_data[['survived','pclass','sex','age','sibsp',
+                 'parch','fare','embarked']]
+
+# print(titanic_data)
+# print(titanic_data['age'])
+# 年齡補上中位數年齡
+titanic_data['age'] = titanic_data['age'].fillna(titanic_data['age'].median())
+# 登船港口用眾位數取代缺失值
+# mode() 傳回的是一個包含眾數的 Series，因此需要取 [0] 來獲取第一個眾數
+titanic_data['embarked'] = titanic_data['embarked'].fillna(titanic_data['embarked'].mode()[0])
+
+# 對性別,登船港口 執行 on-hot 編碼
+# get_dummies 是 Pandas 中的一個函數，用於將分類變數轉換為一個或多個虛擬變數（dummy variables）。
+# 這些虛擬變數可以用於機器學習模型，因為大多數模型不能直接處理非數值型資料。
+titanic_data = pd.get_dummies(titanic_data, columns=['sex', 'embarked'])
+
+# 分割數據為訓練集及測試集
+X = titanic_data.drop('survived', axis=1)
+y = titanic_data['survived']
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=5)
+
+# 建立模型
+rf_classifier = RandomForestClassifier(random_state=5)
+rf_classifier.fit(X_train, y_train)
+# 進行預測
+y_pred = rf_classifier.predict(X_test)
+
+
+# print(titanic_data.head())
+
+# # 建立決策樹模型並進行訓練
+# dtc = DecisionTreeClassifier(random_state=5)
+# dtc.fit(X_train, y_train)
+
+# # 進行預測
+# y_pred = dtc.predict(X_test)
+
+# 預測結果比較
+print(f"測試的真實分類\n{y_test.to_numpy()}")
+print("-"*70)
+print(f"測試的目標分類\n{y_pred}")
+print("="*70)
+
+# 準確率
+print(f"準確率 : {accuracy_score(y_test, y_pred):.2f}")
+
+# 計算混淆矩陣並輸出
+# 測試準確對照表
+conf_mat = confusion_matrix(y_test, y_pred)
+print(f"混淆矩陣(Confusion Matix):\n{conf_mat}")
+print("-"*70)
+
+# 生成分類報告
+# 測試報告
+report = classification_report(y_test, y_pred)
+print(f"分類報告(Classification Report)\n{report}")
+
+# 測試的真實分類
+# [0 0 0 1 0 0 1 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1 1 1 0 0 1 1 0 0 0 1 1 1 1 1 0
+#  1 0 0 0 1 1 1 0 0 1 1 0 0 0 0 1 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0
+#  0 0 0 0 1 1 0 0 0 0 1 1 0 1 0 1 0 0 1 0 1 0 1 0 0 0 1 0 0 0 1 1 0 0 0 1 0
+#  0 0 1 1 1 1 1 1 1 1 1 0 1 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1
+#  0 1 1 0 0 0 0 0 1 0 0 0 0 1 0 0 1 0 1 0 0 0 1 0 1 1 0 0 0 1 0]
+# ----------------------------------------------------------------------
+# 測試的目標分類
+# [0 0 0 0 1 0 1 0 1 0 1 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 0 1 0 0 0 1 1 0 1 1 0
+#  0 0 0 0 1 0 0 0 0 1 1 1 0 0 1 1 0 0 0 1 0 0 1 0 1 0 0 1 0 0 0 1 0 1 0 1 0
+#  1 0 0 1 1 1 0 0 0 0 1 1 0 1 0 0 0 0 1 0 1 0 1 0 0 0 1 1 0 0 1 1 0 0 0 0 0
+#  0 0 0 1 1 1 0 1 0 0 1 1 1 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 1 0 1
+#  0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 1 1 0 0 0 1 1]
+# ======================================================================
+# 準確率 : 0.82
+# 混淆矩陣(Confusion Matix):
+# [[97 14]
+#  [18 50]]
+# ----------------------------------------------------------------------
+# 分類報告(Classification Report)
+#               precision    recall  f1-score   support
+#            0       0.84      0.87      0.86       111
+#            1       0.78      0.74      0.76        68
+#     accuracy                           0.82       179
+#    macro avg       0.81      0.80      0.81       179
+# weighted avg       0.82      0.82      0.82       179
+```
+
+#### Telco 客戶流失 - 分類應用
+準確率差一點點
+
+``` py
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+# from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+# 讀取數據
+df = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+# 選擇特及目標變數
+selected_features = ['Contract','tenure','OnlineSecurity',
+                     'InternetService','MonthlyCharges']
+target = 'Churn'
+
+# 標籤轉成數值
+for column in selected_features:
+    if df[column].dtype == 'object':
+        le = LabelEncoder()
+        df[column] = le.fit_transform(df[column])
+# 目標變數轉成數值
+labsel_encoder_target = LabelEncoder()
+df[target] = labsel_encoder_target.fit_transform(df[target])
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(df[selected_features], df[target], test_size=0.2, random_state=1)
+
+
+# 建立模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+# max_depth=5
+dtc = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=1)
+dtc.fit(X_train, y_train)
+# 進行預測
+y_pred = dtc.predict(X_test)
+
+# 準確率
+print(f"準確率 : {dtc.score(X_test, y_test)}")
+
+# 生成分類報告
+# 測試報告
+report = classification_report(y_test, y_pred)
+print(f"分類報告(Classification Report)\n{report}")
+
+# 準確率 : 0.8062455642299503
+# 分類報告(Classification Report)
+#               precision    recall  f1-score   support
+#            0       0.85      0.91      0.88      1061
+#            1       0.64      0.49      0.56       348
+#     accuracy                           0.81      1409
+#    macro avg       0.74      0.70      0.72      1409
+# weighted avg       0.79      0.81      0.80      1409
+```
+
+#### 美國成年人收入分析(kaggle) - 分類應用
+
+##### adult.csv 數據
+<div style="max-width:500px">
+  {% asset_img pic32.png pic32 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic33.png pic33 %}
+</div>
+
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+
+# 讀取 csv
+data = pd.read_csv('adult.csv')
+
+# 顯示所有 columns
+pd.set_option('display.max_columns', None)
+# 設定顯示每 row 長度
+pd.set_option('display.width', 300)
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+# show 檢查資料缺失
+# size 48842,max nan 2809
+# print(data.info())
+# print(data.isnull().sum())
+# 刪除包含缺失
+data = data.dropna()
+# show 檢查資料缺失
+# size 45222
+# print(data.info())
+# print(data.isnull().sum())
+# 列出前五筆
+print(data.head())
+print("-"*180)
+
+# 將類別轉成數字
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+print(data.head())
+
+#    age  workclass  fnlwgt     education  educational-num      marital-status         occupation   relationship   race gender  capital-gain  capital-loss  hours-per-week native-country income
+# 0   25    Private  226802          11th                7       Never-married  Machine-op-inspct      Own-child  Black   Male             0             0              40  United-States  <=50K
+# 1   38    Private   89814       HS-grad                9  Married-civ-spouse    Farming-fishing        Husband  White   Male             0             0              50  United-States  <=50K
+# 2   28  Local-gov  336951    Assoc-acdm               12  Married-civ-spouse    Protective-serv        Husband  White   Male             0             0              40  United-States   >50K
+# 3   44    Private  160323  Some-college               10  Married-civ-spouse  Machine-op-inspct        Husband  Black   Male          7688             0              40  United-States   >50K
+# 5   34    Private  198693          10th                6       Never-married      Other-service  Not-in-family  White   Male             0             0              30  United-States  <=50K
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#    age  workclass  fnlwgt  education  educational-num  marital-status  occupation  relationship  race  gender  capital-gain  capital-loss  hours-per-week  native-country  income
+# 0   25          2  226802          1                7               4           6             3     2       1             0             0              40              38       0
+# 1   38          2   89814         11                9               2           4             0     4       1             0             0              50              38       0
+# 2   28          1  336951          7               12               2          10             0     4       1             0             0              40              38       1
+# 3   44          2  160323         15               10               2           6             0     2       1          7688             0              40              38       1
+# 5   34          2  198693          0                6               4           7             1     4       1             0             0              30              38       0
+
+```
+
+##### 使用決策樹處理年收入預估
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# 讀取 csv
+data = pd.read_csv('adult.csv')
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+
+# 將類別轉成數字
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+
+# 特徵值及目標值
+X = data.drop('income', axis=1)
+y = data['income']
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 建立模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+# max_depth=5  深度設定
+dtc = RandomForestClassifier(random_state=5)
+dtc.fit(X_train, y_train)
+# 進行預測
+y_pred = dtc.predict(X_test)
+
+# 準確率
+print(f"準確率 : {accuracy_score(y_test, y_pred):.3f}")
+
+# 準確率 : 0.866
+```
+
+##### 特徵之重要性
+``` py
+# 特徵之重要性
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+
+# 讀取 csv
+data = pd.read_csv('adult.csv')
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+
+# 將類別轉成數字
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+
+# 特徵值及目標值
+X = data.drop('income', axis=1)
+y = data['income']
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 建立模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+# max_depth=5  深度設定
+dtc = RandomForestClassifier(random_state=5)
+dtc.fit(X_train, y_train)
+# 進行預測
+y_pred = dtc.predict(X_test)
+
+# 輸出特徵重要性
+importances = dtc.feature_importances_
+for feat, importance in zip(X.columns, importances):
+    print(f"特徵 : {feat:20s} 重要性 : {importance}" )
+
+feature_imp = pd.Series(dtc.feature_importances_,
+                index=X.columns).sort_values(ascending=False)
+feature_imp.plot(kind='bar')
+plt.show()
+
+# 特徵 : age                  重要性 : 0.14788601176311628
+# 特徵 : workclass            重要性 : 0.039373980352075864
+# 特徵 : fnlwgt               重要性 : 0.1767862474791546
+# 特徵 : education            重要性 : 0.03347647561822924
+# 特徵 : educational-num      重要性 : 0.08791872053411558
+# 特徵 : marital-status       重要性 : 0.07155425751264902
+# 特徵 : occupation           重要性 : 0.06447423433400915
+# 特徵 : relationship         重要性 : 0.09680354514661552
+# 特徵 : race                 重要性 : 0.014029502750118635
+# 特徵 : gender               重要性 : 0.01437132602637792
+# 特徵 : capital-gain         重要性 : 0.1133902372001231
+# 特徵 : capital-loss         重要性 : 0.03873718364115498
+# 特徵 : hours-per-week       重要性 : 0.08301042307861366
+# 特徵 : native-country       重要性 : 0.018187854563646542
+```
+
+<div style="max-width:500px">
+  {% asset_img pic34.png pic34 %}
+</div>
