@@ -2240,7 +2240,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
 # 讀取 csv
@@ -2260,13 +2260,10 @@ X = data.drop('income', axis=1)
 y = data['income']
 
 X_train, X_test, y_train, y_test = \
-    train_test_split(X, y, test_size=0.2, random_state=42)
+    train_test_split(X, y, test_size=0.2, random_state=5)
 
-# 建立模型
-# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
-#              但也同時增加訓練時間及模型的大小(default 100)
-# max_depth=5  深度設定
-dtc = RandomForestClassifier(random_state=5)
+# 建立決策樹模型並進行訓練
+dtc = DecisionTreeClassifier(random_state=5)
 dtc.fit(X_train, y_train)
 # 進行預測
 y_pred = dtc.predict(X_test)
@@ -2274,7 +2271,7 @@ y_pred = dtc.predict(X_test)
 # 準確率
 print(f"準確率 : {accuracy_score(y_test, y_pred):.3f}")
 
-# 準確率 : 0.866
+# 準確率 : 0.809
 ```
 
 ##### 特徵之重要性
@@ -2284,7 +2281,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 import matplotlib.pyplot as plt
 
 # 讀取 csv
@@ -2306,11 +2303,8 @@ y = data['income']
 X_train, X_test, y_train, y_test = \
     train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 建立模型
-# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
-#              但也同時增加訓練時間及模型的大小(default 100)
-# max_depth=5  深度設定
-dtc = RandomForestClassifier(random_state=5)
+# 建立決策樹模型並進行訓練
+dtc = DecisionTreeClassifier(random_state=5)
 dtc.fit(X_train, y_train)
 # 進行預測
 y_pred = dtc.predict(X_test)
@@ -2325,22 +2319,1162 @@ feature_imp = pd.Series(dtc.feature_importances_,
 feature_imp.plot(kind='bar')
 plt.show()
 
-# 特徵 : age                  重要性 : 0.14788601176311628
-# 特徵 : workclass            重要性 : 0.039373980352075864
-# 特徵 : fnlwgt               重要性 : 0.1767862474791546
-# 特徵 : education            重要性 : 0.03347647561822924
-# 特徵 : educational-num      重要性 : 0.08791872053411558
-# 特徵 : marital-status       重要性 : 0.07155425751264902
-# 特徵 : occupation           重要性 : 0.06447423433400915
-# 特徵 : relationship         重要性 : 0.09680354514661552
-# 特徵 : race                 重要性 : 0.014029502750118635
-# 特徵 : gender               重要性 : 0.01437132602637792
-# 特徵 : capital-gain         重要性 : 0.1133902372001231
-# 特徵 : capital-loss         重要性 : 0.03873718364115498
-# 特徵 : hours-per-week       重要性 : 0.08301042307861366
+# 特徵 : age                  重要性 : 0.11978703368273183
+# 特徵 : workclass            重要性 : 0.032764901917090215
+# 特徵 : fnlwgt               重要性 : 0.2056924305712409
+# 特徵 : education            重要性 : 0.0129702048255056
+# 特徵 : educational-num      重要性 : 0.11355184888333343
+# 特徵 : marital-status       重要性 : 0.006535999243215993
+# 特徵 : occupation           重要性 : 0.0539721412011748
+# 特徵 : relationship         重要性 : 0.1987225583756099
+# 特徵 : race                 重要性 : 0.013271473606213178
+# 特徵 : gender               重要性 : 0.0021772976656923393
+# 特徵 : capital-gain         重要性 : 0.11284501812585948
+# 特徵 : capital-loss         重要性 : 0.04032376245073732
+# 特徵 : hours-per-week       重要性 : 0.07132449271050804
+# 特徵 : native-country       重要性 : 0.0160608367410867
 # 特徵 : native-country       重要性 : 0.018187854563646542
 ```
 
 <div style="max-width:500px">
   {% asset_img pic34.png pic34 %}
 </div>
+
+##### 使用7個最重要特徵做決策樹處理年收入預估 - 並沒有比較好
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# 讀取 csv
+data = pd.read_csv('adult.csv')
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+
+# 將類別轉成數字
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+
+# 特徵值及目標值
+X = data.drop('income', axis=1)
+y = data['income']
+
+# 使用所有特徵訓練決策樹並計算特徵重要性
+dtc = DecisionTreeClassifier(random_state=5)
+dtc.fit(X, y)
+importances = dtc.feature_importances_
+features = X.columns
+
+# 獲得最重要7個特徵
+# p.argsort 取出由小到大 array's index
+indices = np.argsort(importances)[-7:]
+# top 7 features' name
+top_features = [features[i] for i in indices]
+
+X = data[top_features]
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=5)
+
+# 建立決策樹模型並進行訓練
+dtc = DecisionTreeClassifier(random_state=5)
+dtc.fit(X_train, y_train)
+# 進行預測
+y_pred = dtc.predict(X_test)
+
+# 準確率
+print(f"準確率 : {accuracy_score(y_test, y_pred):.3f}")
+
+# 準確率 : 0.803
+```
+
+##### 使用隨機森林處理收入預估 - 得到較準確結果
+``` py
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# 讀取 csv
+data = pd.read_csv('adult.csv')
+
+# 將 ? 轉成 np.nan
+data = data.replace('?', np.nan)
+
+# 將類別轉成數字
+le = LabelEncoder()
+categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
+for col in categorical_features:
+    data[col] = le.fit_transform(data[col])
+
+# 特徵值及目標值
+X = data.drop('income', axis=1)
+y = data['income']
+
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.2, random_state=5)
+
+# 建立模型
+# n_estimators 設計隨機森林有機棵樹,更多的樹可能會有更好的性能
+#              但也同時增加訓練時間及模型的大小(default 100)
+# max_depth=5  深度設定
+dtc = RandomForestClassifier(n_estimators=100, random_state=5)
+dtc.fit(X_train, y_train)
+# 進行預測
+y_pred = dtc.predict(X_test)
+
+# 準確率
+print(f"準確率 : {accuracy_score(y_test, y_pred):.3f}")
+
+# 準確率 : 0.854
+```
+
+### KNN 演算法 - 鳶尾花,小行星撞地球
+#### KNN(K-Nearest Neighbors K-最近鄰) 演算法基礎觀念
+
+<div style="max-width:500px">
+  {% asset_img pic35.png pic35 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic36.png pic36 %}
+</div>
+
+#### 電影推薦,足球射門 - 分類應用
+##### 簡單例子
+``` py
+# 簡單例子
+from sklearn.neighbors import KNeighborsClassifier
+
+X = [[0], [1], [2], [3]]
+y = [0, 0, 1, 1]
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X, y)
+
+x = 1.1
+print(f"x={x} 分類是  :{knn.predict([[x]])}")
+print(f"x={x} 分類機率:{knn.predict_proba([[x]])}")
+
+x = 1.6
+print(f"x={x} 分類是  :{knn.predict([[x]])}")
+print(f"x={x} 分類機率:{knn.predict_proba([[x]])}")
+
+# x=1.1 分類是  :[0]
+# x=1.1 分類機率:[[0.66666667 0.33333333]] - 0 的機率 0.66, 1 的機率 0.33
+# x=1.6 分類是  :[1]
+# x=1.6 分類機率:[[0.33333333 0.66666667]] - 3 的機率 0.33, 1 的機率 0.66
+```
+
+##### 電影推薦
+``` py
+# 喜好電影預測
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+# 電影數據(韓兩個特徵)
+movies = np.array([
+    [8, 7],     # 動作片
+    [9, 8],     # 動作片
+    [10, 9],    # 動作片
+    [7, 6],     # 動作片
+    [1, 2],     # 喜劇片
+    [2, 1],     # 喜劇片
+    [3, 4]     # 喜劇片
+])
+
+# 電影類型(0:動作片,1:喜劇片)
+lables = np.array([0, 0, 0, 0, 1, 1, 1])
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(movies, lables)
+
+# Kwei 喜好電影類型-特徵 [6, 7]
+kwei_movie = np.array([6, 7]).reshape(1,-1)
+
+# 預測 Kwei 電影類型
+prediction = knn.predict(kwei_movie)
+
+if prediction == 0:
+    print("推薦 Kwei 動作片")
+else:
+    print("推薦 Kwei 喜劇片")
+
+# 推薦 Kwei 動作片
+```
+
+``` py
+# 喜好電影預測
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+# 電影數據(韓兩個特徵)
+movies = np.array([
+    [8, 7],     # 動作片
+    [9, 8],     # 動作片
+    [10, 9],    # 動作片
+    [7, 6],     # 動作片
+    [1, 2],     # 喜劇片
+    [2, 1],     # 喜劇片
+    [3, 4]     # 喜劇片
+])
+
+# 電影類型(0:動作片,1:喜劇片)
+lables = np.array([0, 0, 0, 0, 1, 1, 1])
+
+# 電影名稱
+movie_names = np.array([
+    "Mission Impossible",
+    "搶救雷恩大兵",
+    "玩命關頭",
+    "雷神索爾",
+    "真善美",
+    "愛情停損點",
+    "雙手的溫柔"
+])
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(movies, lables)
+
+# Kwei 喜好電影類型-特徵 [8, 7]
+kwei_movie = np.array([8, 7]).reshape(1,-1)
+
+# 找出與 Kwei 電影喜好,最接近3部電影
+distences, indices = knn.kneighbors(kwei_movie)
+print(f"最接近喜好的距離: {distences}")
+print(f"最接近喜好的索引: {indices}")
+print("="*70)
+
+# 多維陣列轉成list
+index = indices.flatten()
+print(index)
+
+# 列出 Kwel 喜好最接近3部電影
+print("列出 Kwel 喜好最接近3部電影")
+for i in index:
+    print(f"{movie_names[i]} {movies[i]}")
+
+# 最接近喜好的距離: [[0.         1.41421356 1.41421356]]
+# 最接近喜好的索引: [[0 1 3]]
+# ======================================================================
+# [0 1 3]
+# 列出 Kwel 喜好最接近3部電影
+# Mission Impossible [8 7]
+# 搶救雷恩大兵 [9 8]
+# 雷神索爾 [7 6]
+```
+
+##### 足球進球分析
+``` py
+# 足球進球分析
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+# distance 距離, angle 角度, goal 1=進球
+distance = [10, 20, 10, 30, 20, 30, 15, 25, 20, 15]
+angle = [30, 45, 60, 30, 60, 75, 45, 60, 70, 90]
+goal = [1, 1, 0, 1, 0, 0, 1, 0, 0, 1]
+
+# 整理數據
+# 1D array 合成 2D array
+X = np.column_stack((distance, angle))
+y = np.array(goal)
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X, y)
+
+# 輸入球員數據
+new_distance = float(input("輸入射門距離(公尺):"))
+new_angle = float(input("輸入射門角度:"))
+new_player = np.array([[new_distance, new_angle]])
+
+# 預測是否能進球
+prediction = knn.predict(new_player)
+prediction_proba = knn.predict_proba(new_player)
+
+# 輸出結果
+print(f"是否進球(0沒進,1進球):{prediction}")
+print(f"不進球機率: {prediction_proba[0][0]:.3f}")
+print(f"進球  機率: {prediction_proba[0][1]:.3f}")
+
+# 輸入射門距離(公尺):36
+# 輸入射門角度:63
+# 是否進球(0沒進,1進球):[0]
+# 不進球機率: 1.000
+# 進球  機率: 0.000
+#
+# 輸入射門距離(公尺):35
+# 輸入射門角度:48
+# 是否進球(0沒進,1進球):[1]
+# 不進球機率: 0.333
+# 進球  機率: 0.667
+```
+
+##### 繪製分類決策邊界(ecision Boundary)
+###### 線性回歸數據集-繪製散點圖
+``` py
+from sklearn.datasets import make_blobs
+import matplotlib.pyplot as plt
+
+# make_blobs 是 Scikit-learn 庫中用於生成合成數據集的函數
+# 這個函數主要用於創建聚類算法的測試數據集
+# 主要參數和返回值
+#   n_samples: 要生成的樣本數。
+#   centers: 簇的中心數量或具體坐標。如果是整數，則隨機生成指定數量的簇中心；如果是數組，則使用提供的坐標作為簇中心。
+#   n_features: 每個樣本的特徵數。即每個數據點的維度。
+#   cluster_std: 每個簇的標準差。可設置單一值或數組，數組時可為每個簇指定不同的標準差。
+#   random_state: 用於確保生成的數據集的一致性，方便重現結果。
+# 返回值
+#   X: 包含數據點的數組，每行是一個數據點。
+#   y: 每個數據點所屬簇的標籤數組。
+# 生成數據
+X, y = make_blobs(n_samples=200, centers=2, random_state=8)
+
+# print(f"X={X}")
+# print(f"y={y}")
+# 顯示散點圖
+plt.scatter(X[:,0], X[:,1], c=y, edgecolor='b')
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic37.png pic37 %}
+</div>
+
+###### 繪製分類邊界
+``` py
+from sklearn.datasets import make_blobs
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 生成數據
+X, y = make_blobs(n_samples=200, centers=2, random_state=8)
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+k = 3
+knn = KNeighborsClassifier(n_neighbors = k)
+knn.fit(X, y)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 1, X[:,0].max() + 1
+y_min, y_max = X[:,1].min() - 1, X[:,1].max() + 1
+
+# 產生所有平面座標(這些陣列是二維的)
+# xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+#                      np.arange(y_min, y_max, 0.01))
+# more quickly
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                     np.arange(y_min, y_max, 0.1))
+
+print(f"xx = {xx}")
+print(f"yy = {yy}")
+
+# ravel() 方法將二維陣列壓平成一維陣列
+# np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+print(f"np.c_[] = {np.c_[xx.ravel(), yy.ravel()]}")
+print(f"Z = {Z}")
+# Z 的 shape same as xx
+Z = Z.reshape(xx.shape)
+print(xx.shape)
+print(f"Z(reshape) = {Z}")
+
+# 繪製等高線圖（Filled Contour Plot）
+# plt.contourf 會填充等高線之間的區域，形成帶有顏色的圖像，這些顏色對應於不同的數值範圍。
+# 使用方法
+# plt.contourf 的基本用法是將網格點的座標和對應的數值數據傳遞給它，然後它會繪製出填充的等高線。
+# 參數
+# X, Y:
+#   這些是網格的橫坐標和縱坐標數組。通常由 np.meshgrid 生成。
+# Z:
+#   這是對應於網格點的數值數據，用於確定等高線的位置。Z 的形狀應該與 X 和 Y 的形狀相同。
+# levels（可選）:
+#   指定等高線的數量或其具體值。若未指定，Matplotlib 會自動選擇適當的等高線數量和間距。
+# cmap（可選）:
+#   這個參數指定色彩地圖（colormap），決定不同數值範圍對應的顏色。預設情況下會使用 Matplotlib 的預設色彩地圖。
+# alpha（可選）:
+#   透明度，數值範圍為 0 到 1。alpha=0.3 代表圖形有 30% 的透明度。
+plt.contourf(xx, yy, Z, alpha=0.3)
+
+# plt.contour 繪製等高線但不填充
+# plt.contour(xx, yy, Z, alpha=0.3)
+
+# 顯示散點圖
+plt.scatter(X[:,0], X[:,1], c=y, edgecolor='b')
+
+plt.show()
+
+# xx = [[ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]
+#  [ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]
+#  [ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]
+#  ...
+#  [ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]
+#  [ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]
+#  [ 3.33366829  3.43366829  3.53366829 ... 10.73366829 10.83366829
+#   10.93366829]]
+# yy = [[-2.89105765 -2.89105765 -2.89105765 ... -2.89105765 -2.89105765
+#   -2.89105765]
+#  [-2.79105765 -2.79105765 -2.79105765 ... -2.79105765 -2.79105765
+#   -2.79105765]
+#  [-2.69105765 -2.69105765 -2.69105765 ... -2.69105765 -2.69105765
+#   -2.69105765]
+#  ...
+#  [12.80894235 12.80894235 12.80894235 ... 12.80894235 12.80894235
+#   12.80894235]
+#  [12.90894235 12.90894235 12.90894235 ... 12.90894235 12.90894235
+#   12.90894235]
+#  [13.00894235 13.00894235 13.00894235 ... 13.00894235 13.00894235
+#   13.00894235]]
+# np.c_[] = [[ 3.33366829 -2.89105765]
+#  [ 3.43366829 -2.89105765]
+#  [ 3.53366829 -2.89105765]
+#  ...
+#  [10.73366829 13.00894235]
+#  [10.83366829 13.00894235]
+#  [10.93366829 13.00894235]]
+# Z = [1 1 1 ... 0 0 0]
+# (160, 77)
+# Z(reshape) = [[1 1 1 ... 1 1 1]
+#  [1 1 1 ... 1 1 1]
+#  [1 1 1 ... 1 1 1]
+#  ...
+#  [0 0 0 ... 0 0 0]
+#  [0 0 0 ... 0 0 0]
+#  [0 0 0 ... 0 0 0]]
+```
+
+<div style="max-width:500px">
+  {% asset_img pic38.png pic38 %}
+</div>
+
+###### 繪製分類邊界 - 調整隨機種子及k值
+- k=1 會造成決策邊界對於異常值,錯誤標記值非常敏感
+- k值放到很大時,會有欠擬合的問題
+- KNN 演算法關鍵點就是找到k值,可以獲得最好的分類
+- 欠擬合
+	- 低測試準確率
+	- 改進:調整 K 值,增加特徵,減少噪音(對數據進行清理和預處理),使用更複雜的模型
+
+``` py
+from sklearn.datasets import make_blobs
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 生成數據
+X, y = make_blobs(n_samples=200, centers=2, random_state=30)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 1, X[:,0].max() + 1
+y_min, y_max = X[:,1].min() - 1, X[:,1].max() + 1
+
+# 產生所有平面座標(這些陣列是二維的)
+# xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+#                      np.arange(y_min, y_max, 0.01))
+# more quickly
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                     np.arange(y_min, y_max, 0.1))
+
+k_values = [1, 3, 5, 7]
+
+# 建立四個子圖
+fig, axs = plt.subplots(2, 2, figsize=(10,10))
+
+for k, ax in zip(k_values, axs.ravel()):
+    # 建立模型,進行訓練
+    knn = KNeighborsClassifier(n_neighbors = k)
+    knn.fit(X, y)
+
+    # ravel() 方法將二維陣列壓平成一維陣列
+    # np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+    Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+    # Z 的 shape same as xx
+    Z = Z.reshape(xx.shape)
+
+    # 繪製等高線圖
+    ax.contourf(xx, yy, Z, alpha=0.3)
+
+    # 顯示散點圖
+    ax.scatter(X[:,0], X[:,1], c=y, edgecolor='b')
+    ax.set_title(f"KNN, random_state=30, k={k}")
+
+k_values = [5, 7, 29, 49]
+
+# 建立四個子圖
+fig, axs = plt.subplots(2, 2, figsize=(10,10))
+
+for k, ax in zip(k_values, axs.ravel()):
+    # 建立模型,進行訓練
+    knn = KNeighborsClassifier(n_neighbors = k)
+    knn.fit(X, y)
+
+    # ravel() 方法將二維陣列壓平成一維陣列
+    # np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+    Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+    # Z 的 shape same as xx
+    Z = Z.reshape(xx.shape)
+
+    # 繪製等高線圖
+    ax.contourf(xx, yy, Z, alpha=0.3)
+
+    # 顯示散點圖
+    ax.scatter(X[:,0], X[:,1], c=y, edgecolor='b')
+    ax.set_title(f"KNN, random_state=30, k={k}")
+
+# 調整子圖距離
+plt.subplots_adjust(wspace=0.2, hspace=0.4)
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic39.png pic39 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic40.png pic40 %}
+</div>
+
+###### 多類分析
+錯誤原因應該是資料重疊,分成4類應較為適當
+
+``` py
+from sklearn.datasets import make_blobs
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+import numpy as np
+
+# 生成數據
+X, y = make_blobs(n_samples=500, centers=5, random_state=8)
+
+# 建立模型,進行訓練
+# n_neighbors=3 取最近 3 點
+k = 3
+knn = KNeighborsClassifier(n_neighbors = k)
+knn.fit(X, y)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 1, X[:,0].max() + 1
+y_min, y_max = X[:,1].min() - 1, X[:,1].max() + 1
+
+# 產生所有平面座標(這些陣列是二維的)
+# xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+#                      np.arange(y_min, y_max, 0.01))
+# more quickly
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                     np.arange(y_min, y_max, 0.1))
+
+# ravel() 方法將二維陣列壓平成一維陣列
+# np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+# Z 的 shape same as xx
+Z = Z.reshape(xx.shape)
+
+# 繪製等高線圖（Filled Contour Plot）
+plt.contourf(xx, yy, Z, alpha=0.3)
+
+# 顯示散點圖
+plt.scatter(X[:,0], X[:,1], c=y, edgecolor='b')
+
+# 顯示準確度
+y_pred = knn.predict(X)
+accuracy = accuracy_score(y, y_pred)
+print(f"準確率 : {accuracy}")
+
+plt.show()
+
+# 準確率 : 0.952
+```
+
+<div style="max-width:500px">
+  {% asset_img pic41.png pic41 %}
+</div>
+
+#### 房價計算,選舉準備香腸 - 迴歸應用
+##### KNN迴歸應用 - 簡單實例
+``` py
+# KNN迴歸應用 - 簡單實例
+from sklearn.neighbors import KNeighborsRegressor
+
+X = [[0] ,[1] ,[2], [3]]
+y = [0, 0, 1, 2]
+
+knn = KNeighborsRegressor(n_neighbors=2)
+knn.fit(X, y)
+
+x = 1.5
+print(f'x = {x} --> {knn.predict([[x]])}')
+x = 2.5
+print(f'x = {x} --> {knn.predict([[x]])}')
+
+# x = 1.5 --> [0.5]
+# x = 2.5 --> [1.5]
+```
+
+##### KNN迴歸應用 - 房價預估
+``` py
+# KNN迴歸應用 - 房價預估
+from sklearn.neighbors import KNeighborsRegressor
+import numpy as np
+
+# 訓練數據(坪)
+X_train = np.array([50, 80, 120, 150, 200, 250, 300]).reshape(-1, 1)
+# 目標數值(價格萬元)
+y_train = np.array([180, 280, 360, 420, 580, 720, 850])
+
+# 建立模型 k=3, 擬合模型
+knn = KNeighborsRegressor(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+# 預測新的房子價格
+X_new = np.array([110]).reshape(-1, 1)
+y_pred = knn.predict(X_new)
+
+# 輸出結果
+print(f"{X_new[0,0]}坪的房子預估價格為 {y_pred[0]:.2f} 萬元")
+
+# 110坪的房子預估價格為 353.33 萬元
+```
+
+``` py
+# KNN迴歸應用 - 房價預估2
+from sklearn.neighbors import KNeighborsRegressor
+import numpy as np
+
+# 訓練數據(坪)
+X_train = np.array([[50,15], [80,10], [120,5], [150,3],
+                    [200,2], [250,1], [300,0.5]])
+# 目標數值(價格萬元)
+y_train = np.array([180, 280, 360, 420, 580, 720, 850])
+
+# 建立模型 k=3, 擬合模型
+knn = KNeighborsRegressor(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+# 預測新的房子價格
+X_new = np.array([[180, 7]])
+y_pred = knn.predict(X_new)
+
+# 輸出結果
+print(f"{X_new[0,0]}坪 {X_new[0,1]}年的房子預估價格為 {y_pred[0]:.2f} 萬元")
+
+# 180坪 7年的房子預估價格為 453.33 萬元
+```
+
+##### 選舉造勢與準備烤香腸數量
+
+<div style="max-width:500px">
+  {% asset_img pic42.png pic42 %}
+</div>
+
+``` py
+# 造勢烤香腸預估
+from sklearn.neighbors import KNeighborsRegressor
+import numpy as np
+
+# 訓練數據
+X_train = np.array([[0, 3, 3], [2, 4, 3], [2, 5, 6], [1, 4, 2],
+                    [2, 3, 1], [1, 5, 4], [0, 1, 1], [2, 4, 3],
+                    [2, 2, 4], [1, 3, 5], [1, 5, 5], [2, 5, 1]])
+# 目標數值
+y_train = np.array([100, 250, 350, 180, 170, 300, 50,
+                    275, 230, 165, 320, 210])
+
+# 建立模型 k=5, 擬合模型
+knn = KNeighborsRegressor(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+# 預測準備香腸數
+X_new = np.array([[1, 5, 2]])
+y_pred = knn.predict(X_new)
+
+# 輸出結果
+print(f"應該準備 {int(y_pred[0])} 條香腸")
+
+# 應該準備 243 條香腸
+```
+
+##### KKK 模型回歸線分析
+###### 繪製散點圖
+``` py
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_regression
+
+# 生成線性數據
+# make_regression 用於生成合成線性回歸數據集的函數
+# 主要參數
+#   n_samples（樣本數量）：指定要生成的數據點數量。默認值為 100。
+#   n_features（特徵數量）：每個數據點的特徵數量。在回歸問題中，這表示自變量的個數。
+#   n_informative（有用特徵數量）：對於回歸任務有實際影響的特徵數量。默認值是 n_features。
+#   noise（噪聲）：目標變量中添加的高斯噪聲的標準差。這個參數用來模擬數據中的隨機誤差或不確定性。
+#   random_state（隨機種子）：用於控制生成數據集的隨機性。設置這個值可以保證每次生成相同的數據集，方便結果重現。
+# 返回值
+#   X：生成的特徵數據集，是一個形狀為 (n_samples, n_features) 的二維數組。
+#   y：對應的目標變量，是一個形狀為 (n_samples,) 的一維數組。
+X, y = make_regression(n_features=1, noise=20, random_state=10)
+
+plt.scatter(X, y, c='y', edgecolors='b')
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic43.png pic43 %}
+</div>
+
+###### 繪製KNN迴歸曲線
+設定k值 2,3,4,5 同時計算 R平方判定係數,得到最好模型的k值
+``` py
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_regression
+from sklearn.neighbors import KNeighborsRegressor
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 生成線性數據
+X, y = make_regression(n_features=1, noise=20, random_state=10)
+
+# 建立 X 區間含 300 點
+xx = np.linspace(X.min(), X.max(), 300).reshape(-1, 1)
+
+k_values = [2, 3, 4, 5]
+fig, axs = plt.subplots(2, 2, figsize=(10,10))
+
+for k, ax in zip(k_values, axs.ravel()):
+    # 建立模型, 擬合模型
+    knn = KNeighborsRegressor(n_neighbors=k)
+    knn.fit(X, y)
+
+    # 計算平方係數
+    r2 = knn.score(X, y)
+    print(f"k = {k}, R平方係數: {r2:.3f}")
+
+    # 繪製迴歸線
+    yy = knn.predict(xx)
+    ax.plot(xx, yy)
+
+    # 繪製散點圖
+    ax.scatter(X, y, c='y', edgecolors='b')
+    ax.set_title(f"KNN-Regression k={k} R 平方係數={r2:.3f}")
+
+# 調整子圖間距
+plt.subplots_adjust(wspace=0.2, hspace=0.2)
+plt.show()
+
+# k = 2, R平方係數: 0.871(最好模型)
+# k = 3, R平方係數: 0.838
+# k = 4, R平方係數: 0.800
+# k = 5, R平方係數: 0.788
+```
+
+<div style="max-width:500px">
+  {% asset_img pic44.png pic44 %}
+</div>
+
+#### 鳶尾花數據-分類應用
+##### 鳶尾花數據內容
+<div style="max-width:500px">
+  {% asset_img pic45.png pic45 %}
+</div>
+
+##### 輸出數據集
+<div style="max-width:500px">
+  {% asset_img pic46.png pic46 %}
+</div>
+
+``` py
+from sklearn import datasets
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+print(f"自變數  樣本外形 : {iris.data.shape}")
+print(f"目標變數樣本外形 : {iris.target.shape}")
+
+# 特徵名稱
+print(f"特徵名稱\n {iris.feature_names}")
+
+# 描述特徵名稱
+print(f"描述特徵名稱\n {iris.DESCR}")
+
+# 自變數  樣本外形 : (150, 4)
+# 目標變數樣本外形 : (150,)
+# 特徵名稱
+#  ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+# 描述特徵名稱
+#  .. _iris_dataset:
+```
+
+##### 用 Pandas 顯示鳶尾花數據
+``` py
+# pandas 顯示鳶尾花數據
+from sklearn import datasets
+import pandas as pd
+
+# 顯示所有 columns
+pd.set_option('display.max_columns', None)
+# 設定顯示每 row 長度
+pd.set_option('display.width', 200)
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+
+print(df.head())
+
+# 轉鳶尾花數據為標籤
+df['species'] = df['species'].map({0:'setosa', 1:'versicolor', 2:'virginica'})
+print(df.head())
+print(df.groupby('species').size())
+
+#    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  species
+# 0                5.1               3.5                1.4               0.2        0
+# 1                4.9               3.0                1.4               0.2        0
+# 2                4.7               3.2                1.3               0.2        0
+# 3                4.6               3.1                1.5               0.2        0
+# 4                5.0               3.6                1.4               0.2        0
+#    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm) species
+# 0                5.1               3.5                1.4               0.2  setosa
+# 1                4.9               3.0                1.4               0.2  setosa
+# 2                4.7               3.2                1.3               0.2  setosa
+# 3                4.6               3.1                1.5               0.2  setosa
+# 4                5.0               3.6                1.4               0.2  setosa
+# species
+# setosa        50
+# versicolor    50
+# virginica     50
+# dtype: int64
+```
+
+##### 繪製特徵散點圖
+``` py
+from sklearn import datasets
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+
+# 將數據轉成 DataFrame format
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+
+# 轉鳶尾花數據為標籤
+df['species'] = df['species'].map({0:'setosa', 1:'versicolor', 2:'virginica'})
+
+#  windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# seaborn 是一個基於 matplotlib 的 Python 資料視覺化庫，旨在提供更高層次的界面來繪製統計圖表。
+# sns.scatterplot() 特別用於繪製散點圖，其主要目的是展示兩個變量之間的關係或分佈情況。每個數據點在圖上對應於資料集中一組特定的 x 和 y 座標值。
+# 主要參數說明
+#     x 和 y: 定義散點圖的 X 軸和 Y 軸資料。這些資料可以是資料框（DataFrame）中的列名，指定要繪製的變量。
+#     data: 資料來源，通常是一個 pandas 資料框（DataFrame）。這個參數指定了要繪製圖表的數據集合。
+#     hue: 用於根據某一類別變量的值對數據點進行著色，以便在圖中視覺上區分不同的組別。
+#     style: 根據某一類別變量的值改變數據點的形狀，以區分不同的類別。
+#     size: 根據某一數值變量的大小改變數據點的大小。
+#     palette: 定義數據點顏色的調色板，可以是內置的顏色列表或自定義顏色列表。
+#     markers: 設置不同組別的數據點標記樣式，可以指定具體的標記形狀。
+#     alpha: 控制數據點的透明度，取值範圍為 0 到 1，0 為完全透明，1 為完全不透明。
+# 傘點圖
+sns.scatterplot(data=df, x='sepal length (cm)', y = 'sepal width (cm)', style='species', hue='species')
+plt.title("花萼長度(sepal length) vs 花萼寬度(sepal width)")
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic47.png pic47 %}
+</div>
+
+#####  繪製成對數據特徵散點圖
+``` py
+# 設計機器學習模型,繪製所有變數的散點圖,也是認識數據特徵的好方法
+from sklearn import datasets
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+
+# 將數據轉成 DataFrame format
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+
+# 轉鳶尾花數據為標籤
+df['species'] = df['species'].map({0:'setosa', 1:'versicolor', 2:'virginica'})
+
+# sns.pairplot() 主要用於資料探索（exploratory data analysis, EDA），
+# 可以幫助分析師快速了解數據中的變量之間的關係、數據的分佈情況和潛在的相關性。
+# 主要參數說明
+#   data: 指定要繪製的資料框（DataFrame），這是必須提供的參數。
+#   hue: 用於設置根據某個類別變量對數據點進行顏色區分。例如，可以使用顏色來區分不同的類別標籤。
+#   vars: 指定要包括在圖中的變量列表。如果未指定，將使用資料框中的所有數值變量。
+#   kind: 指定對角線上的圖形類型，可以是 "scatter"（散點圖）、"kde"（核密度估計）或 "hist"（直方圖）。默認為 "scatter"。
+#   diag_kind: 指定對角線上的圖形類型，可以是 "auto"、"hist"（直方圖）或 "kde"（核密度估計）。默認為 "auto"，
+#               這意味著 hue 變量是類別變量時顯示直方圖，否則顯示核密度估計。
+#   palette: 設定調色盤，用於設置不同類別的顏色。
+#   markers: 用於指定不同類別的數據點標記樣式。
+#   plot_kws: 提供其他繪圖參數，這些參數會傳遞給底層的 seaborn 繪圖函數。
+# 使用 pairplot 繪製 sepal length(花萼長度) 和 petal length(花瓣長度) 兩個特徵的圖形
+# 繪兩個特徵
+sns.pairplot(df, vars=['sepal length (cm)', 'petal length (cm)'], hue='species')
+# 繪所有個特徵
+sns.pairplot(df, hue='species')
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic48.png pic48 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic49.png pic49 %}
+</div>
+
+#####  繪製鳶尾花決策邊界
+``` py
+from sklearn import datasets
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+#  windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+print()
+X = iris.data[: , :2]
+y = iris.target
+
+# 建立模型,進行訓練
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X, y)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 1, X[:,0].max() + 1
+y_min, y_max = X[:,1].min() - 1, X[:,1].max() + 1
+
+# 產生所有平面座標
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                     np.arange(y_min, y_max, 0.1))
+
+# 將 xx, yy 先扁平化再組成二維陣列,然後預估分類
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.3)
+
+# 顯示散點圖
+scatter = plt.scatter(X[:,0], X[:,1], c=y, edgecolors='b')
+
+# 增加圖例
+handle, labels = scatter.legend_elements()
+plt.legend(handle, iris.target_names, title='鳶尾花品種')
+
+plt.title('KNN for 鳶尾花Iris, k=1')
+plt.xlabel('花萼長度sepal length')
+plt.ylabel('花萼寬度sepal width')
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic50.png pic50 %}
+</div>
+
+#####  繪製鳶尾花決策邊界(不同k值)
+``` py
+from sklearn import datasets
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+#  windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+X = iris.data[: , :2]
+y = iris.target
+
+# 建立模型,進行訓練
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X, y)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 1, X[:,0].max() + 1
+y_min, y_max = X[:,1].min() - 1, X[:,1].max() + 1
+
+# 產生所有平面座標
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+                     np.arange(y_min, y_max, 0.01))
+
+fig, axs = plt.subplots(2, 2, figsize=(10,10))
+k_values = [3, 5, 19, 49]
+
+for k, ax in zip(k_values, axs.ravel()):
+    # 將 xx, yy 先扁平化再組成二維陣列,然後預估分類
+    Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    ax.contourf(xx, yy, Z, alpha=0.3)
+
+    # 顯示散點圖
+    scatter = ax.scatter(X[:,0], X[:,1], c=y, edgecolors='b')
+
+    # 增加圖例
+    handle, labels = scatter.legend_elements()
+    ax.legend(handle, iris.target_names, title='鳶尾花品種')
+
+    ax.set_title(f'KNN for 鳶尾花Iris, k={k}')
+    ax.set_xlabel('花萼長度sepal length')
+    ax.set_ylabel('花萼寬度sepal width')
+
+plt.subplots_adjust(wspace=0.2, hspace=0.2)
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic51.png pic51 %}
+</div>
+
+##### 計算最優k值
+k<43 有較好的準確度
+``` py
+# 計算最優k值 (k<43 有較好的準確度)
+from sklearn import datasets
+# import pandas as pd
+import matplotlib.pyplot as plt
+# import seaborn as sns
+from sklearn.neighbors import KNeighborsClassifier
+# import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+#  windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+
+# load 鳶尾花數據
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+# 分割訓練集和測試集
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                    test_size=0.1, random_state=42)
+
+# 設定所有準確度列表
+accuracy_scores = []
+
+k_values = list(range(1, 100, 2))
+for k in k_values:
+    # 建立模型,進行訓練
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+
+    y_pred = knn.predict(X_test)
+    # 計算準確度
+    accuracy = accuracy_score(y_test, y_pred)
+    accuracy_scores.append(accuracy)
+    print(f'k={k}, 準確度: {accuracy:.3f}')
+
+# 繪製圖表
+plt.figure()
+plt.plot(k_values, accuracy_scores, marker='o')
+plt.title('鳶尾花預估準確值 vs k值')
+plt.xlabel('k 值')
+plt.ylabel('準確度')
+plt.grid(True)
+plt.show()
+
+# k=1, 準確度: 1.000
+# k=3, 準確度: 1.000
+# k=5, 準確度: 1.000
+# k=7, 準確度: 0.933
+# k=9, 準確度: 1.000
+# k=11, 準確度: 1.000
+# k=13, 準確度: 1.000
+# k=15, 準確度: 1.000
+# k=17, 準確度: 1.000
+# k=19, 準確度: 1.000
+# k=21, 準確度: 1.000
+# k=23, 準確度: 1.000
+# k=25, 準確度: 1.000
+# k=27, 準確度: 1.000
+# k=29, 準確度: 1.000
+# k=31, 準確度: 1.000
+# k=33, 準確度: 1.000
+# k=35, 準確度: 1.000
+# k=37, 準確度: 1.000
+# k=39, 準確度: 1.000
+# k=41, 準確度: 1.000
+# k=43, 準確度: 1.000
+# k=45, 準確度: 0.933
+# k=47, 準確度: 0.933
+# k=49, 準確度: 0.933
+# k=51, 準確度: 1.000
+# k=53, 準確度: 1.000
+# k=55, 準確度: 1.000
+# k=57, 準確度: 0.933
+# k=59, 準確度: 0.933
+# k=61, 準確度: 0.933
+# k=63, 準確度: 0.933
+# k=65, 準確度: 0.933
+# k=67, 準確度: 0.933
+# k=69, 準確度: 0.933
+# k=71, 準確度: 0.933
+# k=73, 準確度: 0.933
+# k=75, 準確度: 0.933
+# k=77, 準確度: 0.933
+# k=79, 準確度: 0.933
+# k=81, 準確度: 0.933
+# k=83, 準確度: 0.933
+# k=85, 準確度: 0.933
+# k=87, 準確度: 0.933
+# k=89, 準確度: 0.733
+# k=91, 準確度: 0.733
+# k=93, 準確度: 0.733
+# k=95, 準確度: 0.733
+# k=97, 準確度: 0.733
+# k=99, 準確度: 0.733
+```
+
+<div style="max-width:500px">
+  {% asset_img pic52.png pic52 %}
+</div>
+
+#### 小行星撞地球-分類應用
+##### Kaggle NANA ASteroids Classification 數據
+

@@ -19,11 +19,17 @@ pip install seaborn
 #### 直方圖
 {% post_link python-28 '# 使用 numpy binomial 產生業務分析資料繪圖' %}
 
-#### kdeplot 繪製常態分佈曲線非常方便
+#### 常態分佈曲線
 {% post_link python-28 '# normal()' %}
 
 #### 箱型圖
 {% post_link python-33 '# 特徵箱形圖' %}
+
+#### 散點圖
+{% post_link python-33 '# 繪製特徵散點圖' %}
+
+#### 成對數據特徵散點圖
+{% post_link python-33 '# 繪製成對數據特徵散點圖' %}
 
 #### 熱圖
 {% post_link python-33 '# 繪製皮爾遜相關係數熱圖' %}

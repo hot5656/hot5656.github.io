@@ -14,7 +14,7 @@ tags:
 </div>
 
 <!--more-->
-### 說明
+### some special
 #### array create, show information and modify shape
 ``` py
 # array create, show information and modify shape
@@ -292,7 +292,41 @@ print(np.sort(b, axis=1))
 X = np.array([50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150])
 
 # X 改為二維
+# -1 表示自動計算行數，而 1 表示每一列中只有一個元素。
+# 也就是說，這行代碼將 X 轉換成一個多行、單列的陣列或矩陣。
 X = X.reshape(-1, 1)
+```
+
+#### 多維陣列轉成list
+``` py
+index = indices.flatten()
+print(index)
+
+# 最接近喜好的索引: [[0 1 3]]
+# [0 1 3]
+```
+
+#### 1D array 合成 2D array
+``` py
+distance = [10, 20, 10, 30, 20, 30, 15, 25, 20, 15]
+angle = [30, 45, 60, 30, 60, 75, 45, 60, 70, 90]
+
+# 1D array 合成 2D array
+X = np.column_stack((distance, angle))
+```
+
+#### ravel() - 將二維陣列壓平成一維陣列
+``` py
+# ravel() 方法將二維陣列壓平成一維陣列
+# np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+```
+
+#### np.c_ - 按列合併多個一維陣列，生成一個新的二維陣
+``` py
+# ravel() 方法將二維陣列壓平成一維陣列
+# np.c_ 按列合併多個一維陣列，生成一個新的二維陣
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
 ```
 
 ### function
@@ -567,6 +601,9 @@ print("二維陣列重新排列")
 np.random.shuffle(arr2)
 print(arr2)
 
+# Z 的 shape same as xx
+Z = Z.reshape(xx.shape)
+
 # 一維陣列
 # [0 1 2 3 4 5 6 7 8]
 # 一維陣列重新排列
@@ -702,6 +739,34 @@ print(xx[:5])
 # ======================================================================
 # X[:,1] 前 5 個樣本
 # [ 4.78405366  1.79758281 -3.79313579 -7.59715459 -3.70122759]
+```
+
+#### p.argsort 取出由小到大 array's index
+``` py
+print(f"importances={importances}")
+print(f"importances={ np.argsort(importances)}")
+print(f"importances={np.argsort(importances)[-7:]}")
+
+# 獲得最重要7個特徵
+# p.argsort 取出由小到大 array's index
+indices = np.argsort(importances)[-7:]
+
+# importances=[0.11315613 0.03278781 0.21436292 0.00918877 0.11398391 0.0081099
+#  0.05402447 0.19953578 0.01240331 0.00356305 0.11556123 0.04022091
+#  0.06567633 0.01742548]
+# importances=[ 9  5  3  8 13  1 11  6 12  0  4 10  7  2]
+# importances=[ 6 12  0  4 10  7  2]
+```
+
+#### np.linspace() - 產生等距數據
+``` py
+# 建立 等距 array(float)
+# np.linespace(start, stop, item number)
+na2 = np.linspace(1,16,3)
+print(na2)
+
+# 建立 X 區間含 300 點
+xx = np.linspace(X.min(), X.max(), 300).reshape(-1, 1)
 ```
 
 #### other function

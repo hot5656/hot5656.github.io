@@ -691,7 +691,7 @@ print(df.head())
 # 顯示所有 columns
 pd.set_option('display.max_columns', None)
 # 設定顯示每 row 長度
-pd.set_option('display.width', 300)
+pd.set_option('display.width', 200)
 
 # 設定輸出到第二位小數
 pd.set_option('display.float_format', '{:.2f}'.format)
@@ -914,6 +914,11 @@ print(y.values.ravel())
 # 3    33.4
 # 4    36.2
 # [24.  21.6 34.7 33.4 36.2 28.7 ...
+```
+
+#### 取出 columns' name
+``` py
+features = X.columns
 ```
 
 ### 繪圖

@@ -1082,6 +1082,28 @@ df['Education'] = df['Education'].map(edu)
 ```
 
 ``` py
+# map number to string
+
+import pandas as pd
+
+iris =  pd.Series([0, 1, 2])
+print(f"執行 map() 前\n{iris}")
+iris = iris.map({0:'setosa', 1:'versicolor', 2:'virginica'})
+print(f"執行 map() 後\n{iris}")
+
+# 執行 map() 前
+# 0    0
+# 1    1
+# 2    2
+# dtype: int64
+# 執行 map() 後
+# 0        setosa
+# 1    versicolor
+# 2     virginica
+# dtype: object
+```
+
+``` py
 import pandas as pd
 
 df = pd.read_csv("個人資料.csv")
@@ -1243,6 +1265,13 @@ scikit-learn 中 score() 和 r2_score() 都可以計算R平方判定係數,但�
 ### 其他
 #### 儲存公式
 {% post_link python-33 '# 邏輯迴歸模型語法基礎' %}
+
+#### 數據
+##### 創建聚類算法的測試數據集
+{% post_link python-33 '# 繪製散點圖' %}
+
+##### 生成合成線性回歸數據集
+{% post_link python-33 '# 線性回歸數據集-繪製散點圖' %}
 
 #### 邏輯迴歸
 ##### 基本計算

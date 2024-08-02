@@ -3140,6 +3140,12 @@ plt.show()
 #   edgecolors='k : 設定標記邊緣的顏色。'k' 表示黑色
 ```
 
+###### 繪製等高線圖 
+- plt.contourf() : 繪製等高線同時填充
+- plt.contour() : 繪製等高線不填充
+
+{% post_link python-33 '# 繪製分類邊界' %}
+
 ###### 箱型圖
 {% post_link python-33 '# 特徵箱形圖' %}
 
@@ -3174,6 +3180,8 @@ plt.show()
 ```
 
 ###### 繪製多子圖
+{% post_link python-33 '# 繪製KNN迴歸曲線' %}
+
 ``` py
 # 繪製多子圖
 from sklearn.datasets import make_regression
