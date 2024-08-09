@@ -3477,4 +3477,164 @@ plt.show()
 
 #### 小行星撞地球-分類應用
 ##### Kaggle NANA ASteroids Classification 數據
+<div style="max-width:500px">
+  {% asset_img pic53.png pic53 %}
+</div>
 
+<div style="max-width:500px">
+  {% asset_img pic54.png pic54 %}
+</div>
+
+``` py
+import pandas as pd
+
+# 讀取數據
+df = pd.read_csv('nasa.csv')
+
+# 列出5筆
+print(df.head)
+
+# <bound method NDFrame.head of       Neo Reference ID     Name  Absolute Magnitude  ...  Mean Motion  Equinox  Hazardous
+# 0              3703080  3703080              21.600  ...     0.590551    J2000       True
+# 1              3723955  3723955              21.300  ...     0.845330    J2000      False
+# 2              2446862  2446862              20.300  ...     0.559371    J2000       True
+# 3              3092506  3092506              27.400  ...     0.700277    J2000      False
+# 4              3514799  3514799              21.600  ...     0.726395    J2000       True
+# ...                ...      ...                 ...  ...          ...      ...        ...
+# 4682           3759007  3759007              23.900  ...     0.787436    J2000      False
+# 4683           3759295  3759295              28.200  ...     0.884117    J2000      False
+# 4684           3759714  3759714              22.700  ...     0.521698    J2000      False
+# 4685           3759720  3759720              21.800  ...     0.543767    J2000      False
+# 4686           3772978  3772978              19.109  ...     0.550729    J2000      False
+```
+
+##### 預處理資料
+<div style="max-width:500px">
+  {% asset_img pic55.png pic55 %}
+</div>
+
+``` py
+import pandas as pd
+
+# 讀取數據
+df = pd.read_csv('nasa.csv')
+
+# 刪除資料
+df = df.drop(['Name', 'Neo Reference ID', 'Est Dia in M(min)',
+              'Est Dia in M(max)', 'Est Dia in Miles(min)',
+              'Est Dia in Miles(max)', 'Est Dia in Feet(min)',
+              'Est Dia in Feet(max)', 'Epoch Date Close Approach',
+              'Relative Velocity km per hr', 'Miles per hour',
+              'Miss Dist.(Astronomical)', 'Miss Dist.(lunar)',
+              'Miss Dist.(miles)', 'Equinox'],
+             axis=1)
+
+# 將 'Hazardous' True/False 轉為 1/0
+df['Hazardous'] = df['Hazardous'].map({True:1, False:0})
+
+# 將 'Close Approach Date' 和 'Orbit Determination Date'
+# 轉為日期時間物件,再轉為時間戳記
+# test format
+# df['Close Approach Date'] = pd.to_datetime(df['Close Approach Date'])
+# df['Orbit Determination Date'] = pd.to_datetime(df['Orbit Determination Date'])
+df['Close Approach Date'] = pd.to_datetime(df['Close Approach Date']).astype('int64') // 10**9
+df['Orbit Determination Date'] = pd.to_datetime(df['Orbit Determination Date']).astype('int64') // 10**9
+
+# 列出5筆
+print(df.head)
+
+# <bound method NDFrame.head of       Absolute Magnitude  Est Dia in KM(min)  Est Dia in KM(max)  Close Approach Date  Relative Velocity km per sec  Miss Dist.(kilometers)  ... Perihelion Arg  Aphelion Dist  Perihelion Time  Mean Anomaly  Mean Motion  Hazardous
+# 0                 21.600            0.127220            0.284472            788918400                      6.115834            6.275369e+07  ...      57.257470       2.005764     2.458162e+06    264.837533     0.590551          1
+# 1                 21.300            0.146068            0.326618            788918400                     18.113985            5.729815e+07  ...     313.091975       1.497352     2.457795e+06    173.741112     0.845330          0
+# 2                 20.300            0.231502            0.517654            789523200                      7.590711            7.622912e+06  ...     248.415038       1.966857     2.458120e+06    292.893654     0.559371          1
+# 3                 27.400            0.008801            0.019681            790128000                     11.173874            4.268362e+07  ...      18.707701       1.527904     2.457902e+06     68.741007     0.700277          0
+# 4                 21.600            0.127220            0.284472            790128000                      9.840831            6.101082e+07  ...     158.263596       1.483543     2.457814e+06    135.142133     0.726395          1
+# ...                  ...                 ...                 ...                  ...                           ...                     ...  ...            ...            ...              ...           ...          ...        ...
+# 4682              23.900            0.044112            0.098637           1473292800                     22.154265            6.187511e+06  ...     276.395697       1.581299     2.457708e+06    304.306025     0.787436          0
+# 4683              28.200            0.006089            0.013616           1473292800                      3.225150            9.677324e+05  ...      42.111064       1.153835     2.458088e+06    282.978786     0.884117          0
+# 4684              22.700            0.076658            0.171412           1473292800                      7.191642            9.126775e+06  ...     274.692712       2.090708     2.458300e+06    203.501147     0.521698          0
+# 4685              21.800            0.116026            0.259442           1473292800                     11.352090            3.900908e+07  ...     180.346090       1.787733     2.458288e+06    203.524965     0.543767          0
+# 4686              19.109            0.400641            0.895860           1473292800                     35.946852            6.916986e+07  ...     222.436688       2.071980     2.458319e+06    184.820424     0.550729          0
+```
+
+##### 預測小行星撞地球準確率
+``` py
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score,confusion_matrix
+from sklearn.metrics import classification_report
+
+# 讀取數據
+df = pd.read_csv('nasa.csv')
+
+# 刪除資料
+df = df.drop(['Name', 'Neo Reference ID', 'Est Dia in M(min)',
+              'Est Dia in M(max)', 'Est Dia in Miles(min)',
+              'Est Dia in Miles(max)', 'Est Dia in Feet(min)',
+              'Est Dia in Feet(max)', 'Epoch Date Close Approach',
+              'Relative Velocity km per hr', 'Miles per hour',
+              'Miss Dist.(Astronomical)', 'Miss Dist.(lunar)',
+              'Miss Dist.(miles)', 'Equinox'],
+             axis=1)
+
+# 將 'Hazardous' True/False 轉為 1/0
+df['Hazardous'] = df['Hazardous'].map({True:1, False:0})
+
+# 將 'Close Approach Date' 和 'Orbit Determination Date'
+# 轉為日期時間物件,再轉為時間戳記
+df['Close Approach Date'] = pd.to_datetime(df['Close Approach Date']).astype('int64') // 10**9
+df['Orbit Determination Date'] = pd.to_datetime(df['Orbit Determination Date']).astype('int64') // 10**9
+
+# 檢查並處理缺失值
+if df.isnull().values.any():
+    # 可選擇填補缺失值或丟棄(填補中位數)
+    df.fillna(df.mefian(), implace=True)
+
+# 執行 one-hot 編碼df
+df = pd.get_dummies(df, columns=['Orbiting Body'])
+
+# 分割數據集為特徵及目標
+X = df.drop('Hazardous', axis=1)
+y = df['Hazardous']
+
+# 分割訓練集和測試集
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                    test_size=0.2, random_state=42)
+
+# 標準化數據
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# 使用KNN演算法進行訓練
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+# 預測並計算準確度
+y_pred = knn.predict(X_test)
+print(f'Accuracy : {accuracy_score(y_test, y_pred)}')
+
+# 輸出混淆矩陣
+print('Confusion Matrix:' )
+print(confusion_matrix(y_test, y_pred))
+
+# 輸出分類報告
+print('Classification Report:')
+print(classification_report(y_test, y_pred))
+
+# Accuracy : 0.8923240938166311
+# Confusion Matrix:
+# [[760  31]
+#  [ 70  77]]
+# Classification Report:
+#               precision    recall  f1-score   support
+
+#            0       0.92      0.96      0.94       791
+#            1       0.71      0.52      0.60       147
+
+#     accuracy                           0.89       938
+#    macro avg       0.81      0.74      0.77       938
+# weighted avg       0.88      0.89      0.89       938
+```

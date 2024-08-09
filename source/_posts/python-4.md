@@ -5,6 +5,7 @@ date: 2021-04-16 13:56:31
 categories: Coding
 tags:
 	- python
+mathjax: true
 ---
 
 ### MAP
@@ -2785,6 +2786,22 @@ plt.plot(people2, frofit2, "-o", color='red')
 # show 文字
 plt.text(people2-170, frofit2+5, f"({people2}, {frofit2})")
 ```
+
+###### 支援 LaTeX語法 
+show - $x_{1}$
+``` py
+plt.xlabel(r'$x_{1}$', fontsize=14)
+```
+
+###### 繪散點圓圈
+``` py
+# 用圓圈繪製支援向量
+# s=100 設置每個散點的大小
+# facecolors='none', 'none' 表示點沒有填充顏色
+# edgecolors='k', 設置點的邊界顏色 'k' 是黑色的縮寫
+plt.scatter(svc.support_vectors_[:,0], svc.support_vectors_[:,1],
+            s=100, facecolors='none', edgecolors='k')
+``` 
 
 ###### x, y軸距長度一致
 ``` py

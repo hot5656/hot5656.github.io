@@ -872,6 +872,9 @@ final_df['Date'] = pd.to_datetime(final_df['Date'], format='%d/%m/%Y')
 # 提出年份及月份
 final_df['Year'] = final_df['Date'].dt.year
 final_df['Month'] = final_df['Date'].dt.month
+
+# 轉為日期時間物件,再轉為時間戳記
+df['Close Approach Date'] = pd.to_datetime(df['Close Approach Date']).astype('int64') // 10**9
 ```
 
 #### 更改 column name
