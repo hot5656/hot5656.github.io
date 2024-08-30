@@ -2833,6 +2833,8 @@ plt.show()
 ###### 更改視角
 ``` py
 # 更改視角
+# ax.view_init(elev=30, azim=-60) # default
+# elev: -90 ~ 90, azim: -180 ~ 180
 ax2.view_init(elev=30, azim=45)
 # 在 z 軸方向上抬高 30 度，同時在 xy 平面內旋轉 45 度。也就是說，觀察者的視角是在 z 軸上方 30 度，並且從 x 軸方向向 y 軸方向旋轉了 45 度。
 # elev (elevation)：高度角，表示從 xy 平面向上的角度。這個參數控制視角在 z 軸方向上的旋轉。
@@ -2855,6 +2857,19 @@ plt.axhline(y=0, color='r', linestyle='--')
 ``` py
 # 長條圖
 feature_imp.plot(kind='bar')
+```
+
+###### 獲取當前的坐標軸對象
+``` py
+# 獲取當前的坐標軸對象
+ax = plt.gca()
+
+....
+
+# 繪製決策邊和間隔
+# 繪製 2D 等高線, -1 , 0, 1
+ax.contour(XX, YY, Z, colors='b', levels=[-1, 0, 1], alpha=0.5,
+           linestyles=['--', '-', '--'])
 ```
 
 ##### example
@@ -3160,6 +3175,40 @@ plt.show()
 ###### 繪製等高線圖 
 - plt.contourf() : 繪製等高線同時填充
 - plt.contour() : 繪製等高線不填充
+``` py
+# 2D 平面上使用等高線圖來表示一個二次函數的高度
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 建立一個網格
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
+XX, YY = np.meshgrid(x, y)
+
+# 定義一個二次函數 Z = X^2 + Y^2
+Z = XX**2 + YY**2
+
+# 創建一個圖形和軸
+fig, ax = plt.subplots()
+
+# 使用 contour 畫出等高線
+contour = ax.contour(XX, YY, Z, colors='b', levels=[10, 20, 30], alpha=0.8, linestyles=['--', '-', '--'])
+
+# 添加等高線的標籤
+ax.clabel(contour, inline=True, fontsize=10)
+
+# 設置標題和軸標籤
+ax.set_title('Contour Plot Example')
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+
+# 顯示圖形
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic2.png pic2 %}
+</div>
 
 {% post_link python-33 '# 繪製分類邊界' %}
 

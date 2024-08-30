@@ -765,8 +765,17 @@ indices = np.argsort(importances)[-7:]
 na2 = np.linspace(1,16,3)
 print(na2)
 
-# 建立 X 區間含 300 點
+# vstack() 將多個一維陣列在垂直方向上進行堆疊，生成一個新的 2D 陣列
 xx = np.linspace(X.min(), X.max(), 300).reshape(-1, 1)
+```
+
+#### other function
+``` py
+# vstack() 將多個一維陣列在垂直方向上進行堆疊，生成一個新的 2D 陣列
+# XX.ravel():2500, YY.ravel():2500
+# np.vstack([XX.ravel(), YY.ravel()]) : 2 * 2500
+# xy: 2500 * 2
+xy = np.vstack([XX.ravel(), YY.ravel()]).T
 ```
 
 #### other function

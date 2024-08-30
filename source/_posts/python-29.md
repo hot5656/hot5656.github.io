@@ -7,9 +7,19 @@ tags:
 	- python
 ---
 
-### Example
+### some special
 
 <!--more-->
+
+#### 3D 表面圖 - plot_surface()
+``` py
+# 繪製超平面
+grid = np.linspace(-1.5, 1.5)
+xx, yy = np.meshgrid(grid, grid)
+ax.plot_surface(xx, yy, x3(xx, yy), color='gray', alpha=0.5)
+```
+
+### Example
 
 #### 二元函數3D圖(Z=X+Y)
 ``` py
