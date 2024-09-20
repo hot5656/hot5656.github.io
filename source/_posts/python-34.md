@@ -599,3 +599,197 @@ plt.show()
 </div>
 
 ##### 徑向基函數(Radial basic function) - rbf
+<div style="max-width:500px">
+  {% asset_img pic14.png pic14 %}
+</div>
+
+``` py
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn import svm
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 建立 50個點, 25個為分類0, 25個為分類1
+X,y = make_blobs(n_samples=50, centers=2, random_state=12)
+
+# 繪製子圖,每個 gamma 值一張圖
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10,10))
+ax = np.ravel(ax)
+
+gammas = [0.1, 0.5, 1.0, 10.0]
+for i, gamma in enumerate(gammas):
+    # 建立一個RBF SVM 模型
+    svc = svm.SVC(kernel='rbf', gamma=gamma)
+    svc.fit(X, y)
+
+    # 繪製數據點,分類0使用圓圈,分類1使用星型
+    for j, marker in zip([0, 1], ['o', '*'] ):
+        ax[i].scatter(X[y == j, 0], X[y == j, 1], marker=marker, label=str(j))
+
+    xlim = ax[i].get_xlim()
+    ylim = ax[i].get_ylim()
+
+    # 建立格點來評估模型
+    xx = np.linspace(xlim[0], xlim[1], 30)
+    yy = np.linspace(ylim[0], ylim[1], 30)
+    XX, YY = np.meshgrid(xx, yy)
+    xy = np.vstack([XX.ravel(), YY.ravel()]).T
+    Z = svc.decision_function(xy).reshape(XX.shape)
+
+    # 繪製決策邊和超平面
+    # 繪製 2D 等高線, -1 , 0, 1
+    ax[i].contour(XX, YY, Z, colors='b', levels=[-1, 0, 1], alpha=0.5,
+            linestyles=['--', '-', '--'])
+
+    # 用圓圈繪製支援向量
+    # s=100 設置每個散點的大小
+    # facecolors='none', 'none' 表示點沒有填充顏色
+    # edgecolors='k', 設置點的邊界顏色 'k' 是黑色的縮寫
+    ax[i].scatter(svc.support_vectors_[:,0], svc.support_vectors_[:,1],
+                s=100, facecolors='none', edgecolors='k')
+
+    ax[i].set_title(f"支援向量機 - kernel='rbf', gamma={gamma}")
+    ax[i].legend()
+
+# 調整子圖間的間距
+plt.subplots_adjust(wspace=0.2, hspace=0.4)
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic15.png pic15 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic16.png pic16 %}
+</div>
+
+##### 多項式函數(Polynomail function) - poly
+<div style="max-width:500px">
+  {% asset_img pic17.png pic17 %}
+</div>
+
+``` py
+from sklearn.datasets import make_moons
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 生成 make_moons 數據
+X,y = make_moons(n_samples=200, noise=0.1, random_state=0)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 0.2, X[:,0].max() + 0.2
+y_min, y_max = X[:,1].min() - 0.2, X[:,1].max() + 0.2
+
+# 產生所有平面座標點
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+                     np.arange(y_min, y_max, 0.01))
+
+degrees = [2, 3, 4 ,5]
+titles = ['Poly核函數 degree=2', 'Poly核函數 degree=3',
+          'Poly核函數 degree=4', 'Poly核函數 degree=5']
+
+fig, sub = plt.subplots(2, 2, figsize=(10, 10))
+# 調整子圖空間
+plt.subplots_adjust(wspace=0.4, hspace=0.4)
+# 將子圖的陣列進行扁平化處理(原sub 為2*2)
+sub = sub.flatten()
+
+for degree, title, ax in zip(degrees, titles, sub):
+    model = SVC(kernel='poly', degree=degree, gamma='scale')
+    model.fit(X, y)
+
+    # 將 xx, yy 先扁平化再組成為二維陣列,然後再預測分類
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    # 繪製填充等高線
+    ax.contourf(xx, yy, Z, alpha=0.3)
+    # cmap='viridis',
+
+    # 顯示散點圖,標籤0使用點,標籤1使用星型
+    scatter = ax.scatter(X[:,0][y == 0], X[:,1][y == 0], c='b')
+    scatter = ax.scatter(X[:,0][y == 1], X[:,1][y == 1], c='r', marker='*')
+
+    ax.set_title(title + f"準確率({accuracy_score(y, model.predict(X)):.2f})")
+
+plt.show()
+```
+<div style="max-width:500px">
+  {% asset_img pic18.png pic18 %}
+</div>
+
+<div style="max-width:500px">
+  {% asset_img pic19.png pic19 %}
+</div>
+
+##### 同一數據,分別使用linear, rbf, poly
+``` py
+from sklearn.datasets import make_moons
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import numpy as np
+
+# windows 使用 微軟正黑體
+plt.rcParams["font.family"] = ["Microsoft JhengHei"]
+# 顯示負號
+plt.rcParams["axes.unicode_minus"] = False
+
+# 生成 make_moons 數據
+X,y = make_moons(n_samples=200, noise=0.1, random_state=0)
+
+# 設定繪圖區域
+x_min, x_max = X[:,0].min() - 0.2, X[:,0].max() + 0.2
+y_min, y_max = X[:,1].min() - 0.2, X[:,1].max() + 0.2
+
+# 產生所有平面座標點
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+                     np.arange(y_min, y_max, 0.01))
+
+
+kernels = ['linear', 'rbf', 'rbf', 'poly']
+gamma_values = ['scale', 0.5, 100, 'scale']
+titles = ['Linear kernel', 'RBF kernel, gamma=0.5',
+          'RBF kernel, gamma=100', 'Poly kernel']
+
+
+fig, sub = plt.subplots(2, 2, figsize=(10, 10))
+# 調整子圖空間
+plt.subplots_adjust(wspace=0.4, hspace=0.4)
+# 將子圖的陣列進行扁平化處理(原sub 為2*2)
+sub = sub.flatten()
+
+for kernel, gamma, title, ax in zip(kernels, gamma_values, titles, sub):
+    model = SVC(kernel=kernel, gamma=gamma)
+    model.fit(X, y)
+
+    # 將 xx, yy 先扁平化再組成為二維陣列,然後再預測分類
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    # 繪製填充等高線
+    ax.contourf(xx, yy, Z, alpha=0.3)
+
+    # 顯示散點圖,標籤0使用點,標籤1使用星型
+    scatter = ax.scatter(X[:,0][y == 0], X[:,1][y == 0], c='b')
+    scatter = ax.scatter(X[:,0][y == 1], X[:,1][y == 1], c='r', marker='*')
+
+    ax.set_title(title + f"準確率({accuracy_score(y, model.predict(X)):.2f})")
+
+plt.show()
+```
+
+<div style="max-width:500px">
+  {% asset_img pic20.png pic20 %}
+</div>

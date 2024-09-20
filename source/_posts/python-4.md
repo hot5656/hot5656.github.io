@@ -2872,6 +2872,28 @@ ax.contour(XX, YY, Z, colors='b', levels=[-1, 0, 1], alpha=0.5,
            linestyles=['--', '-', '--'])
 ```
 
+###### 獲得當前繪圖區域（axes）的 x 軸和 y 軸的範圍
+``` py
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# 建立格點來評估模型
+xx = np.linspace(xlim[0], xlim[1], 30)
+yy = np.linspace(ylim[0], ylim[1], 30)
+```
+
+###### 將子圖的陣列進行扁平化處理(原sub 為2*2)
+``` py
+fig, sub = plt.subplots(2, 2, figsize=(10, 10))
+# 調整子圖空間
+plt.subplots_adjust(wspace=0.4, hspace=0.4)
+# 將子圖的陣列進行扁平化處理(原sub 為2*2)
+sub = sub.flatten()
+
+for degree, title, ax in zip(degrees, titles, sub):
+	...
+```
+
 ##### example
 ###### 折線圖
 ``` py
