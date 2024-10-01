@@ -558,6 +558,11 @@ h1_str = soup2.find('h1').text.strip().split('\x0a')
 
 # replace 
 image_name = post.get('titleImage').get('asset').get('_ref').replace('image-', '').replace('-', '.')
+
+# directory 
+bakfile = 'data//YF_%s_%s_%s_stock_daily_adj.csv' % (prod, st, en)
+if os.path.exists(bakfile):
+    data = pd.read_csv(bakfile)
 ```
 
 ``` bash

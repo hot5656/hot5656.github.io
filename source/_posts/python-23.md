@@ -722,6 +722,11 @@ for column in columns_with_potential_missing_values:
 data = data.replace('?', np.nan)
 ```
 
+#### 將某個欄位設為資料表的索引
+``` py
+data = data.set_index('Date'):
+```
+
 #### show 出相互皮爾遜相關係數
 ``` py
 # show 出相互皮爾遜相關係數
@@ -903,6 +908,11 @@ le = LabelEncoder()
 categorical_features = [i for i in data.columns if data.dtypes[i]=='object' ]
 for col in categorical_features:
     data[col] = le.fit_transform(data[col])
+```
+
+#### 數據轉換為日期時間格式
+``` py
+data['Date'] = pd.to_datetime(data['Date'])
 ```
 
 #### 資料 2D 轉 1D
