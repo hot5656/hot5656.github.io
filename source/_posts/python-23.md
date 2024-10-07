@@ -934,6 +934,21 @@ print(y.values.ravel())
 features = X.columns
 ```
 
+#### concat() - 合併數據
+``` py
+# ignore_index=True：這個參數告訴 pd.concat() 在合併數據時，忽略原來的索引，並重新分配
+# 一個連續的新索引。如果不設置此參數，新建的行可能會保留原本的索引，造成索引不一致。
+trade=pd.concat([trade, pd.DataFrame([[
+    prod,
+    'Buy',
+    order_time,
+    order_price,
+    cover_time,
+    cover_price,
+    order_unit
+    ]])], ignore_index=True)
+```
+
 ### 繪圖
 #### 長條圖
 ``` py

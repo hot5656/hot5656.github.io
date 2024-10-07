@@ -1,17 +1,151 @@
 ---
-title: python-35
+title: Python:股票×ETF量化交易實戰105個活用技巧
 abbrlink: 6c12
 date: 2024-09-30 16:41:51
-categories:
+categories: Coding
 tags:
+	- python
+	- book
 ---
 
 
-04 wait read
+### 抓取公開資訊
 
-+ [1](https://www.twse.com.tw/pcversion/zh/ETF/domestic)
-+ [2](https://mis.twse.com.tw/stock/various-areas/etf-price/tse-etf?lang=zhHant)
-+ [3](https://www.capitalfund.com.tw/etf/transaction/networth)
-+ [4](https://developer.chrome.com/docs/chromedriver/downloads?hl=zh-tw)
-+ [5](https://googlechromelabs.github.io/chrome-for-testing/)
-+ [6](https://hk.finance.yahoo.com/quote/0050.TW/)
+<!--more-->
+
+#### Yahoo Finance
+##### 抓取每日歷史紀錄
+``` py
+# 抓取每日歷史紀錄
+# pip3 install yfinance
+import yfinance as yf
+
+# 不含 end 那一天
+# a= yf.download('0050.tw', start='2020-01-01', end='2024-09-30')
+a= yf.download('0050.tw', start='2020-01-01', end='2024-10-01')
+print(a)
+
+#                   Open        High         Low       Close   Adj Close    Volume
+# Date
+# 2020-01-02   97.050003   98.000000   97.050003   97.650002   83.889481   4882015
+# 2020-01-03   98.300003   98.699997   97.000000   97.650002   83.889481   6813547
+# 2020-01-06   97.050003   97.099998   96.400002   96.400002   82.815636   9321768
+# 2020-01-07   96.449997   96.699997   95.400002   96.099998   82.557899   6328602
+# 2020-01-08   95.199997   96.199997   95.050003   95.650002   82.171310   8516995
+# ...                ...         ...         ...         ...         ...       ...
+# 2024-09-23  182.550003  183.649994  182.550003  183.250000  183.250000   7900498
+# 2024-09-24  183.199997  185.000000  182.100006  185.000000  185.000000   9952346
+# 2024-09-25  187.699997  188.000000  187.350006  187.750000  187.750000  11673001
+# 2024-09-26  189.600006  190.000000  188.750000  189.300003  189.300003  16725931
+# 2024-09-27  190.199997  191.250000  188.600006  188.899994  188.899994  11403314
+# 2024-09-30  186.550003  187.199997  183.949997  183.949997  183.949997  13186950
+# [1152 rows x 6 columns]
+```
+
+##### 抓取5天,頻率為1分鐘
+``` py
+# 抓取5天,頻率為1分鐘
+import yfinance as yf
+
+a = yf.download('00632R.tw', period='5d', interval='1m')
+print(a)
+print(a.index[1])
+
+#                           Open  High   Low  Close  Adj Close    Volume
+# Datetime
+# 2024-09-25 09:02:00+08:00  3.33  3.34  3.33   3.33       3.33         0
+# 2024-09-25 09:03:00+08:00  3.33  3.34  3.33   3.33       3.33   7278000
+# 2024-09-25 09:04:00+08:00  3.33  3.34  3.32   3.33       3.33  10622000
+# 2024-09-25 09:05:00+08:00  3.33  3.34  3.32   3.33       3.33   5836000
+# 2024-09-25 09:06:00+08:00  3.33  3.33  3.32   3.33       3.33  14689000
+# ...                         ...   ...   ...    ...        ...       ...
+# 2024-10-01 11:12:00+08:00  3.40  3.40  3.40   3.40       3.40     18000
+# 2024-10-01 11:13:00+08:00  3.40  3.40  3.40   3.40       3.40    181000
+# 2024-10-01 11:14:00+08:00  3.40  3.40  3.39   3.40       3.40    183000
+# 2024-10-01 11:15:00+08:00  3.40  3.40  3.40   3.40       3.40     70000
+# 2024-10-01 11:16:00+08:00  3.40  3.40  3.40   3.40       3.40         0
+
+# [1186 rows x 6 columns]
+# 2024-09-25 09:03:00+08:00
+```
+
+##### call getData()
+``` py
+# call getData()
+from Data import getData
+# 不含 end 那一天
+# a = getData('0050', '2024-01-01', '2024-09-30')
+a = getData('0050', '2024-01-02', '2024-10-01')
+print(a)
+
+#                   open        high         low       close   adj close    volume
+# Date
+# 2024-01-02  135.600006  135.949997  134.649994  134.899994  131.155762   5922076
+# 2024-01-03  133.699997  133.899994  132.300003  132.550003  128.870987  13547475
+# 2024-01-04  132.550003  132.750000  132.300003  132.500000  128.822372   4567593
+# 2024-01-05  132.550003  132.949997  132.100006  132.149994  128.482086   3999671
+# 2024-01-08  133.000000  133.600006  132.750000  132.750000  129.065430   9394720
+# ...                ...         ...         ...         ...         ...       ...
+# 2024-09-24  183.199997  185.000000  182.100006  185.000000  185.000000   9952346
+# 2024-09-25  187.699997  188.000000  187.350006  187.750000  187.750000  11673001
+# 2024-09-26  189.600006  190.000000  188.750000  189.300003  189.300003  16725931
+# 2024-09-27  190.199997  191.250000  188.600006  188.899994  188.899994  11403314
+# 2024-09-30  186.550003  187.199997  183.949997  183.949997  183.949997  13186950
+
+# [180 rows x 6 columns]
+```
+
+``` py
+# Data.py
+import yfinance as yf
+import pandas as pd
+import os
+
+datapath = 'data'
+
+def getData(prod, st, en):
+    if not os.path.exists(datapath):
+        os.makedirs(datapath)
+
+    bakfile = 'data//YF_%s_%s_%s_stock_daily_adj.csv' % (prod, st, en)
+    if os.path.exists(bakfile):
+        data = pd.read_csv(bakfile)
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = data.set_index('Date')
+    else:
+        data = yf.download(f"{prod}.TW", start=st , end=en)
+        data.columns = [i.lower() for i in data.columns]
+        if data.shape[0] == 0:
+            print('No data')
+            return pd.DataFrame()
+        data.to_csv(bakfile)
+    return data
+```
+
+#### FinMind 套件
+
+``` py
+# package FinMind - 抓取每日歷史紀錄
+# pip3 install FinMind
+# https://www.twse.com.tw/zh/trading/historical/stock-day.html
+from FinMind.data import DataLoader
+
+FM = DataLoader()
+a = FM.taiwan_stock_daily(stock_id='0050', start_date='2020-01-01', end_date='2024-10-01')
+print(a)
+
+#             date stock_id  Trading_Volume  Trading_money    open     max     min   close  spread  Trading_turnover
+# 0     2020-01-02     0050         4882015      476649683   97.05   98.00   97.05   97.65    0.70              2421
+# 1121  2024-09-25     0050        12464313     2339725240  187.70  188.00  187.35  197.65    0.00              3080
+# 1121  2024-09-25     0050        12464313     2339725240  187.70  188.00  187.35  187.75    2.75             15933
+# 1122  2024-09-26     0050        17369543     3290621957  189.60  190.00  188.75  189.30    1.55             15267
+# 1123  2024-09-27     0050        11999510     2280157942  190.20  191.25  188.60  188.90   -0.40             15599
+# 1124  2024-09-30     0050        14461065     2678744441  186.55  187.20  183.95  183.95   -4.95             32756
+# 1125  2024-10-01     0050         9883064     1816503951  183.90  184.60  183.35  183.60   -0.35             12966
+# [1126 rows x 10 columns]
+```
+
+### Ref
++ [證交所 個股日成交資訊](https://www.twse.com.tw/pcversion/zh/page/trading/exchange/STOCK_DAY.html)
++ [ChromeDriver](https://developer.chrome.com/docs/chromedriver/downloads?hl=zh-tw)
++ [Yahoo財經 個股日成交資訊](https://hk.finance.yahoo.com/quote/0050.TW/history/)
