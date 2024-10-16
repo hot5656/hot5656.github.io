@@ -46,6 +46,44 @@ git remote add origin https://github.com/hot5656/html_demo.git
 git push -u origin master
 ```
 
+#### generate API key
+<div style="width:200px">
+	{% asset_img pic41.png pic41 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic42.png pic42 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic43.png pic43 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic44.png pic44 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic45.png pic45 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic46.png pic46 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic47.png pic47 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic48.png pic48 %}
+</div>
+
+<div style="width:500px">
+	{% asset_img pic49.png pic49 %}
+</div>
+
+
 ### Pull Request（PR）
 
 #### Setting request
