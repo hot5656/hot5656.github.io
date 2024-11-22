@@ -8,7 +8,7 @@ tags:
 ---
 
 ### ???
-"""
+```
 I am creating a youtube channel about stoicism, where i will be featuring all kinds of stoic rules and life lessons of stoicism. Provide me with a short, concise name similar to “stoic bond”
 Now give me a short channels description featuring emojis and is well organized
 Now give me a design idea for the logo
@@ -16,7 +16,8 @@ Give me the text prompt for this logo. I want it to be black and white, featurin
 Write a script called “top 10 rules of stoicism”
 I will give you a video script of one of my old videos. Your task is to paraphrase the script just changing the word order slightly keeping the same writing and articulating style. Script:
 Now provide me with 10 text prompts for leonardo Ai. they have to be in black and white colors, featuring stoic philosophers in form of sculptures that should be positioned in the middle of the screen
-"""
+```
+
 
 
 ### wisdom short
@@ -38,6 +39,8 @@ chatgpt
 ### tools
 +  CapCut
 
+Monica
+
 ### Ref
 + [Tube Magic](https://bit.ly/aiguytube)
 + [Eleven Labs](https://bit.ly/aiguy11labs)
@@ -50,3 +53,4 @@ chatgpt
 + [AI Tools from AI Guy](https://bit.ly/aiguytools)
 + [aiguyofficial](https://beacons.ai/aiguyofficial/home)
 + [ Google Drive Folder]( https://drive.google.com/drive/folders/15ULoSFerS9RBYqzrxbJutydSjM3506AL?usp=sharing)
++ [pixabay](https://pixabay.com/)
