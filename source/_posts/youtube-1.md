@@ -36,6 +36,9 @@ chatgpt
 ### talking AI avatar
 ### viral short
 
+### Leonardo AI
+Image Creation
+
 ### tools
 +  CapCut
 
