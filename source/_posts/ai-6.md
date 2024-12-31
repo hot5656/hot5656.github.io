@@ -118,66 +118,128 @@ tags:
 	[AI Agents Explained Like You're 5](https://www.youtube.com/watch?v=jtUiXFRMf0U)
 
 ### why you suck at prompt engineering(and how to fix)
-+ prompt engineering types :
-	1. AI voice systems
-		- synthflow
-		- Bland AI
-		- Air
-	2. AI agent
-		- AAA
-	3. AI automation
-		- make.com
-		- Zapier
-	4 AI tools/Apps
-		- Relevance AI
-		- Stack AI
+#### prompt engineering types :
 
-+ good guy  for prompt engineering:
-	1. has a toolkit of prompt components and methods based on research
-	2. approaches the problem like an engineer 
-	3. skillfully applies techniques
-	4. achieves desired performance with the fastest and cheapest model
-	5. Create lightning-quick and affordable AI system for clients that create value
-	6. Make money
-	7. Finds other AI chads and gets AI rich
+1. AI voice systems
+	- synthflow
+	- Bland AI
+	- Air
+2. AI agent
+	- AAA
+3. AI automation
+	- make.com
+	- Zapier
+4. AI tools/Apps
+	- Relevance AI
+	- Stack AI
 
-+ Perfect Peompt *fOrMuLA* for Bulding Systems 18:02
-	1. Role
-  	- eg: You are a highly skilled and creative short-form content script writer with a knack for crafting engaging, informative, and concise videos 
-  	- ge: You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
-	2. Task
-		- notes on Write Tasks:
-			. Always start with a verb(e.g. generate, write, analyze)
-			. Be descriptive and precise while keeping it brief
-			. Depending on the use case, this is where you can insert your variables(see below)
+#### good guy  for prompt engineering:
+1. has a toolkit of prompt components and methods based on research
+2. approaches the problem like an engineer 
+3. skillfully applies techniques
+4. achieves desired performance with the fastest and cheapest model
+5. Create lightning-quick and affordable AI system for clients that create value
+6. Make money
+7. Finds other AI chads and gets AI rich
 
-		- eg: Generate engaging and casual outreach for users looking to promote their niche-specific service or products, especially focusing on the integration of AI tools to scale businesses. Your messages should be direct, friendly, and tailored to the recipient, encouraging a conversation about how AI can benefit their business.
-		Below are the details of what you must generate.
-		Niche:
-		{{niche}} 
-		Offer:
-		{{offer}}
+#### Perfect Peompt *fOrMuLA* for Bulding Systems
+##### Role
+###### Example
+<code class="wrap-code">
+You are a highly skilled and creative short-form content script writer with a knack for crafting engaging, informative, and concise videos 
+</code>
 
-		- eg: Generate an engaging, informative 30-second video script about {{topic}}. Make the content clear, concise, and easy to understand for a general audience.
-		Use this step-by-step process to ensure your script is top-notch:
-			1. Hook the viewer with an attention-grabbing opening
-			2. Briefly explain the key concepts or ideas related to {{topic}}
-			3. Provide 1-2 fascinating facts or statistics to illustrate the importance the importance of {{topic}}
-			4. Describe the main takeaway or action viewers should remember
-			5. End with a power  closing line that reinforces the message
-			6. Review the entire script for conciseness and flow
-		- Key Takeaway:
-			The more complex the problem, the more dramatic the improvement using chain-of-thought prompting
+<code class="wrap-code">
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+</code>
 
-		- eg: Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
-			1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
-			2. Determine if the email requires a response or action based on its content.
-			3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
-		Email: {{emailContent}}
-	3. Specifics
-	4. Context
-	5. Example
-	6. notes
+##### Task
+###### notes on Write Tasks:
++ Always start with a verb(e.g. generate, write, analyze)
++ Be descriptive and precise while keeping it brief
++ Depending on the use case, this is where you can insert your variables(see below)
+
+###### Key Takeaway:
+The more complex the problem, the more dramatic the improvement using chain-of-thought prompting
+
+###### Example
+<code class="wrap-code">
+Generate engaging and casual outreach for users looking to promote their niche-specific service or products, especially focusing on the integration of AI tools to scale businesses. Your messages should be direct, friendly, and tailored to the recipient, encouraging a conversation about how AI can benefit their business.
+Below are the details of what you must generate.
+Niche:
+{{niche}} 
+Offer:
+{{offer}}
+</code>
+
+<code class="wrap-code">
+Generate an engaging, informative 30-second video script about {{topic}}. Make the content clear, concise, and easy to understand for a general audience.
+Use this step-by-step process to ensure your script is top-notch:
+	1. Hook the viewer with an attention-grabbing opening
+	2. Briefly explain the key concepts or ideas related to {{topic}}
+	3. Provide 1-2 fascinating facts or statistics to illustrate the importance the importance of {{topic}}
+	4. Describe the main takeaway or action viewers should remember
+	5. End with a power  closing line that reinforces the message
+	6. Review the entire script for conciseness and flow
+</code>
+
+<code class="wrap-code">
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+	1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+	2. Determine if the email requires a response or action based on its content.
+	3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+	Email: {{emailContent}}
+</code>
+
+##### Specifics
+###### Item 1 
+The specifics section is a chance to list out the most important notes regarding the execution of the task outline above.
+The This format allow you to easily add on new instructions as you test and imporve the prompt. Of course, try not to pile on fluff there. Less is more.
+
+<code class="wrap-code">
+Example Task: 
+	Generate engaging and causual outreach message for users looking to peomote their nich-specific services or products, specially focusing on the integration of AI tools to sacle business. Your messages should be direct, fridendly, and tailored to the recipient, encouraging a coversation about how AI can benifit their business. Below are the detail of what you must generate for.
+Example Specifics:
+	1. Each message should have an intro, body, and outro, with a tone that's informal and engaging
+	2.  Use placeholders like{user.firstname} to personalize introduction
+	3. Etc
+</code>
+
+###### Item 2
+Specifics also provide an opportunity to integrate another technique proven to increase response quality and accuracy known as EmotionPrompt.
+EmotioPrompt refers to adding a short phrase or sentence containing emotional stimuli to the original prompt to enhance performance.
+
+Example:
+1. "This is very important to my career" was most effective on simple task
+2. "This task is vital to my career, and I greatly value your thorough analysis"
+
+Key Takeaway:
+Adding simple phrases like these to your specifics can encourage the model to engage in more thorough and deliberate processing, which is beneficial for complex tasks that require more careful thought and Analysis.
+
+###### Example 
+<code class="wrap-code">
+Role:
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+Task:
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+	1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+	2. Determine if the email requires a response or action based on its content.
+	3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+	Email: {{emailContent}}
+Specifics
+	1. This task is critical to the success of oue 
+Specifics :
+	1. This task is critical to the success of our business, so please provide a thorough analysis of the email
+	2. If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+	3. Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+</code>
+
+##### Context 21:04
+
+##### Example
+
+##### notes
+
 
 ### 參考資料
 + [YouTube Academy 2024: Complete Beginner to Pro Step-by-Step](https://www.udemy.com/course/youtubeacademy/)
