@@ -270,7 +270,31 @@ layout:false
 ```
 {% asset_img pic2.jpg "pic2 title'pic2 alt'" %}
 
+### 自訂 css(文字過長自動換行,識別空格換行)
+#### setting
+``` bash
+# source/_data/styles.styl
+// 自訂 css
+.wrap-code {
+		display: block;
+		background-color: rgb(34, 34, 34);
+		color: rgb(192, 192, 192);
+		line-height: 1.6;
+		padding: 10px;
+		margin-top: 20px;
+		text-align: left;
+    white-space: pre-wrap; /* 保留空格並允許換行 */
+    text-indent: 20px; /* 在段落開頭添加縮排 */
+    word-wrap: break-word; /* 在單字過長時進行換行 */
+}
+```
 
+#### use in .md(可顯示 {% raw %}{{niche}}{% endraw %}})
+``` md
+<code class="wrap-code">
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+</code>
+```
 
 
 

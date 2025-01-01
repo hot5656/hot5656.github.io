@@ -177,5 +177,11 @@ Shift + Cmd + P
 	{% asset_img pic1.png pic1 %}
 </div>
 
+### marta(檔案總管)
+``` bash
+# install 
+brew install --cask marta
+```
+
 ### 參考資料
 + [vscode常用快捷键](https://blog.csdn.net/qq_38282362/article/details/139044434)

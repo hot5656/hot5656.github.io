@@ -256,7 +256,80 @@ flutter doctor
   [✓] Xcode - develop for iOS and macOS (Xcode 16.2)
 ```
 
+### some option setting
+#### change icon
+##### generate icon
+[App icon Generator](https://www.appicon.co/)
+
+<div style="max-width:500px">
+	{% asset_img pic4.png pic4 %}
+</div>
+
+##### replace icon - android(remove and move)
+
+<div style="max-width:500px">
+	{% asset_img pic5.png pic5 %}
+</div>
+
+##### replace icon - iOS(remove and move)
+
+<div style="max-width:500px">
+	{% asset_img pic6.png pic6 %}
+</div>
+
+##### stop -> run
+
+### run on Android Physical Device
+#### 無線偵錯
++ 設定 -> 開發人員選項 -> 無線偵錯 -> 使用配對碼配對裝置(show 配對碼,IP,通訊埠)  
++ run adb link
+``` bash
+adb pair 192.168.18.8:41133
+  Enter pairing code: 970068
+  Successfully paired to 192.168.18.8:41133 [guid=adb-RFCR10MGBFR-gLb6Jb]
+```
+
++ 若 adb 未設定 path,如下設定
+```bash
+# add adb path
+ls ~/Library/Android/sdk/platform-tools
+  NOTICE.txt		lib64			package.xml
+  adb			make_f2fs		source.properties
+  etc1tool		make_f2fs_casefold	sqlite3
+  fastboot		mke2fs
+  hprof-conv		mke2fs.conf
+adb version
+  zsh: command not found: adb
+nano ~/.zshrc
+# 添加如下內容
+export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+# 執行
+source ~/.zshrc
+adb version
+
+# 測試 adb
+adb devices
+  List of devices attached
+  emulator-5554	device
+```
+
++ select device 點選連接手機 -> run "main.dart"
+手機可看到執行
+
++ device manager 點選 Start Mirroring 可在 Mac 看到手機畫面
+
++ device manager 點選 Stop Mirroring 可在 Mac 上畫面消失
+
++ 斷開手機 
+手機無線偵錯 disable
+
+#### USB 偵錯  
++ 使用 USB 連接
++ 設定 -> 開發人員選項 -> USB 偵錯
++ ...
+
 ### reference
 + [在 Mac 上準備 Flutter App 的開發環境](https://medium.com/%E5%BD%BC%E5%BE%97%E6%BD%98%E7%9A%84-flutter-app-%E9%96%8B%E7%99%BC%E5%95%8F%E9%A1%8C%E8%A7%A3%E7%AD%94%E9%9B%86/%E5%9C%A8-mac-%E4%B8%8A%E6%BA%96%E5%82%99-flutter-app-%E7%9A%84%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83-3ccebbd3a0bd)
 + [在 mac 上安裝 Android Studio](https://apppeterpan.medium.com/在-mac-上安裝-android-studio-3adcc728273e)
++ [Flutter-Course-Resources](https://github.com/londonappbrewery/Flutter-Course-Resources)
 
