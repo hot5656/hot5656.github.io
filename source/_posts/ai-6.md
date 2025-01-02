@@ -142,7 +142,7 @@ tags:
 6. Make money
 7. Finds other AI chads and gets AI rich
 
-#### Perfect Peompt *fOrMuLA* for Bulding Systems
+#### Perfect Prompt *fOrMuLA* for Bulding Systems
 ##### Role
 ###### Example
 <code class="wrap-code">
@@ -207,7 +207,7 @@ Example Specifics:
 
 ###### Item 2
 Specifics also provide an opportunity to integrate another technique proven to increase response quality and accuracy known as EmotionPrompt.
-EmotioPrompt refers to adding a short phrase or sentence containing emotional stimuli to the original prompt to enhance performance.
+EmotionPrompt refers to adding a short phrase or sentence containing emotional stimuli to the original prompt to enhance performance.
 
 Example:
 1. "This is very important to my career" was most effective on simple task
@@ -226,20 +226,206 @@ Calssfy the following email into "Ignore", Opportunity", or "needs Attention" la
 	2. Determine if the email requires a response or action based on its content.
 	3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
 	Email: {{emailContent}}
-Specifics
-	1. This task is critical to the success of oue 
 Specifics :
 	1. This task is critical to the success of our business, so please provide a thorough analysis of the email
 	2. If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
 	3. Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
 </code>
 
-##### Context 21:04
+##### Context(情境)
+providing context as to what environment the LLM is operating in and why it is doing this specific task can help to further increase performance.
+This combines earlier techniques like Role (by further clarifying who it is, what it is doing and why it is doing it). EmotionPrompt can also be used again here while explaining the importance of the LLM's role in the success of the business and even society as a whole.
 
-##### Example
+<code class="wrap-code">
+Example :
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails **essential** for our sales team to prioritize their efforts and respond to requires in timely manner. By **accurately** identifying opportunities and emails that need attention, you directly contribute to the **growth and success of our company**. Therefore we **greatly value your careful consideration** and attention to classification.
+</code>
+
+General Notes:
+1. Provide context **on the business** including customers, types of services or products, company values etc.
+2. Provide context **on the system it is part of**, eg when customers submit our website form we receive an email, you are then...
+3. Provide context **on the importance of the task** and the business and/or society as a whole.
+
+###### Example 
+<code class="wrap-code">
+Role:
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+Task:
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+	1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+	2. Determine if the email requires a response or action based on its content.
+	3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+	Email: {{emailContent}}
+Specifics :
+	1. This task is critical to the success of our business, so please provide a thorough analysis of the email
+	2. If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+	3. Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+Context :
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails essential for our sales team to prioritize their efforts and respond to requires in timely manner. By accurately identifying opportunities and emails that need attention, you directly contribute to the growth and success of our company. Therefore we greatly value your careful consideration and attention to classification.
+</code>
+
+
+##### Examples
+In the examples section we use a technique known as **Few-Shot Promping** to increase performance and **fine tune response tone, format and length.**
+This is when a number of **input-out examples** are provided to the language model as part of the prompt. This allows the model to **perform new tasks without fine-tuning.**
+
+Key Takeaways:
+1. Provide just a few examples **significantly** improve performance compared to zero-shot prompting (no examples).
+2. Accuracy **scales** with the number of examples, but shows **diminishing  returns.** Most of the gains can be achieved with *10-32 well-crafted examples.**(3~5 good enough)
+
+###### Example 
+<code class="wrap-code">
+Q: Email: "Dear Sir/Madam, I am interested in learning more about your AI solutions for the healthcare industry. Could you please provide me with more information about your products and pricing? Thank you, John Doe"
+A: Label: Opportunity
+Q: Email: "To whom it may concern, I am writing to inquire about the job openings at your company. I have attached my resume for your consideration. Best regards, Jane Smith"
+A: Label: Ignore
+Q:Email: "Hello, I am experiencing technical difficulties with one of your Ai products. Please contact me at your earliest convenience. Thank you. Mike Johnson"
+Ａ: Label: Needs Attention
+</code>
 
 ##### notes
+The notes section is your **last chance** to remind the LLM of key aspects of the task and add any final details to tweak outputs to your desired style
 
+You notes from a list consisting of things like:
+1. Output formatting notes e.g. "your output should be in x format"
+2. Negative prompting "do NOT do x"
+3. Tone tweaks
+4. Reminders of key points from the task or specifics
+
+This list of notes usually starts out **skinny** and ends up a **few lines deep** after a few rounds of testing and tweaking. This list is where you can add things without refactoring the whole prompt.
+The inclusion of the 'notes' section in this prompt formula is based on the **"Lost in the Middle"** effect which highlights a significant limitation in how language models handle large amounts of input tokens.
+
+Lost in The Middle Effect:
+1. The language model performs best when relevant information is at the **very beginning** (primacy) or **end**(recency) of the input context
+2. Performance **significantly worsens** when **critical** information is in the middle of a long context
+3. This effect occurs even in models **designed** for long input sequences.
+
+Key takeaways:
+1. Instruction giving at the start and end of a prompt are **"listened to"** by the LLM far **more** than information in the middle.
+2. For this reason the notes section is a handy place to append **reminders** from the task or specifics that the LLM may be ignoring
+3. Be aware that increasing context length alone does not ensure better performance. **Less context of "fluff"**  will mean the remaining instructions are more likely to be followed.
+
+###### Example 
+<code class="wrap-code">
+notes 
+1. Please provide the email classification label and only the label as your response
+2. Do not include any personal information from the email in your response
+3. If you are unsure about the appropriate classification, err on the side of caution and assign the "Needs Attention" label.
+</code>
+
+
+#### Markdown Formatting
+Long prompts can get messy. For our sake(and the LLM's), we need some way to provide **structure** in order to outline the **different components** of our formula. The most effective way right is with **Markdown**, a plain text formatting syntax that is common across the web.
+It gives use **new tools** to structure our prompt with:
+1. Headings (#,## or ### for H1,H2 & H3)
+2. Bolds, italics and underlines
+3. Lists
+4. Horizontal rules
+5 More
+
+**OpenAI themselves write their prompts in Markdown**, which may be reflected in their tuning dataset, so following suit is not a bad idea!
+While studies have compared it to non-markdown prompts, it definitely **does not detract** from the performance while still marking things more **legible**  for use as prompt engineers.
+
+Key Takeaways:
+1. Use ** H1 tags**(signal #) to mark each of the components for your prompt 
+2. Use **H2 or H3 tags** (double or triple #)as necessary with each core component
+3. Use **bolds** to emphasize words eg **this is bold** (not super import)
+
+##### Example 
+<code class="wrap-code">
+# Role
+# Task
+# Specifics
+# Context
+## About the business
+## Our system
+# Examples
+## Example 1
+Q:
+A:
+## Example 2
+Q:
+A:
+# notes
+</code>
+
+##### Email classification prompt
+<code class="wrap-code">
+# Role
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+---
+# Task
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+2. Determine if the email requires a response or action based on its content.
+3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+	Email: {{emailContent}}
+---
+# Specifics
+- This task is critical to the success of our business, so please provide a thorough analysis of the email
+- If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+- Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+---
+# Context
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails essential for our sales team to prioritize their efforts and respond to requires in timely manner. By accurately identifying opportunities and emails that need attention, you directly contribute to the growth and success of our company. Therefore we greatly value your careful consideration and attention to classification.
+---
+# Examples
+## Example 1
+Q: Email: "Dear Sir/Madam, I am interested in learning more about your AI solutions for the healthcare industry. Could you please provide me with more information about your products and pricing? Thank you, John Doe"
+A: Label: Opportunity
+## Example 2
+Q: Email: "To whom it may concern, I am writing to inquire about the job openings at your company. I have attached my resume for your consideration. Best regards, Jane Smith"
+A: Label: Ignore
+## Example 3
+Q:Email: "Hello, I am experiencing technical difficulties with one of your Ai products. Please contact me at your earliest convenience. Thank you. Mike Johnson"
+Ａ: Label: Needs Attention
+---
+# Notes 
+- Please provide the email classification label and only the label as your response
+- Do not include any personal information from the email in your response
+- If you are unsure about the appropriate classification, err on the side of caution and assign the "Needs Attention" label.
+</code>
+
+####  Considerations
+Context Length and Cost
+- For high tasks, you need to focus on making the prompt as succinct as possible. Each time it runs you will be charged for input and output tokens, you prompt + any insert variables = input.Short prompt = cheaper system
+
+Choice of Model
+- Better prompt engineering can get more performance out of cheaper and faster models
+- Where possible, use your skills to bend the cheapest and faster model to execute the task successfully
+- Some systems have high volume or require responses, this is when your skills shine
+
+Temperature & Model Setting
+- If you're doing creative writing, ideation, etc the test higher levels(0.5~1.0)
+- Anything else should be with the temperature set to 0. You want consistency and predictability when creating these AI systems that wrestle with the natural randomness of LLMs.
+- Other model settings are not needed in my experience 
+
+#### Use Case
+##### AI agency
+<div style="max-width:700px">
+	{% asset_img pic1.png pic1 %}
+</div>
+
+##### AI Voice agency
+<div style="max-width:700px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
+##### Automations
+<div style="max-width:500px">
+	{% asset_img pic5.png pic5 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic3.png pic3 %}
+</div>
+
+##### AI Tools
+<div style="max-width:500px">
+	{% asset_img pic6.png pic6 %}
+</div>
+<div style="max-width:700px">
+	{% asset_img pic4.png pic4 %}
+</div>
 
 ### 參考資料
 + [YouTube Academy 2024: Complete Beginner to Pro Step-by-Step](https://www.udemy.com/course/youtubeacademy/)
