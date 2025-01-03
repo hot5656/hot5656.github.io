@@ -1,5 +1,5 @@
 ---
-title: AI Foundations-1
+title: AI Foundations - Basic
 abbrlink: a652
 date: 2024-12-26 10:53:27
 categories: AI
