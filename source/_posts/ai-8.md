@@ -2,8 +2,9 @@
 title: AI Foundations - AI Voice Agents
 abbrlink: 62d3
 date: 2025-01-03 10:51:00
-categories:
+categories: AI
 tags:
+	- ai Foundations
 ---
 
 ### [How to Make an AI Voice Appointment Setter](https://www.youtube.com/watch?v=gkKL7Owg7H4)
@@ -28,4 +29,21 @@ tags:
 + [Air AI](https://www.air.ai/):Air AI是一種先進的人工智慧工具，旨在模擬人類對話並執行多種任務,Air AI可以在5000多個應用程式中自主執行操作，包括客戶服務、預訂設定等日常任務
 + [Make](https://www.make.com/):Make是一個強大的自動化平台，旨在幫助使用者透過無程式碼或低程式碼的方式連接一些不同的應用程式和服務.該平台支援數百種應用程式和服務的集成，包括Google Sheets、Slack、Trello等，使得用戶能夠輕鬆連接不同工具，實現資料的無縫流動。-cheaper than Zapir
 + [Twilio](https://www.twilio.com/en-us):總部位於美國加州舊金山的雲端通訊平台公司,提供的服務包括語音通話、簡訊傳送與接收、視訊通話等，所有功能均透過API介面快速實現，讓開發者可以將這些功能嵌入到自己的應用中
+
+### [How to Make an AI Customer Support Phone Line in 3 Minutes(w/ Knowledge Base)](https://www.youtube.com/watch?v=8K1z-5-74w8)
+載入已知資料庫,support回答問題
+
+#### Reference
++ [Twilio](https://www.twilio.com/en-us):總部位於美國加州舊金山的雲端通訊平台公司,提供的服務包括語音通話、簡訊傳送與接收、視訊通話等，所有功能均透過API介面快速實現，讓開發者可以將這些功能嵌入到自己的應用中
++ [Air AI](https://www.air.ai/):Air AI是一種先進的人工智慧工具，旨在模擬人類對話並執行多種任務,Air AI可以在5000多個應用程式中自主執行操作，包括客戶服務、預訂設定等日常任務
+
+### [How to Get ChatGPT to Make Phone Calls For You (Custom GPT Tool)](https://www.youtube.com/watch?v=J_zViaCCvhE)
+ChatGPT + Bland AI --> business calls for schedule meeting, or book restaurant  
+
+### [Best AI Solution to Sell to Ecom Stores 2024](https://www.youtube.com/watch?v=10_IoRRSjaw)
+當客戶棄訂單,主動撥電話後透過SMS(Short Message Service)傳送折扣碼
+<div style="max-width:500px">
+	{% asset_img pic2.png pic2 %}
+</div>
+
 

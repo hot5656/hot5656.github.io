@@ -25,6 +25,9 @@ tags:
 + **DM** : 是 "direct message" 的縮寫，指的是社交媒體平台上用戶之間的私人消息
 + **MVP**（Minimum Viable Product）: MVP，即最小可行產品，是一種具有足夠功能的產品版本，旨在吸引早期用戶並驗證產品理念。這種產品通常只包含最基本的功能，以便快速推出市場並收集用戶反饋
 + **POC**（Proof of Concept）: 即概念驗證，是一種展示某個想法或方法是否可行的過程。它通常涉及小規模的實驗或原型，以證明某個概念在技術上是可行的，或者能夠解決特定問題。
++ **CRM** : 即客戶關係管理（Customer Relationship Management），是一種企業策略和技術，旨在通過管理和分析客戶互動及數據來提升企業與客戶之間的關係。
++ **VA** : 即虛擬助理（Virtual Assistant）
+
 
 ### [Top 5 Areas for AAA Specialization](https://www.skool.com/learn-ai/classroom/2871573e?md=670b6f8eff524ebf98b7c3c86f5f89a6)
 + AI Opportunity 
@@ -122,13 +125,13 @@ tags:
 
 1. AI voice systems
 	- synthflow
-	- Bland AI
+	- Bland AI : Bland AI 是一個專為開發者設計的平台，旨在大規模建立AI 驅動的電話呼叫應用程式。該平台提供了進出站電話的API 和基礎設施，使企業能夠自動化客戶支援、銷售和資料收集等任務。
 	- Air
 2. AI agent
 	- AAA
 3. AI automation
 	- make.com
-	- Zapier
+	- Zapier : Zapier 是一個強大的自動化工具，旨在幫助用戶連接和整合不同的應用程序，以自動化日常任務和工作流程。
 4. AI tools/Apps
 	- Relevance AI
 	- Stack AI
@@ -426,6 +429,15 @@ Temperature & Model Setting
 <div style="max-width:700px">
 	{% asset_img pic4.png pic4 %}
 </div>
+
+### AI Tools
++ Base
+	1. ChatGPT
+	2. [Claude](https://claude.ai/)
++ [AI Tools list](https://www.php.cn/zh-tw/ai-tools)
++ [Glasp](https://glasp.co/) : 是一個專注於增強學習和研究體驗的高亮工具，允許使用者在網頁和PDF 文件上高亮文字並添加註解
+
+
 
 ### 參考資料
 + [YouTube Academy 2024: Complete Beginner to Pro Step-by-Step](https://www.udemy.com/course/youtubeacademy/)
