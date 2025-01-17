@@ -50,3 +50,17 @@ CREATI
 + Education
 + AI SaaS-Software as a Service(software production)
 
+
+### [The Proven Content System for Unlimited AI Agency Leads](https://www.youtube.com/watch?v=O2YmiYEJ-sY)
+
+#### organic content funnels
+1.  Cold-Awareness (Rented audience)-CTA(call to action)
+	+ See your content
+	+ Folloed /Subscribed
+2. Warm-(Owned Audience)
+	+ Email,SMS,WhatsApp
+	+ Email List
+	+ Free Resource/Lead magnet
+	+ Trust ,Respect , Authority(Nurturing)
+3. Hot
+
