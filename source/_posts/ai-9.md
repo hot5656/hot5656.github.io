@@ -64,3 +64,114 @@ CREATI
 	+ Trust ,Respect , Authority(Nurturing)
 3. Hot
 
+### [13 AI Tools I Use to Make $480,000/Month](https://www.skool.com/learn-ai/video-13-ai-tools-i-use-to-make-480000month?p=2f619c88)
+1. Morningside AI - AI automation agency
+  + [Prometheus](https://promptmetheus.com)(prompt engineering IDE)
+  + [Cursor](https://www.cursor.com)(AI-enhanced code editor)
+  + [Vapi](https://vapi.ai)(voice agent, HR auto call ask question then choice people)
+  + [Google Gemini deep research](https://deepmind.google/technologies/gemini/)(search 研究)
+2. AAA accelerator - education business
+	+ [Fireflies](https://fireflies.ai)(record software, analyze)
+	+ [AirTable AI](https://www.airtable.com/platform/ai)(text analyze)
+3. agentive - AI SaaS
+	+ [Agentive](https://agentivehub.com)(customer support)
+4. Content
+	+ [Claude](https://claude.ai)(better for idea then ChatGPT)
+	+ [Perplexity](https://www.perplexity.ai)(topic research)
+	+ [Recraft](https://www.recraft.ai)(generate consistent images and icons for video)
+	+ [Runway](https://runwayml.com)(AI video generation)
+	+ [Replicate](https://replicate.com/ostris/flux-dev-lora-trainer/train)(AI generated thumbnail)
+	+ [Relevance AI]( https://app.relevanceai.com)(deep ideas)
+
+### [5 Ways to Start an Al Agency in 2024](https://www.skool.com/learn-ai/video-5-ways-to-start-an-al-agency-in-2024)
+#### AI business:
++ SaaS: more design
++ Agency: 
++ Education: Need for clarity strategy
+
+#### 3 Problems
++ Expertise(technical)
++ lead flow
++ Credibility Authority
+
+#### Strategy :
++ Learning the Thing(YouTube/LinkedIn)
++ Share Your Journey
++ Offer free Consulting call
++ Close deals
+
+#### 5 Types AI 
++ AI Automation Speccialist(make.com, AirTbale)
++ Text Base Agents(ChatGPT, assistance API,Agentive-put WhatsApp..): forever loop
++ Voice Agent Specialist(Bland AI, Air AI, Syn flow, Vapy
++ Zapiz ecosystem specialist(Automation, chatBots, data management
++ Chatbot Specialist(voiceflow-WhatsApp)
+
+#### Reference
+##### AI Automation Specialist
++ [Prompt Engineering](https://www.youtube.com/watch?v=3jxfk6nH5qk)
++ [Make Academy](https://academy.make.com/)
++ [Free Make Course](https://www.youtube.com/playlist?list=PLHi9LZK4z4R6bF2K2f4qjNz9-_Kq27dBp)
++ [Free Airtable Course](https://www.youtube.com/playlist?list=PLB_a5YimSFP2o9_BdJbvSyfzoBKts87hs )
++ [Airtable Academy](https://academy.airtable.com/ )
++ [Make Partner Training](https://partnertraining.make.com/)
++ [Shaz’s Channel (Running an AI Automation Focussed Agency)](https://www.youtube.com/@theShazM/videos)
+
+##### Text Based Agent Specialist
++ [Prompt Engineering](https://www.youtube.com/watch?v=3jxfk6nH5qk)
++ [My GPTs Beginner’s Guide](https://www.youtube.com/watch?v=Hh2zqaf0Fvg)
++ [Learn RelevanceAI](https://www.youtube.com/watch?v=_sNGuQz-LyY)
++ [Learn Apify](https://www.youtube.com/watch?v=Iby1C0LgPdI)
++ [Build GPTs](https://chatgpt.com/gpts/mine)
++ [Build and Sell AI Agents with Agentive](https://agentivehub.com/)
+
+##### Voice Based Agent Specialist
++ [Prompt Engineering: https](//www.youtube.com/watch?v=3jxfk6nH5qk)
++ [Liam Voice AI Videos #1](https://www.youtube.com/watch?v=gkKL7Owg7H4)
++ [Liam Voice AI Videos #2](https://www.youtube.com/watch?v=8K1z-5-74w)
++ [Liam Voice AI Videos #3](https://www.youtube.com/watch?v=aWnNJdiza3k)
++ [Jannis’ Channel (Vapi)](https://www.youtube.com/@jannismoore/videos)
++ [Mark’s Channel (Bland)](https://www.youtube.com/@Mark_Kashef/videos)
++ [Brock’s Channel (General AI Voice)](https://www.youtube.com/@BrockMesarich)
++ [Samin Yasar (Running an AI Voice Agency)](https://www.youtube.com/@SaminYasar_/videos)
++ [Brendan’s AI Voice Tutorial](https://www.youtube.com/watch?v=jDPXWMUVUPE&ab_channel=BrendanJowett)
+
+##### Zapier Ecosystem Specialist
++ [Prompt Engineering](https://www.youtube.com/watch?v=3jxfk6nH5qk)
++ [Zapier Learn](https://learn.zapier.com/page/courses)
++ [Corbin Brown](https://www.youtube.com/@webcafeai/search?query=zapier)
++ [My Ecom Solution](https://www.youtube.com/watch?v=10_IoRRSjaw)
++ [My Interview w/ Zapier AI Director](https://www.youtube.com/watch?v=SO0pm3LA2AI)
+
+##### Chatbot Specialist (Voiceflow)
++ [Prompt Engineering](https://www.youtube.com/watch?v=3jxfk6nH5qk)
++ [My 3hr Chatbot Tutorial](https://www.youtube.com/watch?v=jCoH82LPgdk&pp=ygUTbGlhbSBvdHRsZXkgY2hhdGJvdA%3D%3D)
++ [Brendan’s Chatbot Tutorial](https://www.youtube.com/watch?v=YzRwq3wSu6w)
++ [Flowise Tutorial](https://www.youtube.com/watch?v=Ev_WvXvyNNo)
++ [Flowbridge #1](https://www.youtube.com/@FlowBridgeApp)
++ [Flowbridge #2](https://www.youtube.com/watch?v=_-oJM2Ed0FQ&pp=ygUKZmxvd2JyaWRnZQ%3D%3D)
++ [Brendan’s Channel](https://www.youtube.com/@brendanautomation/videos)
+
+### [The Simplest AI Automation Offer for Beginners (start here)](https://www.skool.com/learn-ai/video-the-simplest-ai-automation-offer-for-beginners-start-here?p=941901d2)
+
+simplest AI  Offer
++ Knowledge Gap
++ AI Tools Consulting(sell other people stuff)
++ Education -- Consulting - -Implement AI service(Service delivery Platform)
+
+Process to Start 
++ Find Tools(YouTube)
++ Make a list at sheet
++ Deep Diving(Youtub search, Try it Yourself)
++ Make as DB tools(database) - 50 tools
+
+Free AI Tools Audit
++ free Consult
++ math + find more(AI tools or future tools)
++ report whating
++ Afficlits (21:50)
+
+
+#### Reference
++ [There's an AI for That](https://theresanaiforthat.com)
++ [Future Tools](https://www.futuretools.io)
