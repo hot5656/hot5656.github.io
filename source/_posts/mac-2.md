@@ -78,6 +78,35 @@ brew --version
 echo $PATH
 ``` 
 
+#### basic command
+``` bash
+# search
+brew search package_name
+
+# install
+brew install package_name
+
+# upgrade Homebrew
+brew update
+# upgrade package
+brew upgrade
+
+# 列出已安裝的包
+brew list
+```
+
+#### maintain
+``` bash
+# check brew
+brwe doctor
+
+# check package information
+brew info package_name
+
+# clear don't need template
+brew cleanup
+```
+
 ### git
 #### install
 ``` bash

@@ -22,9 +22,12 @@ tags:
 
 #### App 操作
 + 退出 : Cmd + Q
++ 隱藏視窗 : Cmd + H
++ 切換同 App 不同視窗 : Cmd + ~
++ 跳出/進入 全螢幕 : Control + Cmd + F
 + 關掉 Finder 視窗 : Cmd + W 
 + 切換 App : Cmd + Tab
-+ show 所有執行 App : control + Up
++ show 所有執行 App : control + Up / F3
 
 
 #### 其他 
