@@ -1,5 +1,5 @@
 ---
-title: YouTube Resources
+title: AI Foundations - YouTube Resources
 abbrlink: a212
 date: 2025-01-06 10:37:29
 categories: AI
@@ -65,7 +65,7 @@ CREATI
 3. Hot
 
 ### [13 AI Tools I Use to Make $480,000/Month](https://www.skool.com/learn-ai/video-13-ai-tools-i-use-to-make-480000month?p=2f619c88)
-1. Morningside AI - AI automation agency
+1. Morningside AI - AI automation agency(AAA)
   + [Prometheus](https://promptmetheus.com)(prompt engineering IDE)
   + [Cursor](https://www.cursor.com)(AI-enhanced code editor)
   + [Vapi](https://vapi.ai)(voice agent, HR auto call ask question then choice people)
@@ -169,7 +169,7 @@ Free AI Tools Audit
 + free Consult
 + math + find more(AI tools or future tools)
 + report whating
-+ Afficlits (21:50)
++ Afficlits
 
 
 #### Reference
