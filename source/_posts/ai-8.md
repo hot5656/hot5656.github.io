@@ -12,7 +12,7 @@ tags:
 
 <!--more-->
 #### Reference
-+ [Welcome to the AI Automation Agency Hub](https://www.skool.com/learn-ai/welcome-to-the-ai-automation-agency-hub-must-read)
++ [Welcome to the AI Automation Agency(AAA) Hub](https://www.skool.com/learn-ai/welcome-to-the-ai-automation-agency-hub-must-read)
 + [Synthflow](https://synthflow.ai/):Automate phone calls with AI voice agents(expensive, no free try)
 + [Twilio](https://www.twilio.com/en-us):總部位於美國加州舊金山的雲端通訊平台公司,提供的服務包括語音通話、簡訊傳送與接收、視訊通話等，所有功能均透過API介面快速實現，讓開發者可以將這些功能嵌入到自己的應用中
 + [Relevance AI ](https://app.relevanceai.com/):一個致力於提供資料分析和機器學習解決方案的平台,該平台主要面向希望透過數據分析和機器學習提升業務分析力的企業和組織，特別是那些希望簡化數據處理流程的團隊。
