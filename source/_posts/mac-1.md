@@ -28,6 +28,8 @@ tags:
 + 關掉 Finder 視窗 : Cmd + W 
 + 切換 App : Cmd + Tab
 + show 所有執行 App : control + Up / F3
++ 字型變大 : Cmd + '+'
++ 字型變小 : Cmd + '-'
 
 
 #### 其他 
