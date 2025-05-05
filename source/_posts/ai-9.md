@@ -175,3 +175,19 @@ Free AI Tools Audit
 #### Reference
 + [There's an AI for That](https://theresanaiforthat.com)
 + [Future Tools](https://www.futuretools.io)
+
+
+### [The 5 Phases of Scaling an AI Agency: $0-100K/Month Roadmap](https://www.youtube.com/watch?v=2-9GpXyduRE)
++ Start Up : 0~5k/month
++ Early Growth : 5~10k/month
++ Establishment : 10~20k/month
++ SCaling : 20~50k/month
++ Expansion : 50~100k/month
+
+
+### Other
+#### Case for AI apply
++ Manually responding to customer service inquiries
++ Processing data in spreadsheets
++ Organizing their inbox and calendar
++ Handling repetitive tasks that eat up 40% of their work week
