@@ -9,6 +9,56 @@ date: 2021-03-14 15:48:38
 
 ## git 命令
 
+### 常用命令
+``` bash
+🔧 基本指令
+git init – 初始化一個新的 Git 儲存庫。
+git clone <repo_url> – 克隆遠端儲存庫。
+git status – 檢查工作目錄的狀態。
+git add <file> – 暫存要提交的變更。
+git commit -m "message" – 提交暫存的變更並附帶一則訊息。
+git push – 將本機提交推送到遠端儲存庫。
+git pull – 從遠端倉庫取得並合併變更。
+git diff – 顯示工作目錄中的變更（未提交的變更）。
+git diff --staged – 顯示暫存區和上次提交之間的變化。
+
+🛠️ 分支和合併
+git branch – 列出分支。
+git branch <branch_name> – 建立一個新分支。
+git checkout <branch_name> – 切換到另一個分支。
+git checkout -b <branch_name> – 建立並切換到新分支。
+git merge <branch_name> – 將分支合併到目前分支。
+git branch -d <branch_name> – 合併後刪除分支。
+git branch -D <branch_name> – 強制刪除一個分支，即使它尚未合併。
+
+🔄 同步
+git fetch – 從遠端下載變更而不合併。
+git rebase <branch> – 在另一個分支上重新套用提交以維護線性歷史記錄。
+git pull --rebase – 取得並在最新的遠端變更之上重新套用您的變更。
+git remote add <name> <url> – 新增一個新的遠端儲存庫。
+
+🎯 高級 Git
+git stash – 暫時儲存變更而不提交。
+git stash pop – 重新套用儲存的變更。
+git cherry-pick <commit> – 將特定提交套用到目前分支。
+git log --oneline – 查看簡化的投稿歷史記錄。
+git reflog – 顯示參考變更的歷史記錄（例如，簽出、重設）。
+git log --graph --decorate --all – 顯示可視化的提交歷史記錄。
+
+🚨 撤銷更改
+git reset <file> – 取消暫存檔案。
+git reset --soft <commit> – 重設為提交但保留工作目錄中的變更。
+git reset --hard <commit> – 完全重設為上一次提交，丟棄更改。
+git revert <commit> – 建立一個撤銷特定提交的新提交。
+
+⚙️ 與他人合作
+git fork – 在 GitHub 上 Fork 一個儲存庫（透過 UI）以開始貢獻。
+git pull origin <branch> – 從原始遠端分支中提取變更。
+git push origin <branch> – 將您的分支推送到原始儲存庫以進行協作。
+```
+
+<!--more-->
+
 ### git init
 ``` bash
 git init
@@ -22,7 +72,6 @@ git branch issue1
 # 建立新分支 backup 同時切過去
 git checkout -b backup
 ```
-<!--more-->
 
 #### see branch
 ``` bash

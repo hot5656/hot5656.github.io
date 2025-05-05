@@ -9,17 +9,17 @@ tags:
 ---
 
 ### 快速鍵
-+ 跳至 Command line : ctrl+shift+p 或 F1
++ 跳至 Command line : ctrl+shift+p 或 F1(Mac Cmd+Shift+P)
 + 全螢幕切換 : F11
 + 搜尋檔案 : Ctrl + P
 ---
-+ 移動整行程式碼 : Alt + ↑ 或 Alt + ↓
++ 移動整行程式碼 : Alt + ↑ 或 Alt + ↓ (Mac option + ↑, Option + ↓)
 + 重整程式排列 : shift + alt + F
 + 複製一行 : Ctrl+C
-+ 設註解 : ctrl+/ 
++ 設註解 : ctrl+/ (Mac Cmd+/)
 + 跳至某一行 : Ctrl+G
 + 多行編輯-選擇行   :  alt+(mouse-left)
-+ 多行編輯-選擇多行 :  alt+shift+(mouse-left) 移動位置
++ 多行編輯-選擇多行 :  alt+shift+(mouse-left) 移動位置 (Mac shift+Option+(mouse-left))
 + 左移一個字 : Ctrl + Left
 + 右移一個字 : Ctrl + Right
 + 編輯所有符合字串 : 選擇字串 --> Ctrl + shift + L
@@ -32,7 +32,7 @@ tags:
 + 分割畫面 : Ctrl + \
 + 開關 terminal : Ctrl + ` (反引號)
 + 關閉所有檔案 : Ctrl + K + W
-+ 儲存檔案   : Ctrl + s
++ 儲存檔案   : Ctrl + s (Mac Cmd+s)
 
 <!--more-->
 
