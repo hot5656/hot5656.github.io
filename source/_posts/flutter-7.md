@@ -1004,6 +1004,70 @@ Cmd + shift + p
     version: "5.0.0"
 ```
 
+###### 想知道哪些可以升級
+``` yaml
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub outdated
+Showing outdated packages.
+[*] indicates versions that are not the latest available.
+
+Package Name                  Current  Upgradable  Resolvable  Latest  
+
+direct dependencies: all up-to-date.
+
+dev_dependencies: all up-to-date.
+
+transitive dependencies:     
+async                         *2.12.0  *2.12.0     *2.12.0     2.13.0  
+fake_async                    *1.3.2   *1.3.2      *1.3.2      1.3.3   
+leak_tracker                  *10.0.8  *10.0.8     *10.0.8     11.0.1  
+leak_tracker_flutter_testing  *3.0.9   *3.0.9      *3.0.9      3.0.10  
+leak_tracker_testing          *3.0.1   *3.0.1      *3.0.1      3.0.2   
+material_color_utilities      *0.11.1  *0.11.1     *0.11.1     0.12.0  
+vector_math                   *2.1.4   *2.1.4      *2.1.4      2.1.5   
+vm_service                    *14.3.1  *14.3.1     *14.3.1     15.0.0  
+
+transitive dev_dependencies: 
+lints                         *5.1.1   *5.1.1      *5.1.1      6.0.0   
+all dependencies are up-to-date.
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % 
+```
+
+###### 套件相依關係樹狀圖
+``` yaml
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub deps
+Dart SDK 3.7.0
+Flutter SDK 3.29.1
+programminghub 1.0.0+1
+├── carousel_slider 5.0.0
+│   └── flutter...
+├── cupertino_icons 1.0.8
+├── firebase_core 3.13.0
+│   ├── firebase_core_platform_interface 5.4.0
+│   │   ├── plugin_platform_interface 2.1.8
+│   │   │   └── meta...
+│   │   ├── collection...
+│   │   ├── flutter...
+│   │   ├── flutter_test...
+│   │   └── meta...
+│   ├── firebase_core_web 2.22.0
+│   │   ├── flutter_web_plugins 0.0.0
+│   │   │   ├── characters...
+│   │   │   ├── collection...
+│   │   │   ├── flutter...
+│   │   │   ├── material_color_utilities...
+│   │   │   ├── meta...
+│   │   │   └── vector_math...
+│   │   ├── web 1.1.1
+│   │   ├── firebase_core_platform_interface...
+│   │   ├── flutter...
+│   │   └── meta...
+│   ├── flutter...
+│   └── meta...
+├── firebase_storage 12.4.5
+│   ├── firebase_storage_platform_interface 5.2.5
+......
+```
+
 ##### [carousel_slider](/2025/02/16/flutter-7/#ListView)
 
 

@@ -1216,13 +1216,16 @@ class Page3ItemWidget extends StatelessWidget {
 + [Dartpad](https://dartpad.dev/)
 + [carousel_slider](https://pub.dev/packages/carousel_slider)
 + [Lorem Picsum](https://picsum.photos/images):search --> sample image url for test
++ [firebase_core](https://pub.dev/packages/firebase_core)
++ [firebase_storage](https://pub.dev/packages/firebase_storage)
++ [path](https://pub.dev/packages/path)
++ [camera](https://pub.dev/packages/camera)
++ [permission_handler](https://pub.dev/packages/permission_handler)
++ []()
++ []()
++ []()
++ []()
 
 
 
-<!-- <table>
-  <tr>
-    <td style="margin: 5px;">{% asset_img pic2.png pic1 %}</td>
-    <td style="margin: 5px;">{% asset_img pic2.png pic2 %}</td>
-    <td style="margin: 5px;">{% asset_img pic2.png pic3 %}</td>
-  </tr>
-</table> -->
+

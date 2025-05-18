@@ -836,6 +836,313 @@ gaoyiping@gaoyipingdeMacBook-Pro android % cat ~/Library/Android/sdk/ndk/*/sourc
 Pkg.Revision = 26.3.11579264
 Pkg.Revision = 27.0.12077973
 ```
+
+#### flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973
+##### show issue
+``` bash
+Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:
+- camera_android_camerax requires Android NDK 27.0.12077973
+- firebase_core requires Android NDK 27.0.12077973
+- firebase_storage requires Android NDK 27.0.12077973
+- flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973
+- permission_handler_android requires Android NDK 27.0.12077973
+Fix this issue by using the highest Android NDK version (they are backward compatible).
+Add the following to /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/build.gradle.kts:
+
+    android {
+        ndkVersion = "27.0.12077973"
+        ...
+    }
+```
+
+##### change version - android/app/build.gradle.kts
+``` bash
+android {
+    namespace = "programming.hub.programminghub"
+    compileSdk = flutter.compileSdkVersion
+    // kyp: change
+    // ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
+```
+
+##### update package
+``` bash
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter clean
+Cleaning Xcode workspace...                                      1,363ms
+Deleting build...                                                   69ms
+Deleting .dart_tool...                                               4ms
+Deleting Generated.xcconfig...                                       0ms
+Deleting flutter_export_environment.sh...                            0ms
+Deleting .flutter-plugins-dependencies...                            0ms
+Deleting .flutter-plugins...                                         0ms
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub get
+Resolving dependencies... 
+Downloading packages... 
+  async 2.12.0 (2.13.0 available)
+  fake_async 1.3.2 (1.3.3 available)
+  leak_tracker 10.0.8 (11.0.1 available)
+  leak_tracker_flutter_testing 3.0.9 (3.0.10 available)
+  leak_tracker_testing 3.0.1 (3.0.2 available)
+  lints 5.1.1 (6.0.0 available)
+  material_color_utilities 0.11.1 (0.12.0 available)
+  vector_math 2.1.4 (2.1.5 available)
+  vm_service 14.3.1 (15.0.0 available)
+Got dependencies!
+9 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub outdated
+Showing outdated packages.
+[*] indicates versions that are not the latest available.
+
+Package Name                  Current  Upgradable  Resolvable  Latest  
+
+direct dependencies: all up-to-date.
+
+dev_dependencies: all up-to-date.
+
+transitive dependencies:     
+async                         *2.12.0  *2.12.0     *2.12.0     2.13.0  
+fake_async                    *1.3.2   *1.3.2      *1.3.2      1.3.3   
+leak_tracker                  *10.0.8  *10.0.8     *10.0.8     11.0.1  
+leak_tracker_flutter_testing  *3.0.9   *3.0.9      *3.0.9      3.0.10  
+leak_tracker_testing          *3.0.1   *3.0.1      *3.0.1      3.0.2   
+material_color_utilities      *0.11.1  *0.11.1     *0.11.1     0.12.0  
+vector_math                   *2.1.4   *2.1.4      *2.1.4      2.1.5   
+vm_service                    *14.3.1  *14.3.1     *14.3.1     15.0.0  
+
+transitive dev_dependencies: 
+lints                         *5.1.1   *5.1.1      *5.1.1      6.0.0   
+all dependencies are up-to-date.
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % cat ~/Library/Android/sdk/ndk/*/source.properties | grep Pkg.Revision
+Pkg.Revision = 26.3.11579264
+Pkg.Revision = 27.0.12077973
+```
+
+``` bash
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugGoogleServices'.
+> File google-services.json is missing. 
+  The Google Services Plugin cannot function without it. 
+  Searched locations: /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/Debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/google-services.json
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 5s
+Error: Gradle task assembleDebug failed with exit code 1
+
+Exited (1).
+
+# copy google-services.json to android/app/
+```
+
+``` bash
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/java.com.google.android.gms.libs.filecompliance.proto_file_access_api_type_kt_proto_lite.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.
+e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/third_party.kotlin.protobuf.src.commonMain.kotlin.com.google.protobuf.kotlin_only_for_use_in_proto_generated_code_its_generator_and_tests.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.
+e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/third_party.kotlin.protobuf.src.commonMain.kotlin.com.google.protobuf.kotlin_shared_runtime.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.
+e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/d46efa473af2ff731cfae5ea2010b3f1/transformed/jetified-play-services-measurement-api-22.4.0-api.jar!/META-INF/java.com.google.android.gmscore.integ.client.measurement_api_measurement_api.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 16s
+
+┌─ Flutter Fix ────────────────────────────────────────────────────────────────────────────────────┐
+│ [!] Your project requires a newer version of the Kotlin Gradle plugin.                           │
+│ Find the latest version on https://kotlinlang.org/docs/releases.html#release-details, then       │
+│ update the                                                                                       │
+│ version number of the plugin with id "org.jetbrains.kotlin.android" in the plugins block of      │
+│ /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/settings.gradle │
+│ .                                                                                                │
+│                                                                                                  │
+│ Alternatively (if your project was created before Flutter 3.19), update                          │
+│ /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/build.gradle    │
+│ ext.kotlin_version = '<latest-version>'                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+Error: Gradle task assembleDebug failed with exit code 1
+
+Exited (1).
+```
+
+android/settings.gradle
+``` yarm
+plugins {
+    id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+    id("com.android.application") version "8.7.0" apply false
+    // kyp: change
+    // id("org.jetbrains.kotlin.android") version "1.8.22" apply false
+    id "org.jetbrains.kotlin.android" version "2.1.0" apply false
+}
+```
+
+``` bash
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter clean
+Cleaning Xcode workspace...                                      1,109ms
+
+# 如果存在
+rm -rf build/
+
+gaoyiping@gaoyipingdeMacBook-Pro programminghub % rm -rf ~/.gradle/caches/
+
+gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew clean
+``
+
+``` bash
+# close vscode
+
+# 執行以下指令來結束所有 Gradle 後台程序
+pkill -f '.*GradleDaemon.*'
+
+# 手動清除所有殘留資料
+rm -rf ~/.gradle
+rm -rf ~/.android/build-cache
+rm -rf .dart_tool
+rm -rf build
+rm -rf android/.gradle
+
+# 重新下載並初始化建構依賴
+flutter pub get
+
+# android 資料夾執行
+./gradlew clean
+./gradlew build --refresh-dependencies
+```
+
+# 有以下設定
+# android/settings.gradle.kts
+``` bash
+pluginManagement {
+    val flutterSdkPath = run {
+        val properties = java.util.Properties()
+        file("local.properties").inputStream().use { properties.load(it) }
+        val flutterSdkPath = properties.getProperty("flutter.sdk")
+        require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
+        flutterSdkPath
+    }
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    // kyp: change
+    // id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+    id("dev.flutter.flutter-plugin-loader") apply false
+    id("com.android.application") version "8.7.0" apply false
+    // kyp: change
+    // id("org.jetbrains.kotlin.android") version "1.8.22" apply false
+    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+}
+
+include(":app")
+```
+
+``` bash
+gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew build --refresh-dependencies
+
+> Task :app:compileDebugKotlin FAILED
+e: file:///Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/main/kotlin/programming/hub/programminghub/MainActivity.kt:3:8 Unresolved reference 'io'.
+e: file:///Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/main/kotlin/programming/hub/programminghub/MainActivity.kt:5:22 Unresolved reference 'FlutterActivity'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 54s
+33 actionable tasks: 27 executed, 6 up-to-date
+```
+
+#修正,加大括號
+ android/app/src/main/kotlin/programming/hub/programminghub/MainActivity.kt
+``` bash
+package programming.hub.programminghub
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity() {
+    
+}
+```
+
+``` bash
+rm -rf ~/.gradle/caches/
+rm -rf android/.gradle
+
+flutter clean
+flutter pub get
+flutter build apk
+
+```
+
+``` bash
+# 清除 Flutter 專案產生的暫存檔案與建置目錄
+flutter clean
+# 根據 pubspec.yaml 內容，自動下載並安裝 Dart/Flutter 專案所需的所有套件依賴，並將其存放在 .pub-cache 隱藏目錄
+flutter pub get
+# 將 Flutter 專案編譯並打包成 Android 的 APK 安裝檔，可直接安裝到 Android 裝置或發佈到 Google Play 商店
+# flutter build apk：預設為 release 版本（正式發佈用）。
+# flutter build apk --debug：建立 debug 版本 APK，供開發測試用。
+# flutter build apk --profile：建立 profile 版本 APK，供效能分析。
+# flutter build apk --split-per-abi：針對不同 CPU 架構分別打包，減少單一 APK 檔案大小。
+# 打包完成後，APK 檔案通常位於 build/app/outputs/apk/release/ 目錄
+flutter build apk
+
+# 查看詳細錯誤日誌
+flutter build apk --release --verbose
+
+
+rm -rf ~/.gradle
+flutter clean
+flutter pub get
+./gradlew clean
+flutter build apk
+
+flutter clean
+flutter pub get
+cd android
+./gradlew clean --refresh-dependencies
+cd ..
+flutter build apk
+
+```
+
 ### Other
 #### flutter map to Android version
 ``` bash
