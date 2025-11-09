@@ -38,6 +38,12 @@ tags:
 ``` bash
 # mp4 to mp3
 ffmpeg -i "priority_1_building ur brand and style.mp4" -vn -ar 44100 -ac 2 -b:a 192k "priority_1_building ur brand and style.mp3"
+
+# install for mac
+brwe update
+brew install ffmpeg
+ffmpeg -version
+  ffmpeg version 8.0 Copyright (c) 2000-2025 the FFmpeg developers
 ```
 
 #### Whisper AI 產生字幕或文字
