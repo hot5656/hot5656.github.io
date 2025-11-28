@@ -36,6 +36,25 @@ tags:
 
 <!--more-->
 
+### Operation
+#### 轉換 \n to 換行
+``` bash
+# Select Replace
+Ctrl+H (Windows/Linux) 
+Cmd+Option+F (macOS)
+
+# Select : Use Regular expressoin
+.*
+
+# Search filed
+//n or //t
+
+# Replace fiels
+/n or /t
+
+# Replace All
+```
+
 ### Package Usage (ctrl+shift+p/F1 跳至 Command line)
 #### default 
 + 移除每行後面的空白 - Trailing spaces not allowed
