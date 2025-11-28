@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="常用主機 AWS Digital Ocean GCP Linode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="網站部屬">
+<meta property="og:url" content="https://hot5656.github.io/2021/07/12/web-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="常用主機 AWS Digital Ocean GCP Linode">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic10.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic20.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic22.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic23.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic24.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic25.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic26.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic27.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic30.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic31.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic32.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic33.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic34.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic35.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic37.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic36.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic40.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic41.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic42.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic43.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic44.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic45.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic20.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic22.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic46.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic50.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic60.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic61.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic62.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic63.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic64.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic65.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic67.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic68.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/07/12/web-1/pic69.png">
+<meta property="article:published_time" content="2021-07-12T07:05:39.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:36.296Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/07/12/web-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/07/12/web-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>網站部屬 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E4%B8%BB%E6%A9%9F"><span class="nav-number">1.</span> <span class="nav-text">常用主機</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AWS-%E7%B6%B2%E7%AB%99%E9%83%A8%E5%B1%AC"><span class="nav-number">2.</span> <span class="nav-text">AWS 網站部屬</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%99%9B%E6%93%AC%E4%B8%BB%E6%A9%9F"><span class="nav-number">2.1.</span> <span class="nav-text">建立虛擬主機</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D"><span class="nav-number">2.2.</span> <span class="nav-text">安裝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-lamp"><span class="nav-number">2.2.1.</span> <span class="nav-text">安裝 lamp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-phpmyadmin"><span class="nav-number">2.2.2.</span> <span class="nav-text">安裝 phpmyadmin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-database"><span class="nav-number">2.2.3.</span> <span class="nav-text">設定 database</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#change-apache-root-folder"><span class="nav-number">2.2.4.</span> <span class="nav-text">change apache root folder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-SFTP-link"><span class="nav-number">2.2.5.</span> <span class="nav-text">建立 SFTP link</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-user-%E5%92%8C-%E8%B3%87%E6%96%99%E5%BA%AB"><span class="nav-number">2.2.6.</span> <span class="nav-text">建立 user 和 資料庫</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Elastic-IP-%E5%BD%88%E6%80%A7IP-%E9%97%9C%E6%A9%9F%E9%87%8D%E9%96%8B%E4%B8%8D%E6%9C%83%E6%9B%B4%E6%94%B9IP"><span class="nav-number">2.3.</span> <span class="nav-text">設定 Elastic IP(彈性IP) - 關機重開不會更改IP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Domain-name-DoDaDDy"><span class="nav-number">2.4.</span> <span class="nav-text">設定 Domain name - DoDaDDy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VSCode-SFTP-%E5%90%8C%E6%AD%A5-Server-Code"><span class="nav-number">2.5.</span> <span class="nav-text">VSCode SFTP 同步 Server Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-2-%E5%80%8B%E5%88%A5%E5%AE%89%E8%A3%9D"><span class="nav-number">2.6.</span> <span class="nav-text">安裝 #2 - 個別安裝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-apache2"><span class="nav-number">2.6.1.</span> <span class="nav-text">安裝 apache2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-php"><span class="nav-number">2.6.2.</span> <span class="nav-text">安裝 php</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-MySQL"><span class="nav-number">2.6.3.</span> <span class="nav-text">安裝 MySQL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-MySQL-%E5%AE%89%E8%A3%9D%E7%B5%90%E6%9E%9C"><span class="nav-number">2.6.4.</span> <span class="nav-text">檢查 MySQL 安裝結果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#install-phpMyAdmin"><span class="nav-number">2.6.5.</span> <span class="nav-text">install phpMyAdmin</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-app-%E9%80%A3%E8%87%B3-MySQL"><span class="nav-number">2.7.</span> <span class="nav-text">其他 app 連至 MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Inbound-Rules-%E6%96%B0%E5%A2%9E-HTTP-TCP-port-3306"><span class="nav-number">2.7.1.</span> <span class="nav-text">Inbound Rules 新增 HTTP TCP port:3306</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mask-bind-address-%E5%85%81%E8%A8%B1%E9%80%A3%E7%B7%9A%E4%B8%BB%E6%A9%9F"><span class="nav-number">2.7.2.</span> <span class="nav-text">mask bind-address(允許連線主機)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#root-localhost-%E6%94%B9%E6%88%90"><span class="nav-number">2.7.3.</span> <span class="nav-text">root localhost 改成 %</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#heidisq-port-3306-setting"><span class="nav-number">2.7.4.</span> <span class="nav-text">heidisq port 3306 setting</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#logs-%E6%9F%A5%E8%A9%A2"><span class="nav-number">2.8.</span> <span class="nav-text">logs 查詢</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AWS-%E9%83%A8%E7%BD%B2%E5%92%8C%E8%A8%97%E7%AE%A1-React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">AWS 部署和託管 React 應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E7%9A%84-React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">建立新的 React 應用程式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-GitHub-%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.2.</span> <span class="nav-text">初始化 GitHub 儲存庫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-AWS-Amplify-%E9%83%A8%E7%BD%B2%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">使用 AWS Amplify 部署應用程式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">更新應用程式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DevTools-%E5%8F%AF%E7%9C%8B%E5%88%B0%E5%8E%9F%E5%A7%8B-source-%E6%87%89%E8%A9%B2%E8%A6%81%E5%8F%A6%E5%A4%96%E8%99%95%E7%90%86"><span class="nav-number">3.5.</span> <span class="nav-text">DevTools 可看到原始 source, 應該要另外處理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/07/12/web-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          網站部屬
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-07-12 15:05:39" itemprop="dateCreated datePublished" datetime="2021-07-12T15:05:39+08:00">2021-07-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:36" itemprop="dateModified" datetime="2022-06-09T11:38:36+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Back-End/" itemprop="url" rel="index"><span itemprop="name">Back End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/07/12/web-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/12/web-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>14 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="常用主機"><a href="#常用主機" class="headerlink" title="常用主機"></a>常用主機</h3><ul>
+<li>AWS</li>
+<li>Digital Ocean</li>
+<li>GCP</li>
+<li>Linode</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="AWS-網站部屬"><a href="#AWS-網站部屬" class="headerlink" title="AWS 網站部屬"></a>AWS 網站部屬</h3><h4 id="建立虛擬主機"><a href="#建立虛擬主機" class="headerlink" title="建立虛擬主機"></a>建立虛擬主機</h4><ol>
+<li>選擇區域,再點選使用 EC2</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic1.png" class="" title="pic1">
+</div>
+
+<ol start="2">
+<li>選擇機器,有標註 Free Tier eligible為提供免費之機器,選擇 Ubuntu Server 20.04 LTS</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic2.png" class="" title="pic2">
+</div>
+
+<ol start="3">
+<li>選擇機器Type(Free Tier eligible 為免費),選擇 t2.micro,再點選 “Next: Configure Instance Details”</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic3.png" class="" title="pic3">
+</div>
+
+<ol start="4">
+<li>Configure 機器,不需變動,直接點選 “Next:Add Storage”</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic4.png" class="" title="pic4">
+</div>
+
+<ol start="5">
+<li>設定儲存記憶體,直接點選 “Next:Add Tags”</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic5.png" class="" title="pic5">
+</div>
+
+<ol start="6">
+<li>設定 Tags,不用設定,直接點選 “Configure Security Group”</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic6.png" class="" title="pic6">
+</div>
+
+<ol start="7">
+<li>設定 使用 port,default 為 SSH TCP port:22, 新增 HTTP TCP port:80,點選 “Review and Launch”,再選 Launch</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic7.png" class="" title="pic7">
+</div>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic8.png" class="" title="pic8">
+</div>
+
+<ol start="8">
+<li>選擇&#x2F;新建 SSH key<br>新建: 選擇 “Create a new key pair”,填入Key pair name,點選 Download Key Pair,下載 SSH key,最後點選 “Launch Instances” 啟動機器</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic9.png" class="" title="pic9">
+</div>
+
+<ol start="9">
+<li>點選 “View Instances”,然後輸入新建 Instance 的 Nanme</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic10.png" class="" title="pic10">
+</div>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic11.png" class="" title="pic11">
+</div>
+
+<ol start="10">
+<li>ssh 登入命令,點選 instance 再點選 Connect 即可看到 ssh 登入 command</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic12.png" class="" title="pic12">
+</div>
+
+<ol start="11">
+<li>ssh 登入,進入 command line 輸入視窗,將 ssh key copy 到 command line 的目錄下,執行前一步查到的 command,即可登入</li>
+</ol>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic13.png" class="" title="pic13">
+</div>
+
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic14.png" class="" title="pic14">
+</div>
+
+<h4 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h4><h5 id="安裝-lamp"><a href="#安裝-lamp" class="headerlink" title="安裝 lamp"></a>安裝 lamp</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新軟體</span></span><br><span class="line"><span class="comment"># 更新軟體的最新資訊及列表 : sudo apt update</span></span><br><span class="line"><span class="comment"># 更新目前已安裝的軟體到最新版本 : sudo apt upgrade </span></span><br><span class="line"><span class="comment"># 更新目前已安裝的軟體(可以聰明的解決相依性的問題, 如果有相依性問題, 需要 安裝/移除 新的 Package, 就會試著去 安裝/移除 它) : sudo apt dist-upgrade</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; sudo apt dist-upgrade </span><br><span class="line"><span class="comment"># 安裝 tasksel(含 安裝軟件包之軟體)</span></span><br><span class="line">sudo apt install tasksel</span><br><span class="line"><span class="comment"># 列出可安裝之任務</span></span><br><span class="line">tasksel --list-tasks</span><br><span class="line"><span class="comment"># 透過 tasksel 安裝 lamp-server</span></span><br><span class="line">sudo tasksel install lamp-server</span><br><span class="line"><span class="comment"># check apache 是否正常</span></span><br><span class="line">curl http://localhost</span><br><span class="line"><span class="comment"># 使用 telnet text port 80</span></span><br><span class="line">telnet 127.0.0.1 80</span><br><span class="line">	Trying 127.0.0.1...</span><br><span class="line">	Connected to 127.0.0.1.</span><br><span class="line">	Escape character is <span class="string">&#x27;^]&#x27;</span>.</span><br></pre></td></tr></table></figure>
+<h5 id="安裝-phpmyadmin"><a href="#安裝-phpmyadmin" class="headerlink" title="安裝 phpmyadmin"></a>安裝 phpmyadmin</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install phpmyadmin</span><br></pre></td></tr></table></figure>
+
+<p>按 space 選擇 apache2,再用 tab 選到 ok</p>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic20.png" class="" title="pic20">
+</div>
+
+<p>選 Yes mapping database to phpadmin</p>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic21.png" class="" title="pic21">
+</div>
+
+<p>輸入 phpmyadmin 註冊到資料庫的密碼</p>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic22.png" class="" title="pic22">
+</div>
+
+<p>使用 browser 開啟 <a target="_blank" rel="noopener" href="http://public_ip/phpmyadmin/">http://public_ip/phpmyadmin/</a> 即可用帳號 phpmyadmin 登入<br>(public_ip 填入實際ip)</p>
+<h5 id="設定-database"><a href="#設定-database" class="headerlink" title="設定 database"></a>設定 database</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysql version</span></span><br><span class="line">mysql --version</span><br><span class="line"><span class="comment"># 進入 mysql </span></span><br><span class="line">sudo mysql</span><br><span class="line"><span class="comment"># 查 user</span></span><br><span class="line">mysql&gt; SELECT user,authentication_string,plugin,host FROM mysql.user;</span><br><span class="line">+------------------+------------------------------------------------------------------------+-----------------------+----</span><br><span class="line">| user             | authentication_string                                                  | plugin                | hos</span><br><span class="line">+------------------+------------------------------------------------------------------------+-----------------------+----</span><br><span class="line">[V@L/N(.S+[gvM/2PeLoCrXt5q1NOKLFJR6F4ItguIdyxM6Px6lot6 | caching_sha2_password | localhost |</span><br><span class="line">| mysql.infoschema | $A$005<span class="variable">$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED</span> | caching_sha2_password | loc</span><br><span class="line">| mysql.session    | $A$005<span class="variable">$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED</span> | caching_sha2_password | loc</span><br><span class="line">| mysql.sys        | $A$005<span class="variable">$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED</span> | caching_sha2_password | loc</span><br><span class="line">Kd262Q%*OQHik@|HFSXTBukSEcHmTHrSomDLHSlTUHTaIaP4ZHpWCCHXw8 | caching_sha2_password | localhost |</span><br><span class="line">| root             |                                                                        | auth_socket           | loc</span><br><span class="line">+------------------+------------------------------------------------------------------------+-----------------------+----</span><br><span class="line">6 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line">mysql&gt; SELECT user,plugin,host FROM mysql.user;</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| user             | plugin                | host      |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| debian-sys-maint | caching_sha2_password | localhost |</span><br><span class="line">| mysql.infoschema | caching_sha2_password | localhost |</span><br><span class="line">| mysql.session    | caching_sha2_password | localhost |</span><br><span class="line">| mysql.sys        | caching_sha2_password | localhost |</span><br><span class="line">| phpmyadmin       | caching_sha2_password | localhost |</span><br><span class="line">| root             | auth_socket           | localhost |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">6 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line">mysql&gt;</span><br><span class="line"><span class="comment"># 設定權限: 密碼強度控制、拒絕遠端 root 登入 等等的安全性設</span></span><br><span class="line">sudo mysql_secure_installation</span><br><span class="line">	Securing the MySQL server deployment.</span><br><span class="line">	Connecting to MySQL using a blank password.</span><br><span class="line">	VALIDATE PASSWORD COMPONENT can be used to <span class="built_in">test</span> passwords</span><br><span class="line">	and improve security. It checks the strength of password</span><br><span class="line">	and allows the users to <span class="built_in">set</span> only those passwords <span class="built_in">which</span> are</span><br><span class="line">	secure enough. Would you like to setup VALIDATE PASSWORD component?</span><br><span class="line">	<span class="comment"># 設定密碼強度</span></span><br><span class="line">	Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No: n</span><br><span class="line">	<span class="comment"># 輸入密碼</span></span><br><span class="line">	Please <span class="built_in">set</span> the password <span class="keyword">for</span> root here.</span><br><span class="line">	New password:</span><br><span class="line">	Re-enter new password:</span><br><span class="line">	By default, a MySQL installation has an anonymous user,</span><br><span class="line">	allowing anyone to <span class="built_in">log</span> into MySQL without having to have</span><br><span class="line">	a user account created <span class="keyword">for</span> them. This is intended only <span class="keyword">for</span></span><br><span class="line">	testing, and to make the installation go a bit smoother.</span><br><span class="line">	You should remove them before moving into a production</span><br><span class="line">	environment.</span><br><span class="line">	<span class="comment"># 移除匿名 user?</span></span><br><span class="line">	Remove anonymous users? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : Y</span><br><span class="line">	Success.</span><br><span class="line">	Normally, root should only be allowed to connect from</span><br><span class="line">	<span class="string">&#x27;localhost&#x27;</span>. This ensures that someone cannot guess at</span><br><span class="line">	the root password from the network.</span><br><span class="line">  <span class="comment"># disable remote root?</span></span><br><span class="line">	Disallow root login remotely? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : N</span><br><span class="line">	... skipping.</span><br><span class="line">	By default, MySQL comes with a database named <span class="string">&#x27;test&#x27;</span> that</span><br><span class="line">	anyone can access. This is also intended only <span class="keyword">for</span> testing,</span><br><span class="line">	and should be removed before moving into a production</span><br><span class="line">	environment.</span><br><span class="line">	<span class="comment"># 移除 test database</span></span><br><span class="line">	Remove <span class="built_in">test</span> database and access to it? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : N</span><br><span class="line">	... skipping.</span><br><span class="line">	Reloading the privilege tables will ensure that all changes</span><br><span class="line">	made so far will take effect immediately.</span><br><span class="line">	<span class="comment"># 更新權限 table</span></span><br><span class="line">	Reload privilege tables now? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : Y</span><br><span class="line">	Success.</span><br><span class="line">	All <span class="keyword">done</span>!</span><br><span class="line"><span class="comment"># 設定 mysql 登入要使用密碼</span></span><br><span class="line">sudo mysql</span><br><span class="line"><span class="comment"># 更改 root password</span></span><br><span class="line">mysql&gt; ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED WITH mysql_native_password BY <span class="string">&#x27;rootpassword&#x27;</span>;</span><br><span class="line">	Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"><span class="comment"># Reload 權限設定 </span></span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># login mysql by root</span></span><br><span class="line">sudo mysql -u root -p</span><br><span class="line">mysql&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 browser 開啟 http://public_ip/phpmyadmin/ 即可用帳號 root 登入</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="change-apache-root-folder"><a href="#change-apache-root-folder" class="headerlink" title="change apache root folder"></a>change apache root folder</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># change apache root folder</span></span><br><span class="line">sudo vi /etc/apache2/sites-available/000-default.conf</span><br><span class="line">// --- 更改前</span><br><span class="line">DocumentRoot /var/www/html</span><br><span class="line">// --- 更改後</span><br><span class="line">DocumentRoot /var/www</span><br><span class="line"><span class="comment"># 更改目錄權限,及建立軟連結</span></span><br><span class="line">sudo chown -R ubuntu:ubuntu /var/www</span><br><span class="line">ln -s /var/www ./www</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello World...&quot;</span> &gt; /var/www/index.html</span><br><span class="line"><span class="comment"># restart</span></span><br><span class="line">sudo service apache2 restart</span><br><span class="line"><span class="comment"># open browser check work well</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="建立-SFTP-link"><a href="#建立-SFTP-link" class="headerlink" title="建立 SFTP link"></a>建立 SFTP link</h5><p>執行 FileZilla, 新增站台, 選擇協定為 SFTP, 設定IP, 設定使用者,選擇 ssh key 檔案,點選連線</p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic23.png" class="" title="pic23">
+</div>
+
+
+<p>選擇信任主機</p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic24.png" class="" title="pic24">
+</div>
+
+<p>SFTP 連線後,即可將必要的檔案傳入 </p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic25.png" class="" title="pic25">
+</div>
+
+<h5 id="建立-user-和-資料庫"><a href="#建立-user-和-資料庫" class="headerlink" title="建立 user 和 資料庫"></a>建立 user 和 資料庫</h5><p>建立 user </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -u root -p</span><br><span class="line">mysql&gt; CREATE USER <span class="string">&#x27;robert&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;userpassword&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; GRANT ALL ON robert.* TO robert@localhost;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<p>建立資料庫</p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic26.png" class="" title="pic26">
+</div>
+
+<p>匯入已有之資料庫</p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic27.png" class="" title="pic27">
+</div>
+
+<h4 id="設定-Elastic-IP-彈性IP-關機重開不會更改IP"><a href="#設定-Elastic-IP-彈性IP-關機重開不會更改IP" class="headerlink" title="設定 Elastic IP(彈性IP) - 關機重開不會更改IP"></a>設定 Elastic IP(彈性IP) - 關機重開不會更改IP</h4><ol>
+<li>選擇 Elastic IPs, 再點選 Allocate Elastic IP address</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic30.png" class="" title="pic30">
+</div>
+
+<ol start="2">
+<li>點選 Allocate</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic31.png" class="" title="pic31">
+</div>
+
+<ol start="3">
+<li>再選擇 Actions, Associate IP address</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic32.png" class="" title="pic32">
+</div>
+
+<ol start="4">
+<li>點選 Associate 即 設定完成,開 browser 看是否執行正常</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic33.png" class="" title="pic33">
+</div>
+
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic34.png" class="" title="pic34">
+</div>
+
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic35.png" class="" title="pic35">
+</div>
+
+<h4 id="設定-Domain-name-DoDaDDy"><a href="#設定-Domain-name-DoDaDDy" class="headerlink" title="設定 Domain name - DoDaDDy"></a>設定 Domain name - DoDaDDy</h4><ol>
+<li>設定 domain name 對應 ip</li>
+</ol>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic37.png" class="" title="pic37">
+</div>
+
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic36.png" class="" title="pic36">
+</div>
+
+<h4 id="VSCode-SFTP-同步-Server-Code"><a href="#VSCode-SFTP-同步-Server-Code" class="headerlink" title="VSCode SFTP 同步 Server Code"></a>VSCode SFTP 同步 Server Code</h4><ol>
+<li>VSCode 安裝 SFTP FTP sync</li>
+</ol>
+<div style="width:500px">
+    <img src="/2021/07/12/web-1/pic40.png" class="" title="pic40">
+</div>
+
+<ol start="2">
+<li>Setup Config</li>
+</ol>
+<p><code>Ctrl</code> + <code>shift</code> + <code>P</code> or <code>F1</code> –&gt; <code>SFTP:Config</code> –&gt; 設定 sftp.json 內容</p>
+<div style="width:500px">
+    <img src="/2021/07/12/web-1/pic41.png" class="" title="pic41">
+</div>
+
+<div style="width:500px">
+    <img src="/2021/07/12/web-1/pic42.png" class="" title="pic42">
+</div>
+
+<p>sftp.json 內容</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;robert_apache_new&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;35.72.2.117&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;protocol&quot;</span>: <span class="string">&quot;sftp&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;port&quot;</span>: <span class="number">22</span>,</span><br><span class="line">  <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;ubuntu&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;remotePath&quot;</span>: <span class="string">&quot;/home/ubuntu/www/blog3&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;uploadOnSave&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="attr">&quot;secure&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;privateKeyPath&quot;</span>: <span class="string">&quot;../robert_aws_apache.pem&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;syncMode&quot;</span>: <span class="string">&quot;update&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;watcher&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;files&quot;</span>: <span class="string">&quot;**/*&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;autoUpload&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;autoDelete&quot;</span>: <span class="literal">true</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;ignore&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;\\.vscode&quot;</span>,</span><br><span class="line">		<span class="string">&quot;\\.git&quot;</span>,</span><br><span class="line">		<span class="string">&quot;\\.DS_Store&quot;</span>,</span><br><span class="line">		<span class="string">&quot;conn.php&quot;</span>,</span><br><span class="line">		<span class="string">&quot;*.bak&quot;</span></span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sftp.json 內容 mutiple Context<br>mutiple Context 僅能 link 最後一個, name也不能重複<br>所以要使用時,copy 到最後,改一下 name 即可</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;robert_apache_new&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;host&quot;</span>: <span class="string">&quot;35.72.2.117&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;protocol&quot;</span>: <span class="string">&quot;sftp&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;port&quot;</span>: <span class="number">22</span>,</span><br><span class="line">		<span class="attr">&quot;username&quot;</span>: <span class="string">&quot;ubuntu&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;remotePath&quot;</span>: <span class="string">&quot;/home/ubuntu/www/blog3&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;uploadOnSave&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">&quot;secure&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;privateKeyPath&quot;</span>: <span class="string">&quot;../robert_aws_apache.pem&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;syncMode&quot;</span>: <span class="string">&quot;update&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;watcher&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;files&quot;</span>: <span class="string">&quot;**/*&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;autoUpload&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">			<span class="attr">&quot;autoDelete&quot;</span>: <span class="literal">true</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;ignore&quot;</span>: [</span><br><span class="line">			<span class="string">&quot;\\.vscode&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.git&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.DS_Store&quot;</span>,</span><br><span class="line">			<span class="string">&quot;conn.php&quot;</span>,</span><br><span class="line">			<span class="string">&quot;*.bak&quot;</span></span><br><span class="line">		]</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;robert_apache3&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;host&quot;</span>: <span class="string">&quot;54.238.250.158&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;protocol&quot;</span>: <span class="string">&quot;sftp&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;port&quot;</span>: <span class="number">22</span>,</span><br><span class="line">		<span class="attr">&quot;username&quot;</span>: <span class="string">&quot;ubuntu&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;remotePath&quot;</span>: <span class="string">&quot;/home/ubuntu/www/blog2&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;uploadOnSave&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">&quot;secure&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;privateKeyPath&quot;</span>: <span class="string">&quot;../demo_apache.pem&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;syncMode&quot;</span>: <span class="string">&quot;update&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;watcher&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;files&quot;</span>: <span class="string">&quot;**/*&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;autoUpload&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">			<span class="attr">&quot;autoDelete&quot;</span>: <span class="literal">true</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;ignore&quot;</span>: [</span><br><span class="line">			<span class="string">&quot;\\.vscode&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.git&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.DS_Store&quot;</span>,</span><br><span class="line">			<span class="string">&quot;conn.php&quot;</span>,</span><br><span class="line">			<span class="string">&quot;*.bak&quot;</span></span><br><span class="line">		]</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;robert_null&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;protocol&quot;</span>: <span class="string">&quot;sftp&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;port&quot;</span>: <span class="number">22</span>,</span><br><span class="line">		<span class="attr">&quot;username&quot;</span>: <span class="string">&quot;ubuntu&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;remotePath&quot;</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;uploadOnSave&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">&quot;secure&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;privateKeyPath&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;syncMode&quot;</span>: <span class="string">&quot;update&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;robert_apache3_&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;host&quot;</span>: <span class="string">&quot;54.238.250.158&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;protocol&quot;</span>: <span class="string">&quot;sftp&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;port&quot;</span>: <span class="number">22</span>,</span><br><span class="line">		<span class="attr">&quot;username&quot;</span>: <span class="string">&quot;ubuntu&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;remotePath&quot;</span>: <span class="string">&quot;/home/ubuntu/www/blog2&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;uploadOnSave&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">		<span class="attr">&quot;secure&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;privateKeyPath&quot;</span>: <span class="string">&quot;../demo_apache.pem&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;syncMode&quot;</span>: <span class="string">&quot;update&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;watcher&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;files&quot;</span>: <span class="string">&quot;**/*&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;autoUpload&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">			<span class="attr">&quot;autoDelete&quot;</span>: <span class="literal">true</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;ignore&quot;</span>: [</span><br><span class="line">			<span class="string">&quot;\\.vscode&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.git&quot;</span>,</span><br><span class="line">			<span class="string">&quot;\\.DS_Store&quot;</span>,</span><br><span class="line">			<span class="string">&quot;conn.php&quot;</span>,</span><br><span class="line">			<span class="string">&quot;*.bak&quot;</span></span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>同步 remote Servet</li>
+</ol>
+<p><code>Ctrl</code> + <code>shift</code> + <code>P</code> or <code>F1</code> –&gt; <code>SFTP:Sync Local -&gt; remote</code></p>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic43.png" class="" title="pic43">
+</div>
+
+<p>選擇 server</p>
+<div style="width:700px">
+    <img src="/2021/07/12/web-1/pic44.png" class="" title="pic44">
+</div>
+
+<p>OUTPUT 會顯示 SFTP 執行內容</p>
+<div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic45.png" class="" title="pic45">
+</div>
+
+<h4 id="安裝-2-個別安裝"><a href="#安裝-2-個別安裝" class="headerlink" title="安裝 #2 - 個別安裝"></a>安裝 #2 - 個別安裝</h4><h5 id="安裝-apache2"><a href="#安裝-apache2" class="headerlink" title="安裝 apache2"></a>安裝 apache2</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新軟體</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; sudo apt dist-upgrade </span><br><span class="line"><span class="comment"># insatll apache</span></span><br><span class="line">sudo apt install apache2</span><br><span class="line"><span class="comment"># start apache</span></span><br><span class="line">sudo service apache2 start</span><br><span class="line"><span class="comment"># change apache root folder</span></span><br><span class="line">sudo vi /etc/apache2/sites-available/000-default.conf</span><br><span class="line">// --- 更改前</span><br><span class="line">DocumentRoot /var/www/html</span><br><span class="line">// --- 更改後</span><br><span class="line">DocumentRoot /var/www</span><br><span class="line"><span class="comment"># 更改目錄權限,及建立軟連結</span></span><br><span class="line">sudo chown -R ubuntu:ubuntu /var/www</span><br><span class="line">ln -s /var/www ./www</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello World...&quot;</span> &gt; /var/www/index.html</span><br><span class="line"><span class="comment"># restart</span></span><br><span class="line">sudo service apache2 restart</span><br><span class="line"><span class="comment"># open browser check work well</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="安裝-php"><a href="#安裝-php" class="headerlink" title="安裝 php"></a>安裝 php</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install</span></span><br><span class="line">sudo apt install php-fpm libapache2-mod-php php-curl php-imagick php-mysql php-gd php-mbstring php-xml</span><br><span class="line"><span class="comment"># php version</span></span><br><span class="line">php -v</span><br><span class="line"><span class="comment"># add /var/www/phpinfo.php</span></span><br><span class="line">vi ./www/phpinfo.php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">  phpinfo();</span><br><span class="line">?&gt;</span><br><span class="line"><span class="comment"># restart</span></span><br><span class="line">sudo service apache2 restart</span><br><span class="line"><span class="comment"># open browser phpinfo.php ceck work well</span></span><br><span class="line"><span class="comment"># 檢查是否有 imagick、curl、mysqli、pdo_mysql、gd、mbstring 功能</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="安裝-MySQL"><a href="#安裝-MySQL" class="headerlink" title="安裝 MySQL"></a>安裝 MySQL</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install MySQL</span></span><br><span class="line">sudo apt install mysql-server</span><br><span class="line"><span class="comment"># Run the security script </span></span><br><span class="line">sudo mysql_secure_installation</span><br><span class="line"><span class="comment"># Creating MySQL User </span></span><br><span class="line">sudo mysql</span><br><span class="line">mysql&gt; CREATE USER <span class="string">&#x27;robert&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;passwrod&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改 root password Password Plugin to mysql_native_password for remote login</span></span><br><span class="line">mysql&gt; ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED WITH mysql_native_password BY <span class="string">&#x27;passwrod&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 授予 user 權限</span></span><br><span class="line">mysql&gt; GRANT ALL  ON robert.* TO <span class="string">&#x27;robert&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create database - 特別要用反引號</span></span><br><span class="line">mysql&gt; CREATE DATABASE `robert`;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># free previous command cache </span></span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="built_in">exit</span></span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
+
+<h5 id="檢查-MySQL-安裝結果"><a href="#檢查-MySQL-安裝結果" class="headerlink" title="檢查 MySQL 安裝結果"></a>檢查 MySQL 安裝結果</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># chec mysql status</span></span><br><span class="line">ubuntu@ip-172-31-35-217:~$ systemctl status mysql.service</span><br><span class="line">● mysql.service - MySQL Community Server</span><br><span class="line">     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset:&gt;</span><br><span class="line">     Active: active (running) since Thu 2021-07-22 06:54:12 UTC; 52min ago</span><br><span class="line">   Main PID: 36133 (mysqld)</span><br><span class="line">     Status: <span class="string">&quot;Server is operational&quot;</span></span><br><span class="line">      Tasks: 38 (<span class="built_in">limit</span>: 1160)</span><br><span class="line">     Memory: 333.2M</span><br><span class="line">     CGroup: /system.slice/mysql.service</span><br><span class="line">             └─36133 /usr/sbin/mysqld</span><br><span class="line"></span><br><span class="line"><span class="comment"># use comand mysqladmin tool dump version</span></span><br><span class="line">sudo mysqladmin -p -u robert version</span><br><span class="line">	Enter password:</span><br><span class="line">	mysqladmin  Ver 8.0.25-0ubuntu0.20.04.1 <span class="keyword">for</span> Linux on x86_64 ((Ubuntu))</span><br><span class="line">	Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line">	Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">	affiliates. Other names may be trademarks of their respective</span><br><span class="line">	owners.</span><br><span class="line">	Server version          8.0.25-0ubuntu0.20.04.1</span><br><span class="line">	Protocol version        10</span><br><span class="line">	Connection              Localhost via UNIX socket</span><br><span class="line">	UNIX socket             /var/run/mysqld/mysqld.sock</span><br><span class="line">	Uptime:                 55 min 19 sec</span><br><span class="line">	Threads: 2  Questions: 20  Slow queries: 0  Opens: 159  Flush tables: 3  Open ta</span><br><span class="line">	bles: 78  Queries per second avg: 0.006</span><br></pre></td></tr></table></figure>
+
+<h5 id="install-phpMyAdmin"><a href="#install-phpMyAdmin" class="headerlink" title="install phpMyAdmin"></a>install phpMyAdmin</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install phpMyAdmin 相關 package</span></span><br><span class="line">sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl</span><br></pre></td></tr></table></figure>
+
+<p>按 space 選擇 apache2,再用 tab 選到 ok</p>
+<div style="width:600px">
+    <img src="/2021/07/12/web-1/pic20.png" class="" title="pic20">
+</div>
+
+<p>選 Yes mapping database to phpadmin</p>
+<div style="width:600px">
+    <img src="/2021/07/12/web-1/pic21.png" class="" title="pic21">
+</div>
+
+<p>輸入 phpmyadmin 註冊到資料庫的密碼</p>
+<div style="width:600px">
+    <img src="/2021/07/12/web-1/pic22.png" class="" title="pic22">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># enable mbstring PHP extension, </span></span><br><span class="line">sudo phpenmod mbstring</span><br><span class="line"><span class="comment"># restart apache2</span></span><br><span class="line">sudo systemctl restart apache2</span><br></pre></td></tr></table></figure>
+
+<p>使用 browser 開啟 <a target="_blank" rel="noopener" href="http://public_ip/phpmyadmin/">http://public_ip/phpmyadmin/</a> 即可用帳號 phpmyadmin 登入<br>(public_ip 填入實際ip)</p>
+<p>可使用 .htaccess 增加 phpMyAdmin 安全性(有必要再來研究)</p>
+<h4 id="其他-app-連至-MySQL"><a href="#其他-app-連至-MySQL" class="headerlink" title="其他 app 連至 MySQL"></a>其他 app 連至 MySQL</h4><h5 id="Inbound-Rules-新增-HTTP-TCP-port-3306"><a href="#Inbound-Rules-新增-HTTP-TCP-port-3306" class="headerlink" title="Inbound Rules 新增 HTTP TCP port:3306"></a>Inbound Rules 新增 HTTP TCP port:3306</h5><div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic46.png" class="" title="pic46">
+</div>
+
+<h5 id="mask-bind-address-允許連線主機"><a href="#mask-bind-address-允許連線主機" class="headerlink" title="mask bind-address(允許連線主機)"></a>mask bind-address(允許連線主機)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"><span class="comment"># --- 原來</span></span><br><span class="line">bind-address          = 127.0.0.1</span><br><span class="line"><span class="comment"># --- 修改後</span></span><br><span class="line"><span class="comment"># bind-address          = 127.0.0.1</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="root-localhost-改成"><a href="#root-localhost-改成" class="headerlink" title="root localhost 改成 %"></a>root localhost 改成 %</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -u root -p</span><br><span class="line">Enter password:</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT user,plugin,host FROM mysql.user;</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	| user             | plugin                | host      |</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	| debian-sys-maint | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.infoschema | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.session    | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.sys        | caching_sha2_password | localhost |</span><br><span class="line">	| phpmyadmin       | caching_sha2_password | localhost |</span><br><span class="line">	| robert           | caching_sha2_password | localhost |</span><br><span class="line">	| root             | mysql_native_password | localhost |</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	7 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">	Reading table information <span class="keyword">for</span> completion of table and column names</span><br><span class="line">	You can turn off this feature to get a quicker startup with -A</span><br><span class="line">	Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; update user <span class="built_in">set</span> host =<span class="string">&#x27;%&#x27;</span><span class="built_in">where</span> user =<span class="string">&#x27;root&#x27;</span> and host =<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">	Query OK, 1 row affected (0.01 sec)</span><br><span class="line">	Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT user,plugin,host FROM mysql.user;</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	| user             | plugin                | host      |</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	| root             | mysql_native_password | %         |</span><br><span class="line">	| debian-sys-maint | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.infoschema | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.session    | caching_sha2_password | localhost |</span><br><span class="line">	| mysql.sys        | caching_sha2_password | localhost |</span><br><span class="line">	| phpmyadmin       | caching_sha2_password | localhost |</span><br><span class="line">	| robert           | caching_sha2_password | localhost |</span><br><span class="line">	+------------------+-----------------------+-----------+</span><br><span class="line">	7 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">	Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; quit</span><br><span class="line">	Bye</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># restart mysql</span></span><br><span class="line">sudo systemctl restart mysql</span><br></pre></td></tr></table></figure>
+
+<h5 id="heidisq-port-3306-setting"><a href="#heidisq-port-3306-setting" class="headerlink" title="heidisq port 3306 setting"></a>heidisq port 3306 setting</h5><div style="width:500px">
+    <img src="/2021/07/12/web-1/pic50.png" class="" title="pic50">
+</div>
+
+<h4 id="logs-查詢"><a href="#logs-查詢" class="headerlink" title="logs 查詢"></a>logs 查詢</h4><ol>
+<li>apache2 log</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less -m -N /var/<span class="built_in">log</span>//apache2/error.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="AWS-部署和託管-React-應用程式"><a href="#AWS-部署和託管-React-應用程式" class="headerlink" title="AWS 部署和託管 React 應用程式"></a>AWS 部署和託管 React 應用程式</h3><h4 id="建立新的-React-應用程式"><a href="#建立新的-React-應用程式" class="headerlink" title="建立新的 React 應用程式"></a>建立新的 React 應用程式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app react-todos</span><br><span class="line"><span class="built_in">cd</span> react-todos</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化-GitHub-儲存庫"><a href="#初始化-GitHub-儲存庫" class="headerlink" title="初始化 GitHub 儲存庫"></a>初始化 GitHub 儲存庫</h4><ul>
+<li><p>建立 GitHub 儲存庫</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic60.png" class="" title="pic60">
+</div>
+</li>
+<li><p>初始化 git, 並將程式推送至 GitHub</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># git 已自動 init</span></span><br><span class="line">git remote add origin https://github.com/hot5656/react-todos.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="使用-AWS-Amplify-部署應用程式"><a href="#使用-AWS-Amplify-部署應用程式" class="headerlink" title="使用 AWS Amplify 部署應用程式"></a>使用 AWS Amplify 部署應用程式</h4><ul>
+<li><p>AWS Amplify –&gt; Deliver –&gt; Get started</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic61.png" class="" title="pic61">
+</div>
+</li>
+<li><p>select GitHub</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic62.png" class="" title="pic62">
+</div>
+</li>
+<li><p>驗證完後, 選擇正確的 repository</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic63.png" class="" title="pic63">
+</div>
+</li>
+<li><p>接受預設的建置設定，然後選取 Next </p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic64.png" class="" title="pic64">
+</div>
+</li>
+<li><p>檢閱最終詳細資訊，然後選取 Save and Deploy (儲存並部署)</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic65.png" class="" title="pic65">
+</div>
+</li>
+<li><p>AWS Amplify 主控台現在將在 https:&#x2F;&#x2F;…amplifyapp.com 建立您的源代碼並部署您的應用程式</p>
+<div style="maxwidth:1000px">
+  <img src="/2021/07/12/web-1/pic67.png" class="" title="pic67">
+</div>
+</li>
+<li><p>選擇 link 即可看到執行畫面</p>
+<div style="width:300px">
+  <img src="/2021/07/12/web-1/pic68.png" class="" title="pic68">
+</div></li>
+</ul>
+<h4 id="更新應用程式"><a href="#更新應用程式" class="headerlink" title="更新應用程式"></a>更新應用程式</h4><ul>
+<li><p>程式更動後 push 到 github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;update for todos&quot;</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 AWS Amplify 即可檢視更新的應用程式</p>
+</li>
+</ul>
+<h4 id="DevTools-可看到原始-source-應該要另外處理"><a href="#DevTools-可看到原始-source-應該要另外處理" class="headerlink" title="DevTools 可看到原始 source, 應該要另外處理"></a>DevTools 可看到原始 source, 應該要另外處理</h4><div style="maxwidth:1000px">
+    <img src="/2021/07/12/web-1/pic69.png" class="" title="pic69">
+</div>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/07/jquery-3/" rel="prev" title="jQuery Issue">
+                  <i class="fa fa-chevron-left"></i> jQuery Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/25/tool-3/" rel="next" title="前端 package build 練習">
+                  前端 package build 練習 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/07/12/web-1/";
+    this.page.identifier = "2021/07/12/web-1/";
+    this.page.title = "網站部屬";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

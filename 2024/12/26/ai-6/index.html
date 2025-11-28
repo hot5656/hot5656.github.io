@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="名詞 SMMA  在商業模式中，SMM 通常是指 Social Media Marketing（社群媒體行銷）。它是利用像 Facebook、Instagram、Twitter、LinkedIn 等社群媒體平台來推廣品牌、產品或服務的行銷策略。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Foundations - Basic">
+<meta property="og:url" content="https://hot5656.github.io/2024/12/26/ai-6/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="名詞 SMMA  在商業模式中，SMM 通常是指 Social Media Marketing（社群媒體行銷）。它是利用像 Facebook、Instagram、Twitter、LinkedIn 等社群媒體平台來推廣品牌、產品或服務的行銷策略。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic4.png">
+<meta property="article:published_time" content="2024-12-26T02:53:27.000Z">
+<meta property="article:modified_time" content="2025-01-06T04:23:21.446Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="ai Foundations">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2024/12/26/ai-6/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2024/12/26/ai-6/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>AI Foundations - Basic | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E8%A9%9E"><span class="nav-number">1.</span> <span class="nav-text">名詞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Top-5-Areas-for-AAA-Specialization"><span class="nav-number">2.</span> <span class="nav-text">Top 5 Areas for AAA Specialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Voice-based-Agent-%E5%8F%83%E8%80%83%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">Voice-based Agent 參考工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bland-Pinecone-Assistant-example"><span class="nav-number">4.</span> <span class="nav-text">Bland + Pinecone Assistant example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI-agent-flow"><span class="nav-number">5.</span> <span class="nav-text">AI agent flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#why-you-suck-at-prompt-engineering-and-how-to-fix"><span class="nav-number">6.</span> <span class="nav-text">why you suck at prompt engineering(and how to fix)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prompt-engineering-types"><span class="nav-number">6.1.</span> <span class="nav-text">prompt engineering types :</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#good-guy-for-prompt-engineering"><span class="nav-number">6.2.</span> <span class="nav-text">good guy  for prompt engineering:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Perfect-Prompt-fOrMuLA-for-Bulding-Systems"><span class="nav-number">6.3.</span> <span class="nav-text">Perfect Prompt fOrMuLA for Bulding Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Role"><span class="nav-number">6.3.1.</span> <span class="nav-text">Role</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Example"><span class="nav-number">6.3.1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Task"><span class="nav-number">6.3.2.</span> <span class="nav-text">Task</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#notes-on-Write-Tasks"><span class="nav-number">6.3.2.1.</span> <span class="nav-text">notes on Write Tasks:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Key-Takeaway"><span class="nav-number">6.3.2.2.</span> <span class="nav-text">Key Takeaway:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Example-1"><span class="nav-number">6.3.2.3.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Specifics"><span class="nav-number">6.3.3.</span> <span class="nav-text">Specifics</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Item-1"><span class="nav-number">6.3.3.1.</span> <span class="nav-text">Item 1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Item-2"><span class="nav-number">6.3.3.2.</span> <span class="nav-text">Item 2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Example-2"><span class="nav-number">6.3.3.3.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Context-%E6%83%85%E5%A2%83"><span class="nav-number">6.3.4.</span> <span class="nav-text">Context(情境)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Example-3"><span class="nav-number">6.3.4.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Examples"><span class="nav-number">6.3.5.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Example-4"><span class="nav-number">6.3.5.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notes"><span class="nav-number">6.3.6.</span> <span class="nav-text">notes</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Example-5"><span class="nav-number">6.3.6.1.</span> <span class="nav-text">Example</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Markdown-Formatting"><span class="nav-number">6.4.</span> <span class="nav-text">Markdown Formatting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-6"><span class="nav-number">6.4.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Email-classification-prompt"><span class="nav-number">6.4.2.</span> <span class="nav-text">Email classification prompt</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Considerations"><span class="nav-number">6.5.</span> <span class="nav-text">Considerations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Use-Case"><span class="nav-number">6.6.</span> <span class="nav-text">Use Case</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AI-agency"><span class="nav-number">6.6.1.</span> <span class="nav-text">AI agency</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AI-Voice-agency"><span class="nav-number">6.6.2.</span> <span class="nav-text">AI Voice agency</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Automations"><span class="nav-number">6.6.3.</span> <span class="nav-text">Automations</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AI-Tools"><span class="nav-number">6.6.4.</span> <span class="nav-text">AI Tools</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI-Tools-1"><span class="nav-number">7.</span> <span class="nav-text">AI Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">8.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2024/12/26/ai-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI Foundations - Basic
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-12-26 10:53:27" itemprop="dateCreated datePublished" datetime="2024-12-26T10:53:27+08:00">2024-12-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-01-06 12:23:21" itemprop="dateModified" datetime="2025-01-06T12:23:21+08:00">2025-01-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/12/26/ai-6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/12/26/ai-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>15 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="名詞"><a href="#名詞" class="headerlink" title="名詞"></a>名詞</h3><ul>
+<li><p><strong>SMMA</strong><br>  在商業模式中，<strong>SMM</strong> 通常是指 <strong>Social Media Marketing</strong>（社群媒體行銷）。它是利用像 Facebook、Instagram、Twitter、LinkedIn 等社群媒體平台來推廣品牌、產品或服務的行銷策略。</p>
+<span id="more"></span>
+<p>   在 <strong>SMMA</strong>（Social Media Marketing Agency，社群媒體行銷代理機構）這種商業模式中，代理商或個人會為企業提供社群媒體行銷服務，例如：</p>
+<ol>
+<li><strong>內容創建</strong>：撰寫貼文、設計圖片或影片，吸引目標受眾。</li>
+<li><strong>廣告管理</strong>：使用平台如 Facebook Ads 或 Google Ads，根據客戶需求設定廣告目標。</li>
+<li><strong>數據分析</strong>：追蹤成效，分析點擊率、轉換率，並調整策略。</li>
+<li><strong>帳號管理</strong>：維護客戶的社群媒體帳號，回覆留言或私訊。</li>
+<li><strong>品牌建立</strong>：設計一致的品牌形象，提升品牌認知度。</li>
+</ol>
+<p>  <strong>SMM</strong> 是許多中小型企業和創業者的熱門選擇，因為社群媒體能以相對低的成本觸及廣泛的受眾，而 <strong>SMMA</strong> 則是幫助企業處理這些需求的商業模式。</p>
+</li>
+<li><p><strong>SCTO</strong> : Chief Technology Officer</p>
+</li>
+<li><p><strong>Lead flow</strong>（潛在客戶流程）是指在業務中獲取、追蹤和轉化潛在客戶（Leads）的過程和策略。它涵蓋了從吸引目標客戶開始，到將他們轉化為實際客戶的整個過程。簡單來說，Lead flow 是指一家公司如何管理和優化其潛在客戶的流入與處理。</p>
+</li>
+<li><p><strong>DM</strong> : 是 “direct message” 的縮寫，指的是社交媒體平台上用戶之間的私人消息</p>
+</li>
+<li><p><strong>MVP</strong>（Minimum Viable Product）: MVP，即最小可行產品，是一種具有足夠功能的產品版本，旨在吸引早期用戶並驗證產品理念。這種產品通常只包含最基本的功能，以便快速推出市場並收集用戶反饋</p>
+</li>
+<li><p><strong>POC</strong>（Proof of Concept）: 即概念驗證，是一種展示某個想法或方法是否可行的過程。它通常涉及小規模的實驗或原型，以證明某個概念在技術上是可行的，或者能夠解決特定問題。</p>
+</li>
+<li><p><strong>CRM</strong> : 即客戶關係管理（Customer Relationship Management），是一種企業策略和技術，旨在通過管理和分析客戶互動及數據來提升企業與客戶之間的關係。</p>
+</li>
+<li><p><strong>VA</strong> : 即虛擬助理（Virtual Assistant）</p>
+</li>
+</ul>
+<h3 id="Top-5-Areas-for-AAA-Specialization"><a href="#Top-5-Areas-for-AAA-Specialization" class="headerlink" title="Top 5 Areas for AAA Specialization"></a><a target="_blank" rel="noopener" href="https://www.skool.com/learn-ai/classroom/2871573e?md=670b6f8eff524ebf98b7c3c86f5f89a6">Top 5 Areas for AAA Specialization</a></h3><ul>
+<li>AI Opportunity <ol>
+<li>AI Saas: </li>
+<li>AI agency(v): provide AI solutions for AI businesses&#x2F;company</li>
+<li>Education: educate people about AI(need skills)</li>
+</ol>
+</li>
+<li>3 Problems for Starting AI<ol>
+<li>Expertise專業知識(technical)</li>
+<li>Lead flow潛在客戶流程(leads 客戶)</li>
+<li>Credibility Authority信譽權威</li>
+</ol>
+</li>
+<li>Fix problem Strategy <ol>
+<li>Learn the “Thing”</li>
+</ol>
+<ul>
+<li>started Niche initially and became an expert in a small area</li>
+<li>slowly broadened expertise</li>
+</ul>
+<ol start="2">
+<li>share your journey(Youtube&#x2F;LinkedIn )</li>
+<li>offer free consulting</li>
+<li>close deals達成交易</li>
+</ol>
+</li>
+<li>5 Types specialist<ol>
+<li>AI automation Specialist</li>
+</ol>
+<ul>
+<li>make.com</li>
+<li>Airtable</li>
+</ul>
+<ol start="2">
+<li>Text-based Agent Specialist</li>
+</ol>
+<ul>
+<li>chatgpt assistant API(custom version chatgpt)</li>
+<li>agentive on top put on WhatsApp, websites various places</li>
+</ul>
+<ol start="3">
+<li>Voice-based Agent Specialist</li>
+</ol>
+<ul>
+<li>Bland AI</li>
+<li>air AI</li>
+<li>Synthflow</li>
+<li>Vapi</li>
+</ul>
+<ol start="4">
+<li>Zapier Ecosystem Specialist(no code)</li>
+</ol>
+<ul>
+<li>automation</li>
+<li>chatbots </li>
+<li>data management</li>
+</ul>
+<ol start="5">
+<li>Chatbot Specialist</li>
+</ol>
+<ul>
+<li>Voiceflow</li>
+<li>WhatsApp(can add button) via voice flow</li>
+</ul>
+</li>
+</ul>
+<h3 id="Voice-based-Agent-參考工具"><a href="#Voice-based-Agent-參考工具" class="headerlink" title="Voice-based Agent 參考工具"></a>Voice-based Agent 參考工具</h3><ul>
+<li>Base<ol>
+<li><a target="_blank" rel="noopener" href="https://vapi.ai/">Vapi</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.retellai.com/">Retell AI</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bland.ai/">Bland AI</a></li>
+</ol>
+</li>
+<li>Tools<ol>
+<li><a target="_blank" rel="noopener" href="https://www.make.com/">make.com</a> : 自動化工具</li>
+<li><a target="_blank" rel="noopener" href="https://www.airtable.com/">Airtable</a> : 資料儲存</li>
+<li>Google Sheet : local 儲存</li>
+<li><a target="_blank" rel="noopener" href="https://n8n.io/">N8N</a> : 自動化工具(local, 免費)</li>
+<li><a target="_blank" rel="noopener" href="https://replit.com/">Replit Agent</a> : 測試平台</li>
+<li><a target="_blank" rel="noopener" href="https://www.pinecone.io/">Pinecone</a><ul>
+<li>向量數據庫的雲原生服務，旨在幫助開發者輕鬆構建和部署高效的向量搜索和相似性匹配功能</li>
+<li>資料縮整理</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://relevanceai.com/">Relevance AI</a> : 自動化工具</li>
+<li><a target="_blank" rel="noopener" href="https://aistudio.google.com/prompts/new_chat">Google AI Studio</a> : 基於瀏覽器的整合式開發環境 (IDE)，專為生成模型的原型設計</li>
+</ol>
+</li>
+<li>Other <ol>
+<li><a target="_blank" rel="noopener" href="https://cal.com/zh-TW">Cal.com</a> : 日程安排工具</li>
+<li><a target="_blank" rel="noopener" href="https://tally.so/">Tally</a> : 表單製作工具</li>
+<li><a target="_blank" rel="noopener" href="https://www.typeform.com/">Typeform</a> : 表單和調查工作</li>
+</ol>
+</li>
+<li>Reference link<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=PmaWoRWL5qk&t=4s">How I’d start a Voice AI Agency in 2025</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Bland-Pinecone-Assistant-example"><a href="#Bland-Pinecone-Assistant-example" class="headerlink" title="Bland + Pinecone Assistant example"></a>Bland + Pinecone Assistant example</h3><ul>
+<li>Load flow<ol>
+<li>put data to google drive</li>
+<li>upload to Pinecone</li>
+<li>get Pinecone API</li>
+</ol>
+</li>
+<li>Flow <ol>
+<li>call to Bland</li>
+<li>make.com send to Pinecone</li>
+<li>make.com wait Pinecone response</li>
+<li>make.com send result to Bland</li>
+</ol>
+</li>
+<li>Reference link<br>  <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JzwyvNegDiI&list=PL6eX2EPL9gdFjVyURlVSiBIa-bOpdl7X2&index=4">Bland and Pinecone Assistant Tutorial</a></li>
+</ul>
+<h3 id="AI-agent-flow"><a href="#AI-agent-flow" class="headerlink" title="AI agent flow"></a>AI agent flow</h3><ul>
+<li>Thing processing example<ol>
+<li>Brain</li>
+<li>Tools</li>
+<li>Missions(目標)</li>
+</ol>
+</li>
+<li>4-step process<ol>
+<li>input(your request)</li>
+<li>processing(deciding what to do)</li>
+<li>active(deciding on what tools they can on use to complete the task)</li>
+<li>learning(inproving over the time)</li>
+</ol>
+</li>
+<li>AI agent example<ol>
+<li>LLM(chatGPT)</li>
+<li>tools(phone)</li>
+<li>goal(booking meeting)</li>
+</ol>
+</li>
+<li>Google AI Studio example </li>
+<li>Reference link<br>  <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jtUiXFRMf0U">AI Agents Explained Like You’re 5</a></li>
+</ul>
+<h3 id="why-you-suck-at-prompt-engineering-and-how-to-fix"><a href="#why-you-suck-at-prompt-engineering-and-how-to-fix" class="headerlink" title="why you suck at prompt engineering(and how to fix)"></a>why you suck at prompt engineering(and how to fix)</h3><h4 id="prompt-engineering-types"><a href="#prompt-engineering-types" class="headerlink" title="prompt engineering types :"></a>prompt engineering types :</h4><ol>
+<li>AI voice systems<ul>
+<li>synthflow</li>
+<li>Bland AI : Bland AI 是一個專為開發者設計的平台，旨在大規模建立AI 驅動的電話呼叫應用程式。該平台提供了進出站電話的API 和基礎設施，使企業能夠自動化客戶支援、銷售和資料收集等任務。</li>
+<li>Air</li>
+</ul>
+</li>
+<li>AI agent<ul>
+<li>AAA</li>
+</ul>
+</li>
+<li>AI automation<ul>
+<li>make.com</li>
+<li>Zapier : Zapier 是一個強大的自動化工具，旨在幫助用戶連接和整合不同的應用程序，以自動化日常任務和工作流程。</li>
+</ul>
+</li>
+<li>AI tools&#x2F;Apps<ul>
+<li>Relevance AI</li>
+<li>Stack AI</li>
+</ul>
+</li>
+</ol>
+<h4 id="good-guy-for-prompt-engineering"><a href="#good-guy-for-prompt-engineering" class="headerlink" title="good guy  for prompt engineering:"></a>good guy  for prompt engineering:</h4><ol>
+<li>has a toolkit of prompt components and methods based on research</li>
+<li>approaches the problem like an engineer </li>
+<li>skillfully applies techniques</li>
+<li>achieves desired performance with the fastest and cheapest model</li>
+<li>Create lightning-quick and affordable AI system for clients that create value</li>
+<li>Make money</li>
+<li>Finds other AI chads and gets AI rich</li>
+</ol>
+<h4 id="Perfect-Prompt-fOrMuLA-for-Bulding-Systems"><a href="#Perfect-Prompt-fOrMuLA-for-Bulding-Systems" class="headerlink" title="Perfect Prompt fOrMuLA for Bulding Systems"></a>Perfect Prompt <em>fOrMuLA</em> for Bulding Systems</h4><h5 id="Role"><a href="#Role" class="headerlink" title="Role"></a>Role</h5><h6 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+You are a highly skilled and creative short-form content script writer with a knack for crafting engaging, informative, and concise videos 
+</code>
+
+<code class="wrap-code">
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+</code>
+
+<h5 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h5><h6 id="notes-on-Write-Tasks"><a href="#notes-on-Write-Tasks" class="headerlink" title="notes on Write Tasks:"></a>notes on Write Tasks:</h6><ul>
+<li>Always start with a verb(e.g. generate, write, analyze)</li>
+<li>Be descriptive and precise while keeping it brief</li>
+<li>Depending on the use case, this is where you can insert your variables(see below)</li>
+</ul>
+<h6 id="Key-Takeaway"><a href="#Key-Takeaway" class="headerlink" title="Key Takeaway:"></a>Key Takeaway:</h6><p>The more complex the problem, the more dramatic the improvement using chain-of-thought prompting</p>
+<h6 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+Generate engaging and casual outreach for users looking to promote their niche-specific service or products, especially focusing on the integration of AI tools to scale businesses. Your messages should be direct, friendly, and tailored to the recipient, encouraging a conversation about how AI can benefit their business.
+Below are the details of what you must generate.
+Niche:
+&#123;&#123;niche&#125;&#125; 
+Offer:
+&#123;&#123;offer&#125;&#125;
+</code>
+
+<code class="wrap-code">
+Generate an engaging, informative 30-second video script about &#123;&#123;topic&#125;&#125;. Make the content clear, concise, and easy to understand for a general audience.
+Use this step-by-step process to ensure your script is top-notch:
+    1. Hook the viewer with an attention-grabbing opening
+    2. Briefly explain the key concepts or ideas related to &#123;&#123;topic&#125;&#125;
+    3. Provide 1-2 fascinating facts or statistics to illustrate the importance the importance of &#123;&#123;topic&#125;&#125;
+    4. Describe the main takeaway or action viewers should remember
+    5. End with a power  closing line that reinforces the message
+    6. Review the entire script for conciseness and flow
+</code>
+
+<code class="wrap-code">
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+    1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+    2. Determine if the email requires a response or action based on its content.
+    3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+    Email: &#123;&#123;emailContent&#125;&#125;
+</code>
+
+<h5 id="Specifics"><a href="#Specifics" class="headerlink" title="Specifics"></a>Specifics</h5><h6 id="Item-1"><a href="#Item-1" class="headerlink" title="Item 1"></a>Item 1</h6><p>The specifics section is a chance to list out the most important notes regarding the execution of the task outline above.<br>The This format allow you to easily add on new instructions as you test and imporve the prompt. Of course, try not to pile on fluff there. Less is more.</p>
+<code class="wrap-code">
+Example Task: 
+    Generate engaging and causual outreach message for users looking to peomote their nich-specific services or products, specially focusing on the integration of AI tools to sacle business. Your messages should be direct, fridendly, and tailored to the recipient, encouraging a coversation about how AI can benifit their business. Below are the detail of what you must generate for.
+Example Specifics:
+    1. Each message should have an intro, body, and outro, with a tone that's informal and engaging
+    2.  Use placeholders like&#123;user.firstname&#125; to personalize introduction
+    3. Etc
+</code>
+
+<h6 id="Item-2"><a href="#Item-2" class="headerlink" title="Item 2"></a>Item 2</h6><p>Specifics also provide an opportunity to integrate another technique proven to increase response quality and accuracy known as EmotionPrompt.<br>EmotionPrompt refers to adding a short phrase or sentence containing emotional stimuli to the original prompt to enhance performance.</p>
+<p>Example:</p>
+<ol>
+<li>“This is very important to my career” was most effective on simple task</li>
+<li>“This task is vital to my career, and I greatly value your thorough analysis”</li>
+</ol>
+<p>Key Takeaway:<br>Adding simple phrases like these to your specifics can encourage the model to engage in more thorough and deliberate processing, which is beneficial for complex tasks that require more careful thought and Analysis.</p>
+<h6 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+Role:
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+Task:
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+    1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+    2. Determine if the email requires a response or action based on its content.
+    3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+    Email: &#123;&#123;emailContent&#125;&#125;
+Specifics :
+    1. This task is critical to the success of our business, so please provide a thorough analysis of the email
+    2. If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+    3. Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+</code>
+
+<h5 id="Context-情境"><a href="#Context-情境" class="headerlink" title="Context(情境)"></a>Context(情境)</h5><p>providing context as to what environment the LLM is operating in and why it is doing this specific task can help to further increase performance.<br>This combines earlier techniques like Role (by further clarifying who it is, what it is doing and why it is doing it). EmotionPrompt can also be used again here while explaining the importance of the LLM’s role in the success of the business and even society as a whole.</p>
+<code class="wrap-code">
+Example :
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails **essential** for our sales team to prioritize their efforts and respond to requires in timely manner. By **accurately** identifying opportunities and emails that need attention, you directly contribute to the **growth and success of our company**. Therefore we **greatly value your careful consideration** and attention to classification.
+</code>
+
+<p>General Notes:</p>
+<ol>
+<li>Provide context <strong>on the business</strong> including customers, types of services or products, company values etc.</li>
+<li>Provide context <strong>on the system it is part of</strong>, eg when customers submit our website form we receive an email, you are then…</li>
+<li>Provide context <strong>on the importance of the task</strong> and the business and&#x2F;or society as a whole.</li>
+</ol>
+<h6 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+Role:
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+Task:
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+    1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+    2. Determine if the email requires a response or action based on its content.
+    3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+    Email: &#123;&#123;emailContent&#125;&#125;
+Specifics :
+    1. This task is critical to the success of our business, so please provide a thorough analysis of the email
+    2. If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+    3. Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+Context :
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails essential for our sales team to prioritize their efforts and respond to requires in timely manner. By accurately identifying opportunities and emails that need attention, you directly contribute to the growth and success of our company. Therefore we greatly value your careful consideration and attention to classification.
+</code>
+
+
+<h5 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h5><p>In the examples section we use a technique known as <strong>Few-Shot Promping</strong> to increase performance and <strong>fine tune response tone, format and length.</strong><br>This is when a number of <strong>input-out examples</strong> are provided to the language model as part of the prompt. This allows the model to <strong>perform new tasks without fine-tuning.</strong></p>
+<p>Key Takeaways:</p>
+<ol>
+<li>Provide just a few examples <strong>significantly</strong> improve performance compared to zero-shot prompting (no examples).</li>
+<li>Accuracy <strong>scales</strong> with the number of examples, but shows <strong>diminishing  returns.</strong> Most of the gains can be achieved with *10-32 well-crafted examples.**(3~5 good enough)</li>
+</ol>
+<h6 id="Example-4"><a href="#Example-4" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+Q: Email: "Dear Sir/Madam, I am interested in learning more about your AI solutions for the healthcare industry. Could you please provide me with more information about your products and pricing? Thank you, John Doe"
+A: Label: Opportunity
+Q: Email: "To whom it may concern, I am writing to inquire about the job openings at your company. I have attached my resume for your consideration. Best regards, Jane Smith"
+A: Label: Ignore
+Q:Email: "Hello, I am experiencing technical difficulties with one of your Ai products. Please contact me at your earliest convenience. Thank you. Mike Johnson"
+Ａ: Label: Needs Attention
+</code>
+
+<h5 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h5><p>The notes section is your <strong>last chance</strong> to remind the LLM of key aspects of the task and add any final details to tweak outputs to your desired style</p>
+<p>You notes from a list consisting of things like:</p>
+<ol>
+<li>Output formatting notes e.g. “your output should be in x format”</li>
+<li>Negative prompting “do NOT do x”</li>
+<li>Tone tweaks</li>
+<li>Reminders of key points from the task or specifics</li>
+</ol>
+<p>This list of notes usually starts out <strong>skinny</strong> and ends up a <strong>few lines deep</strong> after a few rounds of testing and tweaking. This list is where you can add things without refactoring the whole prompt.<br>The inclusion of the ‘notes’ section in this prompt formula is based on the <strong>“Lost in the Middle”</strong> effect which highlights a significant limitation in how language models handle large amounts of input tokens.</p>
+<p>Lost in The Middle Effect:</p>
+<ol>
+<li>The language model performs best when relevant information is at the <strong>very beginning</strong> (primacy) or <strong>end</strong>(recency) of the input context</li>
+<li>Performance <strong>significantly worsens</strong> when <strong>critical</strong> information is in the middle of a long context</li>
+<li>This effect occurs even in models <strong>designed</strong> for long input sequences.</li>
+</ol>
+<p>Key takeaways:</p>
+<ol>
+<li>Instruction giving at the start and end of a prompt are <strong>“listened to”</strong> by the LLM far <strong>more</strong> than information in the middle.</li>
+<li>For this reason the notes section is a handy place to append <strong>reminders</strong> from the task or specifics that the LLM may be ignoring</li>
+<li>Be aware that increasing context length alone does not ensure better performance. <strong>Less context of “fluff”</strong>  will mean the remaining instructions are more likely to be followed.</li>
+</ol>
+<h6 id="Example-5"><a href="#Example-5" class="headerlink" title="Example"></a>Example</h6><code class="wrap-code">
+notes 
+1. Please provide the email classification label and only the label as your response
+2. Do not include any personal information from the email in your response
+3. If you are unsure about the appropriate classification, err on the side of caution and assign the "Needs Attention" label.
+</code>
+
+
+<h4 id="Markdown-Formatting"><a href="#Markdown-Formatting" class="headerlink" title="Markdown Formatting"></a>Markdown Formatting</h4><p>Long prompts can get messy. For our sake(and the LLM’s), we need some way to provide <strong>structure</strong> in order to outline the <strong>different components</strong> of our formula. The most effective way right is with <strong>Markdown</strong>, a plain text formatting syntax that is common across the web.<br>It gives use <strong>new tools</strong> to structure our prompt with:</p>
+<ol>
+<li>Headings (#,## or ### for H1,H2 &amp; H3)</li>
+<li>Bolds, italics and underlines</li>
+<li>Lists</li>
+<li>Horizontal rules<br>5 More</li>
+</ol>
+<p><strong>OpenAI themselves write their prompts in Markdown</strong>, which may be reflected in their tuning dataset, so following suit is not a bad idea!<br>While studies have compared it to non-markdown prompts, it definitely <strong>does not detract</strong> from the performance while still marking things more <strong>legible</strong>  for use as prompt engineers.</p>
+<p>Key Takeaways:</p>
+<ol>
+<li>Use ** H1 tags**(signal #) to mark each of the components for your prompt </li>
+<li>Use <strong>H2 or H3 tags</strong> (double or triple #)as necessary with each core component</li>
+<li>Use <strong>bolds</strong> to emphasize words eg <strong>this is bold</strong> (not super import)</li>
+</ol>
+<h5 id="Example-6"><a href="#Example-6" class="headerlink" title="Example"></a>Example</h5><code class="wrap-code">
+# Role
+# Task
+# Specifics
+# Context
+## About the business
+## Our system
+# Examples
+## Example 1
+Q:
+A:
+## Example 2
+Q:
+A:
+# notes
+</code>
+
+<h5 id="Email-classification-prompt"><a href="#Email-classification-prompt" class="headerlink" title="Email classification prompt"></a>Email classification prompt</h5><code class="wrap-code">
+# Role
+You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact
+---
+# Task
+Calssfy the following email into "Ignore", Opportunity", or "needs Attention" labels using the following step-to-step process:
+1. Analyze the email content for keywords and phrases that indicate the email's importance and relevance to the business
+2. Determine if the email requires a response or action based on its content.
+3. Assign the appropriate label based on the analysis: "Ignore" for irrelevant emails, "Opportunity" for emails that present potential business opportunities, or "Need Attention" for emails that require a timely response or action
+    Email: &#123;&#123;emailContent&#125;&#125;
+---
+# Specifics
+- This task is critical to the success of our business, so please provide a thorough analysis of the email
+- If the email contains personally identifiable information(PII), ensure that it is handled in accordance with our private data policies. 
+- Your accurate categorization of this email is greatly appreciated and contributes to the efficiency of our operation.
+---
+# Context
+Our company provides solutions to businesses across various industries. We receive a high volume of emails from potential clients through our website's contact form. You role in classifying these emails essential for our sales team to prioritize their efforts and respond to requires in timely manner. By accurately identifying opportunities and emails that need attention, you directly contribute to the growth and success of our company. Therefore we greatly value your careful consideration and attention to classification.
+---
+# Examples
+## Example 1
+Q: Email: "Dear Sir/Madam, I am interested in learning more about your AI solutions for the healthcare industry. Could you please provide me with more information about your products and pricing? Thank you, John Doe"
+A: Label: Opportunity
+## Example 2
+Q: Email: "To whom it may concern, I am writing to inquire about the job openings at your company. I have attached my resume for your consideration. Best regards, Jane Smith"
+A: Label: Ignore
+## Example 3
+Q:Email: "Hello, I am experiencing technical difficulties with one of your Ai products. Please contact me at your earliest convenience. Thank you. Mike Johnson"
+Ａ: Label: Needs Attention
+---
+# Notes 
+- Please provide the email classification label and only the label as your response
+- Do not include any personal information from the email in your response
+- If you are unsure about the appropriate classification, err on the side of caution and assign the "Needs Attention" label.
+</code>
+
+<h4 id="Considerations"><a href="#Considerations" class="headerlink" title="Considerations"></a>Considerations</h4><p>Context Length and Cost</p>
+<ul>
+<li>For high tasks, you need to focus on making the prompt as succinct as possible. Each time it runs you will be charged for input and output tokens, you prompt + any insert variables &#x3D; input.Short prompt &#x3D; cheaper system</li>
+</ul>
+<p>Choice of Model</p>
+<ul>
+<li>Better prompt engineering can get more performance out of cheaper and faster models</li>
+<li>Where possible, use your skills to bend the cheapest and faster model to execute the task successfully</li>
+<li>Some systems have high volume or require responses, this is when your skills shine</li>
+</ul>
+<p>Temperature &amp; Model Setting</p>
+<ul>
+<li>If you’re doing creative writing, ideation, etc the test higher levels(0.5~1.0)</li>
+<li>Anything else should be with the temperature set to 0. You want consistency and predictability when creating these AI systems that wrestle with the natural randomness of LLMs.</li>
+<li>Other model settings are not needed in my experience</li>
+</ul>
+<h4 id="Use-Case"><a href="#Use-Case" class="headerlink" title="Use Case"></a>Use Case</h4><h5 id="AI-agency"><a href="#AI-agency" class="headerlink" title="AI agency"></a>AI agency</h5><div style="max-width:700px">
+    <img src="/2024/12/26/ai-6/pic1.png" class="" title="pic1">
+</div>
+
+<h5 id="AI-Voice-agency"><a href="#AI-Voice-agency" class="headerlink" title="AI Voice agency"></a>AI Voice agency</h5><div style="max-width:700px">
+    <img src="/2024/12/26/ai-6/pic2.png" class="" title="pic2">
+</div>
+
+<h5 id="Automations"><a href="#Automations" class="headerlink" title="Automations"></a>Automations</h5><div style="max-width:500px">
+    <img src="/2024/12/26/ai-6/pic5.png" class="" title="pic5">
+</div>
+<div style="max-width:700px">
+    <img src="/2024/12/26/ai-6/pic3.png" class="" title="pic3">
+</div>
+
+<h5 id="AI-Tools"><a href="#AI-Tools" class="headerlink" title="AI Tools"></a>AI Tools</h5><div style="max-width:500px">
+    <img src="/2024/12/26/ai-6/pic6.png" class="" title="pic6">
+</div>
+<div style="max-width:700px">
+    <img src="/2024/12/26/ai-6/pic4.png" class="" title="pic4">
+</div>
+
+<h3 id="AI-Tools-1"><a href="#AI-Tools-1" class="headerlink" title="AI Tools"></a>AI Tools</h3><ul>
+<li>Base<ol>
+<li>ChatGPT</li>
+<li><a target="_blank" rel="noopener" href="https://claude.ai/">Claude</a></li>
+</ol>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.cn/zh-tw/ai-tools">AI Tools list</a></li>
+<li><a target="_blank" rel="noopener" href="https://glasp.co/">Glasp</a> : 是一個專注於增強學習和研究體驗的高亮工具，允許使用者在網頁和PDF 文件上高亮文字並添加註解</li>
+</ul>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.udemy.com/course/youtubeacademy/">YouTube Academy 2024: Complete Beginner to Pro Step-by-Step</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QICqk4W047M">Film YouTube Videos On Your Smartphone By Yourself [6 Easy Steps]</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ai-Foundations/" rel="tag"># ai Foundations</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/15/youtube-1/" rel="prev" title="Youtube 製作">
+                  <i class="fa fa-chevron-left"></i> Youtube 製作
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/26/youtube-2/" rel="next" title="Complete Beginner to Pro Step-by-Step">
+                  Complete Beginner to Pro Step-by-Step <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2024/12/26/ai-6/";
+    this.page.identifier = "2024/12/26/ai-6/";
+    this.page.title = "AI Foundations - Basic";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

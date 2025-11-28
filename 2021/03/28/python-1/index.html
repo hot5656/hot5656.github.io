@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="control multiple version123456789# show versionpy --version  Python 3.11.0# show install -V:3.11 *        Python 3.11 (64-bit) -V:3.10          Python 3.10 (64-bit) -V:3.9# active Virtual environmentd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python install">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/28/python-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="control multiple version123456789# show versionpy --version  Python 3.11.0# show install -V:3.11 *        Python 3.11 (64-bit) -V:3.10          Python 3.10 (64-bit) -V:3.9# active Virtual environmentd">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic15.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic16.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic22.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/28/python-1/pic23.png">
+<meta property="article:published_time" content="2021-03-28T10:29:25.000Z">
+<meta property="article:modified_time" content="2024-04-10T09:27:36.788Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/03/28/python-1/pic11.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/28/python-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Python install | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#control-multiple-version"><span class="nav-number">1.</span> <span class="nav-text">control multiple version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-windows"><span class="nav-number">2.</span> <span class="nav-text">install(windows)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#download-python-windows-version"><span class="nav-number">2.1.</span> <span class="nav-text">download python windows version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-python"><span class="nav-number">2.2.</span> <span class="nav-text">install python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check-python-installed"><span class="nav-number">2.3.</span> <span class="nav-text">check python installed</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Virtual-Environments-%E5%8F%AF%E7%AE%A1%E7%90%86%E5%A4%9A%E7%B5%84-python%E7%92%B0%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">Python Virtual Environments(可管理多組 python環境)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-1st-python"><span class="nav-number">3.1.</span> <span class="nav-text">install 1st python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check-pip-version"><span class="nav-number">3.2.</span> <span class="nav-text">check pip version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-latest-pip"><span class="nav-number">3.3.</span> <span class="nav-text">install latest pip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instakk-virtualenv"><span class="nav-number">3.4.</span> <span class="nav-text">instakk virtualenv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83-Virtual-environment"><span class="nav-number">3.5.</span> <span class="nav-text">建立虛擬環境(Virtual environment)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%9F%E7%94%A8%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83"><span class="nav-number">3.6.</span> <span class="nav-text">啟用虛擬環境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6%E5%8F%8A%E4%BD%BF%E7%94%A8"><span class="nav-number">3.7.</span> <span class="nav-text">安裝套件及使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9C%E7%94%A8%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83-%E5%8E%9F%E7%9B%AE%E9%8C%84%E6%9C%83%E7%9C%8B%E5%88%B0%E4%B8%80%E6%A8%A3"><span class="nav-number">3.8.</span> <span class="nav-text">停用虛擬環境(原目錄會看到一樣)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E8%99%9B%E6%93%AC%E7%92%B0%E5%A2%83"><span class="nav-number">3.9.</span> <span class="nav-text">刪除虛擬環境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Launcher-%E5%A4%9Apython-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">Python Launcher (多python 版本控制)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#show-all-install-python"><span class="nav-number">4.1.</span> <span class="nav-text">show all install python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5%E7%9B%AE%E5%89%8D%E5%9F%B7%E8%A1%8C%E4%B9%8B-python-version"><span class="nav-number">4.2.</span> <span class="nav-text">檢查目前執行之 python version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-Launcher-%E6%8C%87%E5%88%B0%E7%9A%84-python"><span class="nav-number">4.3.</span> <span class="nav-text">Python Launcher 指到的 python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-Launcher-run-other-version-python"><span class="nav-number">4.4.</span> <span class="nav-text">Python Launcher run other version python</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Launcher-Virtual-Environments"><span class="nav-number">5.</span> <span class="nav-text">Python Launcher + Virtual Environments</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-package"><span class="nav-number">5.1.</span> <span class="nav-text">install package</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-Virtual-environment"><span class="nav-number">5.2.</span> <span class="nav-text">create Virtual environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#active-Virtual-environment"><span class="nav-number">5.3.</span> <span class="nav-text">active Virtual environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-package-1"><span class="nav-number">5.4.</span> <span class="nav-text">install package</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4-windows-%E9%A0%90%E5%AE%89%E8%A3%9D-python"><span class="nav-number">6.</span> <span class="nav-text">移除 windows 預安裝 python</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/28/python-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python install
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-28 18:29:25" itemprop="dateCreated datePublished" datetime="2021-03-28T18:29:25+08:00">2021-03-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-04-10 17:27:36" itemprop="dateModified" datetime="2024-04-10T17:27:36+08:00">2024-04-10</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/28/python-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/28/python-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>8.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="control-multiple-version"><a href="#control-multiple-version" class="headerlink" title="control multiple version"></a>control multiple version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show version</span></span><br><span class="line">py --version</span><br><span class="line">  Python 3.11.0</span><br><span class="line"><span class="comment"># show install</span></span><br><span class="line"> -V:3.11 *        Python 3.11 (64-bit)</span><br><span class="line"> -V:3.10          Python 3.10 (64-bit)</span><br><span class="line"> -V:3.9</span><br><span class="line"><span class="comment"># active Virtual environment</span></span><br><span class="line">d:\app\python_env\myenvflask_310\Scripts\activate</span><br></pre></td></tr></table></figure>
+
+<h3 id="install-windows"><a href="#install-windows" class="headerlink" title="install(windows)"></a>install(windows)</h3><h4 id="download-python-windows-version"><a href="#download-python-windows-version" class="headerlink" title="download python windows version"></a>download <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">python</a> windows version</h4><div style="width:500px">
+    <img src="/2021/03/28/python-1/pic11.png" class="" title="pic11">
+</div>
+
+<span id="more"></span>
+
+<h4 id="install-python"><a href="#install-python" class="headerlink" title="install python"></a>install python</h4><div style="width:500px">
+    <img src="/2021/03/28/python-1/pic12.png" class="" title="pic12">
+</div>
+
+<div style="width:500px">
+    <img src="/2021/03/28/python-1/pic13.png" class="" title="pic13">
+</div>
+
+<div style="width:500px">
+    <img src="/2021/03/28/python-1/pic14.png" class="" title="pic14">
+</div>
+
+<div style="width:500px">
+    <img src="/2021/03/28/python-1/pic15.png" class="" title="pic15">
+</div>
+
+<h4 id="check-python-installed"><a href="#check-python-installed" class="headerlink" title="check python installed"></a>check python installed</h4><div style="width:500px">
+    <img src="/2021/03/28/python-1/pic16.png" class="" title="pic16">
+</div>
+
+
+<h3 id="Python-Virtual-Environments-可管理多組-python環境"><a href="#Python-Virtual-Environments-可管理多組-python環境" class="headerlink" title="Python Virtual Environments(可管理多組 python環境)"></a>Python Virtual Environments(可管理多組 python環境)</h3><h4 id="install-1st-python"><a href="#install-1st-python" class="headerlink" title="install 1st python"></a>install 1st python</h4><h4 id="check-pip-version"><a href="#check-pip-version" class="headerlink" title="check pip version"></a>check pip version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;pip3 list</span><br><span class="line">Package    Version</span><br><span class="line">---------- -------</span><br><span class="line">pip        22.2.2</span><br><span class="line">setuptools 63.2.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-latest-pip"><a href="#install-latest-pip" class="headerlink" title="install latest pip"></a>install latest pip</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;python.exe -m pip install --upgrade pip</span><br><span class="line">Requirement already satisfied: pip <span class="keyword">in</span> d:\app\python\python310\lib\site-packages (22.2.2)</span><br><span class="line">Collecting pip</span><br><span class="line">  Using cached pip-22.3-py3-none-any.whl (2.1 MB)</span><br><span class="line">Installing collected packages: pip</span><br><span class="line">  Attempting uninstall: pip</span><br><span class="line">    Found existing installation: pip 22.2.2</span><br><span class="line">    Uninstalling pip-22.2.2:</span><br><span class="line">      Successfully uninstalled pip-22.2.2</span><br><span class="line">Successfully installed pip-22.3</span><br><span class="line"></span><br><span class="line">C:\Users\win10&gt;pip3 list</span><br><span class="line">Package    Version</span><br><span class="line">---------- -------</span><br><span class="line">pip        22.3</span><br><span class="line">setuptools 63.2.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="instakk-virtualenv"><a href="#instakk-virtualenv" class="headerlink" title="instakk virtualenv"></a>instakk virtualenv</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;pip3 install virtualenv</span><br><span class="line">Collecting virtualenv</span><br><span class="line">  Using cached virtualenv-20.16.6-py3-none-any.whl (8.8 MB)</span><br><span class="line">Collecting distlib&lt;1,&gt;=0.3.6</span><br><span class="line">  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)</span><br><span class="line">Collecting platformdirs&lt;3,&gt;=2.4</span><br><span class="line">  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)</span><br><span class="line">Collecting filelock&lt;4,&gt;=3.4.1</span><br><span class="line">  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)</span><br><span class="line">Installing collected packages: distlib, platformdirs, filelock, virtualenv</span><br><span class="line">Successfully installed distlib-0.3.6 filelock-3.8.0 platformdirs-2.5.2 virtualenv-20.16.6</span><br><span class="line"></span><br><span class="line">C:\Users\win10&gt;pip3 list</span><br><span class="line">Package      Version</span><br><span class="line">------------ -------</span><br><span class="line">distlib      0.3.6</span><br><span class="line">filelock     3.8.0</span><br><span class="line">pip          22.3</span><br><span class="line">platformdirs 2.5.2</span><br><span class="line">setuptools   63.2.0</span><br><span class="line">virtualenv   20.16.6</span><br></pre></td></tr></table></figure>
+
+<h4 id="建立虛擬環境-Virtual-environment"><a href="#建立虛擬環境-Virtual-environment" class="headerlink" title="建立虛擬環境(Virtual environment)"></a>建立虛擬環境(Virtual environment)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;d:</span><br><span class="line">d:\app\python_env&gt;<span class="built_in">cd</span> \app\python_env</span><br><span class="line"></span><br><span class="line">d:\app\python_env&gt;virtualenv myenv01</span><br><span class="line">created virtual environment CPython3.10.8.final.0-64 <span class="keyword">in</span> 4870ms</span><br><span class="line">  creator CPython3Windows(dest=D:\app\python_env\myenv01, clear=False, no_vcs_ignore=False, global=False)</span><br><span class="line">  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=C:\Users\win10\AppData\Local\pypa\virtualenv)</span><br><span class="line">    added seed packages: pip==22.3, setuptools==65.5.0, wheel==0.37.1</span><br><span class="line">  activators BashActivator,BatchActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator</span><br><span class="line"></span><br><span class="line">d:\app\python_env&gt;dir/w</span><br><span class="line"> 磁碟區 D 中的磁碟沒有標籤。</span><br><span class="line"> 磁碟區序號:  0E4C-18B1</span><br><span class="line"> d:\app\python_env 的目錄</span><br><span class="line">[.]       [..]      [myenv01]</span><br><span class="line">               0 個檔案               0 位元組</span><br><span class="line">               3 個目錄  757,669,646,336 位元組可用</span><br></pre></td></tr></table></figure>
+
+<h4 id="啟用虛擬環境"><a href="#啟用虛擬環境" class="headerlink" title="啟用虛擬環境"></a>啟用虛擬環境</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">d:\app\python_env&gt;<span class="built_in">cd</span> myenv01\Scripts</span><br><span class="line">d:\app\python_env\myenv01\Scripts&gt;activate</span><br><span class="line"></span><br><span class="line">(myenv01) d:\app\python_env\myenv01\Scripts&gt;pip3 list</span><br><span class="line">Package    Version</span><br><span class="line">---------- -------</span><br><span class="line">pip        22.3</span><br><span class="line">setuptools 65.5.0</span><br><span class="line">wheel      0.37.1</span><br></pre></td></tr></table></figure>
+
+<h4 id="安裝套件及使用"><a href="#安裝套件及使用" class="headerlink" title="安裝套件及使用"></a>安裝套件及使用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">(myenv01) d:\app\python_env\myenv01\Scripts&gt;pip3 install matplotlib</span><br><span class="line">Collecting matplotlib</span><br><span class="line">  Downloading matplotlib-3.6.1-cp310-cp310-win_amd64.whl (7.2 MB)</span><br><span class="line">     ---------------------------------------- 7.2/7.2 MB 8.4 MB/s eta 0:00:00</span><br><span class="line">Collecting fonttools&gt;=4.22.0</span><br><span class="line">  Downloading fonttools-4.38.0-py3-none-any.whl (965 kB)</span><br><span class="line">     ---------------------------------------- 965.4/965.4 kB 15.2 MB/s eta 0:00:00</span><br><span class="line">Collecting cycler&gt;=0.10</span><br><span class="line">  Downloading cycler-0.11.0-py3-none-any.whl (6.4 kB)</span><br><span class="line">Collecting pillow&gt;=6.2.0</span><br><span class="line">  Downloading Pillow-9.2.0-cp310-cp310-win_amd64.whl (3.3 MB)</span><br><span class="line">     ---------------------------------------- 3.3/3.3 MB 14.0 MB/s eta 0:00:00</span><br><span class="line">Collecting packaging&gt;=20.0</span><br><span class="line">  Downloading packaging-21.3-py3-none-any.whl (40 kB)</span><br><span class="line">     ---------------------------------------- 40.8/40.8 kB ? eta 0:00:00</span><br><span class="line">Collecting numpy&gt;=1.19</span><br><span class="line">  Downloading numpy-1.23.4-cp310-cp310-win_amd64.whl (14.6 MB)</span><br><span class="line">     ---------------------------------------- 14.6/14.6 MB 11.9 MB/s eta 0:00:00</span><br><span class="line">Collecting kiwisolver&gt;=1.0.1</span><br><span class="line">  Downloading kiwisolver-1.4.4-cp310-cp310-win_amd64.whl (55 kB)</span><br><span class="line">     ---------------------------------------- 55.3/55.3 kB 2.8 MB/s eta 0:00:00</span><br><span class="line">Collecting contourpy&gt;=1.0.1</span><br><span class="line">  Downloading contourpy-1.0.5-cp310-cp310-win_amd64.whl (164 kB)</span><br><span class="line">     ---------------------------------------- 164.1/164.1 kB 5.0 MB/s eta 0:00:00</span><br><span class="line">Collecting pyparsing&gt;=2.2.1</span><br><span class="line">  Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)</span><br><span class="line">     ---------------------------------------- 98.3/98.3 kB ? eta 0:00:00</span><br><span class="line">Collecting python-dateutil&gt;=2.7</span><br><span class="line">  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)</span><br><span class="line">     ---------------------------------------- 247.7/247.7 kB 14.8 MB/s eta 0:00:00</span><br><span class="line">Collecting six&gt;=1.5</span><br><span class="line">  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)</span><br><span class="line">Installing collected packages: six, pyparsing, pillow, numpy, kiwisolver, fonttools, cycler, python-dateutil, packaging, contourpy, matplotlib</span><br><span class="line">Successfully installed contourpy-1.0.5 cycler-0.11.0 fonttools-4.38.0 kiwisolver-1.4.4 matplotlib-3.6.1 numpy-1.23.4 packaging-21.3 pillow-9.2.0 pyparsing-3.0.9 python-dateutil-2.8.2 six-1.16.0</span><br><span class="line"></span><br><span class="line">(myenv01) d:\app\python_env\myenv01\Scripts&gt;</span><br><span class="line">(myenv01) d:\app\python_env\myenv01\Scripts&gt;pip3 list</span><br><span class="line">Package         Version</span><br><span class="line">--------------- -------</span><br><span class="line">contourpy       1.0.5</span><br><span class="line">cycler          0.11.0</span><br><span class="line">fonttools       4.38.0</span><br><span class="line">kiwisolver      1.4.4</span><br><span class="line">matplotlib      3.6.1</span><br><span class="line">numpy           1.23.4</span><br><span class="line">packaging       21.3</span><br><span class="line">Pillow          9.2.0</span><br><span class="line">pip             22.3</span><br><span class="line">pyparsing       3.0.9</span><br><span class="line">python-dateutil 2.8.2</span><br><span class="line">setuptools      65.5.0</span><br><span class="line">six             1.16.0</span><br><span class="line">wheel           0.37.1</span><br></pre></td></tr></table></figure>
+
+<h4 id="停用虛擬環境-原目錄會看到一樣"><a href="#停用虛擬環境-原目錄會看到一樣" class="headerlink" title="停用虛擬環境(原目錄會看到一樣)"></a>停用虛擬環境(原目錄會看到一樣)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">(myenv01) d:\app\python_env\myenv01\Scripts&gt;deactivate</span><br><span class="line">d:\app\python_env\myenv01\Scripts&gt;pip3 list</span><br><span class="line">Package         Version</span><br><span class="line">--------------- -------</span><br><span class="line">contourpy       1.0.5</span><br><span class="line">cycler          0.11.0</span><br><span class="line">fonttools       4.38.0</span><br><span class="line">kiwisolver      1.4.4</span><br><span class="line">matplotlib      3.6.1</span><br><span class="line">numpy           1.23.4</span><br><span class="line">packaging       21.3</span><br><span class="line">Pillow          9.2.0</span><br><span class="line">pip             22.3</span><br><span class="line">pyparsing       3.0.9</span><br><span class="line">python-dateutil 2.8.2</span><br><span class="line">setuptools      65.5.0</span><br><span class="line">six             1.16.0</span><br><span class="line">wheel           0.37.1</span><br><span class="line"></span><br><span class="line">d:\app\python_env\myenv01\Scripts&gt;<span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line">d:\app\python_env\myenv01&gt;pip3 list</span><br><span class="line">Package      Version</span><br><span class="line">------------ -------</span><br><span class="line">distlib      0.3.6</span><br><span class="line">filelock     3.8.0</span><br><span class="line">pip          22.3</span><br><span class="line">platformdirs 2.5.2</span><br><span class="line">setuptools   63.2.0</span><br><span class="line">virtualenv   20.16.6</span><br></pre></td></tr></table></figure>
+
+<h4 id="刪除虛擬環境"><a href="#刪除虛擬環境" class="headerlink" title="刪除虛擬環境"></a>刪除虛擬環境</h4><p>刪除目錄 myenv01 </p>
+<h3 id="Python-Launcher-多python-版本控制"><a href="#Python-Launcher-多python-版本控制" class="headerlink" title="Python Launcher (多python 版本控制)"></a>Python Launcher (多python 版本控制)</h3><h4 id="show-all-install-python"><a href="#show-all-install-python" class="headerlink" title="show all install python"></a>show all install python</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;py --list</span><br><span class="line"> -V:3.11 *        Python 3.11 (64-bit)</span><br><span class="line"> -V:3.10          Python 3.10 (64-bit)</span><br></pre></td></tr></table></figure>
+
+<h4 id="檢查目前執行之-python-version"><a href="#檢查目前執行之-python-version" class="headerlink" title="檢查目前執行之 python version"></a>檢查目前執行之 python version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;python --version</span><br><span class="line">Python 3.10.8</span><br></pre></td></tr></table></figure>
+
+<h4 id="Python-Launcher-指到的-python"><a href="#Python-Launcher-指到的-python" class="headerlink" title="Python Launcher 指到的 python"></a>Python Launcher 指到的 python</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;py --version</span><br><span class="line">Python 3.11.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="Python-Launcher-run-other-version-python"><a href="#Python-Launcher-run-other-version-python" class="headerlink" title="Python Launcher run other version python"></a>Python Launcher run other version python</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;py -3.10</span><br><span class="line">Python 3.10.8 (tags/v3.10.8:aaaf517, Oct 11 2022, 16:50:30) [MSC v.1933 64 bit (AMD64)] on win32</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; quit()</span><br><span class="line"></span><br><span class="line">py -3.10 --version</span><br><span class="line"></span><br><span class="line">d:\app\python_env&gt;py -3.10 -m pip list</span><br><span class="line">Package      Version</span><br><span class="line">------------ -------</span><br><span class="line">distlib      0.3.6</span><br><span class="line">filelock     3.8.0</span><br><span class="line">pip          22.3</span><br><span class="line">platformdirs 2.5.2</span><br><span class="line">setuptools   63.2.0</span><br><span class="line">virtualenv   20.16.6</span><br><span class="line"></span><br><span class="line">d:\app\python_env&gt;py -3.11 -m pip list</span><br><span class="line">Package    Version</span><br><span class="line">---------- -------</span><br><span class="line">pip        22.3</span><br><span class="line">setuptools 65.5.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python-Launcher-Virtual-Environments"><a href="#Python-Launcher-Virtual-Environments" class="headerlink" title="Python Launcher + Virtual Environments"></a>Python Launcher + Virtual Environments</h3><h4 id="install-package"><a href="#install-package" class="headerlink" title="install package"></a>install package</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\win10&gt;py -m pip install virtualenv</span><br><span class="line">Collecting virtualenv</span><br><span class="line">  Using cached virtualenv-20.16.6-py3-none-any.whl (8.8 MB)</span><br><span class="line">Collecting distlib&lt;1,&gt;&#x3D;0.3.6</span><br><span class="line">  Using cached distlib-0.3.6-py2.py3-none-any.whl (468 kB)</span><br><span class="line">Collecting filelock&lt;4,&gt;&#x3D;3.4.1</span><br><span class="line">  Using cached filelock-3.8.0-py3-none-any.whl (10 kB)</span><br><span class="line">Collecting platformdirs&lt;3,&gt;&#x3D;2.4</span><br><span class="line">  Using cached platformdirs-2.5.2-py3-none-any.whl (14 kB)</span><br><span class="line">Installing collected packages: distlib, platformdirs, filelock, virtualenv</span><br><span class="line">  WARNING: The script virtualenv.exe is installed in &#39;D:\app\Python\Python311\Scripts&#39; which is not on PATH.</span><br><span class="line">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span><br><span class="line">Successfully installed distlib-0.3.6 filelock-3.8.0 platformdirs-2.5.2 virtualenv-20.16.6</span><br></pre></td></tr></table></figure>
+
+<h4 id="create-Virtual-environment"><a href="#create-Virtual-environment" class="headerlink" title="create Virtual environment"></a>create Virtual environment</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">D:\app\python_env&gt;py -m  virtualenv myenv11_01</span><br><span class="line">created virtual environment CPython3.11.0.final.0-64 <span class="keyword">in</span> 4070ms</span><br><span class="line">  creator CPython3Windows(dest=D:\app\python_env\myenv11_01, clear=False, no_vcs_ignore=False, global=False)</span><br><span class="line">  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=C:\Users\win10\AppData\Local\pypa\virtualenv)</span><br><span class="line">    added seed packages: pip==22.3, setuptools==65.5.0, wheel==0.37.1</span><br><span class="line">  activators BashActivator,BatchActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator</span><br></pre></td></tr></table></figure>
+
+<h4 id="active-Virtual-environment"><a href="#active-Virtual-environment" class="headerlink" title="active Virtual environment"></a>active Virtual environment</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\app\python_env&gt;myenv11_01\Scripts\activate</span><br><span class="line"></span><br><span class="line">(myenv11_01) D:\app\python_env&gt;python --version</span><br><span class="line">Python 3.11.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-package-1"><a href="#install-package-1" class="headerlink" title="install package"></a>install package</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(myenv11_01) D:\app\python_env&gt;python -m pip install autopep8</span><br><span class="line">Collecting autopep8</span><br><span class="line">  Downloading autopep8-2.0.0-py2.py3-none-any.whl (45 kB)</span><br><span class="line">     ---------------------------------------- 45.4/45.4 kB 1.1 MB/s eta 0:00:00</span><br><span class="line">Collecting pycodestyle&gt;=2.9.1</span><br><span class="line">  Downloading pycodestyle-2.9.1-py2.py3-none-any.whl (41 kB)</span><br><span class="line">     ---------------------------------------- 41.5/41.5 kB ? eta 0:00:00</span><br><span class="line">Collecting tomli</span><br><span class="line">  Downloading tomli-2.0.1-py3-none-any.whl (12 kB)</span><br><span class="line">Installing collected packages: tomli, pycodestyle, autopep8</span><br><span class="line">Successfully installed autopep8-2.0.0 pycodestyle-2.9.1 tomli-2.0.1</span><br><span class="line"></span><br><span class="line">(myenv11_01) D:\app\python_env&gt;python -m pip list</span><br><span class="line">Package     Version</span><br><span class="line">----------- -------</span><br><span class="line">autopep8    2.0.0</span><br><span class="line">pip         22.3</span><br><span class="line">pycodestyle 2.9.1</span><br><span class="line">setuptools  65.5.0</span><br><span class="line">tomli       2.0.1</span><br><span class="line">wheel       0.37.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="移除-windows-預安裝-python"><a href="#移除-windows-預安裝-python" class="headerlink" title="移除 windows 預安裝 python"></a>移除 windows 預安裝 python</h3><div style="width:300px">
+    <img src="/2021/03/28/python-1/pic21.png" class="" title="pic21">
+</div>
+
+<div style="width:700px">
+    <img src="/2021/03/28/python-1/pic22.png" class="" title="pic22">
+</div>
+
+<div style="width:600px">
+    <img src="/2021/03/28/python-1/pic23.png" class="" title="pic23">
+</div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/24/git-4/" rel="prev" title="Git install">
+                  <i class="fa fa-chevron-left"></i> Git install
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/28/python-2/" rel="next" title="PyCharm">
+                  PyCharm <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/28/python-1/";
+    this.page.identifier = "2021/03/28/python-1/";
+    this.page.title = "Python install";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="CommansDump version1npm -v  ping npmjs registry123npm ping	npm notice PING https:&#x2F;&#x2F;registry.npmjs.org&#x2F;	npm notice PONG 0.358ms  Dump all npm installed models1npm list">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm 說明">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/12/npm-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="CommansDump version1npm -v  ping npmjs registry123npm ping	npm notice PING https:&#x2F;&#x2F;registry.npmjs.org&#x2F;	npm notice PONG 0.358ms  Dump all npm installed models1npm list">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-03-12T07:39:26.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:35.319Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="npm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/12/npm-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>npm 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Commans"><span class="nav-number">1.</span> <span class="nav-text">Commans</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.1.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ping-npmjs-registry"><span class="nav-number">1.2.</span> <span class="nav-text">ping npmjs registry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dump-all-npm-installed-models"><span class="nav-number">1.3.</span> <span class="nav-text">Dump all npm installed models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-node-modules-%E6%9C%89%E7%9B%B8%E9%97%9C%E8%B3%87%E5%AE%89%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.4.</span> <span class="nav-text">檢查 node_modules 有相關資安漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E4%BF%AE%E6%AD%A3%E7%9B%B8%E9%97%9C%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.5.</span> <span class="nav-text">自動修正相關漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%8F%AF%E6%9B%B4%E6%96%B0%E7%9A%84-node-modules"><span class="nav-number">1.6.</span> <span class="nav-text">更新可更新的 node_modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E7%90%86-node-modules-%E4%B8%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">1.7.</span> <span class="nav-text">清理 node_modules 中不需要的檔案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-module"><span class="nav-number">1.8.</span> <span class="nav-text">install module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#npx-%E5%9F%B7%E8%A1%8C-project-%E5%AE%89%E8%A3%9D-module"><span class="nav-number">1.9.</span> <span class="nav-text">npx : 執行 project 安裝 module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%88%E6%A1%88-npm-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.10.</span> <span class="nav-text">專案 npm 初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E3%80%81%E6%9C%AC%E6%A9%9F%E5%AE%89%E8%A3%9D-%E5%85%B1%E7%94%A8-module"><span class="nav-number">1.11.</span> <span class="nav-text">本地、本機安裝(共用 module)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%88%E6%A1%88-modle-%E5%AE%89%E8%A3%9D"><span class="nav-number">1.12.</span> <span class="nav-text">專案 modle 安裝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E5%A5%97%E4%BB%B6"><span class="nav-number">1.13.</span> <span class="nav-text">移除套件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%82%84%E5%8E%9F%E5%B0%88%E6%A1%88%E5%A5%97%E4%BB%B6"><span class="nav-number">1.14.</span> <span class="nav-text">還原專案套件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-script"><span class="nav-number">2.</span> <span class="nav-text">run script</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module-version"><span class="nav-number">3.</span> <span class="nav-text">module version</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json"><span class="nav-number">3.1.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E7%89%B9%E5%AE%9A%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">安裝特定版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unit-test"><span class="nav-number">4.</span> <span class="nav-text">Unit test</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call-function-test"><span class="nav-number">4.1.</span> <span class="nav-text">call function test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jest-test"><span class="nav-number">4.2.</span> <span class="nav-text">jest test</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#example"><span class="nav-number">4.2.1.</span> <span class="nav-text">example</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#test-by-script"><span class="nav-number">4.2.2.</span> <span class="nav-text">test by script</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#test-multi-items"><span class="nav-number">4.2.3.</span> <span class="nav-text">test multi items</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TDD-Test-Driven-Development-%E6%B8%AC%E8%A9%A6%E9%A9%85%E5%8B%95%E9%96%8B%E7%99%BC"><span class="nav-number">4.3.</span> <span class="nav-text">TDD (Test-Driven Development) 測試驅動開發</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-amp-apos-s-node-module"><span class="nav-number">5.</span> <span class="nav-text">npm&amp;apos;s node module</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mathjs"><span class="nav-number">5.1.</span> <span class="nav-text">mathjs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lodash-reference-document"><span class="nav-number">5.2.</span> <span class="nav-text">lodash reference document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#left-pad"><span class="nav-number">5.3.</span> <span class="nav-text">left-pad</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Request-Simplified-HTTP-client"><span class="nav-number">5.4.</span> <span class="nav-text">Request - Simplified HTTP client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#axios-Promise-based-HTTP-client-for-the-browser-and-node-js"><span class="nav-number">5.5.</span> <span class="nav-text">axios - Promise based HTTP client for the browser and node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NODE-ENV-dotenv-%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8%E9%9B%86%E4%B8%AD%E5%9C%A8-env-%E6%AA%94"><span class="nav-number">5.6.</span> <span class="nav-text">NODE_ENV [dotenv] - 環境變數集中在 env 檔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jest"><span class="nav-number">5.7.</span> <span class="nav-text">jest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel-node"><span class="nav-number">5.8.</span> <span class="nav-text">babel-node</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#install"><span class="nav-number">5.8.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#add-config-file-babelrc"><span class="nav-number">5.8.2.</span> <span class="nav-text">add config file - .babelrc</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#test"><span class="nav-number">5.8.3.</span> <span class="nav-text">test</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-debug-monitor-HTTP-S-requests-performed-by-the-request-module"><span class="nav-number">5.9.</span> <span class="nav-text">request-debug : monitor HTTP(S) requests performed by the request module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dotenv-env-%E8%A8%AD%E5%AE%9A"><span class="nav-number">5.10.</span> <span class="nav-text">dotenv : env 設定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodemon-node-%E4%BF%AE%E6%94%B9%E8%87%AA%E5%8B%95%E9%87%8D%E5%95%9F"><span class="nav-number">5.11.</span> <span class="nav-text">nodemon : node 修改自動重啟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#uuid-create-uuid-Universally-Unique-Identifier-%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%BE%A8%E8%AD%98%E7%A2%BC"><span class="nav-number">5.12.</span> <span class="nav-text">uuid : create uuid(Universally Unique Identifier) 通用唯一辨識碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#morgan-HTTP-request-logger-middleware-for-node-js"><span class="nav-number">5.13.</span> <span class="nav-text">morgan : HTTP request logger middleware for node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cookie-express-%E6%9C%89%E6%8F%90%E4%BE%9B-%E4%B8%8D%E9%9C%80%E8%A6%81%E7%94%A8cookie-parser"><span class="nav-number">5.14.</span> <span class="nav-text">cookie : express 有提供,不需要用cookie-parser :</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x65-x78-112-114-101-x73-x73-45-x76-x61-108-105-100-97-116-x6f-x72-x40-53-x2e-x33-46-49-express-js-validate-middlewares"><span class="nav-number">5.15.</span> <span class="nav-text">&amp;#x65;&amp;#x78;&amp;#112;&amp;#114;&amp;#101;&amp;#x73;&amp;#x73;&amp;#45;&amp;#x76;&amp;#x61;&amp;#108;&amp;#105;&amp;#100;&amp;#97;&amp;#116;&amp;#x6f;&amp;#x72;&amp;#x40;&amp;#53;&amp;#x2e;&amp;#x33;&amp;#46;&amp;#49; :  express.js validate middlewares</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#express-jwt-%E9%A9%97%E8%AD%89-JWT"><span class="nav-number">5.16.</span> <span class="nav-text">express-jwt : 驗證 JWT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsonwebtoken-%E7%94%A2%E7%94%9F-JWT-token"><span class="nav-number">5.17.</span> <span class="nav-text">jsonwebtoken :  產生 JWT token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#crypto-node-js-%E6%8F%90%E4%BE%9B-%E5%8A%A0%E5%AF%86%E7%B7%A8%E7%A2%BC"><span class="nav-number">5.18.</span> <span class="nav-text">crypto : node.js 提供,加密編碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#formidable-parsing-data-%E7%89%B9%E5%88%A5%E6%98%AF%E6%9C%89%E9%97%9C-file"><span class="nav-number">5.19.</span> <span class="nav-text">formidable : parsing data, 特別是有關 file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cors-enable-cors"><span class="nav-number">5.20.</span> <span class="nav-text">cors : enable cors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#query-string-query-string-%E8%99%95%E7%90%86"><span class="nav-number">5.21.</span> <span class="nav-text">query-string:query string 處理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moment-script-data-library"><span class="nav-number">5.22.</span> <span class="nav-text">moment: script data library</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#braintree-Braintree-Node-library"><span class="nav-number">5.23.</span> <span class="nav-text">braintree : Braintree Node library</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-config"><span class="nav-number">6.</span> <span class="nav-text">npm config</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/12/npm-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          npm 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-12 15:39:26" itemprop="dateCreated datePublished" datetime="2021-03-12T15:39:26+08:00">2021-03-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:35" itemprop="dateModified" datetime="2022-06-09T11:38:35+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/12/npm-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/12/npm-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>16 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Commans"><a href="#Commans" class="headerlink" title="Commans"></a>Commans</h3><h4 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="ping-npmjs-registry"><a href="#ping-npmjs-registry" class="headerlink" title="ping npmjs registry"></a>ping npmjs registry</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm ping</span><br><span class="line">	npm notice PING https://registry.npmjs.org/</span><br><span class="line">	npm notice PONG 0.358ms</span><br></pre></td></tr></table></figure>
+
+<h4 id="Dump-all-npm-installed-models"><a href="#Dump-all-npm-installed-models" class="headerlink" title="Dump all npm installed models"></a>Dump all npm installed models</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm list</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h4 id="檢查-node-modules-有相關資安漏洞"><a href="#檢查-node-modules-有相關資安漏洞" class="headerlink" title="檢查 node_modules 有相關資安漏洞"></a>檢查 node_modules 有相關資安漏洞</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit</span><br></pre></td></tr></table></figure>
+
+<h4 id="自動修正相關漏洞"><a href="#自動修正相關漏洞" class="headerlink" title="自動修正相關漏洞"></a>自動修正相關漏洞</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm audit fix</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新可更新的-node-modules"><a href="#更新可更新的-node-modules" class="headerlink" title="更新可更新的 node_modules"></a>更新可更新的 node_modules</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
+
+<h4 id="清理-node-modules-中不需要的檔案"><a href="#清理-node-modules-中不需要的檔案" class="headerlink" title="清理 node_modules 中不需要的檔案"></a>清理 node_modules 中不需要的檔案</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm prune</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-module"><a href="#install-module" class="headerlink" title="install module"></a>install module</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安裝最新版本：</span></span><br><span class="line">npm install hexo-theme-next@latest</span><br><span class="line"><span class="comment"># 指定特定版本：</span></span><br><span class="line">npm install hexo-theme-next@8.0.0</span><br><span class="line"><span class="comment"># 安裝目前版本：</span></span><br><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+
+<h4 id="npx-執行-project-安裝-module"><a href="#npx-執行-project-安裝-module" class="headerlink" title="npx : 執行 project 安裝 module"></a>npx : 執行 project 安裝 module</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx jest</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="專案-npm-初始化"><a href="#專案-npm-初始化" class="headerlink" title="專案 npm 初始化"></a>專案 npm 初始化</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 會要求你輸入關於這個專案的相關資訊</span></span><br><span class="line">npm init</span><br><span class="line"><span class="comment"># 專案全部載入預設資料</span></span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<h4 id="本地、本機安裝-共用-module"><a href="#本地、本機安裝-共用-module" class="headerlink" title="本地、本機安裝(共用 module)"></a>本地、本機安裝(共用 module)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">or</span><br><span class="line">npm install hexo-cli –g</span><br></pre></td></tr></table></figure>
+
+<h4 id="專案-modle-安裝"><a href="#專案-modle-安裝" class="headerlink" title="專案 modle 安裝"></a>專案 modle 安裝</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dependencies (依賴套件): 專案 production or build 之後仍然會使用的套件，例如 jQuery、swiper 等等套件</span></span><br><span class="line">npm install --save hexo-generator-feed</span><br><span class="line"><span class="comment"># devDependencies (開發依賴套件): devDependencies 就是只有在我們開發時，才會使用的套件，舉例來講 babel、esling 等</span></span><br><span class="line">npm install --save-dev hexo-generator-feed</span><br></pre></td></tr></table></figure>
+
+<h4 id="移除套件"><a href="#移除套件" class="headerlink" title="移除套件"></a>移除套件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g [套件名稱]</span><br></pre></td></tr></table></figure>
+
+<h4 id="還原專案套件"><a href="#還原專案套件" class="headerlink" title="還原專案套件"></a>還原專案套件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="run-script"><a href="#run-script" class="headerlink" title="run script"></a>run script</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">let</span> leftPad = <span class="built_in">require</span>(<span class="string">&#x27;left-pad&#x27;</span>)</span><br><span class="line"><span class="comment">// insert 0 before number </span></span><br><span class="line"><span class="built_in">console</span>.log(leftPad(<span class="number">123</span>, <span class="number">10</span>, <span class="string">&#x27;0&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>package.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;js102&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;start&quot;</span>: <span class="string">&quot;node index.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;test&quot;</span>: <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;left-pad&quot;</span>: <span class="string">&quot;^1.3.0&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br><span class="line"></span><br><span class="line">&gt; js102@1.0.0 start</span><br><span class="line">&gt; node index.js</span><br><span class="line"></span><br><span class="line">0000000123</span><br></pre></td></tr></table></figure>
+
+<h3 id="module-version"><a href="#module-version" class="headerlink" title="module version"></a>module version</h3><h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><ul>
+<li>^version: Compatible with version<br>鎖住第一碼(即A) 不得變更。如^1.2.2，則安裝範圍是&gt;&#x3D;1.2.2 且 &lt;2.0.0。即須符合1.*.*。</li>
+<li>&amp;sim;version: Approximately equivalent to version<br>鎖住第二碼(即B) 不得變更。如&amp;sim;1.2.2，則安裝範圍是&gt;&#x3D;1.2.2且&lt;1.3.0。即須符合1.2.*。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;express&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;start&quot;</span>: <span class="string">&quot;nodemon app.js&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span>: [],</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;body-parser&quot;</span>: <span class="string">&quot;^1.19.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cookie-parser&quot;</span>: <span class="string">&quot;^1.4.5&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dotenv&quot;</span>: <span class="string">&quot;^10.0.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;express&quot;</span>: <span class="string">&quot;^4.17.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;mongodb&quot;</span>: <span class="string">&quot;^4.1.4&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;mongoose&quot;</span>: <span class="string">&quot;^6.0.12&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;morgan&quot;</span>: <span class="string">&quot;^1.10.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;nodemon&quot;</span>: <span class="string">&quot;^2.0.14&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;uuid&quot;</span>: <span class="string">&quot;^8.3.2&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="安裝特定版本"><a href="#安裝特定版本" class="headerlink" title="安裝特定版本"></a>安裝特定版本</h4><ul>
+<li><p>查詢最後版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm info express-validator version</span><br><span class="line">  6.13.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查詢所有版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">npm view express-validator versions</span><br><span class="line">  [</span><br><span class="line">    <span class="string">&#x27;0.1.0&#x27;</span>,   <span class="string">&#x27;0.1.1&#x27;</span>,  <span class="string">&#x27;0.1.2&#x27;</span>,  <span class="string">&#x27;0.1.3&#x27;</span>,  <span class="string">&#x27;0.2.0&#x27;</span>,  <span class="string">&#x27;0.2.1&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;0.2.2&#x27;</span>,   <span class="string">&#x27;0.2.3&#x27;</span>,  <span class="string">&#x27;0.2.4&#x27;</span>,  <span class="string">&#x27;0.3.0&#x27;</span>,  <span class="string">&#x27;0.3.1&#x27;</span>,  <span class="string">&#x27;0.3.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;0.4.0&#x27;</span>,   <span class="string">&#x27;0.4.1&#x27;</span>,  <span class="string">&#x27;0.5.0&#x27;</span>,  <span class="string">&#x27;0.6.0&#x27;</span>,  <span class="string">&#x27;0.7.0&#x27;</span>,  <span class="string">&#x27;0.8.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1.0.0&#x27;</span>,   <span class="string">&#x27;1.0.1&#x27;</span>,  <span class="string">&#x27;2.0.0&#x27;</span>,  <span class="string">&#x27;2.1.0&#x27;</span>,  <span class="string">&#x27;2.1.1&#x27;</span>,  <span class="string">&#x27;2.1.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.2.0&#x27;</span>,   <span class="string">&#x27;2.3.0&#x27;</span>,  <span class="string">&#x27;2.4.0&#x27;</span>,  <span class="string">&#x27;2.5.0&#x27;</span>,  <span class="string">&#x27;2.6.0&#x27;</span>,  <span class="string">&#x27;2.7.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.8.0&#x27;</span>,   <span class="string">&#x27;2.9.0&#x27;</span>,  <span class="string">&#x27;2.9.1&#x27;</span>,  <span class="string">&#x27;2.10.0&#x27;</span>, <span class="string">&#x27;2.11.0&#x27;</span>, <span class="string">&#x27;2.12.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.12.1&#x27;</span>,  <span class="string">&#x27;2.12.2&#x27;</span>, <span class="string">&#x27;2.13.0&#x27;</span>, <span class="string">&#x27;2.14.0&#x27;</span>, <span class="string">&#x27;2.14.1&#x27;</span>, <span class="string">&#x27;2.14.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.15.0&#x27;</span>,  <span class="string">&#x27;2.15.1&#x27;</span>, <span class="string">&#x27;2.16.0&#x27;</span>, <span class="string">&#x27;2.17.0&#x27;</span>, <span class="string">&#x27;2.17.1&#x27;</span>, <span class="string">&#x27;2.18.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.19.0&#x27;</span>,  <span class="string">&#x27;2.19.1&#x27;</span>, <span class="string">&#x27;2.19.2&#x27;</span>, <span class="string">&#x27;2.20.1&#x27;</span>, <span class="string">&#x27;2.20.2&#x27;</span>, <span class="string">&#x27;2.20.3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.20.4&#x27;</span>,  <span class="string">&#x27;2.20.5&#x27;</span>, <span class="string">&#x27;2.20.6&#x27;</span>, <span class="string">&#x27;2.20.7&#x27;</span>, <span class="string">&#x27;2.20.8&#x27;</span>, <span class="string">&#x27;2.20.9&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2.20.10&#x27;</span>, <span class="string">&#x27;2.21.0&#x27;</span>, <span class="string">&#x27;3.0.0&#x27;</span>,  <span class="string">&#x27;3.1.0&#x27;</span>,  <span class="string">&#x27;3.1.1&#x27;</span>,  <span class="string">&#x27;3.1.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;3.1.3&#x27;</span>,   <span class="string">&#x27;3.2.0&#x27;</span>,  <span class="string">&#x27;3.2.1&#x27;</span>,  <span class="string">&#x27;4.0.0&#x27;</span>,  <span class="string">&#x27;4.1.0&#x27;</span>,  <span class="string">&#x27;4.1.1&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;4.2.0&#x27;</span>,   <span class="string">&#x27;4.2.1&#x27;</span>,  <span class="string">&#x27;4.3.0&#x27;</span>,  <span class="string">&#x27;5.0.0&#x27;</span>,  <span class="string">&#x27;5.0.1&#x27;</span>,  <span class="string">&#x27;5.0.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;5.0.3&#x27;</span>,   <span class="string">&#x27;5.1.0&#x27;</span>,  <span class="string">&#x27;5.1.1&#x27;</span>,  <span class="string">&#x27;5.1.2&#x27;</span>,  <span class="string">&#x27;5.2.0&#x27;</span>,  <span class="string">&#x27;5.3.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;5.3.1&#x27;</span>,   <span class="string">&#x27;6.0.0&#x27;</span>,  <span class="string">&#x27;6.0.1&#x27;</span>,  <span class="string">&#x27;6.1.0&#x27;</span>,  <span class="string">&#x27;6.1.1&#x27;</span>,  <span class="string">&#x27;6.2.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6.3.0&#x27;</span>,   <span class="string">&#x27;6.3.1&#x27;</span>,  <span class="string">&#x27;6.4.0&#x27;</span>,  <span class="string">&#x27;6.4.1&#x27;</span>,  <span class="string">&#x27;6.5.0&#x27;</span>,  <span class="string">&#x27;6.6.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6.6.1&#x27;</span>,   <span class="string">&#x27;6.7.0&#x27;</span>,  <span class="string">&#x27;6.8.0&#x27;</span>,  <span class="string">&#x27;6.8.1&#x27;</span>,  <span class="string">&#x27;6.8.2&#x27;</span>,  <span class="string">&#x27;6.9.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6.9.1&#x27;</span>,   <span class="string">&#x27;6.9.2&#x27;</span>,  <span class="string">&#x27;6.10.0&#x27;</span>, <span class="string">&#x27;6.10.1&#x27;</span>, <span class="string">&#x27;6.11.0&#x27;</span>, <span class="string">&#x27;6.11.1&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6.12.0&#x27;</span>,  <span class="string">&#x27;6.12.1&#x27;</span>, <span class="string">&#x27;6.12.2&#x27;</span>, <span class="string">&#x27;6.13.0&#x27;</span></span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查詢現在安裝 ndoe module 版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm list</span><br><span class="line">  express@1.0.0 D:\work\git\li\project\ecommerce\express</span><br><span class="line">  +-- body-parser@1.19.0</span><br><span class="line">  +-- cookie-parser@1.4.5</span><br><span class="line">  +-- dotenv@10.0.0</span><br><span class="line">  +-- express@4.17.1</span><br><span class="line">  +-- mongodb@4.1.4</span><br><span class="line">  +-- mongoose@6.0.12</span><br><span class="line">  +-- morgan@1.10.0</span><br><span class="line">  +-- nodemon@2.0.14</span><br><span class="line">  `-- uuid@8.3.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安裝特定版號 ndoe module</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># npm install [package-name]@[version-number]</span></span><br><span class="line">npm install renovate@20.5.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Unit-test"><a href="#Unit-test" class="headerlink" title="Unit test"></a>Unit test</h3><h4 id="call-function-test"><a href="#call-function-test" class="headerlink" title="call function test"></a>call function test</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">str, times</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> result= <span class="string">&#x27;&#x27;</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span> ; i&lt;times ; i++) &#123;</span><br><span class="line">		result += str</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test by code</span></span><br><span class="line"><span class="built_in">console</span>.log(repeat(<span class="string">&#x27;a&#x27;</span>, <span class="number">5</span>) === <span class="string">&#x27;aaaaa&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(repeat(<span class="string">&#x27;abc&#x27;</span>, <span class="number">2</span>) === <span class="string">&#x27;abcabc&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(repeat(<span class="string">&#x27;1!a&#x27;</span>, <span class="number">2</span>) === <span class="string">&#x27;1!a1!a&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(repeat(<span class="string">&#x27;&#x27;</span>, <span class="number">3</span>) === <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(repeat(<span class="string">&#x27;abc&#x27;</span>, <span class="number">0</span>) === <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ node index.js</span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="jest-test"><a href="#jest-test" class="headerlink" title="jest test"></a><a target="_blank" rel="noopener" href="https://jestjs.io/docs/getting-started">jest test</a></h4><h5 id="example"><a href="#example" class="headerlink" title="example"></a>example</h5><p>jest 會自動找 xxx.test.js 測試 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">str, times</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> result= <span class="string">&#x27;&#x27;</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span> ; i&lt;times ; i++) &#123;</span><br><span class="line">		result += str</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// export for test</span></span><br><span class="line"><span class="built_in">module</span>.exports = repeat</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.test.js</span></span><br><span class="line"><span class="keyword">let</span> repeat = <span class="built_in">require</span>(<span class="string">&#x27;./index&#x27;</span>)</span><br><span class="line"></span><br><span class="line">test(<span class="string">&#x27;a 重複 5 次為 aaaaa&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	expect(repeat(<span class="string">&#x27;a&#x27;</span>, <span class="number">5</span>)).toBe(<span class="string">&#x27;aaaaa&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$ npx jest</span><br><span class="line"> PASS  ./index.test.js</span><br><span class="line">  √ a 重複 5 次為 aaaaa (3 ms)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:14:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:15:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:16:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:17:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:18:9)</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       1 passed, 1 total</span><br><span class="line">Snapshots:   0 total</span><br><span class="line">Time:        4.857 s</span><br><span class="line">Ran all <span class="built_in">test</span> suites matching /index.test.js/i.</span><br></pre></td></tr></table></figure>
+
+<h5 id="test-by-script"><a href="#test-by-script" class="headerlink" title="test by script"></a>test by script</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">&quot;start&quot;: &quot;node index.js&quot;,</span><br><span class="line"> &quot;test&quot;: &quot;jest&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">$ yarn run <span class="built_in">test</span></span><br><span class="line">yarn run v1.22.10</span><br><span class="line">$ jest</span><br><span class="line"> PASS  ./index.test.js</span><br><span class="line">  √ a 重複 5 次為 aaaaa (4 ms)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:14:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:15:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:16:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:17:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:18:9)</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       1 passed, 1 total</span><br><span class="line">Snapshots:   0 total</span><br><span class="line">Time:        2.822 s</span><br><span class="line">Ran all <span class="built_in">test</span> suites.</span><br><span class="line">Done <span class="keyword">in</span> 4.23s.</span><br></pre></td></tr></table></figure>
+
+<h5 id="test-multi-items"><a href="#test-multi-items" class="headerlink" title="test multi items"></a>test multi items</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.test.js</span></span><br><span class="line"><span class="keyword">let</span> repeat = <span class="built_in">require</span>(<span class="string">&#x27;./index&#x27;</span>)</span><br><span class="line"></span><br><span class="line">test(<span class="string">&#x27;a 重複 5 次為 aaaaa&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	expect(repeat(<span class="string">&#x27;a&#x27;</span>, <span class="number">5</span>)).toBe(<span class="string">&#x27;aaaaa&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">test(<span class="string">&#x27;1!a 重複 2 次為 1!a1!a&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	expect(repeat(<span class="string">&#x27;1!a&#x27;</span>, <span class="number">2</span>)).toBe(<span class="string">&#x27;1!a1!a&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">test(<span class="string">&#x27;空字串 重複 3 次為 空字串&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	expect(repeat(<span class="string">&#x27;&#x27;</span>, <span class="number">3</span>)).toBe(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">test(<span class="string">&#x27;abc 重複 0 次為 空字串&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	expect(repeat(<span class="string">&#x27;abc&#x27;</span>, <span class="number">0</span>)).toBe(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$ npm run <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">&gt; js102@1.0.0 <span class="built_in">test</span></span><br><span class="line">&gt; jest</span><br><span class="line"></span><br><span class="line"> PASS  ./index.test.js</span><br><span class="line">  √ a 重複 5 次為 aaaaa (5 ms)</span><br><span class="line">  √ 1!a 重複 2 次為 1!a1!a (1 ms)</span><br><span class="line">  √ 空字串 重複 3 次為 空字串 (1 ms)</span><br><span class="line">  √ abc 重複 0 次為 空字串 (1 ms)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:14:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:15:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:16:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:17:9)</span><br><span class="line"></span><br><span class="line">  console.log</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      at Object.&lt;anonymous&gt; (index.js:18:9)</span><br><span class="line"></span><br><span class="line">Test Suites: 1 passed, 1 total</span><br><span class="line">Tests:       4 passed, 4 total</span><br><span class="line">Snapshots:   0 total</span><br><span class="line">Time:        3.628 s</span><br><span class="line">Ran all <span class="built_in">test</span> suites.</span><br></pre></td></tr></table></figure>
+
+<h4 id="TDD-Test-Driven-Development-測試驅動開發"><a href="#TDD-Test-Driven-Development-測試驅動開發" class="headerlink" title="TDD (Test-Driven Development) 測試驅動開發"></a>TDD (Test-Driven Development) 測試驅動開發</h4><p>先寫 test pattern 再寫 code</p>
+<h3 id="npm-amp-apos-s-node-module"><a href="#npm-amp-apos-s-node-module" class="headerlink" title="npm&amp;apos;s node module"></a>npm&amp;apos;s node module</h3><h4 id="mathjs"><a href="#mathjs" class="headerlink" title="mathjs"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mathjs">mathjs</a></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// npm install mathjs</span></span><br><span class="line"><span class="comment">// require </span></span><br><span class="line"><span class="keyword">var</span> maths = <span class="built_in">require</span>(<span class="string">&quot;mathjs&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(maths.round(maths.e, <span class="number">3</span>))	<span class="comment">// 2.718</span></span><br><span class="line"><span class="built_in">console</span>.log(maths.log(<span class="number">10000</span>, <span class="number">10</span>))			<span class="comment">// 4</span></span><br><span class="line"><span class="comment">// import </span></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;mathjs&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(round(e, <span class="number">3</span>))				<span class="comment">// 2.718</span></span><br><span class="line"><span class="built_in">console</span>.log(log(<span class="number">10000</span>, <span class="number">10</span>))			<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="lodash-reference-document"><a href="#lodash-reference-document" class="headerlink" title="lodash reference document"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/lodash">lodash</a> reference <a target="_blank" rel="noopener" href="https://lodash.com/docs#assignIn">document</a></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// npm install lodash</span></span><br><span class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">&#x27;lodash&#x27;</span>);</span><br><span class="line"><span class="comment">// 反轉陣列</span></span><br><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">_.reverse(array);</span><br><span class="line"><span class="built_in">console</span>.log(array)</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#123; &#x27;a&#x27;: 0 &#125; 被 new Foo 蓋過, 再被 new Bar蓋過</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.c = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.b = <span class="number">2</span>;</span><br><span class="line">Bar.prototype.d = <span class="number">4</span>;</span><br><span class="line">_.assign(&#123; <span class="string">&#x27;a&#x27;</span>: <span class="number">0</span> &#125;, <span class="keyword">new</span> Foo, <span class="keyword">new</span> Bar);</span><br><span class="line"><span class="comment">// =&gt; &#123; &#x27;a&#x27;: 1, &#x27;c&#x27;: 3 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="left-pad"><a href="#left-pad" class="headerlink" title="left-pad"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/left-pad">left-pad</a></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">let</span> leftPad = <span class="built_in">require</span>(<span class="string">&#x27;left-pad&#x27;</span>)</span><br><span class="line"><span class="comment">// insert 0 before number </span></span><br><span class="line"><span class="built_in">console</span>.log(leftPad(<span class="number">123</span>, <span class="number">10</span>, <span class="string">&#x27;0&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h4 id="Request-Simplified-HTTP-client"><a href="#Request-Simplified-HTTP-client" class="headerlink" title="Request - Simplified HTTP client"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/request">Request</a> - Simplified HTTP client</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install request</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line">request(<span class="string">&#x27;https://github.com/hot5656/AboutMe&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">&#x27;error:&#x27;</span>, error); </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;statusCode:&#x27;</span>, response &amp;&amp; response.statusCode); </span><br><span class="line">  <span class="comment">// console.log(&#x27;body:&#x27;, body); </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node request_1.js</span><br><span class="line">error: null</span><br><span class="line">statusCode: 200</span><br></pre></td></tr></table></figure>
+
+<h4 id="axios-Promise-based-HTTP-client-for-the-browser-and-node-js"><a href="#axios-Promise-based-HTTP-client-for-the-browser-and-node-js" class="headerlink" title="axios - Promise based HTTP client for the browser and node.js"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/axios">axios</a> - Promise based HTTP client for the browser and node.js</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios</span><br></pre></td></tr></table></figure>
+
+<h4 id="NODE-ENV-dotenv-環境變數集中在-env-檔"><a href="#NODE-ENV-dotenv-環境變數集中在-env-檔" class="headerlink" title="NODE_ENV [dotenv] - 環境變數集中在 env 檔"></a>NODE_ENV [dotenv] - 環境變數集中在 env 檔</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install dotenv --save</span><br></pre></td></tr></table></figure>
+
+<p>.env</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CHRIS&#x3D;chris</span><br><span class="line">DB_HOST&#x3D;DB_HOST</span><br><span class="line">DB_PORT&#x3D;DB_PORT</span><br><span class="line">DB_USER&#x3D;DB_USER</span><br><span class="line">DB_PASS&#x3D;DB_PASS</span><br></pre></td></tr></table></figure>
+
+<p>app.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;dotenv&#x27;</span>).config();</span><br><span class="line"><span class="built_in">console</span>.log(process.env.CHRIS); <span class="comment">//chris</span></span><br><span class="line"><span class="built_in">console</span>.log(process.env[<span class="string">&quot;DB_HOST&quot;</span>]); <span class="comment">//DB_HOST</span></span><br><span class="line"><span class="built_in">console</span>.log(process.env[<span class="string">&quot;DB_PORT&quot;</span>]); <span class="comment">//DB_PORT</span></span><br><span class="line"><span class="built_in">console</span>.log(process.env[<span class="string">&quot;DB_USER&quot;</span>]); <span class="comment">//DB_USER</span></span><br><span class="line"><span class="built_in">console</span>.log(process.env[<span class="string">&quot;DB_PASS&quot;</span>]); <span class="comment">//DB_PASS</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="jest"><a href="#jest" class="headerlink" title="jest"></a>jest</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev jest</span><br></pre></td></tr></table></figure>
+
+<h4 id="babel-node"><a href="#babel-node" class="headerlink" title="babel-node"></a><a target="_blank" rel="noopener" href="https://babeljs.io/docs/en/babel-node">babel-node</a></h4><ol>
+<li>模擬 ES6 執行</li>
+<li>效率不好僅測試時使用</li>
+<li>使用 import 也是要設 “type”: “module”</li>
+</ol>
+<h5 id="install"><a href="#install" class="headerlink" title="install"></a>install</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @babel/core @babel/node</span><br></pre></td></tr></table></figure>
+
+<h5 id="add-config-file-babelrc"><a href="#add-config-file-babelrc" class="headerlink" title="add config file - .babelrc"></a>add config file - .babelrc</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;presents&quot;</span>: [<span class="string">&quot;Qbabel/preset-env&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="test"><a href="#test" class="headerlink" title="test"></a>test</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PI = <span class="number">3.14</span> </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test1.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;add, PI&#125; <span class="keyword">from</span> <span class="string">&#x27;./utils.js&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">3</span>, <span class="number">5</span>), PI)		<span class="comment">// 8 3.14</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npx babel-node test1.js</span><br><span class="line">8 3.14</span><br></pre></td></tr></table></figure>
+
+<h4 id="request-debug-monitor-HTTP-S-requests-performed-by-the-request-module"><a href="#request-debug-monitor-HTTP-S-requests-performed-by-the-request-module" class="headerlink" title="request-debug : monitor HTTP(S) requests performed by the request module"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/request-debug">request-debug</a> : monitor HTTP(S) requests performed by the request module</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// npm install request-debug</span></span><br><span class="line"><span class="comment">// challeng-2.js</span></span><br><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>)</span><br><span class="line"><span class="comment">// 只要加入這一行,就可以 monitor</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;request-debug&#x27;</span>)(request)</span><br><span class="line"></span><br><span class="line">request(<span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/v3/hello&#x27;</span>,</span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (error) &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(error)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.log(body)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ node challeng-2.js</span><br><span class="line">&#123;</span><br><span class="line">  request: &#123;</span><br><span class="line">    debugId: 1,</span><br><span class="line">    uri: <span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/v3/hello&#x27;</span>,</span><br><span class="line">    method: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    headers: &#123; host: <span class="string">&#x27;lidemy-http-challenge.herokuapp.com&#x27;</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  response: &#123;</span><br><span class="line">    debugId: 1,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      server: <span class="string">&#x27;Cowboy&#x27;</span>,</span><br><span class="line">      connection: <span class="string">&#x27;close&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;x-powered-by&#x27;</span>: <span class="string">&#x27;Express&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;content-type&#x27;</span>: <span class="string">&#x27;text/plain; charset=utf-8&#x27;</span>,</span><br><span class="line">      date: <span class="string">&#x27;Thu, 13 May 2021 07:27:38 GMT&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;content-length&#x27;</span>: <span class="string">&#x27;93&#x27;</span>,</span><br><span class="line">      via: <span class="string">&#x27;1.1 vegur&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    statusCode: 200,</span><br><span class="line">    body: <span class="string">&#x27;\n您的 origin 不被允許存取此資源，請確認您是從 lidemy.com 送出 request。\n&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">您的 origin 不被允許存取此資源，請確認您是從 lidemy.com 送出 request。</span><br></pre></td></tr></table></figure>
+
+<h4 id="dotenv-env-設定"><a href="#dotenv-env-設定" class="headerlink" title="dotenv : env 設定"></a>dotenv : env 設定</h4><p>.env</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PORT=<span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<p>*.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&quot;dotenv&quot;</span>).config();</span><br></pre></td></tr></table></figure>
+
+<h4 id="nodemon-node-修改自動重啟"><a href="#nodemon-node-修改自動重啟" class="headerlink" title="nodemon : node 修改自動重啟"></a>nodemon : node 修改自動重啟</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;start&quot;: &quot;nodemon app.js&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h4 id="uuid-create-uuid-Universally-Unique-Identifier-通用唯一辨識碼"><a href="#uuid-create-uuid-Universally-Unique-Identifier-通用唯一辨識碼" class="headerlink" title="uuid : create uuid(Universally Unique Identifier) 通用唯一辨識碼"></a>uuid : create uuid(Universally Unique Identifier) 通用唯一辨識碼</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// v4 uuid </span></span><br><span class="line"><span class="keyword">import</span> &#123; v4 <span class="keyword">as</span> uuidv4 &#125; <span class="keyword">from</span> <span class="string">&#x27;uuid&#x27;</span>;</span><br><span class="line">uuidv4(); <span class="comment">// ⇨ &#x27;9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d&#x27;</span></span><br><span class="line"><span class="comment">// v1 uuid</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">v1</span>: uuidv1 &#125; = <span class="built_in">require</span>(<span class="string">&quot;uuid&quot;</span>);</span><br><span class="line">salt = uuidv1();</span><br><span class="line"><span class="string">``</span><span class="string">``</span> </span><br><span class="line"></span><br><span class="line">#### body-parser : Node.js body parsing middleware.</span><br><span class="line"><span class="string">``</span><span class="string">` js</span></span><br><span class="line"><span class="string">const bodyParser = require(&quot;body-parser&quot;);</span></span><br><span class="line"><span class="string">app.use(bodyParser.json());</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 可取出 req.body, 其他 middleware 也才可以 check body</span></span><br><span class="line"><span class="string">// (req, res) =&gt; &#123;</span></span><br><span class="line"><span class="string">// console.log(req.body)</span></span><br><span class="line"><span class="string">//  &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="morgan-HTTP-request-logger-middleware-for-node-js"><a href="#morgan-HTTP-request-logger-middleware-for-node-js" class="headerlink" title="morgan : HTTP request logger middleware for node.js"></a>morgan : HTTP request logger middleware for node.js</h4><p>print log in console for debug</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dev - status 會 show 不同顏色</span></span><br><span class="line"><span class="comment">// :method :url :status :response-time ms - :res[content-length]</span></span><br><span class="line">POST /api/signup <span class="number">400</span> <span class="number">101.068</span> ms - <span class="number">86</span></span><br><span class="line"><span class="comment">// common - start log </span></span><br><span class="line"><span class="comment">// :remote-addr - :remote-user [:date[clf]] &quot;:method :url HTTP/:http-version&quot; :status :res[content-length]</span></span><br><span class="line">::<span class="number">1</span> - - [<span class="number">08</span>/Nov/<span class="number">2021</span>:<span class="number">09</span>:<span class="number">16</span>:<span class="number">21</span> +<span class="number">0000</span>] <span class="string">&quot;POST /api/signup HTTP/1.1&quot;</span> <span class="number">400</span> <span class="number">86</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="cookie-express-有提供-不需要用cookie-parser"><a href="#cookie-express-有提供-不需要用cookie-parser" class="headerlink" title="cookie : express 有提供,不需要用cookie-parser :"></a>cookie : <a target="_blank" rel="noopener" href="http://expressjs.com/zh-tw/4x/api.html#res.cookie">express</a> 有提供,不需要用cookie-parser :</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set cookie</span></span><br><span class="line">res.cookie(<span class="string">&quot;t&quot;</span>, token, &#123; <span class="attr">expire</span>: <span class="keyword">new</span> <span class="built_in">Date</span>() + <span class="number">9999</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// clear cookie</span></span><br><span class="line">res.clearCookie(<span class="string">&quot;t&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="x65-x78-112-114-101-x73-x73-45-x76-x61-108-105-100-97-116-x6f-x72-x40-53-x2e-x33-46-49-express-js-validate-middlewares"><a href="#x65-x78-112-114-101-x73-x73-45-x76-x61-108-105-100-97-116-x6f-x72-x40-53-x2e-x33-46-49-express-js-validate-middlewares" class="headerlink" title="&#x65;&#x78;&#112;&#114;&#101;&#x73;&#x73;&#45;&#x76;&#x61;&#108;&#105;&#100;&#97;&#116;&#x6f;&#x72;&#x40;&#53;&#x2e;&#x33;&#46;&#49; :  express.js validate middlewares"></a><a href="mailto:&#x65;&#x78;&#112;&#114;&#101;&#x73;&#x73;&#45;&#x76;&#x61;&#108;&#105;&#100;&#97;&#116;&#x6f;&#x72;&#x40;&#53;&#x2e;&#x33;&#46;&#49;">&#x65;&#x78;&#112;&#114;&#101;&#x73;&#x73;&#45;&#x76;&#x61;&#108;&#105;&#100;&#97;&#116;&#x6f;&#x72;&#x40;&#53;&#x2e;&#x33;&#46;&#49;</a> :  express.js validate middlewares</h4><ul>
+<li>6.x 會有 “typeError: express Validator is not a function” error </li>
+<li>document 參考 6.x <a target="_blank" rel="noopener" href="https://express-validator.github.io/docs/validation-chain-api.html#notempty">express-validator</a></li>
+<li>.&#x2F;app.js<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./app.js</span></span><br><span class="line"><span class="comment">// express-validator</span></span><br><span class="line"><span class="keyword">const</span> expressValidator = <span class="built_in">require</span>(<span class="string">&quot;express-validator&quot;</span>);</span><br><span class="line"><span class="comment">// app</span></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.use(expressValidator()); <span class="comment">// express-validator</span></span><br></pre></td></tr></table></figure></li>
+<li>.&#x2F;routes&#x2F;user.js<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./routes/user.js</span></span><br><span class="line"><span class="comment">// valid</span></span><br><span class="line"><span class="keyword">const</span> &#123; userSignupValidator &#125; = <span class="built_in">require</span>(<span class="string">&quot;../validator/index&quot;</span>);</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">&quot;/signup&quot;</span>, userSignupValidator, signup);</span><br></pre></td></tr></table></figure></li>
+<li>.&#x2F;validator&#x2F;index.js<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./validator/index.js</span></span><br><span class="line"><span class="built_in">exports</span>.userSignupValidator = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  req.check(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Name is required&quot;</span>).notEmpty();</span><br><span class="line">  req</span><br><span class="line">    .check(<span class="string">&quot;email&quot;</span>, <span class="string">&quot;Email must be between 3 to 32 characters&quot;</span>)</span><br><span class="line">    .matches(<span class="regexp">/.+\@.+\..+/</span>)</span><br><span class="line">    .withMessage(<span class="string">&quot;Email must contain @&quot;</span>)</span><br><span class="line">    .isLength(&#123;</span><br><span class="line">      min: <span class="number">4</span>,</span><br><span class="line">      max: <span class="number">32</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  req.check(<span class="string">&quot;password&quot;</span>, <span class="string">&quot;Password is required&quot;</span>).notEmpty();</span><br><span class="line">  req</span><br><span class="line">    .check(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">    .isLength(&#123; <span class="attr">min</span>: <span class="number">6</span> &#125;)</span><br><span class="line">    .withMessage(<span class="string">&quot;password must conatin at least 6 characters&quot;</span>)</span><br><span class="line">    .matches(<span class="regexp">/\d/</span>)</span><br><span class="line">    .withMessage(<span class="string">&quot;Password must contain a number&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> errors = req.validationErrors();</span><br><span class="line">  <span class="comment">// console.log(errors);</span></span><br><span class="line">  <span class="keyword">if</span> (errors) &#123;</span><br><span class="line">    <span class="keyword">const</span> firstError = errors.map(<span class="function">(<span class="params">error</span>) =&gt;</span> error.msg)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> res.status(<span class="number">400</span>).json(&#123; <span class="attr">error</span>: firstError &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  next();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="express-jwt-驗證-JWT"><a href="#express-jwt-驗證-JWT" class="headerlink" title="express-jwt : 驗證 JWT"></a>express-jwt : 驗證 JWT</h4><h4 id="jsonwebtoken-產生-JWT-token"><a href="#jsonwebtoken-產生-JWT-token" class="headerlink" title="jsonwebtoken :  產生 JWT token"></a>jsonwebtoken :  產生 JWT token</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>); <span class="comment">// to generate signed token</span></span><br><span class="line"><span class="keyword">const</span> token = jwt.sign(&#123; <span class="attr">id</span>: user._id &#125;, process.env.JWT_SECRET);</span><br></pre></td></tr></table></figure>
+
+<h4 id="crypto-node-js-提供-加密編碼"><a href="#crypto-node-js-提供-加密編碼" class="headerlink" title="crypto : node.js 提供,加密編碼"></a><a target="_blank" rel="noopener" href="https://nodejs.org/api/crypto.html#crypto-module-methods-and-properties">crypto</a> : node.js 提供,加密編碼</h4><h4 id="formidable-parsing-data-特別是有關-file"><a href="#formidable-parsing-data-特別是有關-file" class="headerlink" title="formidable : parsing data, 特別是有關 file"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/formidable">formidable</a> : parsing data, 特別是有關 file</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formidable = <span class="built_in">require</span>(<span class="string">&quot;formidable&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.create = <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> form = <span class="keyword">new</span> formidable.IncomingForm();</span><br><span class="line">  form.keepExtensions = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  form.parse(req, <span class="function">(<span class="params">err, fields, files</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.status(<span class="number">400</span>).json(&#123;</span><br><span class="line">        error: <span class="string">&quot;Image could not be uploaded&quot;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="cors-enable-cors"><a href="#cors-enable-cors" class="headerlink" title="cors : enable cors"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cors">cors</a> : enable cors</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Simple Usage (Enable All CORS Requests)</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line">app.use(cors())</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">&#x27;/products/:id&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">&#x27;This is CORS-enabled for all origins!&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;CORS-enabled web server listening on port 80&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Enable CORS for a Single Route</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"> </span><br><span class="line">app.get(<span class="string">&#x27;/products/:id&#x27;</span>, cors(), <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  res.json(&#123;<span class="attr">msg</span>: <span class="string">&#x27;This is CORS-enabled for a Single Route&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;CORS-enabled web server listening on port 80&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="query-string-query-string-處理"><a href="#query-string-query-string-處理" class="headerlink" title="query-string:query string 處理"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/query-string">query-string</a>:query string 處理</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> queryString = <span class="built_in">require</span>(<span class="string">&#x27;query-string&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(location.search);</span><br><span class="line"><span class="comment">//=&gt; &#x27;?foo=bar&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> parsed = queryString.parse(location.search);</span><br><span class="line"><span class="built_in">console</span>.log(parsed);</span><br><span class="line"><span class="comment">//=&gt; &#123;foo: &#x27;bar&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(location.hash);</span><br><span class="line"><span class="comment">//=&gt; &#x27;#token=bada55cafe&#x27;</span></span><br><span class="line"><span class="keyword">const</span> parsedHash = queryString.parse(location.hash);</span><br><span class="line"><span class="built_in">console</span>.log(parsedHash);</span><br><span class="line"><span class="comment">//=&gt; &#123;token: &#x27;bada55cafe&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line">parsed.foo = <span class="string">&#x27;unicorn&#x27;</span>;</span><br><span class="line">parsed.ilike = <span class="string">&#x27;pizza&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> stringified = queryString.stringify(parsed);</span><br><span class="line"><span class="comment">//=&gt; &#x27;foo=unicorn&amp;ilike=pizza&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="moment-script-data-library"><a href="#moment-script-data-library" class="headerlink" title="moment: script data library"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/moment">moment</a>: script data library</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// show 距現在多久</span></span><br><span class="line">moment(product.createdAt).fromNow() <span class="comment">// 15 days ago</span></span><br><span class="line">moment([<span class="number">2007</span>, <span class="number">0</span>, <span class="number">29</span>]).fromNow(); <span class="comment">// 4 years ago</span></span><br><span class="line"><span class="comment">// display </span></span><br><span class="line">moment().format();                                <span class="comment">// &quot;2014-09-08T08:02:17-05:00&quot; (ISO 8601, no fractional seconds)</span></span><br><span class="line">moment().format(<span class="string">&quot;dddd, MMMM Do YYYY, h:mm:ss a&quot;</span>); <span class="comment">// &quot;Sunday, February 14th 2010, 3:25:50 pm&quot;</span></span><br><span class="line">moment().format(<span class="string">&quot;ddd, hA&quot;</span>);                       <span class="comment">// &quot;Sun, 3PM&quot;</span></span><br><span class="line">moment().format(<span class="string">&quot;[Today is] dddd&quot;</span>);               <span class="comment">// &quot;Today is Sunday&quot;</span></span><br><span class="line">moment(<span class="string">&#x27;20.07.2018 09:19&#x27;</span>, moment.defaultFormat).toDate() <span class="comment">// Fri Jul 20 2018 09:19:00 GMT+0300</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="braintree-Braintree-Node-library"><a href="#braintree-Braintree-Node-library" class="headerlink" title="braintree : Braintree Node library"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/braintree">braintree</a> : Braintree Node library</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> braintree = <span class="built_in">require</span>(<span class="string">&#x27;braintree&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gateway = <span class="keyword">new</span> braintree.BraintreeGateway(&#123;</span><br><span class="line">  environment: braintree.Environment.Sandbox,</span><br><span class="line">  merchantId: <span class="string">&#x27;your_merchant_id&#x27;</span>,</span><br><span class="line">  publicKey: <span class="string">&#x27;your_public_key&#x27;</span>,</span><br><span class="line">  privateKey: <span class="string">&#x27;your_private_key&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gateway.transaction.sale(&#123;</span><br><span class="line">  amount: <span class="string">&#x27;5.00&#x27;</span>,</span><br><span class="line">  paymentMethodNonce: <span class="string">&#x27;nonce-from-the-client&#x27;</span>,</span><br><span class="line">  options: &#123;</span><br><span class="line">    submitForSettlement: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (result.success) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Transaction ID: &#x27;</span> + result.transaction.id);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(result.message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="npm-config"><a href="#npm-config" class="headerlink" title="npm config"></a>npm config</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list config</span></span><br><span class="line">npm config list</span><br><span class="line"><span class="comment"># set config </span></span><br><span class="line">npm config <span class="built_in">set</span> proxy http://180.232.123.251:3128</span><br><span class="line">npm config <span class="built_in">set</span> https-proxy http://180.232.123.251:3128 </span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br><span class="line"><span class="comment"># get config</span></span><br><span class="line">npm config get proxy</span><br><span class="line">npm config get https-proxy</span><br><span class="line">npm config get registry</span><br><span class="line"><span class="comment"># delete config</span></span><br><span class="line">npm config delete proxy </span><br><span class="line">npm config delete https-proxy </span><br><span class="line">npm config delete registry</span><br><span class="line"></span><br><span class="line">npm install </span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/node-js/" rel="tag"># node.js</a>
+              <a href="/tags/npm/" rel="tag"># npm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/12/nodejs-1/" rel="prev" title="Node.js 說明">
+                  <i class="fa fa-chevron-left"></i> Node.js 說明
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/12/issue-npm-1/" rel="next" title="Node.js issue">
+                  Node.js issue <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/12/npm-1/";
+    this.page.identifier = "2021/03/12/npm-1/";
+    this.page.title = "npm 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

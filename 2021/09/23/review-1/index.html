@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Entry何謂 JavaScriptJavaScript 是一種直譯的程式語言,原本是設計給瀏覽器使用,現在已被應用到不同的環境,含 Server 也有使用到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript review">
+<meta property="og:url" content="https://hot5656.github.io/2021/09/23/review-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Entry何謂 JavaScriptJavaScript 是一種直譯的程式語言,原本是設計給瀏覽器使用,現在已被應用到不同的環境,含 Server 也有使用到">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/naw1u0v.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/javascript-event-loop-step-1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/1_-BEeuzTDD3LajJF772fpOw.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/1_jnQajbOpNPHWXKgHslrZxw.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/1_DBHDoUyVxoTy76iFsGcOkw.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/1_fcoaBBBDhy8eCxqBvHU0jQ.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/1_Evoq9q8LCyxKteA9e-_31w.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-1/pic3.png">
+<meta property="article:published_time" content="2021-09-23T08:26:11.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:36.215Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="review">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/09/23/review-1/naw1u0v.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/09/23/review-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>JavaScript review | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Entry"><span class="nav-number">1.</span> <span class="nav-text">Entry</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E8%AC%82-JavaScript"><span class="nav-number">1.1.</span> <span class="nav-text">何謂 JavaScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E8%AC%82-ECMAScript"><span class="nav-number">1.2.</span> <span class="nav-text">何謂 ECMAScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x3D-x3D-%E5%92%8C-x3D-x3D-x3D-%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D; 的差異</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#promise-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.4.</span> <span class="nav-text">promise 是什麼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Strict-mode-%E5%9A%B4%E6%A0%BC%E6%A8%A1%E5%BC%8F-JavaScript"><span class="nav-number">1.5.</span> <span class="nav-text">Strict mode(嚴格模式) JavaScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null-%E5%92%8C-undefined-%E7%9A%84%E5%B7%AE%E5%88%A5"><span class="nav-number">1.6.</span> <span class="nav-text">null 和 undefined 的差別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX"><span class="nav-number">1.7.</span> <span class="nav-text">AJAX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronous-%E5%90%8C%E6%AD%A5-%E8%88%87-asynchronous-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%9A%84-%E5%B7%AE%E7%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">synchronous(同步) 與 asynchronous(非同步的) 差異</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-let-%E5%92%8C-const-%E7%9A%84%E5%B7%AE%E5%88%A5"><span class="nav-number">1.9.</span> <span class="nav-text">var, let 和 const 的差別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-%E6%96%87%E4%BB%B6%E7%89%A9%E4%BB%B6%E6%A8%A1%E5%9E%8B-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.10.</span> <span class="nav-text">DOM(文件物件模型) 是什麼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5-Primitiv-%E5%8E%9F%E5%A7%8B-and-Object-%E7%89%A9%E4%BB%B6"><span class="nav-number">1.11.</span> <span class="nav-text">資料型別 Primitiv(原始) and Object(物件)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-onload-%E5%92%8C-document-ready"><span class="nav-number">1.12.</span> <span class="nav-text">window.onload 和 $(document).ready()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Middle"><span class="nav-number">2.</span> <span class="nav-text">Middle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#closure-%E9%96%89%E5%8C%85"><span class="nav-number">2.1.</span> <span class="nav-text">closure(閉包)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E5%8E%9F%E5%9E%8B%E5%85%A7%E5%BB%BA%E5%87%BD%E5%BC%8F-call-apply-and-bind-%E7%9A%84%E5%B7%AE%E5%88%A5"><span class="nav-number">2.2.</span> <span class="nav-text">函數原型內建函式 call, apply, and bind 的差別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Event-Loop-%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%92%B0"><span class="nav-number">2.3.</span> <span class="nav-text">Event Loop(事件循環)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#currying-%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%89function"><span class="nav-number">2.4.</span> <span class="nav-text">currying(柯里化）function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Constructor-%E5%BB%BA%E6%A7%8B-Function"><span class="nav-number">2.5.</span> <span class="nav-text">Constructor(建構) Function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-prototype-%E5%8E%9F%E5%9E%8B"><span class="nav-number">2.6.</span> <span class="nav-text">JavaScript prototype (原型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-prototype-chain-%E5%8E%9F%E5%9E%8B%E9%8F%88"><span class="nav-number">2.7.</span> <span class="nav-text">JavaScript prototype chain(原型鏈)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#prototype-chain-%E6%98%AF-JavaScript-%E7%9A%84-%E7%B9%BC%E6%89%BF%E6%A9%9F%E5%88%B6"><span class="nav-number">2.7.1.</span> <span class="nav-text">prototype chain 是 JavaScript 的 繼承機制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-prototype-let-apple-x3D-%E8%88%87-let-apple-x3D-new-Object-%E7%9B%B8%E5%90%8C"><span class="nav-number">2.7.2.</span> <span class="nav-text">Object prototype : let apple &#x3D; {} 與 let apple &#x3D; new Object() 相同</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prototype-chain-Function-prototype-Object-prototype"><span class="nav-number">2.7.3.</span> <span class="nav-text">prototype chain : Function prototype + Object prototype</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prototype-chain-Array-Object-prototype"><span class="nav-number">2.7.4.</span> <span class="nav-text">prototype chain : Array + Object prototype</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prototype-chain-for-all"><span class="nav-number">2.7.5.</span> <span class="nav-text">prototype chain for all</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Memoization"><span class="nav-number">2.8.</span> <span class="nav-text">Memoization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Higher-order-function"><span class="nav-number">2.9.</span> <span class="nav-text">Higher-order function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Event-delegation-%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86-%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE"><span class="nav-number">2.10.</span> <span class="nav-text">Event delegation(事件代理,事件委派)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%82%B3%E9%81%9E%E6%A9%9F%E5%88%B6%EF%BC%9A%E6%8D%95%E7%8D%B2%E8%88%87%E5%86%92%E6%B3%A1"><span class="nav-number">2.11.</span> <span class="nav-text">事件傳遞機制：捕獲與冒泡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preventDefault-%E8%88%87-stopPropagation-%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="nav-number">2.12.</span> <span class="nav-text">preventDefault 與 stopPropagation 的差異</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-asynchronous-%E9%9D%9E%E5%90%8C%E6%AD%A5-operation-%E8%99%95%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">2.13.</span> <span class="nav-text">JavaScript asynchronous(非同步) operation 處理方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#recursion-%E9%81%9E%E8%BF%B4"><span class="nav-number">2.14.</span> <span class="nav-text">recursion(遞迴)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hoisting-%E6%8F%90%E5%8D%87"><span class="nav-number">2.15.</span> <span class="nav-text">Hoisting (提升)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-%E7%9A%84%E7%B9%BC%E6%89%BF"><span class="nav-number">2.16.</span> <span class="nav-text">JavaScript 的繼承</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#prototype-%E7%AF%84%E4%BE%8B"><span class="nav-number">2.16.1.</span> <span class="nav-text">prototype 範例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#class-%E7%AF%84%E4%BE%8B"><span class="nav-number">2.16.2.</span> <span class="nav-text">class 範例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fetch-API"><span class="nav-number">2.17.</span> <span class="nav-text">Fetch API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Logical-Operator-vs-Nullish-Coalescing-Operator"><span class="nav-number">2.18.</span> <span class="nav-text">Logical Operator vs Nullish Coalescing Operator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/09/23/review-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript review
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-09-23 16:26:11" itemprop="dateCreated datePublished" datetime="2021-09-23T16:26:11+08:00">2021-09-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:36" itemprop="dateModified" datetime="2022-06-09T11:38:36+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/09/23/review-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/09/23/review-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>12 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Entry"><a href="#Entry" class="headerlink" title="Entry"></a>Entry</h3><h4 id="何謂-JavaScript"><a href="#何謂-JavaScript" class="headerlink" title="何謂 JavaScript"></a>何謂 JavaScript</h4><p>JavaScript 是一種直譯的程式語言,原本是設計給瀏覽器使用,現在已被應用到不同的環境,含 Server 也有使用到</p>
+<span id="more"></span>
+
+<h4 id="何謂-ECMAScript"><a href="#何謂-ECMAScript" class="headerlink" title="何謂 ECMAScript"></a>何謂 ECMAScript</h4><p>定義 JavaScript 的規格</p>
+<h4 id="x3D-x3D-和-x3D-x3D-x3D-的差異"><a href="#x3D-x3D-和-x3D-x3D-x3D-的差異" class="headerlink" title="&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D; 的差異"></a>&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D; 的差異</h4><p>&#x3D;&#x3D; 比較値, &#x3D;&#x3D;&#x3D; 比較値和資料型態</p>
+<h4 id="promise-是什麼"><a href="#promise-是什麼" class="headerlink" title="promise 是什麼"></a>promise 是什麼</h4><p>一種 JavaScript 的 object, 一般用於處理非同步的程序</p>
+<h4 id="Strict-mode-嚴格模式-JavaScript"><a href="#Strict-mode-嚴格模式-JavaScript" class="headerlink" title="Strict mode(嚴格模式) JavaScript"></a>Strict mode(嚴格模式) JavaScript</h4><p>JS 引擎會用嚴格的標準來讀你的 code,避免你寫出不穩定或不夠嚴謹的 code, 讓你寫出的 Javascript 更安全</p>
+<h4 id="null-和-undefined-的差別"><a href="#null-和-undefined-的差別" class="headerlink" title="null 和 undefined 的差別"></a>null 和 undefined 的差別</h4><p>undefined : 變數宣告但為賦值<br>null : 變數設定代表無值</p>
+<h4 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h4><p>Asynchronous JavaScript and XML,AJAX向伺服器傳送要求取回必須的資料，並在客戶端採用JavaScript處理來自伺服器的回應.</p>
+<h4 id="synchronous-同步-與-asynchronous-非同步的-差異"><a href="#synchronous-同步-與-asynchronous-非同步的-差異" class="headerlink" title="synchronous(同步) 與 asynchronous(非同步的) 差異"></a>synchronous(同步) 與 asynchronous(非同步的) 差異</h4><p>同步為執行完成目前的程序再執行後面的程序,非同步則不等待執行完成繼續往後執行,如執行 AJAX 就要使用非同步,不然就有可能出現網頁卡住的現象</p>
+<h4 id="var-let-和-const-的差別"><a href="#var-let-和-const-的差別" class="headerlink" title="var, let 和 const 的差別"></a>var, let 和 const 的差別</h4><ul>
+<li>var 是 function scope, let 和 const 是 block scope</li>
+<li>var,let 設定後可更改, const 不可更改</li>
+</ul>
+<h4 id="DOM-文件物件模型-是什麼"><a href="#DOM-文件物件模型-是什麼" class="headerlink" title="DOM(文件物件模型) 是什麼"></a>DOM(文件物件模型) 是什麼</h4><p>Document Object Model,提供了一個文件（樹）的結構化表示法，並定義讓程式可以存取並改變文件架構、風格和內容的方法。 </p>
+<div style="width:500px; background:#fff;">
+    <img src="/2021/09/23/review-1/naw1u0v.png" class="">
+</div>
+-------------------
+
+<h4 id="資料型別-Primitiv-原始-and-Object-物件"><a href="#資料型別-Primitiv-原始-and-Object-物件" class="headerlink" title="資料型別 Primitiv(原始) and Object(物件)"></a>資料型別 Primitiv(原始) and Object(物件)</h4><p>JavaScript 的資料型別有 Primitiv value(原始值) 和 Object(物件) 兩類<br>Primitiv value : </p>
+<ul>
+<li>Boolean type</li>
+<li>Null type</li>
+<li>Undefined type</li>
+<li>Number type</li>
+<li>BigInt type</li>
+<li>String type</li>
+<li>Symbol type</li>
+</ul>
+<p>Object :</p>
+<ul>
+<li>Function</li>
+<li>Array</li>
+<li>Date</li>
+<li>….</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Primitive</span></span><br><span class="line"><span class="keyword">let</span> value = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> value2 = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> value3 = value</span><br><span class="line"><span class="comment">// 存值,比較時比較值</span></span><br><span class="line"><span class="built_in">console</span>.log( value === value2)		<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log( value === value3)		<span class="comment">// true</span></span><br><span class="line"><span class="comment">// 修改時不會影響其他變數</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;value=&#x27;</span>,value,<span class="string">&#x27;value3=&#x27;</span>,value3)	<span class="comment">// value= 1 value3= 1</span></span><br><span class="line">value3=<span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;value=&#x27;</span>,value,<span class="string">&#x27;value3=&#x27;</span>,value3)	<span class="comment">// value= 1 value3= 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Object</span></span><br><span class="line"><span class="keyword">let</span> fruits  = [<span class="string">&#x27;apple&#x27;</span>]</span><br><span class="line"><span class="keyword">let</span> fruits2 =  [<span class="string">&#x27;apple&#x27;</span>]</span><br><span class="line"><span class="keyword">let</span> fruits3 = fruits</span><br><span class="line"><span class="comment">// 存位置,比較時比較位置</span></span><br><span class="line"><span class="built_in">console</span>.log( fruits === fruits2)	<span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log( fruits === fruits)		<span class="comment">// true</span></span><br><span class="line"><span class="comment">// 修改時會影響其他關聯變數</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;fruits=&#x27;</span>,fruits,<span class="string">&#x27;fruits3=&#x27;</span>,fruits3)	<span class="comment">// fruits= [ &#x27;apple&#x27; ] fruits3= [ &#x27;apple&#x27; ]</span></span><br><span class="line">fruits3.push(<span class="string">&quot;orange&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;fruits=&#x27;</span>,fruits,<span class="string">&#x27;fruits3=&#x27;</span>,fruits3)	<span class="comment">// fruits= [ &#x27;apple&#x27; ] fruits3= [ &#x27;apple&#x27;, &#x27;orange&#x27; ]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="window-onload-和-document-ready"><a href="#window-onload-和-document-ready" class="headerlink" title="window.onload 和 $(document).ready()"></a>window.onload 和 $(document).ready()</h4><ul>
+<li>window.onload 會等網頁的全部內容，包括圖片，CSS及&lt;iframe&gt;等外部內容載入後才會觸發<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	func1();</span><br><span class="line">	func2();</span><br><span class="line">	....</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 若只需要執行單一 function </span></span><br><span class="line"><span class="built_in">window</span>.onload=Func;</span><br></pre></td></tr></table></figure></li>
+<li>$(document).ready()在Document Object Model (DOM) 載入後就會觸發，所以順序上$(document).ready()會比window.onload先執行。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function">() =&gt;</span>&#123;</span><br><span class="line">	....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Middle"><a href="#Middle" class="headerlink" title="Middle"></a>Middle</h3><h4 id="closure-閉包"><a href="#closure-閉包" class="headerlink" title="closure(閉包)"></a>closure(閉包)</h4><ul>
+<li><p>closure(閉包) 是一個 function 在另一個 function 的內部, 內部的 function 有 access function scope 的資料,雖然外部function 已 return,但還可以 aeecss 到 function 的資料</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">10</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		a++</span><br><span class="line">		<span class="built_in">console</span>.log(a)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> inner</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> func = test()</span><br><span class="line">func()	<span class="comment">// 11</span></span><br><span class="line">func()	<span class="comment">// 12</span></span><br><span class="line">func()	<span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>應用 #1 - 複雜計算自動記憶不用重算</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">complex</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&#x27;calculate&#x27;</span>)</span><br><span class="line">	<span class="keyword">return</span> num*num*num</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cache</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> ans = &#123;&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (ans[num]) &#123;</span><br><span class="line">			<span class="keyword">return</span> ans[num]</span><br><span class="line">		&#125;</span><br><span class="line">		ans[num] = func(num)</span><br><span class="line">		<span class="keyword">return</span> ans[num]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(complex(<span class="number">20</span>))		<span class="comment">// calculate 8000</span></span><br><span class="line"><span class="built_in">console</span>.log(complex(<span class="number">20</span>))		<span class="comment">// calculate 8000</span></span><br><span class="line"><span class="built_in">console</span>.log(complex(<span class="number">20</span>))		<span class="comment">// calculate 8000</span></span><br><span class="line"><span class="keyword">const</span> cacheComplex = cache(complex)</span><br><span class="line"><span class="built_in">console</span>.log(cacheComplex(<span class="number">20</span>))		<span class="comment">// calculate 8000</span></span><br><span class="line"><span class="built_in">console</span>.log(cacheComplex(<span class="number">20</span>))		<span class="comment">// 8000</span></span><br><span class="line"><span class="built_in">console</span>.log(cacheComplex(<span class="number">20</span>))		<span class="comment">// 8000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>應用 #2 - 隱藏資訊</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createWallet</span>(<span class="params">init</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> money = init</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		add: <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">			money += num</span><br><span class="line">		&#125;,</span><br><span class="line">		sub: <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">			money -= num</span><br><span class="line">		&#125;,</span><br><span class="line">		getMoney: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> money</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myWallet = createWallet(<span class="number">99</span>)</span><br><span class="line">myWallet.add(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(myWallet.getMoney())	<span class="comment">// 100</span></span><br><span class="line">myWallet.sub(<span class="number">20</span>)</span><br><span class="line"><span class="built_in">console</span>.log(myWallet.getMoney())	<span class="comment">// 80</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="函數原型內建函式-call-apply-and-bind-的差別"><a href="#函數原型內建函式-call-apply-and-bind-的差別" class="headerlink" title="函數原型內建函式 call, apply, and bind 的差別"></a>函數原型內建函式 call, apply, and bind 的差別</h4><ul>
+<li><p>call,apply 立即執行, bind 產生一個新函數提供之後使用(可更改 this 值)</p>
+</li>
+<li><p>call 的參數為個別傳入, apply 為 array 傳入</p>
+</li>
+<li><p>this 用不到可填入 null</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>)</span><br><span class="line">	<span class="built_in">console</span>.log(a, b, c)</span><br><span class="line">&#125;</span><br><span class="line">test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)				<span class="comment">// undefined 1 2 3</span></span><br><span class="line">test.call(<span class="number">123</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)		<span class="comment">// 123 1 2 3</span></span><br><span class="line">test.apply(<span class="number">123</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])	<span class="comment">// 123 1 2 3</span></span><br><span class="line"><span class="keyword">var</span> testBind = test.bind(<span class="number">123</span>, <span class="number">9</span> , <span class="number">7</span>)</span><br><span class="line">testBind(<span class="number">99</span>)	<span class="comment">// 123 9 7 99</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>應用 #1 - apply 填入 this</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// apply </span></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">log</span>:log &#125;</span><br><span class="line"><span class="keyword">var</span> b = &#123;<span class="attr">a</span>:<span class="number">2</span>, <span class="attr">log</span>:log &#125;</span><br><span class="line"></span><br><span class="line">log()		<span class="comment">// undefined</span></span><br><span class="line">a.log()		<span class="comment">// &#123; a: 1, log: [Function: log] &#125;</span></span><br><span class="line">b.log()		<span class="comment">// &#123; a: 2, log: [Function: log] &#125;</span></span><br><span class="line">b.log.apply(a)	<span class="comment">// 代入 a 為 this -&gt; &#123; a: 1, log: [Function: log] &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>應用 #2 - apply 參數轉為 array</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.min(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>));	<span class="comment">// 1</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log( <span class="built_in">Math</span>.min.apply(<span class="literal">null</span>,arr));	<span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Event-Loop-事件循環"><a href="#Event-Loop-事件循環" class="headerlink" title="Event Loop(事件循環)"></a>Event Loop(事件循環)</h4><p>JavaScript 的 Call stack 是擺放待執行的程序,JavaScript 對於不能馬上執行的動作,會呼叫對應的Wep Api(如setTimeout, AJAX …), 當 Web API 執行完後,會被堆放到callback queue,當 Call stack 已無待執行的程序,會順序從 callback queue 抓取程序到 Call stack 執行,順序從 callback queue 抓取程序到 Call stack 執行的流程及稱為 Event Loop</p>
+<img src="/2021/09/23/review-1/javascript-event-loop-step-1.png" class="" title="event-loop-step">
+
+<h4 id="currying-柯里化）function"><a href="#currying-柯里化）function" class="headerlink" title="currying(柯里化）function"></a>currying(柯里化）function</h4><ul>
+<li><p>currying function 指的是將多參數函數轉為順序接收單一參數的函數</p>
+</li>
+<li><p>可簡化程式及提高程式的重用性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// discount function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">discount</span>(<span class="params">price, discount</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> price * discount</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 10% discount</span></span><br><span class="line"><span class="built_in">console</span>.log(discount(<span class="number">500</span>,<span class="number">0.1</span>));		<span class="comment">// 50</span></span><br><span class="line"><span class="built_in">console</span>.log(discount(<span class="number">1000</span>,<span class="number">0.1</span>));	<span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(discount(<span class="number">2000</span>,<span class="number">0.1</span>));	<span class="comment">// 200</span></span><br><span class="line"><span class="comment">// 20% discount</span></span><br><span class="line"><span class="built_in">console</span>.log(discount(<span class="number">2000</span>,<span class="number">0.2</span>));	<span class="comment">// 400</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// discount currying function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">discountCurrying</span>(<span class="params">discount</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function">(<span class="params">price</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> price *  discount;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tenPercentDiscouint = discountCurrying(<span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">const</span> twentyPercentDiscouint = discountCurrying(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 10% discount by currying function</span></span><br><span class="line"><span class="built_in">console</span>.log(tenPercentDiscouint(<span class="number">500</span>));		<span class="comment">// 50</span></span><br><span class="line"><span class="built_in">console</span>.log(tenPercentDiscouint(<span class="number">1000</span>));		<span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(tenPercentDiscouint(<span class="number">2000</span>));		<span class="comment">// 200</span></span><br><span class="line"><span class="comment">// 20% discount by currying function</span></span><br><span class="line"><span class="built_in">console</span>.log(twentyPercentDiscouint(<span class="number">2000</span>));	<span class="comment">// 400</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>General(通用) Currying Function</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// General Currying Function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">..._arg</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fn(...args, ..._arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a * b * c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// multiply currying function</span></span><br><span class="line"><span class="keyword">const</span> multiplyBase2 = curry(multiply,<span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(multiplyBase2(<span class="number">4</span>,<span class="number">6</span>)); 		<span class="comment">// 48</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">discount</span>(<span class="params">price, discount</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> price * discount</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 10% discount by currying function</span></span><br><span class="line"><span class="keyword">const</span> tenPercentDiscouint = curry(discount,<span class="number">0.1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(tenPercentDiscouint(<span class="number">500</span>));	<span class="comment">// 50</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Constructor-建構-Function"><a href="#Constructor-建構-Function" class="headerlink" title="Constructor(建構) Function"></a>Constructor(建構) Function</h4><ul>
+<li>Constructor Function 可建立包含不同屬性(properties)的物件(object)<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line"><span class="built_in">this</span>.name = name;</span><br><span class="line"><span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is eating.`</span>)</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sleep = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is sleeping.`</span>)</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.walk =<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is walking.`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Bob = <span class="keyword">new</span> Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">23</span>);</span><br><span class="line"><span class="keyword">let</span> Bill = <span class="keyword">new</span> Person(<span class="string">&quot;Bill&quot;</span>, <span class="number">40</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="JavaScript-prototype-原型"><a href="#JavaScript-prototype-原型" class="headerlink" title="JavaScript prototype (原型)"></a>JavaScript prototype (原型)</h4><ul>
+<li>prototype 是 JavaScript function 的一個 屬性</li>
+<li>prototype 內有一個屬性 constructor 會指到原函數,也可利用 constructor 產生新的物件,新產生的物件可以利用__proto__指回原函數的內部函數<div style="width:700px; background:#fff;">
+  <img src="/2021/09/23/review-1/1_-BEeuzTDD3LajJF772fpOw.png" class="" title="function_prototype_block">
+</div></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.name = name;</span><br><span class="line">	<span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is eating.`</span>)</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sleep = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is sleeping.`</span>)</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.walk = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is walking.`</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;-- Person --&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.__proto__)								<span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor) 						<span class="comment">// [Function: Person]</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor === Person)	<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype) </span><br><span class="line">		<span class="comment">// &#123;</span></span><br><span class="line">		<span class="comment">// 	eat: [Function(anonymous)],</span></span><br><span class="line">		<span class="comment">// 	sleep: [Function(anonymous)],</span></span><br><span class="line">		<span class="comment">// 	walk: [Function(anonymous)]</span></span><br><span class="line">		<span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Bob = <span class="keyword">new</span> Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">23</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;-- Bob --&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(Bob.__proto__.constructor === Person)		<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Bob.__proto__) </span><br><span class="line">		<span class="comment">// &#123;</span></span><br><span class="line">		<span class="comment">// 	eat: [Function(anonymous)],</span></span><br><span class="line">		<span class="comment">// 	sleep: [Function(anonymous)],</span></span><br><span class="line">		<span class="comment">// 	walk: [Function(anonymous)]</span></span><br><span class="line">		<span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="JavaScript-prototype-chain-原型鏈"><a href="#JavaScript-prototype-chain-原型鏈" class="headerlink" title="JavaScript prototype chain(原型鏈)"></a>JavaScript prototype chain(原型鏈)</h4><h5 id="prototype-chain-是-JavaScript-的-繼承機制"><a href="#prototype-chain-是-JavaScript-的-繼承機制" class="headerlink" title="prototype chain 是 JavaScript 的 繼承機制"></a>prototype chain 是 JavaScript 的 繼承機制</h5><h5 id="Object-prototype-let-apple-x3D-與-let-apple-x3D-new-Object-相同"><a href="#Object-prototype-let-apple-x3D-與-let-apple-x3D-new-Object-相同" class="headerlink" title="Object prototype : let apple &#x3D; {} 與 let apple &#x3D; new Object() 相同"></a>Object prototype : let apple &#x3D; {} 與 let apple &#x3D; new Object() 相同</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> orange = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> apple = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__)						<span class="comment">// null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype)											<span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype == apple.__proto__)	<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString)						<span class="comment">// [Function: toString]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype == orange.__proto__)	<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<div style="width:700px; background:#fff;">
+    <img src="/2021/09/23/review-1/1_jnQajbOpNPHWXKgHslrZxw.png" class="">
+</div>
+
+<h5 id="prototype-chain-Function-prototype-Object-prototype"><a href="#prototype-chain-Function-prototype-Object-prototype" class="headerlink" title="prototype chain : Function prototype + Object prototype"></a>prototype chain : Function prototype + Object prototype</h5><div style="maxwidth:900px; background:#fff;">
+    <img src="/2021/09/23/review-1/1_DBHDoUyVxoTy76iFsGcOkw.png" class="">
+</div>
+
+<h5 id="prototype-chain-Array-Object-prototype"><a href="#prototype-chain-Array-Object-prototype" class="headerlink" title="prototype chain : Array + Object prototype"></a>prototype chain : Array + Object prototype</h5><div style="width:700px; background:#fff;">
+    <img src="/2021/09/23/review-1/1_fcoaBBBDhy8eCxqBvHU0jQ.png" class="">
+</div>
+
+<h5 id="prototype-chain-for-all"><a href="#prototype-chain-for-all" class="headerlink" title="prototype chain for all"></a>prototype chain for all</h5><div style="maxwidth:1000px; background:#fff;">
+    <img src="/2021/09/23/review-1/1_Evoq9q8LCyxKteA9e-_31w.png" class="">
+</div>
+
+
+<h4 id="Memoization"><a href="#Memoization" class="headerlink" title="Memoization"></a>Memoization</h4><ul>
+<li><p>Memoization是一種優化技術,透過儲存曾計算的的結果,來增加應用程序的執行</p>
+</li>
+<li><p>一般費式數列遞迴計算(傳回第幾個費式樹列直)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacci</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&quot;count:&quot;</span>, n);</span><br><span class="line">	<span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> fibonacci(n - <span class="number">1</span>) + fibonacci(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">0</span>&#125;</span> --&gt;`</span>, fibonacci(<span class="number">0</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">1</span>&#125;</span> --&gt;`</span>, fibonacci(<span class="number">1</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">2</span>&#125;</span> --&gt;`</span>, fibonacci(<span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">3</span>&#125;</span> --&gt;`</span>, fibonacci(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">5</span>&#125;</span> --&gt;`</span>, fibonacci(<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// result ----</span></span><br><span class="line"><span class="comment">// &gt;node fibonacci.js</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">//  fibonacci0 --&gt; 1</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">//  fibonacci1 --&gt; 1</span></span><br><span class="line"><span class="comment">// count: 2</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">//  fibonacci2 --&gt; 2</span></span><br><span class="line"><span class="comment">// count: 3</span></span><br><span class="line"><span class="comment">// count: 2</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">//  fibonacci3 --&gt; 3</span></span><br><span class="line"><span class="comment">// count: 5</span></span><br><span class="line"><span class="comment">// count: 4</span></span><br><span class="line"><span class="comment">// count: 3</span></span><br><span class="line"><span class="comment">// count: 2</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 2</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">// count: 3</span></span><br><span class="line"><span class="comment">// count: 2</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">// count: 0</span></span><br><span class="line"><span class="comment">// count: 1</span></span><br><span class="line"><span class="comment">//  fibonacci5 --&gt; 8</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Memoization費式數列(傳回第幾個費式樹列直)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memolizedFibonacci</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> memo = &#123;&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fibonacci</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (memo[n]) &#123;</span><br><span class="line">			<span class="keyword">return</span> memo[n];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&quot;count : &quot;</span>,n);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">		 	<span class="keyword">return</span> memo[n] = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> memo[n] = fibonacci(	n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> fibonacci;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> countFibonacci = memolizedFibonacci();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">0</span>&#125;</span> --&gt;`</span>, countFibonacci(<span class="number">0</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">1</span>&#125;</span> --&gt;`</span>, countFibonacci(<span class="number">1</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">2</span>&#125;</span> --&gt;`</span>, countFibonacci(<span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">3</span>&#125;</span> --&gt;`</span>, countFibonacci(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">` fibonacci<span class="subst">$&#123;<span class="number">5</span>&#125;</span> --&gt;`</span>, countFibonacci(<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// result ----</span></span><br><span class="line"><span class="comment">// &gt;node fibonacci2.js</span></span><br><span class="line"><span class="comment">// count :  0</span></span><br><span class="line"><span class="comment">//  fibonacci0 --&gt; 1</span></span><br><span class="line"><span class="comment">// count :  1</span></span><br><span class="line"><span class="comment">//  fibonacci1 --&gt; 1</span></span><br><span class="line"><span class="comment">// count :  2</span></span><br><span class="line"><span class="comment">//  fibonacci2 --&gt; 2</span></span><br><span class="line"><span class="comment">// count :  3</span></span><br><span class="line"><span class="comment">//  fibonacci3 --&gt; 3</span></span><br><span class="line"><span class="comment">// count :  5</span></span><br><span class="line"><span class="comment">// count :  4</span></span><br><span class="line"><span class="comment">//  fibonacci5 --&gt; 8</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Higher-order-function"><a href="#Higher-order-function" class="headerlink" title="Higher-order function"></a>Higher-order function</h4><ul>
+<li>接收函式做為引數的函式(callback function) 或 回傳結果為函式的函式</li>
+<li>map, filter 和 reduce 即為內建的Higher-order function(傳回函數)</li>
+</ul>
+<h4 id="Event-delegation-事件代理-事件委派"><a href="#Event-delegation-事件代理-事件委派" class="headerlink" title="Event delegation(事件代理,事件委派)"></a>Event delegation(事件代理,事件委派)</h4><ul>
+<li>Event listen 放在父元素,而非個別的元素,如此可精簡程式及處理動態產生的元素</li>
+</ul>
+<h4 id="事件傳遞機制：捕獲與冒泡"><a href="#事件傳遞機制：捕獲與冒泡" class="headerlink" title="事件傳遞機制：捕獲與冒泡"></a>事件傳遞機制：捕獲與冒泡</h4><ul>
+<li>DOM 事件傳遞機制分成 3 階段：<ul>
+<li>Capturing Phase 捕獲階段</li>
+<li>Target Phase 傳遞到元素本身</li>
+<li>ubbling Phase 冒泡階段</li>
+</ul>
+</li>
+<li>事件傳遞的兩個原則<ul>
+<li>先捕獲，再冒泡</li>
+<li>當事件傳到 target 本身，沒有分捕獲跟冒泡</li>
+</ul>
+</li>
+<li>當使用 event.stopPropagation()，事件傳遞就會停在設置的地方<ul>
+<li>若在捕獲階段：阻止事件往下傳遞</li>
+<li>若在冒泡階段：阻止事件向上傳遞</li>
+</ul>
+</li>
+<li>如果要讓同一層的事件也要停止，就用 stopImmediatePropagation()</li>
+</ul>
+<div style="width:700px">
+    <img src="/2021/09/23/review-1/pic3.png" class="" title="pic3">
+</div>
+
+<p>圖片來自 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Events/#event-flow">W3C</a></p>
+<h4 id="preventDefault-與-stopPropagation-的差異"><a href="#preventDefault-與-stopPropagation-的差異" class="headerlink" title="preventDefault 與 stopPropagation 的差異"></a>preventDefault 與 stopPropagation 的差異</h4><ul>
+<li>preventDefault() 停止元素預設事件發生，如果只是要預防 &lt;a href&#x3D;”#”&gt; 回到頁首，可加上這個函數</li>
+<li>stopPropagation() 停止作用的元素冒泡</li>
+</ul>
+<h4 id="JavaScript-asynchronous-非同步-operation-處理方式"><a href="#JavaScript-asynchronous-非同步-operation-處理方式" class="headerlink" title="JavaScript asynchronous(非同步) operation 處理方式"></a>JavaScript asynchronous(非同步) operation 處理方式</h4><ul>
+<li>Callback : 藉由參數（argument）傳入一個函式,以便完成某件程序後執行必要的程式</li>
+<li>Promise :<br>  promise 為 ES6 增加的 object(物件)<br>  他有三種狀態,<blockquote>
+<p>pending(初始狀態)<br>fulfilled(事件完成)<br>rejected(事件失敗)</p>
+</blockquote>
+<p>  狀態的改變只有兩種可能 </p>
+<blockquote>
+<p>從 pending 變成 fulfilled<br>從 pending 變成 rejected</p>
+</blockquote>
+<p>  一但狀態改變就會固定，永遠不會再改變狀態.</p>
+</li>
+<li>async&#x2F;await :  ES2017(ES8) 增加的語法, 使非同步的程式看起來像是同步的程式</li>
+</ul>
+<h4 id="recursion-遞迴"><a href="#recursion-遞迴" class="headerlink" title="recursion(遞迴)"></a>recursion(遞迴)</h4><ul>
+<li>透過函式重複呼叫自己最終得到計算結果的一種方法</li>
+<li>這是一個常用處理排序或遍歷(traversing)的方法</li>
+</ul>
+<h4 id="Hoisting-提升"><a href="#Hoisting-提升" class="headerlink" title="Hoisting (提升)"></a>Hoisting (提升)</h4><ul>
+<li>var 宣告提升,但賦值不會提升</li>
+<li>let, const 有提升,但賦值前不能使用(所以外部宣告的變數不能使用)</li>
+<li>TDZ (Temporal Dead Zone)暫時性死區: let、const 在設定值前不能使用</li>
+<li>function 也會提升,所以可以將 function 寫在呼叫之後</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 宣告提升,但賦值不會提升</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`Hello #1 <span class="subst">$&#123;name&#125;</span>.`</span>); 		<span class="comment">//Hello #1 undefined.</span></span><br><span class="line">	<span class="comment">// console.log(`Hello #1 $&#123;guest&#125;.`);	// guest is not defined</span></span><br><span class="line">	<span class="keyword">var</span> name = <span class="string">&quot;Bob&quot;</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`Hello #2 <span class="subst">$&#123;name&#125;</span>.`</span>);			<span class="comment">// Hello #2 Bob.</span></span><br><span class="line">&#125;</span><br><span class="line">SayHello();</span><br><span class="line"></span><br><span class="line"><span class="comment">// let, const 有提升,但賦值前不能使用(所以外部宣告的變數不能使用)</span></span><br><span class="line"><span class="comment">// TDZ (Temporal Dead Zone)暫時性死區: let、const 在設定值前不能使用</span></span><br><span class="line"><span class="keyword">let</span> girl = <span class="string">&quot;Mery&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> boy = <span class="string">&quot;Bill&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SayHello2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`Hello #1 <span class="subst">$&#123;girl&#125;</span> <span class="subst">$&#123;boy&#125;</span>.`</span>);  <span class="comment">// Cannot access &#x27;girl&#x27; before initialization, Cannot access &#x27;boy&#x27; before initialization</span></span><br><span class="line">	<span class="keyword">let</span> girl = <span class="string">&quot;Angel&quot;</span>;								</span><br><span class="line">	<span class="keyword">const</span> boy = <span class="string">&quot;Jack&quot;</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`Hello #2 <span class="subst">$&#123;girl&#125;</span> <span class="subst">$&#123;boy&#125;</span>.`</span>);</span><br><span class="line">&#125;</span><br><span class="line">SayHello2();</span><br></pre></td></tr></table></figure>
+
+<h4 id="JavaScript-的繼承"><a href="#JavaScript-的繼承" class="headerlink" title="JavaScript 的繼承"></a>JavaScript 的繼承</h4><h5 id="prototype-範例"><a href="#prototype-範例" class="headerlink" title="prototype 範例"></a>prototype 範例</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inheritance2.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">this</span>.name = name;</span><br><span class="line">	<span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line">Dog.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line">Dog.prototype.getColor = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">this</span>.color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DogSell 繼承 Dog</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DogSell</span>(<span class="params">name, color, price</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 繼承原型的參數</span></span><br><span class="line">	Dog.call(<span class="built_in">this</span>, name, color);</span><br><span class="line">	<span class="built_in">this</span>.price = price;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 繼承原型的函數</span></span><br><span class="line">DogSell.prototype = <span class="built_in">Object</span>.create(Dog.prototype);</span><br><span class="line"><span class="comment">// 加入新的函數</span></span><br><span class="line">DogSell.prototype.getInfo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">`The dog name is <span class="subst">$&#123;<span class="built_in">this</span>.getName()&#125;</span> and sell $<span class="subst">$&#123;<span class="built_in">this</span>.price&#125;</span>.`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">&quot;Momo&quot;</span>, <span class="string">&quot;black&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`The dog #1 name is <span class="subst">$&#123;dog1.getName()&#125;</span> and color is <span class="subst">$&#123;dog1.getColor()&#125;</span>.`</span>);</span><br><span class="line"><span class="keyword">let</span> dogsell1 = <span class="keyword">new</span> DogSell(<span class="string">&quot;WaWa&quot;</span>, <span class="string">&quot;white&quot;</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dogsell1.getInfo());</span><br></pre></td></tr></table></figure>
+
+<h5 id="class-範例"><a href="#class-範例" class="headerlink" title="class 範例"></a>class 範例</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inheritance.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">name, color</span>)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.color = color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">getName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">getColor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.color;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DogSell 繼承 Dog</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DogSell</span> <span class="keyword">extends</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">name, color, price</span>)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>(name, color);</span><br><span class="line">		<span class="built_in">this</span>.price = price;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">getInfo</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`The dog name is <span class="subst">$&#123;<span class="built_in">this</span>.getName()&#125;</span> and sell $<span class="subst">$&#123;<span class="built_in">this</span>.price&#125;</span>.`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">&quot;Momo&quot;</span>, <span class="string">&quot;black&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`The dog #1 name is <span class="subst">$&#123;dog1.getName()&#125;</span> and color is <span class="subst">$&#123;dog1.getColor()&#125;</span>.`</span>);</span><br><span class="line"><span class="keyword">let</span> dogsell1 = <span class="keyword">new</span> DogSell(<span class="string">&quot;WaWa&quot;</span>, <span class="string">&quot;white&quot;</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dogsell1.getInfo());</span><br></pre></td></tr></table></figure>
+
+<h4 id="Fetch-API"><a href="#Fetch-API" class="headerlink" title="Fetch API"></a>Fetch API</h4><p>fetch()是 XMLHttpRequest 的升级版,提供了一個能獲取包含跨網路資源在的資源介面。它有點像我們所熟悉的 XMLHttpRequest ，但這個新的 API 提供了更強更彈性的功能。</p>
+<h4 id="Logical-Operator-vs-Nullish-Coalescing-Operator"><a href="#Logical-Operator-vs-Nullish-Coalescing-Operator" class="headerlink" title="Logical Operator vs Nullish Coalescing Operator"></a>Logical Operator vs Nullish Coalescing Operator</h4><ul>
+<li><p>Logical Operator:當值為 undefined, null, false 或 0 則傳回右邊的值 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">false</span> || <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> || <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> || <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> || <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Nullish Coalescing Operator::當值為 undefined 或 null 則傳回右邊的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">false</span> ?? <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> ?? <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> ?? <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> ?? <span class="string">&#x27;Hello&#x27;</span>); <span class="comment">//Returns 0</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><pre><code>+ [Fetch API 教程](https://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
+</code></pre>
+<p>圖片 from <a target="_blank" rel="noopener" href="https://chamikakasun.medium.com/javascript-prototype-and-prototype-chain-explained-fdc2ec17dd04">JavaScript Prototype and Prototype Chain explained</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/review/" rel="tag"># review</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/17/react-3/" rel="prev" title="React Issue">
+                  <i class="fa fa-chevron-left"></i> React Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/23/review-2/" rel="next" title="CSS Review">
+                  CSS Review <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/09/23/review-1/";
+    this.page.identifier = "2021/09/23/review-1/";
+    this.page.title = "JavaScript review";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Add flutter packagepubspec.yaml12345678dependencies:  flutter:    sdk: flutter  # kyp: hive  hive: ^2.2.3  # kyp: hive_flutter  hive_flutter: ^1.1.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Complete Flutter Development Course - Taskly">
+<meta property="og:url" content="https://hot5656.github.io/2025/03/01/flutter-8/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Add flutter packagepubspec.yaml12345678dependencies:  flutter:    sdk: flutter  # kyp: hive  hive: ^2.2.3  # kyp: hive_flutter  hive_flutter: ^1.1.0">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-03-01T04:02:25.000Z">
+<meta property="article:modified_time" content="2025-05-05T02:47:52.724Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="flutter">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2025/03/01/flutter-8/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>The Complete Flutter Development Course - Taskly | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Add-flutter-package"><span class="nav-number">1.</span> <span class="nav-text">Add flutter package</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pubspec-yaml"><span class="nav-number">1.1.</span> <span class="nav-text">pubspec.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-flutter-package-by-terminal"><span class="nav-number">1.2.</span> <span class="nav-text">install flutter package by terminal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coding"><span class="nav-number">2.</span> <span class="nav-text">Coding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-Statefu-lWidget"><span class="nav-number">2.1.</span> <span class="nav-text">Create Statefu lWidget</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-main-dart"><span class="nav-number">2.1.1.</span> <span class="nav-text">lib&#x2F;main.dart</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-pages-x2F-home-page-dart"><span class="nav-number">2.1.2.</span> <span class="nav-text">lib&#x2F;pages&#x2F;home_page.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-App-Bar"><span class="nav-number">2.2.</span> <span class="nav-text">Create App Bar</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-pages-x2F-home-page-dart-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">lib&#x2F;pages&#x2F;home_page.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-ListView-and-ListTile-Widget"><span class="nav-number">2.3.</span> <span class="nav-text">Add ListView and ListTile Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-pages-x2F-home-page-dart-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">lib&#x2F;pages&#x2F;home_page.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-Float-Action-Button"><span class="nav-number">2.4.</span> <span class="nav-text">Add Float Action Button</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-pages-x2F-home-page-dart-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">lib&#x2F;pages&#x2F;home_page.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inititial-Hive"><span class="nav-number">2.5.</span> <span class="nav-text">Inititial Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-main-dart-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">lib&#x2F;main.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-Task-Model-Class"><span class="nav-number">2.6.</span> <span class="nav-text">Create Task Model Class</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-models-x2F-task-dart"><span class="nav-number">2.6.1.</span> <span class="nav-text">lib&#x2F;models&#x2F;task.dart</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TextField-and-SetState-in-Flutter"><span class="nav-number">2.7.</span> <span class="nav-text">TextField and SetState in Flutter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lib-x2F-pages-x2F-home-page-dart-4"><span class="nav-number">2.7.1.</span> <span class="nav-text">lib&#x2F;pages&#x2F;home_page.dart</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2025/03/01/flutter-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Complete Flutter Development Course - Taskly
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-03-01 12:02:25" itemprop="dateCreated datePublished" datetime="2025-03-01T12:02:25+08:00">2025-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-05-05 10:47:52" itemprop="dateModified" datetime="2025-05-05T10:47:52+08:00">2025-05-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/03/01/flutter-8/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/03/01/flutter-8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Add-flutter-package"><a href="#Add-flutter-package" class="headerlink" title="Add flutter package"></a>Add flutter package</h3><h4 id="pubspec-yaml"><a href="#pubspec-yaml" class="headerlink" title="pubspec.yaml"></a>pubspec.yaml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">flutter:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># kyp: hive</span></span><br><span class="line">  <span class="attr">hive:</span> <span class="string">^2.2.3</span></span><br><span class="line">  <span class="comment"># kyp: hive_flutter</span></span><br><span class="line">  <span class="attr">hive_flutter:</span> <span class="string">^1.1.0</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="install-flutter-package-by-terminal"><a href="#install-flutter-package-by-terminal" class="headerlink" title="install flutter package by terminal"></a>install flutter package by terminal</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter pub get</span><br></pre></td></tr></table></figure>
+
+<h3 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h3><h4 id="Create-Statefu-lWidget"><a href="#Create-Statefu-lWidget" class="headerlink" title="Create Statefu lWidget"></a>Create Statefu lWidget</h4><h5 id="lib-x2F-main-dart"><a href="#lib-x2F-main-dart" class="headerlink" title="lib&#x2F;main.dart"></a>lib&#x2F;main.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:taskly/pages/home_page.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(<span class="keyword">const</span> MyApp());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;Taskly&#x27;</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="lib-x2F-pages-x2F-home-page-dart"><a href="#lib-x2F-pages-x2F-home-page-dart" class="headerlink" title="lib&#x2F;pages&#x2F;home_page.dart"></a>lib&#x2F;pages&#x2F;home_page.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義 HomePage 為 StatefulWidget</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  HomePage();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// kyp: StatefulWidget use create</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  State&lt;HomePage&gt; createState() &#123;</span><br><span class="line">    <span class="keyword">return</span> _HomePageState();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義 _HomePageState，管理 HomePage 的狀態</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  _HomePageState();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Text(<span class="string">&quot;data&quot;</span>),</span><br><span class="line">      ),</span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Create-App-Bar"><a href="#Create-App-Bar" class="headerlink" title="Create App Bar"></a>Create App Bar</h4><h5 id="lib-x2F-pages-x2F-home-page-dart-1"><a href="#lib-x2F-pages-x2F-home-page-dart-1" class="headerlink" title="lib&#x2F;pages&#x2F;home_page.dart"></a>lib&#x2F;pages&#x2F;home_page.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 _HomePageState，管理 HomePage 的狀態</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">late</span> <span class="built_in">double</span> _deviceHeight, _deviceWidth;</span><br><span class="line"></span><br><span class="line">  _HomePageState();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    _deviceHeight = MediaQuery.of(context).size.height;</span><br><span class="line">    _deviceWidth = MediaQuery.of(context).size.width;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        toolbarHeight: _deviceHeight * <span class="number">0.15</span>,</span><br><span class="line">        title: Text(</span><br><span class="line">          <span class="string">&quot;Taskly!&quot;</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">25</span>,</span><br><span class="line">            color: Colors.white,</span><br><span class="line">          )</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// body: Center(</span></span><br><span class="line">      <span class="comment">//   child: Text(&quot;data&quot;),</span></span><br><span class="line">      <span class="comment">// ),</span></span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Add-ListView-and-ListTile-Widget"><a href="#Add-ListView-and-ListTile-Widget" class="headerlink" title="Add ListView and ListTile Widget"></a>Add ListView and ListTile Widget</h4><h5 id="lib-x2F-pages-x2F-home-page-dart-2"><a href="#lib-x2F-pages-x2F-home-page-dart-2" class="headerlink" title="lib&#x2F;pages&#x2F;home_page.dart"></a>lib&#x2F;pages&#x2F;home_page.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 _HomePageState，管理 HomePage 的狀態</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">late</span> <span class="built_in">double</span> _deviceHeight, _deviceWidth;</span><br><span class="line"></span><br><span class="line">  _HomePageState();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    _deviceHeight = MediaQuery.of(context).size.height;</span><br><span class="line">    _deviceWidth = MediaQuery.of(context).size.width;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        toolbarHeight: _deviceHeight * <span class="number">0.15</span>,</span><br><span class="line">        title: <span class="keyword">const</span> Text(</span><br><span class="line">          <span class="string">&quot;Taskly!&quot;</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">25</span>,</span><br><span class="line">            color: Colors.white,</span><br><span class="line">          )</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      body: _tasksList(),</span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Widget _tasksList() &#123;</span><br><span class="line">    <span class="keyword">return</span> ListView(</span><br><span class="line">      children: [</span><br><span class="line">        ListTile(</span><br><span class="line">          title: Text(</span><br><span class="line">            <span class="string">&quot;Do Laundry!&quot;</span>,</span><br><span class="line">            style: TextStyle(decoration: TextDecoration.lineThrough),</span><br><span class="line">          ),</span><br><span class="line">          subtitle: Text(<span class="built_in">DateTime</span>.now().toString()),</span><br><span class="line">          trailing: <span class="keyword">const</span> Icon(</span><br><span class="line">            Icons.check_box_outlined,</span><br><span class="line">            color: Colors.red,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Add-Float-Action-Button"><a href="#Add-Float-Action-Button" class="headerlink" title="Add Float Action Button"></a>Add Float Action Button</h4><h5 id="lib-x2F-pages-x2F-home-page-dart-3"><a href="#lib-x2F-pages-x2F-home-page-dart-3" class="headerlink" title="lib&#x2F;pages&#x2F;home_page.dart"></a>lib&#x2F;pages&#x2F;home_page.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 _HomePageState，管理 HomePage 的狀態</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">late</span> <span class="built_in">double</span> _deviceHeight, _deviceWidth;</span><br><span class="line"></span><br><span class="line">  _HomePageState();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    _deviceHeight = MediaQuery.of(context).size.height;</span><br><span class="line">    _deviceWidth = MediaQuery.of(context).size.width;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        toolbarHeight: _deviceHeight * <span class="number">0.15</span>,</span><br><span class="line">        title: <span class="keyword">const</span> Text(</span><br><span class="line">          <span class="string">&quot;Taskly!&quot;</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">25</span>,</span><br><span class="line">            color: Colors.white,</span><br><span class="line">          )</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      body: _tasksList(),</span><br><span class="line">      floatingActionButton: _addTaskButton(),</span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Widget _addTaskButton() &#123;</span><br><span class="line">    <span class="keyword">return</span> FloatingActionButton(</span><br><span class="line">      backgroundColor: Colors.red,</span><br><span class="line">      shape: CircleBorder(),</span><br><span class="line">      onPressed: () &#123;</span><br><span class="line">        <span class="comment">// print(&quot;Pressed Button&quot;);</span></span><br><span class="line">      &#125;,</span><br><span class="line">      child: <span class="keyword">const</span> Icon(</span><br><span class="line">        Icons.add,</span><br><span class="line">        color: Colors.white,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Inititial-Hive"><a href="#Inititial-Hive" class="headerlink" title="Inititial Hive"></a>Inititial Hive</h4><h5 id="lib-x2F-main-dart-1"><a href="#lib-x2F-main-dart-1" class="headerlink" title="lib&#x2F;main.dart"></a>lib&#x2F;main.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:taskly/pages/home_page.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:hive_flutter/hive_flutter.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// init Hive, create directory ./hive_boxes</span></span><br><span class="line">  <span class="keyword">await</span> Hive.initFlutter(<span class="string">&quot;hive_boxes&quot;</span>);</span><br><span class="line">  runApp(<span class="keyword">const</span> MyApp());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">&#x27;Taskly&#x27;</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),</span><br><span class="line">      ),</span><br><span class="line">      home: HomePage(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Create-Task-Model-Class"><a href="#Create-Task-Model-Class" class="headerlink" title="Create Task Model Class"></a>Create Task Model Class</h4><h5 id="lib-x2F-models-x2F-task-dart"><a href="#lib-x2F-models-x2F-task-dart" class="headerlink" title="lib&#x2F;models&#x2F;task.dart"></a>lib&#x2F;models&#x2F;task.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String</span> content;</span><br><span class="line">  <span class="built_in">DateTime</span> timestamp;</span><br><span class="line">  <span class="built_in">bool</span> done;</span><br><span class="line"></span><br><span class="line">  Task(&#123;</span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">this</span>.content, </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">this</span>.timestamp, </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">this</span>.done, </span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 工廠建構函數 (factory constructor)，用來 從 Map 創建 Task 物件</span></span><br><span class="line">  <span class="keyword">factory</span> Task.fromMap(<span class="built_in">Map</span> task) &#123;</span><br><span class="line">    <span class="keyword">return</span> Task(content: task[<span class="string">&quot;content&quot;</span>], timestamp: task[<span class="string">&quot;timestamp&quot;</span>], done: task[<span class="string">&quot;done&quot;</span>]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 將 Task 轉換成 Map</span></span><br><span class="line">  <span class="built_in">Map</span> toMap() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="string">&quot;content&quot;</span>: content,</span><br><span class="line">      <span class="string">&quot;timestamp&quot;</span>: timestamp,</span><br><span class="line">      <span class="string">&quot;done&quot;</span>: done,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="TextField-and-SetState-in-Flutter"><a href="#TextField-and-SetState-in-Flutter" class="headerlink" title="TextField and SetState in Flutter"></a>TextField and SetState in Flutter</h4><h5 id="lib-x2F-pages-x2F-home-page-dart-4"><a href="#lib-x2F-pages-x2F-home-page-dart-4" class="headerlink" title="lib&#x2F;pages&#x2F;home_page.dart"></a>lib&#x2F;pages&#x2F;home_page.dart</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 _HomePageState，管理 HomePage 的狀態</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">HomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">late</span> <span class="built_in">double</span> deviceHeight, deviceWidth;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">String?</span> _newTaskContent;</span><br><span class="line"></span><br><span class="line">  _HomePageState();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 繪製時執行</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    deviceHeight = MediaQuery.of(context).size.height;</span><br><span class="line">    deviceWidth = MediaQuery.of(context).size.width;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Input Value: <span class="subst">$_newTaskContent</span>&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        toolbarHeight: deviceHeight * <span class="number">0.15</span>,</span><br><span class="line">        title: <span class="keyword">const</span> Text(</span><br><span class="line">          <span class="string">&quot;Taskly!&quot;</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">25</span>,</span><br><span class="line">            color: Colors.white,</span><br><span class="line">          )</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      body: _tasksList(),</span><br><span class="line">      floatingActionButton: _addTaskButton(),</span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Widget _tasksList() &#123;</span><br><span class="line">    <span class="keyword">return</span> ListView(</span><br><span class="line">      children: [</span><br><span class="line">        ListTile(</span><br><span class="line">          title: Text(</span><br><span class="line">            <span class="string">&quot;Do Laundry!&quot;</span>,</span><br><span class="line">            style: TextStyle(decoration: TextDecoration.lineThrough),</span><br><span class="line">          ),</span><br><span class="line">          subtitle: Text(<span class="built_in">DateTime</span>.now().toString()),</span><br><span class="line">          trailing: <span class="keyword">const</span> Icon(</span><br><span class="line">            Icons.check_box_outlined,</span><br><span class="line">            color: Colors.red,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Widget _addTaskButton() &#123;</span><br><span class="line">    <span class="keyword">return</span> FloatingActionButton(</span><br><span class="line">      backgroundColor: Colors.red,</span><br><span class="line">      shape: CircleBorder(),</span><br><span class="line">      onPressed: () &#123;</span><br><span class="line">        <span class="comment">// 傳遞 context,</span></span><br><span class="line">        _displayTaskPopup(context); <span class="comment">// 確保是 callback，而不是立即執行</span></span><br><span class="line">      &#125;, </span><br><span class="line">      child: <span class="keyword">const</span> Icon(</span><br><span class="line">        Icons.add,</span><br><span class="line">        color: Colors.white,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> _displayTaskPopup(BuildContext context) &#123;</span><br><span class="line">    showDialog(</span><br><span class="line">      context: context,</span><br><span class="line">      builder: (BuildContext context) &#123;</span><br><span class="line">        <span class="keyword">return</span> AlertDialog(</span><br><span class="line">          title: <span class="keyword">const</span> Text(<span class="string">&quot;Add new Task&quot;</span>),</span><br><span class="line">          content: TextField(</span><br><span class="line">            <span class="comment">// 按下 Enter（onSubmitted）後，關閉對話框，但不會存儲任務</span></span><br><span class="line">            onSubmitted: (value) &#123;</span><br><span class="line">              <span class="comment">// setState(() &#123;</span></span><br><span class="line">              <span class="comment">//   _newTaskContent = value;</span></span><br><span class="line">              <span class="comment">// &#125;);</span></span><br><span class="line">              Navigator.pop(context); <span class="comment">// 按下 Enter 後關閉 AlertDialog</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// onChanged 會更新 _newTaskContent</span></span><br><span class="line">            onChanged: (value) &#123;</span><br><span class="line">              <span class="comment">// setState() 會通知 Flutter 重新執行 build()，讓 UI 重新顯示最新的 counter 值</span></span><br><span class="line">              setState(() &#123;</span><br><span class="line">                _newTaskContent = value;</span><br><span class="line">              &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">          ),</span><br><span class="line">        );</span><br><span class="line">      &#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/02/16/flutter-7/" rel="prev" title="Dart & Flutter | The Complete Flutter Development Course - GoMood">
+                  <i class="fa fa-chevron-left"></i> Dart & Flutter | The Complete Flutter Development Course - GoMood
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/04/14/flutter-9/" rel="next" title="Master Flutter and Dart">
+                  Master Flutter and Dart <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2025/03/01/flutter-8/";
+    this.page.identifier = "2025/03/01/flutter-8/";
+    this.page.title = "The Complete Flutter Development Course - Taskly";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="material-uiinstall1234# install material corenpm i @material-ui&#x2F;core # install material iconsnpm i @material-ui&#x2F;icons">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React module">
+<meta property="og:url" content="https://hot5656.github.io/2021/10/28/react-7/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="material-uiinstall1234# install material corenpm i @material-ui&#x2F;core # install material iconsnpm i @material-ui&#x2F;icons">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-28T02:54:36.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:36.214Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/10/28/react-7/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>React module | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#material-ui"><span class="nav-number">1.</span> <span class="nav-text">material-ui</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#example"><span class="nav-number">1.2.</span> <span class="nav-text">example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ant-Design-antd"><span class="nav-number">2.</span> <span class="nav-text">Ant Design - antd</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-1"><span class="nav-number">2.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#first-example"><span class="nav-number">2.2.</span> <span class="nav-text">first example</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#x2F-src-x2F-App-js"><span class="nav-number">2.2.1.</span> <span class="nav-text">.&#x2F;src&#x2F;App.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#x2F-src-x2F-index-js"><span class="nav-number">2.2.2.</span> <span class="nav-text">.&#x2F;src&#x2F;index.js</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87%E6%97%A5%E6%9C%9F"><span class="nav-number">2.3.</span> <span class="nav-text">選擇日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Book-Store"><span class="nav-number">2.4.</span> <span class="nav-text">Book Store</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#x2F-src-x2F-index-js-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">.&#x2F;src&#x2F;index.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#x2F-src-x2F-columns-x2F-App-js"><span class="nav-number">2.4.2.</span> <span class="nav-text">.&#x2F;src&#x2F;columns&#x2F;App.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#x2F-src-x2F-book-js"><span class="nav-number">2.4.3.</span> <span class="nav-text">.&#x2F;src&#x2F;book.js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lodash"><span class="nav-number">3.</span> <span class="nav-text">lodash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react-router-dom-v5-to-v6"><span class="nav-number">4.</span> <span class="nav-text">react-router-dom v5 to v6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#react-router-dom-v5"><span class="nav-number">4.1.</span> <span class="nav-text">react-router-dom v5</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Switch"><span class="nav-number">4.1.1.</span> <span class="nav-text">Switch</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#useHistory"><span class="nav-number">4.1.2.</span> <span class="nav-text">useHistory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Redirect"><span class="nav-number">4.1.3.</span> <span class="nav-text">Redirect</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-parameter-need-route-amp-apos-s-component"><span class="nav-number">4.1.4.</span> <span class="nav-text">get parameter ( need route&amp;apos;s component)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#react-router-dom-v6"><span class="nav-number">4.2.</span> <span class="nav-text">react-router-dom v6</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BrowserRouter-Routes-element"><span class="nav-number">4.2.1.</span> <span class="nav-text">BrowserRouter +  Routes + element</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#useNavigate"><span class="nav-number">4.2.2.</span> <span class="nav-text">useNavigate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Authentication"><span class="nav-number">4.2.3.</span> <span class="nav-text">Authentication</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-parameter"><span class="nav-number">4.2.4.</span> <span class="nav-text">get parameter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">5.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#braintree-web-drop-in-react-React-component-that-wraps-braintree-web-drop-in"><span class="nav-number">6.</span> <span class="nav-text">braintree-web-drop-in-react : React component that wraps braintree-web-drop-in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/10/28/react-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React module
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-10-28 10:54:36" itemprop="dateCreated datePublished" datetime="2021-10-28T10:54:36+08:00">2021-10-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:36" itemprop="dateModified" datetime="2022-06-09T11:38:36+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Framework/" itemprop="url" rel="index"><span itemprop="name">Framework</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/10/28/react-7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/10/28/react-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>16 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="material-ui"><a href="#material-ui" class="headerlink" title="material-ui"></a><a target="_blank" rel="noopener" href="https://v4.mui.com/">material-ui</a></h3><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install material core</span></span><br><span class="line">npm i @material-ui/core </span><br><span class="line"><span class="comment"># install material icons</span></span><br><span class="line">npm i @material-ui/icons</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="example"><a href="#example" class="headerlink" title="example"></a>example</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// icon</span></span><br><span class="line"><span class="keyword">import</span> AddIcon <span class="keyword">from</span> <span class="string">&quot;@material-ui/icons/Add&quot;</span>;</span><br><span class="line"><span class="comment">// Floating action button</span></span><br><span class="line"><span class="keyword">import</span> Fab <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Fab&quot;</span>;</span><br><span class="line"><span class="comment">// 顯示/消失</span></span><br><span class="line"><span class="keyword">import</span> Zoom <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Zoom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreateArea</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;form className=<span class="string">&quot;create-note&quot;</span>&gt;</span><br><span class="line">        &#123;isInput &amp;&amp; (</span><br><span class="line">          &lt;input</span><br><span class="line">            name=<span class="string">&quot;title&quot;</span></span><br><span class="line">            onChange=&#123;handleChange&#125;</span><br><span class="line">            value=&#123;note.title&#125;</span><br><span class="line">            placeholder=<span class="string">&quot;Title&quot;</span></span><br><span class="line">          /&gt;</span><br><span class="line">        )&#125;</span><br><span class="line">        &lt;textarea</span><br><span class="line">          name=<span class="string">&quot;content&quot;</span></span><br><span class="line">          onChange=&#123;handleChange&#125;</span><br><span class="line">          value=&#123;note.content&#125;</span><br><span class="line">          placeholder=<span class="string">&quot;Take a note...&quot;</span></span><br><span class="line">          rows=&#123;isInput ? <span class="number">3</span> : <span class="number">1</span>&#125;</span><br><span class="line">          onFocus=&#123;handleFocs&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;Zoom <span class="keyword">in</span>=&#123;isInput&#125;&gt;</span><br><span class="line">          &lt;Fab onClick=&#123;submitNote&#125;&gt;</span><br><span class="line">            &lt;AddIcon /&gt;</span><br><span class="line">          &lt;/Fab&gt;</span><br><span class="line">        &lt;/Zoom&gt;</span><br><span class="line">      &lt;/form&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Ant-Design-antd"><a href="#Ant-Design-antd" class="headerlink" title="Ant Design - antd"></a><a target="_blank" rel="noopener" href="https://ant.design/docs/react/introduce">Ant Design - antd</a></h3><h4 id="install-1"><a href="#install-1" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install antd</span><br><span class="line">yarn add antd</span><br></pre></td></tr></table></figure>
+
+<h4 id="first-example"><a href="#first-example" class="headerlink" title="first example"></a>first example</h4><ul>
+<li>version</li>
+<li>DatePicker</li>
+<li>Button</li>
+</ul>
+<h5 id="x2F-src-x2F-App-js"><a href="#x2F-src-x2F-App-js" class="headerlink" title=".&#x2F;src&#x2F;App.js"></a>.&#x2F;src&#x2F;App.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/App.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, DatePicker, version &#125; <span class="keyword">from</span> <span class="string">&quot;antd&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;antd/dist/antd.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">&quot;App&quot;</span>&gt;</span><br><span class="line">      &lt;h1&gt;antd version: &#123;version&#125;&lt;/h1&gt;</span><br><span class="line">      &lt;DatePicker /&gt;</span><br><span class="line">      &lt;Button type=<span class="string">&quot;primary&quot;</span> style=&#123;&#123; <span class="attr">marginLeft</span>: <span class="number">8</span> &#125;&#125;&gt;</span><br><span class="line">        Primary Button</span><br><span class="line">      &lt;/Button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="x2F-src-x2F-index-js"><a href="#x2F-src-x2F-index-js" class="headerlink" title=".&#x2F;src&#x2F;index.js"></a>.&#x2F;src&#x2F;index.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&quot;react-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&quot;./App&quot;</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&quot;root&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="選擇日期"><a href="#選擇日期" class="headerlink" title="選擇日期"></a>選擇日期</h4><ul>
+<li>ConfigProvider</li>
+<li>message</li>
+<li>Alert</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/App.js</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ConfigProvider, DatePicker, message, Alert &#125; <span class="keyword">from</span> <span class="string">&quot;antd&quot;</span>;</span><br><span class="line"><span class="comment">// 修成繁體中文 ??? 真的需要嗎?</span></span><br><span class="line"><span class="comment">// import zhTW from &quot;antd/lib/locale/zh_TW&quot;;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;antd/dist/antd.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [date, setDate] = useState(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleDate = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    message.info(</span><br><span class="line">      <span class="string">`你選擇的日期是: <span class="subst">$&#123;value ? value.format(<span class="string">&quot;YYYY年MM月DD日&quot;</span>) : <span class="string">&quot;未選擇&quot;</span>&#125;</span>`</span></span><br><span class="line">    );</span><br><span class="line">    setDate(value);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="comment">// 修成繁體中文 ??? 真的需要嗎?</span></span><br><span class="line">    <span class="comment">// &lt;ConfigProvider locate=&#123;zhTW&#125;&gt;</span></span><br><span class="line">    &lt;ConfigProvider&gt;</span><br><span class="line">      &lt;div</span><br><span class="line">        style=&#123;&#123; <span class="attr">width</span>: <span class="number">400</span>, <span class="attr">margin</span>: <span class="string">&quot;100px auto&quot;</span>, <span class="attr">border</span>: <span class="string">&quot;1px solid black&quot;</span> &#125;&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        &lt;DatePicker onChange=&#123;handleDate&#125; /&gt;</span><br><span class="line">        &lt;div style=&#123;&#123; <span class="attr">marginTop</span>: <span class="number">16</span> &#125;&#125;&gt;</span><br><span class="line">          &#123;<span class="comment">/* 日期: &#123;date ? date.format(&quot;YYYY年MM月DD日&quot;) : &quot;未選擇&quot;&#125; */</span>&#125;</span><br><span class="line">          &lt;Alert</span><br><span class="line">            message=<span class="string">&quot;目前日期&quot;</span></span><br><span class="line">            description=&#123;date ? date.format(<span class="string">&quot;YYYY年MM月DD日&quot;</span>) : <span class="string">&quot;未选择&quot;</span>&#125;</span><br><span class="line">            type=<span class="string">&quot;success&quot;</span></span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/ConfigProvider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Book-Store"><a href="#Book-Store" class="headerlink" title="Book Store"></a>Book Store</h4><ul>
+<li>Table</li>
+<li>Card : Search</li>
+<li>Select : Option</li>
+<li>Input</li>
+<li>Space</li>
+</ul>
+<h5 id="x2F-src-x2F-index-js-1"><a href="#x2F-src-x2F-index-js-1" class="headerlink" title=".&#x2F;src&#x2F;index.js"></a>.&#x2F;src&#x2F;index.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&quot;react-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&quot;./components/App&quot;</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">&quot;root&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h5 id="x2F-src-x2F-columns-x2F-App-js"><a href="#x2F-src-x2F-columns-x2F-App-js" class="headerlink" title=".&#x2F;src&#x2F;columns&#x2F;App.js"></a>.&#x2F;src&#x2F;columns&#x2F;App.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/columns/App.js</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Table, Card, Select, Input, Space &#125; <span class="keyword">from</span> <span class="string">&quot;antd&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getBooks &#125; <span class="keyword">from</span> <span class="string">&quot;../books&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;antd/dist/antd.css&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; Option &#125; = Select;</span><br><span class="line"><span class="keyword">const</span> &#123; Search &#125; = Input;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> columns = [</span><br><span class="line">  &#123;</span><br><span class="line">    title: <span class="string">&quot;書名&quot;</span>,</span><br><span class="line">    dataIndex: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">    key: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    title: <span class="string">&quot;價格&quot;</span>,</span><br><span class="line">    dataIndex: <span class="string">&quot;price&quot;</span>,</span><br><span class="line">    key: <span class="string">&quot;price&quot;</span>,</span><br><span class="line">    sorter: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    title: <span class="string">&quot;分類&quot;</span>,</span><br><span class="line">    dataIndex: <span class="string">&quot;category&quot;</span>,</span><br><span class="line">    key: <span class="string">&quot;category&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    title: <span class="string">&quot;出版日期&quot;</span>,</span><br><span class="line">    dataIndex: <span class="string">&quot;publishedAt&quot;</span>,</span><br><span class="line">    key: <span class="string">&quot;publishedAt&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> DEFAULT_PAGINATION = &#123;</span><br><span class="line">  position: [<span class="string">&quot;bottomCenter&quot;</span>],</span><br><span class="line">  pageSize: <span class="number">2</span>,</span><br><span class="line">  pageSizeOptions: [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>],</span><br><span class="line">  showSizeChanger: <span class="literal">true</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [pagination, setPagination] = useState(DEFAULT_PAGINATION);</span><br><span class="line">  <span class="keyword">const</span> [category, setCategory] = useState(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [keyword, setKeyword] = useState(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [sort, setSort] = useState(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [filter, setFilter] = useState(&#123;</span><br><span class="line">    category,</span><br><span class="line">    keyword,</span><br><span class="line">    sort,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> books = getBooks(filter);</span><br><span class="line">  <span class="comment">// console.log(&quot;App render&quot;, category, filter);</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleChangeCategory</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    setKeyword(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    setCategory(value);</span><br><span class="line">    setFilter(&#123; ...filter, <span class="attr">category</span>: value &#125;);</span><br><span class="line">    setPagination(&#123; ...pagination, <span class="attr">current</span>: <span class="number">1</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handleChangeKeyword</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    setKeyword(e.target.value);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handelSearchKeyword</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    setCategory(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">    setFilter(&#123; ...filter, <span class="attr">keyword</span>: keyword &#125;);</span><br><span class="line">    setPagination(&#123; ...pagination, <span class="attr">current</span>: <span class="number">1</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">handelChange</span>(<span class="params">_pagination, filters, sorter, extra</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (extra.action === <span class="string">&quot;paginate&quot;</span>) &#123;</span><br><span class="line">      setPagination(_pagination);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (extra.action === <span class="string">&quot;sort&quot;</span>) &#123;</span><br><span class="line">      setSort(sorter.order);</span><br><span class="line">      setFilter(&#123; ...filter, <span class="attr">sort</span>: sorter.order &#125;);</span><br><span class="line">      setPagination(&#123; ...pagination, <span class="attr">current</span>: <span class="number">1</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// console.log(&quot;handelChange #1:&quot;, _pagination);</span></span><br><span class="line">    <span class="comment">// console.log(&quot;handelChange #2:&quot;, filters);</span></span><br><span class="line">    <span class="comment">// console.log(&quot;handelChange #3:&quot;, sorter);</span></span><br><span class="line">    <span class="comment">// console.log(&quot;handelChange #4:&quot;, extra);</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Card style=&#123;&#123; <span class="attr">margin</span>: <span class="number">10</span> &#125;&#125;&gt;</span><br><span class="line">        &lt;Space&gt;</span><br><span class="line">          &lt;Select</span><br><span class="line">            placeholder=<span class="string">&quot;書籍分類&quot;</span></span><br><span class="line">            defaultValue=<span class="string">&quot;0&quot;</span></span><br><span class="line">            value=&#123;category&#125;</span><br><span class="line">            onChange=&#123;handleChangeCategory&#125;</span><br><span class="line">          &gt;</span><br><span class="line">            &lt;Option value=<span class="string">&quot;0&quot;</span>&gt;全部分類&lt;/Option&gt;</span><br><span class="line">            &lt;Option value=<span class="string">&quot;1&quot;</span>&gt;社會科學&lt;/Option&gt;</span><br><span class="line">            &lt;Option value=<span class="string">&quot;2&quot;</span>&gt;商業理財&lt;/Option&gt;</span><br><span class="line">          &lt;/Select&gt;</span><br><span class="line">          &lt;Search</span><br><span class="line">            placeholder=<span class="string">&quot;搜尋書名、分類&quot;</span></span><br><span class="line">            value=&#123;keyword&#125;</span><br><span class="line">            onSearch=&#123;handelSearchKeyword&#125;</span><br><span class="line">            onChange=&#123;handleChangeKeyword&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/Space&gt;</span><br><span class="line">        &lt;Table</span><br><span class="line">          dataSource=&#123;books&#125;</span><br><span class="line">          columns=&#123;columns&#125;</span><br><span class="line">          pagination=&#123;&#123; ...pagination &#125;&#125;</span><br><span class="line">          onChange=&#123;handelChange&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;/Card&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<h5 id="x2F-src-x2F-book-js"><a href="#x2F-src-x2F-book-js" class="headerlink" title=".&#x2F;src&#x2F;book.js"></a>.&#x2F;src&#x2F;book.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./src/book.js</span></span><br><span class="line"><span class="keyword">const</span> bookStore = [</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;遊牧人生 1&quot;</span>,</span><br><span class="line">    price: <span class="number">332</span>,</span><br><span class="line">    category: <span class="string">&quot;社會科學&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2019/10/31&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;2&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;韓國人不想讓你知道的事 2&quot;</span>,</span><br><span class="line">    price: <span class="number">234</span>,</span><br><span class="line">    category: <span class="string">&quot;社會科學&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2021/03/30&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;3&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;您可不曾認識的和平 3&quot;</span>,</span><br><span class="line">    price: <span class="number">224</span>,</span><br><span class="line">    category: <span class="string">&quot;社會科學&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2019/10/1&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;4&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;致富心態 4&quot;</span>,</span><br><span class="line">    price: <span class="number">338</span>,</span><br><span class="line">    category: <span class="string">&quot;商業理財&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2021/01/27&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;5&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;原子習慣 5&quot;</span>,</span><br><span class="line">    price: <span class="number">231</span>,</span><br><span class="line">    category: <span class="string">&quot;商業理財&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2019/06/01&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    key: <span class="string">&quot;6&quot;</span>,</span><br><span class="line">    title: <span class="string">&quot;如何避免氣候災難 6&quot;</span>,</span><br><span class="line">    price: <span class="number">315</span>,</span><br><span class="line">    category: <span class="string">&quot;商業理財&quot;</span>,</span><br><span class="line">    publishedAt: <span class="string">&quot;2021/03/02&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CATEGORY = &#123;</span><br><span class="line">  <span class="number">1</span>: <span class="string">&quot;社會科學&quot;</span>,</span><br><span class="line">  <span class="number">2</span>: <span class="string">&quot;商業理財&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getBooks</span>(<span class="params">filter</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> books = bookStore</span><br><span class="line">    .filter(<span class="function">(<span class="params">book</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (filter.category === <span class="string">&quot;0&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> book.category === CATEGORY[filter.category];</span><br><span class="line">    &#125;)</span><br><span class="line">    .filter(<span class="function">(<span class="params">book</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (filter.keyword === <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        book.title.indexOf(filter.keyword) !== -<span class="number">1</span> ||</span><br><span class="line">        book.category.indexOf(filter.keyword) !== -<span class="number">1</span></span><br><span class="line">      );</span><br><span class="line">    &#125;)</span><br><span class="line">    .sort(<span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (filter.sort === <span class="string">&quot;ascend&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x.price - y.price;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (filter.sort === <span class="string">&quot;descend&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> y.price - x.price;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// console.log(&quot;...&quot;, filter);</span></span><br><span class="line">  <span class="comment">// console.log(&quot;books:&quot;, books);</span></span><br><span class="line">  <span class="keyword">return</span> books;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="lodash"><a href="#lodash" class="headerlink" title="lodash"></a><a target="_blank" rel="noopener" href="https://lodash.com/docs">lodash</a></h3><p>modern JavaScript utility library</p>
+<ul>
+<li>install<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash</span><br></pre></td></tr></table></figure></li>
+<li>isUndefined(value) : value 為 undefined<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">isUndefined(<span class="keyword">void</span> <span class="number">0</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">isUndefined(<span class="literal">null</span>); <span class="comment">// =&gt; false</span></span><br></pre></td></tr></table></figure></li>
+<li>isEmpty(value): value 為 空值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">isEmpty(<span class="literal">null</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">isEmpty(<span class="literal">true</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">isEmpty(<span class="number">1</span>); <span class="comment">// =&gt; true</span></span><br><span class="line">isEmpty([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); <span class="comment">// =&gt; false</span></span><br><span class="line">isEmpty(&#123; <span class="string">&#x27;a&#x27;</span>: <span class="number">1</span> &#125;); <span class="comment">// =&gt; false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="react-router-dom-v5-to-v6"><a href="#react-router-dom-v5-to-v6" class="headerlink" title="react-router-dom v5 to v6"></a>react-router-dom v5 to v6</h3><ul>
+<li>change Switch to Routes</li>
+<li>component put to element </li>
+<li>change useHistory to Navigate<h4 id="react-router-dom-v5"><a href="#react-router-dom-v5" class="headerlink" title="react-router-dom v5"></a>react-router-dom v5</h4><h5 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  Switch,</span><br><span class="line">  Route,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [user, setUser] = useState();</span><br><span class="line">  <span class="keyword">const</span> [isDone, setIsDone] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="comment">// const isDone = useRef(false);</span></span><br><span class="line">  </span><br><span class="line">  useEffect(<span class="function">() =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> token = getAuthToken();</span><br><span class="line">    <span class="keyword">if</span> (token) &#123;</span><br><span class="line">      getMe().then(<span class="function"><span class="params">resp</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (resp.ok === <span class="number">1</span>) &#123;</span><br><span class="line">          setUser(resp.data);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    setIsDone(<span class="literal">true</span>);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;AuthContext.Provider value=&#123;&#123;user, setUser&#125;&#125;&gt;</span><br><span class="line">      &lt;Root&gt;</span><br><span class="line">        &lt;Header done=&#123;isDone&#125; /&gt;</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">          &lt;Route exact path=<span class="string">&quot;/&quot;</span>&gt;</span><br><span class="line">            &lt;HomePage /&gt;</span><br><span class="line">          &lt;/Route&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/posts/:slug&quot;</span>&gt;</span><br><span class="line">            &lt;BlogPost /&gt;</span><br><span class="line">          &lt;/Route&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/new-post&quot;</span>&gt;</span><br><span class="line">            &lt;CreatePage /&gt;</span><br><span class="line">          &lt;/Route&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/login&quot;</span>&gt;</span><br><span class="line">            &lt;LoginPage /&gt;</span><br><span class="line">          &lt;/Route&gt;</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">      &lt;/Root&gt;</span><br><span class="line">    &lt;/AuthContext.Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="useHistory"><a href="#useHistory" class="headerlink" title="useHistory"></a>useHistory</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Link, useLocation, useHistory &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Header</span>(<span class="params">&#123;done&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> location = useLocation();</span><br><span class="line">  <span class="keyword">const</span> history = useHistory();</span><br><span class="line">  <span class="keyword">const</span> &#123; user, setUser &#125; = useContext(AuthContext); </span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleLogout = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    setAuthToken(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    setUser(<span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">if</span> (location.pathname !==  <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">      history.push(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;HeaderConainer&gt;</span><br><span class="line">      &lt;LeftContainer&gt;</span><br><span class="line">        &lt;Brand &gt;部落格&lt;/Brand&gt;</span><br><span class="line">        &lt;NavbarList&gt;</span><br><span class="line">          &lt;Nav to=<span class="string">&quot;/&quot;</span> $active=&#123;location.pathname ===  <span class="string">&quot;/&quot;</span>&#125; &gt;首頁&lt;/Nav&gt;</span><br><span class="line">          &#123; (user &amp;&amp; done)&amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">Nav</span> <span class="attr">to</span>=<span class="string">&quot;/new-post&quot;</span> $<span class="attr">active</span>=<span class="string">&#123;location.pathname</span> ===  <span class="string">&quot;/new-post&quot;</span>&#125; &gt;</span>發佈文章<span class="tag">&lt;/<span class="name">Nav</span>&gt;</span></span>&#125;</span><br><span class="line">        &lt;/NavbarList&gt;</span><br><span class="line">      &lt;/LeftContainer&gt;</span><br><span class="line">      &lt;NavbarList&gt;</span><br><span class="line">        &#123;(!user &amp;&amp; done) &amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">Nav</span> <span class="attr">to</span>=<span class="string">&quot;/login&quot;</span> $<span class="attr">active</span>=<span class="string">&#123;location.pathname</span> ===  <span class="string">&quot;/login&quot;</span>&#125;&gt;</span>登入<span class="tag">&lt;/<span class="name">Nav</span>&gt;</span></span>&#125;</span><br><span class="line">        &#123;(user &amp;&amp; done)  &amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">Nav</span> <span class="attr">to</span>=<span class="string">&quot;#&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;handleLogout&#125;</span>&gt;</span>登出<span class="tag">&lt;/<span class="name">Nav</span>&gt;</span></span>&#125;</span><br><span class="line">      &lt;/NavbarList&gt;</span><br><span class="line">    &lt;/HeaderConainer&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a>Redirect</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Switch, Route, Redirect &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Switch&gt;</span><br><span class="line">      &lt;Route path=<span class="string">&quot;/home&quot;</span>&gt;</span><br><span class="line">        &lt;HomePage /&gt;</span><br><span class="line">      &lt;/Route&gt;</span><br><span class="line">			<span class="comment">// if path &quot;&quot; redirect to &quot;/home</span></span><br><span class="line">      &lt;Redirect <span class="keyword">from</span>=<span class="string">&quot;/&quot;</span> to=<span class="string">&quot;/home&quot;</span> /&gt;</span><br><span class="line">    &lt;/Switch&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="get-parameter-need-route-amp-apos-s-component"><a href="#get-parameter-need-route-amp-apos-s-component" class="headerlink" title="get parameter ( need route&amp;apos;s component)"></a>get parameter ( need route&amp;apos;s component)</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Product</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line">    useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// get parameter</span></span><br><span class="line">        <span class="keyword">const</span> productId = props.match.params.productId;</span><br><span class="line">        loadSingleProduct(productId);</span><br><span class="line">    &#125;, [props]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="react-router-dom-v6"><a href="#react-router-dom-v6" class="headerlink" title="react-router-dom v6"></a>react-router-dom v6</h4><h5 id="BrowserRouter-Routes-element"><a href="#BrowserRouter-Routes-element" class="headerlink" title="BrowserRouter +  Routes + element"></a>BrowserRouter +  Routes + element</h5> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  react-router-dom V6</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter, Routes, Route, Navigate &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">AppRoutes</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;BrowserRouter&gt;</span><br><span class="line">        &#123;<span class="comment">/* react-router-dom v6</span></span><br><span class="line"><span class="comment">				   1. &quot;Switch&quot; is replaced by routes &quot;Routes&quot;</span></span><br><span class="line"><span class="comment">					 2. component put to element */</span>&#125;</span><br><span class="line">        &lt;Routes&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Home</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/signup&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Signup</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/signin&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Signin</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          <span class="comment">// Redirect</span></span><br><span class="line">          &lt;Route path=<span class="string">&quot;/home&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">replace</span> <span class="attr">to</span>=<span class="string">&quot;/&quot;</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">        &lt;/Routes&gt;</span><br><span class="line">      &lt;/BrowserRouter&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="useNavigate"><a href="#useNavigate" class="headerlink" title="useNavigate"></a>useNavigate</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  react-router-dom V6</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Fragment &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link, useNavigate &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Menu = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// add history</span></span><br><span class="line">  <span class="keyword">const</span> history = createBrowserHistory(props);</span><br><span class="line">  <span class="keyword">const</span> navigate = useNavigate();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleSignout = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 指執行 callback function next</span></span><br><span class="line">    signout(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      navigate(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// console.log(&quot;Manu render...&quot;);</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;ul className=<span class="string">&quot;nav nav-tabs bg-primary&quot;</span>&gt;</span><br><span class="line">        &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">          &lt;Link className=<span class="string">&quot;nav-link&quot;</span> style=&#123;isActive(history, <span class="string">&quot;/&quot;</span>)&#125; to=<span class="string">&quot;/&quot;</span>&gt;</span><br><span class="line">            Home</span><br><span class="line">          &lt;/Link&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line"></span><br><span class="line">        &#123;!isAuthenticated() &amp;&amp; (</span><br><span class="line">          &lt;Fragment&gt;</span><br><span class="line">            &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">              &lt;Link</span><br><span class="line">                className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">                style=&#123;isActive(history, <span class="string">&quot;/signup&quot;</span>)&#125;</span><br><span class="line">                to=<span class="string">&quot;/signup&quot;</span></span><br><span class="line">              &gt;</span><br><span class="line">                Signup</span><br><span class="line">              &lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line"></span><br><span class="line">            &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">              &lt;Link</span><br><span class="line">                className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">                style=&#123;isActive(history, <span class="string">&quot;/signin&quot;</span>)&#125;</span><br><span class="line">                to=<span class="string">&quot;/signin&quot;</span></span><br><span class="line">              &gt;</span><br><span class="line">                Signin</span><br><span class="line">              &lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">          &lt;/Fragment&gt;</span><br><span class="line">        )&#125;</span><br><span class="line">        &#123;isAuthenticated() &amp;&amp; (</span><br><span class="line">          &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">            &#123;<span class="comment">/* 因直接執行而不是切到另一頁,使用 span 即可 */</span>&#125;</span><br><span class="line">            &lt;span</span><br><span class="line">              className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">              style=&#123;&#123; <span class="attr">cursor</span>: <span class="string">&quot;pointer&quot;</span>, <span class="attr">color</span>: <span class="string">&quot;#ffffff&quot;</span> &#125;&#125;</span><br><span class="line">              onClick=&#123;handleSignout&#125;</span><br><span class="line">            &gt;</span><br><span class="line">              Signout</span><br><span class="line">            &lt;/span&gt;</span><br><span class="line">          &lt;/li&gt;</span><br><span class="line">        )&#125;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AppRoutes</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;BrowserRouter&gt;</span><br><span class="line">        &lt;Routes&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Home</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/signup&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Signup</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          &lt;Route path=<span class="string">&quot;/signin&quot;</span> element=&#123;<span class="xml"><span class="tag">&lt;<span class="name">Signin</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line">          &lt;Route</span><br><span class="line">            path=<span class="string">&quot;/user/dashboard&quot;</span></span><br><span class="line">            element=&#123;</span><br><span class="line">              &lt;UserRequireAuth&gt;</span><br><span class="line">                &lt;UserDashboard /&gt;</span><br><span class="line">              &lt;/UserRequireAuth&gt;</span><br><span class="line">            &#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/Routes&gt;</span><br><span class="line">      &lt;/BrowserRouter&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 驗證 function()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UserRequireAuth</span>(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  children,</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;: &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  children: JSX.Element,</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> location = useLocation();</span><br><span class="line">  <span class="keyword">if</span> (!isAuthenticated()) &#123;</span><br><span class="line">    <span class="comment">// Redirect them to the /login page, but save the current location they were</span></span><br><span class="line">    <span class="comment">// trying to go to when they were redirected. This allows us to send them</span></span><br><span class="line">    <span class="comment">// along to that page after they login, which is a nicer user experience</span></span><br><span class="line">    <span class="comment">// than dropping them off on the home page.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">to</span>=<span class="string">&quot;/signin&quot;</span> <span class="attr">state</span>=<span class="string">&#123;&#123;</span> <span class="attr">from:</span> <span class="attr">location</span> &#125;&#125; /&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> children;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 顯示內容</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UserDashboard</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (&lt;h2&gt;User Dashboard&lt;h2&gt;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="get-parameter"><a href="#get-parameter" class="headerlink" title="get parameter"></a>get parameter</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useParams &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Product = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> params = useParams();</span><br><span class="line">  </span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// react-router-dom v6 get parameter</span></span><br><span class="line">    <span class="keyword">const</span> productId = params.productId;</span><br><span class="line">    locaSingleProduct(productId);</span><br><span class="line">    <span class="comment">// eslint-disable-next-line react-hooks/exhaustive-deps</span></span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  retrun (...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a><a target="_blank" rel="noopener" href="https://github.com/remix-run/history/blob/8bef6f4d50548f46ab7c97e171b3d8634093e7a7/docs/installation.md">history</a></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createBrowserHistory &#125; <span class="keyword">from</span> <span class="string">&quot;history&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isActive = <span class="function">(<span class="params">history, path</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (history.location.pathname === path) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">color</span>: <span class="string">&quot;#ff9900&quot;</span> &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">color</span>: <span class="string">&quot;#ffffff&quot;</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Menu = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// add history</span></span><br><span class="line">  <span class="keyword">const</span> history = createBrowserHistory(props);</span><br><span class="line">  <span class="keyword">const</span> navigate = useNavigate();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleSignout = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 指執行 callback function next</span></span><br><span class="line">    signout(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      navigate(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// console.log(&quot;Manu render...&quot;);</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;ul className=<span class="string">&quot;nav nav-tabs bg-primary&quot;</span>&gt;</span><br><span class="line">        &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">          &lt;Link className=<span class="string">&quot;nav-link&quot;</span> style=&#123;isActive(history, <span class="string">&quot;/&quot;</span>)&#125; to=<span class="string">&quot;/&quot;</span>&gt;</span><br><span class="line">            Home</span><br><span class="line">          &lt;/Link&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line"></span><br><span class="line">        &#123;!isAuthenticated() &amp;&amp; (</span><br><span class="line">          &lt;Fragment&gt;</span><br><span class="line">            &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">              &lt;Link</span><br><span class="line">                className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">                style=&#123;isActive(history, <span class="string">&quot;/signup&quot;</span>)&#125;</span><br><span class="line">                to=<span class="string">&quot;/signup&quot;</span></span><br><span class="line">              &gt;</span><br><span class="line">                Signup</span><br><span class="line">              &lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line"></span><br><span class="line">            &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">              &lt;Link</span><br><span class="line">                className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">                style=&#123;isActive(history, <span class="string">&quot;/signin&quot;</span>)&#125;</span><br><span class="line">                to=<span class="string">&quot;/signin&quot;</span></span><br><span class="line">              &gt;</span><br><span class="line">                Signin</span><br><span class="line">              &lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">          &lt;/Fragment&gt;</span><br><span class="line">        )&#125;</span><br><span class="line">        &#123;isAuthenticated() &amp;&amp; (</span><br><span class="line">          &lt;li className=<span class="string">&quot;nav-item&quot;</span>&gt;</span><br><span class="line">            &#123;<span class="comment">/* 因直接執行而不是切到另一頁,使用 span 即可 */</span>&#125;</span><br><span class="line">            &lt;span</span><br><span class="line">              className=<span class="string">&quot;nav-link&quot;</span></span><br><span class="line">              style=&#123;&#123; <span class="attr">cursor</span>: <span class="string">&quot;pointer&quot;</span>, <span class="attr">color</span>: <span class="string">&quot;#ffffff&quot;</span> &#125;&#125;</span><br><span class="line">              onClick=&#123;handleSignout&#125;</span><br><span class="line">            &gt;</span><br><span class="line">              Signout</span><br><span class="line">            &lt;/span&gt;</span><br><span class="line">          &lt;/li&gt;</span><br><span class="line">        )&#125;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="braintree-web-drop-in-react-React-component-that-wraps-braintree-web-drop-in"><a href="#braintree-web-drop-in-react-React-component-that-wraps-braintree-web-drop-in" class="headerlink" title="braintree-web-drop-in-react : React component that wraps braintree-web-drop-in"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/braintree-web-drop-in-react">braintree-web-drop-in-react</a> : React component that wraps braintree-web-drop-in</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> DropIn <span class="keyword">from</span> <span class="string">&quot;braintree-web-drop-in-react&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Store</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  instance;</span><br><span class="line"> </span><br><span class="line">  state = &#123;</span><br><span class="line">    clientToken: <span class="literal">null</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Get a client token for authorization from your server</span></span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">&quot;server.test/client_token&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> clientToken = <span class="keyword">await</span> response.json(); <span class="comment">// If returned as JSON string</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      clientToken,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="title">buy</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Send the nonce to your server</span></span><br><span class="line">    <span class="keyword">const</span> &#123; nonce &#125; = <span class="keyword">await</span> <span class="built_in">this</span>.instance.requestPaymentMethod();</span><br><span class="line">    <span class="keyword">await</span> fetch(<span class="string">`server.test/purchase/<span class="subst">$&#123;nonce&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">this</span>.state.clientToken) &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;h1&gt;Loading...&lt;/h1&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;DropIn</span><br><span class="line">            options=&#123;&#123; <span class="attr">authorization</span>: <span class="built_in">this</span>.state.clientToken &#125;&#125;</span><br><span class="line">            onInstance=&#123;<span class="function">(<span class="params">instance</span>) =&gt;</span> (<span class="built_in">this</span>.instance = instance)&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;button onClick=&#123;<span class="built_in">this</span>.buy.bind(<span class="built_in">this</span>)&#125;&gt;Buy&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://reactrouter.com/docs/en/v6">react-router-dom v6 document</a></li>
+<li><a target="_blank" rel="noopener" href="https://v5.reactrouter.com/web/guides/quick-start">react-router-dom v5 document</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/26/react-6/" rel="prev" title="React (Class component)">
+                  <i class="fa fa-chevron-left"></i> React (Class component)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/05/practice-1-1/" rel="next" title="Practice React Ecommerce - Back End">
+                  Practice React Ecommerce - Back End <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/10/28/react-7/";
+    this.page.identifier = "2021/10/28/react-7/";
+    this.page.title = "React module";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

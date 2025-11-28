@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="基本節點 命令執行節點:執行特定任務 傳送郵件(Send Email) 創建紀錄(Create Record) 提出API要求(Make API Request) 取得問自訊息(Get Text Messages) 設定行事曆事件(Set CAlendar Event)   資料傳輸節點:變更或處理傳輸中的資料 資料設定(Set):新增資料(Add fields),變更值(change value">
+<meta property="og:type" content="article">
+<meta property="og:title" content="n8n - local setup">
+<meta property="og:url" content="https://hot5656.github.io/2025/06/19/n8n-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="基本節點 命令執行節點:執行特定任務 傳送郵件(Send Email) 創建紀錄(Create Record) 提出API要求(Make API Request) 取得問自訊息(Get Text Messages) 設定行事曆事件(Set CAlendar Event)   資料傳輸節點:變更或處理傳輸中的資料 資料設定(Set):新增資料(Add fields),變更值(change value">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic1.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic3.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic6.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic7.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic8.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic9.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic10.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic11.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic4.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic5.jpg">
+<meta property="article:published_time" content="2025-06-19T01:44:22.000Z">
+<meta property="article:modified_time" content="2025-09-30T00:37:23.666Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="n8n">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2025/06/19/n8n-1/pic1.jpg">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2025/06/19/n8n-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>n8n - local setup | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">基本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%80%E9%BB%9E"><span class="nav-number">1.1.</span> <span class="nav-text">節點</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issue"><span class="nav-number">2.</span> <span class="nav-text">Issue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows-container-%E4%B8%8D%E8%A6%8B%E4%BA%86"><span class="nav-number">2.1.</span> <span class="nav-text">windows container 不見了</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">3.</span> <span class="nav-text">Install</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tool"><span class="nav-number">3.1.</span> <span class="nav-text">Tool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Template-%E6%A8%A1%E6%9D%BF"><span class="nav-number">3.2.</span> <span class="nav-text">Template(模板)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-Install-Ngrok-Traefix-n8n-SQLITE"><span class="nav-number">3.3.</span> <span class="nav-text">Windows Install(Ngrok + Traefix + n8n + SQLITE)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Docker"><span class="nav-number">3.3.1.</span> <span class="nav-text">安裝 Docker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ngrok-setup-free-account-%E9%99%90%E5%88%B6"><span class="nav-number">3.3.2.</span> <span class="nav-text">Ngrok setup - free account 限制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Trefix-%E8%A8%AD%E5%AE%9A%E5%AF%86%E7%A2%BC"><span class="nav-number">3.3.3.</span> <span class="nav-text">Trefix 設定密碼</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-n8n-env-set-already-%E5%95%9F%E5%8B%95%E6%A8%A1%E6%9D%BF"><span class="nav-number">3.3.4.</span> <span class="nav-text">安裝 n8n(.env set already, 啟動模板)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%99%BB%E5%85%A5-n8n"><span class="nav-number">3.3.5.</span> <span class="nav-text">登入 n8n</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-n8n"><span class="nav-number">3.3.6.</span> <span class="nav-text">更新 n8n</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#command"><span class="nav-number">3.3.7.</span> <span class="nav-text">command</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mac-Install-Ngrok-Traefix-n8n-PostgreSQL"><span class="nav-number">3.4.</span> <span class="nav-text">Mac Install(Ngrok + Traefix + n8n + PostgreSQL)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Docker-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">安裝 Docker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ngrok-setup-free-account-%E9%99%90%E5%88%B6-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">Ngrok setup - free account 限制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Database-User-and-Password-in-env-%E5%8F%AF%E4%B8%8D%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.4.3.</span> <span class="nav-text">Database User and Password in .env(可不設定)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Trefix-%E8%A8%AD%E5%AE%9A%E5%AF%86%E7%A2%BC-1"><span class="nav-number">3.4.4.</span> <span class="nav-text">Trefix 設定密碼</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-n8n-env-set-already-%E5%95%9F%E5%8B%95%E6%A8%A1%E6%9D%BF-1"><span class="nav-number">3.4.5.</span> <span class="nav-text">安裝 n8n(.env set already, 啟動模板)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-n8n-1"><span class="nav-number">3.4.6.</span> <span class="nav-text">更新 n8n</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-to-HuggingFace-Spacess"><span class="nav-number">3.5.</span> <span class="nav-text">install to HuggingFace Spacess</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Issue-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">Issue</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#chrome-can-run-but-brave-cannot-run-change-from-private-to-public"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">chrome can run, but brave cannot run : change from private to public</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-Supabase"><span class="nav-number">3.5.2.</span> <span class="nav-text">set Supabase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-HuggingFace"><span class="nav-number">3.5.3.</span> <span class="nav-text">set HuggingFace</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-upstash"><span class="nav-number">3.5.4.</span> <span class="nav-text">set upstash</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">4.</span> <span class="nav-text">工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Issues"><span class="nav-number">4.1.</span> <span class="nav-text">Issues</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#access-%E4%B8%8D%E5%88%B0-excel-%E2%80%93-gt-%E5%8F%A6%E5%AD%98%E7%82%BA-google-sheet"><span class="nav-number">4.1.1.</span> <span class="nav-text">access 不到 excel –&gt; 另存為 google sheet</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#notes"><span class="nav-number">4.2.</span> <span class="nav-text">notes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workflow-type"><span class="nav-number">4.3.</span> <span class="nav-text">workflow type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wokflow-example"><span class="nav-number">4.4.</span> <span class="nav-text">wokflow example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodes"><span class="nav-number">4.5.</span> <span class="nav-text">nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Edit-Filed-set-%E8%B3%87%E6%96%99%E7%AF%A9%E9%81%B8"><span class="nav-number">4.5.1.</span> <span class="nav-text">Edit Filed(set) : 資料篩選</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#n8n-Form-%E2%80%93-gt-On-n8n-new-Form-Form-%E8%BC%B8%E5%85%A5"><span class="nav-number">4.5.2.</span> <span class="nav-text">n8n Form –&gt; On n8n new Form(Form 輸入)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gooogle-sheet-%E2%80%93-gt-append-or-upddate-row-in-sheet-%E8%B3%87%E6%96%99%E5%AD%98%E5%85%A5-sheet"><span class="nav-number">4.5.3.</span> <span class="nav-text">gooogle sheet –&gt; append or upddate row in sheet(資料存入 sheet)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Filter-%E6%93%8B%E4%B8%8B"><span class="nav-number">4.5.4.</span> <span class="nav-text">Filter(擋下)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flow-gt-Switch-%E5%88%86%E6%B5%81"><span class="nav-number">4.5.5.</span> <span class="nav-text">Flow -&gt; Switch(分流)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gmail-gt-send-a-message"><span class="nav-number">4.5.6.</span> <span class="nav-text">gmail -&gt; send a message</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Merge-%E5%90%88%E4%BD%B5%E8%B3%87%E6%96%99%E6%B5%81"><span class="nav-number">4.5.7.</span> <span class="nav-text">Merge(合併資料流)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prompt-and-code"><span class="nav-number">4.6.</span> <span class="nav-text">Prompt and code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#date-for-now"><span class="nav-number">4.6.1.</span> <span class="nav-text">date for now</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prompt-for-TRUE-or-FALSE"><span class="nav-number">4.6.2.</span> <span class="nav-text">prompt for TRUE or FALSE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prompt-%E8%BF%BD%E8%B9%A4%E4%BF%A1%E4%BB%B6"><span class="nav-number">4.6.3.</span> <span class="nav-text">prompt 追蹤信件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prompt-%E6%8E%A5%E6%B4%BD%E4%BF%A1%E4%BB%B6"><span class="nav-number">4.6.4.</span> <span class="nav-text">prompt 接洽信件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-google-account-to-n8n"><span class="nav-number">4.7.</span> <span class="nav-text">add google account to n8n</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#add-google-Seets-account"><span class="nav-number">4.7.1.</span> <span class="nav-text">add google Seets account</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Create-google-Sheets-account"><span class="nav-number">4.7.2.</span> <span class="nav-text">Create google Sheets account</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Create-google-%E7%9B%AE%E6%A8%99%E5%B0%8D%E8%B1%A1-%E5%A6%82%E4%B8%8A%E9%80%B2%E5%85%A5-OAuth-%E5%90%8C%E6%84%8F%E7%95%AB%E9%9D%A2"><span class="nav-number">4.7.3.</span> <span class="nav-text">Create google 目標對象:如上進入 OAuth 同意畫面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enable-Google-sheet-API"><span class="nav-number">4.7.4.</span> <span class="nav-text">Enable Google sheet API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enable-google-drive-API"><span class="nav-number">4.7.5.</span> <span class="nav-text">Enable google drive API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#google-Sheets-account-Sing"><span class="nav-number">4.7.6.</span> <span class="nav-text">google Sheets account Sing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">5.</span> <span class="nav-text">Other</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">參考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2025/06/19/n8n-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          n8n - local setup
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-06-19 09:44:22" itemprop="dateCreated datePublished" datetime="2025-06-19T09:44:22+08:00">2025-06-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-09-30 08:37:23" itemprop="dateModified" datetime="2025-09-30T08:37:23+08:00">2025-09-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/06/19/n8n-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/06/19/n8n-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>9.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><h4 id="節點"><a href="#節點" class="headerlink" title="節點"></a>節點</h4><ul>
+<li>命令執行節點:執行特定任務<ul>
+<li>傳送郵件(Send Email)</li>
+<li>創建紀錄(Create Record)</li>
+<li>提出API要求(Make API Request)</li>
+<li>取得問自訊息(Get Text Messages)</li>
+<li>設定行事曆事件(Set CAlendar Event)</li>
+</ul>
+</li>
+<li>資料傳輸節點:變更或處理傳輸中的資料<ul>
+<li>資料設定(Set):新增資料(Add fields),變更值(change values),減少資料(reduce data)</li>
+<li>彙總(Aggregate):將資料合併為單一輸出</li>
+<li>合併(Merge):結合兩個來源資料</li>
+</ul>
+</li>
+<li>邏輯節點:條件決策<ul>
+<li>If</li>
+<li>Switch</li>
+<li>Wait</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><ul>
+<li>google cloud</li>
+</ul>
+<h3 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h3><h4 id="windows-container-不見了"><a href="#windows-container-不見了" class="headerlink" title="windows container 不見了"></a>windows container 不見了</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">D:\work_temp\to_run\basic-sqlite v1.0.2\basic-sqlite&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</span><br><span class="line"></span><br><span class="line">D:\work_temp\to_run\basic-sqlite v1.0.2\basic-sqlite&gt;docker ps -a</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</span><br><span class="line"></span><br><span class="line">D:\work_temp\to_run\basic-sqlite v1.0.2\basic-sqlite&gt;docker volume ls</span><br><span class="line">DRIVER    VOLUME NAME</span><br><span class="line"><span class="built_in">local</span>     basic-sqlite_n8n_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># fix container 不見了, -d 容器在背景執行, 終端機不會被佔用</span></span><br><span class="line">D:\work_temp\to_run\basic-sqlite v1.0.2\basic-sqlite&gt;docker-compose up -d</span><br><span class="line">[+] Running 5/5</span><br><span class="line"> ✔ Network basic-sqlite_traefik-public  Created                            0.0s</span><br><span class="line"> ✔ Network basic-sqlite_internal        Created                            0.0s</span><br><span class="line"> ✔ Container basic-sqlite-n8n-1         Started                            0.8s</span><br><span class="line"> ✔ Container basic-sqlite-traefik-1     Started                            0.7s</span><br><span class="line"> ✔ Container basic-sqlite-ngrok-1       Started</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只可以看到, container 以下的 image</span></span><br><span class="line">D:\work_temp\to_run\basic-sqlite v1.0.2\basic-sqlite&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE                COMMAND                   CREATED          STATUS              PORTS                                                                          NAMES</span><br><span class="line">00eed5ad2100   ngrok/ngrok:latest   <span class="string">&quot;/nix/store/1qpvcjc0…&quot;</span>   15 minutes ago   Up About a minute   0.0.0.0:4040-&gt;4040/tcp, [::]:4040-&gt;4040/tcp                                    basic-sqlite-ngrok-1</span><br><span class="line">08e122d2135a   traefik:latest       <span class="string">&quot;/entrypoint.sh --pr…&quot;</span>   15 minutes ago   Up About a minute   0.0.0.0:80-&gt;80/tcp, [::]:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp   basic-sqlite-traefik-1</span><br><span class="line">fb7cede0fd33   n8nio/n8n:latest     <span class="string">&quot;tini -- /docker-ent…&quot;</span>   15 minutes ago   Up About a minute   0.0.0.0:5678-&gt;5678/tcp, [::]:5678-&gt;5678/tcp                                    basic-sqlite-n8n-1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><h4 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h4><ul>
+<li>Ngrok(安全隧道服務):免費但有流量限制<ul>
+<li>將localhost服務變成公開網址工具</li>
+<li>建立安全加密通道，方便外部訪問</li>
+<li>適合測試、演示、臨時共享</li>
+</ul>
+</li>
+<li>Trefix:反向代理服務器<ul>
+<li>智慧型網路流量總管，自動管理路由</li>
+<li>簡單多個後端服務訪問入口</li>
+<li>輕鬆實現 HTTPS 加密與負載平衡</li>
+</ul>
+</li>
+<li>n8n:AI自動化工作留<ul>
+<li>視覺化自動化平台，用節點串接服務與API</li>
+<li>將AI能力嵌入日常工作流程</li>
+<li>開源、可自行部署、掌握控制權</li>
+</ul>
+</li>
+</ul>
+<h4 id="Template-模板"><a href="#Template-模板" class="headerlink" title="Template(模板)"></a>Template(模板)</h4><ol>
+<li>Ngrok + Traefix + n8n + SQLITE</li>
+<li>Ngrok + Traefix + n8n + PostgreSQL(PostgreSQL 工作流可以並行, 提升性能)</li>
+<li>Ngrok + Traefix + n8n + PostgreSQL + pgAdminQL(pgAdminQL 為 PostgreSQL後台)</li>
+</ol>
+<h4 id="Windows-Install-Ngrok-Traefix-n8n-SQLITE"><a href="#Windows-Install-Ngrok-Traefix-n8n-SQLITE" class="headerlink" title="Windows Install(Ngrok + Traefix + n8n + SQLITE)"></a>Windows Install(Ngrok + Traefix + n8n + SQLITE)</h4><h5 id="安裝-Docker"><a href="#安裝-Docker" class="headerlink" title="安裝 Docker"></a>安裝 Docker</h5><p>不用登入(登入可有較多的下載,但目前只下載3個 Ngrok + Traefix + n8n,所以不用登入)</p>
+<h5 id="Ngrok-setup-free-account-限制"><a href="#Ngrok-setup-free-account-限制" class="headerlink" title="Ngrok setup - free account 限制"></a>Ngrok setup - <a target="_blank" rel="noopener" href="https://ngrok.com/pricing">free account 限制</a></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 註冊登入(認證可 skip) --&gt; Docker</span><br><span class="line">2. <span class="string">&quot;Static Domain&quot;</span> 按 Claim yout free static doman(即可產生 Ngrok 給的帳號網址)</span><br><span class="line">3. url 即為 Ngrok 網址</span><br><span class="line">4. copy NGROK_AUTHTOKEN and url, put to .env</span><br><span class="line">	<span class="comment"># Ngrok Settings</span></span><br><span class="line">	NGROK_DOMAIN=your_ngrok_domain</span><br><span class="line">	NGROK_AUTHTOKEN=your_ngrok_authtoken</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:700px">
+    <img src="/2025/06/19/n8n-1/pic1.jpg" class="" title="pic1">
+</div>
+
+<h5 id="Trefix-設定密碼"><a href="#Trefix-設定密碼" class="headerlink" title="Trefix 設定密碼"></a>Trefix 設定密碼</h5><ul>
+<li>產生 MD5 密碼 : <a target="_blank" rel="noopener" href="https://www.md5hashgenerator.com/">Dan’s Tools</a> 輸入任意字串,產生MD5 Hash</li>
+</ul>
+<div style="max-width:700px">
+    <img src="/2025/06/19/n8n-1/pic2.jpg" class="" title="pic2">
+</div>
+
+<ul>
+<li>copy MD5 Hash to .env</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TRAEFIK_DASHBOARD_PASSWORD_HASH=$$apr1$<span class="variable">$MD5_Hash</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="安裝-n8n-env-set-already-啟動模板"><a href="#安裝-n8n-env-set-already-啟動模板" class="headerlink" title="安裝 n8n(.env set already, 啟動模板)"></a>安裝 n8n(.env set already, 啟動模板)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h5 id="登入-n8n"><a href="#登入-n8n" class="headerlink" title="登入 n8n"></a>登入 n8n</h5><ul>
+<li><p>記的驗證,可提供一些功能以後使用</p>
+<div style="max-width:200px">
+  <img src="/2025/06/19/n8n-1/pic3.jpg" class="" title="pic3">
+</div>
+</li>
+<li><p>local <a target="_blank" rel="noopener" href="http://localhost:5678/">http://localhost:5678/</a> 或遠端使用 Ngrok url 登入</p>
+</li>
+</ul>
+<h5 id="更新-n8n"><a href="#更新-n8n" class="headerlink" title="更新 n8n"></a>更新 n8n</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose pull</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="command"><a href="#command" class="headerlink" title="command"></a>command</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wsl command</span></span><br><span class="line"><span class="comment"># need run at C:\Windows\system32&gt;</span></span><br><span class="line">PS C:\Windows\system32&gt; wsl --list</span><br><span class="line">Windows 子系統 Linux 版發佈:</span><br><span class="line">docker-desktop-data (預設值)</span><br><span class="line">Ubuntu-20.04</span><br><span class="line"></span><br><span class="line">PS C:\Windows\system32&gt; wsl --update</span><br><span class="line">正在安裝：Windows 子系統 Linux 版</span><br><span class="line">已完成安裝 Windows 子系統 Linux 版。</span><br><span class="line"></span><br><span class="line">PS C:\Windows\system32&gt; wsl --list</span><br><span class="line">WSL 正在完成升級...</span><br><span class="line">Windows 子系統 Linux 版發佈:</span><br><span class="line">docker-desktop-data (預設)</span><br><span class="line">Ubuntu-20.04</span><br><span class="line"></span><br><span class="line">PS C:\Windows\system32&gt; wsl --list  --verbose</span><br><span class="line">  NAME                   STATE           VERSION</span><br><span class="line">* docker-desktop-data    Stopped         2</span><br><span class="line">  Ubuntu-20.04           Stopped         2</span><br><span class="line"></span><br><span class="line">PS C:\Windows\system32&gt; wsl --version</span><br><span class="line">WSL 版本： 2.5.9.0</span><br><span class="line">核心版本： 6.6.87.2-1</span><br><span class="line">WSLg 版本： 1.0.66</span><br><span class="line">MSRDC 版本： 1.2.6074</span><br><span class="line">Direct3D 版本： 1.611.1-81528511</span><br><span class="line">DXCore 版本： 10.0.26100.1-240331-1435.ge-release</span><br><span class="line">Windows 版本： 10.0.19045.5854</span><br><span class="line"></span><br><span class="line"><span class="comment"># create image</span></span><br><span class="line">docker-compose pull</span><br><span class="line"><span class="comment"># create image + 在背景執行 </span></span><br><span class="line">docker-compose up -d</span><br><span class="line"><span class="comment"># 停止並移除所有服務容器與網路</span></span><br><span class="line">docker-compose down</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出 Docker 容器</span></span><br><span class="line">docker ps        <span class="comment"># 只看正在運行的容器</span></span><br><span class="line">docker ps -a     <span class="comment"># 看所有（包含已停止）的容器</span></span><br><span class="line"><span class="comment"># docker ps example</span></span><br><span class="line">C:\Windows\System32&gt;docker --version</span><br><span class="line">Docker version 28.2.2, build e6534b4</span><br><span class="line"></span><br><span class="line">C:\Windows\System32&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE                COMMAND                   CREATED      STATUS       PORTS                                                                          NAMES</span><br><span class="line">00eed5ad2100   ngrok/ngrok:latest   <span class="string">&quot;/nix/store/1qpvcjc0…&quot;</span>   3 days ago   Up 2 hours   0.0.0.0:4040-&gt;4040/tcp, [::]:4040-&gt;4040/tcp                                    basic-sqlite-ngrok-1</span><br><span class="line">08e122d2135a   traefik:latest       <span class="string">&quot;/entrypoint.sh --pr…&quot;</span>   3 days ago   Up 2 hours   0.0.0.0:80-&gt;80/tcp, [::]:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp   basic-sqlite-traefik-1</span><br><span class="line">fb7cede0fd33   n8nio/n8n:latest     <span class="string">&quot;tini -- /docker-ent…&quot;</span>   3 days ago   Up 2 hours   0.0.0.0:5678-&gt;5678/tcp, [::]:5678-&gt;5678/tcp                                    basic-sqlite-n8n-1</span><br><span class="line"></span><br><span class="line"><span class="comment"># show n8n log</span></span><br><span class="line">C:\Windows\System32&gt;docker logs basic-sqlite-n8n-1</span><br><span class="line">User settings loaded from: /home/node/.n8n/config</span><br><span class="line">Initializing n8n process</span><br><span class="line">n8n ready on ::, port 5678</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mac-Install-Ngrok-Traefix-n8n-PostgreSQL"><a href="#Mac-Install-Ngrok-Traefix-n8n-PostgreSQL" class="headerlink" title="Mac Install(Ngrok + Traefix + n8n + PostgreSQL)"></a>Mac Install(Ngrok + Traefix + n8n + PostgreSQL)</h4><ol>
+<li>command + shift + . 可看到 .env</li>
+<li>右鍵 –&gt; info 才可改檔名</li>
+</ol>
+<h5 id="安裝-Docker-1"><a href="#安裝-Docker-1" class="headerlink" title="安裝 Docker"></a>安裝 Docker</h5><h5 id="Ngrok-setup-free-account-限制-1"><a href="#Ngrok-setup-free-account-限制-1" class="headerlink" title="Ngrok setup - free account 限制"></a>Ngrok setup - <a target="_blank" rel="noopener" href="https://ngrok.com/pricing">free account 限制</a></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. copy NGROK_AUTHTOKEN and url, put to .env</span><br><span class="line">	<span class="comment"># Ngrok Settings</span></span><br><span class="line">	NGROK_DOMAIN=your_ngrok_domain</span><br><span class="line">	NGROK_AUTHTOKEN=your_ngrok_authtoken</span><br></pre></td></tr></table></figure>
+
+<h5 id="Database-User-and-Password-in-env-可不設定"><a href="#Database-User-and-Password-in-env-可不設定" class="headerlink" title="Database User and Password in .env(可不設定)"></a>Database User and Password in .env(可不設定)</h5><h5 id="Trefix-設定密碼-1"><a href="#Trefix-設定密碼-1" class="headerlink" title="Trefix 設定密碼"></a>Trefix 設定密碼</h5><ul>
+<li>產生 MD5 密碼 : <a target="_blank" rel="noopener" href="https://www.md5hashgenerator.com/">Dan’s Tools</a> 輸入任意字串,產生MD5 Hash</li>
+</ul>
+<h5 id="安裝-n8n-env-set-already-啟動模板-1"><a href="#安裝-n8n-env-set-already-啟動模板-1" class="headerlink" title="安裝 n8n(.env set already, 啟動模板)"></a>安裝 n8n(.env set already, 啟動模板)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<h5 id="更新-n8n-1"><a href="#更新-n8n-1" class="headerlink" title="更新 n8n"></a>更新 n8n</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose pull</span><br><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="install-to-HuggingFace-Spacess"><a href="#install-to-HuggingFace-Spacess" class="headerlink" title="install to HuggingFace Spacess"></a>install to HuggingFace Spacess</h4><ul>
+<li>HuggingFace Space + Supabase Progress(n8n postgres)+upstash Redis</li>
+</ul>
+<h5 id="Issue-1"><a href="#Issue-1" class="headerlink" title="Issue"></a>Issue</h5><h6 id="chrome-can-run-but-brave-cannot-run-change-from-private-to-public"><a href="#chrome-can-run-but-brave-cannot-run-change-from-private-to-public" class="headerlink" title="chrome can run, but brave cannot run : change from private to public"></a>chrome can run, but brave cannot run : change from private to public</h6><h5 id="set-Supabase"><a href="#set-Supabase" class="headerlink" title="set Supabase"></a>set Supabase</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. Create a new project(free account 最多兩個),有 Database Password and Project ID</span><br><span class="line">2. project name n8nHugginFace</span><br><span class="line">3. Connect </span><br><span class="line">	--&gt; Connection String </span><br><span class="line">	--&gt; Type SQLAlchemy</span><br><span class="line">  --&gt; Transaction pooler</span><br></pre></td></tr></table></figure>
+
+<h5 id="set-HuggingFace"><a href="#set-HuggingFace" class="headerlink" title="set HuggingFace"></a>set HuggingFace</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1. Space</span><br><span class="line">   --&gt; search <span class="string">&quot;ai+n8n&quot;</span></span><br><span class="line">	 --&gt; Sort: Most likes</span><br><span class="line">	 --&gt; fuliai (較複雜)</span><br><span class="line">	 --&gt; search <span class="string">&quot;N8n&quot;</span></span><br><span class="line">	 --&gt; Sort: Most likes</span><br><span class="line">	 --&gt; baoyin2024 push </span><br><span class="line">   --&gt; 右上角 3點 選 <span class="string">&quot;Duplicate this Space&quot;</span></span><br><span class="line">		<span class="built_in">set</span> : GENERIC_TIMEZONE(Asia/Taipei),TZ(Asia/Taipei),DB_POSTGRESDB_PASSWORD(Database Password), DB_POSTGRESDB_USER(Database user), N8N_ENCRYPTION_KEY(填 n8ntesting 即可),DB_POSTGRESDB_HOST(填 Database host),N8N_EDITOR_BASE_URL(前面修成你的 Owner),WEBHOOK_URL(前面修成你的 Owner),N8N_HOST(前面修成你的 Owner)</span><br><span class="line">    Visibility 可設 Private or Public</span><br><span class="line">    N8N_PORT 為 7860</span><br><span class="line">	--&gt; 按 Duplicate Space(即可開始安裝)</span><br><span class="line">  --&gt; 見 n8n is starting up. Please <span class="built_in">wait</span> </span><br><span class="line">	--&gt; refresh 頁面 即可看到入 n8n 後台</span><br><span class="line">	--&gt; HugginFace Editor 才是真正的後台 link: https://hot5656-n8n-free.hf.space </span><br><span class="line">	--&gt; Files 可見模板之更新狀態 </span><br><span class="line">	--&gt; Settings Factory rebuild 回重新 build (原加入 workflow 會存在)</span><br><span class="line">2. <span class="built_in">test</span> Webhook</span><br><span class="line">	--&gt; add Webhook node</span><br><span class="line">	--&gt; copy production URL</span><br><span class="line">	--&gt; Listen <span class="keyword">for</span> <span class="built_in">test</span> event</span><br><span class="line">	--&gt; post copy to browser + <span class="string">&quot;?name=HC&quot;</span> : show <span class="string">&quot;&#123;&quot;</span>message<span class="string">&quot;:&quot;</span>Workflow was started<span class="string">&quot;&#125;&quot;</span></span><br><span class="line">	--&gt; Webhook query show : name:HC</span><br></pre></td></tr></table></figure>
+<h5 id="set-upstash"><a href="#set-upstash" class="headerlink" title="set upstash"></a>set upstash</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1. Rddis --&gt; Create database</span><br><span class="line">			--&gt; name : n8nHuggingFace</span><br><span class="line">			--&gt; Primary Region : California</span><br><span class="line">			--&gt; Next --&gt; Next</span><br><span class="line">			--&gt; Create</span><br><span class="line">2. n8n add Redis --&gt; Publish message to redis channel </span><br><span class="line">			--&gt; Create new Credetial </span><br><span class="line">			--&gt; Host : upstash endpoint</span><br><span class="line">			    Password : upstash token</span><br><span class="line">					Port : same no change</span><br><span class="line">					SSl : <span class="built_in">enable</span></span><br><span class="line">					User 不用填</span><br><span class="line">			--&gt; Save</span><br><span class="line">3. <span class="built_in">test</span> Redis</span><br><span class="line">	--&gt; add node AI agent</span><br><span class="line">	--&gt; 點 memory pin</span><br><span class="line">	--&gt; Redis Chat Memory</span><br><span class="line">	--&gt; Session Time To Live : 60 (此 session 60s 後刪除)</span><br><span class="line">	    如做 line OA, 客戶 line Id 可和 session key 結合, 可接客戶資訊和對話過程存於 Redis, 當此 session 結束時可將這些東西存到另一個database</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><h4 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h4><h5 id="access-不到-excel-–-gt-另存為-google-sheet"><a href="#access-不到-excel-–-gt-另存為-google-sheet" class="headerlink" title="access 不到 excel –&gt; 另存為 google sheet"></a>access 不到 excel –&gt; 另存為 google sheet</h5><h4 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add work flash</span></span><br><span class="line">點加號 或 按 tab 鍵</span><br><span class="line"></span><br><span class="line"><span class="comment"># node setting</span></span><br><span class="line">1. Retry On Fail : 失敗從試次數間隔</span><br><span class="line">2. On Error : 重試失敗處理方式(stop, mail or other)  </span><br><span class="line"></span><br><span class="line"><span class="comment"># node 命名 : example Get_Task_Data</span></span><br><span class="line"><span class="comment"># 便利貼可做成 workflow block</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># webhook : source 通知變動</span></span><br><span class="line"><span class="comment"># on form : n8n 提供表單填寫</span></span><br><span class="line"><span class="comment"># on chat message : 畫面下層輸入觸發</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="workflow-type"><a href="#workflow-type" class="headerlink" title="workflow type"></a>workflow type</h4><ol>
+<li>非AI工作流程(Workflow) : 表單 –&gt; 建檔分流 –&gt; 寄追蹤信&#x2F;寄會議信 –&gt; 寄通知</li>
+<li>LLM工作流程(Non-Agentic Workflow) : 表單 –&gt; 建檔分流 –&gt; LLM內容生成 –&gt; 寄追蹤信&#x2F;寄會議信 –&gt; 寄通知</li>
+<li>AI代理工作流程(AI-Agentic Workflow) : 表單 –&gt; 建檔分流 –&gt; AI Agent(資料調用,信件撰寫,確認) –&gt; 寄追蹤信&#x2F;寄會議信 –&gt; 寄通知</li>
+</ol>
+<h4 id="wokflow-example"><a href="#wokflow-example" class="headerlink" title="wokflow example"></a>wokflow example</h4><ul>
+<li>fromSheetGmail : n8n form –&gt; response email –&gt; send email to team</li>
+<li>fromSheetLLMGmail : n8n form –&gt; 透過LLM寫信 –&gt; response email –&gt; send email to team</li>
+</ul>
+<h4 id="nodes"><a href="#nodes" class="headerlink" title="nodes"></a>nodes</h4><h5 id="Edit-Filed-set-資料篩選"><a href="#Edit-Filed-set-資料篩選" class="headerlink" title="Edit Filed(set) : 資料篩選"></a>Edit Filed(set) : 資料篩選</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 拖入 name : Englsh</span><br><span class="line">1. 拖入 value : &#123;&#123; <span class="variable">$json</span>.English &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="n8n-Form-–-gt-On-n8n-new-Form-Form-輸入"><a href="#n8n-Form-–-gt-On-n8n-new-Form-Form-輸入" class="headerlink" title="n8n Form –&gt; On n8n new Form(Form 輸入)"></a>n8n Form –&gt; On n8n new Form(Form 輸入)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 輸入格式可選: string,DrodownList,Textarea...</span></span><br><span class="line"><span class="comment"># option -&gt; Append n8n Attribution --&gt; Disable(Form show n8n)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="gooogle-sheet-–-gt-append-or-upddate-row-in-sheet-資料存入-sheet"><a href="#gooogle-sheet-–-gt-append-or-upddate-row-in-sheet-資料存入-sheet" class="headerlink" title="gooogle sheet –&gt; append or upddate row in sheet(資料存入 sheet)"></a>gooogle sheet –&gt; append or upddate row in sheet(資料存入 sheet)</h5><div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic6.jpg" class="" title="pic6">
+</div>
+
+<h5 id="Filter-擋下"><a href="#Filter-擋下" class="headerlink" title="Filter(擋下)"></a>Filter(擋下)</h5><div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic7.jpg" class="" title="pic7">
+</div>
+
+<h5 id="Flow-gt-Switch-分流"><a href="#Flow-gt-Switch-分流" class="headerlink" title="Flow -&gt; Switch(分流)"></a>Flow -&gt; Switch(分流)</h5><div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic8.jpg" class="" title="pic8">
+</div>
+
+<h5 id="gmail-gt-send-a-message"><a href="#gmail-gt-send-a-message" class="headerlink" title="gmail -&gt; send a message"></a>gmail -&gt; send a message</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. google gmail API <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic9.jpg" class="" title="pic9">
+</div>
+
+<h5 id="Merge-合併資料流"><a href="#Merge-合併資料流" class="headerlink" title="Merge(合併資料流)"></a>Merge(合併資料流)</h5><div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic10.jpg" class="" title="pic10">
+</div>
+
+<div style="max-width:300px">
+    <img src="/2025/06/19/n8n-1/pic11.jpg" class="" title="pic11">
+</div>
+
+<h4 id="Prompt-and-code"><a href="#Prompt-and-code" class="headerlink" title="Prompt and code"></a>Prompt and code</h4><h5 id="date-for-now"><a href="#date-for-now" class="headerlink" title="date for now"></a>date for now</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; <span class="variable">$now</span>.format(<span class="string">&#x27;yyyy-MM-dd&#x27;</span>) &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="prompt-for-TRUE-or-FALSE"><a href="#prompt-for-TRUE-or-FALSE" class="headerlink" title="prompt for TRUE or FALSE"></a>prompt for TRUE or FALSE</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 幫我寫一段n8n可以用的單行的&#123;&#123;&#125;&#125;程式,判斷輸入值使否等於<span class="string">&quot;0~200 USD&quot;</span>輸出TRUE, 否則輸出FALSE</span><br><span class="line">2. 我想要輸出 大寫的 TRUE　及　FALSE</span><br><span class="line">    &#123;&#123; <span class="variable">$json</span>.input === <span class="string">&#x27;0~200 USD&#x27;</span> ? <span class="string">&#x27;TRUE&#x27;</span> : <span class="string">&#x27;FALSE&#x27;</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="prompt-追蹤信件"><a href="#prompt-追蹤信件" class="headerlink" title="prompt 追蹤信件"></a>prompt 追蹤信件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 幫我寫一封追蹤信件,目的是確認需求並且隱晦的引領預算到1000+ USD,不超過300字</span><br><span class="line">2. 我要將此信件做成公定格式,讓其他需求可以套用 ..信件內容</span><br><span class="line">3. 我要將此信件做成公定格式,讓其他需求可以套用,請用較模糊的問話方式 ..信件內容</span><br><span class="line">4. 幫我做上述信件HTML 優化</span><br></pre></td></tr></table></figure>
+
+<h5 id="prompt-接洽信件"><a href="#prompt-接洽信件" class="headerlink" title="prompt 接洽信件"></a>prompt 接洽信件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 寫一封積極預約信件,讓對方感受到被重視和急迫性 ..信件內容</span><br><span class="line">2. 幫我優化成非客製模式(可適用於不同產業),我們公司主營自動化,目的為讓客戶主動做會議邀約,簡短切中要點</span><br><span class="line">3. 幫我做上述信件HTML 優化</span><br></pre></td></tr></table></figure>
+
+<h4 id="add-google-account-to-n8n"><a href="#add-google-account-to-n8n" class="headerlink" title="add google account to n8n"></a>add google account to n8n</h4><h5 id="add-google-Seets-account"><a href="#add-google-Seets-account" class="headerlink" title="add google Seets account"></a>add google Seets account</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add workflow --&gt; google sheet get row(s) <span class="keyword">in</span> sheet</span><br><span class="line">					   --&gt; google Seets account </span><br><span class="line">						 --&gt; create new credential</span><br></pre></td></tr></table></figure>
+<div style="max-width:500px">
+    <img src="/2025/06/19/n8n-1/pic4.jpg" class="" title="pic4">
+</div>
+
+<h5 id="Create-google-Sheets-account"><a href="#Create-google-Sheets-account" class="headerlink" title="Create google Sheets account"></a>Create google Sheets account</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">google cloud --&gt; console(控制台) </span><br><span class="line">						 --&gt; 1.API 服務 or 2. 資訊主頁 --&gt; 前往 API 總覽</span><br><span class="line">						 --&gt; OAuth 同意畫面</span><br><span class="line">								第一次專案設定</span><br><span class="line">								應用程式名稱 : 填 n8n</span><br><span class="line">								使用者支援電子郵件 : 填 email 				</span><br><span class="line">								目標應用 : 外部</span><br><span class="line">								聯絡資訊 : 填 email						</span><br><span class="line">								建立</span><br><span class="line">						 --&gt; 用戶端(建立用戶端)																	  </span><br><span class="line">								應用程式類型 : 網頁應用程式</span><br><span class="line">								名稱 : 填 n8n</span><br><span class="line">								已授權的重新導向 URI : 填 copy from google sheets account [Oauth Redirect URL]</span><br><span class="line">								建立</span><br><span class="line">						--&gt; copy 用戶端編號,密碼 填回 Google Sheets account </span><br></pre></td></tr></table></figure>
+<div style="max-width:500px">
+    <img src="/2025/06/19/n8n-1/pic5.jpg" class="" title="pic5">
+</div>
+
+<h5 id="Create-google-目標對象-如上進入-OAuth-同意畫面"><a href="#Create-google-目標對象-如上進入-OAuth-同意畫面" class="headerlink" title="Create google 目標對象:如上進入 OAuth 同意畫面"></a>Create google 目標對象:如上進入 OAuth 同意畫面</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for 測試 設定</span></span><br><span class="line">OAuth 同意畫面 --&gt; 測試使用者</span><br><span class="line">              --&gt; Add user(輸入使用者 google main)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Enable-Google-sheet-API"><a href="#Enable-Google-sheet-API" class="headerlink" title="Enable Google sheet API"></a>Enable Google sheet API</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search google sheets API --&gt; 啟用</span><br></pre></td></tr></table></figure>
+
+<h5 id="Enable-google-drive-API"><a href="#Enable-google-drive-API" class="headerlink" title="Enable google drive API"></a>Enable google drive API</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search google drive API --&gt; 啟用</span><br></pre></td></tr></table></figure>
+
+<h5 id="google-Sheets-account-Sing"><a href="#google-Sheets-account-Sing" class="headerlink" title="google Sheets account Sing"></a>google Sheets account Sing</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">google Seets account --&gt; Update cerdential(pen icon)</span><br><span class="line">										 --&gt; Sign <span class="keyword">in</span> with Google</span><br></pre></td></tr></table></figure>
+
+<pre><code>1:15:27
+</code></pre>
+<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gaoyiping@gaoyipingdeMacBook-Pro minimal-postgres % docker --version</span><br><span class="line">Docker version 28.1.1, build 4eba377</span><br><span class="line"></span><br><span class="line"><span class="comment"># RAG</span></span><br><span class="line">enbedding Model:OpenAi,Google,microsoft 都有</span><br><span class="line"></span><br><span class="line">compress HTML</span><br></pre></td></tr></table></figure>
+<h3 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h3><ul>
+<li>Audio<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aDLsAGuG69c&list=PLHVtEmJ9fgyDWqtZ4I-8PPRXrHupm6_lq&index=4">本地安裝 n8n</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=vvqhzbp4J5A&list=PLHVtEmJ9fgyDWqtZ4I-8PPRXrHupm6_lq&index=2">n8n AI 實作0基礎入門到進階</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ucCamELP8UY">n8n 免費雲端-HuggingFace</a></li>
+</ul>
+</li>
+<li>Tool<ul>
+<li><a target="_blank" rel="noopener" href="https://www.tsjh.ntpc.edu.tw/p/404-1000-6387.php?Lang=zh-tw">微軟注音輸入法］如何輸入中文標點符號</a></li>
+<li><a target="_blank" rel="noopener" href="https://jsoneditoronline.org/">JSON Editor Online</a></li>
+</ul>
+</li>
+<li>n8n<ul>
+<li><a target="_blank" rel="noopener" href="https://n8n.io/integrations/">workflows,nodes,tasks List</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/n8n-io">n8n - Workflow Automation</a></li>
+</ul>
+</li>
+<li>other <ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.google.com/">google cloud</a></li>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/pricing">HuggingFace Price</a></li>
+<li><a target="_blank" rel="noopener" href="https://supabase.com/">Supabase</a></li>
+<li><a target="_blank" rel="noopener" href="https://upstash.com/pricing">upstash price</a> : free 250 MB</li>
+</ul>
+</li>
+</ul>
+<p>Ngrok , <a target="_blank" rel="noopener" href="https://dashboard.ngrok.com/">https://dashboard.ngrok.com/</a>, google</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/n8n/" rel="tag"># n8n</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/05/12/ai-14/" rel="prev" title="AI Application - Vibe coding">
+                  <i class="fa fa-chevron-left"></i> AI Application - Vibe coding
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/28/n8n-2/" rel="next" title="n8n - AI Agents, AI Automations & AI Voice Agents (1)">
+                  n8n - AI Agents, AI Automations & AI Voice Agents (1) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2025/06/19/n8n-1/";
+    this.page.identifier = "2025/06/19/n8n-1/";
+    this.page.title = "n8n - local setup";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

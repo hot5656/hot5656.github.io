@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="1st exampleinstall openai1npm install openai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI 說明">
+<meta property="og:url" content="https://hot5656.github.io/2023/03/09/ai-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="1st exampleinstall openai1npm install openai">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/09/ai-1/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/09/ai-1/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/09/ai-1/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/09/ai-1/pic14.png">
+<meta property="article:published_time" content="2023-03-09T03:39:44.000Z">
+<meta property="article:modified_time" content="2023-05-26T06:43:09.302Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="chatGPT">
+<meta property="article:tag" content="midjounery">
+<meta property="article:tag" content="DALL-E2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2023/03/09/ai-1/pic11.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2023/03/09/ai-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>OpenAI 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1st-example"><span class="nav-number">1.</span> <span class="nav-text">1st example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-openai"><span class="nav-number">1.1.</span> <span class="nav-text">install openai</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#index-js-copy-from-openai"><span class="nav-number">1.2.</span> <span class="nav-text">index.js(copy from openai)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json-add-%E2%80%9Ctype%E2%80%9D-%E2%80%9Cmodule%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">package.json add “type”: “module”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#run"><span class="nav-number">1.4.</span> <span class="nav-text">run</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#course-Content-Creation-with-Midjourney"><span class="nav-number">2.</span> <span class="nav-text">course - Content Creation with Midjourney</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Entering-Effective-prompt"><span class="nav-number">2.1.</span> <span class="nav-text">Entering Effective prompt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#midjourney"><span class="nav-number">3.</span> <span class="nav-text">midjourney</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#login-Discord"><span class="nav-number">3.1.</span> <span class="nav-text">login Discord</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#login-Midjourney"><span class="nav-number">3.2.</span> <span class="nav-text">login Midjourney</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#command"><span class="nav-number">3.3.</span> <span class="nav-text">command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prompt"><span class="nav-number">3.4.</span> <span class="nav-text">prompt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.4.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#parameter"><span class="nav-number">3.4.2.</span> <span class="nav-text">parameter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#option-%E8%87%AA%E8%A8%82-parameter"><span class="nav-number">3.4.3.</span> <span class="nav-text">option(自訂 parameter)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prompt-example"><span class="nav-number">3.4.4.</span> <span class="nav-text">prompt example</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prompt-subset"><span class="nav-number">3.4.5.</span> <span class="nav-text">prompt subset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#special-words"><span class="nav-number">3.4.6.</span> <span class="nav-text">special words</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#How-to-Create-Consistent-Characters-in-Midjourney"><span class="nav-number">3.4.7.</span> <span class="nav-text">How to Create Consistent Characters in Midjourney</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#other-control"><span class="nav-number">3.4.8.</span> <span class="nav-text">other control</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#T-shirt"><span class="nav-number">3.4.9.</span> <span class="nav-text">T-shirt</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web-design"><span class="nav-number">3.4.10.</span> <span class="nav-text">web design</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Midjourney-Web-Design-The-Complete-Prompt-Guide"><span class="nav-number">3.4.10.1.</span> <span class="nav-text">Midjourney Web Design: The Complete Prompt Guide</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#How-to-Build-the-Best-Midjourney-Web-Designs"><span class="nav-number">3.4.10.2.</span> <span class="nav-text">How to Build the Best Midjourney Web Designs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Setup-Your-Own-Midjourney-Server"><span class="nav-number">3.5.</span> <span class="nav-text">Setup Your Own Midjourney Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COMMINITY-FORUMS"><span class="nav-number">3.6.</span> <span class="nav-text">COMMINITY FORUMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chatGPT-generate-prompt"><span class="nav-number">3.7.</span> <span class="nav-text">chatGPT generate prompt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%98%8B%E6%9E%9C%E5%A6%B9"><span class="nav-number">3.7.1.</span> <span class="nav-text">蘋果妹</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#style-reference"><span class="nav-number">3.8.</span> <span class="nav-text">style reference</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Midjourney-Keywords-amp-Styles"><span class="nav-number">3.8.1.</span> <span class="nav-text">Midjourney Keywords &amp; Styles</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#info-record"><span class="nav-number">3.9.</span> <span class="nav-text">info record</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2023-x2F-05-x2F-10"><span class="nav-number">3.9.1.</span> <span class="nav-text">2023&#x2F;05&#x2F;10</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2023-x2F-05-x2F-10-2"><span class="nav-number">3.9.2.</span> <span class="nav-text">2023&#x2F;05&#x2F;10-2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DALL-E2"><span class="nav-number">4.</span> <span class="nav-text">DALL-E2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ideas"><span class="nav-number">5.</span> <span class="nav-text">ideas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tool"><span class="nav-number">6.</span> <span class="nav-text">Tool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2023/03/09/ai-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenAI 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-03-09 11:39:44" itemprop="dateCreated datePublished" datetime="2023-03-09T11:39:44+08:00">2023-03-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2023-05-26 14:43:09" itemprop="dateModified" datetime="2023-05-26T14:43:09+08:00">2023-05-26</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/03/09/ai-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/03/09/ai-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="1st-example"><a href="#1st-example" class="headerlink" title="1st example"></a>1st example</h3><h4 id="install-openai"><a href="#install-openai" class="headerlink" title="install openai"></a>install openai</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install openai</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="index-js-copy-from-openai"><a href="#index-js-copy-from-openai" class="headerlink" title="index.js(copy from openai)"></a>index.js(copy from openai)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const &#123; Configuration, OpenAIApi &#125; = require(&quot;openai&quot;);</span></span><br><span class="line"><span class="keyword">import</span> &#123; Configuration, OpenAIApi &#125; <span class="keyword">from</span> <span class="string">&quot;openai&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> configuration = <span class="keyword">new</span> Configuration(&#123;</span><br><span class="line">  apiKey: <span class="string">&quot;copy key from openai&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> openai = <span class="keyword">new</span> OpenAIApi(configuration);</span><br><span class="line"><span class="keyword">const</span> response = <span class="keyword">await</span> openai.createCompletion(&#123;</span><br><span class="line">  model: <span class="string">&quot;text-davinci-003&quot;</span>,</span><br><span class="line">  prompt: <span class="string">&quot;Say this is a test&quot;</span>,</span><br><span class="line">  max_tokens: <span class="number">7</span>,</span><br><span class="line">  temperature: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(response.data)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Configuration, OpenAIApi &#125; <span class="keyword">from</span> <span class="string">&quot;openai&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> configuration = <span class="keyword">new</span> Configuration(&#123;</span><br><span class="line">  apiKey: <span class="string">&quot;copy key from openai&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> openai = <span class="keyword">new</span> OpenAIApi(configuration);</span><br><span class="line"></span><br><span class="line"><span class="comment">// give chatGPT role</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;should i get fishing&quot;</span></span><br><span class="line"><span class="keyword">const</span> response = <span class="keyword">await</span> openai.createCompletion(&#123;</span><br><span class="line">  model: <span class="string">&quot;text-davinci-003&quot;</span>,</span><br><span class="line">  prompt: <span class="string">`Pretend ypu are Steve Jobs. Answer with motivation content.</span></span><br><span class="line"><span class="string">Stevn: How can I help you today?</span></span><br><span class="line"><span class="string">Person: I want some motivation.</span></span><br><span class="line"><span class="string">Steve: You are amazing, you can create any tyoe of business you want.</span></span><br><span class="line"><span class="string">Person: <span class="subst">$&#123;message&#125;</span></span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  max_tokens: <span class="number">100</span>,</span><br><span class="line">  temperature: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(response.data)</span><br></pre></td></tr></table></figure>
+
+<h4 id="package-json-add-“type”-“module”"><a href="#package-json-add-“type”-“module”" class="headerlink" title="package.json add “type”: “module”"></a>package.json add “type”: “module”</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;module&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;openai&quot;</span>: <span class="string">&quot;^3.2.1&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="run"><a href="#run" class="headerlink" title="run"></a>run</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">D:\work\run\openapi&gt;node index.js</span><br><span class="line">&#123;</span><br><span class="line">  id: <span class="string">&#x27;cmpl-6s1VJXc3rceBSkKcEszIe4Mwgyeir&#x27;</span>,</span><br><span class="line">  object: <span class="string">&#x27;text_completion&#x27;</span>,</span><br><span class="line">  created: 1678333513,</span><br><span class="line">  model: <span class="string">&#x27;text-davinci-003&#x27;</span>,</span><br><span class="line">  choices: [</span><br><span class="line">    &#123;</span><br><span class="line">      text: <span class="string">&#x27;\n\nThis is indeed a test&#x27;</span>,</span><br><span class="line">      index: 0,</span><br><span class="line">      logprobs: null,</span><br><span class="line">      finish_reason: <span class="string">&#x27;length&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  usage: &#123; prompt_tokens: 5, completion_tokens: 7, total_tokens: 12 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="course-Content-Creation-with-Midjourney"><a href="#course-Content-Creation-with-Midjourney" class="headerlink" title="course - Content Creation with Midjourney"></a><a target="_blank" rel="noopener" href="https://www.udemy.com/course/content-creation-with-midjourney/">course - Content Creation with Midjourney</a></h3><h4 id="Entering-Effective-prompt"><a href="#Entering-Effective-prompt" class="headerlink" title="Entering Effective prompt"></a>Entering Effective prompt</h4><ul>
+<li>Be Specific(具體)</li>
+<li>Command List (midjourney command)</li>
+<li>include context(上下文)</li>
+<li>Take advantage of images database(參考其他生成圖像)</li>
+</ul>
+<h3 id="midjourney"><a href="#midjourney" class="headerlink" title="midjourney"></a>midjourney</h3><h4 id="login-Discord"><a href="#login-Discord" class="headerlink" title="login Discord"></a><a target="_blank" rel="noopener" href="https://discord.com/">login Discord</a></h4><h4 id="login-Midjourney"><a href="#login-Midjourney" class="headerlink" title="login Midjourney"></a><a target="_blank" rel="noopener" href="https://www.midjourney.com/auth/signin/">login Midjourney</a></h4><h4 id="command"><a href="#command" class="headerlink" title="command"></a>command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># info : see account information</span></span><br><span class="line">/info</span><br><span class="line"></span><br><span class="line"><span class="comment"># image generate</span></span><br><span class="line">/imagine prompt:</span><br><span class="line"></span><br><span class="line"><span class="comment"># show setting</span></span><br><span class="line">/settings </span><br><span class="line"></span><br><span class="line">回推這張圖片的提示詞</span><br><span class="line">/describe</span><br></pre></td></tr></table></figure>
+
+<h4 id="prompt"><a href="#prompt" class="headerlink" title="prompt"></a>prompt</h4><h5 id=""><a href="#" class="headerlink" title=""></a></h5><ul>
+<li>主題跟背景</li>
+<li>風格與媒介:插畫,平面設計,照片(illustraion,painting,phtograph)</li>
+<li>顏色與氛圍</li>
+</ul>
+<h5 id="parameter"><a href="#parameter" class="headerlink" title="parameter"></a>parameter</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主題, 畫風, 顏色/光線, 作畫模式 ....(&quot;, &quot; 分開)</span></span><br><span class="line"><span class="comment"># ===========================================</span></span><br><span class="line"><span class="comment"># --v 1,--v 2,--v 3,--v 4,--v 5,--v 5.1,--niji 4,--niji 5 </span></span><br><span class="line"><span class="comment"># --v 4 : version 4 (好像比較華麗,有氛圍感)</span></span><br><span class="line"><span class="comment"># --v 5 : version 5 (比較逼真)</span></span><br><span class="line"><span class="comment"># --v 5.1 : 帶個人觀點,短的prompt校變更好,較像V5</span></span><br><span class="line"><span class="comment"># --niji 4,--niji 5 : 漫畫風格</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># raw mode:較像v5,擅長處理很長的prompt</span></span><br><span class="line"><span class="comment"># --style raw: 僅 v 5.1 提供, 強調盡量符合使用者提示</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --q .5 :　Quality, changes how much time is spent generating an image(精細程度)</span></span><br><span class="line"><span class="comment">#     .25, .5, and 1(default),2</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --s 0-1000 : Stylize - 數值愈大藝術性越高(與提示相關越小)</span></span><br><span class="line"><span class="comment">#     Low stylization values produce images that closely match the prompt but are less artistic.</span></span><br><span class="line"><span class="comment">#     High stylization values create images that are very artistic but less connected to the prompt.</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># remix mode: Variations 可輸入提示</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --ar 16:10 : 比例</span></span><br><span class="line"><span class="comment">#     --ar 16:10 A computer screen might have a ratio of</span></span><br><span class="line"><span class="comment">#     --ar 1:1 Default aspect ratio.</span></span><br><span class="line"><span class="comment">#     --ar 5:4 Common frame and print ratio.</span></span><br><span class="line"><span class="comment">#     --ar 3:2 Common in print photography.</span></span><br><span class="line"><span class="comment">#     --ar 7:4 Close to HD TV screens and smartphone screens. </span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --no leaf : 不要什麼元素(葉子)</span></span><br><span class="line"><span class="comment"># --no water trees</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># 提示圖像: 1.load picture, 2.drop to command, 3.add other promp </span></span><br><span class="line"><span class="comment"># --iw:.5~2(v5), 越大相關性越高</span></span><br><span class="line"><span class="comment"># prompt example: /imagine prompt flowers.jpg birthday cake --iw .5</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># ::多提示</span></span><br><span class="line"><span class="comment"># hot:: dog produced a dog that is hot. </span></span><br><span class="line"><span class="comment"># hot::2, dog::1 = makes the word hot twice as important as the word dog</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># /blend :混和兩張圖</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --seed :　0–4294967295，uses a seed number to create a field of visual noise,相同的數值可產生相近的圖</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># video only support version 3 (4 and 5 not support, add envolope can see it)</span></span><br><span class="line"><span class="comment"># a hacker sitting in front of a computer::3, and hacking:2, in a dock enviornment, duotone green::3 and blcke::1 --video --v 3 </span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --chaos</span></span><br><span class="line"><span class="comment"># --c 0-100 : 數字愈高畫風愈特別</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --repeat 4 : 重複送出4次</span></span><br><span class="line"><span class="comment"># =========================================== </span></span><br><span class="line"><span class="comment"># --seed :取得這張圖的編號</span></span><br><span class="line"><span class="comment"># --iw 0.9 : Image Weight(圖像佔有的比重)</span></span><br><span class="line"><span class="comment"># --niji :　二次元化（不能同時用-iw)</span></span><br><span class="line"><span class="comment"># --video : create a short movie</span></span><br><span class="line"><span class="comment"># ============================</span></span><br><span class="line"><span class="comment"># --stop : accepts values: 10–100, 較小值產生模糊效果</span></span><br><span class="line"><span class="comment"># --tile : generates images that can be used as repeating </span></span><br><span class="line"><span class="comment"># --r : parameter runs a Job multiple times</span></span><br><span class="line"><span class="comment">#      --repeat is available for Standard and Pro subscribers</span></span><br><span class="line"><span class="comment">#      --repeat accepts values 2–10 for Standard subscribers.</span></span><br><span class="line"><span class="comment">#      --repeat accepts values 2–40 for Pro subscribers.</span></span><br><span class="line"><span class="comment"># ============================</span></span><br><span class="line"><span class="comment"># yellow palette : 黃色風格</span></span><br><span class="line"><span class="comment"># octane render : 3D</span></span><br><span class="line"><span class="comment"># =============================</span></span><br><span class="line"><span class="comment"># --test --creative : 官方測試較細膩(不知是否還有用)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="option-自訂-parameter"><a href="#option-自訂-parameter" class="headerlink" title="option(自訂 parameter)"></a>option(自訂 parameter)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --cb : color book</span></span><br><span class="line"><span class="comment"># vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 </span></span><br><span class="line">/prefer option <span class="built_in">set</span> option:cb    value:vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 </span><br><span class="line"><span class="comment"># outline border, vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3</span></span><br><span class="line">/prefer option <span class="built_in">set</span> option:cb    value:outline border, vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3 </span><br><span class="line"></span><br><span class="line"><span class="comment"># list option</span></span><br><span class="line">/prefer option list </span><br><span class="line">	wallpaper: --w 1920 --h 1024 --hd</span><br><span class="line">	cb: vector lines style of comic, style of coloring book, thick, clear, lines, black, and white --ar 2:3</span><br></pre></td></tr></table></figure>
+
+<h5 id="prompt-example"><a href="#prompt-example" class="headerlink" title="prompt example"></a>prompt example</h5><ul>
+<li>t-shirt design graphic of a synth-wave chicken wearing sunglasses in front of a minimalistic sunset with a contour and dark background –no mockup –v 4</li>
+</ul>
+<h5 id="prompt-subset"><a href="#prompt-subset" class="headerlink" title="prompt subset"></a>prompt subset</h5><ul>
+<li>Andreas Achenbach style</li>
+</ul>
+<h5 id="special-words"><a href="#special-words" class="headerlink" title="special words"></a>special words</h5><ul>
+<li><p>32 bit isometric : 3D</p>
+</li>
+<li><p>water sketch : 水素描</p>
+</li>
+<li><p>movie poster : 電影海報</p>
+</li>
+<li><p>anime : 動畫</p>
+</li>
+<li><p>minimalist : 極簡主義</p>
+</li>
+<li><p>8k</p>
+</li>
+<li><p>softly blended hues : 柔和的混合色調</p>
+</li>
+<li><p>timeless beauty : 永恆的美麗</p>
+</li>
+<li><p>Photobash : 照片</p>
+</li>
+<li><p>32k uhd : 超高清 </p>
+</li>
+<li><p>realistic : 寫實</p>
+</li>
+<li><p>desertwave : 沙漠波</p>
+</li>
+<li><p>reportage style : 報導文學風格</p>
+</li>
+<li><p>Wide-angle lens : 廣角鏡頭</p>
+</li>
+<li><p>–q 2 : 高精細程度</p>
+</li>
+<li><p>–style raw : 盡量符合使用者提示(v 5.1)</p>
+</li>
+<li><p>–ar 4:3 : 相片比例</p>
+</li>
+<li><p>–v 5.1</p>
+</li>
+<li><p>Simple and engaging : 簡單而引人入勝</p>
+</li>
+<li><p>low - detailed illustrations : 低細節圖</p>
+</li>
+<li><p>black and white coloring page for kids cartoon</p>
+</li>
+</ul>
+<h5 id="How-to-Create-Consistent-Characters-in-Midjourney"><a href="#How-to-Create-Consistent-Characters-in-Midjourney" class="headerlink" title="How to Create Consistent Characters in Midjourney"></a>How to Create Consistent Characters in Midjourney</h5><ul>
+<li>draw 1 charater likest, –ar 3:2 the upscare</li>
+<li>Upload Your Image</li>
+<li>…, full body image –ar 3:2 </li>
+<li>get seed : seed 1083266338( give name Magnus)</li>
+</ul>
+<h5 id="other-control"><a href="#other-control" class="headerlink" title="other control"></a>other control</h5><ul>
+<li>develop : 可收到4張分開圖,及 seed 值</li>
+</ul>
+<h5 id="T-shirt"><a href="#T-shirt" class="headerlink" title="T-shirt"></a>T-shirt</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Etsy</span><br><span class="line">2000</span><br><span class="line"></span><br><span class="line">+ [Etsy](https:&#x2F;&#x2F;www.etsy.com&#x2F;)</span><br><span class="line">+ [TMhunt](http:&#x2F;&#x2F;tmhunt.com&#x2F;]): check trademark</span><br><span class="line">+ [replicate nightmareai](https:&#x2F;&#x2F;replicate.com&#x2F;nightmareai&#x2F;real-esrgan): 放大 size</span><br><span class="line">	T-shirt: 1024*6</span><br><span class="line">	W:4500, H:5400, resolution:300, orientation:portrait mode,</span><br><span class="line">	DPI </span><br><span class="line">Kittl</span><br><span class="line">Canva</span><br><span class="line">photopea</span><br></pre></td></tr></table></figure>
+
+<h5 id="web-design"><a href="#web-design" class="headerlink" title="web design"></a>web design</h5><h6 id="Midjourney-Web-Design-The-Complete-Prompt-Guide"><a href="#Midjourney-Web-Design-The-Complete-Prompt-Guide" class="headerlink" title="Midjourney Web Design: The Complete Prompt Guide"></a><a target="_blank" rel="noopener" href="https://aituts.com/midjourney-web-design/">Midjourney Web Design: The Complete Prompt Guide</a></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># web design for... or modern web design for...</span></span><br><span class="line"><span class="comment">#   web design for a generic SaaS startup --ar 3:2</span></span><br><span class="line"><span class="comment">#   web design for a flight discount service</span></span><br><span class="line"><span class="comment">#   web design for a flight discount service --no shading realism photo details</span></span><br><span class="line"><span class="comment"># Use &quot;--ar 3:2&quot; if you are creating web designs</span></span><br><span class="line"><span class="comment">#   web design for a plant database, minimal vector flat --no photo detail realistic</span></span><br><span class="line"><span class="comment">#   web design for a plant database, minimal vector flat --no photo detail realistic --ar 3:2</span></span><br><span class="line"><span class="comment">#   web design for a plant database, minimal vector flat --no photo detail realistic</span></span><br><span class="line"><span class="comment">#   web design for a plant database, minimal vector flat --no photo detail realistic --ar 3:2</span></span><br><span class="line"><span class="comment"># To frame or not to frame? - macbook m1 mockup (macbook m1 樣機)</span></span><br><span class="line"><span class="comment">#   web design for a hotel website --no shading realism details --seed 1024912</span></span><br><span class="line"><span class="comment">#   web design for a hotel website macbook m1 mockup --no shading realism details --seed 1024912</span></span><br><span class="line"><span class="comment"># Design only device - computer window </span></span><br><span class="line"><span class="comment">#   web design for a flight discount service --no shading realism photo details --seed 1024912</span></span><br><span class="line"><span class="comment">#   web design for a flight discount service --no shading realism photo details device computer window --seed 1024912</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="How-to-Build-the-Best-Midjourney-Web-Designs"><a href="#How-to-Build-the-Best-Midjourney-Web-Designs" class="headerlink" title="How to Build the Best Midjourney Web Designs"></a><a target="_blank" rel="noopener" href="https://www.saplingcorp.com/journals/20/midjourney-web-design-prompts">How to Build the Best Midjourney Web Designs</a></h6><h4 id="Setup-Your-Own-Midjourney-Server"><a href="#Setup-Your-Own-Midjourney-Server" class="headerlink" title="Setup Your Own Midjourney Server"></a>Setup Your Own Midjourney Server</h4><div style="max-width:700px">
+    <img src="/2023/03/09/ai-1/pic11.png" class="" title="pic11">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/03/09/ai-1/pic12.png" class="" title="pic12">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/03/09/ai-1/pic13.png" class="" title="pic13">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/03/09/ai-1/pic14.png" class="" title="pic14">
+</div>
+
+<h4 id="COMMINITY-FORUMS"><a href="#COMMINITY-FORUMS" class="headerlink" title="COMMINITY FORUMS"></a>COMMINITY FORUMS</h4><ul>
+<li>prompt-faqs</li>
+</ul>
+<h4 id="chatGPT-generate-prompt"><a href="#chatGPT-generate-prompt" class="headerlink" title="chatGPT generate prompt"></a>chatGPT generate prompt</h4><h5 id="蘋果妹"><a href="#蘋果妹" class="headerlink" title="蘋果妹"></a>蘋果妹</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I&#39;m using an image generating ai called Midjourney. I want you to act as a Midjourney prompt generator.I will add&#x2F;before the subject I want to generate. you are going generate</span><br><span class="line">appropriate prompts under different circumstances, For example, if I type &#x2F;sports shoes</span><br><span class="line">product image, you are going to generate prompts like&quot;Realistic true details photography</span><br><span class="line">of sports shoes, y2k, lively, bright colors, product photography, Sony A7R IV, clean sharp</span><br><span class="line">focus&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="style-reference"><a href="#style-reference" class="headerlink" title="style reference"></a>style reference</h4><h5 id="Midjourney-Keywords-amp-Styles"><a href="#Midjourney-Keywords-amp-Styles" class="headerlink" title="Midjourney Keywords &amp; Styles"></a><a target="_blank" rel="noopener" href="https://marigoldguide.notion.site/marigoldguide/52ac9968a8da4003a825039022561a30?v=a697f852c05840478b8b504da455cfef">Midjourney Keywords &amp; Styles</a></h5><h4 id="info-record"><a href="#info-record" class="headerlink" title="info record"></a>info record</h4><h5 id="2023-x2F-05-x2F-10"><a href="#2023-x2F-05-x2F-10" class="headerlink" title="2023&#x2F;05&#x2F;10"></a>2023&#x2F;05&#x2F;10</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Subscription: Basic (Active monthly, renews next on 2023年5月23日 11:54)</span><br><span class="line">Job Mode: Fast</span><br><span class="line">Visibility Mode: Public</span><br><span class="line">Fast Time Remaining: 107.72&#x2F;200.0 minutes (53.86%)</span><br><span class="line">Lifetime Usage: 158 images (3.81 hours)</span><br><span class="line">Relaxed Usage: 0 images (0.00 hours)</span><br><span class="line"></span><br><span class="line">Queued Jobs (fast): 0</span><br><span class="line">Queued Jobs (relax): 0</span><br><span class="line">Running Jobs: None</span><br></pre></td></tr></table></figure>
+
+<h5 id="2023-x2F-05-x2F-10-2"><a href="#2023-x2F-05-x2F-10-2" class="headerlink" title="2023&#x2F;05&#x2F;10-2"></a>2023&#x2F;05&#x2F;10-2</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Subscription: Basic (Active monthly, renews next on 2023年5月23日 11:54)</span><br><span class="line">Job Mode: Fast</span><br><span class="line">Visibility Mode: Public</span><br><span class="line">Fast Time Remaining: 106.90&#x2F;200.0 minutes (53.45%)</span><br><span class="line">Lifetime Usage: 159 images (3.82 hours)</span><br><span class="line">Relaxed Usage: 0 images (0.00 hours)</span><br><span class="line"></span><br><span class="line">Queued Jobs (fast): 0</span><br><span class="line">Queued Jobs (relax): 0</span><br><span class="line">Running Jobs: None</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="DALL-E2"><a href="#DALL-E2" class="headerlink" title="DALL-E2"></a><a target="_blank" rel="noopener" href="https://openai.com/product/dall-e-2">DALL-E2</a></h3><h3 id="ideas"><a href="#ideas" class="headerlink" title="ideas"></a>ideas</h3><ul>
+<li>chatgpt midjourney picture book <ul>
+<li>children story book<ul>
+<li><a target="_blank" rel="noopener" href="https://bookbolt.io/">bookbolt</a>:research</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Tool"><a href="#Tool" class="headerlink" title="Tool"></a>Tool</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo">ChatGPT Prompt Genius</a>: Discover, share, import, and use the best prompts for ChatGPT</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/chatgpt-for-google/jgjaeacdkonaoafenlfkkkmbaopkbilf">ChatGPT for Google</a>: google search 同時問 chatGPT</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/webchatgpt-chatgpt-with-i/lpfemeioodjbpieminkklglpmhlngfcn">WebChatGPT</a>: 在ChatGPT上問了一個問題，它就會到Google上搜尋數條相關的連結，並把這些資料整理成一段簡短的敘述</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/aiprm-for-chatgpt/ojnbohmppadfgpejeebfnmnknjdlckgj">AIPRM for ChatGPT</a>: Prompts for ChatGPT</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/summarize/lmhkmibdclhibdooglianggbnhcbcjeh/related">Summarizied</a>: 對網頁產生摘要</li>
+</ul>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://platform.openai.com/">OpenAI</a></li>
+<li><a target="_blank" rel="noopener" href="https://showgpt.co/">showGPT.co</a></li>
+<li><a target="_blank" rel="noopener" href="https://prompt.noonshot.com/">MidJourney Prompt Helper</a></li>
+<li><a target="_blank" rel="noopener" href="https://openart.ai/discovery">OpenArt</a></li>
+<li>Othet AI<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hjtpP2QyZu0">Midjourney免費替代！Leonardo AI</a></li>
+<li><a target="_blank" rel="noopener" href="https://leonardo.ai/">Leonardo.Ai</a></li>
+<li><a target="_blank" rel="noopener" href="https://nijijourney.com/zh/">niji journey</a>:動漫風格</li>
+<li><a target="_blank" rel="noopener" href="https://beta.dreamstudio.ai/generate">DreamStudio</a></li>
+<li><a target="_blank" rel="noopener" href="https://playgroundai.com/">Playground AI</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bing.com/images/create?form=FLPGEN">Bing Image Creator</a></li>
+</ul>
+</li>
+<li>Create Content Tool<ul>
+<li>Generate Script<ul>
+<li><a target="_blank" rel="noopener" href="https://chat.openai.com/">chatGPT</a></li>
+</ul>
+</li>
+<li>Convert Serval image to a video<ul>
+<li><a target="_blank" rel="noopener" href="https://pictory.ai/pricing">Pictory</a></li>
+</ul>
+</li>
+<li>Convert text to audio<ul>
+<li><a target="_blank" rel="noopener" href="https://beta.elevenlabs.io/">ElevenLabs</a></li>
+</ul>
+</li>
+<li>Other <ul>
+<li><a target="_blank" rel="noopener" href="https://www.veed.io/create/photo-video-maker">Photo Video Maker</a>:image+script –&gt; video</li>
+<li><a target="_blank" rel="noopener" href="https://elai.io/">elai</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Thumbnail tool<ul>
+<li><a target="_blank" rel="noopener" href="https://picsart.com/">picsart</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.picmaker.com/youtube-thumbnail-maker">picmaker</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.fotor.com/design/youtube-thumbnail.html">fotor</a></li>
+</ul>
+</li>
+<li>Midjounery Prompt tool<ul>
+<li><a target="_blank" rel="noopener" href="https://prompt.noonshot.com/">MidJourney Prompt Helper-noonshot</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.futuretools.io/tools/midjourney">Midjourney-futuretools</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.midjourney.com/showcase/recent/">Community Showcase</a></li>
+</ul>
+</li>
+<li>Midjounery Prompt<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.midjourney.com/docs/parameter-list?ref=blog.chichu.co">Midjounery Parameter List</a></li>
+<li><a target="_blank" rel="noopener" href="https://prompthero.com/">Prompt Hero</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/mlearning-ai/an-advanced-guide-to-writing-prompts-for-midjourney-text-to-image-aa12a1e33b6">An advanced guide to writing prompts for Midjourney</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.midlibrary.io/">midjourney library styles</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/willwulfken/MidJourney-Styles-and-Keywords-Reference">MidJourney-Styles-and-Keywords-Reference</a></li>
+</ul>
+</li>
+<li>Sell<ul>
+<li><a target="_blank" rel="noopener" href="https://analogdreams.threadless.com/">Analog Dreams</a></li>
+</ul>
+</li>
+<li>Web Design <ul>
+<li><a target="_blank" rel="noopener" href="https://aituts.com/midjourney-web-design/">Midjourney Web Design: The Complete Prompt Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://prompts.aituts.com/web-design-mockups-with-device">Web Design Mockups With Device</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.saplingcorp.com/journals/20/midjourney-web-design-prompts">How to Build the Best Midjourney Web Designs</a></li>
+<li><a target="_blank" rel="noopener" href="https://bootcamp.uxdesign.cc/midjourney-prompts-to-create-outstanding-ui-design-ef947bf63007">40+Midjourney Prompts to Create Outstanding UI Design</a></li>
+<li><a target="_blank" rel="noopener" href="https://wgmimedia.com/how-to-make-a-website-with-midjourney/">How To Make A Website Look Professional With Midjourney</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/geekculture/how-to-create-a-website-design-using-midjourney-fe0d784ba716">How To Create A Website Design Using Midjourney</a></li>
+<li><a target="_blank" rel="noopener" href="https://lexica.art/prompt/e69892f5-348d-4afc-875a-ef9efb2b0e3c">Lexica</a></li>
+</ul>
+</li>
+<li>Logo Design<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ebaqdesign.com/blog/midjourney-logo-design">How To Use Midjourney For Logo Design</a></li>
+</ul>
+</li>
+<li>Landing page<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.hubspot.com/marketing/landing-page-examples-list">21 of the Best Landing Page Design Examples You Need to See in 2022</a></li>
+<li><a target="_blank" rel="noopener" href="https://99designs.com/blog/creative-inspiration/landing-page-design-inspiration/">54 inspiring landing page design ideas</a></li>
+<li><a target="_blank" rel="noopener" href="https://onepagelove.com/inspiration/landing-page">Top Landing Page Website Inspiration</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/chatGPT/" rel="tag"># chatGPT</a>
+              <a href="/tags/midjounery/" rel="tag"># midjounery</a>
+              <a href="/tags/DALL-E2/" rel="tag"># DALL-E2</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/07/book-1/" rel="prev" title="Amazon KDP">
+                  <i class="fa fa-chevron-left"></i> Amazon KDP
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/20/ai-2/" rel="next" title="chatgpt for coding">
+                  chatgpt for coding <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2023/03/09/ai-1/";
+    this.page.identifier = "2023/03/09/ai-1/";
+    this.page.title = "OpenAI 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="install flutter download flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter setup for Mac">
+<meta property="og:url" content="https://hot5656.github.io/2024/12/30/flutter-5/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="install flutter download flutter">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic10.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic6.png">
+<meta property="article:published_time" content="2024-12-30T02:32:24.000Z">
+<meta property="article:modified_time" content="2025-05-19T00:09:27.197Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="flutter">
+<meta property="article:tag" content="mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2024/12/30/flutter-5/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2024/12/30/flutter-5/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Flutter setup for Mac | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#install-flutter"><span class="nav-number">1.</span> <span class="nav-text">install flutter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio"><span class="nav-number">2.</span> <span class="nav-text">Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting"><span class="nav-number">2.1.</span> <span class="nav-text">Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Setting-Emulator-mode"><span class="nav-number">2.1.1.</span> <span class="nav-text">Setting Emulator mode</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew-install"><span class="nav-number">2.2.</span> <span class="nav-text">Homebrew install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew-install-%E2%80%93-gt-remove"><span class="nav-number">2.3.</span> <span class="nav-text">Homebrew install –&gt; remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#download-install"><span class="nav-number">2.4.</span> <span class="nav-text">download install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#download-install-%E2%80%93-gt-remove"><span class="nav-number">2.5.</span> <span class="nav-text">download install –&gt; remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simple-test-Android"><span class="nav-number">2.6.</span> <span class="nav-text">simple test(Android)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simple-test-iOS-need-install-Xcode-and-CocoaPods-complete"><span class="nav-number">2.7.</span> <span class="nav-text">simple test(iOS-need install Xcode and CocoaPods complete)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">3.</span> <span class="nav-text">Xcode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">3.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Xcode"><span class="nav-number">3.2.</span> <span class="nav-text">設定 Xcode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-CocoaPods"><span class="nav-number">3.3.</span> <span class="nav-text">安裝 CocoaPods</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install-%E7%AD%89%E5%BE%88%E4%B9%85%E4%B8%8D%E7%9F%A5%E6%98%AF%E5%90%A6%E5%9F%B7%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">install(等很久不知是否執行)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clone-%E5%86%8D%E5%AE%89%E8%A3%9D"><span class="nav-number">3.5.</span> <span class="nav-text">clone 再安裝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%AD%A3%E5%AE%89%E8%A3%9D%E5%95%8F%E9%A1%8C"><span class="nav-number">3.6.</span> <span class="nav-text">修正安裝問題</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-iOS-simulator"><span class="nav-number">4.</span> <span class="nav-text">Run iOS simulator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vs-Code"><span class="nav-number">5.</span> <span class="nav-text">Vs Code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#command"><span class="nav-number">5.1.</span> <span class="nav-text">command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-special"><span class="nav-number">5.2.</span> <span class="nav-text">flutter special</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-Extension"><span class="nav-number">5.3.</span> <span class="nav-text">add Extension</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-option-setting"><span class="nav-number">6.</span> <span class="nav-text">some option setting</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#change-icon"><span class="nav-number">6.1.</span> <span class="nav-text">change icon</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#generate-icon"><span class="nav-number">6.1.1.</span> <span class="nav-text">generate icon</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#replace-icon-android-remove-and-move"><span class="nav-number">6.1.2.</span> <span class="nav-text">replace icon - android(remove and move)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#replace-icon-iOS-remove-and-move"><span class="nav-number">6.1.3.</span> <span class="nav-text">replace icon - iOS(remove and move)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#stop-gt-run"><span class="nav-number">6.1.4.</span> <span class="nav-text">stop -&gt; run</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-on-Android-Physical-Device"><span class="nav-number">7.</span> <span class="nav-text">run on Android Physical Device</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%84%A1%E7%B7%9A%E5%81%B5%E9%8C%AF"><span class="nav-number">7.1.</span> <span class="nav-text">無線偵錯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USB-%E5%81%B5%E9%8C%AF"><span class="nav-number">7.2.</span> <span class="nav-text">USB 偵錯</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flutter-Map"><span class="nav-number">8.</span> <span class="nav-text">flutter Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flutter"><span class="nav-number">9.</span> <span class="nav-text">flutter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-upgrade"><span class="nav-number">9.1.</span> <span class="nav-text">flutter upgrade</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-fulutter-project"><span class="nav-number">9.2.</span> <span class="nav-text">create fulutter project</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-clean"><span class="nav-number">9.3.</span> <span class="nav-text">flutter clean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-pub-get"><span class="nav-number">9.4.</span> <span class="nav-text">flutter pub get</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-pub-outdated"><span class="nav-number">9.5.</span> <span class="nav-text">flutter pub outdated</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tools"><span class="nav-number">10.</span> <span class="nav-text">Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">10.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle-and-Gradlew"><span class="nav-number">10.2.</span> <span class="nav-text">Gradle and Gradlew</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#add-dumpVersion-in-build-gradle-kts"><span class="nav-number">10.2.1.</span> <span class="nav-text">add dumpVersion in build.gradle.kts</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradle"><span class="nav-number">10.2.2.</span> <span class="nav-text">Gradle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradlew"><span class="nav-number">10.2.3.</span> <span class="nav-text">Gradlew</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradle-VS-Gradlew-%E7%9A%84%E5%B7%AE%E5%88%A5"><span class="nav-number">10.2.4.</span> <span class="nav-text">Gradle VS Gradlew 的差別</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%95%E6%99%82%E4%BD%BF%E7%94%A8-Gradle-vs-Gradlew%EF%BC%9F"><span class="nav-number">10.2.5.</span> <span class="nav-text">何時使用 Gradle vs. Gradlew？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issue"><span class="nav-number">11.</span> <span class="nav-text">Issue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Your-project-is-configured-with-Android-NDK-26-3-11579264"><span class="nav-number">11.1.</span> <span class="nav-text">Your project is configured with Android NDK 26.3.11579264</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-plugin-android-lifecycle-requires-Android-NDK-27-0-12077973"><span class="nav-number">11.2.</span> <span class="nav-text">flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#show-issue"><span class="nav-number">11.2.1.</span> <span class="nav-text">show issue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#change-version-android-x2F-app-x2F-build-gradle-kts"><span class="nav-number">11.2.2.</span> <span class="nav-text">change version - android&#x2F;app&#x2F;build.gradle.kts</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update-package"><span class="nav-number">11.2.3.</span> <span class="nav-text">update package</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E4%BB%A5%E4%B8%8B%E8%A8%AD%E5%AE%9A"><span class="nav-number"></span> <span class="nav-text">有以下設定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#android-x2F-settings-gradle-kts"><span class="nav-number"></span> <span class="nav-text">android&#x2F;settings.gradle.kts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">1.</span> <span class="nav-text">Other</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flutter-map-to-Android-version"><span class="nav-number">1.1.</span> <span class="nav-text">flutter map to Android version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-map-to-API-Level"><span class="nav-number">1.2.</span> <span class="nav-text">Android map to API Level</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">2.</span> <span class="nav-text">reference</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2024/12/30/flutter-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter setup for Mac
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-12-30 10:32:24" itemprop="dateCreated datePublished" datetime="2024-12-30T10:32:24+08:00">2024-12-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-05-19 08:09:27" itemprop="dateModified" datetime="2025-05-19T08:09:27+08:00">2025-05-19</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/12/30/flutter-5/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/12/30/flutter-5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>35k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>32 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="install-flutter"><a href="#install-flutter" class="headerlink" title="install flutter"></a>install flutter</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.flutter.dev/get-started/install/macos/mobile-android">download flutter</a><div style="max-width:500px">
+  <img src="/2024/12/30/flutter-5/pic1.png" class="" title="pic1">
+</div></li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li>setup for flutter</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add directory development</span></span><br><span class="line">mkdir development</span><br><span class="line"></span><br><span class="line"><span class="comment"># move flutter to ~/development</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If it exists, open the Zsh environmental variable file ~/.zshenv in your text editor. If it doesn&#x27;t, create ~/.zshenv.</span></span><br><span class="line"><span class="comment"># Copy the following line and paste it at the end of your ~/.zshenv file.</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/development/flutter/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># open new terminal, check flutter</span></span><br><span class="line">flutter --version</span><br><span class="line"><span class="comment"># check install list</span></span><br><span class="line">flutter doctor</span><br></pre></td></tr></table></figure>
+
+<h3 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h3><h4 id="Setting"><a href="#Setting" class="headerlink" title="Setting"></a>Setting</h4><h5 id="Setting-Emulator-mode"><a href="#Setting-Emulator-mode" class="headerlink" title="Setting Emulator mode"></a>Setting Emulator mode</h5><div style="max-width:500px">
+    <img src="/2024/12/30/flutter-5/pic10.png" class="" title="pic10">
+</div>
+
+<h4 id="Homebrew-install"><a href="#Homebrew-install" class="headerlink" title="Homebrew install"></a>Homebrew install</h4><ol>
+<li><p>install by brew</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 Homebrew 安裝</span></span><br><span class="line">brew install --cask android-studio</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>check flutter </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % flutter doctor                   </span><br><span class="line">Doctor summary (to see all details, run flutter doctor -v):</span><br><span class="line">[✓] Flutter (Channel stable, 3.29.1, on macOS 15.3 24D60 darwin-arm64, locale</span><br><span class="line">    zh-Hant-TW)</span><br><span class="line">[✗] Android toolchain - develop <span class="keyword">for</span> Android devices</span><br><span class="line">    ✗ Unable to locate Android SDK.</span><br><span class="line">      Install Android Studio from:</span><br><span class="line">      https://developer.android.com/studio/index.html</span><br><span class="line">      On first launch it will assist you <span class="keyword">in</span> installing the Android SDK</span><br><span class="line">      components.</span><br><span class="line">      (or visit https://flutter.dev/to/macos-android-setup <span class="keyword">for</span> detailed</span><br><span class="line">      instructions).</span><br><span class="line">      If the Android SDK has been installed to a custom location, please use</span><br><span class="line">      `flutter config --android-sdk` to update to that location.</span><br><span class="line"></span><br><span class="line">[✓] Xcode - develop <span class="keyword">for</span> iOS and macOS (Xcode 16.2)</span><br><span class="line">[✓] Chrome - develop <span class="keyword">for</span> the web</span><br><span class="line">[✓] Android Studio (version 2024.3)</span><br><span class="line">[✓] VS Code (version 1.97.2)</span><br><span class="line">[✓] Connected device (3 available)</span><br><span class="line">[✓] Network resources</span><br><span class="line"></span><br><span class="line">! Doctor found issues <span class="keyword">in</span> 1 category.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install Android sdk<br>Android Studio -&gt; Settings -&gt; Langues &amp; Frameworks -&gt; Android SDK –&gt; Edit then “next run…”<br> or<br>Android Studio -&gt; Tool -&gt; SDK manager</p>
+<div style="max-width:500px">
+ <img src="/2024/12/30/flutter-5/pic7.png" class="" title="pic7">
+</div>
+</li>
+<li><p>修正 Android 其他問題</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 缺少 cmdline-tools： cmdline-tools 組件缺失，需要安裝。你可以執行以下命令來安裝它：</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># install by Android Studio</span></span><br><span class="line"><span class="comment"># Android Studio -&gt; Tools -&gt; SDK manager -&gt; SDK Tools -&gt; Android SDK Command-line Tool(latest)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Android 許可狀態未知： 你需要接受 Android SDK 許可協議。可以透過執行以下命令來接受：</span></span><br><span class="line">flutter doctor --android-licenses</span><br><span class="line"></span><br><span class="line"><span class="comment"># test</span></span><br><span class="line">flutter doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># flutter config --android-sdk &quot;/Applications/Android Studio.app/Contents&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Homebrew-install-–-gt-remove"><a href="#Homebrew-install-–-gt-remove" class="headerlink" title="Homebrew install –&gt; remove"></a>Homebrew install –&gt; remove</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew uninstall android-studio</span><br></pre></td></tr></table></figure>
+
+<h4 id="download-install"><a href="#download-install" class="headerlink" title="download install"></a>download install</h4><ol>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/studio?source=post_page-----3adcc728273e--------------------------------&hl=zh-tw">download Android Studio</a></p>
+<div style="max-width:500px">
+ <img src="/2024/12/30/flutter-5/pic3.png" class="" title="pic3">
+</div>
+</li>
+<li><p>insatll and setup</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不加入之前設定</span></span><br><span class="line"><span class="comment"># select - Do not importtings</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install Type - Standard</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>修正 Android 問題</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">flutter doctor</span><br><span class="line">  [!] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 35.0.0)</span><br><span class="line">      ✗ cmdline-tools component is missing</span><br><span class="line">        Run `path/to/sdkmanager --install <span class="string">&quot;cmdline-tools;latest&quot;</span>`</span><br><span class="line">        See https://developer.android.com/studio/command-line <span class="keyword">for</span> more details.</span><br><span class="line">      ✗ Android license status unknown.</span><br><span class="line">        Run `flutter doctor --android-licenses` to accept the SDK licenses.</span><br><span class="line">        See https://flutter.dev/to/macos-android-setup <span class="keyword">for</span> more details.</span><br><span class="line"><span class="comment"># 缺少 cmdline-tools： cmdline-tools 組件缺失，需要安裝。你可以執行以下命令來安裝它：</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># install by Android Studio</span></span><br><span class="line"><span class="comment"># Android Studio -&gt; Tools -&gt; SDK manager -&gt; SDK Tools -&gt; Android SDK Command-line Tool(latest)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Android 許可狀態未知： 你需要接受 Android SDK 許可協議。可以透過執行以下命令來接受：</span></span><br><span class="line">flutter doctor --android-licenses</span><br><span class="line"></span><br><span class="line"><span class="comment"># test</span></span><br><span class="line">flutter doctor</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="download-install-–-gt-remove"><a href="#download-install-–-gt-remove" class="headerlink" title="download install –&gt; remove"></a>download install –&gt; remove</h4><ol>
+<li>關閉 Android Studio</li>
+<li>Finder，進入 &#x2F;Applications&#x2F;</li>
+<li>Android Studio.app</li>
+<li>Library 相關資料：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/Library/Preferences/AndroidStudio*</span><br><span class="line">rm -rf ~/Library/Application Support/AndroidStudio*</span><br><span class="line">rm -rf ~/Library/Logs/AndroidStudio*</span><br><span class="line">rm -rf ~/Library/Caches/AndroidStudio*</span><br></pre></td></tr></table></figure></li>
+<li>SDK（如果要完全重新安裝）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/Library/Android</span><br><span class="line">rm -rf ~/.android</span><br></pre></td></tr></table></figure></li>
+<li>Gradle 設定（如果要完全重置）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.gradle</span><br><span class="line">  or</span><br><span class="line">sudo rm -rf ~/.gradle </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="simple-test-Android"><a href="#simple-test-Android" class="headerlink" title="simple test(Android)"></a>simple test(Android)</h4><ul>
+<li>Run Android studio</li>
+<li>New Flutter Projevt</li>
+<li>Project name modify</li>
+<li>select: Android + iOS</li>
+<li>select device management</li>
+<li>create virtual device</li>
+<li>Select device(create previous)</li>
+<li>run main.dart</li>
+</ul>
+<h4 id="simple-test-iOS-need-install-Xcode-and-CocoaPods-complete"><a href="#simple-test-iOS-need-install-Xcode-and-CocoaPods-complete" class="headerlink" title="simple test(iOS-need install Xcode and CocoaPods complete)"></a>simple test(iOS-need install Xcode and CocoaPods complete)</h4><ul>
+<li>Run Android studio</li>
+<li>Select device(open iOS simulator) </li>
+<li>Select device(select iPhone open) </li>
+<li>run main.dart</li>
+</ul>
+<h3 id="Xcode"><a href="#Xcode" class="headerlink" title="Xcode"></a>Xcode</h3><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><ul>
+<li>install from app store</li>
+<li>select mac OS 15.0, iSI 18.0, predictive Code Completion Model</li>
+<li>若 install 有失敗, Xcode -&gt; Settings 選擇需安裝項目繼續安裝</li>
+</ul>
+<h4 id="設定-Xcode"><a href="#設定-Xcode" class="headerlink" title="設定 Xcode"></a>設定 Xcode</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set path</span></span><br><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span><br><span class="line"><span class="comment"># 首次啟動設置</span></span><br><span class="line">sudo xcodebuild -runFirstLaunch</span><br></pre></td></tr></table></figure>
+
+<h4 id="安裝-CocoaPods"><a href="#安裝-CocoaPods" class="headerlink" title="安裝 CocoaPods"></a>安裝 CocoaPods</h4><h4 id="install-等很久不知是否執行"><a href="#install-等很久不知是否執行" class="headerlink" title="install(等很久不知是否執行)"></a>install(等很久不知是否執行)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install</span></span><br><span class="line">sudo gem install cocoapods</span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">pod --version</span><br></pre></td></tr></table></figure>
+
+<h4 id="clone-再安裝"><a href="#clone-再安裝" class="headerlink" title="clone 再安裝"></a>clone 再安裝</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone 較容易看到進度</span></span><br><span class="line">git <span class="built_in">clone</span> https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git ~/.cocoapods/repos/trunk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需安裝 ruby</span></span><br><span class="line">ruby --version</span><br><span class="line"><span class="comment"># 未安裝,如下安裝 </span></span><br><span class="line">brew install ruby</span><br><span class="line"><span class="comment"># 確認 CocoaPods 是否已正確安裝：</span></span><br><span class="line">pod --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># install</span></span><br><span class="line">sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
+
+<h4 id="修正安裝問題"><a href="#修正安裝問題" class="headerlink" title="修正安裝問題"></a>修正安裝問題</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">flutter doctor</span><br><span class="line">  [!] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 35.0.0)</span><br><span class="line">      ✗ cmdline-tools component is missing</span><br><span class="line">        Run `path/to/sdkmanager --install <span class="string">&quot;cmdline-tools;latest&quot;</span>`</span><br><span class="line">        See https://developer.android.com/studio/command-line <span class="keyword">for</span> more details.</span><br><span class="line">      ✗ Android license status unknown.</span><br><span class="line">        Run `flutter doctor --android-licenses` to accept the SDK licenses.</span><br><span class="line">        See https://flutter.dev/to/macos-android-setup <span class="keyword">for</span> more details.</span><br><span class="line">  [!] Xcode - develop <span class="keyword">for</span> iOS and macOS (Xcode 16.2)</span><br><span class="line">      ✗ CocoaPods not installed.</span><br><span class="line">          CocoaPods is a package manager <span class="keyword">for</span> iOS or macOS platform code.</span><br><span class="line">          Without CocoaPods, plugins will not work on iOS or macOS.</span><br><span class="line">          For more info, see https://flutter.dev/to/platform-plugins</span><br><span class="line">        For installation instructions, see</span><br><span class="line">        https://guides.cocoapods.org/using/getting-started.html<span class="comment">#installation</span></span><br><span class="line"></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % ruby --version</span><br><span class="line">  ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin24]</span><br><span class="line"></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % sudo gem install cocoapods</span><br><span class="line">Password:</span><br><span class="line">ERROR:  Error installing cocoapods:</span><br><span class="line">	The last version of activesupport (&gt;= 5.0, &lt; 8) to support your Ruby &amp; RubyGems was 6.1.7.10. Try installing it with `gem install activesupport -v 6.1.7.10` and <span class="keyword">then</span> running the current <span class="built_in">command</span> again</span><br><span class="line">	activesupport requires Ruby version &gt;= 3.1.0. The current ruby version is 2.6.10.210.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安裝或更新 Homebrew</span></span><br><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br><span class="line">brew update</span><br><span class="line"></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % brew --version</span><br><span class="line">  Homebrew 4.4.13</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 Homebrew 安裝最新版本的 Ruby</span></span><br><span class="line"><span class="comment"># brew install ruby</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % brew install ruby</span><br><span class="line">Warning: ruby 3.4.1 is already installed and up-to-date.</span><br><span class="line">To reinstall 3.4.1, run:</span><br><span class="line">  brew reinstall ruby</span><br><span class="line"></span><br><span class="line"><span class="comment"># check 設定</span></span><br><span class="line"><span class="comment"># ~/.zshrc（預設 zsh）</span></span><br><span class="line"><span class="comment"># export PATH=&quot;/opt/homebrew/bin:$PATH&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加載配置</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新執行安裝命令 CocoaPods</span></span><br><span class="line">sudo gem install cocoapods</span><br><span class="line"></span><br><span class="line"><span class="comment"># error </span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % sudo gem install cocoapods</span><br><span class="line">Password:</span><br><span class="line">ERROR:  Error installing cocoapods:</span><br><span class="line">	The last version of activesupport (&gt;= 5.0, &lt; 8) to support your Ruby &amp; RubyGems was 6.1.7.10. Try installing it with `gem install activesupport -v 6.1.7.10` and <span class="keyword">then</span> running the current <span class="built_in">command</span> again</span><br><span class="line">	activesupport requires Ruby version &gt;= 3.1.0. The current ruby version is 2.6.10.210.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 問題仍然是由於 Ruby 的版本過低導致的。下面是更詳細的解決步驟，確保你能順利升級 Ruby 並安裝 CocoaPods。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 rbenv 升級 Ruby</span></span><br><span class="line"><span class="comment"># rbenv 是一個管理多個 Ruby 版本的工具，建議使用它來安裝和管理 Ruby。</span></span><br><span class="line"><span class="comment"># 安裝 rbenv 和 ruby-build</span></span><br><span class="line">brew install rbenv ruby-build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 rbenv 到環境變數</span></span><br><span class="line"><span class="comment"># 編輯你的 Shell 配置檔案 ~/.zshrc</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$HOME</span>/.rbenv/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(rbenv init -)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 執行</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc </span><br><span class="line"></span><br><span class="line"><span class="comment"># 確認 rbenv 是否已正確安裝：</span></span><br><span class="line">rbenv -v</span><br><span class="line">  rbenv 1.3.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安裝 Ruby 3.1 或更新版本</span></span><br><span class="line"><span class="comment"># 使用 rbenv 安裝 Ruby：</span></span><br><span class="line">rbenv install 3.2.2</span><br><span class="line">rbenv global 3.2.2</span><br><span class="line"><span class="comment"># check version</span></span><br><span class="line">ruby --version</span><br><span class="line">  ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin24]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 你的問題是因為即使安裝了 Ruby 3.2.2，你的終端仍在使用系統自帶的 Ruby 2.6.10。這通常是因為 rbenv 沒有正確配置或生效。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 確認 rbenv 已正確安裝</span></span><br><span class="line"><span class="comment"># 檢查 rbenv 是否已被加到環境變數中：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line">  /Users/gaoyiping/.rbenv/shims:/Users/gaoyiping/.rbenv/bin:/opt/homebrew/opt/ruby:/opt/homebrew/Cellar/pyenv-virtualenv/1.2.4/shims:/Users/gaoyiping/.pyenv/shims:/Users/gaoyiping/.pyenv/bin:/opt/homebrew/bin:/opt/homebrew/opt/ruby:/opt/homebrew/Cellar/pyenv-virtualenv/1.2.4/shims:/Users/gaoyiping/.pyenv/bin:/opt/homebrew/bin:/opt/homebrew/Cellar/pyenv-virtualenv/1.2.4/shims:/Users/gaoyiping/.pyenv/bin:/opt/homebrew/bin:/usr/<span class="built_in">local</span>/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/<span class="built_in">local</span>/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/gaoyiping/development/flutter/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 確保輸出中有類似以下的路徑：</span></span><br><span class="line"><span class="comment"># /Users/gaoyiping/.rbenv/bin</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 確認 Ruby 版本</span></span><br><span class="line"><span class="comment"># 再次檢查目前正在使用的 Ruby 版本：</span></span><br><span class="line">rbenv versions</span><br><span class="line">    system</span><br><span class="line">  * 3.2.2 (<span class="built_in">set</span> by /Users/gaoyiping/.rbenv/version)</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro ~ % ruby --version</span><br><span class="line">  ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin24]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刪除系統 Ruby 緩存</span></span><br><span class="line"><span class="comment"># 如果步驟 2 完成後還是無法正確使用，嘗試刪除舊的 Ruby 緩存：</span></span><br><span class="line"><span class="built_in">hash</span> -r</span><br><span class="line"><span class="comment"># 然後再次檢查：</span></span><br><span class="line">ruby --version</span><br><span class="line">  ruby 3.2.2 (2023-03-30 revision e51014f9c0) [arm64-darwin24]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重試 CocoaPods 安裝</span></span><br><span class="line"><span class="comment"># 如果 Ruby 已經成功切換到 3.2.2，現在可以嘗試安裝 CocoaPods：</span></span><br><span class="line">sudo gem install cocoapods</span><br><span class="line"></span><br><span class="line"><span class="comment"># test</span></span><br><span class="line">flutter doctor</span><br><span class="line">  [!] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 35.0.0)</span><br><span class="line">      ✗ cmdline-tools component is missing</span><br><span class="line">        Run `path/to/sdkmanager --install <span class="string">&quot;cmdline-tools;latest&quot;</span>`</span><br><span class="line">        See https://developer.android.com/studio/command-line <span class="keyword">for</span> more details.</span><br><span class="line">      ✗ Android license status unknown.</span><br><span class="line">        Run `flutter doctor --android-licenses` to accept the SDK licenses.</span><br><span class="line">        See https://flutter.dev/to/macos-android-setup <span class="keyword">for</span> more details.</span><br><span class="line">  [✓] Xcode - develop <span class="keyword">for</span> iOS and macOS (Xcode 16.2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Run-iOS-simulator"><a href="#Run-iOS-simulator" class="headerlink" title="Run iOS simulator"></a>Run iOS simulator</h3><ol>
+<li><p>In Xcode, go to Open Developer Tool &gt; Simulator</p>
+<div style="max-width:500px">
+ <img src="/2024/12/30/flutter-5/pic8.png" class="" title="pic8">
+</div>
+</li>
+<li><p>Search for “Simulator” in Spotlight</p>
+<div style="max-width:500px">
+ <img src="/2024/12/30/flutter-5/pic9.png" class="" title="pic9">
+</div>
+</li>
+<li><p>open by VsCode or Android Studio</p>
+</li>
+</ol>
+<h3 id="Vs-Code"><a href="#Vs-Code" class="headerlink" title="Vs Code"></a>Vs Code</h3><h4 id="command"><a href="#command" class="headerlink" title="command"></a>command</h4><ul>
+<li>Cmd+Shift+P</li>
+</ul>
+<h4 id="flutter-special"><a href="#flutter-special" class="headerlink" title="flutter special"></a>flutter special</h4><ul>
+<li>Widget Wrap select : Control + Shift + R (click Right -&gt; Refactor)</li>
+</ul>
+<h4 id="add-Extension"><a href="#add-Extension" class="headerlink" title="add Extension"></a>add Extension</h4><ul>
+<li>Flutter</li>
+<li>Flutter Widget Snippets</li>
+<li>Awesome Flutter Snippets</li>
+</ul>
+<h3 id="some-option-setting"><a href="#some-option-setting" class="headerlink" title="some option setting"></a>some option setting</h3><h4 id="change-icon"><a href="#change-icon" class="headerlink" title="change icon"></a>change icon</h4><h5 id="generate-icon"><a href="#generate-icon" class="headerlink" title="generate icon"></a>generate icon</h5><p><a target="_blank" rel="noopener" href="https://www.appicon.co/">App icon Generator</a></p>
+<div style="max-width:500px">
+    <img src="/2024/12/30/flutter-5/pic4.png" class="" title="pic4">
+</div>
+
+<h5 id="replace-icon-android-remove-and-move"><a href="#replace-icon-android-remove-and-move" class="headerlink" title="replace icon - android(remove and move)"></a>replace icon - android(remove and move)</h5><div style="max-width:500px">
+    <img src="/2024/12/30/flutter-5/pic5.png" class="" title="pic5">
+</div>
+
+<h5 id="replace-icon-iOS-remove-and-move"><a href="#replace-icon-iOS-remove-and-move" class="headerlink" title="replace icon - iOS(remove and move)"></a>replace icon - iOS(remove and move)</h5><div style="max-width:500px">
+    <img src="/2024/12/30/flutter-5/pic6.png" class="" title="pic6">
+</div>
+
+<h5 id="stop-gt-run"><a href="#stop-gt-run" class="headerlink" title="stop -&gt; run"></a>stop -&gt; run</h5><h3 id="run-on-Android-Physical-Device"><a href="#run-on-Android-Physical-Device" class="headerlink" title="run on Android Physical Device"></a>run on Android Physical Device</h3><h4 id="無線偵錯"><a href="#無線偵錯" class="headerlink" title="無線偵錯"></a>無線偵錯</h4><ul>
+<li><p>設定 -&gt; 開發人員選項 -&gt; 無線偵錯 -&gt; 使用配對碼配對裝置(show 配對碼,IP,通訊埠)  </p>
+</li>
+<li><p>run adb link</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb pair 192.168.18.8:41133</span><br><span class="line">  Enter pairing code: 970068</span><br><span class="line">  Successfully paired to 192.168.18.8:41133 [guid=adb-RFCR10MGBFR-gLb6Jb]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若 adb 未設定 path,如下設定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add adb path</span></span><br><span class="line">ls ~/Library/Android/sdk/platform-tools</span><br><span class="line">  NOTICE.txt		lib64			package.xml</span><br><span class="line">  adb			make_f2fs		source.properties</span><br><span class="line">  etc1tool		make_f2fs_casefold	sqlite3</span><br><span class="line">  fastboot		mke2fs</span><br><span class="line">  hprof-conv		mke2fs.conf</span><br><span class="line">adb version</span><br><span class="line">  zsh: <span class="built_in">command</span> not found: adb</span><br><span class="line">nano ~/.zshrc</span><br><span class="line"><span class="comment"># 添加如下內容</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:~/Library/Android/sdk/platform-tools/</span><br><span class="line"><span class="comment"># 執行</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line">adb version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 測試 adb</span></span><br><span class="line">adb devices</span><br><span class="line">  List of devices attached</span><br><span class="line">  emulator-5554	device</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select device 點選連接手機 -&gt; run “main.dart”<br>手機可看到執行</p>
+</li>
+<li><p>device manager 點選 Start Mirroring 可在 Mac 看到手機畫面</p>
+</li>
+<li><p>device manager 點選 Stop Mirroring 可在 Mac 上畫面消失</p>
+</li>
+<li><p>斷開手機<br>手機無線偵錯 disable</p>
+</li>
+</ul>
+<h4 id="USB-偵錯"><a href="#USB-偵錯" class="headerlink" title="USB 偵錯"></a>USB 偵錯</h4><ul>
+<li>使用 USB 連接</li>
+<li>設定 -&gt; 開發人員選項 -&gt; USB 偵錯</li>
+<li>…</li>
+</ul>
+<h3 id="flutter-Map"><a href="#flutter-Map" class="headerlink" title="flutter Map"></a>flutter Map</h3><ul>
+<li>Widget<ul>
+<li><a href="/2025/02/16/flutter-7/#Basic-Widgets">Basic Widgets</a></li>
+<li><a href="/2025/02/16/flutter-7/#Widget-Example">Widget-Example</a></li>
+<li><a href="/2025/02/16/flutter-7/#Function">Function</a></li>
+</ul>
+</li>
+<li>Other  <ul>
+<li><a href="/2025/02/16/flutter-7/#Condition-process">Condition process</a></li>
+<li><a href="/2025/02/16/flutter-7/#Plugin">Plugin</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h3><h4 id="flutter-upgrade"><a href="#flutter-upgrade" class="headerlink" title="flutter upgrade"></a>flutter upgrade</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">flutter upgrade</span><br><span class="line">Upgrading Flutter to 3.29.0 from 3.27.1 <span class="keyword">in</span></span><br><span class="line">/Users/gaoyiping/development/flutter...</span><br><span class="line">Downloading Darwin arm64 Dart SDK from Flutter engine f73bfc4522dd0bc87bbcdb4bb3088082755c5e87...</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line"></span><br><span class="line">  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0</span><br><span class="line">  0  205M    0  488k    0     0   496k      0  0:07:03 --:--:--  0:07:03  495k</span><br><span class="line">  1  205M    1 3296k    0     0  1662k      0  0:02:06  0:00:01  0:02:05 1662k</span><br><span class="line">  2  205M    2 6013k    0     0  2008k      0  0:01:44  0:00:02  0:01:42 2007k</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">Downloading darwin-arm64/font-subset tools...                    1,020ms</span><br><span class="line"></span><br><span class="line">Flutter 3.29.0 • channel stable • https://github.com/flutter/flutter.git</span><br><span class="line">Framework • revision 35c388afb5 (5 天前) • 2025-02-10 12:48:41 -0800</span><br><span class="line">Engine • revision f73bfc4522</span><br><span class="line">Tools • Dart 3.7.0 • DevTools 2.42.2</span><br><span class="line"></span><br><span class="line">Running flutter doctor...</span><br><span class="line">Doctor summary (to see all details, run flutter doctor -v):</span><br><span class="line">[✓] Flutter (Channel stable, 3.29.0, on macOS 15.3 24D60 darwin-arm64, locale zh-Hant-TW)</span><br><span class="line">[✓] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 35.0.0)</span><br><span class="line">[✓] Xcode - develop <span class="keyword">for</span> iOS and macOS (Xcode 16.2)</span><br><span class="line">[✓] Chrome - develop <span class="keyword">for</span> the web</span><br><span class="line">[✓] Android Studio (version 2024.2)</span><br><span class="line">[✓] VS Code (version 1.97.0)</span><br><span class="line">[✓] Connected device (3 available)</span><br><span class="line">[✓] Network resources</span><br><span class="line"></span><br><span class="line">• No issues found!</span><br></pre></td></tr></table></figure>
+
+<h4 id="create-fulutter-project"><a href="#create-fulutter-project" class="headerlink" title="create fulutter project"></a>create fulutter project</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create flutter project goo_mood(content include Android, iOS, web..)  </span></span><br><span class="line">flutter create go_mood</span><br></pre></td></tr></table></figure>
+
+<h4 id="flutter-clean"><a href="#flutter-clean" class="headerlink" title="flutter clean"></a>flutter clean</h4><p>清除 Flutter 專案的暫存檔案與建置快取<br>當 Flutter 專案出現異常（如編譯錯誤、舊版檔案未更新等）時，這個指令可以幫助重建環境。<br>主要清除的項目：</p>
+<ul>
+<li>build&#x2F; 資料夾（編譯產物）</li>
+<li>.dart_tool&#x2F;（Flutter 相關工具產生的暫存檔）</li>
+<li>.packages（舊版 Dart 相依性資訊）</li>
+<li>iOS 與 Android 的 Generated.xcconfig、Gradle build 產物</li>
+</ul>
+<p>使用時機：</p>
+<ul>
+<li>修改 Flutter 原生代碼（Android 或 iOS）後，變更未生效</li>
+<li>flutter run 或 flutter build 遇到奇怪的錯誤</li>
+<li>套件更新後，出現 相依性錯誤 或 不相容問題</li>
+<li>執行完 flutter clean 之後，通常需要重新下載套件：flutter pub get</li>
+</ul>
+<h4 id="flutter-pub-get"><a href="#flutter-pub-get" class="headerlink" title="flutter pub get"></a>flutter pub get</h4><p>下載並安裝 pubspec.yaml 中的相依性套件<br>這個指令會讀取 pubspec.yaml 檔案，然後下載並安裝所有 Flutter &amp; Dart 的相依性套件，並將資訊寫入 pubspec.lock。<br>主要影響的檔案：</p>
+<ul>
+<li>下載 pubspec.yaml 中定義的所有套件</li>
+<li>產生 pubspec.lock（鎖定的相依性版本）</li>
+<li>建立 .dart_tool&#x2F; 快取資料夾</li>
+</ul>
+<p>使用時機：</p>
+<ul>
+<li>新增或修改 pubspec.yaml 的相依性 後，需要下載新套件</li>
+<li>flutter clean 之後，需要重新取得所有套件</li>
+<li>團隊合作時，拉取新代碼後 需確保本地相依性與 pubspec.lock 相符</li>
+</ul>
+<h4 id="flutter-pub-outdated"><a href="#flutter-pub-outdated" class="headerlink" title="flutter pub outdated"></a>flutter pub outdated</h4><p>檢查相依性套件是否有新版本<br>這個指令會比對當前專案安裝的套件版本 (pubspec.lock) 與 最新可用版本，並顯示哪些套件需要更新。</p>
+<ul>
+<li>Current：目前安裝的版本（來自 pubspec.lock）</li>
+<li>Upgradable：可以更新的版本（符合 pubspec.yaml 的版本範圍）</li>
+<li>Resolvable：如果放寬 pubspec.yaml 限制，可以安裝的最高版本</li>
+<li>Latest：目前可用的最新版本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">flutter pub outdated                                                 </span><br><span class="line">  Changing current working directory to: /Users/gaoyiping/work/git/flutter-bootcamp-udemy/taskly</span><br><span class="line">  Showing outdated packages.</span><br><span class="line">  [*] indicates versions that are not the latest available.</span><br><span class="line"></span><br><span class="line">  Package Name              Current  Upgradable  Resolvable  Latest  </span><br><span class="line"></span><br><span class="line">  direct dependencies: all up-to-date.</span><br><span class="line"></span><br><span class="line">  dev_dependencies: all up-to-date.</span><br><span class="line"></span><br><span class="line">  transitive dependencies: </span><br><span class="line">  material_color_utilities  *0.11.1  *0.11.1     *0.11.1     0.12.0  </span><br><span class="line"></span><br><span class="line">  transitive dev_dependencies:</span><br><span class="line">  async                     *2.12.0  *2.12.0     *2.12.0     2.13.0  </span><br><span class="line">  fake_async                *1.3.2   *1.3.2      *1.3.2      1.3.3   </span><br><span class="line">  leak_tracker              *10.0.8  *10.0.8     *10.0.8     10.0.9  </span><br><span class="line">  vm_service                *14.3.1  *14.3.1     *14.3.1     15.0.0  </span><br><span class="line">  all dependencies are up-to-date.</span><br></pre></td></tr></table></figure>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install java</span></span><br><span class="line">brew install openjdk@17</span><br><span class="line">    ==&gt; Downloading https://formulae.brew.sh/api/formula.jws.json</span><br><span class="line">    ==&gt; Downloading https://formulae.brew.sh/api/cask.jws.json</span><br><span class="line">    ==&gt; Downloading https://ghcr.io/v2/homebrew/core/openjdk/17/manifests/17.0.14-1</span><br><span class="line">    <span class="comment">######################################################################################################################################################################################################################################################### 100.0%</span></span><br><span class="line">    ==&gt; Fetching openjdk@17</span><br><span class="line">    ==&gt; Downloading https://ghcr.io/v2/homebrew/core/openjdk/17/blobs/sha256:ad49acafe0bbbd4e5459f386239fb2dc44171965d69a5071e4d403f14ea61a2f</span><br><span class="line">    <span class="comment">######################################################################################################################################################################################################################################################### 100.0%</span></span><br><span class="line">    ==&gt; Pouring openjdk@17--17.0.14.arm64_sequoia.bottle.1.tar.gz</span><br><span class="line">    ==&gt; Caveats</span><br><span class="line">    For the system Java wrappers to find this JDK, symlink it with</span><br><span class="line">      sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk</span><br><span class="line"></span><br><span class="line">    openjdk@17 is keg-only, <span class="built_in">which</span> means it was not symlinked into /opt/homebrew,</span><br><span class="line">    because this is an alternate version of another formula.</span><br><span class="line"></span><br><span class="line">    If you need to have openjdk@17 first <span class="keyword">in</span> your PATH, run:</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;/opt/homebrew/opt/openjdk@17/bin:$PATH&quot;&#x27;</span> &gt;&gt; /Users/gaoyiping/.zshrc</span><br><span class="line"></span><br><span class="line">    For compilers to find openjdk@17 you may need to <span class="built_in">set</span>:</span><br><span class="line">      <span class="built_in">export</span> CPPFLAGS=<span class="string">&quot;-I/opt/homebrew/opt/openjdk@17/include&quot;</span></span><br><span class="line">    ==&gt; Summary</span><br><span class="line">    🍺  /opt/homebrew/Cellar/openjdk@17/17.0.14: 636 files, 304.2MB</span><br><span class="line">    ==&gt; Running `brew cleanup openjdk@17`...</span><br><span class="line">    Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.</span><br><span class="line">    Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).</span><br><span class="line"></span><br><span class="line"><span class="comment"># set env</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;/opt/homebrew/opt/openjdk@17/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export CPPFLAGS=&quot;-I/opt/homebrew/opt/openjdk@17/include&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># show java version</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % java -version</span><br><span class="line">    openjdk version <span class="string">&quot;17.0.14&quot;</span> 2025-01-21</span><br><span class="line">    OpenJDK Runtime Environment Homebrew (build 17.0.14+0)</span><br><span class="line">    OpenJDK 64-Bit Server VM Homebrew (build 17.0.14+0, mixed mode, sharing)</span><br></pre></td></tr></table></figure>
+<h4 id="Gradle-and-Gradlew"><a href="#Gradle-and-Gradlew" class="headerlink" title="Gradle and Gradlew"></a>Gradle and Gradlew</h4><h5 id="add-dumpVersion-in-build-gradle-kts"><a href="#add-dumpVersion-in-build-gradle-kts" class="headerlink" title="add dumpVersion in build.gradle.kts"></a>add dumpVersion in build.gradle.kts</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tasks.register(<span class="string">&quot;dumpVersion&quot;</span>) &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        val versionFile = file(<span class="string">&quot;version.txt&quot;</span>)</span><br><span class="line">        versionFile.writeText(<span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">            Version Code: <span class="variable">$&#123;flutter.versionCode&#125;</span></span></span><br><span class="line"><span class="string">            Version Name: <span class="variable">$&#123;flutter.versionName&#125;</span></span></span><br><span class="line"><span class="string">            Min SDK: <span class="variable">$&#123;flutter.minSdkVersion&#125;</span></span></span><br><span class="line"><span class="string">            Target SDK: <span class="variable">$&#123;flutter.targetSdkVersion&#125;</span></span></span><br><span class="line"><span class="string">        &quot;</span><span class="string">&quot;&quot;</span>.trimIndent())</span><br><span class="line">        println(<span class="string">&quot;Version information written to version.txt&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h5><p>Gradle 是一種 開源的自動化建置工具（Build Automation Tool），主要用於：</p>
+<ul>
+<li>編譯 與 建置（Build）Java、Kotlin、Android 及其他語言的專案。</li>
+<li>管理依賴（Dependency Management）。</li>
+<li>執行測試、打包發佈（如產生 .jar、.apk）。</li>
+<li>任務自動化（如 CI&#x2F;CD）。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install gradle (是何作用)</span></span><br><span class="line">brew install gradle  <span class="comment"># Mac 上安裝 Gradle</span></span><br><span class="line"></span><br><span class="line">gradle --version     <span class="comment"># 確保安裝成功</span></span><br><span class="line">  Welcome to Gradle 8.13!</span><br><span class="line"></span><br><span class="line">  Here are the highlights of this release:</span><br><span class="line">  - Daemon JVM auto-provisioning</span><br><span class="line">  - Enhancements <span class="keyword">for</span> Scala plugin and JUnit testing</span><br><span class="line">  - Improvements <span class="keyword">for</span> build authors and plugin developers</span><br><span class="line"></span><br><span class="line">  For more details see https://docs.gradle.org/8.13/release-notes.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  ------------------------------------------------------------</span><br><span class="line">  Gradle 8.13</span><br><span class="line">  ------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">  Build time:    2025-02-25 09:22:14 UTC</span><br><span class="line">  Revision:      073314332697ba45c16c0a0ce1891fa6794179ff</span><br><span class="line"></span><br><span class="line">  Kotlin:        2.0.21</span><br><span class="line">  Groovy:        3.0.22</span><br><span class="line">  Ant:           Apache Ant(TM) version 1.10.15 compiled on August 25 2024</span><br><span class="line">  Launcher JVM:  23.0.2 (Homebrew 23.0.2)</span><br><span class="line">  Daemon JVM:    /opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home (no JDK specified, using current Java home)</span><br><span class="line">  OS:            Mac OS X 15.3 aarch64</span><br><span class="line"></span><br><span class="line"><span class="comment"># run </span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % gradle dumpVersion</span><br><span class="line"></span><br><span class="line">&gt; Task :app:dumpVersion</span><br><span class="line">Version information written to version.txt</span><br><span class="line"></span><br><span class="line">[Incubating] Problems report is available at: file:///Users/gaoyiping/work/git/flutter-bootcamp-udemy/taskly/build/reports/problems/problems-report.html</span><br><span class="line"></span><br><span class="line">Deprecated Gradle features were used <span class="keyword">in</span> this build, making it incompatible with Gradle 9.0.</span><br><span class="line"></span><br><span class="line">You can use <span class="string">&#x27;--warning-mode all&#x27;</span> to show the individual deprecation warnings and determine <span class="keyword">if</span> they come from your own scripts or plugins.</span><br><span class="line"></span><br><span class="line">For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html<span class="comment">#sec:command_line_warnings in the Gradle documentation.</span></span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 7s</span><br><span class="line">6 actionable tasks: 6 executed</span><br><span class="line"></span><br><span class="line"><span class="comment"># version.txt(in file)</span></span><br><span class="line">Version Code: 1</span><br><span class="line">Version Name: 1.0.0</span><br><span class="line">Min SDK: 21</span><br><span class="line">Target SDK: 35</span><br><span class="line"></span><br><span class="line"><span class="comment"># check gradle by brew</span></span><br><span class="line">aoyiping@gaoyipingdeMacBook-Pro android % brew list gradle</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/bin/gradle</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/libexec/bin/gradle</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/libexec/docs/ (11605 files)</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/libexec/lib/ (307 files)</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/libexec/src/ (10400 files)</span><br><span class="line">/opt/homebrew/Cellar/gradle/8.13/sbom.spdx.json</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % </span><br><span class="line"></span><br><span class="line"><span class="comment"># uninsatll gradle</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % brew uninstall gradle</span><br><span class="line">Uninstalling /opt/homebrew/Cellar/gradle/8.13... (22,320 files, 461.5MB)</span><br><span class="line">==&gt; Autoremoving 1 unneeded formula:</span><br><span class="line">openjdk</span><br><span class="line">Uninstalling /opt/homebrew/Cellar/openjdk/23.0.2... (602 files, 337.4MB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># check uninstall</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % gradle -v            </span><br><span class="line">zsh: <span class="built_in">command</span> not found: gradle</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % gradle --version                                                     </span><br><span class="line">zsh: <span class="built_in">command</span> not found: gradle</span><br></pre></td></tr></table></figure>
+
+<h5 id="Gradlew"><a href="#Gradlew" class="headerlink" title="Gradlew"></a>Gradlew</h5><p>gradlew 是 Gradle Wrapper（Gradle 包裝工具），它的作用是：</p>
+<ul>
+<li>自動下載並管理 Gradle 版本，無需手動安裝 Gradle。</li>
+<li>確保團隊成員或 CI&#x2F;CD 環境使用相同的 Gradle 版本，避免環境差異問題。</li>
+<li>允許在沒有安裝 Gradle 的環境中直接執行 Gradle 命令。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dump #1</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew dumpVersion                                                  </span><br><span class="line"></span><br><span class="line">    Welcome to Gradle 8.10.2!</span><br><span class="line"></span><br><span class="line">    Here are the highlights of this release:</span><br><span class="line">    - Support <span class="keyword">for</span> Java 23</span><br><span class="line">    - Faster configuration cache</span><br><span class="line">    - Better configuration cache reports</span><br><span class="line"></span><br><span class="line">    For more details see https://docs.gradle.org/8.10.2/release-notes.html</span><br><span class="line"></span><br><span class="line">    Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status <span class="keyword">for</span> details</span><br><span class="line"></span><br><span class="line">    &gt; Configure project :path_provider_android</span><br><span class="line">    Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:</span><br><span class="line">    - path_provider_android requires Android NDK 27.0.12077973</span><br><span class="line">    Fix this issue by using the highest Android NDK version (they are backward compatible).</span><br><span class="line">    Add the following to /Users/gaoyiping/work/git/flutter-bootcamp-udemy/taskly/android/app/build.gradle.kts:</span><br><span class="line"></span><br><span class="line">        android &#123;</span><br><span class="line">            ndkVersion = <span class="string">&quot;27.0.12077973&quot;</span></span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &gt; Task :app:dumpVersion</span><br><span class="line">    Version information written to version.txt</span><br><span class="line"></span><br><span class="line">    Deprecated Gradle features were used <span class="keyword">in</span> this build, making it incompatible with Gradle 9.0.</span><br><span class="line"></span><br><span class="line">    You can use <span class="string">&#x27;--warning-mode all&#x27;</span> to show the individual deprecation warnings and determine <span class="keyword">if</span> they come from your own scripts or plugins.</span><br><span class="line"></span><br><span class="line">    For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html<span class="comment">#sec:command_line_warnings in the Gradle documentation.</span></span><br><span class="line"></span><br><span class="line">    BUILD SUCCESSFUL <span class="keyword">in</span> 15s</span><br><span class="line">    7 actionable tasks: 7 executed</span><br><span class="line"></span><br><span class="line"><span class="comment"># dump #2</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew dumpVersion</span><br><span class="line">    &gt; Task :app:dumpVersion</span><br><span class="line">    Version information written to version.txt</span><br><span class="line"></span><br><span class="line">    Deprecated Gradle features were used <span class="keyword">in</span> this build, making it incompatible with Gradle 9.0.</span><br><span class="line"></span><br><span class="line">    You can use <span class="string">&#x27;--warning-mode all&#x27;</span> to show the individual deprecation warnings and determine <span class="keyword">if</span> they come from your own scripts or plugins.</span><br><span class="line"></span><br><span class="line">    For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html<span class="comment">#sec:command_line_warnings in the Gradle documentation.</span></span><br><span class="line"></span><br><span class="line">    BUILD SUCCESSFUL <span class="keyword">in</span> 1s</span><br><span class="line">    7 actionable tasks: 2 executed, 5 up-to-date</span><br><span class="line"></span><br><span class="line"><span class="comment"># version.txt(in file)</span></span><br><span class="line">Version Code: 1</span><br><span class="line">Version Name: 1.0.0</span><br><span class="line">Min SDK: 21</span><br><span class="line">Target SDK: 35</span><br></pre></td></tr></table></figure>
+
+<h5 id="Gradle-VS-Gradlew-的差別"><a href="#Gradle-VS-Gradlew-的差別" class="headerlink" title="Gradle VS Gradlew 的差別"></a>Gradle VS Gradlew 的差別</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>Gradle (gradle)</th>
+<th>Gradlew (gradlew)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否需手動安裝？</td>
+<td>是，需安裝 Gradle</td>
+<td>否，自動下載 Gradle</td>
+</tr>
+<tr>
+<td>確保版本一致？</td>
+<td>否，需手動安裝相同版本</td>
+<td>是，專案內的 gradle-wrapper.properties 會指定版本</td>
+</tr>
+<tr>
+<td>適用於 CI&#x2F;CD？</td>
+<td>不推薦，需預裝 Gradle</td>
+<td>推薦，確保環境一致</td>
+</tr>
+<tr>
+<td>如何執行？</td>
+<td>gradle build</td>
+<td>.&#x2F;gradlew build（Linux&#x2F;macOS）或 gradlew.bat build（Windows）</td>
+</tr>
+</tbody></table>
+<h5 id="何時使用-Gradle-vs-Gradlew？"><a href="#何時使用-Gradle-vs-Gradlew？" class="headerlink" title="何時使用 Gradle vs. Gradlew？"></a>何時使用 Gradle vs. Gradlew？</h5><ul>
+<li>開發者環境：如果你已安裝 Gradle，且版本管理不是問題，可以用 gradle。</li>
+<li>團隊協作：建議使用 gradlew，確保大家用相同的 Gradle 版本。</li>
+<li>CI&#x2F;CD（如 GitHub Actions、Jenkins、GitLab CI）：使用 gradlew 來自動下載對應版本，避免環境不一致問題。<br>Gradle (gradle)：手動安裝，適合本地開發但版本管理麻煩。<br>Gradlew (gradlew)：專案內管理 Gradle 版本，推薦用於團隊開發與 CI&#x2F;CD。<br>一般來說，建議 優先使用 gradlew，確保環境一致，減少兼容性問題！</li>
+</ul>
+<h3 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h3><h4 id="Your-project-is-configured-with-Android-NDK-26-3-11579264"><a href="#Your-project-is-configured-with-Android-NDK-26-3-11579264" class="headerlink" title="Your project is configured with Android NDK 26.3.11579264"></a>Your project is configured with Android NDK 26.3.11579264</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Launching lib/main.dart on sdk gphone64 arm64 <span class="keyword">in</span> debug mode...</span><br><span class="line">Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:</span><br><span class="line">- path_provider_android requires Android NDK 27.0.12077973</span><br><span class="line">Fix this issue by using the highest Android NDK version (they are backward compatible).</span><br><span class="line">Add the following to /Users/gaoyiping/work/git/flutter-bootcamp-udemy/taskly/android/app/build.gradle.kts:</span><br><span class="line"></span><br><span class="line">    android &#123;</span><br><span class="line">        ndkVersion = <span class="string">&quot;27.0.12077973&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">✓ Built build/app/outputs/flutter-apk/app-debug.apk</span><br><span class="line">I/flutter (28980): [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(94)] Using the Impeller rendering backend (OpenGLES).</span><br><span class="line">W/HWUI    (28980): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...</span><br><span class="line">W/HWUI    (28980): Failed to initialize 101010-2 format, error = EGL_SUCCESS</span><br><span class="line">I/Gralloc4(28980): mapper 4.x is not supported</span><br><span class="line">Connecting to VM Service at ws://127.0.0.1:63311/mU9Fz3V7bms=/ws</span><br><span class="line">Connected to the VM Service.</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fix</span></span><br><span class="line"><span class="comment"># build.gradle.kts</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    namespace = <span class="string">&quot;com.example.taskly&quot;</span></span><br><span class="line">    compileSdk = flutter.compileSdkVersion</span><br><span class="line">    // kyp: change</span><br><span class="line">    // ndkVersion = flutter.ndkVersion</span><br><span class="line">    ndkVersion = <span class="string">&quot;27.0.12077973&quot;</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或許需下以下命令</span></span><br><span class="line">flutter clean</span><br><span class="line">flutter pub get</span><br><span class="line">flutter pub outdated</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check ndk version</span></span><br><span class="line"><span class="comment"># android.ndkVersion 用來指定 Android NDK 版本，確保專案與原生 C/C++ 程式碼相容。</span></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % cat ~/Library/Android/sdk/ndk/*/source.properties </span><br><span class="line">Pkg.Desc = Android NDK</span><br><span class="line">Pkg.Revision = 26.3.11579264</span><br><span class="line">Pkg.ReleaseName = r26d</span><br><span class="line">Pkg.Desc = Android NDK</span><br><span class="line">Pkg.Revision = 27.0.12077973</span><br><span class="line">Pkg.BaseRevision = 27.0.12077973</span><br><span class="line">Pkg.ReleaseName = r27</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % cat ~/Library/Android/sdk/ndk/*/source.properties | grep Pkg.Revision</span><br><span class="line">Pkg.Revision = 26.3.11579264</span><br><span class="line">Pkg.Revision = 27.0.12077973</span><br></pre></td></tr></table></figure>
+
+<h4 id="flutter-plugin-android-lifecycle-requires-Android-NDK-27-0-12077973"><a href="#flutter-plugin-android-lifecycle-requires-Android-NDK-27-0-12077973" class="headerlink" title="flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973"></a>flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973</h4><h5 id="show-issue"><a href="#show-issue" class="headerlink" title="show issue"></a>show issue</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:</span><br><span class="line">- camera_android_camerax requires Android NDK 27.0.12077973</span><br><span class="line">- firebase_core requires Android NDK 27.0.12077973</span><br><span class="line">- firebase_storage requires Android NDK 27.0.12077973</span><br><span class="line">- flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973</span><br><span class="line">- permission_handler_android requires Android NDK 27.0.12077973</span><br><span class="line">Fix this issue by using the highest Android NDK version (they are backward compatible).</span><br><span class="line">Add the following to /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/build.gradle.kts:</span><br><span class="line"></span><br><span class="line">    android &#123;</span><br><span class="line">        ndkVersion = <span class="string">&quot;27.0.12077973&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="change-version-android-x2F-app-x2F-build-gradle-kts"><a href="#change-version-android-x2F-app-x2F-build-gradle-kts" class="headerlink" title="change version - android&#x2F;app&#x2F;build.gradle.kts"></a>change version - android&#x2F;app&#x2F;build.gradle.kts</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    namespace = <span class="string">&quot;programming.hub.programminghub&quot;</span></span><br><span class="line">    compileSdk = flutter.compileSdkVersion</span><br><span class="line">    // kyp: change</span><br><span class="line">    // ndkVersion = flutter.ndkVersion</span><br><span class="line">    ndkVersion = <span class="string">&quot;27.0.12077973&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="update-package"><a href="#update-package" class="headerlink" title="update package"></a>update package</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter clean</span><br><span class="line">Cleaning Xcode workspace...                                      1,363ms</span><br><span class="line">Deleting build...                                                   69ms</span><br><span class="line">Deleting .dart_tool...                                               4ms</span><br><span class="line">Deleting Generated.xcconfig...                                       0ms</span><br><span class="line">Deleting flutter_export_environment.sh...                            0ms</span><br><span class="line">Deleting .flutter-plugins-dependencies...                            0ms</span><br><span class="line">Deleting .flutter-plugins...                                         0ms</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub get</span><br><span class="line">Resolving dependencies... </span><br><span class="line">Downloading packages... </span><br><span class="line">  async 2.12.0 (2.13.0 available)</span><br><span class="line">  fake_async 1.3.2 (1.3.3 available)</span><br><span class="line">  leak_tracker 10.0.8 (11.0.1 available)</span><br><span class="line">  leak_tracker_flutter_testing 3.0.9 (3.0.10 available)</span><br><span class="line">  leak_tracker_testing 3.0.1 (3.0.2 available)</span><br><span class="line">  lints 5.1.1 (6.0.0 available)</span><br><span class="line">  material_color_utilities 0.11.1 (0.12.0 available)</span><br><span class="line">  vector_math 2.1.4 (2.1.5 available)</span><br><span class="line">  vm_service 14.3.1 (15.0.0 available)</span><br><span class="line">Got dependencies!</span><br><span class="line">9 packages have newer versions incompatible with dependency constraints.</span><br><span class="line">Try `flutter pub outdated` <span class="keyword">for</span> more information.</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter pub outdated</span><br><span class="line">Showing outdated packages.</span><br><span class="line">[*] indicates versions that are not the latest available.</span><br><span class="line"></span><br><span class="line">Package Name                  Current  Upgradable  Resolvable  Latest  </span><br><span class="line"></span><br><span class="line">direct dependencies: all up-to-date.</span><br><span class="line"></span><br><span class="line">dev_dependencies: all up-to-date.</span><br><span class="line"></span><br><span class="line">transitive dependencies:     </span><br><span class="line">async                         *2.12.0  *2.12.0     *2.12.0     2.13.0  </span><br><span class="line">fake_async                    *1.3.2   *1.3.2      *1.3.2      1.3.3   </span><br><span class="line">leak_tracker                  *10.0.8  *10.0.8     *10.0.8     11.0.1  </span><br><span class="line">leak_tracker_flutter_testing  *3.0.9   *3.0.9      *3.0.9      3.0.10  </span><br><span class="line">leak_tracker_testing          *3.0.1   *3.0.1      *3.0.1      3.0.2   </span><br><span class="line">material_color_utilities      *0.11.1  *0.11.1     *0.11.1     0.12.0  </span><br><span class="line">vector_math                   *2.1.4   *2.1.4      *2.1.4      2.1.5   </span><br><span class="line">vm_service                    *14.3.1  *14.3.1     *14.3.1     15.0.0  </span><br><span class="line"></span><br><span class="line">transitive dev_dependencies: </span><br><span class="line">lints                         *5.1.1   *5.1.1      *5.1.1      6.0.0   </span><br><span class="line">all dependencies are up-to-date.</span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % cat ~/Library/Android/sdk/ndk/*/source.properties | grep Pkg.Revision</span><br><span class="line">Pkg.Revision = 26.3.11579264</span><br><span class="line">Pkg.Revision = 27.0.12077973</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed <span class="keyword">for</span> task <span class="string">&#x27;:app:processDebugGoogleServices&#x27;</span>.</span><br><span class="line">&gt; File google-services.json is missing. </span><br><span class="line">  The Google Services Plugin cannot <span class="keyword">function</span> without it. </span><br><span class="line">  Searched locations: /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/Debug/google-services.json, /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/google-services.json</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">&gt; Run with --stacktrace option to get the stack trace.</span><br><span class="line">&gt; Run with --info or --debug option to get more <span class="built_in">log</span> output.</span><br><span class="line">&gt; Run with --scan to get full insights.</span><br><span class="line">&gt; Get more <span class="built_in">help</span> at https://help.gradle.org.</span><br><span class="line"></span><br><span class="line">BUILD FAILED <span class="keyword">in</span> 5s</span><br><span class="line">Error: Gradle task assembleDebug failed with <span class="built_in">exit</span> code 1</span><br><span class="line"></span><br><span class="line">Exited (1).</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy google-services.json to android/app/</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">warning: [options] <span class="built_in">source</span> value 8 is obsolete and will be removed <span class="keyword">in</span> a future release</span><br><span class="line">warning: [options] target value 8 is obsolete and will be removed <span class="keyword">in</span> a future release</span><br><span class="line">warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.</span><br><span class="line">3 warnings</span><br><span class="line">warning: [options] <span class="built_in">source</span> value 8 is obsolete and will be removed <span class="keyword">in</span> a future release</span><br><span class="line">warning: [options] target value 8 is obsolete and will be removed <span class="keyword">in</span> a future release</span><br><span class="line">warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.</span><br><span class="line">3 warnings</span><br><span class="line">e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/java.com.google.android.gms.libs.filecompliance.proto_file_access_api_type_kt_proto_lite.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.</span><br><span class="line">e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/third_party.kotlin.protobuf.src.commonMain.kotlin.com.google.protobuf.kotlin_only_for_use_in_proto_generated_code_its_generator_and_tests.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.</span><br><span class="line">e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/9b018e3170113d6fc57578a6d48cd669/transformed/jetified-play-services-measurement-impl-22.4.0-api.jar!/META-INF/third_party.kotlin.protobuf.src.commonMain.kotlin.com.google.protobuf.kotlin_shared_runtime.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.</span><br><span class="line">e: file:///Users/gaoyiping/.gradle/caches/8.10.2/transforms/d46efa473af2ff731cfae5ea2010b3f1/transformed/jetified-play-services-measurement-api-22.4.0-api.jar!/META-INF/java.com.google.android.gmscore.integ.client.measurement_api_measurement_api.kotlin_moduleModule was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.8.0.</span><br><span class="line"></span><br><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed <span class="keyword">for</span> task <span class="string">&#x27;:app:compileDebugKotlin&#x27;</span>.</span><br><span class="line">&gt; A failure occurred <span class="keyword">while</span> executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers<span class="variable">$GradleKotlinCompilerWorkAction</span></span><br><span class="line">   &gt; Compilation error. See <span class="built_in">log</span> <span class="keyword">for</span> more details</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">&gt; Run with --stacktrace option to get the stack trace.</span><br><span class="line">&gt; Run with --info or --debug option to get more <span class="built_in">log</span> output.</span><br><span class="line">&gt; Run with --scan to get full insights.</span><br><span class="line">&gt; Get more <span class="built_in">help</span> at https://help.gradle.org.</span><br><span class="line"></span><br><span class="line">BUILD FAILED <span class="keyword">in</span> 16s</span><br><span class="line"></span><br><span class="line">┌─ Flutter Fix ────────────────────────────────────────────────────────────────────────────────────┐</span><br><span class="line">│ [!] Your project requires a newer version of the Kotlin Gradle plugin.                           │</span><br><span class="line">│ Find the latest version on https://kotlinlang.org/docs/releases.html<span class="comment">#release-details, then       │</span></span><br><span class="line">│ update the                                                                                       │</span><br><span class="line">│ version number of the plugin with id <span class="string">&quot;org.jetbrains.kotlin.android&quot;</span> <span class="keyword">in</span> the plugins block of      │</span><br><span class="line">│ /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/settings.gradle │</span><br><span class="line">│ .                                                                                                │</span><br><span class="line">│                                                                                                  │</span><br><span class="line">│ Alternatively (<span class="keyword">if</span> your project was created before Flutter 3.19), update                          │</span><br><span class="line">│ /Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/build.gradle    │</span><br><span class="line">│ ext.kotlin_version = <span class="string">&#x27;&lt;latest-version&gt;&#x27;</span>                                                          │</span><br><span class="line">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span><br><span class="line">Error: Gradle task assembleDebug failed with <span class="built_in">exit</span> code 1</span><br><span class="line"></span><br><span class="line">Exited (1).</span><br></pre></td></tr></table></figure>
+
+<p>android&#x2F;settings.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id(&quot;dev.flutter.flutter-plugin-loader&quot;) version &quot;1.0.0&quot;</span><br><span class="line">    id(&quot;com.android.application&quot;) version &quot;8.7.0&quot; apply false</span><br><span class="line">    &#x2F;&#x2F; kyp: change</span><br><span class="line">    &#x2F;&#x2F; id(&quot;org.jetbrains.kotlin.android&quot;) version &quot;1.8.22&quot; apply false</span><br><span class="line">    id &quot;org.jetbrains.kotlin.android&quot; version &quot;2.1.0&quot; apply false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % flutter clean</span><br><span class="line">Cleaning Xcode workspace...                                      1,109ms</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果存在</span></span><br><span class="line">rm -rf build/</span><br><span class="line"></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro programminghub % rm -rf ~/.gradle/caches/</span><br><span class="line"></span><br><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew clean</span><br><span class="line">``</span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line"><span class="comment"># close vscode</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 執行以下指令來結束所有 Gradle 後台程序</span></span><br><span class="line">pkill -f <span class="string">&#x27;.*GradleDaemon.*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 手動清除所有殘留資料</span></span><br><span class="line">rm -rf ~/.gradle</span><br><span class="line">rm -rf ~/.android/build-cache</span><br><span class="line">rm -rf .dart_tool</span><br><span class="line">rm -rf build</span><br><span class="line">rm -rf android/.gradle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新下載並初始化建構依賴</span></span><br><span class="line">flutter pub get</span><br><span class="line"></span><br><span class="line"><span class="comment"># android 資料夾執行</span></span><br><span class="line">./gradlew clean</span><br><span class="line">./gradlew build --refresh-dependencies</span><br></pre></td></tr></table></figure>
+
+<h1 id="有以下設定"><a href="#有以下設定" class="headerlink" title="有以下設定"></a>有以下設定</h1><h1 id="android-x2F-settings-gradle-kts"><a href="#android-x2F-settings-gradle-kts" class="headerlink" title="android&#x2F;settings.gradle.kts"></a>android&#x2F;settings.gradle.kts</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pluginManagement &#123;</span><br><span class="line">    val flutterSdkPath = run &#123;</span><br><span class="line">        val properties = java.util.Properties()</span><br><span class="line">        file(<span class="string">&quot;local.properties&quot;</span>).inputStream().use &#123; properties.load(it) &#125;</span><br><span class="line">        val flutterSdkPath = properties.getProperty(<span class="string">&quot;flutter.sdk&quot;</span>)</span><br><span class="line">        require(flutterSdkPath != null) &#123; <span class="string">&quot;flutter.sdk not set in local.properties&quot;</span> &#125;</span><br><span class="line">        flutterSdkPath</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    includeBuild(<span class="string">&quot;<span class="variable">$flutterSdkPath</span>/packages/flutter_tools/gradle&quot;</span>)</span><br><span class="line"></span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">        gradlePluginPortal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">plugins &#123;</span><br><span class="line">    // kyp: change</span><br><span class="line">    // id(<span class="string">&quot;dev.flutter.flutter-plugin-loader&quot;</span>) version <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line">    id(<span class="string">&quot;dev.flutter.flutter-plugin-loader&quot;</span>) apply <span class="literal">false</span></span><br><span class="line">    id(<span class="string">&quot;com.android.application&quot;</span>) version <span class="string">&quot;8.7.0&quot;</span> apply <span class="literal">false</span></span><br><span class="line">    // kyp: change</span><br><span class="line">    // id(<span class="string">&quot;org.jetbrains.kotlin.android&quot;</span>) version <span class="string">&quot;1.8.22&quot;</span> apply <span class="literal">false</span></span><br><span class="line">    id(<span class="string">&quot;org.jetbrains.kotlin.android&quot;</span>) version <span class="string">&quot;2.1.0&quot;</span> apply <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include(<span class="string">&quot;:app&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">gaoyiping@gaoyipingdeMacBook-Pro android % ./gradlew build --refresh-dependencies</span><br><span class="line"></span><br><span class="line">&gt; Task :app:compileDebugKotlin FAILED</span><br><span class="line">e: file:///Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/main/kotlin/programming/hub/programminghub/MainActivity.kt:3:8 Unresolved reference <span class="string">&#x27;io&#x27;</span>.</span><br><span class="line">e: file:///Users/gaoyiping/work/git/flutter/master-flutter-and-dart/programminghub/android/app/src/main/kotlin/programming/hub/programminghub/MainActivity.kt:5:22 Unresolved reference <span class="string">&#x27;FlutterActivity&#x27;</span>.</span><br><span class="line"></span><br><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed <span class="keyword">for</span> task <span class="string">&#x27;:app:compileDebugKotlin&#x27;</span>.</span><br><span class="line">&gt; A failure occurred <span class="keyword">while</span> executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers<span class="variable">$GradleKotlinCompilerWorkAction</span></span><br><span class="line">   &gt; Compilation error. See <span class="built_in">log</span> <span class="keyword">for</span> more details</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">&gt; Run with --stacktrace option to get the stack trace.</span><br><span class="line">&gt; Run with --info or --debug option to get more <span class="built_in">log</span> output.</span><br><span class="line">&gt; Run with --scan to get full insights.</span><br><span class="line">&gt; Get more <span class="built_in">help</span> at https://help.gradle.org.</span><br><span class="line"></span><br><span class="line">BUILD FAILED <span class="keyword">in</span> 54s</span><br><span class="line">33 actionable tasks: 27 executed, 6 up-to-date</span><br></pre></td></tr></table></figure>
+
+<p>#修正,加大括號<br> android&#x2F;app&#x2F;src&#x2F;main&#x2F;kotlin&#x2F;programming&#x2F;hub&#x2F;programminghub&#x2F;MainActivity.kt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package programming.hub.programminghub</span><br><span class="line"></span><br><span class="line">import io.flutter.embedding.android.FlutterActivity</span><br><span class="line"></span><br><span class="line">class MainActivity : <span class="function"><span class="title">FlutterActivity</span></span>() &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.gradle/caches/</span><br><span class="line">rm -rf android/.gradle</span><br><span class="line"></span><br><span class="line">flutter clean</span><br><span class="line">flutter pub get</span><br><span class="line">flutter build apk</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清除 Flutter 專案產生的暫存檔案與建置目錄</span></span><br><span class="line">flutter clean</span><br><span class="line"><span class="comment"># 根據 pubspec.yaml 內容，自動下載並安裝 Dart/Flutter 專案所需的所有套件依賴，並將其存放在 .pub-cache 隱藏目錄</span></span><br><span class="line">flutter pub get</span><br><span class="line"><span class="comment"># 將 Flutter 專案編譯並打包成 Android 的 APK 安裝檔，可直接安裝到 Android 裝置或發佈到 Google Play 商店</span></span><br><span class="line"><span class="comment"># flutter build apk：預設為 release 版本（正式發佈用）。</span></span><br><span class="line"><span class="comment"># flutter build apk --debug：建立 debug 版本 APK，供開發測試用。</span></span><br><span class="line"><span class="comment"># flutter build apk --profile：建立 profile 版本 APK，供效能分析。</span></span><br><span class="line"><span class="comment"># flutter build apk --split-per-abi：針對不同 CPU 架構分別打包，減少單一 APK 檔案大小。</span></span><br><span class="line"><span class="comment"># 打包完成後，APK 檔案通常位於 build/app/outputs/apk/release/ 目錄</span></span><br><span class="line">flutter build apk</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看詳細錯誤日誌</span></span><br><span class="line">flutter build apk --release --verbose</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">rm -rf ~/.gradle</span><br><span class="line">flutter clean</span><br><span class="line">flutter pub get</span><br><span class="line">./gradlew clean</span><br><span class="line">flutter build apk</span><br><span class="line"></span><br><span class="line">flutter clean</span><br><span class="line">flutter pub get</span><br><span class="line"><span class="built_in">cd</span> android</span><br><span class="line">./gradlew clean --refresh-dependencies</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">flutter build apk</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h3><h4 id="flutter-map-to-Android-version"><a href="#flutter-map-to-Android-version" class="headerlink" title="flutter map to Android version"></a>flutter map to Android version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Kotlin file build.gradle.kts</span></span><br><span class="line">defaultConfig &#123;</span><br><span class="line">    applicationId = <span class="string">&quot;com.example.taskly&quot;</span></span><br><span class="line">    minSdk = flutter.minSdkVersion        // 最低支援 Android API</span><br><span class="line">    targetSdk = flutter.targetSdkVersion  // 目標 Android API</span><br><span class="line">    versionCode = flutter.versionCode</span><br><span class="line">    versionName = flutter.versionName</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># dump </span></span><br><span class="line"><span class="comment"># version.txt(in file)</span></span><br><span class="line">Version Code: 1</span><br><span class="line">Version Name: 1.0.0</span><br><span class="line">Min SDK: 21      --&gt; Android 5.0</span><br><span class="line">Target SDK: 35   --&gt; Android 14 (Upside Down Cake) 的後續版本</span><br></pre></td></tr></table></figure>
+
+<h4 id="Android-map-to-API-Level"><a href="#Android-map-to-API-Level" class="headerlink" title="Android map to API Level"></a>Android map to API Level</h4><table>
+<thead>
+<tr>
+<th>Android 版本</th>
+<th>API Level</th>
+<th>發佈年份</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Android 15</td>
+<td>35</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>Android 14</td>
+<td>34</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>Android 13</td>
+<td>33</td>
+<td>2022</td>
+</tr>
+<tr>
+<td>Android 12L</td>
+<td>32</td>
+<td>2022</td>
+</tr>
+<tr>
+<td>Android 12</td>
+<td>31</td>
+<td>2021</td>
+</tr>
+<tr>
+<td>Android 11</td>
+<td>30</td>
+<td>2020</td>
+</tr>
+<tr>
+<td>Android 10</td>
+<td>29</td>
+<td>2019</td>
+</tr>
+<tr>
+<td>Android 9</td>
+<td>28</td>
+<td>2018</td>
+</tr>
+<tr>
+<td>Android 8.1</td>
+<td>27</td>
+<td>2017</td>
+</tr>
+<tr>
+<td>Android 8.0</td>
+<td>26</td>
+<td>2017</td>
+</tr>
+<tr>
+<td>Android 7.1</td>
+<td>25</td>
+<td>2016</td>
+</tr>
+<tr>
+<td>Android 7.0</td>
+<td>24</td>
+<td>2016</td>
+</tr>
+<tr>
+<td>Android 6.0</td>
+<td>23</td>
+<td>2015</td>
+</tr>
+<tr>
+<td>Android 5.1</td>
+<td>22</td>
+<td>2015</td>
+</tr>
+<tr>
+<td>Android 5.0</td>
+<td>21</td>
+<td>2014</td>
+</tr>
+<tr>
+<td>Android 4.4W</td>
+<td>20</td>
+<td>2014</td>
+</tr>
+<tr>
+<td>Android 4.4</td>
+<td>19</td>
+<td>2013</td>
+</tr>
+<tr>
+<td>Android 4.3</td>
+<td>18</td>
+<td>2013</td>
+</tr>
+<tr>
+<td>Android 4.2</td>
+<td>17</td>
+<td>2012</td>
+</tr>
+<tr>
+<td>Android 4.1</td>
+<td>16</td>
+<td>2012</td>
+</tr>
+<tr>
+<td>Android 4.0.3 - 4.0.4</td>
+<td>15</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 4.0.1 - 4.0.2</td>
+<td>14</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 3.2</td>
+<td>13</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 3.1</td>
+<td>12</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 3.0</td>
+<td>11</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 2.3.3 - 2.3.7</td>
+<td>10</td>
+<td>2011</td>
+</tr>
+<tr>
+<td>Android 2.3 - 2.3.2</td>
+<td>9</td>
+<td>2010</td>
+</tr>
+<tr>
+<td>Android 2.2</td>
+<td>8</td>
+<td>2010</td>
+</tr>
+<tr>
+<td>Android 2.1</td>
+<td>7</td>
+<td>2010</td>
+</tr>
+<tr>
+<td>Android 2.0.1</td>
+<td>6</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>Android 2.0</td>
+<td>5</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>Android 1.6</td>
+<td>4</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>Android 1.5</td>
+<td>3</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>Android 1.1</td>
+<td>2</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>Android 1.0</td>
+<td>1</td>
+<td>2008</td>
+</tr>
+</tbody></table>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/%E5%BD%BC%E5%BE%97%E6%BD%98%E7%9A%84-flutter-app-%E9%96%8B%E7%99%BC%E5%95%8F%E9%A1%8C%E8%A7%A3%E7%AD%94%E9%9B%86/%E5%9C%A8-mac-%E4%B8%8A%E6%BA%96%E5%82%99-flutter-app-%E7%9A%84%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83-3ccebbd3a0bd">在 Mac 上準備 Flutter App 的開發環境</a></li>
+<li><a target="_blank" rel="noopener" href="https://apppeterpan.medium.com/%E5%9C%A8-mac-%E4%B8%8A%E5%AE%89%E8%A3%9D-android-studio-3adcc728273e">在 mac 上安裝 Android Studio</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/londonappbrewery/Flutter-Course-Resources">Flutter-Course-Resources</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.flutter.dev/">Flutter</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+              <a href="/tags/mac/" rel="tag"># mac</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/29/mac-2/" rel="prev" title="Ｍac App 設定與使用">
+                  <i class="fa fa-chevron-left"></i> Ｍac App 設定與使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/02/ai-7/" rel="next" title="prompt example">
+                  prompt example <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2024/12/30/flutter-5/";
+    this.page.identifier = "2024/12/30/flutter-5/";
+    this.page.title = "Flutter setup for Mac";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="commandinstall1pip install flask">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Flask 說明">
+<meta property="og:url" content="https://hot5656.github.io/2023/01/11/python-16/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="commandinstall1pip install flask">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/11/python-16/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/11/python-16/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/11/python-16/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/11/python-16/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/11/python-16/pic5.png">
+<meta property="article:published_time" content="2023-01-11T00:47:09.000Z">
+<meta property="article:modified_time" content="2023-01-11T08:01:57.610Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2023/01/11/python-16/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2023/01/11/python-16/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Python Flask 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#command"><span class="nav-number">1.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1st-run"><span class="nav-number">2.1.</span> <span class="nav-text">1st run</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-app-py"><span class="nav-number">2.1.1.</span> <span class="nav-text">web&#x2F;app.py</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run"><span class="nav-number">2.1.2.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-chrome"><span class="nav-number">2.1.3.</span> <span class="nav-text">run chrome</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2nd-run"><span class="nav-number">2.2.</span> <span class="nav-text">2nd run</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-app-py-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">web&#x2F;app.py</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-chrome-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">run chrome</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-more-best-json"><span class="nav-number">2.3.</span> <span class="nav-text">get more_best json</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-app-py-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">web&#x2F;app.py</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-chrome-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">run chrome</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-html-template"><span class="nav-number">2.4.</span> <span class="nav-text">add html template</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-app-py-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">web&#x2F;app.py</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-templates-x2F-index-html"><span class="nav-number">2.4.2.</span> <span class="nav-text">web&#x2F;templates&#x2F;index.html</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-chrome-3"><span class="nav-number">2.4.3.</span> <span class="nav-text">run chrome</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#more-base-show-top-150-games-by-bootstrap-4"><span class="nav-number">2.5.</span> <span class="nav-text">more_base show top 150 games by bootstrap 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#bootstrap-css-web-x2F-static-x2F-css-x2F-bootstrap-x2F-bootstrap-min-css"><span class="nav-number">2.5.1.</span> <span class="nav-text">bootstrap css - web&#x2F;static&#x2F;css&#x2F;bootstrap&#x2F;bootstrap.min.css</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-app-py-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">web&#x2F;app.py</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web-x2F-templates-x2F-index-html-1"><span class="nav-number">2.5.3.</span> <span class="nav-text">web&#x2F;templates&#x2F;index.html</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-chrome-4"><span class="nav-number">2.5.4.</span> <span class="nav-text">run chrome</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2023/01/11/python-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Flask 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2023-01-11 08:47:09 / 修改時間：16:01:57" itemprop="dateCreated datePublished" datetime="2023-01-11T08:47:09+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/01/11/python-16/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/11/python-16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1st-run"><a href="#1st-run" class="headerlink" title="1st run"></a>1st run</h4><h5 id="web-x2F-app-py"><a href="#web-x2F-app-py" class="headerlink" title="web&#x2F;app.py"></a>web&#x2F;app.py</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># debug=True): doesn&#x27;t restart when change app</span></span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="run"><a href="#run" class="headerlink" title="run"></a>run</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\108-scrapy-practice\steam\web&gt;python app.py</span><br><span class="line"> * Serving Flask app <span class="string">&#x27;app&#x27;</span></span><br><span class="line"> * Debug mode: on</span><br><span class="line">WARNING: This is a development server. Do not use it <span class="keyword">in</span> a production deployment. Use a production WSGI server instead.</span><br><span class="line"> * Running on http://127.0.0.1:5000</span><br><span class="line">Press CTRL+C to quit</span><br><span class="line"> * Restarting with <span class="built_in">stat</span></span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 115-499-250</span><br></pre></td></tr></table></figure>
+
+<h5 id="run-chrome"><a href="#run-chrome" class="headerlink" title="run chrome"></a>run chrome</h5><p><a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000/</a></p>
+<div style="max-width:700px">
+    <img src="/2023/01/11/python-16/pic1.png" class="" title="pic1">
+</div>
+
+<h4 id="2nd-run"><a href="#2nd-run" class="headerlink" title="2nd run"></a>2nd run</h4><h5 id="web-x2F-app-py-1"><a href="#web-x2F-app-py-1" class="headerlink" title="web&#x2F;app.py"></a>web&#x2F;app.py</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello, world!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># debug=True): doesn&#x27;t restart when change app</span></span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="run-chrome-1"><a href="#run-chrome-1" class="headerlink" title="run chrome"></a>run chrome</h5><p><a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000/</a></p>
+<div style="max-width:700px">
+    <img src="/2023/01/11/python-16/pic2.png" class="" title="pic2">
+</div>
+
+<h4 id="get-more-best-json"><a href="#get-more-best-json" class="headerlink" title="get more_best json"></a>get more_best json</h4><h5 id="web-x2F-app-py-2"><a href="#web-x2F-app-py-2" class="headerlink" title="web&#x2F;app.py"></a>web&#x2F;app.py</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    resp = requests.get(</span><br><span class="line">        url =<span class="string">&#x27;http://localhost:9080/crawl.json?start_requests=true&amp;spider_name=more_best&#x27;</span></span><br><span class="line">    ).json()</span><br><span class="line"></span><br><span class="line">    items = resp.get(<span class="string">&#x27;items&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> items</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># debug=True): doesn&#x27;t restart when change app</span></span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="run-chrome-2"><a href="#run-chrome-2" class="headerlink" title="run chrome"></a>run chrome</h5><p><a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000/</a></p>
+<div style="max-width:700px">
+    <img src="/2023/01/11/python-16/pic3.png" class="" title="pic3">
+</div>
+
+<h4 id="add-html-template"><a href="#add-html-template" class="headerlink" title="add html template"></a>add html template</h4><h5 id="web-x2F-app-py-3"><a href="#web-x2F-app-py-3" class="headerlink" title="web&#x2F;app.py"></a>web&#x2F;app.py</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    resp = requests.get(</span><br><span class="line">        url =<span class="string">&#x27;http://localhost:9080/crawl.json?start_requests=true&amp;spider_name=more_best&#x27;</span></span><br><span class="line">    ).json()</span><br><span class="line"></span><br><span class="line">    items = resp.get(<span class="string">&#x27;items&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> items</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/show&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_template</span>():</span></span><br><span class="line">    user_name = <span class="string">&#x27;Robert&#x27;</span></span><br><span class="line">    fruits = [</span><br><span class="line">        <span class="string">&#x27;banana&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;orange&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;apple&#x27;</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, user=user_name, fruits=fruits)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># debug=True): doesn&#x27;t restart when change app</span></span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="web-x2F-templates-x2F-index-html"><a href="#web-x2F-templates-x2F-index-html" class="headerlink" title="web&#x2F;templates&#x2F;index.html"></a>web&#x2F;templates&#x2F;index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Steam games<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;user&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% for fruit in fruits%&#125;</span><br><span class="line">        &#123;% if fruit==&#x27;apple&#x27; %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">P</span>&gt;</span>&#123;&#123;fruit&#125;&#125;--mine<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line">        &#123;% else %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;fruit&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        &#123;% endif %&#125;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="run-chrome-3"><a href="#run-chrome-3" class="headerlink" title="run chrome"></a>run chrome</h5><p><a target="_blank" rel="noopener" href="http://localhost:5000/show">http://localhost:5000/show</a></p>
+<div style="max-width:700px">
+    <img src="/2023/01/11/python-16/pic4.png" class="" title="pic4">
+</div>
+
+<h4 id="more-base-show-top-150-games-by-bootstrap-4"><a href="#more-base-show-top-150-games-by-bootstrap-4" class="headerlink" title="more_base show top 150 games by bootstrap 4"></a>more_base show top 150 games by bootstrap 4</h4><h5 id="bootstrap-css-web-x2F-static-x2F-css-x2F-bootstrap-x2F-bootstrap-min-css"><a href="#bootstrap-css-web-x2F-static-x2F-css-x2F-bootstrap-x2F-bootstrap-min-css" class="headerlink" title="bootstrap css - web&#x2F;static&#x2F;css&#x2F;bootstrap&#x2F;bootstrap.min.css"></a>bootstrap css - web&#x2F;static&#x2F;css&#x2F;bootstrap&#x2F;bootstrap.min.css</h5><h5 id="web-x2F-app-py-4"><a href="#web-x2F-app-py-4" class="headerlink" title="web&#x2F;app.py"></a>web&#x2F;app.py</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    resp = requests.get(</span><br><span class="line">        url =<span class="string">&#x27;http://localhost:9080/crawl.json?start_requests=true&amp;spider_name=more_best&#x27;</span></span><br><span class="line">    ).json()</span><br><span class="line"></span><br><span class="line">    items = resp.get(<span class="string">&#x27;items&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, games=items)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># debug=True): doesn&#x27;t restart when change app</span></span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="web-x2F-templates-x2F-index-html-1"><a href="#web-x2F-templates-x2F-index-html-1" class="headerlink" title="web&#x2F;templates&#x2F;index.html"></a>web&#x2F;templates&#x2F;index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;css/bootstrap/bootstrap.min.css&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Steam games<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar navbar-expand-lg navbar-light bg-light&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;navbar-brand&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Steam Games<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;navbar-toggler&quot;</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;collapse&quot;</span> <span class="attr">data-target</span>=<span class="string">&quot;#navbarNav&quot;</span> <span class="attr">aria-controls</span>=<span class="string">&quot;navbarNav&quot;</span> <span class="attr">aria-expanded</span>=<span class="string">&quot;false&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;Toggle navigation&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;navbar-toggler-icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;collapse navbar-collapse&quot;</span> <span class="attr">id</span>=<span class="string">&quot;navbarNav&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;navbar-nav&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item active&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/&quot;</span>&gt;</span>Home <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;sr-only&quot;</span>&gt;</span>(current)<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container mt-4&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;jumbotron text-center&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;display-4&quot;</span>&gt;</span>Steam 150 games<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;lead&quot;</span>&gt;</span>All the games you see below are scraped from Steam store using Scarpy &amp; ScrapyRT.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">hr</span> <span class="attr">class</span>=<span class="string">&quot;my-4&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>For further information please click the button below.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-primary btn-lg&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://scrapy.org&quot;</span> <span class="attr">role</span>=<span class="string">&quot;button&quot;</span>&gt;</span>Learn more<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        &#123;% for game in games%&#125;</span><br><span class="line">            <span class="comment">&lt;!-- loop.index0 exist in for loop, start from 0 --&gt;</span></span><br><span class="line">            &#123;% if loop.index0 % 3 == 0 %&#125;</span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row justify-content-center my-4&quot;</span>&gt;</span></span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card mx-4 text-center&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 18rem;&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;game[&#x27;img_url&#x27;]&#125;&#125;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;card-img-top&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body d-flex flex-column&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>&#123;&#123;game[&#x27;game_name&#x27;]&#125;&#125;<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>support platform:&#123;&#123;game[&#x27;platforms&#x27;] &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123;game[&#x27;game_url&#x27;]&#125;&#125;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-primary d-block mt-auto&quot;</span>&gt;</span>Game URL<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            &#123;% if loop.index0 % 3 == 2 %&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">        &#123;% endfor%&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="run-chrome-4"><a href="#run-chrome-4" class="headerlink" title="run chrome"></a>run chrome</h5><p><a target="_blank" rel="noopener" href="http://localhost:5000/">http://localhost:5000/</a></p>
+<div style="max-width:700px">
+    <img src="/2023/01/11/python-16/pic5.png" class="" title="pic5">
+</div>
+
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en/1.1.x/">Flask Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://jinja.palletsprojects.com/en/2.10.x/templates/">Jinja template</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/10/python-15/" rel="prev" title="Python ScrapyRT 說明(Scrapy realtime)">
+                  <i class="fa fa-chevron-left"></i> Python ScrapyRT 說明(Scrapy realtime)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/16/python-17/" rel="next" title="Python Scrapy Issue(爬蟲框架)">
+                  Python Scrapy Issue(爬蟲框架) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2023/01/11/python-16/";
+    this.page.identifier = "2023/01/11/python-16/";
+    this.page.title = "Python Flask 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

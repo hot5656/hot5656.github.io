@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="說明 同源政策 (Same-origin policy) 跨來源寫(Cross-origin writes)通常被允許，例如有連結、重新導向以及表單送出。少數某些HTTP請求需要先導請求。 跨來源嵌入(Cross-origin embedding)通常被允許。 跨來源讀取(Cross-origin read) 通常不被允許，不過通常可以藉由嵌入來繞道讀取，例如嵌入影像寬高讀取、嵌入程式碼或嵌入資源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML 說明">
+<meta property="og:url" content="https://hot5656.github.io/2021/05/17/html-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="說明 同源政策 (Same-origin policy) 跨來源寫(Cross-origin writes)通常被允許，例如有連結、重新導向以及表單送出。少數某些HTTP請求需要先導請求。 跨來源嵌入(Cross-origin embedding)通常被允許。 跨來源讀取(Cross-origin read) 通常不被允許，不過通常可以藉由嵌入來繞道讀取，例如嵌入影像寬高讀取、嵌入程式碼或嵌入資源">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-05-17T06:17:19.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:35.054Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/05/17/html-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>HTML 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-example"><span class="nav-number">2.</span> <span class="nav-text">HTML example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SEO-Search-engine-optimization-%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E5%84%AA%E5%8C%96-%E8%88%87-meta-%E6%A8%99%E7%B1%A4"><span class="nav-number">3.</span> <span class="nav-text">SEO(Search engine optimization)搜尋引擎優化 與 meta 標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC"><span class="nav-number">3.1.</span> <span class="nav-text">一般</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-LD-JSON-for-Linking-Data"><span class="nav-number">3.2.</span> <span class="nav-text">JSON-LD(JSON for Linking Data)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#robots-txt"><span class="nav-number">3.3.</span> <span class="nav-text">robots.txt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sitemap"><span class="nav-number">3.4.</span> <span class="nav-text">Sitemap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tag-%E6%A8%99%E7%B1%A4"><span class="nav-number">4.</span> <span class="nav-text">Tag 標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Semantic-elements-%E8%AA%9E%E7%BE%A9%E5%8C%96%E5%85%83%E7%B4%A0"><span class="nav-number">4.1.</span> <span class="nav-text">Semantic elements 語義化元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E5%AD%97"><span class="nav-number">4.2.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E5%85%A7%E6%96%87%E5%AD%97"><span class="nav-number">4.3.</span> <span class="nav-text">行內文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">4.4.</span> <span class="nav-text">Form</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#textarea"><span class="nav-number">4.4.1.</span> <span class="nav-text">textarea</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E6%8B%89%E5%BC%8F%E9%81%B8%E5%96%AE-lt-select-gt-lt-option-gt"><span class="nav-number">4.4.2.</span> <span class="nav-text">下拉式選單 - &lt;select&gt;, &lt;option&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#input-type-hidden"><span class="nav-number">4.4.3.</span> <span class="nav-text">input type hidden</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#enctype-Attribute-content-type"><span class="nav-number">4.4.4.</span> <span class="nav-text">enctype Attribute(content type)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%96%E7%89%87%E8%88%87%E5%A4%9A%E5%AA%92%E9%AB%94"><span class="nav-number">4.5.</span> <span class="nav-text">圖片與多媒體</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Table-%E8%A1%A8%E6%A0%BC"><span class="nav-number">4.6.</span> <span class="nav-text">Table 表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%A8%99%E7%B1%A4"><span class="nav-number">4.7.</span> <span class="nav-text">其他標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#section"><span class="nav-number">4.7.1.</span> <span class="nav-text">section</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dl-dd-dt"><span class="nav-number">4.7.2.</span> <span class="nav-text">dl, dd, dt</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fieldset-and-Legends"><span class="nav-number">4.7.3.</span> <span class="nav-text">fieldset and Legends</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-Attribute"><span class="nav-number">5.</span> <span class="nav-text">HTML Attribute</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#title-mouse-%E7%A7%BB%E8%87%B3%E4%B8%8A%E6%96%B9%E9%A1%AF%E7%A4%BA%E8%AA%AA%E6%98%8E"><span class="nav-number">5.1.</span> <span class="nav-text">title - mouse 移至上方顯示說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tabindex"><span class="nav-number">5.2.</span> <span class="nav-text">tabindex</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Escape-%E8%B7%B3%E8%84%AB"><span class="nav-number">6.1.</span> <span class="nav-text">Escape 跳脫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#comment"><span class="nav-number">6.2.</span> <span class="nav-text">comment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML5%E7%9A%84lang"><span class="nav-number">6.3.</span> <span class="nav-text">HTML5的lang</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML-Entity-List"><span class="nav-number">6.4.</span> <span class="nav-text">HTML Entity List</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">參考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/05/17/html-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTML 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-17 14:17:19" itemprop="dateCreated datePublished" datetime="2021-05-17T14:17:19+08:00">2021-05-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:35" itemprop="dateModified" datetime="2022-06-09T11:38:35+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/05/17/html-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/05/17/html-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>13 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/Security/Same-origin_policy">同源政策 (Same-origin policy)</a><ul>
+<li>跨來源寫(Cross-origin writes)通常被允許，例如有連結、重新導向以及表單送出。少數某些HTTP請求需要先導請求。</li>
+<li>跨來源嵌入(Cross-origin embedding)通常被允許。</li>
+<li>跨來源讀取(Cross-origin read) 通常不被允許，不過通常可以藉由嵌入來繞道讀取，例如嵌入影像寬高讀取、嵌入程式碼或嵌入資源。</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS">跨源資源共享（CORS）</a><ul>
+<li>簡單請求</li>
+<li>Preflight Request(預檢請求)<br>  有時會看到發兩次 request,因為只要發送請求到不同 origin 就會有 cors 的問題,所以 server 必須先確定 client 端是合法請求，也就是,Preflighted 要先發一次 request 去驗證是否合法 domain,成功了才能發真正的 request</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTML-example"><a href="#HTML-example" class="headerlink" title="HTML example"></a>HTML example</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Title icon --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;shortcut icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;images/title-img.png&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- web title --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Pure Bootstrap Website<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SEO-Search-engine-optimization-搜尋引擎優化-與-meta-標籤"><a href="#SEO-Search-engine-optimization-搜尋引擎優化-與-meta-標籤" class="headerlink" title="SEO(Search engine optimization)搜尋引擎優化 與 meta 標籤"></a>SEO(Search engine optimization)搜尋引擎優化 與 meta 標籤</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.tripadvisor.com.tw/">Tripadvisor</a></li>
+<li><a target="_blank" rel="noopener" href="https://ogp.me/">The Open Graph protocol</a> : Facebook 使用</li>
+<li><a target="_blank" rel="noopener" href="https://developers.facebook.com/tools/debug/?locale=zh_TW">facebook for developers</a> : Facebook og 偵錯</li>
+<li><a target="_blank" rel="noopener" href="https://json-ld.org/">JSON-LD</a> : JSON for Linking Data(google search 有用)</li>
+<li><a target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome?hl=zh-TW">Google Search Console</a> : 網站搜尋分析</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="一般"><a href="#一般" class="headerlink" title="一般"></a>一般</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- title, keywords,  description--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>四海遊龍 (中山區) - 餐廳/美食評論 - Tripadvisor<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;中山區四海遊龍, 餐廳, 餐廳評論, 食物, 用餐&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;四海遊龍(中山區): 讀讀32則則關於四海遊龍客觀公正的美食評論，在Tripadvisor的5分滿分評等中得3.5分，在中山區的2,708家餐廳中排第468名。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- The Open Graph protocol, Facebook 使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://media-cdn.tripadvisor.com/media/photo-s/0d/43/49/bd/photo0jpg.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image:width&quot;</span> <span class="attr">content</span>=<span class="string">&quot;550&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image:height&quot;</span> <span class="attr">content</span>=<span class="string">&quot;413&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;restaurant&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:url&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">content</span>=<span class="string">&quot;http://www.tripadvisor.com.tw/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:site_name&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Tripadvisor&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 提供 app--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;al:ios:app_name&quot;</span> <span class="attr">content</span>=<span class="string">&quot;TripAdvisor&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;al:ios:app_store_id&quot;</span> <span class="attr">content</span>=<span class="string">&quot;284876795&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;twitter:app:id:ipad&quot;</span> <span class="attr">name</span>=<span class="string">&quot;twitter:app:id:ipad&quot;</span> <span class="attr">content</span>=<span class="string">&quot;284876795&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;twitter:app:id:iphone&quot;</span> <span class="attr">name</span>=<span class="string">&quot;twitter:app:id:iphone&quot;</span> <span class="attr">content</span>=<span class="string">&quot;284876795&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;al:ios:url&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">content</span>=<span class="string">&quot;tripadvisor://www.tripadvisor.com.tw/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html?m=33762&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;twitter:app:url:ipad&quot;</span> <span class="attr">name</span>=<span class="string">&quot;twitter:app:url:ipad&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">content</span>=<span class="string">&quot;tripadvisor://www.tripadvisor.com.tw/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html?m=33762&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;twitter:app:url:iphone&quot;</span> <span class="attr">name</span>=<span class="string">&quot;twitter:app:url:iphone&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">content</span>=<span class="string">&quot;tripadvisor://www.tripadvisor.com.tw/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html?m=33762&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- alternate 提供其他語言網頁--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;alternate&quot;</span> <span class="attr">hreflang</span>=<span class="string">&quot;en&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">href</span>=<span class="string">&quot;https://www.tripadvisor.com/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;alternate&quot;</span> <span class="attr">hreflang</span>=<span class="string">&quot;en-GB&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">href</span>=<span class="string">&quot;https://www.tripadvisor.co.uk/Restaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- twitter image--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;twitter:image&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">content</span>=<span class="string">&quot;https://static.tacdn.com/img2/brand_refresh/application_icons/post-image-550x550.png&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="JSON-LD-JSON-for-Linking-Data"><a href="#JSON-LD-JSON-for-Linking-Data" class="headerlink" title="JSON-LD(JSON for Linking Data)"></a>JSON-LD(JSON for Linking Data)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- JSON for Linking Data--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;application/ld+json&quot;</span>&gt;</span></span><br><span class="line">	&#123;</span><br><span class="line"><span class="javascript">		<span class="string">&quot;@context&quot;</span>: <span class="string">&quot;http:\u002F\u002Fschema.org&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;@type&quot;</span>: <span class="string">&quot;FoodEstablishment&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;name&quot;</span>: <span class="string">&quot;\u56DB\u6D77\u904A\u9F8D&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;url&quot;</span>: <span class="string">&quot;\u002FRestaurant_Review-g13808671-d8310497-Reviews-Yuloong-Zhongshan_District_Taipei.html&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;image&quot;</span>: <span class="string">&quot;https:\u002F\u002Fmedia-cdn.tripadvisor.com\u002Fmedia\u002Fphoto-s\u002F0d\u002F43\u002F49\u002Fbd\u002Fphoto0jpg.jpg&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;priceRange&quot;</span>: <span class="string">&quot;$&quot;</span>,</span></span><br><span class="line"><span class="javascript">		<span class="string">&quot;aggregateRating&quot;</span>: &#123;</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;@type&quot;</span>: <span class="string">&quot;AggregateRating&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;ratingValue&quot;</span>: <span class="string">&quot;3.5&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;reviewCount&quot;</span>: <span class="string">&quot;32&quot;</span></span></span><br><span class="line">		&#125;,</span><br><span class="line"><span class="javascript">		<span class="string">&quot;address&quot;</span>: &#123;</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;@type&quot;</span>: <span class="string">&quot;PostalAddress&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;streetAddress&quot;</span>: <span class="string">&quot;No.10,Minsheng West Road,Zhongshan District&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;addressLocality&quot;</span>: <span class="string">&quot;\u4E2D\u5C71\u5340&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;addressRegion&quot;</span>: <span class="string">&quot;&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;postalCode&quot;</span>: <span class="string">&quot;&quot;</span>,</span></span><br><span class="line"><span class="javascript">			<span class="string">&quot;addressCountry&quot;</span>: &#123;</span></span><br><span class="line"><span class="javascript">				<span class="string">&quot;@type&quot;</span>: <span class="string">&quot;Country&quot;</span>,</span></span><br><span class="line"><span class="javascript">				<span class="string">&quot;name&quot;</span>: <span class="string">&quot;\u53F0\u7063&quot;</span></span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="robots-txt"><a href="#robots-txt" class="headerlink" title="robots.txt"></a><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/advanced/robots/robots_txt?hl=zh-tw">robots.txt</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># robots.txt 給網頁爬蟲 or 搜尋引擎 看的檔案</span></span><br><span class="line"><span class="comment"># Sitemap(xml file) 網頁地圖</span></span><br><span class="line"><span class="comment"># Disallow 不允許搜尋</span></span><br><span class="line"><span class="comment"># Allow 允許搜尋</span></span><br><span class="line"><span class="comment"># https://www.tripadvisor.com.tw/robots.txt</span></span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/<span class="number">2</span>/zh_TW/sitemap_zh_TW_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/<span class="number">2</span>/zh_TW/sitemap_zh_TW_location_photo_direct_link_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/<span class="number">2</span>/zh_TW/sitemap_zh_TW_show_user_reviews_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/att/zh_TW/sitemap_zh_TW_attractions_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/att/zh_TW/sitemap_zh_TW_attraction_review_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/att/zh_TW/sitemap_zh_TW_attraction_product_review_index.xml</span><br><span class="line">Sitemap: https://www.tripadvisor.com.tw/sitemap/att/zh_TW/sitemap_zh_TW_attractions_near_index.xml</span><br><span class="line">User-Agent: *</span><br><span class="line">Disallow: /<span class="number">5349</span></span><br><span class="line">Disallow: /AcceptDeferredTermsAndConditions</span><br><span class="line">Disallow: /AccessTokenLogin</span><br><span class="line">Disallow: /AccommodationCrossSells</span><br><span class="line">.....</span><br><span class="line">Allow: /js3/ta-mobile</span><br><span class="line">Allow: /js3/vr-shared</span><br><span class="line">Allow: /UserReview$</span><br><span class="line">Allow: /data/*/crosssellaccommodations</span><br></pre></td></tr></table></figure>
+
+<h4 id="Sitemap"><a href="#Sitemap" class="headerlink" title="Sitemap"></a>Sitemap</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># Sitemap: https://www.tripadvisor.com.tw/sitemap/2/zh_TW/sitemap_zh_TW_index.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">sitemapindex</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">		<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">sitemap</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">loc</span>&gt;</span>https://www.tripadvisor.com.tw/sitemap/2/zh_TW/sitemap-1611790-zh_TW-hotel_review-1610916285.xml.gz<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>2021-01-17T20:44:45Z<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">sitemap</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">sitemap</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">loc</span>&gt;</span>https://www.tripadvisor.com.tw/sitemap/2/zh_TW/sitemap-1611791-zh_TW-hotel_review-1610916289.xml.gz<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>2021-01-17T20:44:49Z<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">sitemap</span>&gt;</span></span><br><span class="line">	......</span><br><span class="line">	<span class="tag">&lt;<span class="name">sitemap</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">loc</span>&gt;</span>https://www.tripadvisor.com.tw/sitemap/2/zh_TW/sitemap-1447620-zh_TW-cruise_review-1620460669.xml.gz<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>2021-05-08T07:57:49Z<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">sitemap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sitemapindex</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Tag-標籤"><a href="#Tag-標籤" class="headerlink" title="Tag 標籤"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTML/Element">Tag 標籤</a></h3><h4 id="Semantic-elements-語義化元素"><a href="#Semantic-elements-語義化元素" class="headerlink" title="Semantic elements 語義化元素"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics">Semantic elements 語義化元素</a></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span><span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h5</span>&gt;</span><span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h6</span>&gt;</span><span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- navigation 導覽列 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 本頁主要內容 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 底頁 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- preformatted text 方便放程式--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- line break 換行--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="行內文字"><a href="#行內文字" class="headerlink" title="行內文字"></a>行內文字</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- anchor 錨點 href: hypertext reference --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- _self:開在本頁 _blank:另開分頁 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://google.com&quot;</span> <span class="attr">target</span>=<span class="string">&#x27;_self&#x27;</span>&gt;</span>google<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 本頁移動 #:top --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;p3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#p3&quot;</span>&gt;</span>To p3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- unordered list 清單--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span> </span><br><span class="line">  <span class="comment">&lt;!-- list item --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item1<span class="tag">&lt;/<span class="name">li</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ordered list --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- &lt;sub&gt; 標簽可定義下標文本。&lt;sup&gt; 可定義上標文本。都屬于行內元素，默認比當前字體稍小。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This text is <span class="tag">&lt;<span class="name">sup</span>&gt;</span>superscripted<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The chemical formula of water: H<span class="tag">&lt;<span class="name">sub</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sub</span>&gt;</span>O<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Form"><a href="#Form" class="headerlink" title="Form"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">Form</a></h4><p><strong>name 當表單提交時使用,只有設置了name屬性才能在提交時傳遞它們的值</strong><br><strong>value 可設定 input 初值</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 表單 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		姓名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;你的名字&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		密碼: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		Email: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;你的電子郵件&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		日期: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		性別: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">id</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;male&quot;</span>&gt;</span>男生<span class="tag">&lt;/<span class="name">label</span>&gt;</span>	</span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">id</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;female&quot;</span>&gt;</span>女生<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		興趣: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sports&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;sports&quot;</span>&gt;</span>運動<span class="tag">&lt;/<span class="name">label</span>&gt;</span>	</span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;reading&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;reading&quot;</span>&gt;</span>閱讀<span class="tag">&lt;/<span class="name">label</span>&gt;</span>	</span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 送出 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;送出&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<form action="">
+    <div>
+        姓名: <input type="text">
+    </div>
+    <div>
+        密碼: <input type="password">
+    </div>
+    <div>
+        Email: <input type="email">
+    </div>
+    <div>
+        日期: <input type="date">
+    </div>
+    <div>
+        性別: <input type="radio" name="gender" id="male"><label for="male">男生</label>	
+        <input type="radio" name="gender" id="female"><label for="female">女生</label>
+    </div>
+    <div>
+        興趣: <input type="checkbox" id="sports"><label for="sports">運動</label>	
+        <input type="checkbox" id="reading"><label for="reading">閱讀</label>	
+    </div>
+    <div>
+        <!-- 送出 -->
+        <input type="submit" value="送出">
+    </div>
+</form>
+
+<h5 id="textarea"><a href="#textarea" class="headerlink" title="textarea"></a>textarea</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;content&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<textarea name="content" rows="5"></textarea>
+
+<h5 id="下拉式選單-lt-select-gt-lt-option-gt"><a href="#下拉式選單-lt-select-gt-lt-option-gt" class="headerlink" title="下拉式選單 - &lt;select&gt;, &lt;option&gt;"></a>下拉式選單 - &lt;select&gt;, &lt;option&gt;</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;type&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;volvo&quot;</span>&gt;</span>Volvo<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;saab&quot;</span>&gt;</span>Saab<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;vw&quot;</span>&gt;</span>VW<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;audi&quot;</span> <span class="attr">selected</span>&gt;</span>Audi<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<select id="type">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="vw">VW</option>
+  <option value="audi" selected>Audi</option>
+</select>
+
+<h5 id="input-type-hidden"><a href="#input-type-hidden" class="headerlink" title="input type hidden"></a>input type hidden</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;YourName&quot;</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;隱藏欄位名稱&quot;</span> <span class="attr">value</span>=<span class="string">&quot;隱藏欄位值&quot;</span>&gt;</span></span><br><span class="line">　<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;送出表單&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="enctype-Attribute-content-type"><a href="#enctype-Attribute-content-type" class="headerlink" title="enctype Attribute(content type)"></a><a target="_blank" rel="noopener" href="https://www.w3schools.com/tags/att_form_enctype.asp">enctype Attribute(content type)</a></h5><ul>
+<li>application&#x2F;x-www-form-urlencoded</li>
+<li>multipart&#x2F;form-data</li>
+<li>text&#x2F;plain<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">enctype</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">	....</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="圖片與多媒體"><a href="#圖片與多媒體" class="headerlink" title="圖片與多媒體"></a>圖片與多媒體</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- title:滑鼠移到顯示  alt:替代文字(圖片不存在))--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">title</span>=<span class="string">&quot;&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 嵌入網頁,X-Frame-Option:sameorigin 可防止別人嵌入 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;https://...&quot;</span> <span class="attr">frameborder</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Table-表格"><a href="#Table-表格" class="headerlink" title="Table 表格"></a><a target="_blank" rel="noopener" href="https://www.footmark.info/web-design/html/html-table-structured-merge-group/">Table 表格</a></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">&lt;th scope=&#x27;row&#x27;&gt; row標題</span></span><br><span class="line"><span class="comment">&lt;th scope=&#x27;col&#x27;&gt; col標題</span></span><br><span class="line"><span class="comment">&lt;td rowspan=&quot;2&quot;&gt; 跨 row</span></span><br><span class="line"><span class="comment">&lt;td colspan=3&gt; 跨 col</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>  <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- table header --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">th</span>&gt;</span>城市<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">	　<span class="tag">&lt;<span class="name">th</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span>特產<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- table row --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>龍潭<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	　<span class="tag">&lt;<span class="name">td</span>&gt;</span>花生<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	　<span class="tag">&lt;<span class="name">td</span>&gt;</span>豆干<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<table  border="1">
+    <!-- table header -->
+    <tr>
+        <th>城市</th>
+    　<th colspan="2">特產</th>
+    </tr>
+    <!-- table row -->
+    <tr>
+        <td>龍潭</td>
+    　<td>花生</td>
+    　<td>豆干</td>
+    </tr>
+</table>
+
+<h4 id="其他標籤"><a href="#其他標籤" class="headerlink" title="其他標籤"></a>其他標籤</h4><h5 id="section"><a href="#section" class="headerlink" title="section"></a>section</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  &lt;section&gt; 標籤 (tag) 用在 HTML 文件中有明顯含義的區塊 (related grouping of semantic meaning)，一般來說 section 區塊中也會有自己的標題 (h1-h6)--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Bunch of awesome content<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 或 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;intro&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 介紹 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;main_content&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 主內容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;related&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;that.html&quot;</span>&gt;</span>相關文章<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;this.html&quot;</span>&gt;</span>相關文章<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="dl-dd-dt"><a href="#dl-dd-dt" class="headerlink" title="dl, dd, dt"></a>dl, dd, dt</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &lt; dl &gt; &lt; dt &gt;&lt; dd &gt;是在網頁設計上的一種內文排版技巧 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>標題A<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dd</span>&gt;</span>內容A-1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dd</span>&gt;</span>內容A-2<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>標題B<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dd</span>&gt;</span>內容B-1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dd</span>&gt;</span>內容B-2<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="fieldset-and-Legends"><a href="#fieldset-and-Legends" class="headerlink" title="fieldset and Legends"></a>fieldset and Legends</h5><ul>
+<li>fieldset 用來對表單 (form) 中的控制元件做分組 (group)，而 </li>
+<li>legend 通常是 fieldset 裡面的第一個元素作為該分組的標題 (caption)。</li>
+<li>fieldset 標籤的屬性 (attributes)：<ul>
+<li>disabled: 將 fieldset 中所有欄位設定為禁用的狀態，是一個布林 (boolean) 屬性</li>
+<li>name: 聲明 fieldset 名稱</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Personal details<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Your name:<span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;yourname&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Your age:<span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;yourage&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Your address<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Street:<span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;street&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Zip code / post code:<span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;postcode&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML-Attribute"><a href="#HTML-Attribute" class="headerlink" title="HTML Attribute"></a><a target="_blank" rel="noopener" href="https://www.w3schools.com/tags/ref_attributes.asp">HTML Attribute</a></h3><h4 id="title-mouse-移至上方顯示說明"><a href="#title-mouse-移至上方顯示說明" class="headerlink" title="title - mouse 移至上方顯示說明"></a>title - mouse 移至上方顯示說明</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;World Health Organization&quot;</span>&gt;</span>WHO<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> was founded in 1948.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">title</span>=<span class="string">&quot;Free Web tutorials&quot;</span>&gt;</span>W3Schools.com<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="tabindex"><a href="#tabindex" class="headerlink" title="tabindex"></a>tabindex</h4><p>The tabindex attribute specifies the tab order of an element (when the “tab” button is used for navigating)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">tabindex</span>=<span class="string">&quot;1&quot;</span>&gt;</span>W3Schools<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">tabindex</span>=<span class="string">&quot;3&quot;</span>&gt;</span>Google<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">tabindex</span>=<span class="string">&quot;2&quot;</span>&gt;</span>Microsoft<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="Escape-跳脫"><a href="#Escape-跳脫" class="headerlink" title="Escape 跳脫"></a>Escape 跳脫</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">	&amp; =&gt; &amp;amp;</span></span><br><span class="line"><span class="comment">	&lt; =&gt; &amp;lt;</span></span><br><span class="line"><span class="comment">	&gt; =&gt; &amp;gt;   </span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 顯示標籤 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="symbol">&amp;lt;</span>div<span class="symbol">&amp;gt;</span>文字<span class="symbol">&amp;lt;</span>/div<span class="symbol">&amp;gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div>
+    &lt;div&gt;文字&lt;/div&gt;
+</div>
+
+<h4 id="comment"><a href="#comment" class="headerlink" title="comment"></a>comment</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--This is a comment. Comments are not displayed in the browser--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="HTML5的lang"><a href="#HTML5的lang" class="headerlink" title="HTML5的lang"></a><a target="_blank" rel="noopener" href="https://vector.cool/html5%E7%9A%84lang%E9%80%9F%E6%9F%A5-%E6%B3%A8%E6%84%8F%EF%BC%9A%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87%E4%B8%8D%E6%98%AFzh-tw%E5%96%94/">HTML5的lang</a></h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-Hant-TW&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="HTML-Entity-List"><a href="#HTML-Entity-List" class="headerlink" title="HTML Entity List"></a><a target="_blank" rel="noopener" href="https://www.freeformatter.com/html-entities.html">HTML Entity List</a></h4><p>字元實體參照(character entity reference), 是標記式語言 SGML與HTML中對字元的一種跳脫序列表示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>標<span class="symbol">&amp;emsp;</span><span class="symbol">&amp;emsp;</span>題<span class="symbol">&amp;nbsp;</span>:<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>填<span class="symbol">&amp;ensp;</span>寫<span class="symbol">&amp;ensp;</span>人<span class="symbol">&amp;nbsp;</span>:<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>聯絡電話<span class="symbol">&amp;nbsp;</span>:<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div>
+  <ul>
+    <li>標&emsp;&emsp;題&nbsp;:</li>
+    <li>填&ensp;寫&ensp;人&nbsp;:</li>
+    <li>聯絡電話&nbsp;:</li>
+  </ul>
+</div>
+
+<h3 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTML">MDN HTML</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/html/default.asp">w3school HTML</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/html/html5_semantic_elements.asp">Semantic layout</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/06/http-1/" rel="prev" title="HTTP	API">
+                  <i class="fa fa-chevron-left"></i> HTTP	API
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/18/css-1/" rel="next" title="CSS 說明">
+                  CSS 說明 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/05/17/html-1/";
+    this.page.identifier = "2021/05/17/html-1/";
+    this.page.title = "HTML 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

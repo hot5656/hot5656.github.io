@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Robo 3T : MongoDB GUI 工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongoDB">
+<meta property="og:url" content="https://hot5656.github.io/2021/11/06/db-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Robo 3T : MongoDB GUI 工具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic15.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic16.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic17.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic18.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic19.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic20.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic22.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic23.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic24.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic25.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic26.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic27.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic28.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic29.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic30.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/11/06/db-3/pic31.png">
+<meta property="article:published_time" content="2021-11-06T12:51:15.000Z">
+<meta property="article:modified_time" content="2022-12-27T06:23:38.989Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="mongoDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/11/06/db-3/pic8.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/11/06/db-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>mongoDB | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Robo-3T-MongoDB-GUI-%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">Robo 3T : MongoDB GUI 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#download-RoBo-3T-for-windows-zip-version-%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.1.</span> <span class="nav-text">download RoBo 3T (for windows .zip version 即可)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%A3%93%E7%B8%AE%E5%BE%8C%E5%9F%B7%E8%A1%8C-robo3t-exe"><span class="nav-number">1.2.</span> <span class="nav-text">解壓縮後執行 robo3t.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-I-agree-Next"><span class="nav-number">1.3.</span> <span class="nav-text">選擇 I agree , Next</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-Finish"><span class="nav-number">1.4.</span> <span class="nav-text">選擇 Finish</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-Create-%E5%A1%AB%E5%85%A5%E7%94%B1MongoDB-atlas-%E5%8F%96%E5%BE%97-url-Node-js-4-0-or-later-%E7%89%88%E6%9C%AC%E5%8D%B3%E5%8F%AF-%E9%81%B8-Form-URI"><span class="nav-number">1.5.</span> <span class="nav-text">選擇 Create, 填入由MongoDB atlas 取得 url(Node.js 4.0 or later 版本即可), 選 Form URI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-Save"><span class="nav-number">1.6.</span> <span class="nav-text">選擇 Save</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-Connect-%E5%8D%B3%E5%8F%AF%E8%A6%8B%E5%88%B0-DB-%E7%95%AB%E9%9D%A2"><span class="nav-number">1.7.</span> <span class="nav-text">選擇 Connect 即可見到 DB 畫面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MongoDB-Altas-add-project"><span class="nav-number">2.</span> <span class="nav-text">MongoDB Altas add project</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E6%93%87-New-Project-Next-Create-Project"><span class="nav-number">2.1.</span> <span class="nav-text">選擇 New Project, Next, Create Project</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Databases-Build-a-Database-Shared-Create-select-position-Create-Cluster"><span class="nav-number">2.2.</span> <span class="nav-text">Databases : Build a Database, Shared(Create), select position+Create Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Network-Access-Add-IP-Address-0-0-0-0-x2F-0-%E8%A1%A8%E4%B8%8D%E9%99%90%E5%88%B6-Confirm"><span class="nav-number">2.3.</span> <span class="nav-text">Network Access : Add IP Address, 0.0.0.0&#x2F;0(表不限制), Confirm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Database-Access-add-New-DataBase-User-set-user-info-add-User"><span class="nav-number">2.4.</span> <span class="nav-text">Database Access: add New DataBase User, set user info, add User</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-link-url-Databases-Connect-Connect-your-application"><span class="nav-number">2.5.</span> <span class="nav-text">get link url, Databases: Connect, Connect your application,</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOde-js-4-0-or-later-driver"><span class="nav-number">2.6.</span> <span class="nav-text">NOde.js 4.0 or later driver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOde-js-2-2-12-or-later-driver-%E6%9F%90%E4%BA%9Bapplicat%E8%A6%81%E4%BD%BF%E7%94%A8%E9%80%99%E5%80%8B%E7%89%88%E6%9C%AC%E6%89%8D%E8%83%BD%E4%BD%BF%E7%94%A8"><span class="nav-number">2.7.</span> <span class="nav-text">NOde.js 2.2.12 or later driver(某些applicat要使用這個版本才能使用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-database-Databases-add-My-Own-data-database-info-Create"><span class="nav-number">2.8.</span> <span class="nav-text">加入 database, Databases : add My Own data, database info+Create</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MongoDB"><span class="nav-number">3.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Schema"><span class="nav-number">3.1.</span> <span class="nav-text">Schema</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type"><span class="nav-number">3.1.1.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#special"><span class="nav-number">3.1.2.</span> <span class="nav-text">special</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#default"><span class="nav-number">3.1.3.</span> <span class="nav-text">default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#othert-field"><span class="nav-number">3.1.4.</span> <span class="nav-text">othert field</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#regex"><span class="nav-number">3.2.</span> <span class="nav-text">$regex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#control"><span class="nav-number">3.3.</span> <span class="nav-text">control</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongoose-mongoDB-object-modeling-tool-to-work-in-an-asynchronous-environment-Mongoose-supports-both-promises-and-callbacks"><span class="nav-number">4.</span> <span class="nav-text">mongoose : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#example-code"><span class="nav-number">4.1.</span> <span class="nav-text">example code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deprecation-Warnings"><span class="nav-number">4.2.</span> <span class="nav-text">Deprecation Warnings</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">4.2.1.</span> <span class="nav-text">update()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#remove"><span class="nav-number">4.2.2.</span> <span class="nav-text">remove()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#count"><span class="nav-number">4.2.3.</span> <span class="nav-text">count()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/11/06/db-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mongoDB
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-11-06 20:51:15" itemprop="dateCreated datePublished" datetime="2021-11-06T20:51:15+08:00">2021-11-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-12-27 14:23:38" itemprop="dateModified" datetime="2022-12-27T14:23:38+08:00">2022-12-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Back-End/" itemprop="url" rel="index"><span itemprop="name">Back End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/11/06/db-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/11/06/db-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Robo-3T-MongoDB-GUI-工具"><a href="#Robo-3T-MongoDB-GUI-工具" class="headerlink" title="Robo 3T : MongoDB GUI 工具"></a><a target="_blank" rel="noopener" href="https://robomongo.org/">Robo 3T</a> : MongoDB GUI 工具</h3><span id="more"></span>
+
+<h4 id="download-RoBo-3T-for-windows-zip-version-即可"><a href="#download-RoBo-3T-for-windows-zip-version-即可" class="headerlink" title="download RoBo 3T (for windows .zip version 即可)"></a>download RoBo 3T (for windows .zip version 即可)</h4><div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic8.png" class="" title="pic8">
+</div>
+
+<div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic9.png" class="" title="pic9">
+</div>
+
+<h4 id="解壓縮後執行-robo3t-exe"><a href="#解壓縮後執行-robo3t-exe" class="headerlink" title="解壓縮後執行 robo3t.exe"></a>解壓縮後執行 robo3t.exe</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic1.png" class="" title="pic1">
+</div>
+
+<h4 id="選擇-I-agree-Next"><a href="#選擇-I-agree-Next" class="headerlink" title="選擇 I agree , Next"></a>選擇 I agree , Next</h4><div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic2.png" class="" title="pic2">
+</div>
+
+<h4 id="選擇-Finish"><a href="#選擇-Finish" class="headerlink" title="選擇 Finish"></a>選擇 Finish</h4><div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic3.png" class="" title="pic3">
+</div>
+
+<h4 id="選擇-Create-填入由MongoDB-atlas-取得-url-Node-js-4-0-or-later-版本即可-選-Form-URI"><a href="#選擇-Create-填入由MongoDB-atlas-取得-url-Node-js-4-0-or-later-版本即可-選-Form-URI" class="headerlink" title="選擇 Create, 填入由MongoDB atlas 取得 url(Node.js 4.0 or later 版本即可), 選 Form URI"></a>選擇 Create, 填入由MongoDB atlas 取得 url(Node.js 4.0 or later 版本即可), 選 Form URI</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic4.png" class="" title="pic4">
+</div>
+
+<h4 id="選擇-Save"><a href="#選擇-Save" class="headerlink" title="選擇 Save"></a>選擇 Save</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic5.png" class="" title="pic5">
+</div>
+
+<h4 id="選擇-Connect-即可見到-DB-畫面"><a href="#選擇-Connect-即可見到-DB-畫面" class="headerlink" title="選擇 Connect 即可見到 DB 畫面"></a>選擇 Connect 即可見到 DB 畫面</h4><div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic6.png" class="" title="pic6">
+</div>
+
+<div style="max-width:500px">
+    <img src="/2021/11/06/db-3/pic7.png" class="" title="pic7">
+</div>
+
+<h3 id="MongoDB-Altas-add-project"><a href="#MongoDB-Altas-add-project" class="headerlink" title="MongoDB Altas add project"></a>MongoDB Altas add project</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud">MongoDB Cloud Services</a></li>
+</ul>
+<h4 id="選擇-New-Project-Next-Create-Project"><a href="#選擇-New-Project-Next-Create-Project" class="headerlink" title="選擇 New Project, Next, Create Project"></a>選擇 New Project, Next, Create Project</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic11.png" class="" title="pic11">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic12.png" class="" title="pic12">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic13.png" class="" title="pic13">
+</div>
+
+<h4 id="Databases-Build-a-Database-Shared-Create-select-position-Create-Cluster"><a href="#Databases-Build-a-Database-Shared-Create-select-position-Create-Cluster" class="headerlink" title="Databases : Build a Database, Shared(Create), select position+Create Cluster"></a>Databases : Build a Database, Shared(Create), select position+Create Cluster</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic14.png" class="" title="pic14">
+</div>
+
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic15.png" class="" title="pic15">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic16.png" class="" title="pic16">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic17.png" class="" title="pic17">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic18.png" class="" title="pic18">
+</div>
+
+<h4 id="Network-Access-Add-IP-Address-0-0-0-0-x2F-0-表不限制-Confirm"><a href="#Network-Access-Add-IP-Address-0-0-0-0-x2F-0-表不限制-Confirm" class="headerlink" title="Network Access : Add IP Address, 0.0.0.0&#x2F;0(表不限制), Confirm"></a>Network Access : Add IP Address, 0.0.0.0&#x2F;0(表不限制), Confirm</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic19.png" class="" title="pic19">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic20.png" class="" title="pic20">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic21.png" class="" title="pic21">
+</div>
+
+<h4 id="Database-Access-add-New-DataBase-User-set-user-info-add-User"><a href="#Database-Access-add-New-DataBase-User-set-user-info-add-User" class="headerlink" title="Database Access: add New DataBase User, set user info, add User"></a>Database Access: add New DataBase User, set user info, add User</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic22.png" class="" title="pic22">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic23.png" class="" title="pic23">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic24.png" class="" title="pic24">
+</div>
+
+<h4 id="get-link-url-Databases-Connect-Connect-your-application"><a href="#get-link-url-Databases-Connect-Connect-your-application" class="headerlink" title="get link url, Databases: Connect, Connect your application,"></a>get link url, Databases: Connect, Connect your application,</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic25.png" class="" title="pic25">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic26.png" class="" title="pic26">
+</div>
+
+<h4 id="NOde-js-4-0-or-later-driver"><a href="#NOde-js-4-0-or-later-driver" class="headerlink" title="NOde.js 4.0 or later driver"></a>NOde.js 4.0 or later driver</h4><p>使用時要填入正確的 password<br>myFirstDataBase 為 default DB name, 可改為其他名稱</p>
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic27.png" class="" title="pic27">
+</div>
+
+<h4 id="NOde-js-2-2-12-or-later-driver-某些applicat要使用這個版本才能使用"><a href="#NOde-js-2-2-12-or-later-driver-某些applicat要使用這個版本才能使用" class="headerlink" title="NOde.js 2.2.12 or later driver(某些applicat要使用這個版本才能使用)"></a>NOde.js 2.2.12 or later driver(某些applicat要使用這個版本才能使用)</h4><p>使用時要填入正確的 password<br>myFirstDataBase 為 default DB name, 可改為其他名稱</p>
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic28.png" class="" title="pic28">
+</div>
+
+<h4 id="加入-database-Databases-add-My-Own-data-database-info-Create"><a href="#加入-database-Databases-add-My-Own-data-database-info-Create" class="headerlink" title="加入 database, Databases : add My Own data, database info+Create"></a>加入 database, Databases : add My Own data, database info+Create</h4><div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic29.png" class="" title="pic29">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic30.png" class="" title="pic30">
+</div>
+
+<div style="max-width:700px">
+    <img src="/2021/11/06/db-3/pic31.png" class="" title="pic31">
+</div>
+
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><h4 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h4><h5 id="type"><a href="#type" class="headerlink" title="type"></a>type</h5><ul>
+<li>String</li>
+<li>Number</li>
+<li>Array</li>
+<li>ObjectId</li>
+<li>Boolean</li>
+</ul>
+<h5 id="special"><a href="#special" class="headerlink" title="special"></a>special</h5><ul>
+<li><p>map to other </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">category: &#123;</span><br><span class="line">  type: ObjectId,</span><br><span class="line">  ref: <span class="string">&quot;Category&quot;</span>,</span><br><span class="line">  required: <span class="literal">true</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>photo</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">photo: &#123;</span><br><span class="line">  data: Buffer,</span><br><span class="line">  contentType: <span class="built_in">String</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>simple string</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt: <span class="built_in">String</span>,</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="default"><a href="#default" class="headerlink" title="default"></a>default</h5><ul>
+<li>0</li>
+<li>[]</li>
+</ul>
+<h5 id="othert-field"><a href="#othert-field" class="headerlink" title="othert field"></a>othert field</h5><ul>
+<li>trim : true</li>
+<li>required: true</li>
+<li>maxlength: 32</li>
+<li>unique: 32</li>
+<li>timestamps: true</li>
+</ul>
+<h4 id="regex"><a href="#regex" class="headerlink" title="$regex"></a>$regex</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> query = &#123;&#125;;</span><br><span class="line">query.name = &#123; <span class="attr">$regex</span>: req.query.search, <span class="attr">$options</span>: <span class="string">&quot;i&quot;</span> &#125;;</span><br><span class="line">Product.find(query, <span class="function">(<span class="params">err, products</span>) =&gt;</span> &#123;</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="control"><a href="#control" class="headerlink" title="control"></a>control</h4><ul>
+<li>Category.find().exec((err, data) &#x3D;&gt; {}) : find all</li>
+<li>Product.find({ _id: { $ne: req.product }, category: req.product.category }): find by consition, $ne: not include</li>
+<li>Product.find(query, (err, products) &#x3D;&gt; {}) : find direct run, not run exec</li>
+<li>findById(id).exec((err, product) &#x3D;&gt; {} ) : find by id</li>
+<li>select(“-photo”) : remove field</li>
+<li>populate(“category”) : link to another table</li>
+<li>sort([[sortBy, order]]) : sort</li>
+<li>skip(skip) : set skip</li>
+<li>limit(limit) : set limit</li>
+<li>remove((err, deletedProduct) &#x3D;&gt; {} ) : remove</li>
+<li>findOneAndUpdate() : find + update <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.findOneAndUpdate(</span><br><span class="line">  &#123; <span class="attr">_id</span>: req.profile._id &#125;,</span><br><span class="line">  &#123; <span class="attr">$set</span>: req.body &#125;,</span><br><span class="line">  &#123; <span class="attr">new</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  (err, user) =&gt; &#123;&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="mongoose-mongoDB-object-modeling-tool-to-work-in-an-asynchronous-environment-Mongoose-supports-both-promises-and-callbacks"><a href="#mongoose-mongoDB-object-modeling-tool-to-work-in-an-asynchronous-environment-Mongoose-supports-both-promises-and-callbacks" class="headerlink" title="mongoose : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks."></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mongoose">mongoose</a> : mongoDB object modeling tool to work in an asynchronous environment. Mongoose supports both promises and callbacks.</h3><h4 id="example-code"><a href="#example-code" class="headerlink" title="example code"></a>example code</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// connect mangoDB altas</span></span><br><span class="line"><span class="comment">// using 2.2.12 or later&#x27;s uri</span></span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&quot;mongoose&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> uri =</span><br><span class="line">  <span class="string">&quot;mongodb://robert2:&#123;password&#125;@cluster0-shard-00-00.bscvu.mongodb.net:27017,cluster0-shard-00-01.bscvu.mongodb.net:27017,cluster0-shard-00-02.bscvu.mongodb.net:27017/myFirstDatabase?ssl=true&amp;replicaSet=atlas-11cyyj-shard-0&amp;authSource=admin&amp;retryWrites=true&amp;w=majority&quot;</span>;</span><br><span class="line">mongoose</span><br><span class="line">  .connect(uri, &#123;</span><br><span class="line">    useNewUrlParser: <span class="literal">true</span>,</span><br><span class="line">    useUnifiedTopology: <span class="literal">true</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;MongoDB Connected…&quot;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line"><span class="comment">// save data</span></span><br><span class="line"><span class="keyword">const</span> User = mongoose.model(<span class="string">&quot;User&quot;</span>, userSchema);</span><br><span class="line"><span class="keyword">new</span> User(req.body).save;</span><br><span class="line"></span><br><span class="line"><span class="comment">// get data </span></span><br><span class="line">User.findOne(&#123; email &#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Deprecation-Warnings"><a href="#Deprecation-Warnings" class="headerlink" title="Deprecation Warnings"></a><a target="_blank" rel="noopener" href="https://mongoosejs.com/docs/deprecations.html">Deprecation Warnings</a></h4><h5 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.update(&#123; <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span> &#125;, &#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// With this:</span></span><br><span class="line">MyModel.updateOne(&#123; <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span> &#125;, &#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you use `overwrite: true`, you should use `replaceOne()` instead:</span></span><br><span class="line">MyModel.update(filter, update, &#123; <span class="attr">overwrite</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// Replace with this:</span></span><br><span class="line">MyModel.replaceOne(filter, update);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you use `multi: true`, you should use `updateMany()` instead:</span></span><br><span class="line">MyModel.update(filter, update, &#123; <span class="attr">multi</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// Replace with this:</span></span><br><span class="line">MyModel.updateMany(filter, update);</span><br></pre></td></tr></table></figure>
+
+<h5 id="remove"><a href="#remove" class="headerlink" title="remove()"></a>remove()</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.remove(&#123; <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span> &#125;);</span><br><span class="line"><span class="comment">// With this:</span></span><br><span class="line">MyModel.deleteMany(&#123; <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.remove(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;, &#123; <span class="attr">single</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// With this:</span></span><br><span class="line">MyModel.deleteOne(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="count"><a href="#count" class="headerlink" title="count()"></a>count()</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.count(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// With this:</span></span><br><span class="line">MyModel.countDocuments(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you&#x27;re counting all documents in the collection, use</span></span><br><span class="line"><span class="comment">// `estimatedDocumentCount()` instead.</span></span><br><span class="line">MyModel.count();</span><br><span class="line"><span class="comment">// Replace with:</span></span><br><span class="line">MyModel.estimatedDocumentCount();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.find(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;).count().exec();</span><br><span class="line"><span class="comment">// With this:</span></span><br><span class="line">MyModel.find(&#123; <span class="attr">answer</span>: <span class="number">42</span> &#125;).countDocuments().exec();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replace this:</span></span><br><span class="line">MyModel.find().count().exec();</span><br><span class="line"><span class="comment">// With this, since there&#x27;s no filter</span></span><br><span class="line">MyModel.find().estimatedDocumentCount().exec();</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://mongoosejs.com/docs/">mongoose document</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/database/" rel="tag"># database</a>
+              <a href="/tags/mongoDB/" rel="tag"># mongoDB</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/05/practice-1-1/" rel="prev" title="Practice React Ecommerce - Back End">
+                  <i class="fa fa-chevron-left"></i> Practice React Ecommerce - Back End
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/16/practice-1-2/" rel="next" title="Practice React Ecommerce - Front End">
+                  Practice React Ecommerce - Front End <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/11/06/db-3/";
+    this.page.identifier = "2021/11/06/db-3/";
+    this.page.title = "mongoDB";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

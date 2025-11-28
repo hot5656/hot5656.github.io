@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="基本設定Install Hexo1npm install -g hexo-cli  Dump version123hexo version&#x2F;&#x2F; 新版修改npx hexo version">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Put Hexo to GitHub">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/12/hexo-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="基本設定Install Hexo1npm install -g hexo-cli  Dump version123hexo version&#x2F;&#x2F; 新版修改npx hexo version">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic22.png">
+<meta property="article:published_time" content="2021-03-12T07:40:30.000Z">
+<meta property="article:modified_time" content="2022-06-28T07:29:41.027Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/03/12/hexo-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/12/hexo-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Put Hexo to GitHub | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.</span> <span class="nav-text">基本設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">Install Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.2.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inition-Blog"><span class="nav-number">1.3.</span> <span class="nav-text">inition Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-all-package-for-Blog"><span class="nav-number">1.4.</span> <span class="nav-text">Install all package for Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-generate-a-respsitory-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B8%B3%E8%99%9F%E5%90%8D%E7%A8%B1"><span class="nav-number">1.5.</span> <span class="nav-text">GitHub generate a respsitory(使用自己的帳號名稱)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%A8%E8%BC%AF%E9%83%A8%E8%90%BD%E6%A0%BC%E4%B8%8B%E6%AA%94%E6%A1%88-config-yml"><span class="nav-number">1.6.</span> <span class="nav-text">編輯部落格下檔案 _config.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-hexo-deployer-git-for-config-yml%E2%80%99s-type-git"><span class="nav-number">1.7.</span> <span class="nav-text">install hexo-deployer-git(for _config.yml’s type: git)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%8A-GitHub"><span class="nav-number">1.8.</span> <span class="nav-text">部署上 GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-web-browser-https-hot5656-github-io"><span class="nav-number">1.9.</span> <span class="nav-text">run web browser https:&#x2F;&#x2F;hot5656.github.io&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%9F%B7%E8%A1%8C"><span class="nav-number">1.10.</span> <span class="nav-text">本地執行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E6%96%87%E7%AB%A0"><span class="nav-number">1.11.</span> <span class="nav-text">建立新文章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%AA%94%E6%A1%88%E7%B7%A8%E8%BC%AF-config-yml"><span class="nav-number">2.</span> <span class="nav-text">設定檔案編輯(_config.yml)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%8C%AF%E7%B8%BD"><span class="nav-number">2.1.</span> <span class="nav-text">更改匯總</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B6%B2%E9%A0%81%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.2.</span> <span class="nav-text">網頁基本設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%9C%96%E7%89%87%E6%94%BE%E6%96%BC%E5%B0%8D%E6%87%89%E7%9A%84%E7%9B%AE%E9%8C%84%E4%B8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">設定圖片放於對應的目錄下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-next-theme"><span class="nav-number">2.4.</span> <span class="nav-text">設定 next theme</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next-theme-%E4%B8%BB%E9%A1%8C-%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.</span> <span class="nav-text">next theme(主題) 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%8C%AF%E7%B8%BD-1"><span class="nav-number">3.1.</span> <span class="nav-text">更改匯總</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-file-paths"><span class="nav-number">3.2.</span> <span class="nav-text">Custom file paths</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E8%8F%9C%E5%96%AE"><span class="nav-number">3.3.</span> <span class="nav-text">設置菜單</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E5%AE%89%E8%A3%9D-hexo-theme-next"><span class="nav-number">3.3.1.</span> <span class="nav-text">需安裝 hexo-theme-next</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml"><span class="nav-number">3.3.2.</span> <span class="nav-text">_config.next.yml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E9%A0%AD%E5%83%8F"><span class="nav-number">3.4.</span> <span class="nav-text">設置頭像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E6%AD%B8%E6%AA%94%E9%A0%81-%E5%97%AF-%E7%9B%AE%E5%89%8D%E5%85%B1%E6%9C%89-17-%E7%AF%87%E6%96%87%E7%AB%A0%E3%80%82-%E7%B9%BC%E7%BA%8C%E5%8A%AA%E5%8A%9B%E3%80%82"><span class="nav-number">3.5.</span> <span class="nav-text">刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-tab-size"><span class="nav-number">3.6.</span> <span class="nav-text">修改 tab size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-tag-code-style"><span class="nav-number">3.7.</span> <span class="nav-text">設定 tag code style</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%AE%9A%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">特定功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%90%9C%E5%B0%8B%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">文章搜尋功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E5%AE%89%E8%A3%9D-hexo-generator-searchdb"><span class="nav-number">4.1.1.</span> <span class="nav-text">需安裝 hexo-generator-searchdb</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">_config.next.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml-%E5%A2%9E%E5%8A%A0%E8%A8%AD%E5%AE%9A-%E5%9B%A0github-%E6%90%9C%E5%B0%8B-path-%E5%83%85%E6%8E%A5%E5%8F%97-json-format"><span class="nav-number">4.1.3.</span> <span class="nav-text">_config.next.yml 增加設定(因github 搜尋 path 僅接受 json format)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%85%E9%A0%88%E5%85%88%E5%81%9A-hexo-clean"><span class="nav-number">4.1.4.</span> <span class="nav-text">必須先做 hexo clean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E7%95%AB%E9%9D%A2"><span class="nav-number">4.1.5.</span> <span class="nav-text">顯示畫面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-categories-%E5%92%8C-tags"><span class="nav-number">4.2.</span> <span class="nav-text">加入 categories 和 tags</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-scaffolds-x2F-post-md"><span class="nav-number">4.2.1.</span> <span class="nav-text">修改 scaffolds&#x2F;post.md</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A2%E7%94%9F-categories-tags-%E9%A0%81"><span class="nav-number">4.2.2.</span> <span class="nav-text">產生 categories, tags 頁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source-x2F-categories-x2F-index-md-%E4%BF%AE%E6%94%B9"><span class="nav-number">4.2.3.</span> <span class="nav-text">source&#x2F;categories&#x2F;index.md 修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source-x2F-tags-x2F-index-md-%E4%BF%AE%E6%94%B9"><span class="nav-number">4.2.4.</span> <span class="nav-text">source&#x2F;tags&#x2F;index.md 修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E8%A8%AD%E5%AE%9A-categories-tags"><span class="nav-number">4.2.5.</span> <span class="nav-text">文章設定 categories, tags</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sitemap-xml-%E8%A3%BD%E4%BD%9C-%E6%87%89%E7%94%A8%E6%9C%AA%E5%8A%A0%E5%85%A5-%E2%80%A6%E2%80%A6"><span class="nav-number">4.3.</span> <span class="nav-text">sitemap.xml 製作(應用未加入 ……)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Ahexo-abbrlink"><span class="nav-number">4.4.</span> <span class="nav-text">設定hexo-abbrlink</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-hexo-abbrlink"><span class="nav-number">4.4.1.</span> <span class="nav-text">install hexo-abbrlink</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-config-yml"><span class="nav-number">4.4.2.</span> <span class="nav-text">set _config.yml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%B1%E8%AE%80%E6%AC%A1%E6%95%B8%E7%B5%B1%E8%A8%88%EF%BC%88LeanCloud%EF%BC%89%E2%80%A6%E5%BE%85%E7%A0%94%E7%A9%B6"><span class="nav-number">4.5.</span> <span class="nav-text">閱讀次數統計（LeanCloud）…待研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E8%A3%BD%E5%8C%96%E8%A8%AD%E5%AE%9A"><span class="nav-number">4.6.</span> <span class="nav-text">客製化設定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E4%BB%A3%E7%A2%BC%E9%A2%A8%E6%A0%BC-config-next-yml"><span class="nav-number">4.6.1.</span> <span class="nav-text">設定代碼風格 - _config.next.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%AE%A2%E8%A3%BD%E5%8C%96%E8%B7%AF%E5%BE%91-config-next-yml"><span class="nav-number">4.6.2.</span> <span class="nav-text">設定客製化路徑 - _config.next.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E8%AE%8A%E6%95%B8-variables-styl"><span class="nav-number">4.6.3.</span> <span class="nav-text">設定變數 - variables.styl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-styles-styles-styl"><span class="nav-number">4.6.4.</span> <span class="nav-text">設定 styles - styles.styl</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%95%B8%E7%B5%B1%E8%A8%88"><span class="nav-number">4.7.</span> <span class="nav-text">字數統計</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-by-npm"><span class="nav-number">4.7.1.</span> <span class="nav-text">install by npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-yml-%E6%96%B0%E5%8A%A0%E5%85%A5"><span class="nav-number">4.7.2.</span> <span class="nav-text">_config.yml(新加入)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml-2"><span class="nav-number">4.7.3.</span> <span class="nav-text">_config.next.yml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E9%96%B1%E8%AE%80%E7%99%BE%E5%88%86%E6%AF%94"><span class="nav-number">4.8.</span> <span class="nav-text">顯示閱讀百分比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml-3"><span class="nav-number">4.8.1.</span> <span class="nav-text">_config.next.yml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9-menu-%E8%AA%AA%E6%98%8E-zh-TW-%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87"><span class="nav-number">4.9.</span> <span class="nav-text">更改 menu 說明 (zh-TW 繁體中文)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-source-x2F-data-x2F-languages-yml"><span class="nav-number">4.9.1.</span> <span class="nav-text">新增 source&#x2F;_data&#x2F;languages.yml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown-%E6%94%AF%E6%8C%81-%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="nav-number">4.10.</span> <span class="nav-text">markdown 支持 流程圖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-by-npm-1"><span class="nav-number">4.10.1.</span> <span class="nav-text">install by npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%95%AB%E5%9C%96"><span class="nav-number">4.10.2.</span> <span class="nav-text">畫圖</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown-%E6%94%AF%E6%8C%81-%E6%99%82%E5%BA%8F%E5%9C%96"><span class="nav-number">4.11.</span> <span class="nav-text">markdown 支持 時序圖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-by-npm-2"><span class="nav-number">4.11.1.</span> <span class="nav-text">install by npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source-x2F-data-x2F-styles-styl"><span class="nav-number">4.11.2.</span> <span class="nav-text">source&#x2F;_data&#x2F;styles.styl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B"><span class="nav-number">4.11.3.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown-%E6%94%AF%E6%8C%81-%E6%95%B8%E5%AD%B8%E5%85%AC%E5%BC%8F"><span class="nav-number">4.12.</span> <span class="nav-text">markdown 支持 數學公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-by-npm-3"><span class="nav-number">4.12.1.</span> <span class="nav-text">install by npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-next-yml-4"><span class="nav-number">4.12.2.</span> <span class="nav-text">_config.next.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E7%AB%A0-md"><span class="nav-number">4.12.3.</span> <span class="nav-text">文章.md</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B-1"><span class="nav-number">4.12.4.</span> <span class="nav-text">範例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-Disqus-%E7%95%99%E8%A8%80%E7%89%88"><span class="nav-number">4.13.</span> <span class="nav-text">加入 Disqus 留言版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B3%E8%AB%8B%E7%95%99%E8%A8%80%E7%89%88%E5%B8%B3%E8%99%9F"><span class="nav-number">4.13.1.</span> <span class="nav-text">申請留言版帳號</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-hexo%E2%80%99s-config-next-yml"><span class="nav-number">4.13.2.</span> <span class="nav-text">set hexo’s _config.next.yml</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#md%E6%AA%94-%E8%A8%AD%E5%AE%9A"><span class="nav-number">5.</span> <span class="nav-text">md檔 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87-%E7%9B%B8%E9%97%9C%E7%9A%84%E5%9C%96%E7%89%87%E6%94%BE%E6%96%BC%E5%B0%8D%E6%87%89%E7%9A%84%E7%9B%AE%E9%8C%84%E4%B8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">顯示圖片(相關的圖片放於對應的目錄下)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87-%E8%A8%AD%E5%AE%9A%E5%AF%AC%E5%BA%A6"><span class="nav-number">5.2.</span> <span class="nav-text">顯示圖片(設定寬度)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87-Markdown-%E8%A6%8F%E5%89%87-install-hexo-image-link"><span class="nav-number">5.3.</span> <span class="nav-text">顯示圖片(Markdown 規則-install hexo-image-link)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87-Markdown-%E8%A6%8F%E5%89%87"><span class="nav-number">5.4.</span> <span class="nav-text">顯示圖片(Markdown 規則)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/12/hexo-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Put Hexo to GitHub
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-12 15:40:30" itemprop="dateCreated datePublished" datetime="2021-03-12T15:40:30+08:00">2021-03-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-28 15:29:41" itemprop="dateModified" datetime="2022-06-28T15:29:41+08:00">2022-06-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Blog/" itemprop="url" rel="index"><span itemprop="name">Blog</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/12/hexo-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/12/hexo-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>11 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="基本設定"><a href="#基本設定" class="headerlink" title="基本設定"></a>基本設定</h2><h3 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br><span class="line">// 新版修改</span><br><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h3 id="inition-Blog"><a href="#inition-Blog" class="headerlink" title="inition Blog"></a>inition Blog</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init robert_blog</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-all-package-for-Blog"><a href="#Install-all-package-for-Blog" class="headerlink" title="Install all package for Blog"></a>Install all package for Blog</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> robert_blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="GitHub-generate-a-respsitory-使用自己的帳號名稱"><a href="#GitHub-generate-a-respsitory-使用自己的帳號名稱" class="headerlink" title="GitHub generate a respsitory(使用自己的帳號名稱)"></a>GitHub generate a respsitory(使用自己的帳號名稱)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hot5656.github.io</span><br></pre></td></tr></table></figure>
+<div style="width:500px">
+    <img src="/2021/03/12/hexo-1/pic1.png" class="" title="pic1">
+</div>
+
+<h3 id="編輯部落格下檔案-config-yml"><a href="#編輯部落格下檔案-config-yml" class="headerlink" title="編輯部落格下檔案 _config.yml"></a>編輯部落格下檔案 _config.yml</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">&#x27;https://github.com/hot5656/hot5656.github.io.git&#x27;</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="install-hexo-deployer-git-for-config-yml’s-type-git"><a href="#install-hexo-deployer-git-for-config-yml’s-type-git" class="headerlink" title="install hexo-deployer-git(for _config.yml’s type: git)"></a>install hexo-deployer-git(for _config.yml’s type: git)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="部署上-GitHub"><a href="#部署上-GitHub" class="headerlink" title="部署上 GitHub"></a>部署上 GitHub</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br><span class="line">// 新版修改</span><br><span class="line">npx hexo d -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="run-web-browser-https-hot5656-github-io"><a href="#run-web-browser-https-hot5656-github-io" class="headerlink" title="run web browser https://hot5656.github.io/"></a>run web browser <a href="https://hot5656.github.io/">https://hot5656.github.io/</a></h3><div style="width:800px">
+    <img src="/2021/03/12/hexo-1/pic3.png" class="" title="pic3">
+</div>
+
+
+<h3 id="本地執行"><a href="#本地執行" class="headerlink" title="本地執行"></a>本地執行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
+<div style="width:800px">
+    <img src="/2021/03/12/hexo-1/pic4.png" class="" title="pic4">
+</div>
+
+<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new win7-1</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="設定檔案編輯-config-yml"><a href="#設定檔案編輯-config-yml" class="headerlink" title="設定檔案編輯(_config.yml)"></a>設定檔案編輯(_config.yml)</h2><h3 id="更改匯總"><a href="#更改匯總" class="headerlink" title="更改匯總"></a>更改匯總</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Robert</span> <span class="string">雜記</span>  <span class="comment"># 部落格標題</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 副標題</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>     <span class="comment"># 網站描述 </span></span><br><span class="line"><span class="attr">keywords:</span>           <span class="comment"># 網站關鍵字(以逗號隔開)，方便 SEO </span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Robert</span> <span class="string">Kao</span>  <span class="comment"># 姓名或暱稱</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-TW</span>     <span class="comment"># 使用的語言</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 留空以使用系統時間</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc16</span>  <span class="comment">#support crc16(default) and crc32  </span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment">#support dec(default) and hex</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://hot5656.github.io/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line">  <span class="attr">author_name:</span> <span class="string">&quot;Robert&quot;</span></span><br><span class="line"><span class="comment"># permalink: :year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:author_name/:abbrlink/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="comment"># theme: landscape</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">&#x27;https://github.com/hot5656/hot5656.github.io.git&#x27;</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="comment"># path: search.xml</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">content:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="網頁基本設定"><a href="#網頁基本設定" class="headerlink" title="網頁基本設定"></a>網頁基本設定</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Robert</span> <span class="string">雜記</span>  <span class="comment"># 部落格標題</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 副標題</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>     <span class="comment"># 網站描述 </span></span><br><span class="line"><span class="attr">keywords:</span>           <span class="comment"># 網站關鍵字(以逗號隔開)，方便 SEO </span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Robert</span> <span class="string">Kao</span>  <span class="comment"># 姓名或暱稱</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-TW</span>     <span class="comment"># 使用的語言</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 留空以使用系統時間</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="設定圖片放於對應的目錄下"><a href="#設定圖片放於對應的目錄下" class="headerlink" title="設定圖片放於對應的目錄下"></a>設定圖片放於對應的目錄下</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-next-theme"><a href="#設定-next-theme" class="headerlink" title="設定 next theme"></a>設定 next theme</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># theme: landscape</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="next-theme-主題-設定"><a href="#next-theme-主題-設定" class="headerlink" title="next theme(主題) 設定"></a>next theme(主題) 設定</h2><h3 id="更改匯總-1"><a href="#更改匯總-1" class="headerlink" title="更改匯總"></a>更改匯總</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes 外觀</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="comment">#scheme: Pisces</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dark Mode</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">false</span> <span class="comment"># 黑暗效果</span></span><br><span class="line"></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br><span class="line"></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="string">enable</span></span><br><span class="line"></span><br><span class="line"><span class="attr">motion:</span> <span class="comment"># 動畫效果</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Custom-file-paths"><a href="#Custom-file-paths" class="headerlink" title="Custom file paths"></a>Custom file paths</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="設置菜單"><a href="#設置菜單" class="headerlink" title="設置菜單"></a>設置菜單</h3><h4 id="需安裝-hexo-theme-next"><a href="#需安裝-hexo-theme-next" class="headerlink" title="需安裝 hexo-theme-next"></a>需安裝 hexo-theme-next</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next --save</span><br><span class="line"><span class="comment"># copy next config to local</span></span><br><span class="line"><span class="comment"># windows command</span></span><br><span class="line">copy node_modules\hexo-theme-next\_config.yml _config.next.yml</span><br><span class="line"><span class="comment"># linux command</span></span><br><span class="line">cp node_modules/hexo-theme-next/_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+<p>or </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br><span class="line"><span class="comment"># copy next config to local</span></span><br><span class="line"><span class="comment"># windows command</span></span><br><span class="line">copy themes\next\_config.yml _config.next.yml</span><br><span class="line"><span class="comment"># linux command</span></span><br><span class="line">cp themes/next/_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="config-next-yml"><a href="#config-next-yml" class="headerlink" title="_config.next.yml"></a>_config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="設置頭像"><a href="#設置頭像" class="headerlink" title="設置頭像"></a>設置頭像</h3><p>放於 source&#x2F;images&#x2F;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here.</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/head.png</span> <span class="comment">#/images/avatar.gif</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="刪除歸檔頁-嗯-目前共有-17-篇文章。-繼續努力。"><a href="#刪除歸檔頁-嗯-目前共有-17-篇文章。-繼續努力。" class="headerlink" title="刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。"></a>刪除歸檔頁 - 嗯..! 目前共有 17 篇文章。 繼續努力。</h3><p>source_data\styles.styl</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 刪除歸檔頁 - 嗯..! 目前共有 <span class="number">17</span> 篇文章。 繼續努力。</span><br><span class="line"><span class="selector-class">.archive</span> <span class="selector-class">.collection-title</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-tab-size"><a href="#修改-tab-size" class="headerlink" title="修改 tab size"></a>修改 tab size</h3><p>source_data\styles.styl</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 修改 tab size 為 <span class="number">2</span></span><br><span class="line">pre &#123;</span><br><span class="line">	<span class="attribute">tab-size</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-tag-code-style"><a href="#設定-tag-code-style" class="headerlink" title="設定 tag code style"></a>設定 tag code style</h3><p>source_data\styles.styl</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 設定 tag <span class="selector-tag">code</span> style</span><br><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#ff3860</span>;</span><br><span class="line">	<span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="特定功能"><a href="#特定功能" class="headerlink" title="特定功能"></a>特定功能</h2><h3 id="文章搜尋功能"><a href="#文章搜尋功能" class="headerlink" title="文章搜尋功能"></a>文章搜尋功能</h3><h4 id="需安裝-hexo-generator-searchdb"><a href="#需安裝-hexo-generator-searchdb" class="headerlink" title="需安裝 hexo-generator-searchdb"></a>需安裝 hexo-generator-searchdb</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<h4 id="config-next-yml-1"><a href="#config-next-yml-1" class="headerlink" title="_config.next.yml"></a>_config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="config-next-yml-增加設定-因github-搜尋-path-僅接受-json-format"><a href="#config-next-yml-增加設定-因github-搜尋-path-僅接受-json-format" class="headerlink" title="_config.next.yml 增加設定(因github 搜尋 path 僅接受 json format)"></a>_config.next.yml 增加設定(因github 搜尋 path 僅接受 json format)</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="comment"># path: search.xml</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">content:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="必須先做-hexo-clean"><a href="#必須先做-hexo-clean" class="headerlink" title="必須先做 hexo clean"></a>必須先做 hexo clean</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<h4 id="顯示畫面"><a href="#顯示畫面" class="headerlink" title="顯示畫面"></a>顯示畫面</h4><div style="width:500px">
+    <img src="/2021/03/12/hexo-1/pic5.png" class="" title="pic5">
+</div>
+
+<h3 id="加入-categories-和-tags"><a href="#加入-categories-和-tags" class="headerlink" title="加入 categories 和 tags"></a>加入 categories 和 tags</h3><h4 id="修改-scaffolds-x2F-post-md"><a href="#修改-scaffolds-x2F-post-md" class="headerlink" title="修改 scaffolds&#x2F;post.md"></a>修改 scaffolds&#x2F;post.md</h4><p>新增文章時,自動加入 categories, tags 項目</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line">tags:</span><br></pre></td></tr></table></figure>
+
+<h4 id="產生-categories-tags-頁"><a href="#產生-categories-tags-頁" class="headerlink" title="產生 categories, tags 頁"></a>產生 categories, tags 頁</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+<!--more-->
+
+<h4 id="source-x2F-categories-x2F-index-md-修改"><a href="#source-x2F-categories-x2F-index-md-修改" class="headerlink" title="source&#x2F;categories&#x2F;index.md 修改"></a>source&#x2F;categories&#x2F;index.md 修改</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-03-15 12:17:46</span><br><span class="line">type: categories # 不加入不能選擇 categories(next theme)</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h4 id="source-x2F-tags-x2F-index-md-修改"><a href="#source-x2F-tags-x2F-index-md-修改" class="headerlink" title="source&#x2F;tags&#x2F;index.md 修改"></a>source&#x2F;tags&#x2F;index.md 修改</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-03-15 12:17:59</span><br><span class="line">type: tags # 不加入不能選擇 tags(next theme)</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h4 id="文章設定-categories-tags"><a href="#文章設定-categories-tags" class="headerlink" title="文章設定 categories, tags"></a>文章設定 categories, tags</h4><p>可包含多 tag</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">categories: 程序</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">	-</span> hexo</span><br><span class="line"><span class="bullet">	-</span> github</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="sitemap-xml-製作-應用未加入-……"><a href="#sitemap-xml-製作-應用未加入-……" class="headerlink" title="sitemap.xml 製作(應用未加入 ……)"></a>sitemap.xml 製作(應用未加入 ……)</h3><p>安裝 hexo-generator-sitemap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
+<p>_config.next.yml (新加入)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
+<p>部署至 github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 若有一些異常, 先執行 hexo clean</span></span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p>檢查是否部署完成<br><a href="https://hot5656.github.io/sitemap.xml">https://hot5656.github.io/sitemap.xml</a></p>
+<div style="width:500px">
+    <img src="/2021/03/12/hexo-1/pic6.png" class="" title="pic6">
+</div>
+
+<p>向Google Search Console提交<br><a target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome">https://search.google.com/search-console/welcome</a><br>… 待處理</p>
+<h3 id="設定hexo-abbrlink"><a href="#設定hexo-abbrlink" class="headerlink" title="設定hexo-abbrlink"></a>設定hexo-abbrlink</h3><h4 id="install-hexo-abbrlink"><a href="#install-hexo-abbrlink" class="headerlink" title="install hexo-abbrlink"></a>install hexo-abbrlink</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-config-yml"><a href="#set-config-yml" class="headerlink" title="set _config.yml"></a>set _config.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc16</span>  <span class="comment">#support crc16(default) and crc32  </span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment">#support dec(default) and hex</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://hot5656.github.io/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line">  <span class="attr">author_name:</span> <span class="string">&quot;Robert&quot;</span></span><br><span class="line"><span class="comment"># permalink: :year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:author_name/:abbrlink/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="閱讀次數統計（LeanCloud）…待研究"><a href="#閱讀次數統計（LeanCloud）…待研究" class="headerlink" title="閱讀次數統計（LeanCloud）…待研究"></a>閱讀次數統計（LeanCloud）…待研究</h3><h3 id="客製化設定"><a href="#客製化設定" class="headerlink" title="客製化設定"></a>客製化設定</h3><h4 id="設定代碼風格-config-next-yml"><a href="#設定代碼風格-config-next-yml" class="headerlink" title="設定代碼風格 - _config.next.yml"></a>設定代碼風格 - _config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="comment"># light: default</span></span><br><span class="line">    <span class="comment"># dark: tomorrow-night</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">gml</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">gml</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="設定客製化路徑-config-next-yml"><a href="#設定客製化路徑-config-next-yml" class="headerlink" title="設定客製化路徑 - _config.next.yml"></a>設定客製化路徑 - _config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span> <span class="comment"># 更改變數值</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span> <span class="comment"># 更改 css </span></span><br></pre></td></tr></table></figure>
+
+<h4 id="設定變數-variables-styl"><a href="#設定變數-variables-styl" class="headerlink" title="設定變數 - variables.styl"></a>設定變數 - variables.styl</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//</span> <span class="string">基本色系</span> <span class="bullet">-</span> <span class="string">由淺至深</span> <span class="string">https://colorhunt.co/palette/252860</span></span><br><span class="line"><span class="string">$web-color-l1</span> <span class="string">=</span> <span class="comment">#f0e5d8;</span></span><br><span class="line"><span class="string">$web-color-l2</span> <span class="string">=</span> <span class="comment">#bbdfc8;</span></span><br><span class="line"><span class="string">$web-color-l3</span> <span class="string">=</span> <span class="comment">#75cfb8;</span></span><br><span class="line"><span class="string">$web-color-l4</span> <span class="string">=</span> <span class="comment">#ffc478;</span></span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">背景颜色</span></span><br><span class="line"><span class="string">$body-bg-color</span> <span class="string">=</span> <span class="string">$web-color-l1;</span></span><br><span class="line"><span class="string">$header-bg-color</span> <span class="string">=</span> <span class="string">$web-color-l1;</span></span><br><span class="line"><span class="string">$footer-bg-color</span> <span class="string">=</span> <span class="string">$web-color-l1;</span></span><br><span class="line"><span class="string">//</span> <span class="string">貼文背景顏色</span></span><br><span class="line"><span class="string">$content-bg-color</span> <span class="string">=</span> <span class="string">$web-color-l2;</span></span><br><span class="line"><span class="string">//</span> <span class="string">選項背景顏色</span></span><br><span class="line"><span class="string">$menu-item-bg-color</span> <span class="string">=</span> <span class="string">$web-color-l3;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="設定-styles-styles-styl"><a href="#設定-styles-styles-styl" class="headerlink" title="設定 styles - styles.styl"></a>設定 styles - styles.styl</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//</span> <span class="string">設定</span> <span class="string">brand</span> <span class="string">background</span></span><br><span class="line"><span class="string">.site-brand-container</span> &#123;</span><br><span class="line">	<span class="attr">background:</span> <span class="string">$web-color-l4;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">刪除頭像邊框</span></span><br><span class="line"><span class="string">.site-author-image</span> &#123;</span><br><span class="line">    <span class="attr">border:</span> <span class="number">0</span><span class="string">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">設定貼文內</span> <span class="string">h2</span> <span class="string">顏色(清楚分項用)</span></span><br><span class="line"><span class="string">.post-body</span> <span class="string">&gt;</span> <span class="string">h2</span> &#123;</span><br><span class="line">	<span class="attr">color:</span> <span class="string">orange;</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">設定貼文內</span> <span class="string">tag</span> <span class="string">a顏色(一般</span> <span class="string">web</span> <span class="string">link</span> <span class="string">用)</span></span><br><span class="line"><span class="string">//</span> <span class="string">.post-body</span> <span class="string">a</span> &#123;</span><br><span class="line"><span class="string">//</span> 	<span class="attr">color:</span> <span class="string">blue;</span></span><br><span class="line"><span class="string">//</span> 	<span class="attr">border-bottom:</span> <span class="number">0</span><span class="string">;</span></span><br><span class="line"><span class="string">//</span> &#125;</span><br><span class="line"><span class="string">//</span> <span class="string">.post-body</span> <span class="string">a:hover</span> &#123;</span><br><span class="line"><span class="string">//</span> 	<span class="attr">text-decoration:</span> <span class="string">underline;</span></span><br><span class="line"><span class="string">//</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">設定貼文內</span> <span class="string">button,</span> <span class="string">tag</span> <span class="string">a</span> <span class="string">文字顏色(閱讀全文)</span></span><br><span class="line"><span class="string">//.post-body</span> <span class="string">.post-button</span> <span class="string">a</span> &#123;</span><br><span class="line"><span class="string">//</span>	<span class="attr">color:</span> <span class="string">$btn-default-color;</span></span><br><span class="line"><span class="string">//</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">設定貼文內</span> <span class="string">button</span> <span class="string">background</span> <span class="string">顏色(閱讀全文)</span></span><br><span class="line"><span class="string">.post-body</span> <span class="string">.btn</span> &#123;</span><br><span class="line">	<span class="attr">background:</span> <span class="string">$web-color-l2;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">刪除歸檔頁</span> <span class="bullet">-</span> <span class="string">嗯..!</span> <span class="string">目前共有</span> <span class="number">17</span> <span class="string">篇文章。</span> <span class="string">繼續努力。</span></span><br><span class="line"><span class="string">.archive</span> <span class="string">.collection-title</span> &#123;</span><br><span class="line">	<span class="attr">display:</span> <span class="string">none;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">class</span> <span class="string">內</span> <span class="string">rect</span> </span><br><span class="line"><span class="string">//</span> <span class="string">for</span> <span class="string">時序圖(sequence)</span> <span class="string">文字背景</span></span><br><span class="line"><span class="string">.sequence</span> <span class="string">rect</span> &#123;</span><br><span class="line">  <span class="attr">fill:</span> <span class="string">$content-bg-color;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">修改</span> <span class="string">tab</span> <span class="string">size</span> <span class="string">為</span> <span class="number">2</span></span><br><span class="line"><span class="string">pre</span> &#123;</span><br><span class="line">	<span class="attr">tab-size:</span> <span class="number">2</span><span class="string">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">更改</span> <span class="string">table</span> <span class="string">head背景</span></span><br><span class="line"><span class="string">//</span> <span class="string">更改</span> <span class="string">table</span> <span class="string">偶數列背景</span></span><br><span class="line"><span class="string">.table-container</span> <span class="string">thead</span> <span class="string">tr,</span></span><br><span class="line"><span class="string">.table-container</span> <span class="string">tbody</span> <span class="string">tr:nth-child(2n)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">background:</span> <span class="comment">#d4d4d4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">//</span> <span class="string">設定</span> <span class="string">tag</span> <span class="string">code</span> <span class="string">style</span></span><br><span class="line"><span class="string">code</span> &#123;</span><br><span class="line">	<span class="attr">color:</span> <span class="comment">#ff3860;</span></span><br><span class="line">	<span class="attr">background-color:</span> <span class="string">transparent;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字數統計"><a href="#字數統計" class="headerlink" title="字數統計"></a>字數統計</h3><h4 id="install-by-npm"><a href="#install-by-npm" class="headerlink" title="install by npm"></a>install by npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-word-counter --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="config-yml-新加入"><a href="#config-yml-新加入" class="headerlink" title="_config.yml(新加入)"></a>_config.yml(新加入)</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># symbols_count_time:</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude_codeblock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span></span><br><span class="line">  <span class="attr">suffix:</span> <span class="string">&quot;mins.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="config-next-yml-2"><a href="#config-next-yml-2" class="headerlink" title="_config.next.yml"></a>_config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/next-theme/hexo-word-counter</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="顯示閱讀百分比"><a href="#顯示閱讀百分比" class="headerlink" title="顯示閱讀百分比"></a>顯示閱讀百分比</h3><h4 id="config-next-yml-3"><a href="#config-next-yml-3" class="headerlink" title="_config.next.yml"></a>_config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">back2top:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Back to top in sidebar.</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Scroll percent label in b2t button.</span></span><br><span class="line">  <span class="attr">scrollpercent:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="更改-menu-說明-zh-TW-繁體中文"><a href="#更改-menu-說明-zh-TW-繁體中文" class="headerlink" title="更改 menu 說明 (zh-TW 繁體中文)"></a>更改 menu 說明 (zh-TW 繁體中文)</h3><h4 id="新增-source-x2F-data-x2F-languages-yml"><a href="#新增-source-x2F-data-x2F-languages-yml" class="headerlink" title="新增 source&#x2F;_data&#x2F;languages.yml"></a>新增 source&#x2F;_data&#x2F;languages.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">zh-TW:</span></span><br><span class="line">  <span class="attr">menu:</span></span><br><span class="line">    <span class="attr">home:</span> <span class="string">首頁</span></span><br><span class="line">    <span class="attr">archives:</span> <span class="string">歸檔列表</span></span><br><span class="line">    <span class="attr">categories:</span> <span class="string">分類</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="string">標籤</span></span><br><span class="line">    <span class="attr">about:</span> <span class="string">關於</span></span><br><span class="line">    <span class="attr">search:</span> <span class="string">搜尋</span></span><br><span class="line">    <span class="attr">schedule:</span> <span class="string">時間表</span></span><br><span class="line">    <span class="attr">sitemap:</span> <span class="string">網站地圖</span></span><br><span class="line">    <span class="attr">commonweal:</span> <span class="string">公益</span> <span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="markdown-支持-流程圖"><a href="#markdown-支持-流程圖" class="headerlink" title="markdown 支持 流程圖"></a>markdown 支持 流程圖</h3><h4 id="install-by-npm-1"><a href="#install-by-npm-1" class="headerlink" title="install by npm"></a>install by npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-filter-flowchart</span><br></pre></td></tr></table></figure>
+
+<h4 id="畫圖"><a href="#畫圖" class="headerlink" title="畫圖"></a>畫圖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 設程式碼為 flow</span></span><br><span class="line"><span class="comment"># 設定 元素</span></span><br><span class="line">st=&gt;start: 開始</span><br><span class="line"><span class="keyword">in</span>=&gt;inputoutput: 输入</span><br><span class="line">e=&gt;end: 結束</span><br><span class="line">op=&gt;operation: 操作</span><br><span class="line">cond=&gt;condition: 條件</span><br><span class="line">sub=&gt;subroutine: 子程序</span><br><span class="line">out=&gt;inputoutput: 输出</span><br><span class="line"><span class="comment"># 畫圖</span></span><br><span class="line">st(right)-&gt;<span class="keyword">in</span>-&gt;op-&gt;cond</span><br><span class="line">cond(yes,right)-&gt;out-&gt;e</span><br><span class="line">cond(no)-&gt;sub</span><br></pre></td></tr></table></figure>
+
+<div id="flowchart-0" class="flow-chart"></div>
+
+<h3 id="markdown-支持-時序圖"><a href="#markdown-支持-時序圖" class="headerlink" title="markdown 支持 時序圖"></a>markdown 支持 時序圖</h3><h4 id="install-by-npm-2"><a href="#install-by-npm-2" class="headerlink" title="install by npm"></a>install by npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-filter-sequence</span><br></pre></td></tr></table></figure>
+
+<h4 id="source-x2F-data-x2F-styles-styl"><a href="#source-x2F-data-x2F-styles-styl" class="headerlink" title="source&#x2F;_data&#x2F;styles.styl"></a>source&#x2F;_data&#x2F;styles.styl</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// class sequence 內 rect </span><br><span class="line">// for 時序圖(sequence) 文字背景</span><br><span class="line"><span class="selector-class">.sequence</span> rect &#123;</span><br><span class="line">  fill: $content-bg-color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加入 class sequence</span></span><br><span class="line">&lt;div class=<span class="string">&quot;sequence&quot;</span>&gt;</span><br><span class="line"><span class="comment"># 設程式碼為 sequence</span></span><br><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="sequence">
+<div id="sequence-0"></div>
+</div>
+
+<h3 id="markdown-支持-數學公式"><a href="#markdown-支持-數學公式" class="headerlink" title="markdown 支持 數學公式"></a>markdown 支持 數學公式</h3><h4 id="install-by-npm-3"><a href="#install-by-npm-3" class="headerlink" title="install by npm"></a>install by npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不用安裝, 只是留下紀錄</span></span><br><span class="line"><span class="comment"># npm install hexo-filter-mathjax --save</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="config-next-yml-4"><a href="#config-next-yml-4" class="headerlink" title="_config.next.yml"></a>_config.next.yml</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mathjax:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="文章-md"><a href="#文章-md" class="headerlink" title="文章.md"></a>文章.md</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mathjax: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="範例-1"><a href="#範例-1" class="headerlink" title="範例"></a>範例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下標 _ 改為 \_</span></span><br><span class="line"><span class="comment"># 條件表達式 每列 \\ 改為 \\\\</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 行內公式</span></span><br><span class="line">質能方程式<span class="variable">$E</span> = mc^2$</span><br><span class="line"><span class="comment"># 獨立公式</span></span><br><span class="line">質能方程式$<span class="variable">$E</span> = mc^2$$</span><br><span class="line"><span class="comment"># ^ 上標, _ 下標</span></span><br><span class="line">$<span class="variable">$x</span> = a\_&#123;1&#125;^n + a\_&#123;2&#125;^n + a\_&#123;3&#125;^n$$</span><br><span class="line"><span class="comment"># 分數使用\frac&#123;分母&#125;&#123;分子&#125; 不過推薦使用\cfrac來代替\frac，顯示公式不會太擠</span></span><br><span class="line">$$\frac&#123;1&#125;&#123;3&#125; 與\cfrac&#123;1&#125;&#123;3&#125;$$</span><br><span class="line"><span class="comment"># &#123;&#125;因為有特殊作用因此當需要顯示大括號時一般使用\lbrace \rbrace來表示</span></span><br><span class="line">$<span class="variable">$f</span>(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$</span><br><span class="line"><span class="comment"># 開根號 \sqrt[次数]&#123;被开方数&#125;</span></span><br><span class="line">$$\sqrt[3]&#123;X&#125; \sqrt&#123;5 - x&#125;$$ </span><br><span class="line"><span class="comment"># 極限</span></span><br><span class="line"><span class="variable">$g</span>. \lim\limits_&#123;n \rightarrow a&#125; [f(x)/g(x)]=L/M$</span><br><span class="line"><span class="comment"># 條件表達式</span></span><br><span class="line">$$</span><br><span class="line">y=</span><br><span class="line">\begin&#123;cases&#125;</span><br><span class="line">-x,\quad x\leq 0 \\\\</span><br><span class="line">x,\quad x&gt;0</span><br><span class="line">\end&#123;cases&#125;</span><br><span class="line">$$</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    f(n) =</span><br><span class="line">    \begin&#123;cases&#125;</span><br><span class="line">    n/2, &amp; \text&#123;<span class="keyword">if</span> $n$ is even&#125; \\\\</span><br><span class="line">    3n+1, &amp; \text&#123;<span class="keyword">if</span> $n$ is odd&#125;</span><br><span class="line">    \end&#123;cases&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+
+<p>質能方程式$E &#x3D; mc^2$<br>質能方程式$$E &#x3D; mc^2$$<br>上標,下標<br>$$x &#x3D; a_{1}^n + a_{2}^n + a_{3}^n$$<br>分數使用<br>$$\frac{1}{3} 與\cfrac{1}{3}$$<br>括號<br>$$f(x, y) &#x3D; 100 * \lbrace[(x + y) * 3] - 5\rbrace$$<br>開根號<br>$$\sqrt[3]{X} \sqrt{5 - x}$$<br>極限<br>$\lim\limits_{n \rightarrow a} [f(x)&#x2F;g(x)]&#x3D;L&#x2F;M$<br>條件表達式<br>$$<br>y&#x3D;<br>\begin{cases}<br>-x,\quad x\leq 0 \\<br>x,\quad x&gt;0<br>\end{cases}<br>$$</p>
+<p>\begin{equation}<br>    f(n) &#x3D;<br>    \begin{cases}<br>    n&#x2F;2, &amp; \text{if $n$ is even} \\<br>    3n+1, &amp; \text{if $n$ is odd}<br>    \end{cases}<br>\end{equation}</p>
+<h3 id="加入-Disqus-留言版"><a href="#加入-Disqus-留言版" class="headerlink" title="加入 Disqus 留言版"></a>加入 Disqus 留言版</h3><h4 id="申請留言版帳號"><a href="#申請留言版帳號" class="headerlink" title="申請留言版帳號"></a>申請留言版帳號</h4><p>到 <a target="_blank" rel="noopener" href="https://disqus.com/">Disqus</a> 註冊帳號後並登入</p>
+<ul>
+<li><p>I wnat to install Disqus on my site</p>
+<div style="width:500px">
+  <img src="/2021/03/12/hexo-1/pic21.png" class="" title="pic21">
+</div>
+</li>
+<li><p>基本設定</p>
+<div style="width:500px">
+  <img src="/2021/03/12/hexo-1/pic22.png" class="" title="pic22">
+</div></li>
+</ul>
+<h4 id="set-hexo’s-config-next-yml"><a href="#set-hexo’s-config-next-yml" class="headerlink" title="set hexo’s _config.next.yml"></a>set hexo’s _config.next.yml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disqus</span></span><br><span class="line"><span class="comment"># For more information: https://disqus.com</span></span><br><span class="line"><span class="attr">disqus:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="string">enable</span> <span class="comment"># enable Disqus</span></span><br><span class="line">  <span class="attr">shortname:</span> <span class="string">hot5656-blog</span> <span class="comment"># Disqus Website Name for you</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+<br>
+
+<h2 id="md檔-設定"><a href="#md檔-設定" class="headerlink" title="md檔 設定"></a>md檔 設定</h2><h3 id="顯示圖片-相關的圖片放於對應的目錄下"><a href="#顯示圖片-相關的圖片放於對應的目錄下" class="headerlink" title="顯示圖片(相關的圖片放於對應的目錄下)"></a>顯示圖片(相關的圖片放於對應的目錄下)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img test.png This is an example image %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="顯示圖片-設定寬度"><a href="#顯示圖片-設定寬度" class="headerlink" title="顯示圖片(設定寬度)"></a>顯示圖片(設定寬度)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">&quot;width:500px&quot;</span>&gt;</span><br><span class="line">	&#123;% asset_img pic3.png pic3 %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="顯示圖片-Markdown-規則-install-hexo-image-link"><a href="#顯示圖片-Markdown-規則-install-hexo-image-link" class="headerlink" title="顯示圖片(Markdown 規則-install hexo-image-link)"></a>顯示圖片(Markdown 規則-install hexo-image-link)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-image-link --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="顯示圖片-Markdown-規則"><a href="#顯示圖片-Markdown-規則" class="headerlink" title="顯示圖片(Markdown 規則)"></a>顯示圖片(Markdown 規則)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![picture 1](hexo/test.png)</span><br></pre></td></tr></table></figure>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 開始
+in=>inputoutput: 输入
+e=>end: 結束
+op=>operation: 操作
+cond=>condition: 條件
+sub=>subroutine: 子程序
+out=>inputoutput: 输出
+
+st(right)->in->op->cond
+cond(yes,right)->out->e
+cond(no)->sub</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/12/issue-npm-1/" rel="prev" title="Node.js issue">
+                  <i class="fa fa-chevron-left"></i> Node.js issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/14/hexo-2/" rel="next" title="Put Hexo to GitHub(第二個)">
+                  Put Hexo to GitHub(第二個) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/12/hexo-1/";
+    this.page.identifier = "2021/03/12/hexo-1/";
+    this.page.title = "Put Hexo to GitHub";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

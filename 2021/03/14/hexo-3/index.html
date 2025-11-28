@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content=".post-image {     border: 1px solid black; }   commandInstall Hexo1Install Hexo  Dump version123hexo version&#x2F;&#x2F; 新版修改npx hexo version">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 使用">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/14/hexo-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content=".post-image {     border: 1px solid black; }   commandInstall Hexo1Install Hexo  Dump version123hexo version&#x2F;&#x2F; 新版修改npx hexo version">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+<meta property="article:published_time" content="2021-03-14T00:41:49.000Z">
+<meta property="article:modified_time" content="2025-01-02T09:37:45.514Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/03/14/hexo-3/pic2.jpg">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/14/hexo-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Hexo 使用 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#command"><span class="nav-number">1.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">Install Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dump-version"><span class="nav-number">1.2.</span> <span class="nav-text">Dump version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inition-Blog"><span class="nav-number">1.3.</span> <span class="nav-text">inition Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94%E5%BE%8C%E9%83%A8%E7%BD%B2"><span class="nav-number">1.4.</span> <span class="nav-text">產生靜態檔後部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94%E5%BE%8C%E9%A0%90%E8%A6%BD"><span class="nav-number">1.5.</span> <span class="nav-text">產生靜態檔後預覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%9F%E5%8B%95%E4%BC%BA%E6%9C%8D%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">啟動伺服器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%9F%E5%8B%95%E4%BC%BA%E6%9C%8D%E5%99%A8-%E5%90%AB-debug-data"><span class="nav-number">1.7.</span> <span class="nav-text">啟動伺服器(含 debug data)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88"><span class="nav-number">1.8.</span> <span class="nav-text">產生靜態檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E9%80%A3%E6%8E%A5%E5%9F%A0"><span class="nav-number">1.9.</span> <span class="nav-text">變更連接埠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E7%B6%B2%E7%AB%99"><span class="nav-number">1.10.</span> <span class="nav-text">部署網站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88%E8%88%87%E5%BF%AB%E5%8F%96"><span class="nav-number">1.11.</span> <span class="nav-text">清除靜態檔案與快取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E6%96%87%E7%AB%A0"><span class="nav-number">1.12.</span> <span class="nav-text">產生文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F%E8%8D%89%E7%A8%BF"><span class="nav-number">1.13.</span> <span class="nav-text">產生草稿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A2%E7%94%9F-page"><span class="nav-number">1.14.</span> <span class="nav-text">產生 page</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-%E5%AE%89%E8%A3%9D"><span class="nav-number">2.</span> <span class="nav-text">npm 安裝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install-hexo-deployer-git-for-config-yml%E2%80%99s-type-git"><span class="nav-number">2.1.</span> <span class="nav-text">install hexo-deployer-git(for _config.yml’s type: git)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-hexo-image-link-Markdown-%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87-%E8%A6%8F%E5%89%87"><span class="nav-number">2.2.</span> <span class="nav-text">install hexo-image-link(Markdown 顯示圖片 規則)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instrall-%E7%AE%A1%E7%90%86%E6%96%87%E7%AB%A0%E7%9A%84%E5%BE%8C%E5%8F%B0%E6%8F%92%E4%BB%B6-%E4%B8%8D%E5%A5%BD%E7%94%A8-%E4%B9%9F%E6%9C%83%E7%94%A2%E7%94%9F%E5%BE%88%E5%A4%9A-npm-vulnerabilities-%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.3.</span> <span class="nav-text">instrall 管理文章的後台插件(不好用,也會產生很多 npm vulnerabilities-漏洞)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%AA%94%E6%A1%88%E7%B7%A8%E8%BC%AF"><span class="nav-number">3.</span> <span class="nav-text">設定檔案編輯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-for-GitHub"><span class="nav-number">3.1.</span> <span class="nav-text">_config.yml(for GitHub)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-for-%E5%9C%96%E7%89%87%E6%94%BE%E6%96%BC%E5%B0%8D%E6%87%89%E7%9A%84%E7%9B%AE%E9%8C%84%E4%B8%8B"><span class="nav-number">3.2.</span> <span class="nav-text">_config.yml(for 圖片放於對應的目錄下)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-for-%E7%B6%B2%E5%9D%80%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.3.</span> <span class="nav-text">_config.yml(for 網址設定)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-for-%E7%B6%B2%E9%A0%81%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.4.</span> <span class="nav-text">_config.yml(for 網頁基本設定)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-for-%E9%A6%96%E9%A0%81%E4%B8%80%E9%A0%81%E8%A6%81%E9%A1%AF%E7%A4%BA%E5%B9%BE%E7%AF%87%E6%96%87%E7%AB%A0"><span class="nav-number">3.5.</span> <span class="nav-text">_config.yml(for 首頁一頁要顯示幾篇文章)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-next-yml-for-%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E6%90%9C%E5%B0%8B%E7%B5%90%E6%9E%9C"><span class="nav-number">3.6.</span> <span class="nav-text">_config.next.yml (for 列出所有搜尋結果)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#md%E6%AA%94-%E8%A8%AD%E5%AE%9A"><span class="nav-number">4.</span> <span class="nav-text">md檔 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-%E7%B9%BC%E7%BA%8C%E9%96%B1%E8%AE%80-%E6%88%AA%E6%96%B7%E6%96%87%E7%AB%A0"><span class="nav-number">4.1.</span> <span class="nav-text">加入 繼續閱讀 截斷文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#page-%E6%94%B9%E6%88%90%E4%B8%80%E8%88%AC-HTML-%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">page 改成一般 HTML 格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#index-md-change-to-index-html"><span class="nav-number">4.2.1.</span> <span class="nav-text">index.md change to index.html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E9%A0%81%E5%AE%8C%E5%85%A8%E5%8F%97page-layout-%E5%BD%B1%E9%9F%BF-%E5%A1%AB%E5%85%A5%E4%BB%A5%E4%B8%8B"><span class="nav-number">4.2.2.</span> <span class="nav-text">整頁完全受page layout 影響(填入以下)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Hexo-%E6%9C%AC%E5%9C%B0%E9%80%A3%E7%B5%90"><span class="nav-number">4.3.</span> <span class="nav-text">設定 Hexo 本地連結</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#show-hexo%E2%80%99s-post-title"><span class="nav-number">4.3.1.</span> <span class="nav-text">show hexo’s post title</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show-%E6%8C%87%E5%AE%9A%E6%96%87%E5%AD%97"><span class="nav-number">4.3.2.</span> <span class="nav-text">show 指定文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Escape-title-don%E2%80%99t-care-tag"><span class="nav-number">4.3.3.</span> <span class="nav-text">Escape title(don’t care tag)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Do-not-Escape-title-care-tag"><span class="nav-number">4.3.4.</span> <span class="nav-text">Do not Escape title(care tag)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%9C%96%E6%AA%94"><span class="nav-number">4.4.</span> <span class="nav-text">顯示圖檔</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default-%E9%A1%AF%E7%A4%BA"><span class="nav-number">4.4.1.</span> <span class="nav-text">default 顯示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%A4%96%E6%A1%86%E5%AF%AC%E5%BA%A6-%E5%8F%AF%E9%9D%A0%E5%B7%A6%E6%88%96%E7%B8%AE%E5%B0%8F%E5%9C%96%E7%89%87"><span class="nav-number">4.4.2.</span> <span class="nav-text">設定外框寬度(可靠左或縮小圖片)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E8%87%AA%E8%A8%82-class"><span class="nav-number">4.4.3.</span> <span class="nav-text">加入自訂 class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%AF%AC%E5%BA%A6-%E9%AB%98%E5%BA%A6"><span class="nav-number">4.4.4.</span> <span class="nav-text">指定寬度,高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%AF%AC%E5%BA%A6-%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E9%AB%98%E5%BA%A6"><span class="nav-number">4.4.5.</span> <span class="nav-text">指定寬度(自動調整高度)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A-Title-amp-Alt"><span class="nav-number">4.4.6.</span> <span class="nav-text">指定 Title &amp; Alt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E8%A8%82-css-%E6%96%87%E5%AD%97%E9%81%8E%E9%95%B7%E8%87%AA%E5%8B%95%E6%8F%9B%E8%A1%8C-%E8%AD%98%E5%88%A5%E7%A9%BA%E6%A0%BC%E6%8F%9B%E8%A1%8C"><span class="nav-number">4.5.</span> <span class="nav-text">自訂 css(文字過長自動換行,識別空格換行)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setting"><span class="nav-number">4.5.1.</span> <span class="nav-text">setting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#use-in-md-%E5%8F%AF%E9%A1%AF%E7%A4%BA"><span class="nav-number">4.5.2.</span> <span class="nav-text">use in .md(可顯示 {{niche}}})</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/14/hexo-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo 使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-14 08:41:49" itemprop="dateCreated datePublished" datetime="2021-03-14T08:41:49+08:00">2021-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-01-02 17:37:45" itemprop="dateModified" datetime="2025-01-02T17:37:45+08:00">2025-01-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Blog/" itemprop="url" rel="index"><span itemprop="name">Blog</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/14/hexo-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/14/hexo-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <style>
+.post-image {
+    border: 1px solid black;
+}
+</style>
+
+<h2 id="command"><a href="#command" class="headerlink" title="command"></a>command</h2><h3 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install Hexo</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dump-version"><a href="#Dump-version" class="headerlink" title="Dump version"></a>Dump version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br><span class="line">// 新版修改</span><br><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h3 id="inition-Blog"><a href="#inition-Blog" class="headerlink" title="inition Blog"></a>inition Blog</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+
+<h3 id="產生靜態檔後部署"><a href="#產生靜態檔後部署" class="headerlink" title="產生靜態檔後部署"></a>產生靜態檔後部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br><span class="line">// 新版修改</span><br><span class="line">npx hexo d -g </span><br></pre></td></tr></table></figure>
+
+<h3 id="產生靜態檔後預覽"><a href="#產生靜態檔後預覽" class="headerlink" title="產生靜態檔後預覽"></a>產生靜態檔後預覽</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g </span><br><span class="line">// 新版修改</span><br><span class="line">npx hexo s -g </span><br></pre></td></tr></table></figure>
+
+<h3 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server (hexo s)</span><br></pre></td></tr></table></figure>
+
+<h3 id="啟動伺服器-含-debug-data"><a href="#啟動伺服器-含-debug-data" class="headerlink" title="啟動伺服器(含 debug data)"></a>啟動伺服器(含 debug data)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug</span><br></pre></td></tr></table></figure>
+
+<h3 id="產生靜態檔案"><a href="#產生靜態檔案" class="headerlink" title="產生靜態檔案"></a>產生靜態檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate (hexo g)</span><br></pre></td></tr></table></figure>
+
+<h3 id="變更連接埠"><a href="#變更連接埠" class="headerlink" title="變更連接埠"></a>變更連接埠</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server -p 5000</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署網站"><a href="#部署網站" class="headerlink" title="部署網站"></a>部署網站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy (hexo d)</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除靜態檔案與快取"><a href="#清除靜態檔案與快取" class="headerlink" title="清除靜態檔案與快取"></a>清除靜態檔案與快取</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+
+<h3 id="產生文章"><a href="#產生文章" class="headerlink" title="產生文章"></a>產生文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post_name</span><br></pre></td></tr></table></figure>
+
+<h3 id="產生草稿"><a href="#產生草稿" class="headerlink" title="產生草稿"></a>產生草稿</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft <span class="string">&quot;new draft&quot;</span></span><br><span class="line"><span class="comment"># 啟動看到草稿文章</span></span><br><span class="line">hexo server --draft</span><br><span class="line"><span class="comment"># 草稿變成文章</span></span><br><span class="line">hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="產生-page"><a href="#產生-page" class="headerlink" title="產生 page"></a>產生 page</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
+
+<br> 
+
+<h2 id="npm-安裝"><a href="#npm-安裝" class="headerlink" title="npm 安裝"></a>npm 安裝</h2><h3 id="install-hexo-deployer-git-for-config-yml’s-type-git"><a href="#install-hexo-deployer-git-for-config-yml’s-type-git" class="headerlink" title="install hexo-deployer-git(for _config.yml’s type: git)"></a>install hexo-deployer-git(for _config.yml’s type: git)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="install-hexo-image-link-Markdown-顯示圖片-規則"><a href="#install-hexo-image-link-Markdown-顯示圖片-規則" class="headerlink" title="install hexo-image-link(Markdown 顯示圖片 規則)"></a>install hexo-image-link(Markdown 顯示圖片 規則)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-image-link --save</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">picture 1</span>](<span class="link">hexo/test.png</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="instrall-管理文章的後台插件-不好用-也會產生很多-npm-vulnerabilities-漏洞"><a href="#instrall-管理文章的後台插件-不好用-也會產生很多-npm-vulnerabilities-漏洞" class="headerlink" title="instrall 管理文章的後台插件(不好用,也會產生很多 npm vulnerabilities-漏洞)"></a>instrall 管理文章的後台插件(不好用,也會產生很多 npm vulnerabilities-漏洞)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-admin --save</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://localhost:4000/admin">http://localhost:4000/admin</a></p>
+<br> 
+
+<h2 id="設定檔案編輯"><a href="#設定檔案編輯" class="headerlink" title="設定檔案編輯"></a>設定檔案編輯</h2><h3 id="config-yml-for-GitHub"><a href="#config-yml-for-GitHub" class="headerlink" title="_config.yml(for GitHub)"></a>_config.yml(for GitHub)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">&#x27;https://github.com/hot5656/hot5656.github.io.git&#x27;</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml-for-圖片放於對應的目錄下"><a href="#config-yml-for-圖片放於對應的目錄下" class="headerlink" title="_config.yml(for 圖片放於對應的目錄下)"></a>_config.yml(for 圖片放於對應的目錄下)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml-for-網址設定"><a href="#config-yml-for-網址設定" class="headerlink" title="_config.yml(for 網址設定)"></a>_config.yml(for 網址設定)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://hot5656.github.io/blog/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/blog/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml-for-網頁基本設定"><a href="#config-yml-for-網頁基本設定" class="headerlink" title="_config.yml(for 網頁基本設定)"></a>_config.yml(for 網頁基本設定)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Robert</span> <span class="string">雜記</span>  <span class="comment"># 部落格標題</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 副標題</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>     <span class="comment"># 網站描述 </span></span><br><span class="line"><span class="attr">keywords:</span>           <span class="comment"># 網站關鍵字(以逗號隔開)，方便 SEO </span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Robert</span> <span class="string">Kao</span>  <span class="comment"># 姓名或暱稱</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-TW</span>     <span class="comment"># 使用的語言</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span>        <span class="comment"># 留空以使用系統時間</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml-for-首頁一頁要顯示幾篇文章"><a href="#config-yml-for-首頁一頁要顯示幾篇文章" class="headerlink" title="_config.yml(for 首頁一頁要顯示幾篇文章)"></a>_config.yml(for 首頁一頁要顯示幾篇文章)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">index_generator:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment">#一頁顯示的文章量 (0 = 關閉分頁功能)</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="config-next-yml-for-列出所有搜尋結果"><a href="#config-next-yml-for-列出所有搜尋結果" class="headerlink" title="_config.next.yml (for 列出所有搜尋結果)"></a>_config.next.yml (for 列出所有搜尋結果)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Show top n results per article, show all results by setting to -1</span></span><br><span class="line"><span class="comment"># top_n_per_article: 1</span></span><br><span class="line"><span class="comment"># change show all result</span></span><br><span class="line"><span class="attr">top_n_per_article:</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<br> 
+
+<h2 id="md檔-設定"><a href="#md檔-設定" class="headerlink" title="md檔 設定"></a>md檔 設定</h2><h3 id="加入-繼續閱讀-截斷文章"><a href="#加入-繼續閱讀-截斷文章" class="headerlink" title="加入 繼續閱讀 截斷文章"></a>加入 繼續閱讀 截斷文章</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--more--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="page-改成一般-HTML-格式"><a href="#page-改成一般-HTML-格式" class="headerlink" title="page 改成一般 HTML 格式"></a>page 改成一般 HTML 格式</h3><h4 id="index-md-change-to-index-html"><a href="#index-md-change-to-index-html" class="headerlink" title="index.md change to index.html"></a>index.md change to index.html</h4><h4 id="整頁完全受page-layout-影響-填入以下"><a href="#整頁完全受page-layout-影響-填入以下" class="headerlink" title="整頁完全受page layout 影響(填入以下)"></a>整頁完全受page layout 影響(填入以下)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout:false</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-Hexo-本地連結"><a href="#設定-Hexo-本地連結" class="headerlink" title="設定 Hexo 本地連結"></a>設定 Hexo 本地連結</h3><p><code>&#123;% post_link filename [title] [escape] %&#125;</code></p>
+<h4 id="show-hexo’s-post-title"><a href="#show-hexo’s-post-title" class="headerlink" title="show hexo’s post title"></a>show hexo’s post title</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post<span class="emphasis">_link hexo-1 %&#125;</span></span><br></pre></td></tr></table></figure>
+<a href="/2021/03/12/hexo-1/" title="Put Hexo to GitHub">Put Hexo to GitHub</a>
+
+<h4 id="show-指定文字"><a href="#show-指定文字" class="headerlink" title="show 指定文字"></a>show 指定文字</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post<span class="emphasis">_link hexo-1 &#x27;Hexo 製作部落格&#x27; %&#125;</span></span><br></pre></td></tr></table></figure>
+<a href="/2021/03/12/hexo-1/" title="Hexo 製作部落格">Hexo 製作部落格</a>
+
+<h4 id="Escape-title-don’t-care-tag"><a href="#Escape-title-don’t-care-tag" class="headerlink" title="Escape title(don’t care tag)"></a>Escape title(don’t care tag)</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post<span class="emphasis">_link hexo-1 &#x27;<span class="xml"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span>Hexo<span class="xml"><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span> 製作部落格&#x27; %&#125;</span></span><br></pre></td></tr></table></figure>
+<a href="/2021/03/12/hexo-1/" title="&lt;b&gt;Hexo&lt;&#x2F;b&gt; 製作部落格">&lt;b&gt;Hexo&lt;&#x2F;b&gt; 製作部落格</a>
+
+<h4 id="Do-not-Escape-title-care-tag"><a href="#Do-not-Escape-title-care-tag" class="headerlink" title="Do not Escape title(care tag)"></a>Do not Escape title(care tag)</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post<span class="emphasis">_link hexo-1 &#x27;<span class="xml"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span>Hexo<span class="xml"><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span> 製作部落格&#x27; false %&#125;</span></span><br></pre></td></tr></table></figure>
+<a href="/2021/03/12/hexo-1/" title="&lt;b&gt;Hexo&lt;&#x2F;b&gt; 製作部落格"><b>Hexo</b> 製作部落格</a>
+
+<h3 id="顯示圖檔"><a href="#顯示圖檔" class="headerlink" title="顯示圖檔"></a>顯示圖檔</h3><h4 id="default-顯示"><a href="#default-顯示" class="headerlink" title="default 顯示"></a>default 顯示</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset<span class="emphasis">_img pic2.jpg pic2 %&#125;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/03/14/hexo-3/pic2.jpg" class="" title="pic2">
+
+<h4 id="設定外框寬度-可靠左或縮小圖片"><a href="#設定外框寬度-可靠左或縮小圖片" class="headerlink" title="設定外框寬度(可靠左或縮小圖片)"></a>設定外框寬度(可靠左或縮小圖片)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:500px&quot;</span>&gt;</span></span><br><span class="line">	&#123;% asset_img pic2.jpg pic2&quot;%&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div style="width:500px">
+    <img src="/2021/03/14/hexo-3/pic2.jpg" class="" title="pic2">
+</div>
+
+<h4 id="加入自訂-class"><a href="#加入自訂-class" class="headerlink" title="加入自訂 class"></a>加入自訂 class</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">.post-image &#123;</span><br><span class="line"><span class="css">	<span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;% asset_img post-image pic2.jpg pic2&quot;%&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2021/03/14/hexo-3/pic2.jpg" class="post-image" title="pic2">
+
+<h4 id="指定寬度-高度"><a href="#指定寬度-高度" class="headerlink" title="指定寬度,高度"></a>指定寬度,高度</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset<span class="emphasis">_img pic2.jpg 300 300 &quot;pic2&quot;%&#125;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/03/14/hexo-3/pic2.jpg" class="" width="300" height="300" title="pic2">
+
+<h4 id="指定寬度-自動調整高度"><a href="#指定寬度-自動調整高度" class="headerlink" title="指定寬度(自動調整高度)"></a>指定寬度(自動調整高度)</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset<span class="emphasis">_img pic2.jpg 300 &quot;pic2&quot;%&#125;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/03/14/hexo-3/pic2.jpg" class="" width="300" title="pic2">
+
+<h4 id="指定-Title-amp-Alt"><a href="#指定-Title-amp-Alt" class="headerlink" title="指定 Title &amp; Alt"></a>指定 Title &amp; Alt</h4><blockquote>
+<p>alt 圖片替代文字<br>title 滑鼠移經顯示文字標示</p>
+</blockquote>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset<span class="emphasis">_img pic2.jpg &quot;pic2 title&#x27;pic2 alt&#x27;&quot; %&#125;</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/03/14/hexo-3/pic2.jpg" class="" title="pic2 title" alt="pic2 alt">
+
+<h3 id="自訂-css-文字過長自動換行-識別空格換行"><a href="#自訂-css-文字過長自動換行-識別空格換行" class="headerlink" title="自訂 css(文字過長自動換行,識別空格換行)"></a>自訂 css(文字過長自動換行,識別空格換行)</h3><h4 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># source/_data/styles.styl</span></span><br><span class="line">// 自訂 css</span><br><span class="line">.wrap-code &#123;</span><br><span class="line">		display: block;</span><br><span class="line">		background-color: rgb(34, 34, 34);</span><br><span class="line">		color: rgb(192, 192, 192);</span><br><span class="line">		line-height: 1.6;</span><br><span class="line">		padding: 10px;</span><br><span class="line">		margin-top: 20px;</span><br><span class="line">		text-align: left;</span><br><span class="line">    white-space: pre-wrap; /* 保留空格並允許換行 */</span><br><span class="line">    text-indent: 20px; /* 在段落開頭添加縮排 */</span><br><span class="line">    word-wrap: break-word; /* 在單字過長時進行換行 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="use-in-md-可顯示"><a href="#use-in-md-可顯示" class="headerlink" title="use in .md(可顯示 })"></a>use in .md(可顯示 {{niche}}})</h4><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">code</span> <span class="attr">class</span>=<span class="string">&quot;wrap-code&quot;</span>&gt;</span></span></span><br><span class="line">You are an experienced email classification assistant who accurately categorized emails based on their content and potential impact</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">code</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/14/hexo-2/" rel="prev" title="Put Hexo to GitHub(第二個)">
+                  <i class="fa fa-chevron-left"></i> Put Hexo to GitHub(第二個)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/14/markdown-1/" rel="next" title="Language codes list">
+                  Language codes list <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/14/hexo-3/";
+    this.page.identifier = "2021/03/14/hexo-3/";
+    this.page.title = "Hexo 使用";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

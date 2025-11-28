@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Setupset window1234567891011121314# import tkinterfrom tkinter import *# init for windowwindow &#x3D; Tk()# 標題window.title(&quot;My First GUI Program&quot;)# windows sizewindow.minsize(width&#x3D;500, height&#x3D;30">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tkinter (Python)">
+<meta property="og:url" content="https://hot5656.github.io/2021/04/15/python-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Setupset window1234567891011121314# import tkinterfrom tkinter import *# init for windowwindow &#x3D; Tk()# 標題window.title(&quot;My First GUI Program&quot;)# windows sizewindow.minsize(width&#x3D;500, height&#x3D;30">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic21.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic22.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic23.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic24.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/15/python-3/pic31.png">
+<meta property="article:published_time" content="2021-04-15T05:52:21.000Z">
+<meta property="article:modified_time" content="2024-04-25T07:25:13.060Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/04/15/python-3/pic21.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/04/15/python-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Tkinter (Python) | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">1.</span> <span class="nav-text">Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#set-window"><span class="nav-number">1.1.</span> <span class="nav-text">set window</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting-Options"><span class="nav-number">1.2.</span> <span class="nav-text">Setting Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%82%8A%E7%B7%9A%E8%88%87%E9%82%8A%E6%A1%86"><span class="nav-number">1.3.</span> <span class="nav-text">邊線與邊框</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layout-%E5%96%AE%E4%B8%80%E8%A6%96%E7%AA%97-%E5%83%85%E8%83%BD%E6%93%87%E4%B8%80%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Layout(單一視窗,僅能擇一使用)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pack"><span class="nav-number">2.1.</span> <span class="nav-text">Pack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Grid"><span class="nav-number">2.2.</span> <span class="nav-text">Grid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Place"><span class="nav-number">2.3.</span> <span class="nav-text">Place</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">元件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text"><span class="nav-number">3.1.</span> <span class="nav-text">Text</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Label"><span class="nav-number">3.2.</span> <span class="nav-text">Label</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Button"><span class="nav-number">3.3.</span> <span class="nav-text">Button</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spinbox"><span class="nav-number">3.4.</span> <span class="nav-text">Spinbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Standard-Dialog"><span class="nav-number">3.5.</span> <span class="nav-text">Standard Dialog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Radio-Box"><span class="nav-number">3.6.</span> <span class="nav-text">Radio Box</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Listbox"><span class="nav-number">3.7.</span> <span class="nav-text">Listbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Checkbox"><span class="nav-number">3.8.</span> <span class="nav-text">Checkbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scale"><span class="nav-number">3.9.</span> <span class="nav-text">Scale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Entry-%E5%96%AE%E8%A1%8C%E8%BC%B8%E5%85%A5"><span class="nav-number">3.10.</span> <span class="nav-text">Entry (單行輸入)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Canvas-%E7%B9%AA%E5%9C%96"><span class="nav-number">3.11.</span> <span class="nav-text">Canvas (繪圖)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ttk"><span class="nav-number">4.</span> <span class="nav-text">ttk</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Treeview"><span class="nav-number">4.1.</span> <span class="nav-text">Treeview</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bind"><span class="nav-number">5.</span> <span class="nav-text">Bind</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Listbox-1"><span class="nav-number">5.1.</span> <span class="nav-text">Listbox</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tk-interface-YouTube-%E6%89%B9%E6%AC%A1%E4%B8%8B%E8%BC%89"><span class="nav-number">6.</span> <span class="nav-text">Tk interface YouTube 批次下載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">參考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/04/15/python-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tkinter (Python)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-04-15 13:52:21" itemprop="dateCreated datePublished" datetime="2021-04-15T13:52:21+08:00">2021-04-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-04-25 15:25:13" itemprop="dateModified" datetime="2024-04-25T15:25:13+08:00">2024-04-25</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/15/python-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/15/python-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>9.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><h4 id="set-window"><a href="#set-window" class="headerlink" title="set window"></a>set window</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import tkinter</span></span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># init for window</span></span><br><span class="line">window = Tk()</span><br><span class="line"><span class="comment"># 標題</span></span><br><span class="line">window.title(<span class="string">&quot;My First GUI Program&quot;</span>)</span><br><span class="line"><span class="comment"># windows size</span></span><br><span class="line">window.minsize(width=<span class="number">500</span>, height=<span class="number">300</span>)</span><br><span class="line"><span class="comment"># padx, pady : window 預留語版邊 pad</span></span><br><span class="line"><span class="comment"># bg : window 背景顏色</span></span><br><span class="line">window.config(padx=<span class="number">50</span>, pady=<span class="number">70</span>, bg=<span class="string">&quot;#B1DDC6&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保持顯示 window</span></span><br><span class="line">window.mainloop()</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="Setting-Options"><a href="#Setting-Options" class="headerlink" title="Setting Options"></a>Setting Options</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># At object creation time, using keyword arguments</span></span><br><span class="line">fred = Button(self, fg=<span class="string">&quot;red&quot;</span>, bg=<span class="string">&quot;blue&quot;</span>)</span><br><span class="line"><span class="comment"># After object creation, treating the option name like a dictionary index</span></span><br><span class="line">fred[<span class="string">&quot;fg&quot;</span>] = <span class="string">&quot;red&quot;</span></span><br><span class="line">fred[<span class="string">&quot;bg&quot;</span>] = <span class="string">&quot;blue&quot;</span></span><br><span class="line"><span class="comment"># Use the config() method to update multiple attrs subsequent to object creation</span></span><br><span class="line">fred.config(fg=<span class="string">&quot;red&quot;</span>, bg=<span class="string">&quot;blue&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="邊線與邊框"><a href="#邊線與邊框" class="headerlink" title="邊線與邊框"></a>邊線與邊框</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># highlightthickness=0 無邊線</span></span><br><span class="line"><span class="comment"># borderwidth=0 無邊框</span></span><br><span class="line">ok_btn = Button(image=ok_img, command=ok_process, borderwidth=<span class="number">0</span>, highlightthickness=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Layout-單一視窗-僅能擇一使用"><a href="#Layout-單一視窗-僅能擇一使用" class="headerlink" title="Layout(單一視窗,僅能擇一使用)"></a>Layout(單一視窗,僅能擇一使用)</h3><h4 id="Pack"><a href="#Pack" class="headerlink" title="Pack"></a>Pack</h4><div style="width:200px">
+    <img src="/2021/04/15/python-3/pic21.png" class="" title="pic21">
+</div>
+<div style="width:200px">
+    <img src="/2021/04/15/python-3/pic22.png" class="" title="pic22">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># init 父窗口</span></span><br><span class="line">root = Tk()</span><br><span class="line">root2 = Tk()</span><br><span class="line"></span><br><span class="line">w = Label(root, text=<span class="string">&quot;Red Sun&quot;</span>, bg=<span class="string">&quot;red&quot;</span>, fg=<span class="string">&quot;white&quot;</span>)</span><br><span class="line"><span class="comment"># ipadx,ipady 設內部的 padding</span></span><br><span class="line">w.pack(ipadx=<span class="number">10</span>, ipady=<span class="number">10</span>)</span><br><span class="line"><span class="comment"># fill=X 表寬度與父窗口一樣</span></span><br><span class="line">w = Label(root, text=<span class="string">&quot;Green Grass&quot;</span>, bg=<span class="string">&quot;green&quot;</span>, fg=<span class="string">&quot;black&quot;</span>)</span><br><span class="line">w.pack(fill=X)</span><br><span class="line"><span class="comment"># padx, pady 設定與其他元件的 padding(含父窗口)</span></span><br><span class="line">w = Label(root, text=<span class="string">&quot;Blue Sky&quot;</span>, bg=<span class="string">&quot;blue&quot;</span>, fg=<span class="string">&quot;white&quot;</span>)</span><br><span class="line">w.pack(fill=X, padx=<span class="number">10</span>, pady=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定 順序 side=LEFT</span></span><br><span class="line">w = Label(root2, text=<span class="string">&quot;red&quot;</span>, bg=<span class="string">&quot;red&quot;</span>, fg=<span class="string">&quot;white&quot;</span>)</span><br><span class="line">w.pack(padx=<span class="number">5</span>, pady=<span class="number">10</span>, side=LEFT)</span><br><span class="line">w = Label(root2, text=<span class="string">&quot;green&quot;</span>, bg=<span class="string">&quot;green&quot;</span>, fg=<span class="string">&quot;black&quot;</span>)</span><br><span class="line">w.pack(padx=<span class="number">5</span>, pady=<span class="number">20</span>, side=LEFT)</span><br><span class="line">w = Label(root2, text=<span class="string">&quot;blue&quot;</span>, bg=<span class="string">&quot;blue&quot;</span>, fg=<span class="string">&quot;white&quot;</span>)</span><br><span class="line">w.pack(padx=<span class="number">5</span>, pady=<span class="number">20</span>, side=LEFT)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a><a target="_blank" rel="noopener" href="https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/grid.html">Grid</a></h4><p>Grid 把元件位置作為一個二維表結構來維護, 即按照行列的方式排列</p>
+<div style="width:600px">
+    <img src="/2021/04/15/python-3/pic23.png" class="" title="pic23">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grid 0, 0</span></span><br><span class="line">my_label = Label(text=<span class="string">&quot;I Am a Label&quot;</span>)</span><br><span class="line">my_label.grid(row=<span class="number">0</span>, column=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># grid 1, 1</span></span><br><span class="line">button = Button(text=<span class="string">&quot;click me&quot;</span>)</span><br><span class="line">button.grid(row=<span class="number">1</span>, column=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># grid 2, 3</span></span><br><span class="line">entry = Entry(width=<span class="number">30</span>)</span><br><span class="line">entry.insert(END, <span class="string">&quot;Some text to begin with.&quot;</span>)</span><br><span class="line">entry.grid(row=<span class="number">2</span>, column=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># grid 0, 2</span></span><br><span class="line">button2 = Button(text=<span class="string">&quot;button2&quot;</span>)</span><br><span class="line">button2.grid(row=<span class="number">0</span>, column=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Place"><a href="#Place" class="headerlink" title="Place"></a>Place</h4><p>Place 可以指定元件的絕對位置</p>
+<div style="width:600px">
+    <img src="/2021/04/15/python-3/pic24.png" class="" title="pic24">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_label = Label(text=<span class="string">&quot;I Am a Label&quot;</span>)</span><br><span class="line">my_label.place(x=<span class="number">50</span>, y=<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="元件"><a href="#元件" class="headerlink" title="元件"></a>元件</h3><h4 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">text = Text(width=<span class="number">30</span>, height=<span class="number">5</span>)</span><br><span class="line">text.insert(END, <span class="string">&quot;Example of multi-line text entry.&quot;</span>)</span><br><span class="line">text.pack()</span><br><span class="line"><span class="comment"># print to console</span></span><br><span class="line"><span class="comment"># index1: 1.0 第一個字元</span></span><br><span class="line"><span class="comment"># index2: 結尾</span></span><br><span class="line"><span class="built_in">print</span>(text.get(<span class="string">&quot;1.0&quot;</span>, END))</span><br><span class="line"><span class="comment"># focus</span></span><br><span class="line">text.focus()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Label"><a href="#Label" class="headerlink" title="Label"></a>Label</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 設定 back ground and front ground color</span></span><br><span class="line">my_label = Label(text=<span class="string">&quot;I Am a Label&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">24</span>, <span class="string">&quot;bold&quot;</span>), fg=<span class="string">&#x27;green&#x27;</span>, bg=<span class="string">&#x27;yellow&#x27;</span>)</span><br><span class="line"><span class="comment"># side = top(default), left, right, bottom</span></span><br><span class="line"><span class="comment"># expand = True (垂直占最大)</span></span><br><span class="line">my_label.pack(side=<span class="string">&quot;bottom&quot;</span>, expand=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 更改 label 內容 - 方法1</span></span><br><span class="line">my_label[<span class="string">&quot;text&quot;</span>] = <span class="string">&quot;New label&quot;</span></span><br><span class="line"><span class="comment"># 更改 label 內容 - 方法2</span></span><br><span class="line">my_label.config(text=<span class="string">&quot;New Text - config&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># button&#x27;s click function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">button_clicked</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;I got a clicked.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># button create</span></span><br><span class="line">button = Button(text=<span class="string">&quot;click me&quot;</span>, command=button_clicked)</span><br><span class="line">button.pack()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Spinbox"><a href="#Spinbox" class="headerlink" title="Spinbox"></a>Spinbox</h4><div style="width:50px">
+    <img src="/2021/04/15/python-3/pic1.png" class="" title="pic1">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Spinbox</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spinbox_used</span>():</span></span><br><span class="line">    <span class="comment"># get spinbox value</span></span><br><span class="line">    <span class="built_in">print</span>(spinbox.get())</span><br><span class="line"></span><br><span class="line">spinbox = Spinbox(from_=<span class="number">0</span>, to=<span class="number">10</span>, width=<span class="number">5</span>, command=spinbox_used)</span><br><span class="line"><span class="comment"># 留 padding</span></span><br><span class="line">spinbox.pack(padx=<span class="number">20</span>, pady=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Standard-Dialog"><a href="#Standard-Dialog" class="headerlink" title="Standard Dialog"></a><a target="_blank" rel="noopener" href="https://runestone.academy/runestone/books/published/thinkcspy/GUIandEventDrivenProgramming/02_standard_dialog_boxes.html">Standard Dialog</a></h4><div style="width:300px">
+    <img src="/2021/04/15/python-3/pic2.png" class="" title="pic2">
+</div>
+<div style="width:300px">
+    <img src="/2021/04/15/python-3/pic3.png" class="" title="pic3">
+</div>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因不是 class 要另外 import</span></span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> messagebox</span><br><span class="line"></span><br><span class="line"><span class="comment"># Standard Dialog</span></span><br><span class="line">website = <span class="string">&quot;Game App&quot;</span></span><br><span class="line">email = <span class="string">&quot;example.gmail.com&quot;</span></span><br><span class="line">password = <span class="string">&quot;123abc&quot;</span></span><br><span class="line"><span class="comment"># Dialog askokcancel</span></span><br><span class="line">is_ok = messagebox.askokcancel(title=website, message=<span class="string">f&quot;There are the details entered: \nEmail: <span class="subst">&#123;email&#125;</span> \nPassword: <span class="subst">&#123;password&#125;</span>\n Is it ok to save&quot;</span>)</span><br><span class="line"><span class="comment"># Dialog showinfo</span></span><br><span class="line">messagebox.showinfo(title=<span class="string">&quot;Oops&quot;</span>, message=<span class="string">&quot;Please don&#x27;t leave field empty.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Radio-Box"><a href="#Radio-Box" class="headerlink" title="Radio Box"></a>Radio Box</h4><div style="width:100px">
+    <img src="/2021/04/15/python-3/pic4.png" class="" title="pic4">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">radio_used</span>():</span></span><br><span class="line">    <span class="comment"># get value</span></span><br><span class="line">    <span class="built_in">print</span>(radio_state.get())</span><br><span class="line"></span><br><span class="line">radio_state = IntVar()</span><br><span class="line">radiobutton1 = Radiobutton(text=<span class="string">&quot;option1&quot;</span>, value=<span class="number">1</span>, variable=radio_state, command=radio_used)</span><br><span class="line">radiobutton2 = Radiobutton(text=<span class="string">&quot;option2&quot;</span>, value=<span class="number">2</span>, variable=radio_state, command=radio_used)</span><br><span class="line"><span class="built_in">print</span>(radio_state.get())</span><br><span class="line">radiobutton1.pack()</span><br><span class="line">radiobutton2.pack()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Listbox"><a href="#Listbox" class="headerlink" title="Listbox"></a>Listbox</h4><div style="width:150px">
+    <img src="/2021/04/15/python-3/pic5.png" class="" title="pic5">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">listbox_used</span>(<span class="params">event</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(listbox.get(listbox.curselection()))</span><br><span class="line"></span><br><span class="line">listbox = Listbox(height=<span class="number">4</span>)</span><br><span class="line">fruits = [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Pear&quot;</span>, <span class="string">&quot;Orange&quot;</span>, <span class="string">&quot;Banana&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> fruits:</span><br><span class="line">    listbox.insert(fruits.index(item), item)</span><br><span class="line">listbox.bind(<span class="string">&quot;&lt;&lt;ListboxSelect&gt;&gt;&quot;</span>, listbox_used)</span><br><span class="line"><span class="comment"># 留 padding</span></span><br><span class="line">listbox.pack(padx=<span class="number">20</span>, pady=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Checkbox"><a href="#Checkbox" class="headerlink" title="Checkbox"></a>Checkbox</h4><div style="width:100px">
+    <img src="/2021/04/15/python-3/pic6.png" class="" title="pic6">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkbutton_used</span>():</span></span><br><span class="line">    <span class="comment"># get value</span></span><br><span class="line">    <span class="built_in">print</span>(checked_state.get())</span><br><span class="line"></span><br><span class="line">checked_state = IntVar()</span><br><span class="line"><span class="comment"># set value to 1</span></span><br><span class="line"><span class="comment"># checked_state.set(1)</span></span><br><span class="line"><span class="comment"># only show type</span></span><br><span class="line"><span class="built_in">print</span>(checked_state)</span><br><span class="line">checkbutton = Checkbutton(text=<span class="string">&quot;Is on?&quot;</span>, variable=checked_state, command=checkbutton_used)</span><br><span class="line"><span class="built_in">print</span>(checked_state.get())</span><br><span class="line">checkbutton.pack()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Scale"><a href="#Scale" class="headerlink" title="Scale"></a>Scale</h4><div style="width:100px">
+    <img src="/2021/04/15/python-3/pic7.png" class="" title="pic7">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># parameter include value</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scale_used</span>(<span class="params">value</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line"></span><br><span class="line">scale = Scale(from_=<span class="number">0</span>, to=<span class="number">100</span>, command=scale_used)</span><br><span class="line">scale.pack()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Entry-單行輸入"><a href="#Entry-單行輸入" class="headerlink" title="Entry (單行輸入)"></a>Entry (單行輸入)</h4><div style="width:200px">
+    <img src="/2021/04/15/python-3/pic8.png" class="" title="pic8">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for get entry value ========</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">button_clicked</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;I got a clicked.&quot;</span>)</span><br><span class="line">    new_input = entry.get()</span><br><span class="line">    <span class="built_in">print</span>(new_input)</span><br><span class="line">    my_label[<span class="string">&quot;text&quot;</span>] = new_input</span><br><span class="line"></span><br><span class="line"><span class="comment"># get entry value</span></span><br><span class="line">button = Button(text=<span class="string">&quot;click me&quot;</span>, command=button_clicked)</span><br><span class="line">button.pack()</span><br><span class="line"><span class="comment"># =============================</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># entry</span></span><br><span class="line">entry = Entry(width=<span class="number">30</span>)</span><br><span class="line"><span class="comment"># 設定預設值</span></span><br><span class="line"><span class="comment"># index--&gt;END : 存在文字之後</span></span><br><span class="line">entry.insert(END, <span class="string">&quot;Some text to begin with.&quot;</span>)</span><br><span class="line"><span class="comment"># 留 padding</span></span><br><span class="line">entry.pack(padx=<span class="number">20</span>, pady=<span class="number">10</span>)</span><br><span class="line"><span class="comment"># focus</span></span><br><span class="line">entry.focus()</span><br><span class="line"><span class="comment"># not show - because it run when not input</span></span><br><span class="line"><span class="comment"># get entry value</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;--&gt;<span class="subst">&#123;entry.get()&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># delete entry from position to end</span></span><br><span class="line"><span class="comment"># website_entry.delete(0, &quot;end&quot;)</span></span><br><span class="line"><span class="comment"># entry.delete(0, &quot;end&quot;)</span></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="comment"># website_entry.delete(0, END)</span></span><br><span class="line"><span class="comment"># entry.delete(0, END)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Canvas-繪圖"><a href="#Canvas-繪圖" class="headerlink" title="Canvas (繪圖)"></a><a target="_blank" rel="noopener" href="https://tkdocs.com/tutorial/canvas.html">Canvas (繪圖)</a></h4><div style="width:300px">
+    <img src="/2021/04/15/python-3/pic9.png" class="" title="pic9">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># constant</span></span><br><span class="line">YELLOW = <span class="string">&quot;#f7f5dd&quot;</span></span><br><span class="line">FONT_NAME = <span class="string">&quot;Courier&quot;</span></span><br><span class="line"><span class="comment"># Canvas, highlightthickness 邊線寬度</span></span><br><span class="line">canvas = Canvas(width=<span class="number">200</span>, height=<span class="number">224</span>, bg=YELLOW, highlightthickness=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># image 元件</span></span><br><span class="line">tomato_img = PhotoImage(file=<span class="string">&quot;tomato.png&quot;</span>)</span><br><span class="line"><span class="comment"># add image</span></span><br><span class="line">canvas.create_image(<span class="number">100</span>, <span class="number">112</span>, image=tomato_img)</span><br><span class="line"><span class="comment"># add text, fill 填入顏色</span></span><br><span class="line">canvas.create_text(<span class="number">102</span>, <span class="number">130</span>, text=<span class="string">&quot;00:00&quot;</span>, font=(FONT_NAME, <span class="number">35</span>, <span class="string">&quot;bold&quot;</span>), fill=<span class="string">&quot;white&quot;</span>)</span><br><span class="line">canvas.pack()</span><br></pre></td></tr></table></figure>
+
+<h3 id="ttk"><a href="#ttk" class="headerlink" title="ttk"></a>ttk</h3><h4 id="Treeview"><a href="#Treeview" class="headerlink" title="Treeview"></a>Treeview</h4><div style="width:700px">
+    <img src="/2021/04/15/python-3/pic31.png" class="" title="pic31">
+</div>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from tkinter import *</span><br><span class="line">from tkinter import ttk</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">window &#x3D; Tk()</span><br><span class="line"># 標題</span><br><span class="line">window.title(&quot;Table Tk&quot;)</span><br><span class="line"></span><br><span class="line">textSql &#x3D; Text(height&#x3D;3, width&#x3D;100)</span><br><span class="line">textSql.pack()</span><br><span class="line">textSql.insert(END, &quot;SELECT * FROM stockPrice&quot;)</span><br><span class="line"></span><br><span class="line">button1 &#x3D; Button(text&#x3D;&quot;查詢&quot;)</span><br><span class="line">button1.pack(pady&#x3D;10)</span><br><span class="line"></span><br><span class="line">tree &#x3D; ttk.Treeview(column&#x3D;(&quot;c1&quot;, &quot;c2&quot;, &quot;c3&quot;, &quot;c4&quot;), show&#x3D;&#39;headings&#39;)</span><br><span class="line">tree.column(&quot;#1&quot;, anchor&#x3D;CENTER)</span><br><span class="line">tree.heading(&quot;#1&quot;, text&#x3D;&quot;日期&quot;)</span><br><span class="line">tree.column(&quot;#2&quot;, anchor&#x3D;CENTER)</span><br><span class="line">tree.heading(&quot;#2&quot;, text&#x3D;&quot;開盤&quot;)</span><br><span class="line">tree.column(&quot;#3&quot;, anchor&#x3D;CENTER)</span><br><span class="line">tree.heading(&quot;#3&quot;, text&#x3D;&quot;收盤價&quot;)</span><br><span class="line">tree.column(&quot;#4&quot;, anchor&#x3D;CENTER)</span><br><span class="line">tree.heading(&quot;#4&quot;, text&#x3D;&quot;成交筆數&quot;)</span><br><span class="line">tree.pack()</span><br><span class="line"></span><br><span class="line"># 保持顯示 window</span><br><span class="line">window.mainloop()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bind"><a href="#Bind" class="headerlink" title="Bind"></a><a target="_blank" rel="noopener" href="http://www.tcl.tk/man/tcl8.6/TkCmd/event.htm">Bind</a></h3><h4 id="Listbox-1"><a href="#Listbox-1" class="headerlink" title="Listbox"></a>Listbox</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">listbox_used</span>(<span class="params">event</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(listbox.get(listbox.curselection()))</span><br><span class="line"></span><br><span class="line">listbox = Listbox(height=<span class="number">4</span>)</span><br><span class="line">fruits = [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Pear&quot;</span>, <span class="string">&quot;Orange&quot;</span>, <span class="string">&quot;Banana&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> fruits:</span><br><span class="line">    listbox.insert(fruits.index(item), item)</span><br><span class="line">listbox.bind(<span class="string">&quot;&lt;&lt;ListboxSelect&gt;&gt;&quot;</span>, listbox_used)</span><br><span class="line">listbox.pack()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tk-interface-YouTube-批次下載"><a href="#Tk-interface-YouTube-批次下載" class="headerlink" title="Tk interface YouTube 批次下載"></a>Tk interface YouTube 批次下載</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Tk interface YouTube 批次下載(播放清單下載)</span></span><br><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"><span class="keyword">from</span> pytube <span class="keyword">import</span> Playlist</span><br><span class="line"><span class="keyword">from</span> pytube <span class="keyword">import</span> YouTube</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">DEFAULT_PATH = <span class="string">&#x27;download&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">global</span> video_type</span><br><span class="line">    <span class="keyword">global</span> tk_video</span><br><span class="line">    <span class="keyword">global</span> tk_url</span><br><span class="line">    <span class="keyword">global</span> tk_path</span><br><span class="line">    <span class="keyword">global</span> tk_label_msg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># init for window</span></span><br><span class="line">    win = tk.Tk()</span><br><span class="line"></span><br><span class="line">    video_type = <span class="string">&#x27;360p&#x27;</span></span><br><span class="line"></span><br><span class="line">    tk_url = tk.StringVar()</span><br><span class="line">    tk_path = tk.StringVar()</span><br><span class="line">    tk_video = tk.StringVar()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 標題</span></span><br><span class="line">    win.title(<span class="string">&quot;下載Youtube影片 #2&quot;</span>)</span><br><span class="line">    <span class="comment"># windows size</span></span><br><span class="line">    win.minsize(width=<span class="number">538</span>, height=<span class="number">280</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 網址輸入</span></span><br><span class="line">    label1 = tk.Label(win, text=<span class="string">&#x27;Youtube網址：&#x27;</span>)</span><br><span class="line">    label1.place(x=<span class="number">123</span>, y=<span class="number">30</span>)</span><br><span class="line">    entry_url = tk.Entry(win, textvariable=tk_url)</span><br><span class="line">    entry_url.config(width=<span class="number">40</span>)</span><br><span class="line">    entry_url.place(x=<span class="number">220</span>, y=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># download 路徑</span></span><br><span class="line">    label2 = tk.Label(win, text=<span class="string">&#x27;存檔路徑(預設為download資料夾)：&#x27;</span>)</span><br><span class="line">    label2.place(x=<span class="number">10</span>, y=<span class="number">70</span>)</span><br><span class="line">    entry_path = tk.Entry(win, textvariable=tk_path)</span><br><span class="line">    entry_path.config(width=<span class="number">40</span>)</span><br><span class="line">    entry_path.place(x=<span class="number">220</span>, y=<span class="number">70</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># download button</span></span><br><span class="line">    btnDown = tk.Button(win, text=<span class="string">&quot;下載影片&quot;</span>, command=clickDown)</span><br><span class="line">    btnDown.place(x=<span class="number">200</span>, y=<span class="number">110</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># radio select</span></span><br><span class="line">    rb1 = tk.Radiobutton(win, text=<span class="string">&quot;360p, mp4&quot;</span>, variable=tk_video, value=<span class="string">&quot;360p&quot;</span>, command=rbVideo)</span><br><span class="line">    rb1.place(x=<span class="number">200</span>, y=<span class="number">150</span>)</span><br><span class="line">    rb1.select()</span><br><span class="line">    rb2 = tk.Radiobutton(win, text=<span class="string">&quot;720p, mp4&quot;</span>, variable=tk_video, value=<span class="string">&quot;720p&quot;</span>, command=rbVideo)</span><br><span class="line">    rb2.place(x=<span class="number">200</span>, y=<span class="number">180</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># message label</span></span><br><span class="line">    tk_label_msg = tk.Label(win, text=<span class="string">&quot;&quot;</span>, fg=<span class="string">&quot;red&quot;</span>)</span><br><span class="line">    tk_label_msg.place(x=<span class="number">200</span>, y=<span class="number">220</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 保持顯示 window</span></span><br><span class="line">    win.mainloop()</span><br><span class="line"></span><br><span class="line"><span class="comment"># download function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clickDown</span>():</span></span><br><span class="line">    <span class="keyword">global</span> video_type</span><br><span class="line">    <span class="keyword">global</span> tk_url</span><br><span class="line">    <span class="keyword">global</span> tk_path</span><br><span class="line">    <span class="keyword">global</span> tk_label_msg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># get path</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(tk_path.get()) != <span class="number">0</span>:</span><br><span class="line">        video_path = tk_path.get()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        video_path = DEFAULT_PATH</span><br><span class="line"></span><br><span class="line">    url_head = tk_url.get()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        playList = Playlist(url_head)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(playList) != <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># create folder</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(video_path) :</span><br><span class="line">                os.makedirs(video_path)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> url <span class="keyword">in</span> playList:</span><br><span class="line">                yt = YouTube(url)</span><br><span class="line">                yt.streams.<span class="built_in">filter</span>(subtype=<span class="string">&#x27;mp4&#x27;</span>, res=video_type, progressive=<span class="literal">True</span>).first().download(video_path)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;yt.title&#125;</span> Download complete&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            tk_label_msg.config(text=<span class="string">&quot;下載完成！&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        tk_label_msg.config(text=<span class="string">&quot;url not correct...&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># video select</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rbVideo</span>() :</span></span><br><span class="line">    <span class="keyword">global</span> video_type</span><br><span class="line">    <span class="keyword">global</span> tk_video</span><br><span class="line"></span><br><span class="line">    video_type = tk_video.get()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://tk-tutorial.readthedocs.io/en/latest/index.html">Tk tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/">Tkinter 8.5 reference</a> : a GUI for Python</li>
+<li><a target="_blank" rel="noopener" href="http://tcl.tk/man/tcl8.6/TkCmd/contents.htm">Tk Commands</a> : 較清楚</li>
+<li><a target="_blank" rel="noopener" href="https://steam.oxxostudio.tw/category/python/tkinter/start.html">Tkinter 教學</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/tkinter.html">Python Tkinter</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/14/python100-31/" rel="prev" title="100 Days of Code for Python - Day31(Flash Card App)">
+                  <i class="fa fa-chevron-left"></i> 100 Days of Code for Python - Day31(Flash Card App)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/16/python-4/" rel="next" title="Python 說明">
+                  Python 說明 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/04/15/python-3/";
+    this.page.identifier = "2021/04/15/python-3/";
+    this.page.title = "Tkinter (Python)";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

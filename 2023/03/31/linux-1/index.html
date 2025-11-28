@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Command">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 說明">
+<meta property="og:url" content="https://hot5656.github.io/2023/03/31/linux-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Command">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic5.png">
+<meta property="article:published_time" content="2023-03-31T06:01:44.000Z">
+<meta property="article:modified_time" content="2023-04-13T02:57:33.221Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2023/03/31/linux-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2023/03/31/linux-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Linux 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command"><span class="nav-number">1.</span> <span class="nav-text">Command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#terminal"><span class="nav-number">1.2.</span> <span class="nav-text">terminal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#files"><span class="nav-number">1.3.</span> <span class="nav-text">files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#help"><span class="nav-number">1.4.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#editer"><span class="nav-number">1.5.</span> <span class="nav-text">editer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#find"><span class="nav-number">1.6.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system"><span class="nav-number">1.7.</span> <span class="nav-text">system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-and-group"><span class="nav-number">1.8.</span> <span class="nav-text">user and group</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#process"><span class="nav-number">1.9.</span> <span class="nav-text">process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#net"><span class="nav-number">1.10.</span> <span class="nav-text">net</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ip-as-ifconfig"><span class="nav-number">1.11.</span> <span class="nav-text">ip (as ifconfig)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application"><span class="nav-number">2.</span> <span class="nav-text">application</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#set-root-password"><span class="nav-number">2.1.</span> <span class="nav-text">set root password</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-package"><span class="nav-number">3.</span> <span class="nav-text">install package</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#node"><span class="nav-number">3.1.</span> <span class="nav-text">node</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yarn"><span class="nav-number">3.2.</span> <span class="nav-text">yarn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#npm"><span class="nav-number">3.3.</span> <span class="nav-text">npm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ftp-server"><span class="nav-number">3.4.</span> <span class="nav-text">ftp server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#telnet-server"><span class="nav-number">3.5.</span> <span class="nav-text">telnet server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-konole"><span class="nav-number">3.6.</span> <span class="nav-text">console konole</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh-server"><span class="nav-number">3.7.</span> <span class="nav-text">ssh server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh-client"><span class="nav-number">3.8.</span> <span class="nav-text">ssh client</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#issue-fix"><span class="nav-number">4.</span> <span class="nav-text">issue fix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ubuntu-server-%E6%93%B4%E5%AE%B9-LVM-%E7%A3%81%E7%A2%9F-%E8%A7%A3%E6%B1%BA%E7%A3%81%E7%A2%9F%E4%B8%8D%E8%B6%B3%E7%9A%84%E6%83%85%E6%B3%81-VirtualBox"><span class="nav-number">4.1.</span> <span class="nav-text">ubuntu server 擴容(LVM)磁碟 解決磁碟不足的情況(VirtualBox)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#check-disk-size"><span class="nav-number">4.1.1.</span> <span class="nav-text">check disk size</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E5%AD%98%E5%9C%A8%E7%9A%84%E5%8D%B7%E7%B5%84"><span class="nav-number">4.1.2.</span> <span class="nav-text">顯示存在的卷組</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%B4%E5%85%85size"><span class="nav-number">4.1.3.</span> <span class="nav-text">擴充size</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E8%A8%88%E7%AE%97%E7%A3%81%E7%A2%9F%E5%A4%A7%E5%B0%8F"><span class="nav-number">4.1.4.</span> <span class="nav-text">重新計算磁碟大小</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2023/03/31/linux-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-03-31 14:01:44" itemprop="dateCreated datePublished" datetime="2023-03-31T14:01:44+08:00">2023-03-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2023-04-13 10:57:33" itemprop="dateModified" datetime="2023-04-13T10:57:33+08:00">2023-04-13</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/03/31/linux-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/03/31/linux-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h3><span id="more"></span>
+
+<h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># run guest addition CD(ubuntu desktop version)</span></span><br><span class="line"><span class="built_in">cd</span> /media/kyp/VBOX_GAS_7.0.6/</span><br><span class="line">./autorun.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="terminal"><a href="#terminal" class="headerlink" title="terminal"></a>terminal</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">open terminal : CTRL-ALT-F3</span><br><span class="line"><span class="built_in">return</span> to GUI : ALT-F2</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line"><span class="comment"># Ctrl + u : clear left</span></span><br><span class="line"><span class="comment"># Ctrl + l : clear up</span></span><br><span class="line">reset <span class="comment"># clear screen </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># history </span></span><br><span class="line"><span class="built_in">history</span> 10</span><br><span class="line">  781  ls --<span class="built_in">help</span></span><br><span class="line">  782  clear</span><br><span class="line">  783  aronpos his</span><br><span class="line">  784  apropos his</span><br><span class="line">  785  apropos he</span><br><span class="line">  786  apropos his</span><br><span class="line">  787  clear</span><br><span class="line">  788  hsitory</span><br><span class="line">  789  <span class="built_in">history</span></span><br><span class="line">  790  <span class="built_in">history</span> 10</span><br><span class="line"><span class="built_in">history</span> 5</span><br><span class="line">  787  clear</span><br><span class="line">  788  hsitory</span><br><span class="line">  789  <span class="built_in">history</span></span><br><span class="line">  790  <span class="built_in">history</span> 10</span><br><span class="line">  791  <span class="built_in">history</span> 5</span><br><span class="line"><span class="comment"># run command No 781</span></span><br><span class="line">!781</span><br><span class="line">	ls --<span class="built_in">help</span> </span><br><span class="line"><span class="comment"># clear history </span></span><br><span class="line">kyp@u2204s:~/gitdocker$ <span class="built_in">history</span> -c</span><br><span class="line">kyp@u2204s:~/gitdocker$ <span class="built_in">history</span></span><br><span class="line">    1  <span class="built_in">history</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show directory</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line">	/home</span><br><span class="line"><span class="comment">#same as ls -al</span></span><br><span class="line">ll </span><br><span class="line"><span class="comment"># add dir </span></span><br><span class="line">mkdir temp</span><br><span class="line"><span class="comment"># tree use tera term not show correct</span></span><br><span class="line">sudo apt install tree</span><br><span class="line">tree</span><br></pre></td></tr></table></figure>
+
+<h4 id="files"><a href="#files" class="headerlink" title="files"></a>files</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file - if file exist, update the file&#x27;s date</span></span><br><span class="line">touch newfile1.txt</span><br><span class="line"><span class="built_in">echo</span> &gt; newfile2.txt</span><br><span class="line">&gt; newfile3.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Anybody in here?&quot;</span></span><br><span class="line">	Anybody <span class="keyword">in</span> here?</span><br><span class="line"><span class="comment"># Ctrl-d close the file</span></span><br><span class="line">cat &gt; newfile4.txt</span><br><span class="line">	1</span><br><span class="line">	2</span><br><span class="line">	3</span><br><span class="line">	</span><br><span class="line"><span class="comment"># -r</span></span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">rm</span><br></pre></td></tr></table></figure>
+
+<h4 id="help"><a href="#help" class="headerlink" title="help"></a>help</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># what is</span></span><br><span class="line">whatis clear</span><br><span class="line">	clear (1)            - clear the terminal screen</span><br><span class="line">kyp@u2204s:~/gitdocker$ whatis ls</span><br><span class="line">	ls (1)               - list directory contents</span><br><span class="line">whatis docker</span><br><span class="line">	docker (1)           - Docker image and container <span class="built_in">command</span> line interface</span><br><span class="line">kyp@u2204s:~/gitdocker$ whatis reset</span><br><span class="line">	reset (1)            - terminal initialization</span><br><span class="line"><span class="comment"># help</span></span><br><span class="line"><span class="built_in">history</span> --<span class="built_in">help</span></span><br><span class="line">ls --<span class="built_in">help</span></span><br><span class="line"><span class="comment"># man </span></span><br><span class="line">man ls</span><br><span class="line"><span class="comment"># for get command</span></span><br><span class="line">apropos his</span><br><span class="line">	byobu-ugraph (1)     - helper script <span class="keyword">for</span> notification <span class="built_in">history</span> graphs</span><br><span class="line">	cloud-id (1)         - Report the canonical cloud-id <span class="keyword">for</span> this instance</span><br><span class="line">	docker-history (1)   - Show the <span class="built_in">history</span> of an image</span><br><span class="line">	docker-image-history (1) - Show the <span class="built_in">history</span> of an image</span><br><span class="line">	git-merge (1)        - Join two or more development histories together</span><br><span class="line">	<span class="built_in">history</span> (3readline)  - GNU History Library</span><br><span class="line">	lcf (1)              - Determine <span class="built_in">which</span> of the historical versions of a config...</span><br><span class="line">	pam_pwhistory (8)    - PAM module to remember last passwords</span><br><span class="line">	run-this-one (1)     - run just one instance at a time of some <span class="built_in">command</span> and un...</span><br><span class="line">	sg_emc_trespass (8)  - change ownership of SCSI LUN from another Service-Proc...</span><br><span class="line">	tracepath (8)        - traces path to a network host discovering MTU along th...</span><br><span class="line"></span><br><span class="line"><span class="comment"># get file</span></span><br><span class="line">kyp@u2204s:~/temp$ wget https://www.gutenberg.org/files/1112/1112.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># more</span></span><br><span class="line"><span class="comment"># -s          squeeze multiple blank lines into one</span></span><br><span class="line">mv 1112.txt romeo_poem.txt</span><br><span class="line">whatis more</span><br><span class="line">more --<span class="built_in">help</span></span><br><span class="line">more romeo_poem.txt</span><br><span class="line">more -10 romeo_poem.txt</span><br><span class="line">more +145 romeo_poem.txt</span><br><span class="line">more -s romeo_poem.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># less</span></span><br><span class="line"><span class="comment"># pageUp,pageDown</span></span><br><span class="line">less romeo_poem.txt</span><br><span class="line"><span class="comment"># search </span></span><br><span class="line">less -p <span class="string">&quot;Romeo&quot;</span> romeo_poem.txt</span><br><span class="line"><span class="comment"># serach don&#x27;r care letter case</span></span><br><span class="line">less -Ip <span class="string">&quot;romeo&quot;</span> romeo_poem.txt</span><br><span class="line"><span class="comment"># show line number</span></span><br><span class="line">less -NIp <span class="string">&quot;romeo&quot;</span> romeo_poem.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># head</span></span><br><span class="line"><span class="comment"># show hed 10 lines</span></span><br><span class="line">head romeo_poem.txt</span><br><span class="line"><span class="comment"># show 3 lines</span></span><br><span class="line">head -3 romeo_poem.txt</span><br><span class="line"><span class="comment"># show 47 charcater</span></span><br><span class="line">head -c 47 romeo_poem.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># tail</span></span><br><span class="line"><span class="comment"># show tail 10 line</span></span><br><span class="line">tail romeo_poem.txt</span><br><span class="line"><span class="comment"># show tail 3 line</span></span><br><span class="line">tail -3 romeo_poem.txt</span><br><span class="line"><span class="comment"># tail 5 character</span></span><br><span class="line">tail -c 5 romeo_poem.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="editer"><a href="#editer" class="headerlink" title="editer"></a>editer</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nano</span></span><br><span class="line">Ctrl+C : show position</span><br><span class="line">Ctrl+K : cut line</span><br><span class="line">Ctrl+U : post</span><br><span class="line">Ctrl+6 : select/unselect</span><br><span class="line">Esc+6  : copy select </span><br><span class="line">Ctrl+W : search</span><br><span class="line">Esc+W  : search next</span><br><span class="line">Ctrl+\ : search+replace</span><br><span class="line">Ctrl+<span class="built_in">shift</span>+- : goto line</span><br><span class="line">Esc+U  : undo</span><br><span class="line"></span><br><span class="line"><span class="comment"># vi</span></span><br><span class="line"><span class="comment"># vimtutor</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kyp@u2204s:~$ find / -name passwd</span><br><span class="line">  .....</span><br><span class="line">kyp@u2204s:~$ find -name notes.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="system"><a href="#system" class="headerlink" title="system"></a>system</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># system info</span></span><br><span class="line"><span class="comment"># the system is ubuntu 20.04, u2204s is I give wrong host name</span></span><br><span class="line">uname -a</span><br><span class="line">	Linux u2204s 5.4.0-146-generic <span class="comment">#163-Ubuntu SMP Fri Mar 17 18:26:02 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># release</span></span><br><span class="line">lsb_release -a</span><br><span class="line">	No LSB modules are available.</span><br><span class="line">	Distributor ID: Ubuntu</span><br><span class="line">	Description:    Ubuntu 20.04.6 LTS</span><br><span class="line">	Release:        20.04</span><br><span class="line">	Codename:       focal</span><br><span class="line"></span><br><span class="line"><span class="comment"># change mode </span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line"><span class="comment"># password file</span></span><br><span class="line">cat /etc/passwd</span><br><span class="line">  kyp:x:1000:1000:Robert:/home/kyp:/bin/bash</span><br><span class="line">  lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/<span class="literal">false</span></span><br><span class="line">  telnetd:x:113:120::/nonexistent:/usr/sbin/nologin</span><br><span class="line"></span><br><span class="line"><span class="comment"># list directory space</span></span><br><span class="line">sudo du -d 1 -h</span><br><span class="line">	20K     ./user1</span><br><span class="line">	632M    ./kyp</span><br><span class="line">	632M    .</span><br><span class="line"></span><br><span class="line"><span class="comment"># clear space command</span></span><br><span class="line"><span class="comment"># clear not use apt : /var/cache/apt/archives</span></span><br><span class="line">sudo apt-get autoclean</span><br><span class="line">sudo apt-get autoremove</span><br><span class="line"><span class="comment"># show apt</span></span><br><span class="line">sudo du -ch /var/cache/apt/archives</span><br><span class="line">	4.0K    /var/cache/apt/archives/partial</span><br><span class="line">	6.0G    /var/cache/apt/archives</span><br><span class="line">	6.0G    total</span><br><span class="line"><span class="comment"># clean all local apt : /var/cache/apt/archives</span></span><br><span class="line">sudo du -ch /var/cache/apt/archives</span><br><span class="line">	4.0K    /var/cache/apt/archives/partial</span><br><span class="line">	112K    /var/cache/apt/archives</span><br><span class="line">	112K    total</span><br><span class="line"></span><br><span class="line"><span class="comment"># snap </span></span><br><span class="line"><span class="comment"># Snappy是一個軟體部署和軟體套件管理系統。其套件稱為snap，工具名為snapd</span></span><br><span class="line">snap list</span><br><span class="line">	Name    Version        Rev    Tracking       Publisher   Notes</span><br><span class="line">	core20  20230308       1852   latest/stable  canonical?  base</span><br><span class="line">	lxd     4.0.9-a29c6f1  24061  4.0/stable/   canonical?  -</span><br><span class="line">	snapd   2.58.3         18596  latest/stable  canonical?  snapd</span><br></pre></td></tr></table></figure>
+
+<h4 id="user-and-group"><a href="#user-and-group" class="headerlink" title="user and group"></a>user and group</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># user kyp add group docker</span></span><br><span class="line">sudo usermod -aG docker kyp</span><br><span class="line"><span class="comment"># show user kyp&#x27;s group</span></span><br><span class="line">groups kyp</span><br><span class="line">	kyp : kyp adm cdrom sudo dip plugdev lxd vboxsf docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># add kyp to sudo(root) </span></span><br><span class="line">usermod -a -G sudo kyp</span><br><span class="line"></span><br><span class="line"><span class="comment"># edit sudoers</span></span><br><span class="line">sudo visudo</span><br><span class="line"><span class="comment"># checker sudoers</span></span><br><span class="line">sudo visudo -c</span><br><span class="line"></span><br><span class="line"><span class="comment"># whoami</span></span><br><span class="line">whoami</span><br><span class="line">	root</span><br><span class="line"></span><br><span class="line"><span class="comment"># switch user </span></span><br><span class="line">su - robert</span><br><span class="line"><span class="comment"># switch to roo</span></span><br><span class="line">su -</span><br><span class="line"></span><br><span class="line"><span class="comment"># add user</span></span><br><span class="line">sudo adduser robert</span><br></pre></td></tr></table></figure>
+
+<h4 id="process"><a href="#process" class="headerlink" title="process"></a>process</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ps : show standrd process information</span></span><br><span class="line">ps -ef </span><br><span class="line"><span class="comment"># list user kyp process</span></span><br><span class="line">ps -u kyp</span><br><span class="line">    PID TTY          TIME CMD</span><br><span class="line">   1392 ?        00:00:00 systemd</span><br><span class="line">   1396 ?        00:00:00 (sd-pam)</span><br><span class="line">   1403 pts/0    00:00:00 bash</span><br><span class="line">   9328 ?        00:00:00 dbus-daemon</span><br><span class="line">   9387 ?        00:05:49 vsftpd</span><br><span class="line">  10041 pts/0    00:00:00 ps</span><br></pre></td></tr></table></figure>
+
+<h4 id="net"><a href="#net" class="headerlink" title="net"></a>net</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># net stat</span></span><br><span class="line"><span class="comment"># -a  : list all</span></span><br><span class="line"><span class="comment"># -t  : list all tcp</span></span><br><span class="line"><span class="comment"># -u  : list all udp </span></span><br><span class="line"><span class="comment"># -r  : show route table</span></span><br><span class="line"><span class="comment"># -p  : show pid(and anme)</span></span><br><span class="line"><span class="comment"># -l  : show listen only</span></span><br><span class="line"><span class="comment"># -n  : show ip and port(not hostnam and port name)</span></span><br><span class="line">kyp@u2204s:~$ sudo netstat -tulnp</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      716/systemd-resolve</span><br><span class="line">tcp        0      0 0.0.0.0:23              0.0.0.0:*               LISTEN      738/inetd</span><br><span class="line">tcp        0      0 0.0.0.0:8081            0.0.0.0:*               LISTEN      6977/docker-proxy</span><br><span class="line">tcp6       0      0 :::21                   :::*                    LISTEN      768/vsftpd</span><br><span class="line">tcp6       0      0 :::8081                 :::*                    LISTEN      6983/docker-proxy</span><br><span class="line">udp        0      0 127.0.0.53:53           0.0.0.0:*                           716/systemd-resolve</span><br><span class="line">udp        0      0 192.168.18.6:68         0.0.0.0:*                           714/systemd-network</span><br><span class="line">udp6       0      0 fe80::a00:27ff:fe1a:546 :::*                                714/systemd-network</span><br></pre></td></tr></table></figure>
+
+<h4 id="ip-as-ifconfig"><a href="#ip-as-ifconfig" class="headerlink" title="ip (as ifconfig)"></a>ip (as ifconfig)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">kyp@u2204s:~$ ip a</span><br><span class="line">  1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">      inet 127.0.0.1/8 scope host lo</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">      inet6 ::1/128 scope host</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">  2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">      link/ether 08:00:27:1a:ac:9e brd ff:ff:ff:ff:ff:ff</span><br><span class="line">      inet 192.168.18.6/24 brd 192.168.18.255 scope global dynamic enp0s3</span><br><span class="line">        valid_lft 72930sec preferred_lft 72930sec</span><br><span class="line">      inet6 fe80::a00:27ff:fe1a:ac9e/64 scope link</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">  3: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default</span><br><span class="line">      link/ether 02:42:8a:57:20:76 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">      inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">      inet6 fe80::42:8aff:fe57:2076/64 scope link</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">  15: vethac66745@if14: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP group default</span><br><span class="line">      link/ether de:5a:53:74:54:ef brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">      inet6 fe80::dc5a:53ff:fe74:54ef/64 scope link</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<h3 id="application"><a href="#application" class="headerlink" title="application"></a>application</h3><h4 id="set-root-password"><a href="#set-root-password" class="headerlink" title="set root password"></a>set root password</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br><span class="line">su -</span><br></pre></td></tr></table></figure>
+
+<h3 id="install-package"><a href="#install-package" class="headerlink" title="install package"></a>install package</h3><h4 id="node"><a href="#node" class="headerlink" title="node"></a>node</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># remove from ubuntu server</span></span><br><span class="line">$ node --version</span><br><span class="line">	v10.19.0</span><br><span class="line">$ <span class="built_in">which</span> node</span><br><span class="line">	/usr/bin/node</span><br><span class="line">$ sudo apt remove nodejs</span><br><span class="line"></span><br><span class="line"><span class="comment"># install node 18</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line">curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -</span><br><span class="line">sudo apt-get install nodejs</span><br><span class="line">$ node --version</span><br><span class="line">	v18.15.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install yarn</span></span><br><span class="line"><span class="comment"># it&#x27;s too old version</span></span><br><span class="line"><span class="comment"># sudo apt install yarn</span></span><br><span class="line"><span class="comment"># kyp@u2204s:~$ yarn --version</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># update latest yan version</span></span><br><span class="line"><span class="comment"># nodejs isn&#x27;t too old</span></span><br><span class="line">sudo npm install -g corepack</span><br><span class="line">corepack prepare yarn@stable --activate</span><br><span class="line">yarn --version</span><br><span class="line">	3.5.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install npm</span><br><span class="line"><span class="comment"># audit</span></span><br><span class="line">npm audit	: 查看是否 node_modules 有相關資安漏洞</span><br><span class="line">npm audit fix	: 自動修正相關漏洞</span><br><span class="line">npm update : 更新可更新的 node_modules</span><br><span class="line">npm prune	 : 清理 node_modules 中不需要的檔案</span><br></pre></td></tr></table></figure>
+
+<h4 id="ftp-server"><a href="#ftp-server" class="headerlink" title="ftp server"></a>ftp server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ftp server </span></span><br><span class="line">sudo apt install vsftpd</span><br><span class="line">sudo systemctl start vsftpd</span><br><span class="line"><span class="comment"># 重開機時啟動</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> vsftpd</span><br><span class="line"></span><br><span class="line"><span class="comment"># set ftp write eneable</span></span><br><span class="line">sudo cp /etc/vsftpd.conf  /etc/vsftpd.conf_default</span><br><span class="line">sudo nano /etc/vsftpd.conf</span><br><span class="line"><span class="comment"># # Uncomment this to enable any form of FTP write command.</span></span><br><span class="line"><span class="comment"># write_enable=YES</span></span><br><span class="line">sudo systemctl restart vsftpd.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># show status</span></span><br><span class="line">$ sudo systemctl status vsftpd</span><br><span class="line">	? vsftpd.service - vsftpd FTP server</span><br><span class="line">			Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled; vendor preset: enabled)</span><br><span class="line">			Active: active (running) since Mon 2023-04-10 02:23:42 UTC; 12s ago</span><br><span class="line">			Process: 2675 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited, status=0/SUCCESS)</span><br><span class="line">		Main PID: 2684 (vsftpd)</span><br><span class="line">				Tasks: 1 (<span class="built_in">limit</span>: 4609)</span><br><span class="line">			Memory: 680.0K</span><br><span class="line">			CGroup: /system.slice/vsftpd.service</span><br><span class="line">							mq2684 /usr/sbin/vsftpd /etc/vsftpd.conf</span><br><span class="line">	Apr 10 02:23:42 u2204s systemd[1]: Starting vsftpd FTP server...</span><br><span class="line">	Apr 10 02:23:42 u2204s systemd[1]: Started vsftpd FTP server.</span><br></pre></td></tr></table></figure>
+
+<h4 id="telnet-server"><a href="#telnet-server" class="headerlink" title="telnet server"></a>telnet server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install telnet server</span><br><span class="line">sudo apt install telnetd -y</span><br><span class="line">sudo systemctl status inetd</span><br></pre></td></tr></table></figure>
+
+<h4 id="console-konole"><a href="#console-konole" class="headerlink" title="console konole"></a>console konole</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install konole</span><br></pre></td></tr></table></figure>
+
+<h4 id="ssh-server"><a href="#ssh-server" class="headerlink" title="ssh server"></a>ssh server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> ssh</span><br><span class="line">sudo systemctl start ssh</span><br></pre></td></tr></table></figure>
+
+<h4 id="ssh-client"><a href="#ssh-client" class="headerlink" title="ssh client"></a>ssh client</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br><span class="line">ssh kyp@192.168.126.187</span><br></pre></td></tr></table></figure>
+
+<h3 id="issue-fix"><a href="#issue-fix" class="headerlink" title="issue fix"></a>issue fix</h3><h4 id="ubuntu-server-擴容-LVM-磁碟-解決磁碟不足的情況-VirtualBox"><a href="#ubuntu-server-擴容-LVM-磁碟-解決磁碟不足的情況-VirtualBox" class="headerlink" title="ubuntu server 擴容(LVM)磁碟 解決磁碟不足的情況(VirtualBox)"></a><a target="_blank" rel="noopener" href="https://www.796t.com/content/1542570486.html">ubuntu server 擴容(LVM)磁碟 解決磁碟不足的情況(VirtualBox)</a></h4><h5 id="check-disk-size"><a href="#check-disk-size" class="headerlink" title="check disk size"></a>check disk size</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<div style="max-width:700px">
+    <img src="/2023/03/31/linux-1/pic1.png" class="" title="pic1">
+</div>
+
+<h5 id="顯示存在的卷組"><a href="#顯示存在的卷組" class="headerlink" title="顯示存在的卷組"></a>顯示存在的卷組</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use 29G, free 29G</span></span><br><span class="line">sudo vgdisplay</span><br></pre></td></tr></table></figure>
+<div style="max-width:600px">
+    <img src="/2023/03/31/linux-1/pic2.png" class="" title="pic2">
+</div>
+
+<h5 id="擴充size"><a href="#擴充size" class="headerlink" title="擴充size"></a>擴充size</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># to 50G</span></span><br><span class="line">sudo lvextend -L 50G /dev/mapper/ubuntu--vg-ubuntu--lv</span><br><span class="line"></span><br><span class="line"><span class="comment"># to all</span></span><br><span class="line">sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:800px">
+    <img src="/2023/03/31/linux-1/pic3.png" class="" title="pic3">
+</div>
+
+<div style="max-width:800px">
+    <img src="/2023/03/31/linux-1/pic4.png" class="" title="pic4">
+</div>
+
+<h5 id="重新計算磁碟大小"><a href="#重新計算磁碟大小" class="headerlink" title="重新計算磁碟大小"></a>重新計算磁碟大小</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv</span><br></pre></td></tr></table></figure>
+<div style="max-width:800px">
+    <img src="/2023/03/31/linux-1/pic5.png" class="" title="pic5">
+</div>
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://linux.how2shout.com/how-to-install-ubuntu-22-04-server-on-virtualbox/">install Ubuntu 22.04 Server on VirtualBox</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/28/docker-1/" rel="prev" title="docker 說明">
+                  <i class="fa fa-chevron-left"></i> docker 說明
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/04/14/figma-1/" rel="next" title="Figma 說明">
+                  Figma 說明 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2023/03/31/linux-1/";
+    this.page.identifier = "2023/03/31/linux-1/";
+    this.page.title = "Linux 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="TCP&#x2F;IP基本架構">
+<meta property="og:type" content="article">
+<meta property="og:title" content="網路概念">
+<meta property="og:url" content="https://hot5656.github.io/2021/05/05/network-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="TCP&#x2F;IP基本架構">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/05/05/network-1/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/05/05/network-1/pic2.png">
+<meta property="article:published_time" content="2021-05-05T06:58:25.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:35.270Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/05/05/network-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/05/05/network-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>網路概念 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-x2F-IP"><span class="nav-number">1.</span> <span class="nav-text">TCP&#x2F;IP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%A7%8B"><span class="nav-number">1.1.</span> <span class="nav-text">基本架構</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A7%E7%B6%B2-IP-address"><span class="nav-number">1.2.</span> <span class="nav-text">內網 IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-port"><span class="nav-number">1.3.</span> <span class="nav-text">常用 port</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#special-IP-address"><span class="nav-number">1.4.</span> <span class="nav-text">special IP address</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">2.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#url-%E4%B8%AD%E6%96%87%E7%B7%A8%E7%A2%BC-Url-Encode-x2F-Decode"><span class="nav-number">2.1.</span> <span class="nav-text">url 中文編碼(Url Encode &#x2F; Decode)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-version"><span class="nav-number">2.2.</span> <span class="nav-text">HTTP version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-message"><span class="nav-number">2.3.</span> <span class="nav-text">HTTP message</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-method"><span class="nav-number">2.4.</span> <span class="nav-text">HTTP method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-%E7%8B%80%E6%85%8B%E7%A2%BC"><span class="nav-number">2.5.</span> <span class="nav-text">HTTP 狀態碼</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Charles-%E5%B0%81%E5%8C%85%E6%8A%93%E5%8F%96%E5%B7%A5%E5%85%B7"><span class="nav-number">3.1.</span> <span class="nav-text">Charles 封包抓取工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POSTMAN"><span class="nav-number">3.2.</span> <span class="nav-text">POSTMAN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wireshark"><span class="nav-number">3.3.</span> <span class="nav-text">Wireshark</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/05/05/network-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          網路概念
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-05 14:58:25" itemprop="dateCreated datePublished" datetime="2021-05-05T14:58:25+08:00">2021-05-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:35" itemprop="dateModified" datetime="2022-06-09T11:38:35+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%9F%A5%E8%AD%98/" itemprop="url" rel="index"><span itemprop="name">知識</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/05/05/network-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/05/05/network-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="TCP-x2F-IP"><a href="#TCP-x2F-IP" class="headerlink" title="TCP&#x2F;IP"></a>TCP&#x2F;IP</h3><h4 id="基本架構"><a href="#基本架構" class="headerlink" title="基本架構"></a>基本架構</h4><div style="width:650px">
+    <img src="/2021/05/05/network-1/pic1.png" class="" title="pic1">
+</div>
+
+<span id="more"></span>
+
+<div style="width:650px">
+    <img src="/2021/05/05/network-1/pic2.png" class="" title="pic2">
+</div>
+
+<h4 id="內網-IP-address"><a href="#內網-IP-address" class="headerlink" title="內網 IP address"></a>內網 IP address</h4><ul>
+<li>A類10.0.0.0    ~  10.255.255.255</li>
+<li>B類172.16.0.0  ~  172.31.255.255</li>
+<li>C類192.168.0.0 ~ 192.168.255.255</li>
+</ul>
+<h4 id="常用-port"><a href="#常用-port" class="headerlink" title="常用 port"></a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/TCP/UDP%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8">常用 port</a></h4><ul>
+<li>DHCP (Ports 67&#x2F;68 + 546&#x2F;547)：自動取得 IP</li>
+<li>DNS (Port 53)：域名解析</li>
+<li>FTP (Port 20&#x2F;21)：文件傳輸協定</li>
+<li>HTTP (Port 80)：超文件傳輸協定</li>
+<li>HTTPS (Port 443 + 445)：超級文字傳輸安全協定</li>
+<li>NTP (Port 123)：網路時間協定P,電腦時鐘與世界標準時間同步</li>
+<li>POP3 (Port 110 + 995)：接收電郵的伺服器端口。</li>
+<li>SMTP (Port 25)：寄送電郵的伺服器端口。</li>
+<li>Telnet (Port 23)：遠端文字登錄模式</li>
+</ul>
+<h4 id="special-IP-address"><a href="#special-IP-address" class="headerlink" title="special IP address"></a>special IP address</h4><ul>
+<li>127.0.0.1 : 本機 address</li>
+</ul>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><h4 id="url-中文編碼-Url-Encode-x2F-Decode"><a href="#url-中文編碼-Url-Encode-x2F-Decode" class="headerlink" title="url 中文編碼(Url Encode &#x2F; Decode)"></a>url 中文編碼(Url Encode &#x2F; Decode)</h4><p>url 若含中文要轉為 UTF-8(8-bit Unicode Transformation Format) </p>
+<h4 id="HTTP-version"><a href="#HTTP-version" class="headerlink" title="HTTP version"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP">HTTP version</a></h4><h4 id="HTTP-message"><a href="#HTTP-message" class="headerlink" title="HTTP message"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages">HTTP message</a></h4><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent">User-Agent</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.whatismybrowser.com/useragents/explore/">List of User Agents</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/advanced/crawling/overview-google-crawlers">google User-Agent</a></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// GET </span></span><br><span class="line">request(<span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/v2/sys_info&#x27;</span>, &#123;</span><br><span class="line">		headers: &#123;</span><br><span class="line">			<span class="string">&#x27;X-Library-Number&#x27;</span>: <span class="string">&#x27;20&#x27;</span>,</span><br><span class="line">			<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;MSIE 6.0&#x27;</span>,</span><br><span class="line">			Origin: <span class="string">&#x27;https://lidemy.com&#x27;</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&#x27;auth&#x27;</span>: &#123;</span><br><span class="line">			<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">			<span class="string">&#x27;pass&#x27;</span>: <span class="string">&#x27;admin123&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="keyword">function</span> (<span class="params">error, response, body</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(body)</span><br><span class="line">	&#125;)</span><br><span class="line"><span class="comment">// POST</span></span><br><span class="line">request.post(&#123;</span><br><span class="line">		url: <span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/books&#x27;</span>,</span><br><span class="line">		form: &#123;</span><br><span class="line">			name: process.argv[<span class="number">3</span>],</span><br><span class="line">			ISBN: process.argv[<span class="number">4</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="keyword">function</span> (<span class="params">err, httpResponse, body</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(body)</span><br><span class="line">	&#125;)</span><br><span class="line"><span class="comment">// DELETE </span></span><br><span class="line">request.delete(&#123;</span><br><span class="line">		url: <span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/v2/books/&#x27;</span> + process.argv[<span class="number">3</span>],</span><br><span class="line">		<span class="string">&#x27;auth&#x27;</span>: &#123;</span><br><span class="line">			<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">			<span class="string">&#x27;pass&#x27;</span>: <span class="string">&#x27;admin123&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="keyword">function</span> (<span class="params">err, httpResponse, body</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">console</span>.log(body)</span><br><span class="line">	&#125;)</span><br><span class="line"><span class="comment">// PATCH</span></span><br><span class="line">request.patch(&#123;</span><br><span class="line">		url: <span class="string">&#x27;https://lidemy-http-challenge.herokuapp.com/api/v2/books/&#x27;</span> + process.argv[<span class="number">3</span>],</span><br><span class="line">		<span class="string">&#x27;auth&#x27;</span>: &#123;</span><br><span class="line">			<span class="string">&#x27;user&#x27;</span>: <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">			<span class="string">&#x27;pass&#x27;</span>: <span class="string">&#x27;admin123&#x27;</span></span><br><span class="line">		&#125;,</span><br><span class="line">		form: &#123;</span><br><span class="line">			ISBN: <span class="string">&#x27;9981835423&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="keyword">function</span> (<span class="params">err, httpResponse, body</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// console.log(httpResponse)</span></span><br><span class="line">		<span class="built_in">console</span>.log(body)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="HTTP-method"><a href="#HTTP-method" class="headerlink" title="HTTP method"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Methods">HTTP method</a></h4><ul>
+<li>GET	　  : 請求指定的頁面信息，並返回實體主體。</li>
+<li>HEAD	  : 類似於get請求，只不過返回的響應中沒有具體的內容，用於獲取報頭</li>
+<li>POST	  : 向指定資源提交數據進行處理請求（例如提交表單或者上傳文件）。 數據被包含在請求體中。 POST請求可能會導致新的資源的建立和&#x2F;或已有資源的修改。</li>
+<li>PUT	    : 從客戶端向服務器傳送的數據取代指定的文檔的內容。</li>
+<li>DELETE  : 請求服務器刪除指定的頁面。</li>
+<li>CONNECT	: HTTP&#x2F;1.1協議中預留給能夠將連接改為管道方式的代理服務器。</li>
+<li>OPTIONS	: 允許客戶端查看服務器的性能。</li>
+<li>TRACE	  : 回顯服務器收到的請求，主要用於測試或診斷。</li>
+</ul>
+<h4 id="HTTP-狀態碼"><a href="#HTTP-狀態碼" class="headerlink" title="HTTP 狀態碼"></a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP 狀態碼</a></h4><ul>
+<li><p>1xx訊息</p>
+</li>
+<li><p>2xx 成功<br>  200 OK<br>  201 Created<br>  202 Accepted</p>
+</li>
+<li><p>3xx 重新導向<br>  301 永久導向<br>  302 暫時導向<br>  304 未改變,不需要再傳輸請求的內容，可以使用緩存的內容</p>
+</li>
+<li><p>4xx客戶端錯誤<br>  400 Bad Request<br>  401 Unauthorized(未認證)<br>  404 Not Found<br>  405 Method Not Allowed<br>  410 Gone - 表示所請求的資源不再可用，將不再可用 </p>
+</li>
+<li><p>5xx伺服器錯誤<br>  500 Internal Server Error<br>  501 Not Implemented<br>  503 Service Unavailable</p>
+</li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><h4 id="Charles-封包抓取工具"><a href="#Charles-封包抓取工具" class="headerlink" title="Charles 封包抓取工具"></a><a target="_blank" rel="noopener" href="https://www.charlesproxy.com/download/">Charles</a> 封包抓取工具</h4><h4 id="POSTMAN"><a href="#POSTMAN" class="headerlink" title="POSTMAN"></a><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=zh-TW">POSTMAN</a></h4><h4 id="Wireshark"><a href="#Wireshark" class="headerlink" title="Wireshark"></a><a target="_blank" rel="noopener" href="https://www.wireshark.org/download.html">Wireshark</a></h4><h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_server/0110network_basic.php#whatisnetwork_osi">基礎網路概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/code/b83bma9.html">徹底了解TCP三次握手與四次揮手</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/http/" rel="tag"># http</a>
+              <a href="/tags/network/" rel="tag"># network</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/03/yarn-1/" rel="prev" title="Yarn">
+                  <i class="fa fa-chevron-left"></i> Yarn
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/06/chrome-1/" rel="next" title="chrome Issue">
+                  chrome Issue <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/05/05/network-1/";
+    this.page.identifier = "2021/05/05/network-1/";
+    this.page.title = "網路概念";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="說明名詞Recurrent neural network(循環神經網路 RNNs) :Linear and Logistic Regression(線性邏輯回歸)Backpropagation(反向傳播)TensorFlow 2Time series forecasting(時間序列預測)Text classification(link sentiment analysis) 文字分類(情緒分析)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning - Recurrent Neural Networks in Python">
+<meta property="og:url" content="https://hot5656.github.io/2024/03/06/dl-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="說明名詞Recurrent neural network(循環神經網路 RNNs) :Linear and Logistic Regression(線性邏輯回歸)Backpropagation(反向傳播)TensorFlow 2Time series forecasting(時間序列預測)Text classification(link sentiment analysis) 文字分類(情緒分析)">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-03-06T06:43:09.000Z">
+<meta property="article:modified_time" content="2024-04-10T08:22:38.323Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="deep learning">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2024/03/06/dl-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Deep Learning - Recurrent Neural Networks in Python | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">說明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%A9%9E"><span class="nav-number">1.1.</span> <span class="nav-text">名詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic"><span class="nav-number">1.2.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Numpy"><span class="nav-number">1.3.</span> <span class="nav-text">Numpy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Matplotlib"><span class="nav-number">1.4.</span> <span class="nav-text">Matplotlib</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pandas"><span class="nav-number">1.5.</span> <span class="nav-text">Pandas</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scipy"><span class="nav-number">1.6.</span> <span class="nav-text">Scipy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scikit-Learn"><span class="nav-number">1.7.</span> <span class="nav-text">Scikit-Learn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Step-of-a-Machine-Learning-Script"><span class="nav-number">1.8.</span> <span class="nav-text">The Step of a Machine Learning Script</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google-Colab"><span class="nav-number">2.</span> <span class="nav-text">Google Colab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setting"><span class="nav-number">2.1.</span> <span class="nav-text">setting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-GPU"><span class="nav-number">2.1.1.</span> <span class="nav-text">CPU, GPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#uploae-x2F-download-notebook-file"><span class="nav-number">2.1.2.</span> <span class="nav-text">uploae&#x2F;download notebook file</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#command"><span class="nav-number">2.1.3.</span> <span class="nav-text">command</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#magic-command"><span class="nav-number">2.2.</span> <span class="nav-text">magic command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Upload"><span class="nav-number">2.3.</span> <span class="nav-text">Upload</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-wget"><span class="nav-number">2.3.1.</span> <span class="nav-text">Using wget</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-tf-keras"><span class="nav-number">2.3.2.</span> <span class="nav-text">Using tf.keras</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Upload-the-file-yourself"><span class="nav-number">2.3.3.</span> <span class="nav-text">Upload the file yourself</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Upload-the-file-yourself-1"><span class="nav-number">2.3.4.</span> <span class="nav-text">Upload the file yourself</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2024/03/06/dl-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Deep Learning - Recurrent Neural Networks in Python
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-03-06 14:43:09" itemprop="dateCreated datePublished" datetime="2024-03-06T14:43:09+08:00">2024-03-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-04-10 16:22:38" itemprop="dateModified" datetime="2024-04-10T16:22:38+08:00">2024-04-10</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/03/06/dl-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/03/06/dl-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><h4 id="名詞"><a href="#名詞" class="headerlink" title="名詞"></a>名詞</h4><p>Recurrent neural network(循環神經網路 RNNs) :<br>Linear and Logistic Regression(線性邏輯回歸)<br>Backpropagation(反向傳播)<br>TensorFlow 2<br>Time series forecasting(時間序列預測)<br>Text classification(link sentiment analysis) 文字分類(情緒分析)<br>image recognition (圖像辨識)<br>LSTMs</p>
+<span id="more"></span>
+
+<h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><p>Classification 分類<br>Regression 回歸<br>Neurons 神經元<br>Scikit-learn : 是用於Python程式語言的自由軟體機器學習庫</p>
+<h4 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h4><p>Matrix arithmetic<br>Tensor(arrays)<br>1-D tensor(vector), 2-D tensoer(matrix)<br>Arithmetic:+,-,<em>,&#x2F;<br>Matrix mutiply &#x3D;&#x3D; dot&#x2F;inner product(np.dot)<br>Element-wise multiply(</em>)</p>
+<h4 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h4><p>Line charts<br>Scatterplots</p>
+<h4 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h4><p>Loading in tabular data</p>
+<h4 id="Scipy"><a href="#Scipy" class="headerlink" title="Scipy"></a>Scipy</h4><p>Is like a power version od Numpy(statistics, optimization, alinear algebra, signal processing)<br>Numpy is lower-level:adding, multiplying</p>
+<h4 id="Scikit-Learn"><a href="#Scikit-Learn" class="headerlink" title="Scikit-Learn"></a>Scikit-Learn</h4><p>It’s about the concept behind using it<br>Classicfication and regression<br>MAchine learning as geometry rather than magic<br>Shape of data(X and Y)</p>
+<h4 id="The-Step-of-a-Machine-Learning-Script"><a href="#The-Step-of-a-Machine-Learning-Script" class="headerlink" title="The Step of a Machine Learning Script"></a>The Step of a Machine Learning Script</h4><ul>
+<li>Load in the data<ul>
+<li>X and Y<ul>
+<li><pre><code>Typically use PAndas usless the data it too complex
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Slipt train&#x2F;test sets(sometimes)<ul>
+<li>Sometimes “test” and “validation” are used interchangeably, and the “true test set” is sometiming else - don’t get frazzled over this</li>
+</ul>
+</li>
+<li>Build a Model<ul>
+<li>OOP(object oriented programing)</li>
+<li>TensorFlow 2.0 standard is Keras API, very similar to Sciki-Learn</li>
+</ul>
+</li>
+<li>Fit the model(gradient descent)<ul>
+<li>model.fit(X,Y)</li>
+</ul>
+</li>
+<li>Evaluate the model</li>
+<li>Make predictions<ul>
+<li>model.predict(X)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a>Google Colab</h3><h4 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h4><h5 id="CPU-GPU"><a href="#CPU-GPU" class="headerlink" title="CPU, GPU"></a>CPU, GPU</h5><p>執行階段 –&gt; 變更執行階段類型</p>
+<h5 id="uploae-x2F-download-notebook-file"><a href="#uploae-x2F-download-notebook-file" class="headerlink" title="uploae&#x2F;download notebook file"></a>uploae&#x2F;download notebook file</h5><p>檔案 –&gt; 上傳筆記本<br>檔案 –&gt; 下載</p>
+<h5 id="command"><a href="#command" class="headerlink" title="command"></a>command</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># runs shell</span></span><br><span class="line">!ls</span><br><span class="line">!pip list</span><br><span class="line"><span class="comment">#! sed ..</span></span><br><span class="line"><span class="comment">#! unzip file</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="magic-command"><a href="#magic-command" class="headerlink" title="magic command"></a>magic command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show magic command</span></span><br><span class="line">%lsmagic</span><br><span class="line"></span><br><span class="line"><span class="comment"># change director</span></span><br><span class="line"><span class="comment"># !cd not work</span></span><br><span class="line">%<span class="built_in">cd</span> dd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算單行執行時間</span></span><br><span class="line">%timeit a=1+2+3</span><br><span class="line"><span class="comment"># 20.1 ns ± 3.89 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算多行執行時間</span></span><br><span class="line">%%timeit</span><br><span class="line">sum=0</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(1, 10000):</span><br><span class="line">  sum += i</span><br><span class="line"><span class="comment"># 803 µs ± 202 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)	</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># run one file</span></span><br><span class="line"><span class="comment">#%fun file </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># see variable </span></span><br><span class="line">a = b = c = 100</span><br><span class="line">%whos </span><br><span class="line"><span class="comment"># Variable   Type    Data/Info</span></span><br><span class="line"><span class="comment"># ----------------------------</span></span><br><span class="line"><span class="comment"># a          int     100</span></span><br><span class="line"><span class="comment"># b          int     100</span></span><br><span class="line"><span class="comment"># c          int     100</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h4><h5 id="Using-wget"><a href="#Using-wget" class="headerlink" title="Using wget"></a>Using wget</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># download the data from a URL</span></span><br><span class="line">!wget https://lazyprogrammer.me/course_files/arrhythmia.data</span><br><span class="line"></span><br><span class="line"><span class="comment"># list files in current directory</span></span><br><span class="line">!ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># check if the data has a header</span></span><br><span class="line">!head arrhythmia.data</span><br><span class="line"></span><br><span class="line"><span class="comment"># check the data</span></span><br><span class="line">import pandas as pd</span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;arrhythmia.data&#x27;</span>, header=None)</span><br><span class="line"><span class="comment"># since the data has many columns, take just the first few and name them (as per the documentation)</span></span><br><span class="line">data = df[[0,1,2,3,4,5]]</span><br><span class="line">data.columns = [<span class="string">&#x27;age&#x27;</span>, <span class="string">&#x27;sex&#x27;</span>, <span class="string">&#x27;height&#x27;</span>, <span class="string">&#x27;weight&#x27;</span>, <span class="string">&#x27;QRS duration&#x27;</span>, <span class="string">&#x27;P-R interval&#x27;</span>]</span><br><span class="line"></span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = [15, 15] <span class="comment"># make the plot bigger so the subplots don&#x27;t overlap</span></span><br><span class="line">data.hist(); <span class="comment"># use a semicolon to supress return value</span></span><br><span class="line"></span><br><span class="line">from pandas.plotting import scatter_matrix</span><br><span class="line">scatter_matrix(data);</span><br></pre></td></tr></table></figure>
+
+<h5 id="Using-tf-keras"><a href="#Using-tf-keras" class="headerlink" title="Using tf.keras"></a>Using tf.keras</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use keras get_file to download the auto MPG dataset</span></span><br><span class="line"><span class="comment">### alternate URL</span></span><br><span class="line">url = <span class="string">&#x27;https://raw.githubusercontent.com/lazyprogrammer/machine_learning_examples/master/tf2.0/auto-mpg.data&#x27;</span></span><br><span class="line"></span><br><span class="line">import tensorflow as tf</span><br><span class="line"><span class="built_in">print</span>(tf.__version__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># check out the documentation for other arguments</span></span><br><span class="line">tf.keras.utils.get_file(<span class="string">&#x27;auto-mpg.data&#x27;</span>, url)</span><br><span class="line"></span><br><span class="line">!head /root/.keras/datasets/auto-mpg.data</span><br><span class="line"></span><br><span class="line"><span class="comment"># unless you specify an alternative path, the data will go into /root/.keras/datasets/</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;/root/.keras/datasets/auto-mpg.data&#x27;</span>, header=None, delim_whitespace=True)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+
+<h5 id="Upload-the-file-yourself"><a href="#Upload-the-file-yourself" class="headerlink" title="Upload the file yourself"></a>Upload the file yourself</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># another method: upload your own file</span></span><br><span class="line"><span class="comment"># if you must, then get the file from here:</span></span><br><span class="line"><span class="comment"># https://raw.githubusercontent.com/lazyprogrammer/machine_learning_examples/master/tf2.0/daily-minimum-temperatures-in-me.csv</span></span><br><span class="line">from google.colab import files</span><br><span class="line">uploaded = files.upload()</span><br><span class="line"></span><br><span class="line">uploaded</span><br><span class="line"></span><br><span class="line"><span class="comment"># file is uploaded to the current directory</span></span><br><span class="line">!ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># open the file</span></span><br><span class="line"><span class="comment"># the last few lines are junk</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;daily-minimum-temperatures-in-me.csv&#x27;</span>, error_bad_lines=False)</span><br><span class="line">df.head()</span><br><span class="line"></span><br><span class="line"><span class="comment"># upload a Python file with some useful functions (meant for fake_util.py)</span></span><br><span class="line">from google.colab import files</span><br><span class="line">uploaded = files.upload()</span><br><span class="line"></span><br><span class="line">from fake_util import my_useful_function</span><br><span class="line">my_useful_function()</span><br><span class="line"></span><br><span class="line">!<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fake_util.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_useful_function</span>():</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;hello world&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Upload-the-file-yourself-1"><a href="#Upload-the-file-yourself-1" class="headerlink" title="Upload the file yourself"></a>Upload the file yourself</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Access files from your Google Drive</span></span><br><span class="line">from google.colab import drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/gdrive&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check current directory - now gdrive is there</span></span><br><span class="line">!ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># What&#x27;s in gdrive?</span></span><br><span class="line">!ls gdrive</span><br><span class="line"></span><br><span class="line"><span class="comment"># Whoa! Look at all this great VIP content!</span></span><br><span class="line">!ls /content/gdrive/MyDrive</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1C656nbP-6BYlQHO92h5v3dGzaB_TC3VBtlA_82LVrnM/edit#heading=h.6wauif97563v">Data Links</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lazyprogrammer/machine_learning_examples/tree/master/rnn_class">Github Link</a></li>
+<li><a target="_blank" rel="noopener" href="https://deeplearningcourses.com/notebooks/5rVdagTYLDNP-aRUCi8w_w">Code Link</a></li>
+<li><a target="_blank" rel="noopener" href="https://lazyprogrammer.me/mlcompendium/intro.html">MACHINE LEARNING BOOK</a></li>
+<li><a target="_blank" rel="noopener" href="https://lazyprogrammer.me/numpy/">Deep Learning Prerequisites: The Numpy Stack in Python Extra Resources</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/19/mitx-1/" rel="prev" title="MITx - Introduction to Computational Thinking and Data Science">
+                  <i class="fa fa-chevron-left"></i> MITx - Introduction to Computational Thinking and Data Science
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/08/dl-2/" rel="next" title="Deep Learning Prerequisites - The Numpy Stack in Python V2">
+                  Deep Learning Prerequisites - The Numpy Stack in Python V2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2024/03/06/dl-1/";
+    this.page.identifier = "2024/03/06/dl-1/";
+    this.page.title = "Deep Learning - Recurrent Neural Networks in Python";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

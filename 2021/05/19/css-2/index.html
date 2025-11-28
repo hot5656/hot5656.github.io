@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="FlexFlex - align-items&#x2F;align-content stretch 無作用如果子容器或是元件，在有設定高度（height）的情況下，這個 stretch 會被忽略，自動變成 flex-start(align-items&#x2F;)&#x2F;normal(align-content)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Issue">
+<meta property="og:url" content="https://hot5656.github.io/2021/05/19/css-2/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="FlexFlex - align-items&#x2F;align-content stretch 無作用如果子容器或是元件，在有設定高度（height）的情況下，這個 stretch 會被忽略，自動變成 flex-start(align-items&#x2F;)&#x2F;normal(align-content)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/05/19/css-2/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/05/19/css-2/pic1.png">
+<meta property="article:published_time" content="2021-05-19T08:01:11.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:34.522Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="issue">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/05/19/css-2/pic2.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/05/19/css-2/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>CSS Issue | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex"><span class="nav-number">1.</span> <span class="nav-text">Flex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-align-items-x2F-align-content-stretch-%E7%84%A1%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">Flex - align-items&#x2F;align-content stretch 無作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%93%BA-image-flex-%E7%84%A1%E6%95%88-%E5%8A%A0%E4%B8%8A-div-%E5%8F%AF%E7%B8%AE%E5%B0%8F%E4%BD%86%E4%B8%8D%E8%83%BD%E6%94%BE%E5%A4%A7-%E5%8A%A0%E4%B8%8A-min-width-0-%E5%8F%AF%E6%94%BE%E5%A4%A7%E4%B9%9F%E5%8F%AF%E7%B8%AE%E5%B0%8F-%E4%B8%8D%E7%94%A8%E5%8A%A0-div"><span class="nav-number">1.2.</span> <span class="nav-text">直接擺 image, flex 無效,加上 div 可縮小但不能放大,加上 min-width: 0 可放大也可縮小(不用加 div)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other"><span class="nav-number">2.</span> <span class="nav-text">Other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#display-inline-block-%E8%A8%AD%E5%AE%9A-margin-x3D-0-%E9%82%84%E6%98%AF%E6%9C%83%E6%9C%89%E9%96%93%E6%A0%BC"><span class="nav-number">2.1.</span> <span class="nav-text">display: inline-block 設定 margin&#x3D;0 還是會有間格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block-%E5%85%83%E4%BB%B6-%E5%86%8D%E6%8F%92%E5%85%A5%E5%90%AB%E6%96%87%E5%AD%97%E7%9A%84%E5%85%83%E4%BB%B6%E6%9C%83%E9%80%A0%E6%88%90%E8%B7%91%E7%89%88"><span class="nav-number">2.2.</span> <span class="nav-text">inline-block 元件, 再插入含文字的元件會造成跑版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#button-%E8%A8%AD%E5%AE%9A-display-block-%E5%AF%AC%E5%BA%A6%E9%82%84%E6%98%AF%E4%B8%8D%E8%83%BD%E4%BD%94%E6%95%B4%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">button , 設定 display: block,寬度還是不能佔整行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-margin-0-auto-%E4%B8%8D%E8%83%BD%E7%BD%AE%E4%B8%AD"><span class="nav-number">2.4.</span> <span class="nav-text">設定 margin: 0 auto; 不能置中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-a-gt-tag-not-working"><span class="nav-number">2.5.</span> <span class="nav-text">&lt;a&gt; tag not working</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-overflow-hidden-%E9%80%A0%E6%88%90-%E7%9B%B8%E9%84%B0%E8%A1%8C%E5%85%A7%E5%85%83%E7%B4%A0%E5%90%91%E4%B8%8B%E5%81%8F%E7%A7%BB"><span class="nav-number">2.6.</span> <span class="nav-text">設定 overflow: hidden;,造成 相鄰行內元素向下偏移</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/05/19/css-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS Issue
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-19 16:01:11" itemprop="dateCreated datePublished" datetime="2021-05-19T16:01:11+08:00">2021-05-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:34" itemprop="dateModified" datetime="2022-06-09T11:38:34+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/05/19/css-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/05/19/css-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><h3 id="Flex-align-items-x2F-align-content-stretch-無作用"><a href="#Flex-align-items-x2F-align-content-stretch-無作用" class="headerlink" title="Flex - align-items&#x2F;align-content stretch 無作用"></a>Flex - align-items&#x2F;align-content stretch 無作用</h3><p>如果子容器或是元件，在有設定高度（height）的情況下，這個 stretch 會被忽略，自動變成 flex-start(align-items&#x2F;)&#x2F;normal(align-content)</p>
+<span id="more"></span>
+
+<h3 id="直接擺-image-flex-無效-加上-div-可縮小但不能放大-加上-min-width-0-可放大也可縮小-不用加-div"><a href="#直接擺-image-flex-無效-加上-div-可縮小但不能放大-加上-min-width-0-可放大也可縮小-不用加-div" class="headerlink" title="直接擺 image, flex 無效,加上 div 可縮小但不能放大,加上 min-width: 0 可放大也可縮小(不用加 div)"></a>直接擺 image, flex 無效,加上 div 可縮小但不能放大,加上 min-width: 0 可放大也可縮小(不用加 div)</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="comment">/* 防止img解析度變差 */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">max-width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: auto;</span></span><br><span class="line"><span class="css">		<span class="comment">/* 修正放於div底部會有空白 */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">display</span>: block;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.menu-list &#123;</span><br><span class="line"><span class="css">		<span class="attribute">display</span>: flex;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">min-width</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">flex-grow</span>: <span class="number">1</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu-list&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-001.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-002.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-003.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-004.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu-list&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-001.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-002.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-003.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./img/f-004.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div style="width:500px">
+    <img src="/2021/05/19/css-2/pic2.png" class="" title="pic2">
+</div>
+
+<h2 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h2><h3 id="display-inline-block-設定-margin-x3D-0-還是會有間格"><a href="#display-inline-block-設定-margin-x3D-0-還是會有間格" class="headerlink" title="display: inline-block 設定 margin&#x3D;0 還是會有間格"></a>display: inline-block 設定 margin&#x3D;0 還是會有間格</h3><p>換行或space造成,可移除換行,間隔或加入 common</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.debug *, .debug &#123;</span><br><span class="line"><span class="css">		<span class="attribute">outline</span>: <span class="number">1px</span> solid gold;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.box &#123;</span><br><span class="line"><span class="css">		<span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">		<span class="attribute">margin</span>:<span class="number">0</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">50px</span></span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;debug&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>111<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>222<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>333<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- common remove inline-block space </span></span><br><span class="line"><span class="comment"> --&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>444<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>555<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="inline-block-元件-再插入含文字的元件會造成跑版"><a href="#inline-block-元件-再插入含文字的元件會造成跑版" class="headerlink" title="inline-block 元件, 再插入含文字的元件會造成跑版"></a>inline-block 元件, 再插入含文字的元件會造成跑版</h3><p>應是文字會對齊最後一個 baseline</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.debug *, .debug &#123;</span><br><span class="line"><span class="css">		<span class="attribute">outline</span>: <span class="number">1px</span> solid gold</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-tag">html</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">font-size</span>: <span class="number">12px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">h1</span> ,<span class="selector-tag">h2</span> ,<span class="selector-tag">h3</span> ,<span class="selector-tag">h4</span> ,<span class="selector-tag">h5</span> ,<span class="selector-tag">h6</span> ,<span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.debug &#123;</span><br><span class="line"><span class="css">		<span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.box &#123;</span><br><span class="line"><span class="css">		<span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">		<span class="comment">/* margin:0; */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: gray;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="css">	<span class="selector-tag">h1</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: yellow;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: auto;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="css">	<span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: auto;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;debug&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>111<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>222<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>333<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">			51</span><br><span class="line">			<span class="tag">&lt;<span class="name">h1</span>&gt;</span>555<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">p</span>&gt;</span>555-p<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>444<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div style="width:500px">
+    <img src="/2021/05/19/css-2/pic1.png" class="" title="pic1">
+</div>
+
+<h3 id="button-設定-display-block-寬度還是不能佔整行"><a href="#button-設定-display-block-寬度還是不能佔整行" class="headerlink" title="button , 設定 display: block,寬度還是不能佔整行"></a>button , 設定 display: block,寬度還是不能佔整行</h3><p>要設定 width: 100% 才能佔整行</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">	<span class="comment">/* 設完才能佔整行 */</span></span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-margin-0-auto-不能置中"><a href="#設定-margin-0-auto-不能置中" class="headerlink" title="設定 margin: 0 auto; 不能置中"></a>設定 margin: 0 auto; 不能置中</h3><p>要設定 display block</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">		.box &#123;</span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">padding</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">		.kick &#123;</span><br><span class="line"><span class="css">			<span class="comment">/* 設定才能置中 */</span></span></span><br><span class="line"><span class="css">			<span class="comment">/* display: block; */</span></span></span><br><span class="line"><span class="css">			<span class="attribute">background</span>: <span class="number">#E62A45</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">border-radius</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">outline</span>: none;</span></span><br><span class="line"><span class="css">			<span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css">			<span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line">		&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;kick&quot;</span>&gt;</span>我要抽獎<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="lt-a-gt-tag-not-working"><a href="#lt-a-gt-tag-not-working" class="headerlink" title="&lt;a&gt; tag not working"></a>&lt;a&gt; tag not working</h3><ul>
+<li>被其他元件遮住,故要將 z-index 調高,或將其他元件 z-index 調低</li>
+<li>z-index 要有效,要設定 position: absolute, relative 或 fixed<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.games</span> <span class="selector-class">.item</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">	<span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="設定-overflow-hidden-造成-相鄰行內元素向下偏移"><a href="#設定-overflow-hidden-造成-相鄰行內元素向下偏移" class="headerlink" title="設定 overflow: hidden;,造成 相鄰行內元素向下偏移"></a>設定 overflow: hidden;,造成 相鄰行內元素向下偏移</h3><ul>
+<li>設定 vertical-align: bottom; 即可修正<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.box &#123;</span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">10px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.box-1,</span><br><span class="line">	.box-2 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.box-2 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">		<span class="comment">/* 修正造成相鄰向下偏移 */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">vertical-align</span>: bottom;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box debug&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;box-1&quot;</span>&gt;</span>AAA<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;box-2&quot;</span>&gt;</span>BBB<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;box-1&quot;</span>&gt;</span>CCC<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;box-2&quot;</span>&gt;</span>DDD<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/issue/" rel="tag"># issue</a>
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/18/css-1/" rel="prev" title="CSS 說明">
+                  <i class="fa fa-chevron-left"></i> CSS 說明
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/20/chrome-2/" rel="next" title="Chrome 功能">
+                  Chrome 功能 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/05/19/css-2/";
+    this.page.identifier = "2021/05/19/css-2/";
+    this.page.title = "CSS Issue";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="基本原理Git儲存每次專案更新時的快照檔案沒有變更，Git不會再度儲存該檔案，而是記錄到前一次的相同檔案的連結。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 說明">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/22/git-2/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="基本原理Git儲存每次專案更新時的快照檔案沒有變更，Git不會再度儲存該檔案，而是記錄到前一次的相同檔案的連結。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/22/git-2/pic1.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/22/git-2/pic2.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/22/git-2/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/22/git-2/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2021/03/22/git-2/pic5.png">
+<meta property="article:published_time" content="2021-03-22T03:16:18.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:34.720Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/03/22/git-2/pic1.jpg">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/22/git-2/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Git 說明 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E5%84%B2%E5%AD%98%E6%AF%8F%E6%AC%A1%E5%B0%88%E6%A1%88%E6%9B%B4%E6%96%B0%E6%99%82%E7%9A%84%E5%BF%AB%E7%85%A7"><span class="nav-number">1.1.</span> <span class="nav-text">Git儲存每次專案更新時的快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A8%AE%E7%8B%80%E6%85%8B"><span class="nav-number">1.2.</span> <span class="nav-text">三種狀態</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config-%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.</span> <span class="nav-text">config 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config-%E7%A8%AE%E9%A1%9E%E5%8F%8A%E4%BD%8D%E7%BD%AE-windows"><span class="nav-number">2.1.</span> <span class="nav-text">config 種類及位置(windows)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">config 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#global"><span class="nav-number">2.2.1.</span> <span class="nav-text">global</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#project"><span class="nav-number">2.2.2.</span> <span class="nav-text">project</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5%E6%89%80%E6%9C%89%E8%A8%AD%E5%AE%9A%E5%80%BC"><span class="nav-number">2.2.3.</span> <span class="nav-text">檢查所有設定值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%B7%A8%E8%BC%AF%E5%99%A8-%E6%9C%AC%E4%BA%BA%E5%B0%91%E7%94%A8"><span class="nav-number">2.2.4.</span> <span class="nav-text">指定編輯器(本人少用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%90%88%E4%BD%B5%E5%B7%A5%E5%85%B7-%E6%9C%AC%E4%BA%BA%E6%9C%AA%E7%94%A8"><span class="nav-number">2.2.5.</span> <span class="nav-text">指定合併工具(本人未用)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%8F%BE%E6%9C%89%E7%9B%AE%E9%8C%84%E5%88%9D%E5%A7%8B%E5%8C%96%E5%84%B2%E5%AD%98%E5%BA%AB-repository"><span class="nav-number">3.1.</span> <span class="nav-text">在現有目錄初始化儲存庫(repository)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%99%E4%BB%BD%E5%84%B2%E5%AD%98%E5%BA%AB%E5%88%B0-GitHub"><span class="nav-number">3.2.</span> <span class="nav-text">備份儲存庫到 GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%99%E4%BB%BD%E5%88%B0-GitHub"><span class="nav-number">3.2.1.</span> <span class="nav-text">備份到 GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-GitHub-%E5%95%9F%E5%8B%95%E9%9D%9C%E6%85%8B%E5%9F%B7%E8%A1%8C-%E8%8B%A5%E7%82%BA%E7%B6%B2%E9%A0%81"><span class="nav-number">3.2.2.</span> <span class="nav-text">設定 GitHub 啟動靜態執行(若為網頁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B6%B2%E9%A0%81%E4%BD%8D%E5%9D%80-%E8%8B%A5%E7%82%BA%E7%B6%B2%E9%A0%81"><span class="nav-number">3.2.3.</span> <span class="nav-text">網頁位址(若為網頁)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A4%87%E8%A3%BD%E7%8F%BE%E6%9C%89%E7%9A%84%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.3.</span> <span class="nav-text">複製現有的儲存庫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9B%B4%E6%96%B0%E5%88%B0%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.4.</span> <span class="nav-text">提交更新到儲存庫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%9F%90%E4%BA%9B%E6%AA%94%E6%A1%88"><span class="nav-number">3.5.</span> <span class="nav-text">忽略某些檔案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8F%83%E8%80%83%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.6.</span> <span class="nav-text">本地參考儲存庫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E7%9A%84%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84"><span class="nav-number">3.7.</span> <span class="nav-text">提交的歷史記錄</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E8%A6%96%E6%8F%90%E4%BA%A4%E7%9A%84%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84"><span class="nav-number">3.7.1.</span> <span class="nav-text">檢視提交的歷史記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E6%AF%8F%E5%80%8B%E6%8C%87%E4%BB%A4%E7%9A%84-SHA-1-%E5%80%BC"><span class="nav-number">3.7.2.</span> <span class="nav-text">顯示每個指令的 SHA-1 值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%96%E5%BD%A2%E7%95%8C%E9%9D%A2%E6%AA%A2%E8%A6%96%E6%AD%B7%E5%8F%B2"><span class="nav-number">3.7.3.</span> <span class="nav-text">使用圖形界面檢視歷史</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%A9%E5%8E%9F"><span class="nav-number">3.8.</span> <span class="nav-text">復原</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E5%8B%95%E6%9C%80%E5%BE%8C%E4%B8%80%E7%AD%86-commit-%E2%80%93amend"><span class="nav-number">3.8.1.</span> <span class="nav-text">更動最後一筆 commit(–amend)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%A9%E5%8E%9F%E5%B7%B2%E8%A2%AB-staged-%E6%AA%94%E6%A1%88"><span class="nav-number">3.8.2.</span> <span class="nav-text">復原已被 staged 檔案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%A9%E5%8E%9F%E5%B7%B2%E6%9B%B4%E5%8B%95%E7%9A%84%E6%AA%94%E6%A1%88-discard-unstaged-%E6%AA%94%E6%A1%88"><span class="nav-number">3.8.3.</span> <span class="nav-text">復原已更動的檔案(discard unstaged 檔案)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%A0%E7%AB%AF%E5%8D%94%E5%90%8C%E9%81%8B%E4%BD%9C"><span class="nav-number">3.9.</span> <span class="nav-text">遠端協同運作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.9.1.</span> <span class="nav-text">顯示遠端儲存庫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.9.2.</span> <span class="nav-text">增加遠端儲存庫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%9E%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB%E6%93%B7%E5%8F%96%E6%88%96%E5%90%88%E4%BD%B5"><span class="nav-number">3.9.3.</span> <span class="nav-text">從遠端儲存庫擷取或合併</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E5%82%B3%E8%87%B3%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.9.4.</span> <span class="nav-text">上傳至遠端儲存庫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%A3%E7%9C%8B%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.9.5.</span> <span class="nav-text">監看遠端儲存庫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E6%88%96%E6%9B%B4%E5%90%8D%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.9.6.</span> <span class="nav-text">移除或更名遠端儲存庫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%99%E7%B1%A4"><span class="nav-number">3.10.</span> <span class="nav-text">標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%A8%99%E7%B1%A4"><span class="nav-number">3.10.1.</span> <span class="nav-text">列出標籤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%A8%99%E7%B1%A4"><span class="nav-number">3.10.2.</span> <span class="nav-text">建立標籤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%BD%E5%8A%A0%E6%A8%99%E7%B1%A4"><span class="nav-number">3.10.3.</span> <span class="nav-text">追加標籤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%99%E7%B1%A4%E5%82%B3%E8%87%B3%E9%81%A0%E7%AB%AF%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.10.4.</span> <span class="nav-text">標籤傳至遠端儲存庫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF-branch"><span class="nav-number">3.11.</span> <span class="nav-text">分支(branch)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HEAD-%E7%82%BA%E6%8C%87%E5%90%91%E7%95%B6%E5%89%8D%E6%89%80%E5%9C%A8%E7%9A%84%E5%88%86%E6%94%AF%E7%9A%84%E6%8C%87%E6%A8%99"><span class="nav-number">3.11.1.</span> <span class="nav-text">HEAD 為指向當前所在的分支的指標</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%A0%E7%AB%AF%E5%88%86%E6%94%AF%E8%99%95%E7%90%86"><span class="nav-number">3.11.2.</span> <span class="nav-text">遠端分支處理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%A8%A1%E6%93%AC%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.11.2.1.</span> <span class="nav-text">建立模擬儲存庫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-computer-%E6%9C%AC%E5%9C%B0%E5%84%B2%E5%AD%98%E5%BA%AB"><span class="nav-number">3.11.2.2.</span> <span class="nav-text">設定 computer 本地儲存庫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E6%9B%B4%E6%94%B9%E5%82%B3%E8%87%B3%E9%81%A0%E7%AB%AF-serverfix"><span class="nav-number">3.11.2.3.</span> <span class="nav-text">將更改傳至遠端 serverfix</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E9%81%A0%E7%AB%AF-serverfix"><span class="nav-number">3.11.2.4.</span> <span class="nav-text">刪除遠端 serverfix</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E4%BD%B5-merge"><span class="nav-number">3.11.3.</span> <span class="nav-text">分支的合併(merge)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E8%A1%8D%E5%90%88-rebase"><span class="nav-number">3.11.4.</span> <span class="nav-text">分支的衍合(rebase)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BA%96%E5%82%99"><span class="nav-number">3.11.4.1.</span> <span class="nav-text">準備</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rebase"><span class="nav-number">3.11.4.2.</span> <span class="nav-text">rebase</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%89%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">應用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commit-hook-Eslint"><span class="nav-number">4.1.</span> <span class="nav-text">commit hook Eslint ???</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#package-json-%E5%8A%A0%E4%B8%8A-run-script%EF%BC%8C%E6%8C%87%E5%AE%9A-lint-%E4%BE%86%E5%9F%B7%E8%A1%8C-Eslint"><span class="nav-number">4.1.1.</span> <span class="nav-text">package.json 加上 run script，指定 lint 來執行 Eslint</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E7%9F%A5%E5%85%A7%E5%AE%B9"><span class="nav-number">5.</span> <span class="nav-text">未知內容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">參考文件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/22/git-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git 說明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-22 11:16:18" itemprop="dateCreated datePublished" datetime="2021-03-22T11:16:18+08:00">2021-03-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:34" itemprop="dateModified" datetime="2022-06-09T11:38:34+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/22/git-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/22/git-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>10 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><h3 id="Git儲存每次專案更新時的快照"><a href="#Git儲存每次專案更新時的快照" class="headerlink" title="Git儲存每次專案更新時的快照"></a>Git儲存每次專案更新時的快照</h3><p>檔案沒有變更，Git不會再度儲存該檔案，而是記錄到前一次的相同檔案的連結。</p>
+<div style="width:500px">
+    <img src="/2021/03/22/git-2/pic1.jpg" class="" title="pic1">
+</div>
+
+<span id="more"></span>
+<h3 id="三種狀態"><a href="#三種狀態" class="headerlink" title="三種狀態"></a>三種狀態</h3><p>已修改(modified),已暫存(staged)及已提交(committed)</p>
+<div style="width:500px">
+    <img src="/2021/03/22/git-2/pic2.jpg" class="" title="pic2">
+</div>
+
+
+
+<h2 id="config-設定"><a href="#config-設定" class="headerlink" title="config 設定"></a>config 設定</h2><h3 id="config-種類及位置-windows"><a href="#config-種類及位置-windows" class="headerlink" title="config 種類及位置(windows)"></a>config 種類及位置(windows)</h3><p>project &gt; global &gt; system</p>
+<ul>
+<li>system - C:\ProgramData\Git\config</li>
+<li>global - C:\Users\$YourName\.gitconfig</li>
+<li>project - .git&#x2F;config</li>
+</ul>
+<h3 id="config-命令"><a href="#config-命令" class="headerlink" title="config 命令"></a>config 命令</h3><h4 id="global"><a href="#global" class="headerlink" title="global"></a>global</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 設定 global 用戶名稱/電子郵件</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Robert Kao&quot;</span></span><br><span class="line">git config --global user.email robert@example.com</span><br><span class="line"><span class="comment"># 顯示 global 用戶名稱/電子郵件</span></span><br><span class="line">git config --global --get user.name</span><br><span class="line">git config --global --get user.email</span><br><span class="line">git config --global user.name</span><br><span class="line">git config --global user.email</span><br><span class="line"><span class="comment"># 顯示 global 設定內容</span></span><br><span class="line">git config --global --list</span><br></pre></td></tr></table></figure>
+
+<h4 id="project"><a href="#project" class="headerlink" title="project"></a>project</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 設定 project 用戶名稱/電子郵件</span></span><br><span class="line">git config user.name <span class="string">&quot;Your project specific name&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;your@project-specific-email.com&quot;</span></span><br><span class="line"><span class="comment"># 顯示 project 用戶名稱/電子郵件</span></span><br><span class="line">git config --get user.name</span><br><span class="line">git config --get user.email</span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+
+<h4 id="檢查所有設定值"><a href="#檢查所有設定值" class="headerlink" title="檢查所有設定值"></a>檢查所有設定值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+
+<h4 id="指定編輯器-本人少用"><a href="#指定編輯器-本人少用" class="headerlink" title="指定編輯器(本人少用)"></a>指定編輯器(本人少用)</h4><p>Git會使用系統預設的編輯器，一般來說是Vi或Vim(commit 未加 -m 時使用)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如指定 Emacs</span></span><br><span class="line">git config --global core.editor emacs</span><br></pre></td></tr></table></figure>
+
+<h4 id="指定合併工具-本人未用"><a href="#指定合併工具-本人未用" class="headerlink" title="指定合併工具(本人未用)"></a>指定合併工具(本人未用)</h4><p>解決合併失敗時，讀者慣用的合併工具<br>Git能接受kdiff3、tkdiff、meld、xxdiff、emerge、vimdiff、gvimdiff、ecmerge及opendiff做為合併工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假設讀者想使用vimdiff</span></span><br><span class="line">git config --global merge.tool vimdiff</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="在現有目錄初始化儲存庫-repository"><a href="#在現有目錄初始化儲存庫-repository" class="headerlink" title="在現有目錄初始化儲存庫(repository)"></a>在現有目錄初始化儲存庫(repository)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化儲存庫</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment"># 加入要加入的檔案</span></span><br><span class="line">git add *.c</span><br><span class="line"><span class="comment"># 也可加入所有檔案</span></span><br><span class="line">git add .</span><br><span class="line"><span class="comment"># 提交</span></span><br><span class="line"> git commit -m <span class="string">&#x27;initial project version&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="備份儲存庫到-GitHub"><a href="#備份儲存庫到-GitHub" class="headerlink" title="備份儲存庫到 GitHub"></a>備份儲存庫到 GitHub</h3><h4 id="備份到-GitHub"><a href="#備份到-GitHub" class="headerlink" title="備份到 GitHub"></a>備份到 GitHub</h4><p>GitHub 應預先建立 儲存庫</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set origin </span></span><br><span class="line">git remote add origin https://github.com/hot5656/rwd-pets.git</span><br><span class="line"><span class="comment"># 建立 master branch</span></span><br><span class="line">git branch -M master</span><br><span class="line"><span class="comment"># push</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<h4 id="設定-GitHub-啟動靜態執行-若為網頁"><a href="#設定-GitHub-啟動靜態執行-若為網頁" class="headerlink" title="設定 GitHub 啟動靜態執行(若為網頁)"></a>設定 GitHub 啟動靜態執行(若為網頁)</h4><p>setting –&gt; GitHub Pages –&gt; source –&gt; master branch –&gt; Save</p>
+<h4 id="網頁位址-若為網頁"><a href="#網頁位址-若為網頁" class="headerlink" title="網頁位址(若為網頁)"></a>網頁位址(若為網頁)</h4><p><a href="https://hot5656.github.io/ajaxF2eCheckRegister/">https://hot5656.github.io/ajaxF2eCheckRegister/</a></p>
+<h3 id="複製現有的儲存庫"><a href="#複製現有的儲存庫" class="headerlink" title="複製現有的儲存庫"></a>複製現有的儲存庫</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 default 目錄名稱</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/hot5656/rwd-pets.git</span><br><span class="line"><span class="comment"># 使用 自定 目錄名稱</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/hot5656/rwd-pets.git rwd-web</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交更新到儲存庫"><a href="#提交更新到儲存庫" class="headerlink" title="提交更新到儲存庫"></a>提交更新到儲存庫</h3><div style="width:500px">
+    <img src="/2021/03/22/git-2/pic3.png" class="" title="pic3">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 檢視檔案的狀態</span></span><br><span class="line">git status</span><br><span class="line"><span class="comment"># --&gt; 若檔案未加入的狀態為 untracked </span></span><br><span class="line"><span class="comment"># 加入後狀態為 staged</span></span><br><span class="line">git add git-2.md</span><br><span class="line"><span class="comment"># --&gt; 若修改已被追蹤的檔案,狀態會變成unstaged(modify) </span></span><br><span class="line"><span class="comment"># 加入後狀態為 staged</span></span><br><span class="line">git add benchmarks.rb</span><br><span class="line"><span class="comment"># commit 後,原 staged 檔案就會變成 unmodified</span></span><br><span class="line"> git commit -m <span class="string">&#x27;update 2021/02/22&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="忽略某些檔案"><a href="#忽略某些檔案" class="headerlink" title="忽略某些檔案"></a>忽略某些檔案</h3><p>.gitignore 可標示忽略檔案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地參考儲存庫"><a href="#本地參考儲存庫" class="headerlink" title="本地參考儲存庫"></a>本地參考儲存庫</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git show-ref</span><br><span class="line">	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/master</span><br><span class="line">	d9c9e57d12c9dbdc1b9445fa3333cd7e637c888d refs/heads/serverfix</span><br><span class="line">	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/HEAD</span><br><span class="line">	7369a897219619143420b24c9df7383ddca643a2 refs/remotes/origin/master</span><br><span class="line">	37d73f1a945ece85dffe798ba7ae43733bf1f4aa refs/remotes/team/master</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交的歷史記錄"><a href="#提交的歷史記錄" class="headerlink" title="提交的歷史記錄"></a>提交的歷史記錄</h3><h4 id="檢視提交的歷史記錄"><a href="#檢視提交的歷史記錄" class="headerlink" title="檢視提交的歷史記錄"></a>檢視提交的歷史記錄</h4><p>從新到舊的順序列出儲存庫的提交的歷史記錄</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br><span class="line"><span class="comment"># -p 顯示更新差異</span></span><br><span class="line"><span class="comment"># -2 顯示最後兩筆更新</span></span><br><span class="line">git <span class="built_in">log</span> -p -2</span><br><span class="line"><span class="comment"># -U1 僅顯示有更動的部分</span></span><br><span class="line"><span class="comment"># --word-diff 顯示差異性</span></span><br><span class="line">git <span class="built_in">log</span> -U1 --word-diff</span><br><span class="line"><span class="comment"># 列出被更動的檔案、有多少檔案被更動，以及有多行列被加入或移出該檔案。 也會在最後印出摘要的訊息</span></span><br><span class="line">git <span class="built_in">log</span> --<span class="built_in">stat</span></span><br><span class="line"><span class="comment"># 選項 --pretty :　oneline, short, full, fuller</span></span><br><span class="line"><span class="comment"># oneline 選項將每一個更新印到單獨一行</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line"><span class="comment"># format，允許讀者指定自訂的輸出格式。 當需要輸出給機器分析時特別有用</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=format:<span class="string">&quot;%h - %an, %ar : %s&quot;</span></span><br><span class="line"><span class="comment"># --graph 的選項特別有用。 該選項以 ASCII 畫出分支的分歧及合併的歷史</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=format:<span class="string">&quot;%h %s&quot;</span> --graph</span><br><span class="line"><span class="comment"># --since 及 --until 限制時間的選項</span></span><br><span class="line"><span class="comment"># 列出最近兩週的更新</span></span><br><span class="line">git <span class="built_in">log</span> --since=2.weeks</span><br></pre></td></tr></table></figure>
+
+<p>format 支援的選項</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 作者 是完成該工作的人，而 提交者 則是最後將該工作提交出來的人</span></span><br><span class="line">選項	選項的說明</span><br><span class="line">%H	該更新的SHA1雜湊值</span><br><span class="line">%h	該更新的簡短SHA1雜湊值</span><br><span class="line">%T	存放該更新的根目錄的Tree物件的SHA1雜湊值</span><br><span class="line">%t	存放該更新的根目錄的Tree物件的簡短SHA1雜湊值</span><br><span class="line">%P	該更新的父更新的SHA1雜湊值</span><br><span class="line">%p	該更新的父更新的簡短SHA1雜湊值</span><br><span class="line">%an	作者名字</span><br><span class="line">%ae	作者電子郵件</span><br><span class="line">%ad	作者的日期 (格式依據 date 選項而不同)</span><br><span class="line">%ar	相對於目前時間的作者的日期</span><br><span class="line">%cn	提交者的名字</span><br><span class="line">%ce	提交者的電子郵件</span><br><span class="line">%<span class="built_in">cd</span>	提交的日期</span><br><span class="line">%cr	相對於目前時間的提交的日期</span><br><span class="line">%s	標題 </span><br></pre></td></tr></table></figure>
+
+<p>目前涵蓋的及一些可能有用的格式選項</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">選項	選項的說明</span><br><span class="line">-p	顯示每個更新與上一個的差異。</span><br><span class="line">--word-diff	使用 word diff 格式顯示 patch 內容。</span><br><span class="line">--<span class="built_in">stat</span>	顯示每個更新更動的檔案的統計及摘要資訊。</span><br><span class="line">--shortstat	僅顯示--<span class="built_in">stat</span>提供的的訊息中關於更動、插入、刪除的文字。</span><br><span class="line">--name-only	在更新的訊息後方顯示更動的檔案列表。</span><br><span class="line">--name-status	顯示新增、更動、刪除的檔案列表。</span><br><span class="line">--abbrev-commit	僅顯示SHA1查核值的前幾位數，而不是顯示全部的40位數。</span><br><span class="line">--relative-date	以相對於目前時間方式顯示日期（例如：“2 weeks ago”），而不是完整的日期格式。</span><br><span class="line">--graph	以 ASCII 在 <span class="built_in">log</span> 輸出旁邊畫出分支的分歧及合併。</span><br><span class="line">--pretty	以其它格式顯示更新。 可用的選項包含oneline、short、full、fuller及可自訂格式的format。</span><br><span class="line">--oneline	`--pretty=oneline --abbrev-commit` 的簡短用法。</span><br></pre></td></tr></table></figure>
+
+<p>其它常見選項</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">選項	選項的說明文字</span><br><span class="line">-(n)	僅顯示最後 n 個更新</span><br><span class="line">--since, --after	列出特定日期後的更新。</span><br><span class="line">--until, --before	列出特定日期前的更新。</span><br><span class="line">--author	列出作者名稱符合指定字串的更新。</span><br><span class="line">--committer	列出提交者名稱符合指定字串的更新</span><br></pre></td></tr></table></figure>
+
+<h4 id="顯示每個指令的-SHA-1-值"><a href="#顯示每個指令的-SHA-1-值" class="headerlink" title="顯示每個指令的 SHA-1 值"></a>顯示每個指令的 SHA-1 值</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br><span class="line">	8ad28b8 (HEAD -&gt; backup) HEAD@&#123;0&#125;: commit (amend): update 2021/3/23</span><br><span class="line">	fe335c2 HEAD@&#123;1&#125;: reset: moving to fe335c2</span><br><span class="line">	fe335c2 HEAD@&#123;2&#125;: reset: moving to fe335c2</span><br><span class="line">	fe335c2 HEAD@&#123;3&#125;: reset: moving to fe335c2</span><br><span class="line">	fe335c2 HEAD@&#123;4&#125;: reset: moving to fe335c2</span><br><span class="line">	fe335c2 HEAD@&#123;5&#125;: reset: moving to fe335c2</span><br><span class="line">	fe335c2 HEAD@&#123;6&#125;: commit (amend): update 2021/3/23</span><br><span class="line">	58e7265 HEAD@&#123;7&#125;: commit (amend): update 2021/3/23</span><br><span class="line">	d37689e HEAD@&#123;8&#125;: commit: update 2021/3/23</span><br><span class="line">	155415a (origin/backup) HEAD@&#123;9&#125;: commit: update 2021/03/22</span><br><span class="line">	5e79348 HEAD@&#123;10&#125;: pull: Fast-forward</span><br><span class="line">	3d7d128 HEAD@&#123;11&#125;: commit: update 2021/03/19</span><br><span class="line">	b115098 HEAD@&#123;12&#125;: commit: update 2021/03/18</span><br><span class="line">	943a44a HEAD@&#123;13&#125;: pull: Fast-forward</span><br><span class="line">	c16e900 HEAD@&#123;14&#125;: commit: update 1021/02/16</span><br><span class="line">	7bf66fc HEAD@&#123;15&#125;: commit: add some hexo, categories and tags</span><br><span class="line">	83a54ad HEAD@&#123;16&#125;: commit (initial): 1st commit</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用圖形界面檢視歷史"><a href="#使用圖形界面檢視歷史" class="headerlink" title="使用圖形界面檢視歷史"></a>使用圖形界面檢視歷史</h4><p>基本上就是 git log 的圖形界面版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitk</span><br></pre></td></tr></table></figure>
+
+<h3 id="復原"><a href="#復原" class="headerlink" title="復原"></a>復原</h3><h4 id="更動最後一筆-commit-–amend"><a href="#更動最後一筆-commit-–amend" class="headerlink" title="更動最後一筆 commit(–amend)"></a>更動最後一筆 commit(–amend)</h4><p>可更改 commit 說明 或 加入檔案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;initial commit&#x27;</span></span><br><span class="line">git add forgotten_file</span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h4 id="復原已被-staged-檔案"><a href="#復原已被-staged-檔案" class="headerlink" title="復原已被 staged 檔案"></a>復原已被 staged 檔案</h4><p>檔案要加路徑名,不然不會有反應</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git status</span><br><span class="line">	On branch backup</span><br><span class="line">	Your branch is ahead of <span class="string">&#x27;origin/backup&#x27;</span> by 1 commit.</span><br><span class="line">	(use <span class="string">&quot;git push&quot;</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line">	Changes to be committed:</span><br><span class="line">	(use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">			modified:   <span class="built_in">source</span>/_posts/git-2.md</span><br><span class="line"><span class="comment"># git reset HEAD &lt;file&gt;</span></span><br><span class="line">git reset HEAD <span class="built_in">source</span>/_posts/git-2.md</span><br><span class="line">git status</span><br><span class="line">	On branch backup</span><br><span class="line">	Your branch is ahead of <span class="string">&#x27;origin/backup&#x27;</span> by 1 commit.</span><br><span class="line">	(use <span class="string">&quot;git push&quot;</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line">	Changes to be committed:</span><br><span class="line">	(use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">			modified:   <span class="built_in">source</span>/_posts/git-2.md</span><br></pre></td></tr></table></figure>
+
+<h4 id="復原已更動的檔案-discard-unstaged-檔案"><a href="#復原已更動的檔案-discard-unstaged-檔案" class="headerlink" title="復原已更動的檔案(discard unstaged 檔案)"></a>復原已更動的檔案(discard unstaged 檔案)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># git status 提供命令</span></span><br><span class="line">git status</span><br><span class="line">	On branch backup</span><br><span class="line">	Your branch is ahead of <span class="string">&#x27;origin/backup&#x27;</span> by 1 commit.</span><br><span class="line">		(use <span class="string">&quot;git push&quot;</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line">	Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">		(use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">		(use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">			modified:   <span class="built_in">source</span>/_posts/git-2.md</span><br><span class="line">			modified:   <span class="built_in">source</span>/_posts/git-3.md</span><br><span class="line">	no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"><span class="comment"># git restore &lt;file&gt;</span></span><br><span class="line">git restore <span class="built_in">source</span>/_posts/git-3.md</span><br><span class="line">git status</span><br><span class="line">	On branch backup</span><br><span class="line">	Your branch is ahead of <span class="string">&#x27;origin/backup&#x27;</span> by 1 commit.</span><br><span class="line">		(use <span class="string">&quot;git push&quot;</span> to publish your <span class="built_in">local</span> commits)</span><br><span class="line"></span><br><span class="line">	Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">		(use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">		(use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">			modified:   <span class="built_in">source</span>/_posts/git-2.md</span><br><span class="line">	no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="遠端協同運作"><a href="#遠端協同運作" class="headerlink" title="遠端協同運作"></a>遠端協同運作</h3><h4 id="顯示遠端儲存庫"><a href="#顯示遠端儲存庫" class="headerlink" title="顯示遠端儲存庫"></a>顯示遠端儲存庫</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 顯示所有的遠端儲存庫</span></span><br><span class="line">git remote</span><br><span class="line"><span class="comment"># 顯示所有的遠端儲存庫(顯示遠端儲存庫 url)</span></span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="增加遠端儲存庫"><a href="#增加遠端儲存庫" class="headerlink" title="增加遠端儲存庫"></a>增加遠端儲存庫</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin2 https://github.com/hot5656/blog.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="從遠端儲存庫擷取或合併"><a href="#從遠端儲存庫擷取或合併" class="headerlink" title="從遠端儲存庫擷取或合併"></a>從遠端儲存庫擷取或合併</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 抓回遠端分支</span></span><br><span class="line">git fetch</span><br><span class="line"><span class="comment"># origin/master 分支 合併到 master 分支</span></span><br><span class="line">git merge origin/master</span><br><span class="line"><span class="comment"># git pull = git fetch + git merge</span></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<h4 id="上傳至遠端儲存庫"><a href="#上傳至遠端儲存庫" class="headerlink" title="上傳至遠端儲存庫"></a>上傳至遠端儲存庫</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -u 指遠端 branch</span></span><br><span class="line">git push -u origin backup</span><br><span class="line"><span class="comment"># push local branch serverfix to remote serverfix</span></span><br><span class="line">git push origin serverfix</span><br><span class="line"><span class="comment"># push local branch master to remote cat</span></span><br><span class="line">git push origin master:cat</span><br></pre></td></tr></table></figure>
+
+<h4 id="監看遠端儲存庫"><a href="#監看遠端儲存庫" class="headerlink" title="監看遠端儲存庫"></a>監看遠端儲存庫</h4><p>git pull 抓取遠端合併到 local<br>git push 將 local 內容更新至遠端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git remote show origin</span><br><span class="line">	* remote origin</span><br><span class="line">	Fetch URL: https://github.com/hot5656/hot5656.github.io.git</span><br><span class="line">	Push  URL: https://github.com/hot5656/hot5656.github.io.git</span><br><span class="line">	HEAD branch: master</span><br><span class="line">	Remote branches:</span><br><span class="line">		backup tracked</span><br><span class="line">		master tracked</span><br><span class="line">	Local branch configured <span class="keyword">for</span> <span class="string">&#x27;git pull&#x27;</span>:</span><br><span class="line">		backup merges with remote backup</span><br><span class="line">	Local ref configured <span class="keyword">for</span> <span class="string">&#x27;git push&#x27;</span>:</span><br><span class="line">		backup pushes to backup (fast-forwardable)</span><br></pre></td></tr></table></figure>
+
+<h4 id="移除或更名遠端儲存庫"><a href="#移除或更名遠端儲存庫" class="headerlink" title="移除或更名遠端儲存庫"></a>移除或更名遠端儲存庫</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更改 遠端儲存庫</span></span><br><span class="line">git remote rename pb paul</span><br><span class="line"><span class="comment"># 移除 遠端儲存庫</span></span><br><span class="line">git remote rm paul</span><br></pre></td></tr></table></figure>
+
+<h3 id="標籤"><a href="#標籤" class="headerlink" title="標籤"></a>標籤</h3><h4 id="列出標籤"><a href="#列出標籤" class="headerlink" title="列出標籤"></a>列出標籤</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br><span class="line"><span class="comment"># 列出特定標籤</span></span><br><span class="line">git tag -l <span class="string">&#x27;v1.4.2.*&#x27;</span></span><br><span class="line"><span class="comment"># 顯示指定標籤的資料與對應的commit</span></span><br><span class="line">git show v1.4</span><br></pre></td></tr></table></figure>
+
+<h4 id="建立標籤"><a href="#建立標籤" class="headerlink" title="建立標籤"></a>建立標籤</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 含附註的標籤</span></span><br><span class="line">git tag -a v1.4 -m <span class="string">&#x27;my version 1.4&#x27;</span></span><br><span class="line"><span class="comment"># 建立輕量級的標籤 - 只保存commit檢查碼的文件</span></span><br><span class="line">git tag v1.4-lw</span><br><span class="line">git tag</span><br><span class="line">	v0.1</span><br><span class="line">	v1.3</span><br><span class="line">	v1.4</span><br><span class="line">	v1.4-lw</span><br><span class="line">	v1.5</span><br></pre></td></tr></table></figure>
+
+<h4 id="追加標籤"><a href="#追加標籤" class="headerlink" title="追加標籤"></a>追加標籤</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 入該次commit的檢查碼(或前幾碼即可)</span><br><span class="line">git tag -a v1.2 9fceb02</span><br></pre></td></tr></table></figure>
+
+<h4 id="標籤傳至遠端儲存庫"><a href="#標籤傳至遠端儲存庫" class="headerlink" title="標籤傳至遠端儲存庫"></a>標籤傳至遠端儲存庫</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 單一標籤</span><br><span class="line">git push origin v1.5</span><br><span class="line"># 所有標籤</span><br><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
+
+<h3 id="分支-branch"><a href="#分支-branch" class="headerlink" title="分支(branch)"></a>分支(branch)</h3><h4 id="HEAD-為指向當前所在的分支的指標"><a href="#HEAD-為指向當前所在的分支的指標" class="headerlink" title="HEAD 為指向當前所在的分支的指標"></a>HEAD 為指向當前所在的分支的指標</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 新建分支</span><br><span class="line">git branch testing</span><br><span class="line"># 切換分支</span><br><span class="line">git checkout testing</span><br><span class="line"># 新建同時切換分支</span><br><span class="line">git checkout -b iss53</span><br><span class="line"># 合併分支 hotfix</span><br><span class="line">git merge hotfix</span><br><span class="line"># 刪除 hotfix 分支</span><br><span class="line">git branch -d hotfix</span><br><span class="line"># 列出所有分支</span><br><span class="line">git branch</span><br><span class="line"># 列出各分支最後提交資訊</span><br><span class="line">git branch -v</span><br><span class="line"># 列出已併入分支</span><br><span class="line">git branch --merged</span><br><span class="line"># 列出未併入分支</span><br><span class="line">git branch --no-merged</span><br><span class="line"># 刪除選端分支 serverfix</span><br><span class="line">git push origin :serverfix</span><br></pre></td></tr></table></figure>
+
+<h4 id="遠端分支處理"><a href="#遠端分支處理" class="headerlink" title="遠端分支處理"></a>遠端分支處理</h4><h5 id="建立模擬儲存庫"><a href="#建立模擬儲存庫" class="headerlink" title="建立模擬儲存庫"></a>建立模擬儲存庫</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立新的 儲存庫</span></span><br><span class="line">mkdir remote_test</span><br><span class="line"><span class="built_in">cd</span> remote_test</span><br><span class="line">git init</span><br><span class="line"><span class="comment"># 第一次提交</span></span><br><span class="line"><span class="built_in">echo</span> init file &gt; branch_test.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;1st commit&quot;</span></span><br><span class="line"><span class="comment"># 上傳至遠端儲存庫 (遠端儲存庫已預先建立)</span></span><br><span class="line">git remote add origin https://github.com/hot5656/remote_test.git</span><br><span class="line">git push origin master</span><br><span class="line"><span class="comment"># 2nd update 上傳至遠端儲存庫</span></span><br><span class="line"><span class="built_in">echo</span> 1st change &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;2nd update&quot;</span></span><br><span class="line">git push origin master</span><br><span class="line"><span class="comment"># 上傳至遠端儲存庫2 (遠端儲存庫已預先建立)</span></span><br><span class="line">git remote add team https://github.com/hot5656/remote_test2.git</span><br><span class="line">git push team master</span><br><span class="line"><span class="comment"># 3rd update 上傳至 origin 遠端儲存庫</span></span><br><span class="line"><span class="built_in">echo</span> 3rd update &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;3rd update&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h5 id="設定-computer-本地儲存庫"><a href="#設定-computer-本地儲存庫" class="headerlink" title="設定 computer 本地儲存庫"></a>設定 computer 本地儲存庫</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone computer 儲存庫, 並刪除兩個 commit, fetch from team</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/hot5656/remote_test.git remote_test_computer</span><br><span class="line"><span class="built_in">cd</span> remote_test_computer</span><br><span class="line">git reset HEAD^^ --hard</span><br><span class="line">git reset HEAD^^ --hard</span><br><span class="line">git remote add team https://github.com/hot5656/remote_test2.git</span><br><span class="line">git fetch team</span><br><span class="line"><span class="comment"># computer add 2 commit</span></span><br><span class="line"><span class="built_in">echo</span> modify 1st update &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;modify 1st update&quot;</span></span><br><span class="line"><span class="built_in">echo</span> modify 2nd update &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;modify 2nd update&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分支圖</span></span><br><span class="line"><span class="comment"># remote-test(origin)</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1 --&gt; 7369a89(mastetr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># remote-test1(team)</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1(master)</span><br><span class="line"></span><br><span class="line"><span class="comment"># computer</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1        --&gt; 7369a89(origin/mastetr)</span><br><span class="line">            (team/master)      (origin/mastetr)</span><br><span class="line">        --&gt; 9161f8d        --&gt; d9c9e57(master)</span><br></pre></td></tr></table></figure>
+
+<h5 id="將更改傳至遠端-serverfix"><a href="#將更改傳至遠端-serverfix" class="headerlink" title="將更改傳至遠端 serverfix"></a>將更改傳至遠端 serverfix</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 將 computer 更改傳至 origin(branch serverfix)</span></span><br><span class="line">git checkout -b serverfix</span><br><span class="line">git push origin serverfix</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分支圖</span></span><br><span class="line"><span class="comment"># remote-test(origin)</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1 --&gt; 7369a89(mastetr)</span><br><span class="line">        --&gt; 9161f8d --&gt; d9c9e57(serverfix)</span><br><span class="line"></span><br><span class="line"><span class="comment"># remote-test1(team)</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1(master)</span><br><span class="line"></span><br><span class="line"><span class="comment"># computer</span></span><br><span class="line">1f0aa12 --&gt; 37d73f1        --&gt; 7369a89(origin/mastetr)</span><br><span class="line">            (team/master)      (origin/mastetr)</span><br><span class="line">        --&gt; 9161f8d        --&gt; d9c9e57(master, serverfix, origin/serverfix)</span><br></pre></td></tr></table></figure>
+
+<h5 id="刪除遠端-serverfix"><a href="#刪除遠端-serverfix" class="headerlink" title="刪除遠端 serverfix"></a>刪除遠端 serverfix</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin :serverfix</span><br><span class="line">	To https://github.com/hot5656/remote_test.git</span><br><span class="line">	- [deleted]         serverfix</span><br></pre></td></tr></table></figure>
+
+<h4 id="分支的合併-merge"><a href="#分支的合併-merge" class="headerlink" title="分支的合併(merge)"></a>分支的合併(merge)</h4><img src="/2021/03/22/git-2/pic4.png" class="" title="pic4">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">$ git merge issue13</span><br></pre></td></tr></table></figure>
+
+<h4 id="分支的衍合-rebase"><a href="#分支的衍合-rebase" class="headerlink" title="分支的衍合(rebase)"></a>分支的衍合(rebase)</h4><img src="/2021/03/22/git-2/pic5.png" class="" title="pic5">
+
+<h5 id="準備"><a href="#準備" class="headerlink" title="準備"></a>準備</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加 branch issue13</span></span><br><span class="line"><span class="comment"># brnach master modify + commit</span></span><br><span class="line">git branch issue13</span><br><span class="line"><span class="built_in">echo</span> mastet rebase 1 &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;master wait rebase 1&quot;</span></span><br><span class="line"><span class="comment"># brnach issue13 modify + commit</span></span><br><span class="line">git checkout issue13</span><br><span class="line"><span class="built_in">echo</span> issue13 rebase 1 &gt;&gt; branch_test.txt</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;issue13 wait rebase 1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h5><p>把另外一個分支的變更，當成這個分支的基礎(修改後併到主線)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout issue13</span><br><span class="line">git rebase master</span><br><span class="line"><span class="comment"># 若有衝突會要求處理,再用 git add 加入,在執行 git rebase --continue</span></span><br><span class="line">git add -A</span><br><span class="line"><span class="comment"># 會要求修改最後 commit 內容</span></span><br><span class="line">git rebase --<span class="built_in">continue</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="應用"><a href="#應用" class="headerlink" title="應用"></a>應用</h2><h3 id="commit-hook-Eslint"><a href="#commit-hook-Eslint" class="headerlink" title="commit hook Eslint ???"></a>commit hook Eslint ???</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">eslint --init</span><br></pre></td></tr></table></figure>
+
+<h4 id="package-json-加上-run-script，指定-lint-來執行-Eslint"><a href="#package-json-加上-run-script，指定-lint-來執行-Eslint" class="headerlink" title="package.json 加上 run script，指定 lint 來執行 Eslint"></a>package.json 加上 run script，指定 lint 來執行 Eslint</h4><p>“lint”: “eslint *.js”,</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;eslint_test&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;main&quot;</span>: <span class="string">&quot;hw1.js&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;lint&quot;</span>: <span class="string">&quot;eslint *.js&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;test&quot;</span>: <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/eslint-plugin&quot;</span>: <span class="string">&quot;^4.22.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/parser&quot;</span>: <span class="string">&quot;^4.22.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;eslint&quot;</span>: <span class="string">&quot;^7.25.0&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="未知內容"><a href="#未知內容" class="headerlink" title="未知內容"></a>未知內容</h2><ul>
+<li>git mergetool : git merge tool </li>
+<li>opendiff : one merge tool</li>
+</ul>
+<h2 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a><font color=#555555>參考文件</font></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://iissnan.com/progit/index.zh-tw.html">Pro Git(中文)</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/18/ref-link-1/" rel="prev" title="參考網頁">
+                  <i class="fa fa-chevron-left"></i> 參考網頁
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/22/pic-1/" rel="next" title="圖檔格式">
+                  圖檔格式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/22/git-2/";
+    this.page.identifier = "2021/03/22/git-2/";
+    this.page.title = "Git 說明";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

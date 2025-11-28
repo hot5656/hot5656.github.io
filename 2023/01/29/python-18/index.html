@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="IThelp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Scrapy Practice 2">
+<meta property="og:url" content="https://hot5656.github.io/2023/01/29/python-18/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="IThelp">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-01-29T12:10:49.000Z">
+<meta property="article:modified_time" content="2023-01-30T07:27:36.518Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2023/01/29/python-18/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Python Scrapy Practice 2 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IThelp"><span class="nav-number">1.</span> <span class="nav-text">IThelp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#settings-py"><span class="nav-number">1.1.</span> <span class="nav-text">settings.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#middlewares-py-fake-useragent-UserAgent"><span class="nav-number">1.2.</span> <span class="nav-text">middlewares.py (fake_useragent-UserAgent)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pipelines-py"><span class="nav-number">1.3.</span> <span class="nav-text">pipelines.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#items-py"><span class="nav-number">1.4.</span> <span class="nav-text">items.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#articles-py"><span class="nav-number">1.5.</span> <span class="nav-text">articles.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#run"><span class="nav-number">1.6.</span> <span class="nav-text">run</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2023/01/29/python-18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Scrapy Practice 2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-01-29 20:10:49" itemprop="dateCreated datePublished" datetime="2023-01-29T20:10:49+08:00">2023-01-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2023-01-30 15:27:36" itemprop="dateModified" datetime="2023-01-30T15:27:36+08:00">2023-01-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/01/29/python-18/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/29/python-18/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>8.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>8 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="IThelp"><a href="#IThelp" class="headerlink" title="IThelp"></a><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles?tab=tech">IThelp</a></h3><span id="more"></span>
+
+<h4 id="settings-py"><a href="#settings-py" class="headerlink" title="settings.py"></a>settings.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable or disable downloader middlewares</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span></span><br><span class="line"><span class="comment">#DOWNLOADER_MIDDLEWARES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;ithome2.middlewares.Ithome2DownloaderMiddleware&#x27;: 543,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">   <span class="string">&#x27;ithome2.middlewares.Item2AgentMiddleware&#x27;</span>: <span class="number">543</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure item pipelines</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">&#x27;ithome2.pipelines.Ithome2Pipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">   <span class="string">&#x27;ithome2.pipelines.MongoPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># set JSON utf-8 format</span></span><br><span class="line">FEED_EXPORT_ENCODING = <span class="string">&#x27;utf-8&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="middlewares-py-fake-useragent-UserAgent"><a href="#middlewares-py-fake-useragent-UserAgent" class="headerlink" title="middlewares.py (fake_useragent-UserAgent)"></a>middlewares.py (fake_useragent-UserAgent)</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add user agent</span></span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line"><span class="keyword">from</span> scrapy.downloadermiddlewares.useragent <span class="keyword">import</span> UserAgentMiddleware</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Item2AgentMiddleware</span>(<span class="params">UserAgentMiddleware</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, user_agent=<span class="string">&#x27;&#x27;</span></span>):</span></span><br><span class="line">        self.user_agent = user_agent</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span>(<span class="params">self, request, spider</span>):</span></span><br><span class="line">        ua = UserAgent()</span><br><span class="line">        request.headers[<span class="string">&#x27;User-Agent&#x27;</span>] = ua.random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span>(<span class="params">self, request, response, spider</span>):</span></span><br><span class="line">        <span class="comment"># log test</span></span><br><span class="line">        spider.logger.info(<span class="string">f&#x27;Item2AgentMiddleware-process_response User-Agent of [<span class="subst">&#123;request.url&#125;</span>] is [<span class="subst">&#123;request.headers[<span class="string">&quot;User-Agent&quot;</span>]&#125;</span>]&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<h4 id="pipelines-py"><a href="#pipelines-py" class="headerlink" title="pipelines.py"></a>pipelines.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># useful for handling different item types with a single interface</span></span><br><span class="line"><span class="keyword">from</span> itemadapter <span class="keyword">import</span> ItemAdapter</span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> ithome2.items <span class="keyword">as</span> items</span><br><span class="line"><span class="keyword">import</span> ithome2.env <span class="keyword">as</span> env</span><br><span class="line"><span class="comment"># save item to json</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ithome2Pipeline</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(item).__name__ == <span class="string">&#x27;IthomeArticleItem&#x27;</span>:</span><br><span class="line">            <span class="keyword">if</span> item[<span class="string">&#x27;view_count&#x27;</span>] &lt; <span class="number">100</span>:</span><br><span class="line">                <span class="keyword">raise</span> DropItem(<span class="string">f&#x27;[<span class="subst">&#123;item[<span class="string">&quot;title&quot;</span>]&#125;</span>] 瀏覽數小於 100&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MongoPipeline</span>:</span></span><br><span class="line">    collection_article = <span class="string">&#x27;articles&#x27;</span></span><br><span class="line">    collection_response = <span class="string">&#x27;response&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">        dbname = <span class="string">&#x27;ithome2&#x27;</span></span><br><span class="line">        user = env.MONGO_USER</span><br><span class="line">        password = env.MONGO_PASSWORD</span><br><span class="line">        host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">        port =  <span class="number">27017</span></span><br><span class="line">        MONGO_URI = <span class="string">f&#x27;mongodb://<span class="subst">&#123;user&#125;</span>:<span class="subst">&#123;password&#125;</span>@<span class="subst">&#123;host&#125;</span>:<span class="subst">&#123;port&#125;</span>/&#x27;</span></span><br><span class="line">        self.client = MongoClient(MONGO_URI)</span><br><span class="line">        self.db = self.client[dbname]</span><br><span class="line">        <span class="comment"># save item to json</span></span><br><span class="line">        self.file1 = <span class="built_in">open</span>(<span class="string">&#x27;art.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        self.file2 = <span class="built_in">open</span>(<span class="string">&#x27;resp.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        self.file1.write(<span class="string">&#x27;[\n&#x27;</span>)</span><br><span class="line">        self.file2.write(<span class="string">&#x27;[\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">        self.client.close()</span><br><span class="line">        <span class="comment"># save item to json</span></span><br><span class="line">        self.file1.write(<span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">        self.file2.write(<span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">        self.file1.close()</span><br><span class="line">        self.file2.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="comment"># if type(item).__name__ == &#x27;IthomeArticleItem&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(item) <span class="keyword">is</span> items.IthomeArticleItem:</span><br><span class="line">            <span class="comment"># 查詢資料庫中是否有相同網址的資料存在</span></span><br><span class="line">            doc = self.db[self.collection_article].find_one(&#123;<span class="string">&#x27;url&#x27;</span>: item[<span class="string">&#x27;url&#x27;</span>]&#125;)</span><br><span class="line">            item[<span class="string">&#x27;update_time&#x27;</span>] = datetime.now()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> doc:</span><br><span class="line">                <span class="comment"># 沒有就新增</span></span><br><span class="line">                item[<span class="string">&#x27;_id&#x27;</span>] = <span class="built_in">str</span>(self.db[self.collection_article].insert_one(<span class="built_in">dict</span>(item)).inserted_id)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 已存在則更新</span></span><br><span class="line">                self.db[self.collection_article].update_one(</span><br><span class="line">                    &#123;<span class="string">&#x27;_id&#x27;</span>: doc[<span class="string">&#x27;_id&#x27;</span>]&#125;,</span><br><span class="line">                    &#123;<span class="string">&#x27;$set&#x27;</span>: <span class="built_in">dict</span>(item)&#125;</span><br><span class="line">                )</span><br><span class="line">                item[<span class="string">&#x27;_id&#x27;</span>] = <span class="built_in">str</span>(doc[<span class="string">&#x27;_id&#x27;</span>])</span><br><span class="line"></span><br><span class="line">            <span class="comment"># save item to json</span></span><br><span class="line">            values = <span class="built_in">dict</span>(item)</span><br><span class="line">            values[<span class="string">&#x27;update_time&#x27;</span>] = values[<span class="string">&#x27;update_time&#x27;</span>].strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)</span><br><span class="line">            line = json.dumps(values, ensure_ascii=<span class="literal">False</span>) + <span class="string">&quot;,\n&quot;</span></span><br><span class="line">            self.file1.write(line)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if type(item).__name__ == &#x27;IthomeReplyItem&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(item) <span class="keyword">is</span> items.IthomeReplyItem:</span><br><span class="line">            <span class="comment"># save item to json</span></span><br><span class="line">            values = <span class="built_in">dict</span>(item)</span><br><span class="line">            <span class="keyword">del</span> values[<span class="string">&#x27;_id&#x27;</span>]</span><br><span class="line">            values[<span class="string">&#x27;publish_time&#x27;</span>] = values[<span class="string">&#x27;publish_time&#x27;</span>].strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)</span><br><span class="line">            values[<span class="string">&#x27;article_id&#x27;</span>] = <span class="built_in">str</span>(values[<span class="string">&#x27;article_id&#x27;</span>])</span><br><span class="line">            line = json.dumps(values, ensure_ascii=<span class="literal">False</span>) + <span class="string">&quot;,\n&quot;</span></span><br><span class="line">            self.file2.write(line)</span><br><span class="line"></span><br><span class="line">            document = self.db[self.collection_response].find_one(item[<span class="string">&#x27;_id&#x27;</span>])</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> document:</span><br><span class="line">                insert_result = self.db[self.collection_response].insert_one(<span class="built_in">dict</span>(item))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">del</span> item[<span class="string">&#x27;_id&#x27;</span>]</span><br><span class="line">                self.db[self.collection_response].update_one(</span><br><span class="line">                    &#123;<span class="string">&#x27;_id&#x27;</span>: document[<span class="string">&#x27;_id&#x27;</span>]&#125;,</span><br><span class="line">                    &#123;<span class="string">&#x27;$set&#x27;</span>: <span class="built_in">dict</span>(item)&#125;,</span><br><span class="line">                    upsert=<span class="literal">True</span></span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<h4 id="items-py"><a href="#items-py" class="headerlink" title="items.py"></a>items.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ithome2Item</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IthomeArticleItem</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">    _<span class="built_in">id</span> = scrapy.Field()</span><br><span class="line">    url = scrapy.Field()</span><br><span class="line">    author = scrapy.Field()</span><br><span class="line">    publish_time = scrapy.Field()</span><br><span class="line">    view_count = scrapy.Field()</span><br><span class="line">    title = scrapy.Field()</span><br><span class="line">    tags = scrapy.Field()</span><br><span class="line">    content = scrapy.Field()</span><br><span class="line">    update_time = scrapy.Field()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IthomeReplyItem</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">    _<span class="built_in">id</span> = scrapy.Field()</span><br><span class="line">    article_id = scrapy.Field()</span><br><span class="line">    author = scrapy.Field()</span><br><span class="line">    publish_time = scrapy.Field()</span><br><span class="line">    content = scrapy.Field()</span><br></pre></td></tr></table></figure>
+
+<h4 id="articles-py"><a href="#articles-py" class="headerlink" title="articles.py"></a>articles.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="comment"># from ..items import as items</span></span><br><span class="line"><span class="keyword">import</span> ithome2.items <span class="keyword">as</span> items</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticlesSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    URL_1ST = <span class="string">&#x27;https://ithelp.ithome.com.tw/articles?tab=tech&#x27;</span></span><br><span class="line">    MAX_PAGE = <span class="number">2</span></span><br><span class="line">    page_index = <span class="number">1</span></span><br><span class="line">    name = <span class="string">&#x27;articles&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;ithelp.ithome.com.tw&#x27;</span>]</span><br><span class="line">    start_urls = [URL_1ST]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        <span class="comment"># with open(&#x27;ithome.html&#x27;, &#x27;wb&#x27;) as f:</span></span><br><span class="line">        <span class="comment">#     f.write(response.body)</span></span><br><span class="line"></span><br><span class="line">        articles = response.xpath(<span class="string">&quot;//div[@class=&#x27;board tabs-content&#x27;]/div[@class=&#x27;qa-list&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> article <span class="keyword">in</span> articles:</span><br><span class="line">            article_url = article.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/@href&quot;</span>).get()</span><br><span class="line">            <span class="keyword">yield</span> response.follow(article_url, callback=self.article_parse)</span><br><span class="line"></span><br><span class="line">        self.page_index += <span class="number">1</span></span><br><span class="line">        next_page = response.xpath(<span class="string">&quot;//a[@rel=&#x27;next&#x27;]/@href&quot;</span>).get()</span><br><span class="line">        <span class="keyword">if</span> next_page <span class="keyword">and</span> self.page_index &lt;= self.MAX_PAGE :</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(url=<span class="string">f&quot;<span class="subst">&#123;self.URL_1ST&#125;</span>&amp;page=<span class="subst">&#123;self.page_index&#125;</span>&quot;</span>, callback=self.parse)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">article_parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        article_head = response.xpath(<span class="string">&quot;//div[@class=&#x27;qa-header&#x27;]&quot;</span>)</span><br><span class="line">        content = <span class="string">&#x27;&#x27;</span>.join(response.xpath(<span class="string">&quot;//div[@class=&#x27;markdown__style&#x27;]/descendant::text()&quot;</span>).getall())</span><br><span class="line">        content = self.content_alignment(content)</span><br><span class="line">        tags = article_head.xpath(<span class="string">&quot;.//a[contains(@class,&#x27;tag qa-header__tagList&#x27;)]/text()&quot;</span>).getall()</span><br><span class="line">        author_list = article_head.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-header__info-person&#x27;]/text()&quot;</span>).getall()</span><br><span class="line">        author = <span class="string">&#x27;&#x27;</span>.join(x.strip() <span class="keyword">for</span> x <span class="keyword">in</span> author_list )</span><br><span class="line"></span><br><span class="line">        article = items.IthomeArticleItem()</span><br><span class="line">        article[<span class="string">&#x27;url&#x27;</span>] =  response.url</span><br><span class="line">        article[<span class="string">&#x27;author&#x27;</span>] = author</span><br><span class="line">        article[<span class="string">&#x27;publish_time&#x27;</span>] = article_head.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-header__info-time&#x27;]/@title&quot;</span>).get()</span><br><span class="line">        article[<span class="string">&#x27;view_count&#x27;</span>] = <span class="built_in">int</span>(article_head.xpath(<span class="string">&quot;.//span[@class=&#x27;qa-header__info-view&#x27;]/text()&quot;</span>).get().split(<span class="string">&quot; &quot;</span>)[<span class="number">0</span>])</span><br><span class="line">        article[<span class="string">&#x27;title&#x27;</span>] = article_head.xpath(<span class="string">&quot;normalize-space(.//h2[@class=&#x27;qa-header__title&#x27;]/text())&quot;</span>).get()</span><br><span class="line">        article[<span class="string">&#x27;tags&#x27;</span>] = <span class="string">&#x27;,&#x27;</span>.join(tags)</span><br><span class="line">        article[<span class="string">&#x27;content&#x27;</span>] = content</span><br><span class="line">        <span class="keyword">yield</span> article</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;_id&#x27;</span> <span class="keyword">in</span> article:</span><br><span class="line">            <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">            上一行執行後資料已更新到資料庫中</span></span><br><span class="line"><span class="string">            因為是同一個物件參照</span></span><br><span class="line"><span class="string">            可以取得識別值</span></span><br><span class="line"><span class="string">            &#x27;&#x27;&#x27;</span></span><br><span class="line">            article_id = article[<span class="string">&#x27;_id&#x27;</span>]</span><br><span class="line">            <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">            因為 iTHome 原文與回文都是在同一個畫面中</span></span><br><span class="line"><span class="string">            剖析回文時使用原本的 response 即可</span></span><br><span class="line"><span class="string">            否則這邊需要再回傳 Request 物件</span></span><br><span class="line"><span class="string">            yield scrapy.Request(url, callback=self.parse_reply)</span></span><br><span class="line"><span class="string">            &#x27;&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">from</span> self.parse_reply(response, article_id)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_reply</span>(<span class="params">self, response, article_id</span>):</span></span><br><span class="line">        item_responses = response.xpath(<span class="string">&quot;//div[@class=&#x27;qa-panel response clearfix&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> item_response <span class="keyword">in</span> item_responses:</span><br><span class="line">            resp_date_str = item_response.xpath(<span class="string">&quot;.//a[@class=&#x27;ans-header__time&#x27;]/text()&quot;</span>).get()</span><br><span class="line">            resp_date = datetime.strptime(resp_date_str, <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line">            resp_content = item_response.xpath(<span class="string">&quot;.//div[@class=&#x27;response-markdown&#x27;]/div/div/p/text()&quot;</span>).get()</span><br><span class="line">            resp_id = <span class="built_in">int</span>(item_response.xpath(<span class="string">&quot;.//a/@name&quot;</span>).get().replace(<span class="string">&quot;response-&quot;</span>, <span class="string">&quot;&quot;</span>))</span><br><span class="line"></span><br><span class="line">            article_resp  = items.IthomeReplyItem()</span><br><span class="line">            article_resp[<span class="string">&#x27;_id&#x27;</span>] = resp_id</span><br><span class="line">            article_resp[<span class="string">&#x27;article_id&#x27;</span>] = article_id</span><br><span class="line">            article_resp[<span class="string">&#x27;author&#x27;</span>] = item_response.xpath(<span class="string">&quot;.//a[@class=&#x27;response-header__person&#x27;]/text()&quot;</span>).get()</span><br><span class="line">            article_resp[<span class="string">&#x27;content&#x27;</span>] = resp_content</span><br><span class="line">            article_resp[<span class="string">&#x27;publish_time&#x27;</span>] = resp_date</span><br><span class="line">            <span class="keyword">yield</span> article_resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">content_alignment</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        <span class="comment"># break into lines and remove leading and trailing space on each</span></span><br><span class="line">        <span class="comment"># lines = (line.strip() for line in text.splitlines())</span></span><br><span class="line">        <span class="comment"># break multi-headlines into a line each</span></span><br><span class="line">        <span class="comment"># chunks = (phrase.strip() for line in lines for phrase in line.split(&quot;  &quot;))</span></span><br><span class="line">        <span class="comment"># drop blank lines</span></span><br><span class="line">        <span class="comment"># content = &#x27;\n&#x27;.join(chunk for chunk in chunks if chunk)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># break into lines and remove leading and trailing space on each</span></span><br><span class="line">        lines = (line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> content.splitlines())</span><br><span class="line">        <span class="comment"># drop blank lines</span></span><br><span class="line">        content = <span class="string">&#x27;\n&#x27;</span>.join(line <span class="keyword">for</span> line <span class="keyword">in</span> lines <span class="keyword">if</span> line)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> content</span><br></pre></td></tr></table></figure>
+
+<h4 id="run"><a href="#run" class="headerlink" title="run"></a>run</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome2&gt;scrapy crawl articles</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/25/db-5/" rel="prev" title="MongoDB docker">
+                  <i class="fa fa-chevron-left"></i> MongoDB docker
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/30/python-19/" rel="next" title="python Anti-Bot Protection">
+                  python Anti-Bot Protection <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2023/01/29/python-18/";
+    this.page.identifier = "2023/01/29/python-18/";
+    this.page.title = "Python Scrapy Practice 2";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

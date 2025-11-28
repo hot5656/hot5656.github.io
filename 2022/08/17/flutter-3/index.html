@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="flutter doctor1flutter.bat doctor --verbose">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter Issue">
+<meta property="og:url" content="https://hot5656.github.io/2022/08/17/flutter-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="flutter doctor1flutter.bat doctor --verbose">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic15.png">
+<meta property="article:published_time" content="2022-08-17T05:59:23.000Z">
+<meta property="article:modified_time" content="2022-08-30T06:18:13.979Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="issue">
+<meta property="article:tag" content="flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2022/08/17/flutter-3/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2022/08/17/flutter-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Flutter Issue | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flutter-doctor"><span class="nav-number">1.</span> <span class="nav-text">flutter doctor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cmdline-tools-component-is-missing"><span class="nav-number">1.1.</span> <span class="nav-text">cmdline-tools component is missing</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#message"><span class="nav-number">1.1.1.</span> <span class="nav-text">message</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-Android-SDK-Command-line-Tools-latest"><span class="nav-number">1.1.2.</span> <span class="nav-text">Install Android SDK Command-line Tools(latest)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-licenses-is-taking-an-unexpectedly"><span class="nav-number">1.2.</span> <span class="nav-text">Android licenses is taking an unexpectedly</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#message-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">message</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fix-Android-licenses"><span class="nav-number">1.2.2.</span> <span class="nav-text">fix Android licenses</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Visual-Studio-not-installed"><span class="nav-number">1.3.</span> <span class="nav-text">Visual Studio not installed</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#message-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">message</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#install-Visual-Studio%E2%80%99s-%E2%80%9CDesktop-development-with-C-%E2%80%9D"><span class="nav-number">1.3.2.</span> <span class="nav-text">install Visual Studio’s “Desktop development with C++”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Emulator-LockDown"><span class="nav-number">2.</span> <span class="nav-text">Emulator LockDown</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#set-boot-option-to-cold-boot"><span class="nav-number">2.1.</span> <span class="nav-text">set boot option to cold boot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exist-Android-Studio"><span class="nav-number">2.2.</span> <span class="nav-text">exist Android Studio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deleted-emulator-lock-file"><span class="nav-number">2.3.</span> <span class="nav-text">deleted emulator .lock file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#start-Android-Studio-run-emulator"><span class="nav-number">2.4.</span> <span class="nav-text">start Android Studio, run emulator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#project-issue"><span class="nav-number">3.</span> <span class="nav-text">project issue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Your-project-requires-a-higher-compileSdkVersion"><span class="nav-number">3.1.</span> <span class="nav-text">Your project requires a higher compileSdkVersion</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fix-build-gradle-change-29-to-31"><span class="nav-number">3.1.1.</span> <span class="nav-text">fix build.gradle (change 29 to 31)</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2022/08/17/flutter-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter Issue
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2022-08-17 13:59:23" itemprop="dateCreated datePublished" datetime="2022-08-17T13:59:23+08:00">2022-08-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-08-30 14:18:13" itemprop="dateModified" datetime="2022-08-30T14:18:13+08:00">2022-08-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/08/17/flutter-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/08/17/flutter-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="flutter-doctor"><a href="#flutter-doctor" class="headerlink" title="flutter doctor"></a>flutter doctor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter.bat doctor --verbose</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h4 id="cmdline-tools-component-is-missing"><a href="#cmdline-tools-component-is-missing" class="headerlink" title="cmdline-tools component is missing"></a>cmdline-tools component is missing</h4><h5 id="message"><a href="#message" class="headerlink" title="message"></a>message</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">D:\app\src\flutter\flutter\bin\flutter.bat doctor --verbose</span><br><span class="line"></span><br><span class="line">[!] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 33.0.0)</span><br><span class="line">    • Android SDK at C:\Users\robertkao\AppData\Local\Android\sdk</span><br><span class="line">    X cmdline-tools component is missing</span><br><span class="line">      Run `path/to/sdkmanager --install <span class="string">&quot;cmdline-tools;latest&quot;</span>`</span><br><span class="line">      See https://developer.android.com/studio/command-line <span class="keyword">for</span> more details.</span><br><span class="line">    X Android license status unknown.</span><br><span class="line">      Run `flutter doctor --android-licenses` to accept the SDK licenses.</span><br><span class="line">      See https://flutter.dev/docs/get-started/install/windows<span class="comment">#android-setup for more details.</span></span><br><span class="line"></span><br><span class="line">[X] Visual Studio - develop <span class="keyword">for</span> Windows</span><br><span class="line">    X Visual Studio not installed; this is necessary <span class="keyword">for</span> Windows development.</span><br><span class="line">      Download at https://visualstudio.microsoft.com/downloads/.</span><br><span class="line">      Please install the <span class="string">&quot;Desktop development with C++&quot;</span> workload, including all of its default components</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">! Doctor found issues <span class="keyword">in</span> 2 categories.</span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+
+<h5 id="Install-Android-SDK-Command-line-Tools-latest"><a href="#Install-Android-SDK-Command-line-Tools-latest" class="headerlink" title="Install Android SDK Command-line Tools(latest)"></a>Install Android SDK Command-line Tools(latest)</h5><div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic1.png" class="" title="pic1">
+</div>
+
+<div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic2.png" class="" title="pic2">
+</div>
+
+
+
+<h4 id="Android-licenses-is-taking-an-unexpectedly"><a href="#Android-licenses-is-taking-an-unexpectedly" class="headerlink" title="Android licenses is taking an unexpectedly"></a>Android licenses is taking an unexpectedly</h4><h5 id="message-1"><a href="#message-1" class="headerlink" title="message"></a>message</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;flutter.bat doctor --verbose</span><br><span class="line"></span><br><span class="line">Checking Android licenses is taking an unexpectedly long time...[!] Android toolchain - develop <span class="keyword">for</span> Android devices (Android SDK version 33.0.0)</span><br><span class="line">    • Android SDK at C:\Users\robertkao\AppData\Local\Android\sdk</span><br><span class="line">    • Platform android-33, build-tools 33.0.0</span><br><span class="line">    • Java binary at: D:\app\Android\Android Studio\jre\bin\java</span><br><span class="line">    • Java version OpenJDK Runtime Environment (build 11.0.12+7-b1504.28-7817840)</span><br><span class="line">    ! Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses</span><br><span class="line"></span><br><span class="line">[X] Visual Studio - develop <span class="keyword">for</span> Windows</span><br><span class="line">    X Visual Studio not installed; this is necessary <span class="keyword">for</span> Windows development.</span><br><span class="line">      Download at https://visualstudio.microsoft.com/downloads/.</span><br><span class="line">      Please install the <span class="string">&quot;Desktop development with C++&quot;</span> workload, including all of its default components</span><br><span class="line"></span><br><span class="line">! Doctor found issues <span class="keyword">in</span> 2 categories.</span><br></pre></td></tr></table></figure>
+
+<h5 id="fix-Android-licenses"><a href="#fix-Android-licenses" class="headerlink" title="fix Android licenses"></a>fix Android licenses</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># all response press &#x27;y&#x27;</span></span><br><span class="line">flutter doctor --android-licenses</span><br></pre></td></tr></table></figure>
+
+<h4 id="Visual-Studio-not-installed"><a href="#Visual-Studio-not-installed" class="headerlink" title="Visual Studio not installed"></a>Visual Studio not installed</h4><h5 id="message-2"><a href="#message-2" class="headerlink" title="message"></a>message</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">D:\&gt;flutter.bat doctor --verbose</span><br><span class="line"></span><br><span class="line">[X] Visual Studio - develop for Windows</span><br><span class="line">    X Visual Studio not installed; this is necessary for Windows development.</span><br><span class="line">      Download at https:&#x2F;&#x2F;visualstudio.microsoft.com&#x2F;downloads&#x2F;.</span><br><span class="line">      Please install the &quot;Desktop development with C++&quot; workload, including all of its default components</span><br><span class="line"></span><br><span class="line">! Doctor found issues in 1 category.</span><br></pre></td></tr></table></figure>
+
+<h5 id="install-Visual-Studio’s-“Desktop-development-with-C-”"><a href="#install-Visual-Studio’s-“Desktop-development-with-C-”" class="headerlink" title="install Visual Studio’s “Desktop development with C++”"></a>install Visual Studio’s “Desktop development with C++”</h5><p>C: 131G to 120G (2022.08.16)</p>
+<div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic3.png" class="" title="pic3">
+</div>
+
+<h3 id="Emulator-LockDown"><a href="#Emulator-LockDown" class="headerlink" title="Emulator LockDown"></a>Emulator LockDown</h3><div style="width:300px">
+    <img src="/2022/08/17/flutter-3/pic11.png" class="" title="pic11">
+</div>
+
+<h4 id="set-boot-option-to-cold-boot"><a href="#set-boot-option-to-cold-boot" class="headerlink" title="set boot option to cold boot"></a>set boot option to cold boot</h4><div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic12.png" class="" title="pic12">
+</div>
+
+<div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic13.png" class="" title="pic13">
+</div>
+
+<div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic14.png" class="" title="pic14">
+</div>
+
+<h4 id="exist-Android-Studio"><a href="#exist-Android-Studio" class="headerlink" title="exist Android Studio"></a>exist Android Studio</h4><h4 id="deleted-emulator-lock-file"><a href="#deleted-emulator-lock-file" class="headerlink" title="deleted emulator .lock file"></a>deleted emulator .lock file</h4><div style="width:600px">
+    <img src="/2022/08/17/flutter-3/pic15.png" class="" title="pic15">
+</div>
+
+<h4 id="start-Android-Studio-run-emulator"><a href="#start-Android-Studio-run-emulator" class="headerlink" title="start Android Studio, run emulator"></a>start Android Studio, run emulator</h4><h3 id="project-issue"><a href="#project-issue" class="headerlink" title="project issue"></a>project issue</h3><h4 id="Your-project-requires-a-higher-compileSdkVersion"><a href="#Your-project-requires-a-higher-compileSdkVersion" class="headerlink" title="Your project requires a higher compileSdkVersion"></a>Your project requires a higher compileSdkVersion</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">┌─ Flutter Fix ──────────────────────────────────────────────────┐</span><br><span class="line">│ [!] Your project requires a higher compileSdkVersion.          │</span><br><span class="line">│ Fix this issue by bumping the compileSdkVersion in             │</span><br><span class="line">│ D:\work\run\flutter\mi_card_flutter2\android\app\build.gradle: │</span><br><span class="line">│ android &#123;                                                      │</span><br><span class="line">│   compileSdkVersion 31                                         │</span><br><span class="line">│ &#125;                                                              │</span><br><span class="line">└────────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<h5 id="fix-build-gradle-change-29-to-31"><a href="#fix-build-gradle-change-29-to-31" class="headerlink" title="fix build.gradle (change 29 to 31)"></a>fix build.gradle (change 29 to 31)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 31</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/issue/" rel="tag"># issue</a>
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/02/vscode-2/" rel="prev" title="VSCode issue">
+                  <i class="fa fa-chevron-left"></i> VSCode issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/24/flutter-4/" rel="next" title="Flutter - MiCard">
+                  Flutter - MiCard <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2022/08/17/flutter-3/";
+    this.page.identifier = "2022/08/17/flutter-3/";
+    this.page.title = "Flutter Issue";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

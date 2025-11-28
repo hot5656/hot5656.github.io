@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="commandnslookup : 查詢 IP address1234567891011# local server IPnslookup# 查某一 host IP addressnslookup google.com# 查  hot5656.website from 8.8.8.8(google DNS)hot5656.website 8.8.8.8	伺服器:  dns.google	Addre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="command line 指令">
+<meta property="og:url" content="https://hot5656.github.io/2021/04/12/os-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="commandnslookup : 查詢 IP address1234567891011# local server IPnslookup# 查某一 host IP addressnslookup google.com# 查  hot5656.website from 8.8.8.8(google DNS)hot5656.website 8.8.8.8	伺服器:  dns.google	Addre">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/12/os-1/pic1.png">
+<meta property="article:published_time" content="2021-04-12T07:55:47.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:35.320Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="cli">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/04/12/os-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/04/12/os-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>command line 指令 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#command"><span class="nav-number">1.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nslookup-%E6%9F%A5%E8%A9%A2-IP-address"><span class="nav-number">1.1.</span> <span class="nav-text">nslookup : 查詢 IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ls-%E5%88%97%E5%87%BA%E6%AA%94%E6%A1%88%E7%9B%AE%E9%8C%84"><span class="nav-number">1.2.</span> <span class="nav-text">ls : 列出檔案目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clear-%E6%B8%85%E9%99%A4%E7%95%AB%E9%9D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">clear : 清除畫面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cd-%E5%88%87%E6%8F%9B%E7%9B%AE%E9%8C%84"><span class="nav-number">1.4.</span> <span class="nav-text">cd : 切換目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mkdir-%E6%96%B0%E5%A2%9E%E7%9B%AE%E9%8C%84"><span class="nav-number">1.5.</span> <span class="nav-text">mkdir : 新增目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cp-copy-%E6%AA%94%E6%A1%88-%E7%9B%AE%E9%8C%84"><span class="nav-number">1.6.</span> <span class="nav-text">cp : copy 檔案,目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mv-%E6%9B%B4%E6%94%B9%E6%AA%94%E5%90%8D%E6%88%96%E7%A7%BB%E5%8B%95%E6%AA%94%E6%A1%88%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.7.</span> <span class="nav-text">mv : 更改檔名或移動檔案位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rm-%E5%88%AA%E9%99%A4%E6%AA%94%E6%A1%88-f-%E5%8F%AF%E5%88%AA%E9%99%A4%E7%9B%AE%E9%8C%84"><span class="nav-number">1.8.</span> <span class="nav-text">rm : 刪除檔案(-f 可刪除目錄)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rmdir-%E5%88%AA%E9%99%A4%E7%9B%AE%E9%8C%84"><span class="nav-number">1.9.</span> <span class="nav-text">rmdir : 刪除目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ping-%E6%AA%A2%E6%9F%A5%E6%9F%90%E4%B8%80-IP-%E7%9A%84-device-%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">1.10.</span> <span class="nav-text">ping : 檢查某一 IP 的 device 是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#date-%E5%88%97%E5%87%BA%E6%97%A5%E6%9C%9F%E6%99%82%E9%96%93"><span class="nav-number">1.11.</span> <span class="nav-text">date : 列出日期時間</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cat-%E5%B0%87%E6%AA%94%E6%A1%88%E5%85%A7%E5%AE%B9%E5%88%97%E5%87%BA%E4%BE%86"><span class="nav-number">1.12.</span> <span class="nav-text">cat : 將檔案內容列出來</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#less-%E6%AA%94%E6%A1%88%E5%88%86%E9%A0%81%E9%A1%AF%E7%A4%BA"><span class="nav-number">1.13.</span> <span class="nav-text">less : 檔案分頁顯示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#touch-%E6%9B%B4%E6%96%B0%E6%AA%94%E6%A1%88%E6%99%82%E9%96%93%E6%88%96%E7%94%A2%E7%94%9F%E6%AA%94%E6%A1%88"><span class="nav-number">1.14.</span> <span class="nav-text">touch : 更新檔案時間或產生檔案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#echo-%E9%A1%AF%E7%A4%BA%E5%85%A7%E5%AE%B9"><span class="nav-number">1.15.</span> <span class="nav-text">echo : 顯示內容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#man-command-help"><span class="nav-number">1.16.</span> <span class="nav-text">man : command help</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#head-%E5%89%8D%E9%9D%A2%E5%B9%BE%E8%A1%8C"><span class="nav-number">1.17.</span> <span class="nav-text">head : 前面幾行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tail-%E6%9C%80%E5%BE%8C%E5%B9%BE%E8%A1%8C"><span class="nav-number">1.18.</span> <span class="nav-text">tail : 最後幾行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cut-%E6%93%B7%E5%8F%96%E5%AD%97%E5%85%83"><span class="nav-number">1.19.</span> <span class="nav-text">cut : 擷取字元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sed-stream-editor-%E4%B8%B2%E6%B5%81%E7%B7%A8%E8%BC%AF"><span class="nav-number">1.20.</span> <span class="nav-text">sed(stream editor) : 串流編輯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#awk-%E8%B3%87%E6%96%99%E8%99%95%E7%90%86"><span class="nav-number">1.21.</span> <span class="nav-text">awk : 資料處理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wget-%E6%AA%94%E6%A1%88%E4%B8%8B%E8%BC%89"><span class="nav-number">1.22.</span> <span class="nav-text">wget : 檔案下載</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#curl-%E5%82%B3%E8%BC%B8%E8%B3%87%E6%96%99%E5%91%BD%E4%BB%A4-API"><span class="nav-number">1.23.</span> <span class="nav-text">curl : 傳輸資料命令(API)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep-%E5%BE%9E%E4%B8%B2%E6%B5%81%E8%B3%87%E6%96%99%E6%88%96%E6%AA%94%E6%A1%88%E4%B8%AD%EF%BC%8C%E7%AF%A9%E9%81%B8%E5%87%BA%E6%83%B3%E8%A6%81%E5%B0%8B%E6%89%BE%E7%9A%84%E8%B3%87%E6%96%99"><span class="nav-number">1.24.</span> <span class="nav-text">grep : 從串流資料或檔案中，篩選出想要尋找的資料</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redirect"><span class="nav-number">1.25.</span> <span class="nav-text">redirect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pipe"><span class="nav-number">1.26.</span> <span class="nav-text">pipe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%BB%9F%E9%80%A3%E7%B5%90-%E7%9B%AE%E9%8C%84%E5%83%85%E8%83%BD%E7%94%A8%E8%BB%9F%E9%80%A3%E7%B5%90"><span class="nav-number">1.27.</span> <span class="nav-text">建立軟連結 - 目錄僅能用軟連結</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#service-control"><span class="nav-number">1.28.</span> <span class="nav-text">service control</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat-%E4%BE%86%E6%9F%A5%E8%A9%A2%E7%B6%B2%E8%B7%AF%E7%9B%B8%E9%97%9C%E8%B3%87%E8%A8%8A"><span class="nav-number">1.29.</span> <span class="nav-text">netstat -來查詢網路相關資訊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#apt"><span class="nav-number">1.30.</span> <span class="nav-text">apt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chmod-and-chown"><span class="nav-number">1.31.</span> <span class="nav-text">chmod and chown</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#more"><span class="nav-number">1.32.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#top-%E9%A1%AF%E7%A4%BA%E5%8D%B3%E6%99%82%E7%9A%84%E7%B3%BB%E7%B5%B1%E8%B2%A0%E8%BC%89%E7%8B%80%E6%85%8B"><span class="nav-number">1.33.</span> <span class="nav-text">top 顯示即時的系統負載狀態</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ufw-%E9%98%B2%E7%81%AB%E7%89%86"><span class="nav-number">1.34.</span> <span class="nav-text">ufw 防火牆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim"><span class="nav-number">2.</span> <span class="nav-text">vim</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-mode"><span class="nav-number">2.1.</span> <span class="nav-text">Normal mode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Command-mode"><span class="nav-number">2.2.</span> <span class="nav-text">Command mode</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/04/12/os-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          command line 指令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-04-12 15:55:47" itemprop="dateCreated datePublished" datetime="2021-04-12T15:55:47+08:00">2021-04-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:35" itemprop="dateModified" datetime="2022-06-09T11:38:35+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/12/os-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/12/os-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><h4 id="nslookup-查詢-IP-address"><a href="#nslookup-查詢-IP-address" class="headerlink" title="nslookup : 查詢 IP address"></a>nslookup : 查詢 IP address</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># local server IP</span></span><br><span class="line">nslookup</span><br><span class="line"><span class="comment"># 查某一 host IP address</span></span><br><span class="line">nslookup google.com</span><br><span class="line"><span class="comment"># 查  hot5656.website from 8.8.8.8(google DNS)</span></span><br><span class="line">hot5656.website 8.8.8.8</span><br><span class="line">	伺服器:  dns.google</span><br><span class="line">	Address:  8.8.8.8</span><br><span class="line">	未經授權的回答:</span><br><span class="line">	名稱:    hot5656.website</span><br><span class="line">	Address:  54.168.160.39</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="ls-列出檔案目錄"><a href="#ls-列出檔案目錄" class="headerlink" title="ls : 列出檔案目錄"></a>ls : 列出檔案目錄</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 包含隱藏檔: ./, ../, .gitignore</span></span><br><span class="line">ls -a</span><br><span class="line"><span class="comment"># 詳細資料</span></span><br><span class="line">ls -l</span><br><span class="line"><span class="comment"># 包含子目錄</span></span><br><span class="line">ls -R </span><br></pre></td></tr></table></figure>
+
+<h4 id="clear-清除畫面"><a href="#clear-清除畫面" class="headerlink" title="clear : 清除畫面"></a>clear : 清除畫面</h4><h4 id="cd-切換目錄"><a href="#cd-切換目錄" class="headerlink" title="cd : 切換目錄"></a>cd : 切換目錄</h4><h4 id="mkdir-新增目錄"><a href="#mkdir-新增目錄" class="headerlink" title="mkdir : 新增目錄"></a>mkdir : 新增目錄</h4><h4 id="cp-copy-檔案-目錄"><a href="#cp-copy-檔案-目錄" class="headerlink" title="cp : copy 檔案,目錄"></a>cp : copy 檔案,目錄</h4><h4 id="mv-更改檔名或移動檔案位置"><a href="#mv-更改檔名或移動檔案位置" class="headerlink" title="mv : 更改檔名或移動檔案位置"></a>mv : 更改檔名或移動檔案位置</h4><h4 id="rm-刪除檔案-f-可刪除目錄"><a href="#rm-刪除檔案-f-可刪除目錄" class="headerlink" title="rm : 刪除檔案(-f 可刪除目錄)"></a>rm : 刪除檔案(-f 可刪除目錄)</h4><h4 id="rmdir-刪除目錄"><a href="#rmdir-刪除目錄" class="headerlink" title="rmdir : 刪除目錄"></a>rmdir : 刪除目錄</h4><h4 id="ping-檢查某一-IP-的-device-是否存在"><a href="#ping-檢查某一-IP-的-device-是否存在" class="headerlink" title="ping : 檢查某一 IP 的 device 是否存在"></a>ping : 檢查某一 IP 的 device 是否存在</h4><h4 id="date-列出日期時間"><a href="#date-列出日期時間" class="headerlink" title="date : 列出日期時間"></a>date : 列出日期時間</h4><h4 id="cat-將檔案內容列出來"><a href="#cat-將檔案內容列出來" class="headerlink" title="cat : 將檔案內容列出來"></a>cat : 將檔案內容列出來</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 將二個檔案合併成一個檔案</span></span><br><span class="line">cat file1 file2 &gt; file3</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-檔案分頁顯示"><a href="#less-檔案分頁顯示" class="headerlink" title="less : 檔案分頁顯示"></a>less : 檔案分頁顯示</h4><h4 id="touch-更新檔案時間或產生檔案"><a href="#touch-更新檔案時間或產生檔案" class="headerlink" title="touch : 更新檔案時間或產生檔案"></a>touch : 更新檔案時間或產生檔案</h4><h4 id="echo-顯示內容"><a href="#echo-顯示內容" class="headerlink" title="echo : 顯示內容"></a>echo : 顯示內容</h4><h4 id="man-command-help"><a href="#man-command-help" class="headerlink" title="man : command help"></a>man : command help</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br></pre></td></tr></table></figure>
+
+<h4 id="head-前面幾行"><a href="#head-前面幾行" class="headerlink" title="head : 前面幾行"></a>head : 前面幾行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l | head -n 5</span><br><span class="line">total 285</span><br><span class="line">-rw-r--r-- 1 win10 197121      0 三月 27 15:29 _config.landscape.yml</span><br><span class="line">-rw-r--r-- 1 win10 197121  28728 三月 27 16:29 _config.next.yml</span><br><span class="line">-rw-r--r-- 1 win10 197121   2623 三月 27 16:01 _config.yml</span><br><span class="line">-rw-r--r-- 1 win10 197121  65214 三月 27 16:56 db.json</span><br></pre></td></tr></table></figure>
+
+<h4 id="tail-最後幾行"><a href="#tail-最後幾行" class="headerlink" title="tail : 最後幾行"></a>tail : 最後幾行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l | tail -n 5</span><br><span class="line">-rw-r--r-- 1 win10 197121    749 四月 16 22:32 pp.txt</span><br><span class="line">drwxr-xr-x 1 win10 197121      0 三月 27 16:39 public/</span><br><span class="line">drwxr-xr-x 1 win10 197121      0 三月 27 15:29 scaffolds/</span><br><span class="line">drwxr-xr-x 1 win10 197121      0 三月 27 16:24 <span class="built_in">source</span>/</span><br><span class="line">drwxr-xr-x 1 win10 197121      0 三月 27 15:29 themes/</span><br></pre></td></tr></table></figure>
+
+<h4 id="cut-擷取字元"><a href="#cut-擷取字元" class="headerlink" title="cut : 擷取字元"></a>cut : 擷取字元</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字元 2-5</span></span><br><span class="line">$ ls -l | tail -n 5 | cut -c 2-5</span><br><span class="line">rw-r</span><br><span class="line">rwxr</span><br><span class="line">rwxr</span><br><span class="line">rwxr</span><br><span class="line">rwxr</span><br></pre></td></tr></table></figure>
+
+<h4 id="sed-stream-editor-串流編輯"><a href="#sed-stream-editor-串流編輯" class="headerlink" title="sed(stream editor) : 串流編輯"></a>sed(stream editor) : 串流編輯</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># example.txt</span></span><br><span class="line">$ cat example.txt</span><br><span class="line">I have a key.</span><br><span class="line">I lost my way.</span><br><span class="line">I have a book.</span><br><span class="line">I have have a monkey.</span><br><span class="line"><span class="comment"># s:取代, 在第一次出現的位置,把 have 這個字取代為 had, /2 表 第二次出現的位置</span></span><br><span class="line"><span class="comment"># 對單行, 只顯示未修改原檔案</span></span><br><span class="line">sed <span class="string">&#x27;s/have/had/1&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># 不顯示</span></span><br><span class="line">sed -n <span class="string">&#x27;s/have/had/2&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># 只顯示有修改的行數 </span></span><br><span class="line">sed -n <span class="string">&#x27;s/have/had/2p&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># sed_command.txt</span></span><br><span class="line">$ cat sed_command.txt</span><br><span class="line">s/key/keyboard/</span><br><span class="line">s/have/had/</span><br><span class="line"><span class="comment"># -f(讀取檔案手稿) 把控制程序放入檔案</span></span><br><span class="line">sed -f sed_command.txt example.txt</span><br><span class="line"><span class="comment"># -i (修改檔案)</span></span><br><span class="line">$ sed -i <span class="string">&#x27;s/way/pen/1&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># a(新增)</span></span><br><span class="line"><span class="comment"># 第一行後加一行</span></span><br><span class="line">sed <span class="string">&#x27;1a I add after line 1...&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># 1-4行後都加一行</span></span><br><span class="line">sed <span class="string">&#x27;1,4a I add after a line...&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># c (替換)</span></span><br><span class="line"><span class="comment"># 更換第3行</span></span><br><span class="line">sed <span class="string">&#x27;3c I change line 3...&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># d (刪除)</span></span><br><span class="line"><span class="comment"># 刪除 2-4 行</span></span><br><span class="line">sed <span class="string">&#x27;2,4d&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># 刪除含有 pen 這一行</span></span><br><span class="line">sed <span class="string">&#x27;/pen/d&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># i(新增)</span></span><br><span class="line"><span class="comment"># 第一行前加一行</span></span><br><span class="line">sed <span class="string">&#x27;1i I add before line 1...&#x27;</span> example.txt</span><br><span class="line"><span class="comment"># 常用旗標</span></span><br><span class="line">[0-9]：數字表示只搜尋或者取代第 N 個數字所指示的那個樣板字串。</span><br><span class="line">g：全部取代</span><br><span class="line">I：忽略大小寫</span><br><span class="line">w：把符合的結果寫入檔案。和加了 -n 選項搭配 p 旗標的結果一樣。此旗標如果有和其它旗標搭配使用，必須放在最後面。</span><br></pre></td></tr></table></figure>
+
+<h4 id="awk-資料處理"><a href="#awk-資料處理" class="headerlink" title="awk : 資料處理"></a>awk : 資料處理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出第一欄位和第三欄位,中間以 tab 分開</span></span><br><span class="line">ls -l | head -n 5 | awk <span class="string">&#x27;&#123;print $1 &quot;\t&quot; $3&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 列出檔案大小&gt;0</span></span><br><span class="line">ls -l | awk  <span class="string">&#x27;$5 &gt; 0 &#123;print $5 &quot;\t&quot; $9&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 以 : 來作為欄位的分隔</span></span><br><span class="line"><span class="comment"># BEGIN 第一行才有效</span></span><br><span class="line"><span class="comment"># awk &#x27;BEGIN &#123;FS=&quot;:&quot;&#125; $3 &lt; 10 &#123;print $1 &quot;\t &quot; $3&#125;&#x27;</span></span><br><span class="line"><span class="comment"># pay.txt</span></span><br><span class="line">Name    1st     2nd     3th</span><br><span class="line">VBird   23000   24000   25000</span><br><span class="line">DMTsai  21000   20000   23000</span><br><span class="line">Bird2   43000   42000   41000</span><br><span class="line"><span class="comment"># 計算 total</span></span><br><span class="line"><span class="comment"># 所有 awk 的動作，亦即在 &#123;&#125; 內的動作，如果有需要多個指令輔助時，可利用分號『;』間隔，</span></span><br><span class="line"><span class="comment"># 或者直接以 [Enter] 按鍵來隔開每個指令</span></span><br><span class="line">cat pay.txt | \</span><br><span class="line">&gt; awk <span class="string">&#x27;NR==1&#123;printf &quot;%10s %10s %10s %10s %10s\n&quot;,$1,$2,$3,$4,&quot;Total&quot; &#125;</span></span><br><span class="line"><span class="string">&gt; NR&gt;=2&#123;total = $2 + $3 + $4</span></span><br><span class="line"><span class="string">&gt; printf &quot;%10s %10d %10d %10d %10.2f\n&quot;, $1, $2, $3, $4, total&#125;&#x27;</span></span><br><span class="line">      Name        1st        2nd        3th      Total</span><br><span class="line">     VBird      23000      24000      25000   72000.00</span><br><span class="line">    DMTsai      21000      20000      23000   64000.00</span><br><span class="line">     Bird2      43000      42000      41000  126000.00</span><br></pre></td></tr></table></figure>
+
+<h4 id="wget-檔案下載"><a href="#wget-檔案下載" class="headerlink" title="wget : 檔案下載"></a>wget : 檔案下載</h4><p>download <a target="_blank" rel="noopener" href="https://eternallybored.org/misc/wget/">Windows Wget</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下載檔案</span></span><br><span class="line">wget.exe https://hot5656.github.io/2021/04/14/git-5/ic1.png</span><br><span class="line"><span class="comment"># 下載網頁</span></span><br><span class="line">wget.exe https://www.google.com/</span><br></pre></td></tr></table></figure>
+
+<h4 id="curl-傳輸資料命令-API"><a href="#curl-傳輸資料命令-API" class="headerlink" title="curl : 傳輸資料命令(API)"></a>curl : 傳輸資料命令(API)</h4><p>download <a target="_blank" rel="noopener" href="https://curl.se/download.html">curl</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 透過 API query 資料 </span></span><br><span class="line">curl.exe https://api.github.com/users/hot5656</span><br><span class="line"><span class="comment"># 列出一些溝通資訊</span></span><br><span class="line">curl.exe -I https://api.github.com/users/hot5656</span><br></pre></td></tr></table></figure>
+
+<h4 id="grep-從串流資料或檔案中，篩選出想要尋找的資料"><a href="#grep-從串流資料或檔案中，篩選出想要尋找的資料" class="headerlink" title="grep : 從串流資料或檔案中，篩選出想要尋找的資料"></a>grep : 從串流資料或檔案中，篩選出想要尋找的資料</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat pp.txt | grep hexo</span><br></pre></td></tr></table></figure>
+
+<h4 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存入檔案</span></span><br><span class="line">ls &gt; l1</span><br><span class="line"><span class="comment"># 附加於檔案</span></span><br><span class="line">ls &gt;&gt; l1</span><br></pre></td></tr></table></figure>
+
+<h4 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat pp.txt | grep hexo</span><br></pre></td></tr></table></figure>
+
+<h4 id="建立軟連結-目錄僅能用軟連結"><a href="#建立軟連結-目錄僅能用軟連結" class="headerlink" title="建立軟連結 - 目錄僅能用軟連結"></a>建立軟連結 - 目錄僅能用軟連結</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;var&#x2F;www map to .&#x2F;www</span><br><span class="line">ln -s &#x2F;var&#x2F;www .&#x2F;www</span><br></pre></td></tr></table></figure>
+
+<h4 id="service-control"><a href="#service-control" class="headerlink" title="service control"></a>service control</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo service apache2 start</span><br><span class="line">sudo service apache2 stop</span><br><span class="line">sudo service apache2 restart</span><br><span class="line"><span class="comment"># 第二種方式</span></span><br><span class="line">sudo systemctl start mysql</span><br><span class="line">sudo systemctl stop mysql</span><br><span class="line">sudo systemctl restart mysql</span><br><span class="line"><span class="comment"># 第三種方式</span></span><br><span class="line">sudo /etc/init.d/mysql stop</span><br><span class="line">sudo /etc/init.d/mysql start</span><br><span class="line">sudo /etc/init.d/mysql restart</span><br><span class="line"><span class="comment"># show service status</span></span><br><span class="line">systemctl status mysql</span><br></pre></td></tr></table></figure>
+
+<h4 id="netstat-來查詢網路相關資訊"><a href="#netstat-來查詢網路相關資訊" class="headerlink" title="netstat -來查詢網路相關資訊"></a>netstat -來查詢網路相關資訊</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有連接埠</span></span><br><span class="line">netstat -a</span><br><span class="line"><span class="comment"># 列出 TCP port</span></span><br><span class="line">netstat -at</span><br><span class="line"><span class="comment"># 列出 UDP port</span></span><br><span class="line">netstat -au</span><br><span class="line"><span class="comment"># 列出網路介面資訊</span></span><br><span class="line">netstat -ie</span><br><span class="line"><span class="comment"># other </span></span><br><span class="line">sudo netstat -ltnp</span><br><span class="line">sudo netstat -lptu</span><br><span class="line">sudo netstat -tulpn</span><br></pre></td></tr></table></figure>
+
+<h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list 已安裝</span></span><br><span class="line">apt list --installed | grep mysql</span><br></pre></td></tr></table></figure>
+
+<h4 id="chmod-and-chown"><a href="#chmod-and-chown" class="headerlink" title="chmod and chown"></a>chmod and chown</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod -R 775 /var/www</span><br><span class="line">sudo chown -R ubuntu:ubuntu /var/www</span><br></pre></td></tr></table></figure>
+
+<h4 id="more"><a href="#more" class="headerlink" title="more"></a>more</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">-m  顯示類似more命令的百分比</span><br><span class="line">-N  顯示每行的行號</span><br><span class="line">-f  強迫打開特殊檔，例如週邊設備代號、目錄和二進位檔案</span><br><span class="line">-g  只標誌最後搜索的關鍵字</span><br><span class="line">-i  忽略搜索時的大小寫</span><br><span class="line"></span><br><span class="line">/字串：向下搜索“字串”的功能</span><br><span class="line">?字串：向上搜索“字串”的功能</span><br><span class="line">n：重複前一個搜索（與 / 或 ? 有關）</span><br><span class="line">N：反向重複前一個搜索（與 / 或 ? 有關）</span><br><span class="line">y: 向前滾動一行</span><br><span class="line">空白鍵: 向後滾動一行</span><br><span class="line">[pagedown]：向下翻動一頁</span><br><span class="line">[pageup]  ：向上翻動一頁</span><br><span class="line">u: 向前滾動半頁</span><br><span class="line">d: 向後翻半頁</span><br><span class="line">Q: 退出less 命令</span><br><span class="line">h: 顯示説明介面</span><br><span class="line"></span><br><span class="line">less -m -N /var/<span class="built_in">log</span>//apache2/error.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="top-顯示即時的系統負載狀態"><a href="#top-顯示即時的系統負載狀態" class="headerlink" title="top 顯示即時的系統負載狀態"></a>top 顯示即時的系統負載狀態</h4><h4 id="ufw-防火牆"><a href="#ufw-防火牆" class="headerlink" title="ufw 防火牆"></a>ufw 防火牆</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ufw allow 80</span><br><span class="line">ufw status</span><br></pre></td></tr></table></figure>
+
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><div style="width:500px">
+    <img src="/2021/04/12/os-1/pic1.png" class="" title="pic1">
+</div>
+
+<h4 id="Normal-mode"><a href="#Normal-mode" class="headerlink" title="Normal mode"></a>Normal mode</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移動</span></span><br><span class="line">/hexo : 找下一行字串 hexo</span><br><span class="line">?hexo : 找上一行字串 hexo</span><br><span class="line">n : 執行前一動作</span><br><span class="line">N : 反向執行前一動作</span><br><span class="line">n&lt;Enter&gt; : 向下移動幾列</span><br><span class="line">[Home] : 移至本列第一字元</span><br><span class="line">[End] : 移至本列最後字元</span><br><span class="line">nG : 跳至第 n 行</span><br><span class="line"><span class="comment"># 複製刪除</span></span><br><span class="line">dd : 刪除本行</span><br><span class="line">u  : 還原</span><br><span class="line">yy : 複製本行</span><br><span class="line">P  : 貼到前一行</span><br><span class="line">p  : 貼到後一行</span><br><span class="line"><span class="comment"># 區塊選擇</span></span><br><span class="line">v : 字元選擇,游標經過會反白選擇</span><br><span class="line">V : 行選擇,游標經過會反白選擇</span><br><span class="line">[Ctrl]+v : 方塊選擇,游標經過會反白選擇</span><br><span class="line">y : 反白地方複製</span><br><span class="line">d : 反白地方刪除</span><br><span class="line">p : 貼上複製區塊</span><br></pre></td></tr></table></figure>
+
+<h4 id="Command-mode"><a href="#Command-mode" class="headerlink" title="Command mode"></a>Command mode</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">w : 寫入檔案</span><br><span class="line">q : 跳出檔案</span><br><span class="line">wq: 寫入後跳出檔案</span><br><span class="line">q!: 強制跳出檔案(修改取消)</span><br><span class="line"><span class="built_in">set</span> nu   : 顯示行號</span><br><span class="line"><span class="built_in">set</span> nonu : 取消顯示行號</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cli/" rel="tag"># cli</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/09/virtualbox-1/" rel="prev" title="Virtualbox virtio-net(半虛擬化網路) 安裝">
+                  <i class="fa fa-chevron-left"></i> Virtualbox virtio-net(半虛擬化網路) 安裝
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/13/win10-1/" rel="next" title="Windows 功能">
+                  Windows 功能 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/04/12/os-1/";
+    this.page.identifier = "2021/04/12/os-1/";
+    this.page.title = "command line 指令";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="snippets123456stle : StatelessWidgetstf : StatefulWidgetflo : floatingActionButton --&gt; , value: FAB --&gt; floatingActionButtonCtrl+J : shwo quickly docsContainer&#x2F;Row(option&#x2F;Alt enter) : select wid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter - MiCard">
+<meta property="og:url" content="https://hot5656.github.io/2022/08/24/flutter-4/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="snippets123456stle : StatelessWidgetstf : StatefulWidgetflo : floatingActionButton --&gt; , value: FAB --&gt; floatingActionButtonCtrl+J : shwo quickly docsContainer&#x2F;Row(option&#x2F;Alt enter) : select wid">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/24/flutter-4/pic1.jpg">
+<meta property="og:image" content="https://hot5656.github.io/2022/08/24/flutter-4/pic2.jpg">
+<meta property="article:published_time" content="2022-08-24T07:36:59.000Z">
+<meta property="article:modified_time" content="2025-02-03T00:56:45.200Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2022/08/24/flutter-4/pic1.jpg">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2022/08/24/flutter-4/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Flutter - MiCard | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#snippets"><span class="nav-number">1.</span> <span class="nav-text">snippets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setting"><span class="nav-number">2.</span> <span class="nav-text">setting</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flutter-Inspector"><span class="nav-number">2.1.</span> <span class="nav-text">Flutter Inspector</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone-from-github"><span class="nav-number">3.</span> <span class="nav-text">clone from github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hot-Reload-and-Hot-Restar"><span class="nav-number">4.</span> <span class="nav-text">Hot Reload and Hot Restar</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#change-to-Stateless-wedget"><span class="nav-number">4.1.</span> <span class="nav-text">change to Stateless wedget</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#main-dart-original"><span class="nav-number">4.1.1.</span> <span class="nav-text">main.dart - original</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#main-dart-add-stateless-widget"><span class="nav-number">4.1.2.</span> <span class="nav-text">main.dart - add stateless widget</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#donuts-count"><span class="nav-number">4.2.</span> <span class="nav-text">donuts count</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container"><span class="nav-number">5.</span> <span class="nav-text">Container</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#single-child"><span class="nav-number">5.1.</span> <span class="nav-text">single-child</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-child-layout-widgets"><span class="nav-number">5.2.</span> <span class="nav-text">Multi-child layout widgets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flutter-Layouts-Challenge"><span class="nav-number">5.3.</span> <span class="nav-text">Flutter Layouts Challenge</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-image-x2F-fonts"><span class="nav-number">6.</span> <span class="nav-text">load image&#x2F;fonts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adding-Material-Icons-with-the-Icon-Widget"><span class="nav-number">7.</span> <span class="nav-text">Adding Material Icons with the Icon Widget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-Card-amp-ListTile-Widgets"><span class="nav-number">8.</span> <span class="nav-text">Flutter Card &amp; ListTile Widgets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">9.</span> <span class="nav-text">reference</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2022/08/24/flutter-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter - MiCard
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2022-08-24 15:36:59" itemprop="dateCreated datePublished" datetime="2022-08-24T15:36:59+08:00">2022-08-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-02-03 08:56:45" itemprop="dateModified" datetime="2025-02-03T08:56:45+08:00">2025-02-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/08/24/flutter-4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/08/24/flutter-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="snippets"><a href="#snippets" class="headerlink" title="snippets"></a>snippets</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">stle : StatelessWidget</span><br><span class="line">stf : StatefulWidget</span><br><span class="line">flo : floatingActionButton --&gt; , value: FAB --&gt; floatingActionButton</span><br><span class="line"></span><br><span class="line">Ctrl+J : shwo quickly docs</span><br><span class="line">Container/Row(option/Alt enter) : select widget(wrap widget), then chenge widget to SaftArea/Padding </span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="setting"><a href="#setting" class="headerlink" title="setting"></a>setting</h3><h4 id="Flutter-Inspector"><a href="#Flutter-Inspector" class="headerlink" title="Flutter Inspector"></a>Flutter Inspector</h4><div style="width:500px">
+    <img src="/2022/08/24/flutter-4/pic1.jpg" class="" title="pic1">
+</div>
+
+<h3 id="clone-from-github"><a href="#clone-from-github" class="headerlink" title="clone from github"></a>clone from github</h3><ul>
+<li>File -&gt; New -&gt; Project from Version Control –&gt; press the “github link”<br>因版本差異有時有執行困難</li>
+<li>New project : File -&gt; New -&gt; New Flutter Project</li>
+</ul>
+<h3 id="Hot-Reload-and-Hot-Restar"><a href="#Hot-Reload-and-Hot-Restar" class="headerlink" title="Hot Reload and Hot Restar"></a>Hot Reload and Hot Restar</h3><ul>
+<li>hot reload : press lighting or save file</li>
+<li>hot restart : press blue block</li>
+</ul>
+<h4 id="change-to-Stateless-wedget"><a href="#change-to-Stateless-wedget" class="headerlink" title="change to Stateless wedget"></a>change to Stateless wedget</h4><h5 id="main-dart-original"><a href="#main-dart-original" class="headerlink" title="main.dart - original"></a>main.dart - original</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(</span><br><span class="line">    MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        body: Container(),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="main-dart-add-stateless-widget"><a href="#main-dart-add-stateless-widget" class="headerlink" title="main.dart - add stateless widget"></a>main.dart - add stateless widget</h5><ul>
+<li>press hot reload button then update change </li>
+<li>save file automtic trigger hot reload</li>
+<li>just update change, so react so quickly <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(</span><br><span class="line">    MyApp()</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.white,</span><br><span class="line">        body: Container(),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="donuts-count"><a href="#donuts-count" class="headerlink" title="donuts count"></a>donuts count</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(MaterialApp(</span><br><span class="line">      home: MainPage(),</span><br><span class="line">  ));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainPage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  _MainPageState createState() =&gt; _MainPageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MainPageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MainPage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> nDonuts = <span class="number">0</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar:AppBar(</span><br><span class="line">        backgroundColor: Colors.blue,</span><br><span class="line">        title: Text(<span class="string">&quot;Demo&quot;</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        <span class="comment">// child: Text(&quot;My name is Robert.&quot;),</span></span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">&quot;Number of Donuts eaten: <span class="subst">$nDonuts</span>&quot;</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">40.0</span>,</span><br><span class="line">          ),</span><br><span class="line">        )),</span><br><span class="line">      floatingActionButton: FloatingActionButton(</span><br><span class="line">        backgroundColor: Colors.red,</span><br><span class="line">        child: Icon(Icons.add),</span><br><span class="line">        onPressed: () &#123;</span><br><span class="line">          setState(() &#123;</span><br><span class="line">            nDonuts++;</span><br><span class="line">          &#125;);</span><br><span class="line">          <span class="comment">// print(&quot;Floating Action Button Clicked!&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><h4 id="single-child"><a href="#single-child" class="headerlink" title="single-child"></a>single-child</h4><p>Container(option&#x2F;Alt enter) -&gt; widget(wrap widget), then chenge widget to SaftArea(put cantain at Safe Area) </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  runApp(</span><br><span class="line">      MyApp()</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          child: Container(</span><br><span class="line">            <span class="comment">// kyp: set size, margin, padding</span></span><br><span class="line">            height: <span class="number">100.0</span>,</span><br><span class="line">            width: <span class="number">100.0</span>,</span><br><span class="line">            <span class="comment">// margin: EdgeInsets.all(20.0),</span></span><br><span class="line">            <span class="comment">// margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),</span></span><br><span class="line">            <span class="comment">// margin: EdgeInsets.fromLTRB(30.0, 10.0, 50.0, 20.0),</span></span><br><span class="line">            margin: EdgeInsets.only(left: <span class="number">30.0</span>),</span><br><span class="line">            padding: EdgeInsets.all(<span class="number">20.0</span>),</span><br><span class="line">            color: Colors.white,</span><br><span class="line">            child:Text(<span class="string">&quot;Hello&quot;</span>),</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line">      ),</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Multi-child-layout-widgets"><a href="#Multi-child-layout-widgets" class="headerlink" title="Multi-child layout widgets"></a>Multi-child layout widgets</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          <span class="comment">// child: Column(</span></span><br><span class="line">          child: Row(</span><br><span class="line">            <span class="comment">// kyp: limit by minimum</span></span><br><span class="line">            <span class="comment">// mainAxisSize: MainAxisSize.min,</span></span><br><span class="line">            <span class="comment">// kyp: bottom up(down is default</span></span><br><span class="line">            <span class="comment">// verticalDirection: VerticalDirection.up,</span></span><br><span class="line">            <span class="comment">// kyp: alignment position</span></span><br><span class="line">            <span class="comment">// mainAxisAlignment: MainAxisAlignment.end,</span></span><br><span class="line">            <span class="comment">// mainAxisAlignment: MainAxisAlignment.center,</span></span><br><span class="line">            <span class="comment">// mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span></span><br><span class="line">            <span class="comment">// kyp: horizontal (container width must different)</span></span><br><span class="line">            <span class="comment">// crossAxisAlignment: CrossAxisAlignment.end,</span></span><br><span class="line">            <span class="comment">// kyp: stretch child(container width don&#x27;t need</span></span><br><span class="line">            crossAxisAlignment: CrossAxisAlignment.stretch,</span><br><span class="line">            children: [</span><br><span class="line">              Container(</span><br><span class="line">                height: <span class="number">100.0</span>,</span><br><span class="line">                width: <span class="number">100.0</span>,</span><br><span class="line">                color: Colors.white,</span><br><span class="line">                child:Text(<span class="string">&quot;Container 1&quot;</span>),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// kyp: add 2 container space</span></span><br><span class="line">              SizedBox(height:<span class="number">20.0</span>),</span><br><span class="line">              Container(</span><br><span class="line">                width: <span class="number">100.0</span>,</span><br><span class="line">                height: <span class="number">100.0</span>,</span><br><span class="line">                color: Colors.blue,</span><br><span class="line">                child: Text(<span class="string">&quot;Container 2&quot;</span>)</span><br><span class="line">              ),</span><br><span class="line">              Container(</span><br><span class="line">                  width:<span class="number">100.0</span>,</span><br><span class="line">                  height: <span class="number">100.0</span>,</span><br><span class="line">                  color: Colors.red,</span><br><span class="line">                  child: Text(<span class="string">&quot;Container 3&quot;</span>)</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// Container(</span></span><br><span class="line">              <span class="comment">//   width: double.infinity,</span></span><br><span class="line">              <span class="comment">//   height: 10.0,</span></span><br><span class="line">              <span class="comment">//   color: Colors.yellow,</span></span><br><span class="line">              <span class="comment">// ),</span></span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Flutter-Layouts-Challenge"><a href="#Flutter-Layouts-Challenge" class="headerlink" title="Flutter Layouts Challenge"></a>Flutter Layouts Challenge</h4><div style="width:300px">
+    <img src="/2022/08/24/flutter-4/pic2.jpg" class="" title="pic2">
+</div>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          <span class="comment">// child: Column(</span></span><br><span class="line">          child: Row(</span><br><span class="line">            mainAxisAlignment: MainAxisAlignment.spaceBetween,</span><br><span class="line">            crossAxisAlignment: CrossAxisAlignment.stretch,</span><br><span class="line">            children: [</span><br><span class="line">              Container(</span><br><span class="line">                width: <span class="number">100.0</span>,</span><br><span class="line">                color: Colors.red,</span><br><span class="line">              ),</span><br><span class="line">              Column(</span><br><span class="line">                mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">                children: [</span><br><span class="line">                  Container(</span><br><span class="line">                    height: <span class="number">100.0</span>,</span><br><span class="line">                    width : <span class="number">100.0</span>,</span><br><span class="line">                    color: Colors.yellow,</span><br><span class="line">                  ),</span><br><span class="line">                  Container(</span><br><span class="line">                    height: <span class="number">100.0</span>,</span><br><span class="line">                    width : <span class="number">100.0</span>,</span><br><span class="line">                    color: Colors.green,</span><br><span class="line">                  ),</span><br><span class="line">                  Container(),</span><br><span class="line">                ],</span><br><span class="line">              ),</span><br><span class="line">              Container(</span><br><span class="line">                  width:<span class="number">100.0</span>,</span><br><span class="line">                  color: Colors.blue,</span><br><span class="line">              ),</span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="load-image-x2F-fonts"><a href="#load-image-x2F-fonts" class="headerlink" title="load image&#x2F;fonts"></a>load image&#x2F;fonts</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kyp: add diamond image</span></span><br><span class="line"><span class="attr">assets:</span></span><br><span class="line"><span class="comment"># - images/diamond.png</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">images/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kyp: add load font</span></span><br><span class="line"><span class="attr">fonts:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">family:</span> <span class="string">Pacifico</span></span><br><span class="line">    <span class="attr">fonts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/Pacifico-Regular.ttf</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">family:</span> <span class="string">Merriweather</span></span><br><span class="line">    <span class="attr">fonts:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">asset:</span> <span class="string">fonts/Merriweather-Italic.ttf</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          child: Column(</span><br><span class="line">            children: [</span><br><span class="line">              CircleAvatar(</span><br><span class="line">                <span class="comment">// backgroundColor: Colors.red,</span></span><br><span class="line">                <span class="comment">// need add below</span></span><br><span class="line">                <span class="comment">// assets:</span></span><br><span class="line">                <span class="comment">//   - images/diamond.png</span></span><br><span class="line">                <span class="comment">// or</span></span><br><span class="line">                <span class="comment">//   - images/</span></span><br><span class="line">                backgroundImage: AssetImage(<span class="string">&#x27;images/diamond.png&#x27;</span>),</span><br><span class="line">                radius: <span class="number">50.0</span>,</span><br><span class="line">              ),</span><br><span class="line">              Text(</span><br><span class="line">                  <span class="string">&quot;Robert Kao&quot;</span>,</span><br><span class="line">                  style: TextStyle(</span><br><span class="line">                    <span class="comment">// kyp: add load font</span></span><br><span class="line">                    fontFamily: <span class="string">&#x27;Pacifico&#x27;</span>,</span><br><span class="line">                    fontSize: <span class="number">30.0</span>,</span><br><span class="line">                    color: Colors.white,</span><br><span class="line">                    fontWeight: FontWeight.bold,</span><br><span class="line">                  ),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// down font from https://fonts.google.com/</span></span><br><span class="line">              <span class="comment">// font : Pacifico</span></span><br><span class="line">              <span class="comment">// create directory fonts then copy .ttf to</span></span><br><span class="line">              Text(</span><br><span class="line">                <span class="string">&quot;FLUTTER DEVELOPER&quot;</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  <span class="comment">// kyp: add load font</span></span><br><span class="line">                  fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                  fontSize: <span class="number">20.0</span>,</span><br><span class="line">                  color: Colors.teal[<span class="number">100</span>],</span><br><span class="line">                  letterSpacing: <span class="number">2.5</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Adding-Material-Icons-with-the-Icon-Widget"><a href="#Adding-Material-Icons-with-the-Icon-Widget" class="headerlink" title="Adding Material Icons with the Icon Widget"></a>Adding Material Icons with the Icon Widget</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          child: Column(</span><br><span class="line">            children: [</span><br><span class="line">              CircleAvatar(</span><br><span class="line">                <span class="comment">// backgroundColor: Colors.red,</span></span><br><span class="line">                <span class="comment">// need add below</span></span><br><span class="line">                <span class="comment">// assets:</span></span><br><span class="line">                <span class="comment">//   - images/diamond.png</span></span><br><span class="line">                <span class="comment">// or</span></span><br><span class="line">                <span class="comment">//   - images/</span></span><br><span class="line">                backgroundImage: AssetImage(<span class="string">&#x27;images/diamond.png&#x27;</span>),</span><br><span class="line">                radius: <span class="number">50.0</span>,</span><br><span class="line">              ),</span><br><span class="line">              Text(</span><br><span class="line">                  <span class="string">&quot;Robert Kao&quot;</span>,</span><br><span class="line">                  style: TextStyle(</span><br><span class="line">                    <span class="comment">// kyp: add load font</span></span><br><span class="line">                    fontFamily: <span class="string">&#x27;Pacifico&#x27;</span>,</span><br><span class="line">                    fontSize: <span class="number">30.0</span>,</span><br><span class="line">                    color: Colors.white,</span><br><span class="line">                    fontWeight: FontWeight.bold,</span><br><span class="line">                  ),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// down font from https://fonts.google.com/</span></span><br><span class="line">              <span class="comment">// font : Pacifico</span></span><br><span class="line">              <span class="comment">// create directory fonts then copy .ttf to</span></span><br><span class="line">              Text(</span><br><span class="line">                <span class="string">&quot;FLUTTER DEVELOPER&quot;</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  <span class="comment">// kyp: add load font</span></span><br><span class="line">                  fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                  fontSize: <span class="number">20.0</span>,</span><br><span class="line">                  color: Colors.teal[<span class="number">100</span>],</span><br><span class="line">                  letterSpacing: <span class="number">2.5</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// icon list : https://fonts.google.com/icons</span></span><br><span class="line">              <span class="comment">// color palette : https://www.materialpalette.com/</span></span><br><span class="line">              <span class="comment">// color name : https://www.materialpalette.com/colors</span></span><br><span class="line">              Container(</span><br><span class="line">                color: Colors.white,</span><br><span class="line">                margin: EdgeInsets.symmetric(vertical: <span class="number">10.0</span>, horizontal: <span class="number">25.0</span>),</span><br><span class="line">                padding: EdgeInsets.all(<span class="number">10.0</span>),</span><br><span class="line">                child: Row(</span><br><span class="line">                  children: [</span><br><span class="line">                    Icon(</span><br><span class="line">                        Icons.phone,</span><br><span class="line">                        color: Colors.teal,</span><br><span class="line">                    ),</span><br><span class="line">                    SizedBox(</span><br><span class="line">                      width: <span class="number">10.0</span>,</span><br><span class="line">                    ),</span><br><span class="line">                    Text(</span><br><span class="line">                        <span class="string">&quot;+44 123 456 789&quot;</span>,</span><br><span class="line">                        style: TextStyle(</span><br><span class="line">                          color: Colors.teal.shade900,</span><br><span class="line">                          fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                          fontSize: <span class="number">20.0</span>,</span><br><span class="line">                        ),</span><br><span class="line">                    )</span><br><span class="line">                  ],</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">              Container(</span><br><span class="line">                color: Colors.white,</span><br><span class="line">                margin: EdgeInsets.symmetric(vertical: <span class="number">10.0</span>, horizontal: <span class="number">25.0</span>),</span><br><span class="line">                padding: EdgeInsets.all(<span class="number">10.0</span>),</span><br><span class="line">                child: Row(</span><br><span class="line">                  children: [</span><br><span class="line">                    Icon(</span><br><span class="line">                      Icons.email,</span><br><span class="line">                      color: Colors.teal,</span><br><span class="line">                    ),</span><br><span class="line">                    SizedBox(</span><br><span class="line">                      width: <span class="number">10.0</span>,</span><br><span class="line">                    ),</span><br><span class="line">                    Text(</span><br><span class="line">                      <span class="string">&quot;robert@gmail.com&quot;</span>,</span><br><span class="line">                      style: TextStyle(</span><br><span class="line">                        color: Colors.teal.shade900,</span><br><span class="line">                        fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                        fontSize: <span class="number">20.0</span>,</span><br><span class="line">                      ),</span><br><span class="line">                    )</span><br><span class="line">                  ],</span><br><span class="line">                ),</span><br><span class="line">              )</span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Flutter-Card-amp-ListTile-Widgets"><a href="#Flutter-Card-amp-ListTile-Widgets" class="headerlink" title="Flutter Card &amp; ListTile Widgets"></a>Flutter Card &amp; ListTile Widgets</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> MyApp(&#123;<span class="keyword">super</span>.key&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        backgroundColor: Colors.teal,</span><br><span class="line">        body: SafeArea(  <span class="comment">// kyp: put to save area</span></span><br><span class="line">          child: Column(</span><br><span class="line">            mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">            children: [</span><br><span class="line">              CircleAvatar(</span><br><span class="line">                <span class="comment">// backgroundColor: Colors.red,</span></span><br><span class="line">                <span class="comment">// need add below</span></span><br><span class="line">                <span class="comment">// assets:</span></span><br><span class="line">                <span class="comment">//   - images/diamond.png</span></span><br><span class="line">                <span class="comment">// or</span></span><br><span class="line">                <span class="comment">//   - images/</span></span><br><span class="line">                backgroundImage: AssetImage(<span class="string">&#x27;images/diamond.png&#x27;</span>),</span><br><span class="line">                radius: <span class="number">50.0</span>,</span><br><span class="line">              ),</span><br><span class="line">              Text(</span><br><span class="line">                  <span class="string">&quot;Robert Kao&quot;</span>,</span><br><span class="line">                  style: TextStyle(</span><br><span class="line">                    <span class="comment">// kyp: add load font</span></span><br><span class="line">                    fontFamily: <span class="string">&#x27;Pacifico&#x27;</span>,</span><br><span class="line">                    fontSize: <span class="number">30.0</span>,</span><br><span class="line">                    color: Colors.white,</span><br><span class="line">                    fontWeight: FontWeight.bold,</span><br><span class="line">                  ),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// down font from https://fonts.google.com/</span></span><br><span class="line">              <span class="comment">// font : Pacifico</span></span><br><span class="line">              <span class="comment">// create directory fonts then copy .ttf to</span></span><br><span class="line">              Text(</span><br><span class="line">                <span class="string">&quot;FLUTTER DEVELOPER&quot;</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  <span class="comment">// kyp: add load font</span></span><br><span class="line">                  fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                  fontSize: <span class="number">20.0</span>,</span><br><span class="line">                  color: Colors.teal[<span class="number">100</span>],</span><br><span class="line">                  letterSpacing: <span class="number">2.5</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// add line</span></span><br><span class="line">              SizedBox(</span><br><span class="line">                height: <span class="number">20.0</span>,</span><br><span class="line">                width: <span class="number">150.0</span>,</span><br><span class="line">                child: Divider(</span><br><span class="line">                  color: Colors.teal.shade100,</span><br><span class="line">                )</span><br><span class="line">              ),</span><br><span class="line">              <span class="comment">// icon list : https://fonts.google.com/icons</span></span><br><span class="line">              <span class="comment">// color palette : https://www.materialpalette.com/</span></span><br><span class="line">              <span class="comment">// color name : https://www.materialpalette.com/colors</span></span><br><span class="line">              Card(</span><br><span class="line">                <span class="comment">// color: Colors.white, (default, so don&#x27;t need)</span></span><br><span class="line">                margin: EdgeInsets.symmetric(vertical: <span class="number">10.0</span>, horizontal: <span class="number">25.0</span>),</span><br><span class="line">                <span class="comment">// change Row to listTitle</span></span><br><span class="line">                child: ListTile(</span><br><span class="line">                  leading: Icon(</span><br><span class="line">                      Icons.phone,</span><br><span class="line">                      color: Colors.teal,</span><br><span class="line">                  ),</span><br><span class="line">                  title: Text(</span><br><span class="line">                    <span class="string">&quot;+44 123 456 789&quot;</span>,</span><br><span class="line">                    style: TextStyle(</span><br><span class="line">                      color: Colors.teal.shade900,</span><br><span class="line">                      fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                      fontSize: <span class="number">20.0</span>,</span><br><span class="line">                    ),</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                <span class="comment">// class add pdding</span></span><br><span class="line">                <span class="comment">// child: Padding(</span></span><br><span class="line">                <span class="comment">//   padding: EdgeInsets.all(10.0),</span></span><br><span class="line">                <span class="comment">//   child: Row(</span></span><br><span class="line">                <span class="comment">//     children: [</span></span><br><span class="line">                <span class="comment">//       Icon(</span></span><br><span class="line">                <span class="comment">//           Icons.phone,</span></span><br><span class="line">                <span class="comment">//           color: Colors.teal,</span></span><br><span class="line">                <span class="comment">//       ),</span></span><br><span class="line">                <span class="comment">//       SizedBox(</span></span><br><span class="line">                <span class="comment">//         width: 10.0,</span></span><br><span class="line">                <span class="comment">//       ),</span></span><br><span class="line">                <span class="comment">//       Text(</span></span><br><span class="line">                <span class="comment">//           &quot;+44 123 456 789&quot;,</span></span><br><span class="line">                <span class="comment">//           style: TextStyle(</span></span><br><span class="line">                <span class="comment">//             color: Colors.teal.shade900,</span></span><br><span class="line">                <span class="comment">//             fontFamily: &#x27;Merriweather&#x27;,</span></span><br><span class="line">                <span class="comment">//             fontSize: 20.0,</span></span><br><span class="line">                <span class="comment">//           ),</span></span><br><span class="line">                <span class="comment">//       )</span></span><br><span class="line">                <span class="comment">//     ],</span></span><br><span class="line">                <span class="comment">//   ),</span></span><br><span class="line">                <span class="comment">// ),</span></span><br><span class="line">              ),</span><br><span class="line">              Card(</span><br><span class="line">                <span class="comment">// color: Colors.white, (default, so don&#x27;t need)</span></span><br><span class="line">                margin: EdgeInsets.symmetric(vertical: <span class="number">10.0</span>, horizontal: <span class="number">25.0</span>),</span><br><span class="line">                <span class="comment">// change Row to listTitle</span></span><br><span class="line">                child: ListTile(</span><br><span class="line">                  leading: Icon(</span><br><span class="line">                    Icons.email,</span><br><span class="line">                    color: Colors.teal,</span><br><span class="line">                  ),</span><br><span class="line">                  title: Text(</span><br><span class="line">                    <span class="string">&quot;robert@gmail.com&quot;</span>,</span><br><span class="line">                    style: TextStyle(</span><br><span class="line">                      color: Colors.teal.shade900,</span><br><span class="line">                      fontFamily: <span class="string">&#x27;Merriweather&#x27;</span>,</span><br><span class="line">                      fontSize: <span class="number">20.0</span>,</span><br><span class="line">                    ),</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">              )</span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e">Flutter Layout Cheat Sheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://fonts.google.com/">google fonts</a></li>
+<li><a target="_blank" rel="noopener" href="https://fonts.google.com/icons">icon list</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.materialpalette.com/">color palette</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.materialpalette.com/colors">color name</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/17/flutter-3/" rel="prev" title="Flutter Issue">
+                  <i class="fa fa-chevron-left"></i> Flutter Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/02/python-5/" rel="next" title="100 Days of Code for Python - List">
+                  100 Days of Code for Python - List <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2022/08/24/flutter-4/";
+    this.page.identifier = "2022/08/24/flutter-4/";
+    this.page.title = "Flutter - MiCard";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

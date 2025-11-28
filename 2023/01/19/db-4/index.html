@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="PostgreSQL install to dockerget image1docker pull postgres">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PostgreSQL">
+<meta property="og:url" content="https://hot5656.github.io/2023/01/19/db-4/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="PostgreSQL install to dockerget image1docker pull postgres">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic10.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic15.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic16.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic17.png">
+<meta property="og:image" content="https://hot5656.github.io/2023/01/19/db-4/pic10.png">
+<meta property="article:published_time" content="2023-01-19T01:13:34.000Z">
+<meta property="article:modified_time" content="2023-01-30T01:36:20.301Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2023/01/19/db-4/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2023/01/19/db-4/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>PostgreSQL | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PostgreSQL-install-to-docker"><span class="nav-number">1.</span> <span class="nav-text">PostgreSQL install to docker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-image"><span class="nav-number">1.1.</span> <span class="nav-text">get image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-and-run"><span class="nav-number">1.2.</span> <span class="nav-text">create and run</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#command"><span class="nav-number">1.3.</span> <span class="nav-text">command</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#management-pgAdmin"><span class="nav-number">2.</span> <span class="nav-text">management - pgAdmin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-amp-run-pgadmin4"><span class="nav-number">2.1.</span> <span class="nav-text">install &amp; run pgadmin4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#open-by-browser"><span class="nav-number">2.2.</span> <span class="nav-text">open by browser</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect-to-DB"><span class="nav-number">2.3.</span> <span class="nav-text">connect to DB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-article-table"><span class="nav-number">2.4.</span> <span class="nav-text">create article table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#response-table"><span class="nav-number">2.5.</span> <span class="nav-text">response table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#special-setting"><span class="nav-number">2.6.</span> <span class="nav-text">special setting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E5%A4%96%E4%BE%86%E9%8D%B5%E8%B7%9F%E5%8E%9F%E6%96%87%E7%9A%84%E9%97%9C%E8%81%AF"><span class="nav-number">2.6.1.</span> <span class="nav-text">建立一個外來鍵跟原文的關聯</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-unique-for-CONFLICT-check-field"><span class="nav-number">2.6.2.</span> <span class="nav-text">set unique for CONFLICT check field</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#id-change-from-serial-to-integer-for-manual-input-id"><span class="nav-number">2.6.3.</span> <span class="nav-text">id change from serial to integer - for manual input id</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#access-DB"><span class="nav-number">3.</span> <span class="nav-text">access DB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install-psycopg2"><span class="nav-number">3.1.</span> <span class="nav-text">install psycopg2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#db-access-py-add-data"><span class="nav-number">3.2.</span> <span class="nav-text">db_access.py - add data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#run"><span class="nav-number">3.3.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show-DB"><span class="nav-number">3.4.</span> <span class="nav-text">show DB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-command"><span class="nav-number">4.</span> <span class="nav-text">SQL command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-row"><span class="nav-number">4.1.</span> <span class="nav-text">delete row</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#query-table"><span class="nav-number">4.2.</span> <span class="nav-text">query table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-code"><span class="nav-number">5.</span> <span class="nav-text">python code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#insert"><span class="nav-number">5.1.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert-update-if-exist"><span class="nav-number">5.2.</span> <span class="nav-text">insert update if exist</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IT%E9%82%A6%E5%B9%AB%E5%BF%99"><span class="nav-number">6.</span> <span class="nav-text">IT邦幫忙</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#settings-py"><span class="nav-number">6.1.</span> <span class="nav-text">settings.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pipelines-py"><span class="nav-number">6.2.</span> <span class="nav-text">pipelines.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#articles-py"><span class="nav-number">6.3.</span> <span class="nav-text">articles.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#run-1"><span class="nav-number">6.4.</span> <span class="nav-text">run</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2023/01/19/db-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PostgreSQL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-01-19 09:13:34" itemprop="dateCreated datePublished" datetime="2023-01-19T09:13:34+08:00">2023-01-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2023-01-30 09:36:20" itemprop="dateModified" datetime="2023-01-30T09:36:20+08:00">2023-01-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Back-End/" itemprop="url" rel="index"><span itemprop="name">Back End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/01/19/db-4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/01/19/db-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>16 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="PostgreSQL-install-to-docker"><a href="#PostgreSQL-install-to-docker" class="headerlink" title="PostgreSQL install to docker"></a><a target="_blank" rel="noopener" href="https://hub.docker.com/_/postgres">PostgreSQL</a> install to docker</h3><h4 id="get-image"><a href="#get-image" class="headerlink" title="get image"></a>get image</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull postgres</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="create-and-run"><a href="#create-and-run" class="headerlink" title="create and run"></a>create and run</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create and run (need set port)</span></span><br><span class="line">docker run -d -p 5432:5432 --name ithome-postgres2 -v D:\app\docker\ithome2\postgres:/var/lib/postgresql/data -e POSTGRES_PASSWORD=pg123456 postgres</span><br></pre></td></tr></table></figure>
+
+<h4 id="command"><a href="#command" class="headerlink" title="command"></a>command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># see version</span></span><br><span class="line">C:\Users\robertkao&gt;docker <span class="built_in">exec</span>  ithome-postgres2 psql -V</span><br><span class="line">psql (PostgreSQL) 15.1 (Debian 15.1-1.pgdg110+1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># list DB</span></span><br><span class="line">C:\Users\robertkao&gt;docker <span class="built_in">exec</span>  ithome-postgres2 psql -U postgres -l</span><br><span class="line">                                                List of databases</span><br><span class="line">   Name    |  Owner   | Encoding |  Collate   |   Ctype    | ICU Locale | Locale Provider |   Access privileges</span><br><span class="line">-----------+----------+----------+------------+------------+------------+-----------------+-----------------------</span><br><span class="line"> postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            |</span><br><span class="line"> template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            | =c/postgres          +</span><br><span class="line">           |          |          |            |            |            |                 | postgres=CTc/postgres</span><br><span class="line"> template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            | =c/postgres          +</span><br><span class="line">           |          |          |            |            |            |                 | postgres=CTc/postgres</span><br><span class="line"></span><br><span class="line"><span class="comment"># check run</span></span><br><span class="line">C:\Users\robertkao&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                           NAMES</span><br><span class="line">3c0bc480497a   postgres         <span class="string">&quot;docker-entrypoint.s…&quot;</span>   26 minutes ago   Up 26 minutes   0.0.0.0:5432-&gt;5432/tcp          ithome-postgres2</span><br><span class="line">90865204231a   dpage/pgadmin4   <span class="string">&quot;/entrypoint.sh&quot;</span>         2 hours ago      Up 2 hours      443/tcp, 0.0.0.0:5433-&gt;80/tcp   pgadmin4</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter terminal </span></span><br><span class="line">C:\Users\robertkao&gt;docker <span class="built_in">exec</span> -it ithome-postgres2 bash</span><br><span class="line">root@20b409f37d30:/<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ls</span></span><br><span class="line">root@20b409f37d30:/<span class="comment"># ls -l</span></span><br><span class="line">total 76</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 bin</span><br><span class="line">drwxr-xr-x   2 root root 4096 Dec  9 19:15 boot</span><br><span class="line">drwxr-xr-x   5 root root  340 Jan 24 02:26 dev</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan 11 08:53 docker-entrypoint-initdb.d</span><br><span class="line">drwxr-xr-x   1 root root 4096 Jan 23 14:28 etc</span><br><span class="line">drwxr-xr-x   2 root root 4096 Dec  9 19:15 home</span><br><span class="line">drwxr-xr-x   1 root root 4096 Jan  9 00:00 lib</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 lib64</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 media</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 mnt</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 opt</span><br><span class="line">dr-xr-xr-x 260 root root    0 Jan 24 02:26 proc</span><br><span class="line">drwx------   1 root root 4096 Jan 11 08:53 root</span><br><span class="line">drwxr-xr-x   1 root root 4096 Jan 11 08:53 run</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 sbin</span><br><span class="line">drwxr-xr-x   2 root root 4096 Jan  9 00:00 srv</span><br><span class="line">dr-xr-xr-x  11 root root    0 Jan 24 02:26 sys</span><br><span class="line">drwxrwxrwt   1 root root 4096 Jan 11 08:54 tmp</span><br><span class="line">drwxr-xr-x   1 root root 4096 Jan  9 00:00 usr</span><br><span class="line">drwxr-xr-x   1 root root 4096 Jan  9 00:00 var</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter command line</span></span><br><span class="line">root@20b409f37d30:/<span class="comment"># psql -h localhost -U postgres</span></span><br><span class="line">psql (15.1 (Debian 15.1-1.pgdg110+1))</span><br><span class="line">Type <span class="string">&quot;help&quot;</span> <span class="keyword">for</span> <span class="built_in">help</span>.</span><br><span class="line">postgres=<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list database</span></span><br><span class="line">postgres=<span class="comment"># \l</span></span><br><span class="line">                                                List of databases</span><br><span class="line">   Name    |  Owner   | Encoding |  Collate   |   Ctype    | ICU Locale | Locale Provider |   Access privileges</span><br><span class="line">-----------+----------+----------+------------+------------+------------+-----------------+-----------------------</span><br><span class="line"> ithome    | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            |</span><br><span class="line"> postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            |</span><br><span class="line"> template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            | =c/postgres          +</span><br><span class="line">           |          |          |            |            |            |                 | postgres=CTc/postgres</span><br><span class="line"> template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            | =c/postgres          +</span><br><span class="line">           |          |          |            |            |            |                 | postgres=CTc/postgres</span><br><span class="line">(4 rows)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># &lt;&lt;connect to a db&gt;&gt; \c &lt;database_name&gt; &lt;optional: as_user&gt; example: \c database spring_auth</span></span><br><span class="line">You are now connected to database <span class="string">&quot;ithome&quot;</span> as user <span class="string">&quot;postgres&quot;</span>.</span><br><span class="line">ithome=<span class="comment"># \c ithome postgres</span></span><br><span class="line">You are now connected to database <span class="string">&quot;ithome&quot;</span> as user <span class="string">&quot;postgres&quot;</span>.</span><br><span class="line">ithome=<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create table</span></span><br><span class="line">ithome=<span class="comment"># CREATE TABLE leads (id INTEGER PRIMARY KEY, name VARCHAR);</span></span><br><span class="line">CREATE TABLE</span><br><span class="line"></span><br><span class="line"><span class="comment"># list table</span></span><br><span class="line">ithome=<span class="comment"># \dt</span></span><br><span class="line">         List of relations</span><br><span class="line"> Schema | Name  | Type  |  Owner</span><br><span class="line">--------+-------+-------+----------</span><br><span class="line"> public | leads | table | postgres</span><br><span class="line">(1 row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># show 變數</span></span><br><span class="line">ithome=<span class="comment"># \echo DBNAME</span></span><br><span class="line">DBNAME</span><br><span class="line">ithome=<span class="comment"># \echo :DBNAME</span></span><br><span class="line">ithome</span><br><span class="line">ithome=<span class="comment"># \echo :USER</span></span><br><span class="line">postgres</span><br><span class="line">ithome=<span class="comment"># \echo :HOST</span></span><br><span class="line">localhost</span><br><span class="line">ithome=<span class="comment"># \echo :PORT</span></span><br><span class="line">5432 </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="management-pgAdmin"><a href="#management-pgAdmin" class="headerlink" title="management - pgAdmin"></a>management - <a target="_blank" rel="noopener" href="https://www.pgadmin.org/">pgAdmin</a></h3><h4 id="install-amp-run-pgadmin4"><a href="#install-amp-run-pgadmin4" class="headerlink" title="install &amp; run pgadmin4"></a>install &amp; run pgadmin4</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># get</span></span><br><span class="line">docker pull dpage/pgadmin4</span><br><span class="line"><span class="comment"># create and run</span></span><br><span class="line">docker run -d -p 5433:80 --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=<span class="built_in">test</span>@123.com -e PGADMIN_DEFAULT_PASSWORD=123456 dpage/pgadmin4</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="open-by-browser"><a href="#open-by-browser" class="headerlink" title="open by browser"></a>open by browser</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:5433/">http://localhost:5433/</a></li>
+<li><a href="mailto:&#x74;&#x65;&#x73;&#x74;&#x40;&#49;&#x32;&#x33;&#46;&#99;&#111;&#x6d;">&#x74;&#x65;&#x73;&#x74;&#x40;&#49;&#x32;&#x33;&#46;&#99;&#111;&#x6d;</a>:123456<div style="max-width:700px">
+  <img src="/2023/01/19/db-4/pic1.png" class="" title="pic1">
+</div>
+<div style="max-width:700px">
+  <img src="/2023/01/19/db-4/pic2.png" class="" title="pic2">
+</div></li>
+</ul>
+<h4 id="connect-to-DB"><a href="#connect-to-DB" class="headerlink" title="connect to DB"></a>connect to DB</h4><ul>
+<li>address <ul>
+<li>host.docker.internal</li>
+<li>127.0.0.1</li>
+<li>localhost</li>
+</ul>
+</li>
+</ul>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic3.png" class="" title="pic3">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic4.png" class="" title="pic4">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic5.png" class="" title="pic5">
+</div>
+
+<h4 id="create-article-table"><a href="#create-article-table" class="headerlink" title="create article table"></a>create article table</h4><div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic6.png" class="" title="pic6">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic7.png" class="" title="pic7">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic8.png" class="" title="pic8">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic9.png" class="" title="pic9">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic10.png" class="" title="pic10">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic11.png" class="" title="pic11">
+</div>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic12.png" class="" title="pic12">
+</div>
+
+<h4 id="response-table"><a href="#response-table" class="headerlink" title="response table"></a>response table</h4><div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic14.png" class="" title="pic14">
+</div>
+
+<h4 id="special-setting"><a href="#special-setting" class="headerlink" title="special setting"></a>special setting</h4><h5 id="建立一個外來鍵跟原文的關聯"><a href="#建立一個外來鍵跟原文的關聯" class="headerlink" title="建立一個外來鍵跟原文的關聯"></a>建立一個外來鍵跟原文的關聯</h5><div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic15.png" class="" title="pic15">
+</div>
+
+<h5 id="set-unique-for-CONFLICT-check-field"><a href="#set-unique-for-CONFLICT-check-field" class="headerlink" title="set unique for CONFLICT check field"></a>set unique for CONFLICT check field</h5><div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic16.png" class="" title="pic16">
+</div>
+
+<h5 id="id-change-from-serial-to-integer-for-manual-input-id"><a href="#id-change-from-serial-to-integer-for-manual-input-id" class="headerlink" title="id change from serial to integer - for manual input id"></a>id change from serial to integer - for manual input id</h5><p>remove Constraints’s Default</p>
+<div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic17.png" class="" title="pic17">
+</div>
+
+<h3 id="access-DB"><a href="#access-DB" class="headerlink" title="access DB"></a>access DB</h3><h4 id="install-psycopg2"><a href="#install-psycopg2" class="headerlink" title="install psycopg2"></a>install psycopg2</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install psycopg2</span><br></pre></td></tr></table></figure>
+
+<h4 id="db-access-py-add-data"><a href="#db-access-py-add-data" class="headerlink" title="db_access.py - add data"></a>db_access.py - add data</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> env</span><br><span class="line"></span><br><span class="line">host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">user = env.USER</span><br><span class="line">password = env.PASSWORD</span><br><span class="line">dbname = <span class="string">&#x27;ithome&#x27;</span></span><br><span class="line"></span><br><span class="line">conn_sting = <span class="string">f&quot;host=<span class="subst">&#123;host&#125;</span> user=<span class="subst">&#123;user&#125;</span> dbname=<span class="subst">&#123;dbname&#125;</span> password=<span class="subst">&#123;password&#125;</span>&quot;</span></span><br><span class="line">conn = psycopg2.connect(conn_sting)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;資料庫連線成功!&#x27;</span>)</span><br><span class="line">cursor = conn.cursor()</span><br><span class="line"></span><br><span class="line">article = &#123;</span><br><span class="line">    <span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;前言3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;url&#x27;</span>: <span class="string">&#x27;https://ithelp.ithome.com.tw/articles?tab=tech&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;author&#x27;</span>: <span class="string">&#x27;Robert&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;publish_time&#x27;</span>: datetime.now(),</span><br><span class="line">    <span class="string">&#x27;tags&#x27;</span>: <span class="string">&#x27;scrapy,postgresql,#3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span>: <span class="string">&#x27;Test DB3...............&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># ok command 1</span></span><br><span class="line"><span class="comment"># postgres_insert_query = &#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment">#         INSERT INTO articles(title, url, author, publish_time, tags, content)</span></span><br><span class="line"><span class="comment">#         VALUES (%s, %s ,%s, %s, %s, %s)</span></span><br><span class="line"><span class="comment">#     &#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># cursor.execute(postgres_insert_query, (article[&#x27;title&#x27;], article[&#x27;url&#x27;], article[&#x27;author&#x27;], article[&#x27;publish_time&#x27;], article[&#x27;tags&#x27;], article[&#x27;content&#x27;]) )</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ok command 2</span></span><br><span class="line">cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    INSERT INTO articles(title, url, author, publish_time, tags, content)</span></span><br><span class="line"><span class="string">    VALUES (%(title)s, %(url)s, %(author)s, %(publish_time)s, %(tags)s, %(content)s);</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,</span><br><span class="line">    article)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;資料新增成功!&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.commit()</span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="run"><a href="#run" class="headerlink" title="run"></a>run</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome\ithome&gt;python db_access.py</span><br><span class="line">資料庫連線成功!</span><br><span class="line">資料新增成功!</span><br></pre></td></tr></table></figure>
+
+<h4 id="show-DB"><a href="#show-DB" class="headerlink" title="show DB"></a>show DB</h4><div style="max-width:700px">
+    <img src="/2023/01/19/db-4/pic10.png" class="" title="pic10">
+</div>
+
+<h3 id="SQL-command"><a href="#SQL-command" class="headerlink" title="SQL command"></a>SQL command</h3><h4 id="delete-row"><a href="#delete-row" class="headerlink" title="delete row"></a>delete row</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> articles <span class="keyword">WHERE</span> id<span class="operator">&gt;</span><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="query-table"><a href="#query-table" class="headerlink" title="query table"></a>query table</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> public.articles <span class="keyword">ORDER</span> <span class="keyword">BY</span> id <span class="keyword">ASC</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> articles <span class="keyword">ORDER</span> <span class="keyword">BY</span> id <span class="keyword">ASC</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="python-code"><a href="#python-code" class="headerlink" title="python code"></a>python code</h3><h4 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">article = &#123;</span><br><span class="line">    <span class="string">&#x27;title&#x27;</span>: item.get(<span class="string">&#x27;title&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;url&#x27;</span>: item.get(<span class="string">&#x27;url&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;author&#x27;</span>: item.get(<span class="string">&#x27;author&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;publish_time&#x27;</span>: item.get(<span class="string">&#x27;publish_time&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;tags&#x27;</span>: item.get(<span class="string">&#x27;tags&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span>: item.get(<span class="string">&#x27;content&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;view_count&#x27;</span>: item.get(<span class="string">&#x27;view_count&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    INSERT INTO articles(title, url, author, publish_time, tags, content, view_count)</span></span><br><span class="line"><span class="string">    VALUES (%(title)s, %(url)s, %(author)s, %(publish_time)s, %(tags)s, %(content)s, %(view_count)s);</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,</span><br><span class="line">    article)</span><br><span class="line"></span><br><span class="line">response = &#123;</span><br><span class="line">    <span class="string">&#x27;id&#x27;</span>: article_response[<span class="string">&#x27;resp_id&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;article_id&#x27;</span>: article_id,</span><br><span class="line">    <span class="string">&#x27;author&#x27;</span>: article_response[<span class="string">&#x27;author&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;publish_time&#x27;</span>: article_response[<span class="string">&#x27;publish_time&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span>: article_response[<span class="string">&#x27;content&#x27;</span>],</span><br><span class="line">&#125;</span><br><span class="line">self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    INSERT INTO public.response(article_id, author, publish_time, content)</span></span><br><span class="line"><span class="string">    VALUES (%(article_id)s,%(author)s,%(publish_time)s,%(content)s);</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,</span><br><span class="line">    response)</span><br></pre></td></tr></table></figure>
+
+<h4 id="insert-update-if-exist"><a href="#insert-update-if-exist" class="headerlink" title="insert update if exist"></a>insert update if exist</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># current_timestamp : SQL current time</span></span><br><span class="line">self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    INSERT INTO articles(title, url, author, publish_time, tags, content, view_count)</span></span><br><span class="line"><span class="string">    VALUES (%(title)s, %(url)s, %(author)s, %(publish_time)s, %(tags)s, %(content)s, %(view_count)s)</span></span><br><span class="line"><span class="string">    ON CONFLICT(url)</span></span><br><span class="line"><span class="string">    DO UPDATE SET title=%(title)s,</span></span><br><span class="line"><span class="string">        tags=%(tags)s,</span></span><br><span class="line"><span class="string">        content=%(content)s,</span></span><br><span class="line"><span class="string">        update_time=current_timestamp</span></span><br><span class="line"><span class="string">    RETURNING id;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,</span><br><span class="line">    article)</span><br><span class="line"></span><br><span class="line">self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    INSERT INTO public.response(id, article_id, author, publish_time, content)</span></span><br><span class="line"><span class="string">    VALUES (%(id)s, %(article_id)s ,%(author)s, %(publish_time)s, %(content)s)</span></span><br><span class="line"><span class="string">    ON CONFLICT(id) DO UPDATE</span></span><br><span class="line"><span class="string">    SET content=%(content)s;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>,</span><br><span class="line">    response)</span><br></pre></td></tr></table></figure>
+
+<h3 id="IT邦幫忙"><a href="#IT邦幫忙" class="headerlink" title="IT邦幫忙"></a><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles?tab=tech">IT邦幫忙</a></h3><h4 id="settings-py"><a href="#settings-py" class="headerlink" title="settings.py"></a>settings.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable or disable spider middlewares</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/spider-middleware.html</span></span><br><span class="line"><span class="comment">#SPIDER_MIDDLEWARES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;ithome.middlewares.IthomeSpiderMiddleware&#x27;: 543,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line">SPIDER_MIDDLEWARES = &#123;</span><br><span class="line">    <span class="string">&#x27;scrapy_splash.SplashDeduplicateArgsMiddleware&#x27;</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DUPEFILTER_CLASS = <span class="string">&#x27;scrapy_splash.SplashAwareDupeFilter&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable or disable downloader middlewares</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span></span><br><span class="line"><span class="comment">#DOWNLOADER_MIDDLEWARES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;ithome.middlewares.IthomeDownloaderMiddleware&#x27;: 543,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">    <span class="string">&#x27;scrapy_splash.SplashCookiesMiddleware&#x27;</span>: <span class="number">723</span>,</span><br><span class="line">    <span class="string">&#x27;scrapy_splash.SplashMiddleware&#x27;</span>: <span class="number">725</span>,</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure item pipelines</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line"><span class="comment">#ITEM_PIPELINES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;ithome.pipelines.IthomePipeline&#x27;: 300,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">&#x27;ithome.pipelines.PostgreSqlPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SPLASH_URL = <span class="string">&#x27;http://localhost:8050&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="pipelines-py"><a href="#pipelines-py" class="headerlink" title="pipelines.py"></a>pipelines.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># useful for handling different item types with a single interface</span></span><br><span class="line"><span class="keyword">from</span> itemadapter <span class="keyword">import</span> ItemAdapter</span><br><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"><span class="comment"># import env</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IthomePipeline</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostgreSqlPipeline</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">        USER = <span class="string">&#x27;postgres&#x27;</span></span><br><span class="line">        PASSWORD = <span class="string">&#x27;pg123456&#x27;</span></span><br><span class="line">        host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">        user = USER</span><br><span class="line">        password = PASSWORD</span><br><span class="line">        dbname = <span class="string">&#x27;ithome&#x27;</span></span><br><span class="line">        conn_sting = <span class="string">f&quot;host=<span class="subst">&#123;host&#125;</span> user=<span class="subst">&#123;user&#125;</span> dbname=<span class="subst">&#123;dbname&#125;</span> password=<span class="subst">&#123;password&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        self.conn = psycopg2.connect(conn_sting)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;資料庫連線成功!&#x27;</span>)</span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">        self.cursor.close()</span><br><span class="line">        self.conn.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        article = &#123;</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: item.get(<span class="string">&#x27;title&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;url&#x27;</span>: item.get(<span class="string">&#x27;url&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;author&#x27;</span>: item.get(<span class="string">&#x27;author&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;publish_time&#x27;</span>: item.get(<span class="string">&#x27;publish_time&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;tags&#x27;</span>: item.get(<span class="string">&#x27;tags&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>: item.get(<span class="string">&#x27;content&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;view_count&#x27;</span>: item.get(<span class="string">&#x27;view_count&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># direct update</span></span><br><span class="line">        <span class="comment"># self.cursor.execute(&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment">#     INSERT INTO articles(title, url, author, publish_time, tags, content, view_count)</span></span><br><span class="line">        <span class="comment">#     VALUES (%(title)s, %(url)s, %(author)s, %(publish_time)s, %(tags)s, %(content)s, %(view_count)s);</span></span><br><span class="line">        <span class="comment">#     &quot;&quot;&quot;,</span></span><br><span class="line">        <span class="comment">#     article)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># check update</span></span><br><span class="line">        <span class="comment"># current_timestamp : SQL current time</span></span><br><span class="line">        self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            INSERT INTO articles(title, url, author, publish_time, tags, content, view_count)</span></span><br><span class="line"><span class="string">            VALUES (%(title)s, %(url)s, %(author)s, %(publish_time)s, %(tags)s, %(content)s, %(view_count)s)</span></span><br><span class="line"><span class="string">            ON CONFLICT(url)</span></span><br><span class="line"><span class="string">            DO UPDATE SET title=%(title)s,</span></span><br><span class="line"><span class="string">                tags=%(tags)s,</span></span><br><span class="line"><span class="string">                content=%(content)s,</span></span><br><span class="line"><span class="string">                update_time=current_timestamp</span></span><br><span class="line"><span class="string">            RETURNING id;</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span>,</span><br><span class="line">            article)</span><br><span class="line">        self.conn.commit()</span><br><span class="line">        article_id = self.cursor.fetchone()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        article_responses = item.get(<span class="string">&#x27;responses&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> article_response <span class="keyword">in</span> article_responses:</span><br><span class="line">            response = &#123;</span><br><span class="line">                <span class="string">&#x27;id&#x27;</span>: article_response[<span class="string">&#x27;resp_id&#x27;</span>],</span><br><span class="line">                <span class="string">&#x27;article_id&#x27;</span>: article_id,</span><br><span class="line">                <span class="string">&#x27;author&#x27;</span>: article_response[<span class="string">&#x27;author&#x27;</span>],</span><br><span class="line">                <span class="string">&#x27;publish_time&#x27;</span>: article_response[<span class="string">&#x27;publish_time&#x27;</span>],</span><br><span class="line">                <span class="string">&#x27;content&#x27;</span>: article_response[<span class="string">&#x27;content&#x27;</span>],</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># direct update</span></span><br><span class="line">            <span class="comment"># self.cursor.execute(&quot;&quot;&quot;</span></span><br><span class="line">            <span class="comment">#     INSERT INTO public.response(article_id, author, publish_time, content)</span></span><br><span class="line">            <span class="comment">#     VALUES (%(article_id)s,%(author)s,%(publish_time)s,%(content)s);</span></span><br><span class="line">            <span class="comment">#     &quot;&quot;&quot;,</span></span><br><span class="line">            <span class="comment">#     response)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># check exist</span></span><br><span class="line">            self.cursor.execute(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                INSERT INTO public.response(id, article_id, author, publish_time, content)</span></span><br><span class="line"><span class="string">                VALUES (%(id)s, %(article_id)s ,%(author)s, %(publish_time)s, %(content)s)</span></span><br><span class="line"><span class="string">                ON CONFLICT(id) DO UPDATE</span></span><br><span class="line"><span class="string">                SET content=%(content)s;</span></span><br><span class="line"><span class="string">                &quot;&quot;&quot;</span>,</span><br><span class="line">                response)</span><br><span class="line">            self.conn.commit()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(f&quot;&#123;item.get(&#x27;index&#x27;)&#125;資料新增成功!&quot;)</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<h4 id="articles-py"><a href="#articles-py" class="headerlink" title="articles.py"></a>articles.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> scrapy_splash <span class="keyword">import</span> SplashRequest</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticlesSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;articles&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;ithelp.ithome.com.tw&#x27;</span>]</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    page_index = <span class="number">1</span></span><br><span class="line">    MAX_PAGE = <span class="number">10</span></span><br><span class="line">    URL_1ST = <span class="string">&#x27;https://ithelp.ithome.com.tw/articles?tab=tech&#x27;</span></span><br><span class="line"></span><br><span class="line">    script = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        function main(splash, args)</span></span><br><span class="line"><span class="string">            assert(splash:go(args.url))</span></span><br><span class="line"><span class="string">            assert(splash:wait(2))</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            return splash:html()</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">yield</span> SplashRequest(url=self.URL_1ST, callback=self.parse, endpoint=<span class="string">&quot;execute&quot;</span>,</span><br><span class="line">        args=&#123;</span><br><span class="line">            <span class="string">&#x27;lua_source&#x27;</span>: self.script</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        articles = response.xpath(<span class="string">&quot;//div[@class=&#x27;board tabs-content&#x27;]/div[@class=&#x27;qa-list&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> article <span class="keyword">in</span> articles:</span><br><span class="line">            <span class="comment"># yield &#123;</span></span><br><span class="line">            <span class="comment">#     &#x27;url&#x27;: article.xpath(&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/@href&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     &#x27;title&#x27;: article.xpath(&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/text()&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     &#x27;author&#x27;: article.xpath(&quot;normalize-space(.//a[@class=&#x27;qa-list__info-link&#x27;]/text())&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     &#x27;publish_time&#x27;: article.xpath(&quot;.//a[@class=&#x27;qa-list__info-time&#x27;]/@title&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     # &#x27;tags&#x27;: article.xpath(&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/@href&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     &#x27;content&#x27;: article.xpath(&quot;normalize-space(.//p[@class=&#x27;qa-list__desc&#x27;]/text())&quot;).get(),</span></span><br><span class="line">            <span class="comment">#     &#x27;view_count&#x27;: article.xpath(&quot;(.//span[@class=&#x27;qa-condition__count&#x27;])[3]/text()&quot;).get(),</span></span><br><span class="line">            <span class="comment"># &#125;</span></span><br><span class="line">            article_date_str = article.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-list__info-time&#x27;]/@title&quot;</span>).get()</span><br><span class="line">            article_date = datetime.strptime(article_date_str, <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            url = article.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/@href&quot;</span>).get()</span><br><span class="line">            <span class="keyword">yield</span> SplashRequest(url=url, callback=self.article_parse, endpoint=<span class="string">&quot;execute&quot;</span>,</span><br><span class="line">                meta = &#123;</span><br><span class="line">                    <span class="string">&#x27;url&#x27;</span>: article.xpath(<span class="string">&quot;.//a[@class=&#x27;qa-list__title-link&#x27;]/@href&quot;</span>).get(),</span><br><span class="line">                    <span class="string">&#x27;author&#x27;</span>: article.xpath(<span class="string">&quot;normalize-space(.//a[@class=&#x27;qa-list__info-link&#x27;]/text())&quot;</span>).get(),</span><br><span class="line">                    <span class="string">&#x27;publish_time&#x27;</span>: article_date,</span><br><span class="line">                    <span class="string">&#x27;view_count&#x27;</span>: <span class="built_in">int</span>(article.xpath(<span class="string">&quot;(.//span[@class=&#x27;qa-condition__count&#x27;])[3]/text()&quot;</span>).get()),</span><br><span class="line">                &#125;,</span><br><span class="line">                args=&#123;</span><br><span class="line">                    <span class="string">&#x27;lua_source&#x27;</span>: self.script</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">        self.page_index += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.page_index &lt;= self.MAX_PAGE:</span><br><span class="line">            url = <span class="string">f&#x27;<span class="subst">&#123;self.URL_1ST&#125;</span>&amp;page=<span class="subst">&#123;self.page_index&#125;</span>&#x27;</span></span><br><span class="line">            <span class="keyword">yield</span> SplashRequest(url=url, callback=self.parse, endpoint=<span class="string">&quot;execute&quot;</span>,</span><br><span class="line">            args=&#123;</span><br><span class="line">                <span class="string">&#x27;lua_source&#x27;</span>: self.script</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">article_parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        tags_list= response.xpath(<span class="string">&quot;//a[@class=&#x27;tag qa-header__tagList&#x27;]/text()&quot;</span>).getall()</span><br><span class="line">        tags= <span class="string">&#x27;,&#x27;</span>.join(tags_list)</span><br><span class="line">        content_html = response.xpath(<span class="string">&quot;//div[@class=&#x27;markdown__style&#x27;]&quot;</span>).get()</span><br><span class="line">        soup= <span class="string">&#x27;&#x27;</span></span><br><span class="line">        content=<span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        self.index +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            soup = BeautifulSoup(content_html, <span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line">            content = soup.get_text()</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;self.index&#125;</span>----------------&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line">        content = self.content_alignment(content)</span><br><span class="line">        article_responses = []</span><br><span class="line">        <span class="comment"># item_responses = response.xpath(&quot;//div[@class=&#x27;ans-header&#x27;]&quot;)</span></span><br><span class="line">        <span class="comment"># for item_response in item_responses:</span></span><br><span class="line">        <span class="comment">#     resp_date_str = item_response.xpath(&quot;.//a[@class=&#x27;ans-header__time&#x27;]/text()&quot;).get()</span></span><br><span class="line">        <span class="comment">#     resp_date = datetime.strptime(resp_date_str, &#x27;%Y-%m-%d %H:%M:%S&#x27;)</span></span><br><span class="line">        <span class="comment">#     resp_content = item_response.xpath(&quot;.//parent::node()/div[@class=&#x27;response-markdown&#x27;]/div/div/p/text()&quot;).get()</span></span><br><span class="line">        <span class="comment">#     resp_content = self.content_alignment(resp_content)</span></span><br><span class="line">        <span class="comment">#     article_responses.append(&#123;</span></span><br><span class="line">        <span class="comment">#         &#x27;author&#x27;: item_response.xpath(&quot;.//a[@class=&#x27;response-header__person&#x27;]/text()&quot;).get(),</span></span><br><span class="line">        <span class="comment">#         &#x27;content&#x27;: resp_content,</span></span><br><span class="line">        <span class="comment">#         &#x27;publish_time&#x27;: resp_date</span></span><br><span class="line">        <span class="comment">#     &#125;)</span></span><br><span class="line"></span><br><span class="line">        item_responses = response.xpath(<span class="string">&quot;//div[@class=&#x27;qa-panel response clearfix&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> item_response <span class="keyword">in</span> item_responses:</span><br><span class="line">            resp_date_str = item_response.xpath(<span class="string">&quot;.//a[@class=&#x27;ans-header__time&#x27;]/text()&quot;</span>).get()</span><br><span class="line">            resp_date = datetime.strptime(resp_date_str, <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line">            resp_content = item_response.xpath(<span class="string">&quot;.//div[@class=&#x27;response-markdown&#x27;]/div/div/p/text()&quot;</span>).get()</span><br><span class="line">            resp_id = <span class="built_in">int</span>(item_response.xpath(<span class="string">&quot;.//a/@name&quot;</span>).get().replace(<span class="string">&quot;response-&quot;</span>, <span class="string">&quot;&quot;</span>))</span><br><span class="line">            article_responses.append(&#123;</span><br><span class="line">                <span class="string">&#x27;resp_id&#x27;</span>: resp_id,</span><br><span class="line">                <span class="string">&#x27;author&#x27;</span>: item_response.xpath(<span class="string">&quot;.//a[@class=&#x27;response-header__person&#x27;]/text()&quot;</span>).get(),</span><br><span class="line">                <span class="string">&#x27;content&#x27;</span>: resp_content,</span><br><span class="line">                <span class="string">&#x27;publish_time&#x27;</span>: resp_date</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="keyword">yield</span> &#123;</span><br><span class="line">            <span class="string">&#x27;index&#x27;</span>: self.index,</span><br><span class="line">            <span class="string">&#x27;url&#x27;</span>: response.request.meta[<span class="string">&#x27;url&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;author&#x27;</span>: response.request.meta[<span class="string">&#x27;author&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;publish_time&#x27;</span>: response.request.meta[<span class="string">&#x27;publish_time&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;view_count&#x27;</span>: response.request.meta[<span class="string">&#x27;view_count&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: response.xpath(<span class="string">&quot;normalize-space(//h2[@class=&#x27;qa-header__title&#x27;]/text())&quot;</span>).get(),</span><br><span class="line">            <span class="string">&#x27;tags&#x27;</span>: tags,</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>: content,</span><br><span class="line">            <span class="string">&#x27;responses&#x27;</span>: article_responses</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">content_alignment</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        <span class="comment"># break into lines and remove leading and trailing space on each</span></span><br><span class="line">        <span class="comment"># lines = (line.strip() for line in text.splitlines())</span></span><br><span class="line">        <span class="comment"># break multi-headlines into a line each</span></span><br><span class="line">        <span class="comment"># chunks = (phrase.strip() for line in lines for phrase in line.split(&quot;  &quot;))</span></span><br><span class="line">        <span class="comment"># drop blank lines</span></span><br><span class="line">        <span class="comment"># content = &#x27;\n&#x27;.join(chunk for chunk in chunks if chunk)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># break into lines and remove leading and trailing space on each</span></span><br><span class="line">        lines = (line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> content.splitlines())</span><br><span class="line">        <span class="comment"># drop blank lines</span></span><br><span class="line">        content = <span class="string">&#x27;\n&#x27;</span>.join(line <span class="keyword">for</span> line <span class="keyword">in</span> lines <span class="keyword">if</span> line)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> content</span><br></pre></td></tr></table></figure>
+
+<h4 id="run-1"><a href="#run-1" class="headerlink" title="run"></a>run</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\git\python_crawler\109-scrapy-practice2\ithome&gt;scrapy crawl articles</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.educba.com/data-science/data-science-tutorials/postgresql-tutorial/">PostgreSQL Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.postgresql.tw/">PostgreSQL中文手冊</a></li>
+<li><a target="_blank" rel="noopener" href="https://gist.github.com/jessepinkman9900/3f65e33ffd84abc84bd331d464d55c11">Shell commands for postgres(docker)</a></li>
+<li><a target="_blank" rel="noopener" href="https://pjchender.dev/database/psql-cli/">PostgreSQL CLI</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/alberthg-docker-notes">The Docker Notes</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/database/" rel="tag"># database</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/19/tool-4/" rel="prev" title="Docker">
+                  <i class="fa fa-chevron-left"></i> Docker
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/25/db-5/" rel="next" title="MongoDB docker">
+                  MongoDB docker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2023/01/19/db-4/";
+    this.page.identifier = "2023/01/19/db-4/";
+    this.page.title = "PostgreSQL";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

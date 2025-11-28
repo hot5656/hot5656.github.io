@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="HTML Entities(實體) 是什麼HTML Entities是以&amp;開頭;結束的字串,這常用來顯示一些保留字元,不可見字元或鍵盤難以輸入的字元常用 Entity |Symbol|Description		|Entity Name	|Number Code|——|—— 				|—— 			|—–|”		 |quotation mark|&amp;quot;				|&amp;#34;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML review">
+<meta property="og:url" content="https://hot5656.github.io/2021/09/23/review-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="HTML Entities(實體) 是什麼HTML Entities是以&amp;開頭;結束的字串,這常用來顯示一些保留字元,不可見字元或鍵盤難以輸入的字元常用 Entity |Symbol|Description		|Entity Name	|Number Code|——|—— 				|—— 			|—–|”		 |quotation mark|&amp;quot;				|&amp;#34;">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/09/23/review-3/img_sem_elements.gif">
+<meta property="article:published_time" content="2021-09-23T08:26:21.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:36.220Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="review">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/09/23/review-3/img_sem_elements.gif">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/09/23/review-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>HTML review | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-Entities-%E5%AF%A6%E9%AB%94-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.</span> <span class="nav-text">HTML Entities(實體) 是什麼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-Semantic-Elements-%E8%AA%9E%E6%84%8F%E6%A8%99%E7%B1%A4"><span class="nav-number">2.</span> <span class="nav-text">HTML Semantic Elements(語意標籤)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#meta-tag"><span class="nav-number">3.</span> <span class="nav-text">meta tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-Web-Storage"><span class="nav-number">4.</span> <span class="nav-text">HTML5 Web Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Workers"><span class="nav-number">5.</span> <span class="nav-text">Web Workers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML"><span class="nav-number">6.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-attributes-%E5%B1%AC%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">HTML attributes(屬性)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-attributes-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">data-attributes 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id-%E8%88%87-class-%E7%9A%84%E5%B7%AE%E5%88%A5"><span class="nav-number">9.</span> <span class="nav-text">id 與 class 的差別</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alt-attribute-%E5%9C%A8-images-%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">10.</span> <span class="nav-text">alt attribute 在 images 的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8-HTML-%E5%BB%BA%E7%AB%8B%E8%B6%85%E9%80%A3%E7%B5%90-hyperlink"><span class="nav-number">11.</span> <span class="nav-text">如何在 HTML 建立超連結(hyperlink)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-%E7%9A%843%E7%A8%AE-list"><span class="nav-number">12.</span> <span class="nav-text">HTML 的3種 list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">13.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/09/23/review-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTML review
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-09-23 16:26:21" itemprop="dateCreated datePublished" datetime="2021-09-23T16:26:21+08:00">2021-09-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:36" itemprop="dateModified" datetime="2022-06-09T11:38:36+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/09/23/review-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/09/23/review-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="HTML-Entities-實體-是什麼"><a href="#HTML-Entities-實體-是什麼" class="headerlink" title="HTML Entities(實體) 是什麼"></a>HTML Entities(實體) 是什麼</h3><p>HTML Entities是以&amp;開頭;結束的字串,這常用來顯示一些保留字元,不可見字元或鍵盤難以輸入的字元<br><a target="_blank" rel="noopener" href="https://unicode-table.com/en/html-entities/">常用 Entity</a></p>
+<p>|Symbol|Description		|Entity Name	|Number Code<br>|——|—— 				|—— 			|—–<br>|”		 |quotation mark|&amp;quot;				|&amp;#34;<br>|’		 |apostrophe 		|&amp;apos;				|&amp;#39;<br>|&amp;		 |ampersand			|&amp;amp;				|&amp;#38;<br>|&lt;		 |less-than			|&amp;lt;					|&amp;#60;<br>|&gt;		 |greater-than	|&amp;gt;					|&amp;#62;<br>|~		 |tilde operator|&amp;sim;			  |&amp;#8764;<br>|*		 |Asterisk			|&amp;ast;			  |&amp;#42;</p>
+<span id="more"></span>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML Entities<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="symbol">&amp;lt;</span>div id = <span class="symbol">&amp;quot;</span>character<span class="symbol">&amp;quot;</span><span class="symbol">&amp;gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<body>
+  &lt;div id = &quot;character&quot;&gt;
+</body>
+
+<h3 id="HTML-Semantic-Elements-語意標籤"><a href="#HTML-Semantic-Elements-語意標籤" class="headerlink" title="HTML Semantic Elements(語意標籤)"></a>HTML Semantic Elements(語意標籤)</h3><p>一些有代表意義的 HTML Element,如以下</p>
+<ul>
+<li>&lt;article&gt;</li>
+<li>&lt;aside&gt;</li>
+<li>&lt;details&gt;</li>
+<li>&lt;figcaption&gt;</li>
+<li>&lt;figure&gt;</li>
+<li>&lt;footer&gt;</li>
+<li>&lt;header&gt;</li>
+<li>&lt;main&gt;</li>
+<li>&lt;mark&gt;</li>
+<li>&lt;nav&gt;</li>
+<li>&lt;section&gt;</li>
+<li>&lt;summary&gt;</li>
+<li>&lt;time&gt;</li>
+</ul>
+<div style="width:400px;">
+    <img src="/2021/09/23/review-3/img_sem_elements.gif" class="">
+</div>
+
+<h3 id="meta-tag"><a href="#meta-tag" class="headerlink" title="meta tag"></a>meta tag</h3><p>meta tag 是 HTML 的 tag 包含於網頁中,包含對網頁的描述,它不會顯示於網頁中,但會提供給搜尋引擎及網路爬蟲讀取</p>
+<h3 id="HTML5-Web-Storage"><a href="#HTML5-Web-Storage" class="headerlink" title="HTML5 Web Storage"></a>HTML5 Web Storage</h3><ul>
+<li>Session Storage : 儲存資料於瀏覽器,當網頁關閉或還原(restore)即會清除</li>
+<li>Local Storage : 儲存資料於瀏覽器,甚至當瀏覽器關掉再開都還會存在</li>
+</ul>
+<h3 id="Web-Workers"><a href="#Web-Workers" class="headerlink" title="Web Workers"></a>Web Workers</h3><p>一搬 JavaScript 是 Main Thread 執行，但若把程式碼放在 Web Workers 就可另開 Worker Thread，兩條線互不影響，讓 JavaScript 在背景執行，並且兩線可由訊息溝通-使用 postMessage 發送訊息、onmessage 接收訊息。通常我們會將需要長時間運算且不含 Window 或 DOM Element 操作的程式碼放在 Web Workers，好處是不阻塞 Main Thread。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.Worker) &#123;</span><br><span class="line">  <span class="keyword">var</span> myWorker = <span class="keyword">new</span> Worker(<span class="string">&#x27;worker.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  first.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    myWorker.postMessage([first.value, second.value]);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Message posted to worker&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  second.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    myWorker.postMessage([first.value, second.value]);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Message posted to worker&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  myWorker.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    result.textContent = e.data;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Message received from worker&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><p>HyperText Markup Language(超文本標記語言)是一種用於建立網頁的標記語言</p>
+<h3 id="HTML-attributes-屬性"><a href="#HTML-attributes-屬性" class="headerlink" title="HTML attributes(屬性)"></a>HTML attributes(屬性)</h3><p>HTML attributes 是 HTML tag 附加的訊息,位於 tag 名稱之後 結束尖括號之前,可以設定或調整屬性,以達到使用者預期之行為</p>
+<h3 id="data-attributes-的作用"><a href="#data-attributes-的作用" class="headerlink" title="data-attributes 的作用"></a>data-attributes 的作用</h3><p>使用者自定義屬性,依開發者需求設定使用</p>
+<h3 id="id-與-class-的差別"><a href="#id-與-class-的差別" class="headerlink" title="id 與 class 的差別"></a>id 與 class 的差別</h3><p>單一網頁id僅能設在單一個element, class 則可設定於多個 element,</p>
+<h3 id="alt-attribute-在-images-的功能"><a href="#alt-attribute-在-images-的功能" class="headerlink" title="alt attribute 在 images 的功能"></a>alt attribute 在 images 的功能</h3><p>當 images 無法顯示時即會顯示 alt 的內容,alt 也有助於搜尋引擎更了解圖片的意義</p>
+<h3 id="如何在-HTML-建立超連結-hyperlink"><a href="#如何在-HTML-建立超連結-hyperlink" class="headerlink" title="如何在 HTML 建立超連結(hyperlink)"></a>如何在 HTML 建立超連結(hyperlink)</h3><p>使用 a tag.</p>
+<h3 id="HTML-的3種-list"><a href="#HTML-的3種-list" class="headerlink" title="HTML 的3種 list"></a>HTML 的3種 list</h3><ul>
+<li><p>無序列表（Unordered list）:無數字編號的清單</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>香蕉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>芭樂<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>鳳梨<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+  <li>香蕉</li>
+  <li>芭樂</li>
+  <li>鳳梨</li>
+</ul>
+</li>
+<li><p>有序列表（Ordered list）: 有數字編號的清單</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>香蕉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>芭樂<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>鳳梨<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+  <li>香蕉</li>
+  <li>芭樂</li>
+  <li>鳳梨</li>
+</ol>
+</li>
+<li><p>定義列表（Definition list）: 表示一系列的特殊名詞定義</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>This stands for Hyper Text Markup Language<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>HTTP<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>This stands for Hyper Text Transfer Protocol<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<dl>
+<dt>HTML</dt>
+<dd>This stands for Hyper Text Markup Language</dd>
+<dt>HTTP</dt>
+<dd>This stands for Hyper Text Transfer Protocol</dd>
+</dl></li>
+</ul>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://dev.to/polgarj/a-short-guide-to-help-you-pick-the-correct-html-tag-56l9">A short guide to help you pick the correct HTML tag</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+              <a href="/tags/review/" rel="tag"># review</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/23/review-2/" rel="prev" title="CSS Review">
+                  <i class="fa fa-chevron-left"></i> CSS Review
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/23/react-4/" rel="next" title="Redux">
+                  Redux <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/09/23/review-3/";
+    this.page.identifier = "2021/09/23/review-3/";
+    this.page.title = "HTML review";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

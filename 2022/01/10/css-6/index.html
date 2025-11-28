@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Demo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS animation">
+<meta property="og:url" content="https://hot5656.github.io/2022/01/10/css-6/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Demo">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-10T03:47:09.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:34.558Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2022/01/10/css-6/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>CSS animation | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Simple"><span class="nav-number">1.</span> <span class="nav-text">Simple</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B0%A1%E5%96%AE%E6%B5%AE%E5%8B%95"><span class="nav-number">1.1.</span> <span class="nav-text">簡單浮動</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Navbar"><span class="nav-number">1.2.</span> <span class="nav-text">Navbar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hamberger-need-jQuery"><span class="nav-number">1.3.</span> <span class="nav-text">Hamberger(need jQuery)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Text"><span class="nav-number">2.</span> <span class="nav-text">Text</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E7%A7%BB%E5%8B%95"><span class="nav-number">2.1.</span> <span class="nav-text">文字移動</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E7%A7%BB%E5%8B%95-demo-animation-fill-mode"><span class="nav-number">2.2.</span> <span class="nav-text">文字移動(demo animation-fill-mode)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layout"><span class="nav-number">3.</span> <span class="nav-text">Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%AE%E5%9C%96"><span class="nav-number">3.1.</span> <span class="nav-text">遮圖</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2022/01/10/css-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS animation
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2022-01-10 11:47:09" itemprop="dateCreated datePublished" datetime="2022-01-10T11:47:09+08:00">2022-01-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:34" itemprop="dateModified" datetime="2022-06-09T11:38:34+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/01/10/css-6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/01/10/css-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a href="/ref/css-6">Demo</a></p>
+<span id="more"></span>
+
+<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h3><h4 id="簡單浮動"><a href="#簡單浮動" class="headerlink" title="簡單浮動"></a>簡單浮動</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.card-group &#123;</span><br><span class="line"><span class="css">		<span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">		<span class="attribute">display</span>: flex;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.card &#123;</span><br><span class="line"><span class="css">		<span class="attribute">margin</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">box-shadow</span>: <span class="number">1px</span> <span class="number">2px</span> <span class="number">5px</span> <span class="number">#999</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transition</span>: all .<span class="number">4s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-class">.card</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">box-shadow</span>: <span class="number">2px</span> <span class="number">3px</span> <span class="number">15px</span> <span class="number">#999</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1px</span>);</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;card-group&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, vitae?<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, vitae?<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, vitae?<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, vitae?<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Navbar"><a href="#Navbar" class="headerlink" title="Navbar"></a>Navbar</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.navbar-nav &#123;</span><br><span class="line"><span class="css">		<span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">		<span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="built_in">rgb</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span></span><br><span class="line"><span class="css">		<span class="attribute">border-radius</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">40px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.nav-link &#123;</span><br><span class="line"><span class="css">		<span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">margin</span>: <span class="number">0</span> <span class="number">8px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">text-decoration</span>: none;</span></span><br><span class="line"><span class="css">		<span class="attribute">color</span>: <span class="number">#fff</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.sidebar-link &#123;</span><br><span class="line"><span class="css">		<span class="attribute">transition</span>: all .<span class="number">4s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-class">.sidebar-link</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">background-color</span>: <span class="number">#444</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">border-radius</span>: <span class="number">5px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.current &#123;</span><br><span class="line"><span class="css">		<span class="attribute">background-color</span>: <span class="number">#f44336</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">border-radius</span>: <span class="number">7px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">box-shadow</span>: <span class="number">3px</span> <span class="number">5px</span> <span class="number">10px</span> <span class="number">#111</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transition</span>: all .<span class="number">3s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="selector-class">.current</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">background-color</span>: <span class="number">#ff6436</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">border-radius</span>: <span class="number">7px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">box-shadow</span>: <span class="number">2px</span> <span class="number">5px</span> <span class="number">20px</span> <span class="number">#111</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1px</span>);</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;navbar-nav&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link current&quot;</span>&gt;</span>&lt;i</span><br><span class="line">				class=&quot;fas fa-home text-light fa-lg mr-3&quot;&gt;<span class="tag">&lt;/<span class="name">i</span>&gt;</span>Dashboard<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Profile<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Inbox<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Sales<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Analytics<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Charts<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Tables<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Setting<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;nav-link sidebar-link&quot;</span>&gt;</span>Documentation<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Hamberger-need-jQuery"><a href="#Hamberger-need-jQuery" class="headerlink" title="Hamberger(need jQuery)"></a>Hamberger(need jQuery)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.nav-menu &#123;</span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>( <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">3</span>), <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">5</span>));</span></span><br><span class="line"><span class="css">		<span class="attribute">padding</span>: <span class="number">30px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transition</span>: all .<span class="number">7s</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">		<span class="attribute">justify-content</span>: flex-end;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.hamberger &#123;</span><br><span class="line"><span class="css">		<span class="attribute">background</span>: transparent;</span></span><br><span class="line"><span class="css">		<span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css">		<span class="attribute">cursor</span>: pointer;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.line1, .line2, .line3 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="number">#f8f9fa</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>:<span class="number">23px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">3px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">margin</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transition</span>: all .<span class="number">4s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.change .line1 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">45deg</span>) <span class="built_in">translate</span>(-<span class="number">5px</span>, <span class="number">6px</span>);</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.change .line2 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">opacity</span>: <span class="number">0</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.change .line3 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>) <span class="built_in">translate</span>(-<span class="number">5px</span>, -<span class="number">6px</span>);</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;nav-menu&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;hamberger&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-light line1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-light line2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bg-light line3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">button</span>&gt;</span>		</span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		$(<span class="string">&#x27;.hamberger&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			$(<span class="string">&#x27;.hamberger&#x27;</span>).toggleClass(<span class="string">&#x27;change&#x27;</span>);</span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><h4 id="文字移動"><a href="#文字移動" class="headerlink" title="文字移動"></a>文字移動</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">4</span>),<span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">5</span>))</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner &#123;</span><br><span class="line"><span class="css">		<span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">		<span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">80%</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner-heading &#123;</span><br><span class="line"><span class="css">			<span class="comment">/* map @keyframes name */</span></span></span><br><span class="line"><span class="css">			<span class="attribute">animation-name</span>: anim;</span></span><br><span class="line"><span class="css">			<span class="comment">/* animation time */</span></span></span><br><span class="line"><span class="css">			<span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner-par &#123;</span><br><span class="line"><span class="css">		<span class="attribute">animation-name</span>: anim;</span></span><br><span class="line"><span class="css">		<span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span></span><br><span class="line"><span class="css">		<span class="comment">/* delay for start animation */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">animation-delay</span>: .<span class="number">5s</span>;</span></span><br><span class="line"><span class="css">		<span class="comment">/* animation style */</span></span></span><br><span class="line">		/* none : default( run as @keyframes) - 執行後回到初始狀態</span><br><span class="line">		forwards : 停於動畫執行後畫面</span><br><span class="line">		backwards : 無動畫執行前狀態</span><br><span class="line">		both: 無動畫執行前狀態 + 停於動畫執行後畫面 */</span><br><span class="line"><span class="css">		<span class="attribute">animation-fill-mode</span>: backwards;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="comment">/* 關鍵影格(@keyframe) */</span></span></span><br><span class="line"><span class="css">	<span class="keyword">@keyframes</span> anim &#123;</span></span><br><span class="line">		0% &#123;</span><br><span class="line"><span class="css">			<span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">100px</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">opacity</span>: <span class="number">0</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">		100% &#123;</span><br><span class="line"><span class="css">			<span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">opacity</span>: <span class="number">1</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text-center banner&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;banner-heading&quot;</span>&gt;</span>Welcome to photoX<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;banner-par&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="文字移動-demo-animation-fill-mode"><a href="#文字移動-demo-animation-fill-mode" class="headerlink" title="文字移動(demo animation-fill-mode)"></a>文字移動(demo animation-fill-mode)</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">4</span>),<span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, .<span class="number">5</span>))</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner2 &#123;</span><br><span class="line"><span class="css">		<span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">		<span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">left</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">80%</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner2-heading &#123;</span><br><span class="line"><span class="css">			<span class="comment">/* map @keyframes name */</span></span></span><br><span class="line"><span class="css">			<span class="attribute">animation-name</span>: anim2;</span></span><br><span class="line"><span class="css">			<span class="comment">/* animation time */</span></span></span><br><span class="line"><span class="css">			<span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	.banner2-par &#123;</span><br><span class="line"><span class="css">		<span class="attribute">animation-name</span>: anim2;</span></span><br><span class="line"><span class="css">		<span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span></span><br><span class="line"><span class="css">		<span class="comment">/* delay for start animation */</span></span></span><br><span class="line"><span class="css">		<span class="attribute">animation-delay</span>: .<span class="number">5s</span>;</span></span><br><span class="line"><span class="css">		<span class="comment">/* animation style */</span></span></span><br><span class="line">		/* none : default( run as @keyframes) - 執行後回到初始狀態</span><br><span class="line">		forwards : 停於動畫執行後畫面</span><br><span class="line">		backwards : 無動畫執行前狀態</span><br><span class="line">		both: 無動畫執行前狀態 + 停於動畫執行後畫面 */</span><br><span class="line"><span class="css">		<span class="attribute">animation-fill-mode</span>: backwards;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="css">	<span class="comment">/* 關鍵影格(@keyframe) */</span></span></span><br><span class="line"><span class="css">	<span class="keyword">@keyframes</span> anim2 &#123;</span></span><br><span class="line">		0% &#123;</span><br><span class="line"><span class="css">			<span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">100px</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">opacity</span>: <span class="number">0</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">		50% &#123;</span><br><span class="line"><span class="css">			<span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">opacity</span>: .<span class="number">5</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">		100% &#123;</span><br><span class="line"><span class="css">			<span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">100px</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">opacity</span>: <span class="number">1</span>;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text-center banner2&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;banner2-heading&quot;</span>&gt;</span>Welcome to photoX<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;banner2-par&quot;</span>&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><h4 id="遮圖"><a href="#遮圖" class="headerlink" title="遮圖"></a>遮圖</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">	.contact &#123;</span><br><span class="line"><span class="css">		<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">100deg</span>, <span class="built_in">rgba</span>(<span class="number">21</span>, <span class="number">31</span>, <span class="number">32</span>, <span class="number">1</span>) <span class="number">0%</span>, <span class="built_in">rgba</span>(<span class="number">21</span>, <span class="number">31</span>,<span class="number">32</span>, .<span class="number">95</span>) <span class="number">50%</span>, transparent <span class="number">50%</span>), <span class="built_in">url</span>(<span class="string">&quot;images/form-img.jpeg&quot;</span>) no-repeat center center /cover;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;contact&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 500px&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/13/practice-1-3/" rel="prev" title="Practice React Ecommerce - Deployment">
+                  <i class="fa fa-chevron-left"></i> Practice React Ecommerce - Deployment
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/28/flutter-1/" rel="next" title="Flutter">
+                  Flutter <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2022/01/10/css-6/";
+    this.page.identifier = "2022/01/10/css-6/";
+    this.page.title = "CSS animation";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

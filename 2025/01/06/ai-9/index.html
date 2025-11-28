@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="How to Build Custom Actions for GPTs Without Coding (OpenAI Custom Tools)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Foundations - YouTube Resources">
+<meta property="og:url" content="https://hot5656.github.io/2025/01/06/ai-9/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="How to Build Custom Actions for GPTs Without Coding (OpenAI Custom Tools)">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-01-06T02:37:29.000Z">
+<meta property="article:modified_time" content="2025-03-04T04:24:34.019Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="ai Foundations">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2025/01/06/ai-9/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>AI Foundations - YouTube Resources | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-Build-Custom-Actions-for-GPTs-Without-Coding-OpenAI-Custom-Tools"><span class="nav-number">1.</span> <span class="nav-text">How to Build Custom Actions for GPTs Without Coding (OpenAI Custom Tools)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-step"><span class="nav-number">1.1.</span> <span class="nav-text">3 step</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#custom-GPT-example"><span class="nav-number">1.2.</span> <span class="nav-text">custom GPT example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#This-AI-Technology-Will-Replace-Millions-Here%E2%80%99s-How-to-Prepare"><span class="nav-number">2.</span> <span class="nav-text">This AI Technology Will Replace Millions (Here’s How to Prepare)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-perfect-computer"><span class="nav-number">2.1.</span> <span class="nav-text">The perfect computer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Base-agents"><span class="nav-number">2.2.</span> <span class="nav-text">Base agents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AI-agents-apply-to"><span class="nav-number">2.3.</span> <span class="nav-text">AI agents apply to</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Opportunities"><span class="nav-number">2.4.</span> <span class="nav-text">Opportunities</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Proven-Content-System-for-Unlimited-AI-Agency-Leads"><span class="nav-number">3.</span> <span class="nav-text">The Proven Content System for Unlimited AI Agency Leads</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#organic-content-funnels"><span class="nav-number">3.1.</span> <span class="nav-text">organic content funnels</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-AI-Tools-I-Use-to-Make-480-000-x2F-Month"><span class="nav-number">4.</span> <span class="nav-text">13 AI Tools I Use to Make $480,000&#x2F;Month</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Ways-to-Start-an-Al-Agency-in-2024"><span class="nav-number">5.</span> <span class="nav-text">5 Ways to Start an Al Agency in 2024</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AI-business"><span class="nav-number">5.1.</span> <span class="nav-text">AI business:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Problems"><span class="nav-number">5.2.</span> <span class="nav-text">3 Problems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Strategy"><span class="nav-number">5.3.</span> <span class="nav-text">Strategy :</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Types-AI"><span class="nav-number">5.4.</span> <span class="nav-text">5 Types AI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference-1"><span class="nav-number">5.5.</span> <span class="nav-text">Reference</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AI-Automation-Specialist"><span class="nav-number">5.5.1.</span> <span class="nav-text">AI Automation Specialist</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Text-Based-Agent-Specialist"><span class="nav-number">5.5.2.</span> <span class="nav-text">Text Based Agent Specialist</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Voice-Based-Agent-Specialist"><span class="nav-number">5.5.3.</span> <span class="nav-text">Voice Based Agent Specialist</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Zapier-Ecosystem-Specialist"><span class="nav-number">5.5.4.</span> <span class="nav-text">Zapier Ecosystem Specialist</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Chatbot-Specialist-Voiceflow"><span class="nav-number">5.5.5.</span> <span class="nav-text">Chatbot Specialist (Voiceflow)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Simplest-AI-Automation-Offer-for-Beginners-start-here"><span class="nav-number">6.</span> <span class="nav-text">The Simplest AI Automation Offer for Beginners (start here)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference-2"><span class="nav-number">6.1.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-5-Phases-of-Scaling-an-AI-Agency-0-100K-x2F-Month-Roadmap"><span class="nav-number">7.</span> <span class="nav-text">The 5 Phases of Scaling an AI Agency: $0-100K&#x2F;Month Roadmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">8.</span> <span class="nav-text">Other</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Case-for-AI-apply"><span class="nav-number">8.1.</span> <span class="nav-text">Case for AI apply</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2025/01/06/ai-9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI Foundations - YouTube Resources
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-01-06 10:37:29" itemprop="dateCreated datePublished" datetime="2025-01-06T10:37:29+08:00">2025-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-03-04 12:24:34" itemprop="dateModified" datetime="2025-03-04T12:24:34+08:00">2025-03-04</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/01/06/ai-9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/01/06/ai-9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="How-to-Build-Custom-Actions-for-GPTs-Without-Coding-OpenAI-Custom-Tools"><a href="#How-to-Build-Custom-Actions-for-GPTs-Without-Coding-OpenAI-Custom-Tools" class="headerlink" title="How to Build Custom Actions for GPTs Without Coding (OpenAI Custom Tools)"></a><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_sNGuQz-LyY">How to Build Custom Actions for GPTs Without Coding (OpenAI Custom Tools)</a></h3><span id="more"></span>
+
+<h4 id="3-step"><a href="#3-step" class="headerlink" title="3 step"></a>3 step</h4><ul>
+<li>Prompting </li>
+<li>Knowledge</li>
+<li>ACtions</li>
+</ul>
+<h4 id="custom-GPT-example"><a href="#custom-GPT-example" class="headerlink" title="custom GPT example"></a>custom GPT example</h4><ul>
+<li>Search and research a company by URL </li>
+<li>Find leads for comapny</li>
+<li>Generate personal outreach message(CEO linkedIn …)</li>
+</ul>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://app.relevanceai.com/">Relevance AI </a>:一個致力於提供資料分析和機器學習解決方案的平台,該平台主要面向希望透過數據分析和機器學習提升業務分析力的企業和組織，特別是那些希望簡化數據處理流程的團隊。</li>
+<li><a target="_blank" rel="noopener" href="https://www.gptbots.ai/">GPTBots AI</a> : GPTBots 是一個強大的無需編碼的平台，允許用戶為業務創建 AI 驅動的應用程式。 它提供直觀的可視化構建器，讓用戶輕鬆建立和訓練 AI 機器人，以滿足特定的業務需求。 此外，GPTBots 還支持多種資料格式的整合，並提供強大的 API 和 SDK，方便將 AI 機器人嵌入到現有系統中。</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.cn/zh-tw/ai-tools/gptscopilot">GPTsCopilot</a> : 是一個無需任何編碼技能的全能平台，用於構建和管理自訂 GPT。 它提供先進的分析和強大的行動管理工具，支持多種 GPT 版本（如 GPT-4 和 Claude 3），適用於各種應用場景，如日常任務、自動化對話和數據分析等。<br>CREATI</li>
+<li><a target="_blank" rel="noopener" href="https://customgpt.ai/">customGPT AI</a> : Custom GPTs 是 ChatGPT 的自訂版本，允許用戶為特定目的創建自己的 GPT，無需編碼。 該工具易於使用，適合各種技能水平的用戶，可應用於娛樂、教育、醫療等多種領域。 用戶可以通過訪問 ChatGPT 網站來使用此功能。</li>
+</ul>
+<h3 id="This-AI-Technology-Will-Replace-Millions-Here’s-How-to-Prepare"><a href="#This-AI-Technology-Will-Replace-Millions-Here’s-How-to-Prepare" class="headerlink" title="This AI Technology Will Replace Millions (Here’s How to Prepare)"></a><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=g3-c8XZi7BY&t=56s">This AI Technology Will Replace Millions (Here’s How to Prepare)</a></h3><h4 id="The-perfect-computer"><a href="#The-perfect-computer" class="headerlink" title="The perfect computer"></a>The perfect computer</h4><ul>
+<li>Recognising need&#x2F;want</li>
+<li>Understand what you want</li>
+<li>Figur out the step you </li>
+<li>Do everything for you</li>
+</ul>
+<h4 id="Base-agents"><a href="#Base-agents" class="headerlink" title="Base agents"></a>Base agents</h4><ul>
+<li>Text base agents : ChatGPT …</li>
+<li>Voice AI agents : Synthflow, Air AI …</li>
+</ul>
+<h4 id="AI-agents-apply-to"><a href="#AI-agents-apply-to" class="headerlink" title="AI agents apply to"></a>AI agents apply to</h4><ul>
+<li>Personal Life</li>
+<li>Work Life</li>
+<li>business Operation</li>
+</ul>
+<h4 id="Opportunities"><a href="#Opportunities" class="headerlink" title="Opportunities"></a>Opportunities</h4><ul>
+<li>AI automation agencies</li>
+<li>Education</li>
+<li>AI SaaS-Software as a Service(software production)</li>
+</ul>
+<h3 id="The-Proven-Content-System-for-Unlimited-AI-Agency-Leads"><a href="#The-Proven-Content-System-for-Unlimited-AI-Agency-Leads" class="headerlink" title="The Proven Content System for Unlimited AI Agency Leads"></a><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=O2YmiYEJ-sY">The Proven Content System for Unlimited AI Agency Leads</a></h3><h4 id="organic-content-funnels"><a href="#organic-content-funnels" class="headerlink" title="organic content funnels"></a>organic content funnels</h4><ol>
+<li>Cold-Awareness (Rented audience)-CTA(call to action)<ul>
+<li>See your content</li>
+<li>Folloed &#x2F;Subscribed</li>
+</ul>
+</li>
+<li>Warm-(Owned Audience)<ul>
+<li>Email,SMS,WhatsApp</li>
+<li>Email List</li>
+<li>Free Resource&#x2F;Lead magnet</li>
+<li>Trust ,Respect , Authority(Nurturing)</li>
+</ul>
+</li>
+<li>Hot</li>
+</ol>
+<h3 id="13-AI-Tools-I-Use-to-Make-480-000-x2F-Month"><a href="#13-AI-Tools-I-Use-to-Make-480-000-x2F-Month" class="headerlink" title="13 AI Tools I Use to Make $480,000&#x2F;Month"></a><a target="_blank" rel="noopener" href="https://www.skool.com/learn-ai/video-13-ai-tools-i-use-to-make-480000month?p=2f619c88">13 AI Tools I Use to Make $480,000&#x2F;Month</a></h3><ol>
+<li>Morningside AI - AI automation agency(AAA)</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://promptmetheus.com/">Prometheus</a>(prompt engineering IDE)</li>
+<li><a target="_blank" rel="noopener" href="https://www.cursor.com/">Cursor</a>(AI-enhanced code editor)</li>
+<li><a target="_blank" rel="noopener" href="https://vapi.ai/">Vapi</a>(voice agent, HR auto call ask question then choice people)</li>
+<li><a target="_blank" rel="noopener" href="https://deepmind.google/technologies/gemini/">Google Gemini deep research</a>(search 研究)</li>
+</ul>
+<ol start="2">
+<li>AAA accelerator - education business<ul>
+<li><a target="_blank" rel="noopener" href="https://fireflies.ai/">Fireflies</a>(record software, analyze)</li>
+<li><a target="_blank" rel="noopener" href="https://www.airtable.com/platform/ai">AirTable AI</a>(text analyze)</li>
+</ul>
+</li>
+<li>agentive - AI SaaS<ul>
+<li><a target="_blank" rel="noopener" href="https://agentivehub.com/">Agentive</a>(customer support)</li>
+</ul>
+</li>
+<li>Content<ul>
+<li><a target="_blank" rel="noopener" href="https://claude.ai/">Claude</a>(better for idea then ChatGPT)</li>
+<li><a target="_blank" rel="noopener" href="https://www.perplexity.ai/">Perplexity</a>(topic research)</li>
+<li><a target="_blank" rel="noopener" href="https://www.recraft.ai/">Recraft</a>(generate consistent images and icons for video)</li>
+<li><a target="_blank" rel="noopener" href="https://runwayml.com/">Runway</a>(AI video generation)</li>
+<li><a target="_blank" rel="noopener" href="https://replicate.com/ostris/flux-dev-lora-trainer/train">Replicate</a>(AI generated thumbnail)</li>
+<li><a target="_blank" rel="noopener" href="https://app.relevanceai.com/">Relevance AI</a>(deep ideas)</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-Ways-to-Start-an-Al-Agency-in-2024"><a href="#5-Ways-to-Start-an-Al-Agency-in-2024" class="headerlink" title="5 Ways to Start an Al Agency in 2024"></a><a target="_blank" rel="noopener" href="https://www.skool.com/learn-ai/video-5-ways-to-start-an-al-agency-in-2024">5 Ways to Start an Al Agency in 2024</a></h3><h4 id="AI-business"><a href="#AI-business" class="headerlink" title="AI business:"></a>AI business:</h4><ul>
+<li>SaaS: more design</li>
+<li>Agency: </li>
+<li>Education: Need for clarity strategy</li>
+</ul>
+<h4 id="3-Problems"><a href="#3-Problems" class="headerlink" title="3 Problems"></a>3 Problems</h4><ul>
+<li>Expertise(technical)</li>
+<li>lead flow</li>
+<li>Credibility Authority</li>
+</ul>
+<h4 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy :"></a>Strategy :</h4><ul>
+<li>Learning the Thing(YouTube&#x2F;LinkedIn)</li>
+<li>Share Your Journey</li>
+<li>Offer free Consulting call</li>
+<li>Close deals</li>
+</ul>
+<h4 id="5-Types-AI"><a href="#5-Types-AI" class="headerlink" title="5 Types AI"></a>5 Types AI</h4><ul>
+<li>AI Automation Speccialist(make.com, AirTbale)</li>
+<li>Text Base Agents(ChatGPT, assistance API,Agentive-put WhatsApp..): forever loop</li>
+<li>Voice Agent Specialist(Bland AI, Air AI, Syn flow, Vapy</li>
+<li>Zapiz ecosystem specialist(Automation, chatBots, data management</li>
+<li>Chatbot Specialist(voiceflow-WhatsApp)</li>
+</ul>
+<h4 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h4><h5 id="AI-Automation-Specialist"><a href="#AI-Automation-Specialist" class="headerlink" title="AI Automation Specialist"></a>AI Automation Specialist</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3jxfk6nH5qk">Prompt Engineering</a></li>
+<li><a target="_blank" rel="noopener" href="https://academy.make.com/">Make Academy</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLHi9LZK4z4R6bF2K2f4qjNz9-_Kq27dBp">Free Make Course</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLB_a5YimSFP2o9_BdJbvSyfzoBKts87hs">Free Airtable Course</a></li>
+<li><a target="_blank" rel="noopener" href="https://academy.airtable.com/">Airtable Academy</a></li>
+<li><a target="_blank" rel="noopener" href="https://partnertraining.make.com/">Make Partner Training</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@theShazM/videos">Shaz’s Channel (Running an AI Automation Focussed Agency)</a></li>
+</ul>
+<h5 id="Text-Based-Agent-Specialist"><a href="#Text-Based-Agent-Specialist" class="headerlink" title="Text Based Agent Specialist"></a>Text Based Agent Specialist</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3jxfk6nH5qk">Prompt Engineering</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Hh2zqaf0Fvg">My GPTs Beginner’s Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_sNGuQz-LyY">Learn RelevanceAI</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Iby1C0LgPdI">Learn Apify</a></li>
+<li><a target="_blank" rel="noopener" href="https://chatgpt.com/gpts/mine">Build GPTs</a></li>
+<li><a target="_blank" rel="noopener" href="https://agentivehub.com/">Build and Sell AI Agents with Agentive</a></li>
+</ul>
+<h5 id="Voice-Based-Agent-Specialist"><a href="#Voice-Based-Agent-Specialist" class="headerlink" title="Voice Based Agent Specialist"></a>Voice Based Agent Specialist</h5><ul>
+<li><a target="_blank" rel="noopener" href="//www.youtube.com/watch?v=3jxfk6nH5qk">Prompt Engineering: https</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gkKL7Owg7H4">Liam Voice AI Videos #1</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8K1z-5-74w">Liam Voice AI Videos #2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aWnNJdiza3k">Liam Voice AI Videos #3</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@jannismoore/videos">Jannis’ Channel (Vapi)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@Mark_Kashef/videos">Mark’s Channel (Bland)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@BrockMesarich">Brock’s Channel (General AI Voice)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@SaminYasar_/videos">Samin Yasar (Running an AI Voice Agency)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jDPXWMUVUPE&ab_channel=BrendanJowett">Brendan’s AI Voice Tutorial</a></li>
+</ul>
+<h5 id="Zapier-Ecosystem-Specialist"><a href="#Zapier-Ecosystem-Specialist" class="headerlink" title="Zapier Ecosystem Specialist"></a>Zapier Ecosystem Specialist</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3jxfk6nH5qk">Prompt Engineering</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.zapier.com/page/courses">Zapier Learn</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@webcafeai/search?query=zapier">Corbin Brown</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=10_IoRRSjaw">My Ecom Solution</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=SO0pm3LA2AI">My Interview w&#x2F; Zapier AI Director</a></li>
+</ul>
+<h5 id="Chatbot-Specialist-Voiceflow"><a href="#Chatbot-Specialist-Voiceflow" class="headerlink" title="Chatbot Specialist (Voiceflow)"></a>Chatbot Specialist (Voiceflow)</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3jxfk6nH5qk">Prompt Engineering</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jCoH82LPgdk&pp=ygUTbGlhbSBvdHRsZXkgY2hhdGJvdA==">My 3hr Chatbot Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=YzRwq3wSu6w">Brendan’s Chatbot Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Ev_WvXvyNNo">Flowise Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@FlowBridgeApp">Flowbridge #1</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_-oJM2Ed0FQ&pp=ygUKZmxvd2JyaWRnZQ==">Flowbridge #2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/@brendanautomation/videos">Brendan’s Channel</a></li>
+</ul>
+<h3 id="The-Simplest-AI-Automation-Offer-for-Beginners-start-here"><a href="#The-Simplest-AI-Automation-Offer-for-Beginners-start-here" class="headerlink" title="The Simplest AI Automation Offer for Beginners (start here)"></a><a target="_blank" rel="noopener" href="https://www.skool.com/learn-ai/video-the-simplest-ai-automation-offer-for-beginners-start-here?p=941901d2">The Simplest AI Automation Offer for Beginners (start here)</a></h3><p>simplest AI  Offer</p>
+<ul>
+<li>Knowledge Gap</li>
+<li>AI Tools Consulting(sell other people stuff)</li>
+<li>Education – Consulting - -Implement AI service(Service delivery Platform)</li>
+</ul>
+<p>Process to Start </p>
+<ul>
+<li>Find Tools(YouTube)</li>
+<li>Make a list at sheet</li>
+<li>Deep Diving(Youtub search, Try it Yourself)</li>
+<li>Make as DB tools(database) - 50 tools</li>
+</ul>
+<p>Free AI Tools Audit</p>
+<ul>
+<li>free Consult</li>
+<li>math + find more(AI tools or future tools)</li>
+<li>report whating</li>
+<li>Afficlits</li>
+</ul>
+<h4 id="Reference-2"><a href="#Reference-2" class="headerlink" title="Reference"></a>Reference</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://theresanaiforthat.com/">There’s an AI for That</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.futuretools.io/">Future Tools</a></li>
+</ul>
+<h3 id="The-5-Phases-of-Scaling-an-AI-Agency-0-100K-x2F-Month-Roadmap"><a href="#The-5-Phases-of-Scaling-an-AI-Agency-0-100K-x2F-Month-Roadmap" class="headerlink" title="The 5 Phases of Scaling an AI Agency: $0-100K&#x2F;Month Roadmap"></a><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2-9GpXyduRE">The 5 Phases of Scaling an AI Agency: $0-100K&#x2F;Month Roadmap</a></h3><ul>
+<li>Start Up : 0~5k&#x2F;month</li>
+<li>Early Growth : 5~10k&#x2F;month</li>
+<li>Establishment : 10~20k&#x2F;month</li>
+<li>SCaling : 20~50k&#x2F;month</li>
+<li>Expansion : 50~100k&#x2F;month</li>
+</ul>
+<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h3><h4 id="Case-for-AI-apply"><a href="#Case-for-AI-apply" class="headerlink" title="Case for AI apply"></a>Case for AI apply</h4><ul>
+<li>Manually responding to customer service inquiries</li>
+<li>Processing data in spreadsheets</li>
+<li>Organizing their inbox and calendar</li>
+<li>Handling repetitive tasks that eat up 40% of their work week</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ai-Foundations/" rel="tag"># ai Foundations</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/03/ai-8/" rel="prev" title="AI Foundations - AI Voice Agents">
+                  <i class="fa fa-chevron-left"></i> AI Foundations - AI Voice Agents
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/08/ai-10/" rel="next" title="AI Foundations - Chatbots & GPTs">
+                  AI Foundations - Chatbots & GPTs <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2025/01/06/ai-9/";
+    this.page.identifier = "2025/01/06/ai-9/";
+    this.page.title = "AI Foundations - YouTube Resources";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

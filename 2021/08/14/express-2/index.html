@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Blog 重構module install + sqeuwlize-cli init1234567891011npm install expressnpm install ejsnpm install body-parsernpm install express-sessionnpm install connect-flashnpm install sequelizenpm install seq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express practice">
+<meta property="og:url" content="https://hot5656.github.io/2021/08/14/express-2/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Blog 重構module install + sqeuwlize-cli init1234567891011npm install expressnpm install ejsnpm install body-parsernpm install express-sessionnpm install connect-flashnpm install sequelizenpm install seq">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-08-14T05:06:26.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:34.720Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="express">
+<meta property="article:tag" content="node.js">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/08/14/express-2/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Express practice | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Blog-%E9%87%8D%E6%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">Blog 重構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#module-install-sqeuwlize-cli-init"><span class="nav-number">1.1.</span> <span class="nav-text">module install + sqeuwlize-cli init</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-json"><span class="nav-number">1.2.</span> <span class="nav-text">config.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#create-db-migrate"><span class="nav-number">1.3.</span> <span class="nav-text">create db(migrate)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-css-path"><span class="nav-number">1.4.</span> <span class="nav-text">set css path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model-%E5%8A%A0%E4%B8%8A%E9%97%9C%E8%81%AF"><span class="nav-number">1.5.</span> <span class="nav-text">model 加上關聯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#index-js"><span class="nav-number">1.6.</span> <span class="nav-text">index.js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lottery-api"><span class="nav-number">2.</span> <span class="nav-text">lottery api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#api-source"><span class="nav-number">2.1.</span> <span class="nav-text">api source</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#module-install-sqeuwlize-cli-init-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">module install + sqeuwlize-cli init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#config-json-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">config.json</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#create-db-migrate-1"><span class="nav-number">2.1.3.</span> <span class="nav-text">create db(migrate)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#index-js-1"><span class="nav-number">2.1.4.</span> <span class="nav-text">index.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#controllers"><span class="nav-number">2.1.5.</span> <span class="nav-text">controllers</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tes-DB"><span class="nav-number">2.2.</span> <span class="nav-text">tes DB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#develop-to-heroku"><span class="nav-number">2.3.</span> <span class="nav-text">develop to heroku</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#package-json-add-%E2%80%9Cscript%E2%80%9D-and-%E2%80%9Cengines%E2%80%9D"><span class="nav-number">2.3.1.</span> <span class="nav-text">package.json add “script” and “engines”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-env-port"><span class="nav-number">2.3.2.</span> <span class="nav-text">set env port</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-heroku-local-test"><span class="nav-number">2.3.3.</span> <span class="nav-text">run heroku local test</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-config-x2F-config-json-for-DB"><span class="nav-number">2.3.4.</span> <span class="nav-text">set config&#x2F;config.json for DB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#push-to-heroku"><span class="nav-number">2.3.5.</span> <span class="nav-text">push to heroku</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/08/14/express-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Express practice
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-08-14 13:06:26" itemprop="dateCreated datePublished" datetime="2021-08-14T13:06:26+08:00">2021-08-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:34" itemprop="dateModified" datetime="2022-06-09T11:38:34+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Back-End/" itemprop="url" rel="index"><span itemprop="name">Back End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/08/14/express-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/14/express-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>17 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Blog-重構"><a href="#Blog-重構" class="headerlink" title="Blog 重構"></a>Blog 重構</h3><h4 id="module-install-sqeuwlize-cli-init"><a href="#module-install-sqeuwlize-cli-init" class="headerlink" title="module install + sqeuwlize-cli init"></a>module install + sqeuwlize-cli init</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm install express</span><br><span class="line">npm install ejs</span><br><span class="line">npm install body-parser</span><br><span class="line">npm install express-session</span><br><span class="line">npm install connect-flash</span><br><span class="line">npm install sequelize</span><br><span class="line">npm install sequelize-cli</span><br><span class="line">npm install mysql2</span><br><span class="line">npm install bcrypt</span><br><span class="line"><span class="comment"># init </span></span><br><span class="line">npx sequelize-cli init</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="config-json"><a href="#config-json" class="headerlink" title="config.json"></a>config.json</h4><p>config&#x2F;config.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;development&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;robert&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;password&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;mydb2&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;test&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;database_test&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;production&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;database_production&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="create-db-migrate"><a href="#create-db-migrate" class="headerlink" title="create db(migrate)"></a>create db(migrate)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># User</span></span><br><span class="line">npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string</span><br><span class="line"><span class="comment"># User_level</span></span><br><span class="line">npx sequelize-cli model:generate --name User_level --attributes user_level:<span class="built_in">integer</span>,level_describe:string,user_admin:<span class="built_in">integer</span>,all_modify:<span class="built_in">integer</span>,all_delete:<span class="built_in">integer</span>,self_create:<span class="built_in">integer</span>,self_modify:<span class="built_in">integer</span>,self_delete:<span class="built_in">integer</span> </span><br><span class="line"><span class="comment"># Blog_category</span></span><br><span class="line">npx sequelize-cli model:generate --name Blog_category --attributes name:string,deleted:<span class="built_in">integer</span></span><br><span class="line"><span class="comment"># Blog</span></span><br><span class="line">npx sequelize-cli model:generate --name Blog --attributes BlogCategoryId:<span class="built_in">integer</span>,title:string,content:text,deleted:boolean</span><br><span class="line"><span class="comment"># migrate</span></span><br><span class="line">npx sequelize-cli db:migrate</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-css-path"><a href="#set-css-path" class="headerlink" title="set css path"></a>set css path</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="comment">// add connect flash - css patch</span></span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="comment">// css patch</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">&#x27;/public&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">// views/template/head.ejs</span></span><br><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;/css/normalize.css&quot;</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;/css/style.css&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="model-加上關聯"><a href="#model-加上關聯" class="headerlink" title="model 加上關聯"></a>model 加上關聯</h4><p>.&#x2F;model&#x2F;blog.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">  Model</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">&#x27;sequelize&#x27;</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">sequelize, DataTypes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Blog</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Helper method for defining associations.</span></span><br><span class="line"><span class="comment">     * This method is not a part of Sequelize lifecycle.</span></span><br><span class="line"><span class="comment">     * The `models/index` file will call this method automatically.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">associate</span>(<span class="params">models</span>)</span> &#123;</span><br><span class="line">      <span class="comment">// 加上關聯設定</span></span><br><span class="line">      Blog.belongsTo(models.Blog_category)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  Blog.init(&#123;</span><br><span class="line">    BlogCategoryId: DataTypes.INTEGER,</span><br><span class="line">    title: DataTypes.STRING,</span><br><span class="line">    content: DataTypes.TEXT,</span><br><span class="line">    deleted: DataTypes.BOOLEAN</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    sequelize,</span><br><span class="line">    modelName: <span class="string">&#x27;Blog&#x27;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> Blog;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>.&#x2F;model&#x2F;blog_category.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">  Model</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">&#x27;sequelize&#x27;</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">sequelize, DataTypes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Blog_category</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Helper method for defining associations.</span></span><br><span class="line"><span class="comment">     * This method is not a part of Sequelize lifecycle.</span></span><br><span class="line"><span class="comment">     * The `models/index` file will call this method automatically.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">associate</span>(<span class="params">models</span>)</span> &#123;</span><br><span class="line">      	<span class="comment">// 加上關聯設定</span></span><br><span class="line">		    Blog_category.hasMany(models.Blog)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  Blog_category.init(&#123;</span><br><span class="line">    name: DataTypes.STRING,</span><br><span class="line">    deleted: DataTypes.INTEGER</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    sequelize,</span><br><span class="line">    modelName: <span class="string">&#x27;Blog_category&#x27;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> Blog_category;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="comment">// add body parser</span></span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>)</span><br><span class="line"><span class="comment">// add express session</span></span><br><span class="line"><span class="keyword">const</span> session = <span class="built_in">require</span>(<span class="string">&#x27;express-session&#x27;</span>)</span><br><span class="line"><span class="comment">// add connect flash</span></span><br><span class="line"><span class="keyword">const</span> flash = <span class="built_in">require</span>(<span class="string">&#x27;connect-flash&#x27;</span>)</span><br><span class="line"><span class="comment">// add connect flash - css patch</span></span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="comment">// start express</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> blogController = <span class="built_in">require</span>(<span class="string">&#x27;./controllers/blog&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// set view engine type - directory is ./views</span></span><br><span class="line">app.set(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// add express session</span></span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret: <span class="string">&#x27;keyboard cat&#x27;</span>,</span><br><span class="line">  resave: <span class="literal">false</span>,</span><br><span class="line">  saveUninitialized: <span class="literal">true</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// add body parser</span></span><br><span class="line"><span class="comment">// parse application/x-www-form-urlencoded</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;))</span><br><span class="line"><span class="comment">// parse application/json</span></span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line"><span class="comment">// add connect flash</span></span><br><span class="line">app.use(flash())</span><br><span class="line"></span><br><span class="line"><span class="comment">// add global variable - use middleware</span></span><br><span class="line"><span class="comment">// const flash = require(&#x27;connect-flash&#x27;)</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">	res.locals.username = req.session.username</span><br><span class="line">	<span class="comment">// add connect flash</span></span><br><span class="line">	res.locals.errorMessage = req.flash(<span class="string">&#x27;errorMessage&#x27;</span>)</span><br><span class="line">	next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redirectBack</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.redirect(<span class="string">&#x27;back&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// css patch</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">&#x27;/public&#x27;</span>)))</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>, blogController.index) </span><br><span class="line">app.get(<span class="string">&#x27;/login&#x27;</span>, blogController.login) </span><br><span class="line">app.post(<span class="string">&#x27;/login&#x27;</span>, blogController.loginHandle, redirectBack) </span><br><span class="line">app.get(<span class="string">&#x27;/logout&#x27;</span>, blogController.logout) </span><br><span class="line">app.get(<span class="string">&#x27;/about&#x27;</span>, blogController.about) </span><br><span class="line">app.get(<span class="string">&#x27;/edit/:id&#x27;</span>, blogController.edit) </span><br><span class="line">app.get(<span class="string">&#x27;/delete/:id&#x27;</span>, blogController.delete) </span><br><span class="line">app.post(<span class="string">&#x27;/editHandle/:id&#x27;</span>, blogController.editHandle) </span><br><span class="line">app.get(<span class="string">&#x27;/create&#x27;</span>, blogController.create) </span><br><span class="line">app.post(<span class="string">&#x27;/createHandle&#x27;</span>, blogController.createHandle)</span><br><span class="line">app.get(<span class="string">&#x27;/list&#x27;</span>, blogController.list) </span><br><span class="line">app.get(<span class="string">&#x27;/page/:id&#x27;</span>, blogController.page) </span><br><span class="line">app.get(<span class="string">&#x27;/admin&#x27;</span>, blogController.admin) </span><br><span class="line">app.get(<span class="string">&#x27;/all&#x27;</span>, blogController.all) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// start express</span></span><br><span class="line">app.listen(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`blog app listening at http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="lottery-api"><a href="#lottery-api" class="headerlink" title="lottery api"></a>lottery api</h3><h4 id="api-source"><a href="#api-source" class="headerlink" title="api source"></a>api source</h4><h5 id="module-install-sqeuwlize-cli-init-1"><a href="#module-install-sqeuwlize-cli-init-1" class="headerlink" title="module install + sqeuwlize-cli init"></a>module install + sqeuwlize-cli init</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install express</span><br><span class="line">npm install ejs</span><br><span class="line">npm install body-parser</span><br><span class="line"><span class="comment"># connect-flash need express-session</span></span><br><span class="line">npm install express-session</span><br><span class="line">npm install connect-flash</span><br><span class="line">npm install sequelize</span><br><span class="line">npm install sequelize-cli</span><br><span class="line">npm install mysql2</span><br><span class="line"><span class="comment"># insatll bcrypt</span></span><br><span class="line">npm install bcrypt</span><br><span class="line"><span class="comment"># install cors</span></span><br><span class="line">npm install cors</span><br><span class="line"><span class="comment"># init </span></span><br><span class="line">npx sequelize-cli init</span><br></pre></td></tr></table></figure>
+
+<h5 id="config-json-1"><a href="#config-json-1" class="headerlink" title="config.json"></a>config.json</h5><p>config&#x2F;config.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;development&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;robert&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;password&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;mydb2&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;test&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;database_test&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;production&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: <span class="string">&quot;database_production&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;dialect&quot;</span>: <span class="string">&quot;mysql&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="create-db-migrate-1"><a href="#create-db-migrate-1" class="headerlink" title="create db(migrate)"></a>create db(migrate)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Lottery</span></span><br><span class="line">npx sequelize-cli model:generate --name Lottery --attributes <span class="built_in">type</span>:string,index:<span class="built_in">integer</span>,prize:string,description:string,url:string,probability:<span class="built_in">integer</span></span><br><span class="line"><span class="comment"># User</span></span><br><span class="line">npx sequelize-cli model:generate --name User --attributes username:string,password:string,nickname:string,user_level:<span class="built_in">integer</span></span><br><span class="line"><span class="comment"># migrate</span></span><br><span class="line">npx sequelize-cli db:migrate</span><br></pre></td></tr></table></figure>
+
+<h5 id="index-js-1"><a href="#index-js-1" class="headerlink" title="index.js"></a>index.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="comment">// add body parser</span></span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>)</span><br><span class="line"><span class="comment">// add express session</span></span><br><span class="line"><span class="keyword">const</span> session = <span class="built_in">require</span>(<span class="string">&#x27;express-session&#x27;</span>)</span><br><span class="line"><span class="comment">// add connect flash</span></span><br><span class="line"><span class="keyword">const</span> flash = <span class="built_in">require</span>(<span class="string">&#x27;connect-flash&#x27;</span>)</span><br><span class="line"><span class="comment">// add cors</span></span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>)</span><br><span class="line"><span class="comment">// start express</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"><span class="keyword">const</span> port = process.env.PORT || <span class="number">5000</span></span><br><span class="line"><span class="comment">// controllers</span></span><br><span class="line"><span class="keyword">const</span> userController = <span class="built_in">require</span>(<span class="string">&#x27;./controllers/user&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> lotteryController = <span class="built_in">require</span>(<span class="string">&#x27;./controllers/lottery&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// set view engine type - directory is ./views</span></span><br><span class="line">app.set(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// add body parser</span></span><br><span class="line"><span class="comment">// parse application/x-www-form-urlencoded</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;))</span><br><span class="line"><span class="comment">// parse application/json</span></span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line"><span class="comment">// add connect flash</span></span><br><span class="line">app.use(flash())</span><br><span class="line"></span><br><span class="line"><span class="comment">// add session</span></span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret: <span class="string">&#x27;keyboard cat&#x27;</span>,</span><br><span class="line">  resave: <span class="literal">false</span>,</span><br><span class="line">  saveUninitialized: <span class="literal">true</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// add global variable - use middleware</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">	res.locals.userId = req.session.userId</span><br><span class="line">	<span class="comment">// add connect flash</span></span><br><span class="line">	res.locals.errorMessage = req.flash(<span class="string">&#x27;errorMessage&#x27;</span>)</span><br><span class="line">	next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redirectBack</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.redirect(<span class="string">&#x27;back&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>, lotteryController.index)</span><br><span class="line">app.get(<span class="string">&#x27;/add&#x27;</span>, lotteryController.add)</span><br><span class="line">app.post(<span class="string">&#x27;/add-handle&#x27;</span>, lotteryController.addHandle, redirectBack)</span><br><span class="line">app.get(<span class="string">&#x27;/update/:id&#x27;</span>, lotteryController.update)</span><br><span class="line">app.post(<span class="string">&#x27;/update-handle/:id&#x27;</span>, lotteryController.updateHandle, redirectBack)</span><br><span class="line">app.get(<span class="string">&#x27;/delete/:id&#x27;</span>, lotteryController.delete)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/register&#x27;</span>, userController.register)</span><br><span class="line">app.post(<span class="string">&#x27;/register&#x27;</span>, userController.handleRegister, redirectBack)</span><br><span class="line">app.get(<span class="string">&#x27;/login&#x27;</span>, userController.login)</span><br><span class="line">app.post(<span class="string">&#x27;/login&#x27;</span>, userController.handleLogin, redirectBack)</span><br><span class="line">app.get(<span class="string">&#x27;/logout&#x27;</span>, userController.logout)</span><br><span class="line">app.get(<span class="string">&#x27;/users&#x27;</span>, userController.index)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/:type&#x27;</span>, cors(), lotteryController.lottery)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// start express</span></span><br><span class="line">app.listen(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`blog app listening at http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="controllers"><a href="#controllers" class="headerlink" title="controllers"></a>controllers</h5><p>controllers&#x2F;lottery.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./controllers/lottery.js</span></span><br><span class="line"><span class="keyword">const</span> db = <span class="built_in">require</span>(<span class="string">&#x27;../models&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> Lottery = db.Lottery</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> lotteryController = &#123;</span><br><span class="line">	index: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		Lottery.findAll(&#123;</span><br><span class="line">			order: [</span><br><span class="line">				[<span class="string">&#x27;type&#x27;</span>, <span class="string">&#x27;ASC&#x27;</span>],</span><br><span class="line">				[<span class="string">&#x27;index&#x27;</span>, <span class="string">&#x27;ASC&#x27;</span>],</span><br><span class="line">			]</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">lotteries</span> =&gt;</span>&#123;</span><br><span class="line">				res.render(<span class="string">&#x27;index&#x27;</span>, &#123;</span><br><span class="line">					lotteries</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(err.toString())</span><br><span class="line">				res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">			&#125;) </span><br><span class="line">	&#125;,</span><br><span class="line">	add: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		res.render(<span class="string">&#x27;add&#x27;</span>)</span><br><span class="line">	&#125;,</span><br><span class="line">	update: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		Lottery.findOne(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				id: req.params.id</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">lottery</span> =&gt;</span>&#123;</span><br><span class="line">			res.render(<span class="string">&#x27;update&#x27;</span>,&#123;</span><br><span class="line">				lottery</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err.toString())</span><br><span class="line">			res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">		&#125;) </span><br><span class="line">	&#125;,</span><br><span class="line">	addHandle: <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> &#123;	type, index, prize, description, url&#125; = req.body</span><br><span class="line">		<span class="keyword">let</span> &#123;	probability&#125; = req.body</span><br><span class="line">		<span class="keyword">if</span>( !type || !index || !prize || !description || !url || !probability )&#123;</span><br><span class="line">			req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;缺少必要欄位!&#x27;</span>)</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (prize === <span class="string">&#x27;NONE&#x27;</span>) &#123;</span><br><span class="line">			probability = <span class="number">0</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Lottery.findAll(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				type: type</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then( <span class="function"><span class="params">lotteries</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">let</span> percent = <span class="number">0</span></span><br><span class="line">			lotteries.forEach( <span class="function"><span class="params">lottery</span> =&gt;</span>&#123;</span><br><span class="line">				percent += lottery.probability</span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">			<span class="comment">// console.log(percent,  probability, percent+probability, (percent+Number(probability)) &gt;= 100)</span></span><br><span class="line">			<span class="keyword">if</span> ((percent+<span class="built_in">Number</span>(probability)) &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">				<span class="comment">// req.flash(&#x27;errorMessage&#x27;, &#x27;總機率設定太高!&#x27;)</span></span><br><span class="line">				<span class="comment">// next()</span></span><br><span class="line">				<span class="keyword">throw</span> <span class="string">&#x27;over probability!&#x27;</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then( <span class="function">() =&gt;</span>&#123;</span><br><span class="line">			Lottery.create(&#123;</span><br><span class="line">				type,</span><br><span class="line">				index,</span><br><span class="line">				prize,</span><br><span class="line">				description,</span><br><span class="line">				url,</span><br><span class="line">				probability</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">lottery</span> =&gt;</span> &#123;</span><br><span class="line">			res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">		&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (err.toString() === <span class="string">&#x27;over probability!&#x27;</span>)  &#123;</span><br><span class="line">				req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;總機率設定太高!&#x27;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, err.toString())</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	updateHandle: <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> &#123;	index, type, prize, description, url&#125; = req.body</span><br><span class="line">		<span class="keyword">let</span> &#123;	probability&#125; = req.body</span><br><span class="line">		<span class="keyword">if</span>( !index || !prize || !description || !url || !probability )&#123;</span><br><span class="line">			req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;缺少必要欄位!&#x27;</span>)</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (prize === <span class="string">&#x27;NONE&#x27;</span>) &#123;</span><br><span class="line">			probability = <span class="number">0</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Lottery.findAll(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				type: type</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then( <span class="function"><span class="params">lotteries</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">let</span> percent = <span class="number">0</span></span><br><span class="line">			lotteries.forEach( <span class="function"><span class="params">lottery</span> =&gt;</span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (lottery.id !== <span class="built_in">Number</span>(req.params.id)) &#123;</span><br><span class="line">					percent += lottery.probability</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">			<span class="comment">// console.log(type, percent,  probability, percent+probability, (percent+Number(probability)) &gt;= 100)</span></span><br><span class="line">			<span class="keyword">if</span> ((percent+<span class="built_in">Number</span>(probability)) &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">				<span class="comment">// req.flash(&#x27;errorMessage&#x27;, &#x27;總機率設定太高!&#x27;)</span></span><br><span class="line">				<span class="comment">// next()</span></span><br><span class="line">				<span class="keyword">throw</span> <span class="string">&#x27;over probability!&#x27;</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then( <span class="function">() =&gt;</span>&#123;</span><br><span class="line">			Lottery.findOne(&#123;</span><br><span class="line">				where: &#123;</span><br><span class="line">					id: req.params.id</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;).then(<span class="function"><span class="params">lottery</span> =&gt;</span>&#123;</span><br><span class="line">				lottery.update(&#123;</span><br><span class="line">					index,</span><br><span class="line">					prize,</span><br><span class="line">					description,</span><br><span class="line">					url,</span><br><span class="line">					probability</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">lottery</span> =&gt;</span> &#123;</span><br><span class="line">			res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">		&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (err.toString() === <span class="string">&#x27;over probability!&#x27;</span>)  &#123;</span><br><span class="line">				req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;總機率設定太高!&#x27;</span>)</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, err.toString())</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="keyword">delete</span>: <span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">		Lottery.findOne(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				id: req.params.id</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then( <span class="function"><span class="params">lottery</span> =&gt;</span>&#123;</span><br><span class="line">			lottery.destroy()</span><br><span class="line">		&#125;).then(<span class="function">() =&gt;</span>&#123;</span><br><span class="line">			res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">		&#125;).catch( <span class="function"><span class="params">err</span> =&gt;</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err.toString())</span><br><span class="line">			res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;, </span><br><span class="line">	lottery: <span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">let</span> &#123;type&#125; = req.params</span><br><span class="line">		<span class="keyword">let</span> value = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">100</span>)</span><br><span class="line">		<span class="keyword">let</span> percent = <span class="number">0</span></span><br><span class="line">	 	<span class="keyword">let</span> prize = &#123;</span><br><span class="line">		 	prize: <span class="string">&#x27;NULL&#x27;</span>,</span><br><span class="line">		 	description: <span class="string">&#x27;NULL&#x27;</span>,</span><br><span class="line">		 	url: <span class="string">&#x27;NULL&#x27;</span></span><br><span class="line">		&#125;					</span><br><span class="line">		<span class="comment">// console.log(&#x27;valeu : &#x27;, value) </span></span><br><span class="line">		Lottery.findAll(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				type: type</span><br><span class="line">			&#125;,</span><br><span class="line">			order: [</span><br><span class="line">				[<span class="string">&#x27;probability&#x27;</span>, <span class="string">&#x27;DESC&#x27;</span> ]</span><br><span class="line">			]</span><br><span class="line">		&#125;).then( <span class="function"><span class="params">lotteries</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span> ; i&lt;lotteries.length ; i++) &#123;</span><br><span class="line">				<span class="comment">// console.log(lotteries[i].id, lotteries[i].prize, lotteries[i].probability)</span></span><br><span class="line">				percent += lotteries[i].probability</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> ((lotteries[i].prize === <span class="string">&#x27;NONE&#x27;</span>) || (value &lt; percent)) &#123;</span><br><span class="line">					prize = &#123;</span><br><span class="line">							prize: lotteries[i].prize,</span><br><span class="line">							description: lotteries[i].description,</span><br><span class="line">							url: lotteries[i].url</span><br><span class="line">						&#125;					</span><br><span class="line">						<span class="keyword">break</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; </span><br><span class="line">			<span class="comment">// console.log(prize)</span></span><br><span class="line">			res.json(prize)</span><br><span class="line">		&#125;).then().catch(<span class="function"><span class="params">err</span>=&gt;</span> &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err.toString())</span><br><span class="line">			res.end()</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = lotteryController</span><br></pre></td></tr></table></figure>
+
+<p>controllers&#x2F;user.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./controllers/user.js</span></span><br><span class="line"><span class="keyword">const</span> db = <span class="built_in">require</span>(<span class="string">&#x27;../models&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> User = db.User</span><br><span class="line"><span class="comment">// add bcrypt</span></span><br><span class="line"><span class="keyword">const</span> bcrypt = <span class="built_in">require</span>(<span class="string">&#x27;bcrypt&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> saltRounds = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> userController = &#123;</span><br><span class="line">	register: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		res.render(<span class="string">&#x27;register&#x27;</span>)</span><br><span class="line">	&#125;,</span><br><span class="line">	index: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		User.findAll().then(<span class="function"><span class="params">users</span> =&gt;</span>&#123;</span><br><span class="line">				res.render(<span class="string">&#x27;users&#x27;</span>, &#123;</span><br><span class="line">					users</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(err.toString())</span><br><span class="line">				res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">			&#125;) </span><br><span class="line">	&#125;,</span><br><span class="line">	handleRegister: <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> &#123;	username,	password,	nickname, user_level&#125; = req.body</span><br><span class="line">		<span class="keyword">if</span> (!username || !password || !nickname || !user_level) &#123;</span><br><span class="line">			req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;缺少必要欄位!&#x27;</span>)</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		bcrypt.genSalt(saltRounds, <span class="function"><span class="keyword">function</span> (<span class="params">err, salt</span>) </span>&#123;</span><br><span class="line">			bcrypt.hash(password, salt, <span class="function"><span class="keyword">function</span> (<span class="params">err, hash</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (err) &#123;</span><br><span class="line">					req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, err.toString())</span><br><span class="line">					<span class="keyword">return</span> next()</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="built_in">console</span>.log(user_level, <span class="keyword">typeof</span> user_level)</span><br><span class="line">				level = <span class="built_in">Number</span>(user_level)</span><br><span class="line">				<span class="built_in">console</span>.log(level, <span class="keyword">typeof</span> level)</span><br><span class="line">				User.create(&#123;</span><br><span class="line">					username: username,</span><br><span class="line">					<span class="comment">// nickname: nickname,</span></span><br><span class="line">					<span class="comment">// user_level: 1,	</span></span><br><span class="line">					user_level: <span class="number">1</span>,</span><br><span class="line">					nickname: nickname,</span><br><span class="line">					password: hash</span><br><span class="line">				&#125;).then(<span class="function"><span class="params">user</span> =&gt;</span> &#123;</span><br><span class="line">					req.session.userId = user.id</span><br><span class="line">					req.session.username = user.username</span><br><span class="line">					res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">				&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">					req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, err.toString())</span><br><span class="line">					<span class="keyword">return</span> next()</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">	&#125;,</span><br><span class="line">	login: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		res.render(<span class="string">&#x27;login&#x27;</span>)</span><br><span class="line">	&#125;,</span><br><span class="line">	handleLogin: <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> &#123;username,password&#125; = req.body</span><br><span class="line">		<span class="keyword">if</span> (!username || !password) &#123;</span><br><span class="line">			req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;該填未填!&#x27;</span>)</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		User.findOne(&#123;</span><br><span class="line">			where: &#123;</span><br><span class="line">				username: username</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">user</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (!user) &#123;</span><br><span class="line">				req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;無此帳號!&#x27;</span>)</span><br><span class="line">				<span class="keyword">return</span> next()</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			bcrypt.compare(password, user.password, <span class="function"><span class="keyword">function</span> (<span class="params">err, isSuccess</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (err || (!isSuccess)) &#123;</span><br><span class="line">					req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, <span class="string">&#x27;密碼錯誤!&#x27;</span>)</span><br><span class="line">					<span class="keyword">return</span> next()</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// console.log(user)</span></span><br><span class="line">				req.session.userId = user.id</span><br><span class="line">				req.session.username = user.username</span><br><span class="line">				res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">			req.flash(<span class="string">&#x27;errorMessage&#x27;</span>, err.toString())</span><br><span class="line">			<span class="keyword">return</span> next()</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	logout: <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">		req.session.userId = <span class="literal">null</span></span><br><span class="line">		req.session.username = <span class="literal">null</span></span><br><span class="line">		res.redirect(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = userController</span><br></pre></td></tr></table></figure>
+
+<h4 id="tes-DB"><a href="#tes-DB" class="headerlink" title="tes DB"></a>tes DB</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `lotteries` (`id`, `<span class="built_in">type</span>`, `index`, `prize`, `description`, `url`, `probability`, `createdAt`, `updatedAt`) VALUES</span><br><span class="line">(4, <span class="string">&#x27;lottery&#x27;</span>, 4, <span class="string">&#x27;NONE&#x27;</span>, <span class="string">&#x27;銘謝惠顧!&#x27;</span>, <span class="string">&#x27;https://upload.cc/i1/2021/08/22/0Nvx17.jpg&#x27;</span>, 0, <span class="string">&#x27;2021-08-21 12:28:17&#x27;</span>, <span class="string">&#x27;2021-08-22 01:33:43&#x27;</span>),</span><br><span class="line">(5, <span class="string">&#x27;lottery&#x27;</span>, 3, <span class="string">&#x27;THIRD&#x27;</span>, <span class="string">&#x27;恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！&#x27;</span>, <span class="string">&#x27;https://upload.cc/i1/2021/08/22/Hbqtd8.jpg&#x27;</span>, 50, <span class="string">&#x27;2021-08-21 12:36:24&#x27;</span>, <span class="string">&#x27;2021-08-22 01:22:01&#x27;</span>),</span><br><span class="line">(6, <span class="string">&#x27;lottery&#x27;</span>, 2, <span class="string">&#x27;SECOND&#x27;</span>, <span class="string">&#x27;二獎！90 吋電視一台！&#x27;</span>, <span class="string">&#x27;https://upload.cc/i1/2021/08/22/r30doC.jpg&#x27;</span>, 20, <span class="string">&#x27;2021-08-21 12:37:16&#x27;</span>, <span class="string">&#x27;2021-08-22 01:21:46&#x27;</span>),</span><br><span class="line">(7, <span class="string">&#x27;lottery&#x27;</span>, 1, <span class="string">&#x27;FIRST&#x27;</span>, <span class="string">&#x27;恭喜你中頭獎了！日本東京來回雙人遊!&#x27;</span>, <span class="string">&#x27;https://upload.cc/i1/2021/08/22/yjaht9.jpg&#x27;</span>, 10, <span class="string">&#x27;2021-08-21 12:38:27&#x27;</span>, <span class="string">&#x27;2021-08-22 01:21:30&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="develop-to-heroku"><a href="#develop-to-heroku" class="headerlink" title="develop to heroku"></a>develop to heroku</h4><h5 id="package-json-add-“script”-and-“engines”"><a href="#package-json-add-“script”-and-“engines”" class="headerlink" title="package.json add “script” and “engines”"></a>package.json add “script” and “engines”</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">heroku -v</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>package.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;db:migrate&quot;: &quot;npx sequelize db:migrate&quot;,</span><br><span class="line">  &quot;start&quot;: &quot;npm run db:migrate &amp;&amp; node index.js&quot;,</span><br><span class="line">  &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">&#125;,</span><br><span class="line">&quot;engines&quot;: &#123;</span><br><span class="line">  &quot;node&quot;: &quot;14.x&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="set-env-port"><a href="#set-env-port" class="headerlink" title="set env port"></a>set env port</h5><p>index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> port = process.env.PORT || <span class="number">5000</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="run-heroku-local-test"><a href="#run-heroku-local-test" class="headerlink" title="run heroku local test"></a>run heroku local test</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku <span class="built_in">local</span> web</span><br></pre></td></tr></table></figure>
+
+<h5 id="set-config-x2F-config-json-for-DB"><a href="#set-config-x2F-config-json-for-DB" class="headerlink" title="set config&#x2F;config.json for DB"></a>set config&#x2F;config.json for DB</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot;production&quot;: &#123;</span><br><span class="line">  &quot;username&quot;: &quot;root&quot;,</span><br><span class="line">  &quot;password&quot;: null,</span><br><span class="line">  &quot;database&quot;: &quot;database_production&quot;,</span><br><span class="line">  &quot;host&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">  &quot;dialect&quot;: &quot;mysql&quot;,</span><br><span class="line">  &quot;use_env_variable&quot;: &quot;CLEARDB_DATABASE_URL&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="push-to-heroku"><a href="#push-to-heroku" class="headerlink" title="push to heroku"></a>push to heroku</h5><p>add .gitignore</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_modules&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>git init and commit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git status</span><br><span class="line">git commit -m <span class="string">&quot;1st commit&quot;</span></span><br><span class="line">git show-ref</span><br></pre></td></tr></table></figure>
+
+<p>heroku create and push</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># login - if never login</span></span><br><span class="line"><span class="comment"># heroku login</span></span><br><span class="line"><span class="comment"># create app</span></span><br><span class="line">heroku create</span><br><span class="line"><span class="comment"># add db</span></span><br><span class="line">heroku addons:create cleardb:ignite</span><br><span class="line"><span class="comment"># list app - if want to see other app</span></span><br><span class="line"><span class="comment"># delete app - if need detele other app</span></span><br><span class="line"><span class="comment"># heroku lis</span></span><br><span class="line">git remote -v</span><br><span class="line">	heroku  https://git.heroku.com/mysterious-ravine-06292.git (fetch)</span><br><span class="line">	heroku  https://git.heroku.com/mysterious-ravine-06292.git (push)</span><br><span class="line"><span class="comment"># push to heroku</span></span><br><span class="line">git push heroku master</span><br><span class="line"><span class="comment"># open by local browser</span></span><br><span class="line">heroku open</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/express/" rel="tag"># express</a>
+              <a href="/tags/node-js/" rel="tag"># node.js</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/03/express-1/" rel="prev" title="Express">
+                  <i class="fa fa-chevron-left"></i> Express
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/22/react-1/" rel="next" title="React">
+                  React <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/08/14/express-2/";
+    this.page.identifier = "2021/08/14/express-2/";
+    this.page.title = "Express practice";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

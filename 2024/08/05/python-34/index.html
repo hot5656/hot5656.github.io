@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="支援向量機 - 鳶尾花,乳癌,汽車燃料">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(3) 機器學習最強入門:基礎數學&#x2F;機率&#x2F;統計邁向AI真實數據">
+<meta property="og:url" content="https://hot5656.github.io/2024/08/05/python-34/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="支援向量機 - 鳶尾花,乳癌,汽車燃料">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic7.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic8.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic9.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic10.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic11.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic12.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic13.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic14.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic15.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic16.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic17.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic18.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic19.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/08/05/python-34/pic20.png">
+<meta property="article:published_time" content="2024-08-05T07:22:28.000Z">
+<meta property="article:modified_time" content="2024-09-11T08:55:54.274Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="book">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="ML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2024/08/05/python-34/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2024/08/05/python-34/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>(3) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E6%A9%9F-%E9%B3%B6%E5%B0%BE%E8%8A%B1-%E4%B9%B3%E7%99%8C-%E6%B1%BD%E8%BB%8A%E7%87%83%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">支援向量機 - 鳶尾花,乳癌,汽車燃料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E6%A9%9F%E5%9F%BA%E7%A4%8E%E8%A7%80%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">支援向量機基礎觀念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E8%A7%80%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">基礎觀念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%8D%80%E9%96%93%E5%88%86%E9%9A%94"><span class="nav-number">1.1.2.</span> <span class="nav-text">最大區間分隔</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AA%8D%E8%AD%98%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F-%E6%B1%BA%E7%AD%96%E9%82%8A%E7%95%8C-%E8%88%87-%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="nav-number">1.1.3.</span> <span class="nav-text">認識支援向量,決策邊界 與 超平面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B6%85%E5%B9%B3%E9%9D%A2%E5%85%AC%E5%BC%8F-%E4%BA%8C%E7%B6%AD%E7%82%BA%E4%BE%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">超平面公式(二維為例)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E6%A9%9F-%E5%88%86%E9%A1%9E%E9%81%8B%E7%94%A8%E7%9A%84%E5%9F%BA%E7%A4%8E%E5%AF%A6%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">支援向量機 - 分類運用的基礎實例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B9%AA%E8%A3%BD10%E5%80%8B%E6%95%B8%E6%93%9A%E9%BB%9E"><span class="nav-number">1.2.1.</span> <span class="nav-text">繪製10個數據點</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E8%AA%9E%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">支援向量語法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E5%B0%8E%E8%B6%85%E5%B9%B3%E9%9D%A2%E6%96%9C%E7%8E%87"><span class="nav-number">1.2.3.</span> <span class="nav-text">推導超平面斜率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B9%AA%E8%A3%BD%E8%B6%85%E5%B9%B3%E9%9D%A2%E5%92%8C%E6%B1%BA%E7%AD%96%E9%82%8A%E7%95%8C"><span class="nav-number">1.2.4.</span> <span class="nav-text">繪製超平面和決策邊界</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%88%86%E9%A1%9E"><span class="nav-number">1.2.5.</span> <span class="nav-text">數據分類</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#decision-function"><span class="nav-number">1.2.6.</span> <span class="nav-text">decision_function()</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%A8%88%E7%AE%97%E6%A8%A3%E6%9C%AC%E5%88%B0%E6%B1%BA%E7%AD%96%E9%82%8A%E7%95%8C-%E8%B6%85%E5%B9%B3%E9%9D%A2-%E7%9A%84%E8%B7%9D%E9%9B%A2"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">計算樣本到決策邊界(超平面)的距離</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%A8-decision-function-%E7%B9%AA%E8%A3%BD%E9%82%8A%E7%95%8C%E7%B7%9A"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">用 decision_function() 繪製邊界線</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%9E%E4%BA%8C%E7%B6%AD%E5%88%B0%E4%B8%89%E7%B6%AD%E5%B9%B3%E9%9D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">從二維到三維平面</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#make-circles-%E7%92%B0%E5%BD%A2%E6%95%B8%E6%93%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">make_circles() 環形數據</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E7%B6%AD%E5%BA%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">增加維度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E7%B6%AD%E7%9A%84%E8%B6%85%E5%B9%B3%E9%9D%A2%E5%85%AC%E5%BC%8F%E8%88%87%E4%BF%82%E6%95%B8"><span class="nav-number">1.3.3.</span> <span class="nav-text">3維的超平面公式與係數</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B9%AA%E8%A3%BD3%E7%B6%AD%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="nav-number">1.3.4.</span> <span class="nav-text">繪製3維超平面</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%87%BD%E6%95%B8"><span class="nav-number">1.4.</span> <span class="nav-text">核函數</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#linear"><span class="nav-number">1.4.1.</span> <span class="nav-text">linear</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%91%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B8-Radial-basic-function-rbf"><span class="nav-number">1.4.2.</span> <span class="nav-text">徑向基函數(Radial basic function) - rbf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E9%A0%85%E5%BC%8F%E5%87%BD%E6%95%B8-Polynomail-function-poly"><span class="nav-number">1.4.3.</span> <span class="nav-text">多項式函數(Polynomail function) - poly</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E6%95%B8%E6%93%9A-%E5%88%86%E5%88%A5%E4%BD%BF%E7%94%A8linear-rbf-poly"><span class="nav-number">1.4.4.</span> <span class="nav-text">同一數據,分別使用linear, rbf, poly</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2024/08/05/python-34/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          (3) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-08-05 15:22:28" itemprop="dateCreated datePublished" datetime="2024-08-05T15:22:28+08:00">2024-08-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-09-11 16:55:54" itemprop="dateModified" datetime="2024-09-11T16:55:54+08:00">2024-09-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/08/05/python-34/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/05/python-34/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>16 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="支援向量機-鳶尾花-乳癌-汽車燃料"><a href="#支援向量機-鳶尾花-乳癌-汽車燃料" class="headerlink" title="支援向量機 - 鳶尾花,乳癌,汽車燃料"></a>支援向量機 - 鳶尾花,乳癌,汽車燃料</h3><span id="more"></span>
+
+<h4 id="支援向量機基礎觀念"><a href="#支援向量機基礎觀念" class="headerlink" title="支援向量機基礎觀念"></a>支援向量機基礎觀念</h4><h5 id="基礎觀念"><a href="#基礎觀念" class="headerlink" title="基礎觀念"></a>基礎觀念</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic1.png" class="" title="pic1">
+</div>
+
+<h5 id="最大區間分隔"><a href="#最大區間分隔" class="headerlink" title="最大區間分隔"></a>最大區間分隔</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic2.png" class="" title="pic2">
+</div>
+
+<h5 id="認識支援向量-決策邊界-與-超平面"><a href="#認識支援向量-決策邊界-與-超平面" class="headerlink" title="認識支援向量,決策邊界 與 超平面"></a>認識支援向量,決策邊界 與 超平面</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic3.png" class="" title="pic3">
+</div>
+
+<h5 id="超平面公式-二維為例"><a href="#超平面公式-二維為例" class="headerlink" title="超平面公式(二維為例)"></a>超平面公式(二維為例)</h5><p>在二維空間中，超平面退化成一條直線。支援向量機 (SVM) 的目標是在二維平面上找到一條最適合的直線，將不同的數據點分類到兩個類別中，同時最大化兩類別之間的邊界。</p>
+<ul>
+<li><p>超平面（直線）公式<br>  在二維空間中，一條直線的方程可以表示為：<br>  $w_1x_1 + w_2x_2 + b &#x3D; 0$<br>  其中：</p>
+<ul>
+<li>$(x_1,x_2)是二維平面上的一個點$</li>
+<li>$(w_1,w_2)是權重向量，決定了直線的方向$</li>
+<li>b 是偏置，用來調整直線的位置</li>
+</ul>
+</li>
+<li><p>決策邊界<br>  這條直線將平面分為兩部分。在 SVM 中，這個直線是決策邊界，用於區分兩個類別。對於一個數據點$(x_1,x_2)$，我們可以使用決策函數來決定它位於直線的哪一側<br>  $f(x_1,x_2) &#x3D; w_1x_1 + w_2x_2 + b$</p>
+<ul>
+<li>$f(x_1,x_2)&gt;0，則這個點被分類為一類（例如正類，標記為 +1）</li>
+<li>$f(x_1,x_2)&lt;0，則這個點被分類為一類（例如正類，標記為 -1）</li>
+</ul>
+</li>
+<li><p>支援向量與間隔<br>  支援向量是離超平面最近的數據點。它們定義了「間隔」，即從超平面到支援向量的最小距離。SVM 的目標是最大化這個間隔，以便增加模型的魄力和對未知數據的泛化能力。<br>  在二維空間中，間隔是從超平面到支援向量的垂直距離。具體來說，如果我們的數據點是線性可分的，SVM 會找到兩條平行的	虛線：</p>
+<ul>
+<li>$一條是 w_1x_1 + w_2x_2 + b &#x3D; 1$</li>
+<li>$另一條是 w_1x_1 + w_2x_2 + b &#x3D; -1$</li>
+</ul>
+<p>  這兩條虛線之間的距離是$\frac{2}{∥w∥}$，目標是最大化這個距離<br>  ∥w∥ 定義為權重向量中各個分量平方和的平方根：<br>  $∥w∥&#x3D;\sqrt{w_1^2+w_2^2…+w_n^2}$<br>  $其中，𝑤 &#x3D; (w_1,w_2, …,w_n) 是SVM模型的權重向量$</p>
+</li>
+</ul>
+<h4 id="支援向量機-分類運用的基礎實例"><a href="#支援向量機-分類運用的基礎實例" class="headerlink" title="支援向量機 - 分類運用的基礎實例"></a>支援向量機 - 分類運用的基礎實例</h4><h5 id="繪製10個數據點"><a href="#繪製10個數據點" class="headerlink" title="繪製10個數據點"></a>繪製10個數據點</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立10個點,5個為分類A,5個為分類B</span></span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">2.5</span>], [<span class="number">0.5</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">1.5</span>, <span class="number">1</span>], [<span class="number">2.5</span>, <span class="number">1.3</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">3.5</span>], [<span class="number">4.5</span>, <span class="number">3.5</span>], [<span class="number">4</span>, <span class="number">4</span>], [<span class="number">2.5</span>, <span class="number">4.5</span>], [<span class="number">3.5</span>, <span class="number">3</span>] ])</span><br><span class="line">y = np.array([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製點,A &#x27;o&#x27;, B &#x27;*&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>]):</span><br><span class="line">    plt.scatter(X[y==i, <span class="number">0</span>], X[y==i, <span class="number">1</span>], marker=marker, label=i )</span><br><span class="line"></span><br><span class="line">plt.xlim(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">plt.ylim(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">plt.xlabel(<span class="string">r&#x27;$x_&#123;1&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">r&#x27;$x_&#123;2&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic4.png" class="" title="pic4">
+</div>
+
+<h5 id="支援向量語法"><a href="#支援向量語法" class="headerlink" title="支援向量語法"></a>支援向量語法</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立10個點,5個為分類A,5個為分類B</span></span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">2.5</span>], [<span class="number">0.5</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">1.5</span>, <span class="number">1</span>], [<span class="number">2.5</span>, <span class="number">1.3</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">3.5</span>], [<span class="number">4.5</span>, <span class="number">3.5</span>], [<span class="number">4</span>, <span class="number">4</span>], [<span class="number">2.5</span>, <span class="number">4.5</span>], [<span class="number">3.5</span>, <span class="number">3</span>] ])</span><br><span class="line">y = np.array([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 linear svc+耦合</span></span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 支持向量 表 決策邊的向量</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;權重係數         :<span class="subst">&#123;svc.coef_&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;截距(偏置)       :<span class="subst">&#123;svc.intercept_&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;支持向量索引     :<span class="subst">&#123;svc.support_&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;支持向量         :\n<span class="subst">&#123;svc.support_vectors_&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;每個類別支援向量數:<span class="subst">&#123;svc.n_support_&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 權重係數         :[[0.79988954 0.80016569]]</span></span><br><span class="line"><span class="comment"># 截距(偏置)       :[-4.20015648]</span></span><br><span class="line"><span class="comment"># 支持向量索引     :[2 5 9]</span></span><br><span class="line"><span class="comment"># 支持向量         :[[2.  2. ]</span></span><br><span class="line"><span class="comment">#  [3.  3.5]</span></span><br><span class="line"><span class="comment">#  [3.5 3. ]]</span></span><br><span class="line"><span class="comment"># 每個類別支援向量數:[1 2]</span></span><br><span class="line"><span class="comment">#   w1 = 0.79988954</span></span><br><span class="line"><span class="comment">#   w2 = 0.80016569</span></span><br><span class="line"><span class="comment">#   d = -4.20015648</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="推導超平面斜率"><a href="#推導超平面斜率" class="headerlink" title="推導超平面斜率"></a>推導超平面斜率</h5><p>$g(x) &#x3D; w_1x_1 + w_2x_2 + b &#x3D; 0$<br>$所以經過點 (0,\frac{-b}{w_2}) and (\frac{-b}{w_1},0)$<br>$斜率(slope) &#x3D; \frac{\Delta{y}}{\Delta{x}} &#x3D; \frac{\frac{-b}{w_2}}{\frac{b}{w_1}} &#x3D; \frac{-w_1}{w_2} $</p>
+<h5 id="繪製超平面和決策邊界"><a href="#繪製超平面和決策邊界" class="headerlink" title="繪製超平面和決策邊界"></a>繪製超平面和決策邊界</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> joblib <span class="keyword">import</span> dump</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立10個點,5個為分類A,5個為分類B</span></span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">2.5</span>], [<span class="number">0.5</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">1.5</span>, <span class="number">1</span>], [<span class="number">2.5</span>, <span class="number">1.3</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">3.5</span>], [<span class="number">4.5</span>, <span class="number">3.5</span>], [<span class="number">4</span>, <span class="number">4</span>], [<span class="number">2.5</span>, <span class="number">4.5</span>], [<span class="number">3.5</span>, <span class="number">3</span>] ])</span><br><span class="line">y = np.array([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製點,A &#x27;o&#x27;, B &#x27;*&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>]):</span><br><span class="line">    plt.scatter(X[y==i, <span class="number">0</span>], X[y==i, <span class="number">1</span>], marker=marker, label=i )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 linear svc+耦合</span></span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 權重, 偏置值</span></span><br><span class="line">w = svc.coef_[<span class="number">0</span>]</span><br><span class="line">slope = -w[<span class="number">0</span>] / w[<span class="number">1</span>]</span><br><span class="line">b = svc.intercept_[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 儲存模型</span></span><br><span class="line">dump(svc, <span class="string">&#x27;svc28_3.joblib&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製超平面</span></span><br><span class="line">xx = np.linspace(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment"># same as yy = (-b - w[0] * xx)/w[1], but use slope</span></span><br><span class="line"><span class="comment"># yy_slope = slope * xx - ( b / w[1])</span></span><br><span class="line">yy = (-b - w[<span class="number">0</span>] * xx)/w[<span class="number">1</span>]</span><br><span class="line">plt.plot(xx, yy, linewidth=<span class="number">2</span>, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製邊界1</span></span><br><span class="line">sv = svc.support_vectors_[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># b = -(w[0]*sv[0] + w[1]*sv[1])</span></span><br><span class="line">yy_1 = ((w[<span class="number">0</span>]*sv[<span class="number">0</span>] + w[<span class="number">1</span>]*sv[<span class="number">1</span>]) - w[<span class="number">0</span>] * xx)/w[<span class="number">1</span>]</span><br><span class="line">plt.plot(xx, yy_1, <span class="string">&#x27;b--&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製邊界2</span></span><br><span class="line">sv = svc.support_vectors_[-<span class="number">1</span>]</span><br><span class="line">yy_2 = ((w[<span class="number">0</span>]*sv[<span class="number">0</span>] + w[<span class="number">1</span>]*sv[<span class="number">1</span>]) - w[<span class="number">0</span>] * xx)/w[<span class="number">1</span>]</span><br><span class="line">plt.plot(xx, yy_2, <span class="string">&#x27;b--&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># xx = np.linspace(0, 5)</span></span><br><span class="line"><span class="comment"># same as yy = (-b - w[0] * xx)/w[1], but use slope</span></span><br><span class="line"><span class="comment"># yy_slope = slope * xx - ( b / w[1])</span></span><br><span class="line"><span class="comment"># yy = (-b - w[0] * xx)/w[1]</span></span><br><span class="line"><span class="comment"># plt.plot(xx, yy, linewidth=2, color=&#x27;green&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用圓圈繪製支援向量</span></span><br><span class="line"><span class="comment"># s=100 設置每個散點的大小</span></span><br><span class="line"><span class="comment"># facecolors=&#x27;none&#x27;, &#x27;none&#x27; 表示點沒有填充顏色</span></span><br><span class="line"><span class="comment"># edgecolors=&#x27;k&#x27;, 設置點的邊界顏色 &#x27;k&#x27; 是黑色的縮寫</span></span><br><span class="line">plt.scatter(svc.support_vectors_[:,<span class="number">0</span>], svc.support_vectors_[:,<span class="number">1</span>],</span><br><span class="line">            s=<span class="number">100</span>, facecolors=<span class="string">&#x27;none&#x27;</span>, edgecolors=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.xlim(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">plt.ylim(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;支援向量機-繪製超平面及決策邊界&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">r&#x27;$x_&#123;1&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">r&#x27;$x_&#123;2&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic5.png" class="" title="pic5">
+</div>
+
+<h5 id="數據分類"><a href="#數據分類" class="headerlink" title="數據分類"></a>數據分類</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> joblib <span class="keyword">import</span> load</span><br><span class="line"></span><br><span class="line"><span class="comment"># 載入模型</span></span><br><span class="line">svc = load(<span class="string">&#x27;svc28_3.joblib&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    x = <span class="built_in">eval</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入 x 座標:&quot;</span>))</span><br><span class="line">    y = <span class="built_in">eval</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入 y 座標:&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;(<span class="subst">&#123;x&#125;</span>,<span class="subst">&#123;y&#125;</span>) 分類是:<span class="subst">&#123;svc.predict([[x,y]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    z = <span class="built_in">input</span>(<span class="string">f&#x27;是否繼續(y/n) : &#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> z == <span class="string">&#x27;n&#x27;</span> <span class="keyword">or</span> z == <span class="string">&#x27;N&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 請輸入 x 座標:3</span></span><br><span class="line"><span class="comment"># 請輸入 y 座標:3</span></span><br><span class="line"><span class="comment"># (3,3) 分類是:B</span></span><br><span class="line"><span class="comment"># 是否繼續(y/n) : y</span></span><br><span class="line"><span class="comment"># 請輸入 x 座標:2</span></span><br><span class="line"><span class="comment"># 請輸入 y 座標:2</span></span><br><span class="line"><span class="comment"># (2,2) 分類是:A</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="decision-function"><a href="#decision-function" class="headerlink" title="decision_function()"></a>decision_function()</h5><ul>
+<li>decision_function() 支持向量機(SVM),主要用來計算每個樣本到決策邊界(超平面)的距離</li>
+</ul>
+<h6 id="計算樣本到決策邊界-超平面-的距離"><a href="#計算樣本到決策邊界-超平面-的距離" class="headerlink" title="計算樣本到決策邊界(超平面)的距離"></a>計算樣本到決策邊界(超平面)的距離</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 計算樣本到決策邊界(超平面)的距離</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 特徵數據: 重量,顏色</span></span><br><span class="line">X = [ [<span class="number">150</span>, <span class="number">1</span>], [<span class="number">170</span>, <span class="number">1</span>], [<span class="number">130</span>, <span class="number">2</span>], [<span class="number">140</span>, <span class="number">2</span>],</span><br><span class="line">      [<span class="number">200</span>, <span class="number">3</span>], [<span class="number">210</span>, <span class="number">3</span>], [<span class="number">180</span>, <span class="number">3</span>], [<span class="number">220</span>, <span class="number">3</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 標籤數據</span></span><br><span class="line">y = [<span class="string">&#x27;蘋果&#x27;</span>,<span class="string">&#x27;蘋果&#x27;</span>,<span class="string">&#x27;蘋果&#x27;</span>,<span class="string">&#x27;蘋果&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;橘子&#x27;</span>,<span class="string">&#x27;橘子&#x27;</span>,<span class="string">&#x27;橘子&#x27;</span>,<span class="string">&#x27;橘子&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 創建並訓練SVM分類器</span></span><br><span class="line">clf = svm.SVC()</span><br><span class="line">clf.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用訓練好的分類器來預測新的樣本</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;預測[160,1] 是 : <span class="subst">&#123;clf.predict([[<span class="number">160</span>,<span class="number">1</span>]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;預測[190,3] 是 : <span class="subst">&#123;clf.predict([[<span class="number">190</span>,<span class="number">3</span>]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 輸出一個數值,表示樣本到超平面的距離</span></span><br><span class="line"><span class="comment"># decision_function() 傳回距超平面的距離</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[160,1] 到超平面的距離 : <span class="subst">&#123;clf.decision_function([[<span class="number">160</span>,<span class="number">1</span>]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[190,3] 到超平面的距離 : <span class="subst">&#123;clf.decision_function([[<span class="number">190</span>,<span class="number">3</span>]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[250,3] 到超平面的距離 : <span class="subst">&#123;clf.decision_function([[<span class="number">250</span>,<span class="number">3</span>]])[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 預測[160,1] 是 : 蘋果</span></span><br><span class="line"><span class="comment"># 預測[190,3] 是 : 橘子</span></span><br><span class="line"><span class="comment"># [160,1] 到超平面的距離 : 0.3718262578491399</span></span><br><span class="line"><span class="comment"># [190,3] 到超平面的距離 : -0.3712206727264994</span></span><br><span class="line"><span class="comment"># [250,3] 到超平面的距離 : -1.3454929221350937</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="用-decision-function-繪製邊界線"><a href="#用-decision-function-繪製邊界線" class="headerlink" title="用 decision_function() 繪製邊界線"></a>用 decision_function() 繪製邊界線</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用 decision_function() 繪製邊界線</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> joblib <span class="keyword">import</span> dump</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立10個點,5個為分類A,5個為分類B</span></span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">2.5</span>], [<span class="number">0.5</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">1.5</span>, <span class="number">1</span>], [<span class="number">2.5</span>, <span class="number">1.3</span>],</span><br><span class="line">              [<span class="number">3</span>, <span class="number">3.5</span>], [<span class="number">4.5</span>, <span class="number">3.5</span>], [<span class="number">4</span>, <span class="number">4</span>], [<span class="number">2.5</span>, <span class="number">4.5</span>], [<span class="number">3.5</span>, <span class="number">3</span>] ])</span><br><span class="line">y = np.array([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立線性 SVM 模型</span></span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製點,A &#x27;o&#x27;, B &#x27;*&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>]):</span><br><span class="line">    plt.scatter(X[y==i, <span class="number">0</span>], X[y==i, <span class="number">1</span>], marker=marker, label=i )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取當前的坐標軸對象</span></span><br><span class="line">ax = plt.gca()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立格點評估模型</span></span><br><span class="line"><span class="comment"># np.linspace() 傳回平均間隔數字</span></span><br><span class="line">xx = np.linspace(<span class="number">0</span>, <span class="number">5</span>)  <span class="comment"># array 50</span></span><br><span class="line">yy = np.linspace(<span class="number">0</span>, <span class="number">5</span>)  <span class="comment"># array 50</span></span><br><span class="line">XX, YY = np.meshgrid(xx, yy)    <span class="comment">## XX: 50*50 YY:50*50</span></span><br><span class="line"><span class="comment"># ravel() 方法將二維陣列壓平成一維陣列</span></span><br><span class="line"><span class="comment"># vstack() 將多個一維陣列在垂直方向上進行堆疊，生成一個新的 2D 陣列</span></span><br><span class="line"><span class="comment"># XX.ravel():2500, YY.ravel():2500</span></span><br><span class="line"><span class="comment"># np.vstack([XX.ravel(), YY.ravel()]) : 2 * 2500</span></span><br><span class="line"><span class="comment"># xy: 2500 * 2</span></span><br><span class="line">xy = np.vstack([XX.ravel(), YY.ravel()]).T</span><br><span class="line"></span><br><span class="line"><span class="comment"># 傳回距超平面的距離</span></span><br><span class="line">Z = svc.decision_function(xy).reshape(XX.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製決策邊和間隔</span></span><br><span class="line"><span class="comment"># 繪製 2D 等高線, -1 , 0, 1</span></span><br><span class="line">ax.contour(XX, YY, Z, colors=<span class="string">&#x27;b&#x27;</span>, levels=[-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>], alpha=<span class="number">0.5</span>,</span><br><span class="line">           linestyles=[<span class="string">&#x27;--&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;--&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用圓圈繪製支援向量</span></span><br><span class="line"><span class="comment"># s=100 設置每個散點的大小</span></span><br><span class="line"><span class="comment"># facecolors=&#x27;none&#x27;, &#x27;none&#x27; 表示點沒有填充顏色</span></span><br><span class="line"><span class="comment"># edgecolors=&#x27;k&#x27;, 設置點的邊界顏色 &#x27;k&#x27; 是黑色的縮寫</span></span><br><span class="line">plt.scatter(svc.support_vectors_[:,<span class="number">0</span>], svc.support_vectors_[:,<span class="number">1</span>],</span><br><span class="line">            s=<span class="number">100</span>, facecolors=<span class="string">&#x27;none&#x27;</span>, edgecolors=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&#x27;支援向量機-繪製超平面及決策邊界&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">r&#x27;$x_&#123;1&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">r&#x27;$x_&#123;2&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic6.png" class="" title="pic6">
+</div>
+
+<h4 id="從二維到三維平面"><a href="#從二維到三維平面" class="headerlink" title="從二維到三維平面"></a>從二維到三維平面</h4><h5 id="make-circles-環形數據"><a href="#make-circles-環形數據" class="headerlink" title="make_circles() 環形數據"></a>make_circles() 環形數據</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make_circles() 環形數據</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_circles</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成數據</span></span><br><span class="line">X, y = make_circles(n_samples=<span class="number">200</span>, noise=<span class="number">0.05</span>, random_state=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製數據點,分類A使用圓圈, 分類B使用星型, 加入 Label 參數</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>] ):</span><br><span class="line">    plt.scatter(X[y == i, <span class="number">0</span>], X[y == i, <span class="number">1</span>], marker=marker, label=i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># label 位置</span></span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic7.png" class="" title="pic7">
+</div>
+
+<h5 id="增加維度"><a href="#增加維度" class="headerlink" title="增加維度"></a>增加維度</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3維 z = x^2, y^2</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_circles</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成數據</span></span><br><span class="line">X, y = make_circles(n_samples=<span class="number">200</span>, noise=<span class="number">0.05</span>, random_state=<span class="number">10</span>)</span><br><span class="line">z = X[:,<span class="number">0</span>]**<span class="number">2</span> + X[:,<span class="number">1</span>]**<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3D 繪圖</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製數據點,分類A使用圓圈, 分類B使用星型, 加入 Label 參數</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>] ):</span><br><span class="line">    ax.scatter(X[y == i, <span class="number">0</span>], X[y == i, <span class="number">1</span>], z[y==i], marker=marker, label=i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># label 位置</span></span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic8.png" class="" title="pic8">
+</div>
+
+<h5 id="3維的超平面公式與係數"><a href="#3維的超平面公式與係數" class="headerlink" title="3維的超平面公式與係數"></a>3維的超平面公式與係數</h5><p>二維空間的超平面公式:<br>    $g(x) &#x3D; w_1x_1 + w_2x_2 + b  &#x3D; 0$<br>三維空間的超平面公式:<br>    $g(x) &#x3D; w_1x_1 + w_2x_2 + w_3x_3 + b  &#x3D; 0$</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3維 權重係數和截距</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_circles</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成數據</span></span><br><span class="line">X, y = make_circles(n_samples=<span class="number">200</span>, noise=<span class="number">0.05</span>, random_state=<span class="number">10</span>)</span><br><span class="line">z = X[:,<span class="number">0</span>]**<span class="number">2</span> + X[:,<span class="number">1</span>]**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">features = np.concatenate((X, z.reshape(-<span class="number">1</span>,<span class="number">1</span>)), axis=<span class="number">1</span>)</span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(features, y)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;權重係數  :<span class="subst">&#123;svc.coef_&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;截距(篇置):<span class="subst">&#123;svc.intercept_&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment"># 權重係數  :[[-0.04930655  0.01521172 0.01523346]]</span></span><br><span class="line"><span class="comment"># 截距(篇置):[5.67719935]</span></span><br><span class="line"><span class="comment"># 權重係數  :[[-0.04930655  0.01521172 -6.89993346]]</span></span><br><span class="line"><span class="comment"># 截距(篇置):[5.67719935]</span></span><br><span class="line"><span class="comment"># 取小數四位</span></span><br><span class="line"><span class="comment"># w1 = -0.0493</span></span><br><span class="line"><span class="comment"># w2 = 0.0152</span></span><br><span class="line"><span class="comment"># w3 = -6.8999</span></span><br><span class="line"><span class="comment"># b = 5.6772</span></span><br></pre></td></tr></table></figure>
+
+<p>$g(x) &#x3D; w_1x_1 + w_2x_2 + w_3x_3 + b  &#x3D; 0$<br>$w_3x_3 &#x3D; -w_1x_1 - w_2x_2 - b$<br>$x_3 &#x3D; \frac{-w_1x_1 - w_2x_2 - b}{w_3}$</p>
+<h5 id="繪製3維超平面"><a href="#繪製3維超平面" class="headerlink" title="繪製3維超平面"></a>繪製3維超平面</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 繪製3維超平面</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_circles</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成數據</span></span><br><span class="line">X, y = make_circles(n_samples=<span class="number">300</span>, noise=<span class="number">0.05</span>, random_state=<span class="number">10</span>)</span><br><span class="line">z = X[:,<span class="number">0</span>]**<span class="number">2</span> + X[:,<span class="number">1</span>]**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">features = np.concatenate((X, z.reshape(-<span class="number">1</span>,<span class="number">1</span>)), axis=<span class="number">1</span>)</span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(features, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(f&quot;權重係數  :&#123;svc.coef_&#125;&quot;)</span></span><br><span class="line"><span class="comment"># print(f&quot;截距(篇置):&#123;svc.intercept_&#125;&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3D 繪圖</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製數據點,分類A使用圓圈, 分類B使用星型, 加入 Label 參數</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>] ):</span><br><span class="line">    ax.scatter(X[y == i, <span class="number">0</span>], X[y == i, <span class="number">1</span>], z[y==i], marker=marker, label=i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改視角</span></span><br><span class="line"><span class="comment"># ax.view_init(elev=30, azim=-60) # default</span></span><br><span class="line"><span class="comment"># elev: -90 ~ 90, azim: -180 ~ 180</span></span><br><span class="line">ax.view_init(elev=<span class="number">20</span>, azim=-<span class="number">120</span>)</span><br><span class="line"><span class="comment"># 在 z 軸方向上抬高 10 度，同時在 xy 平面內旋轉 -60 度。也就是說，</span></span><br><span class="line"><span class="comment"># 觀察者的視角是在 z 軸上方 10 度，並且從 x 軸方向向 y 軸方向旋轉了 -60 度。</span></span><br><span class="line"></span><br><span class="line">features = np.concatenate((X, z.reshape(-<span class="number">1</span>,<span class="number">1</span>)), axis=<span class="number">1</span>)</span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(features, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算x3公式</span></span><br><span class="line">x3 = <span class="keyword">lambda</span> x, y : (-svc.intercept_[<span class="number">0</span>] - svc.coef_[<span class="number">0</span>][<span class="number">0</span>] *</span><br><span class="line">                    x - svc.coef_[<span class="number">0</span>][<span class="number">1</span>] *y ) / svc.coef_[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">grid = np.linspace(-<span class="number">1.5</span>, <span class="number">1.5</span>)</span><br><span class="line">xx, yy = np.meshgrid(grid, grid)</span><br><span class="line">ax.plot_surface(xx, yy, x3(xx, yy), color=<span class="string">&#x27;r&#x27;</span>, alpha=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&quot;支援向量機-繪製3D超平面&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">r&#x27;$x_&#123;1&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">r&#x27;$x_&#123;2&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment"># label 位置</span></span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic9.png" class="" title="pic9">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 繪製3維超平面及類別0(找出錯誤分類)</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_circles</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成數據</span></span><br><span class="line">X, y = make_circles(n_samples=<span class="number">300</span>, noise=<span class="number">0.05</span>, random_state=<span class="number">10</span>)</span><br><span class="line">z = X[:, <span class="number">0</span>]**<span class="number">2</span> + X[:, <span class="number">1</span>]**<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 合併特徵</span></span><br><span class="line">features = np.concatenate((X, z.reshape(-<span class="number">1</span>, <span class="number">1</span>)), axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 訓練 SVM 模型</span></span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(features, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算超平面</span></span><br><span class="line">x3 = <span class="keyword">lambda</span> x, y: (-svc.intercept_[<span class="number">0</span>] - svc.coef_[<span class="number">0</span>][<span class="number">0</span>] *</span><br><span class="line">                    x - svc.coef_[<span class="number">0</span>][<span class="number">1</span>] * y) / svc.coef_[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算數據點到超平面的距離</span></span><br><span class="line">distances = svc.decision_function(features)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設置顏色（在超平面上的距離為正數的顯示為紅色，為負數的顯示為藍色）</span></span><br><span class="line">colors = np.where(distances &gt; <span class="number">0</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3D 繪圖</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製數據點，使用不同圖形和顏色區分</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>]):</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">0</span>):</span><br><span class="line">        mask = y == i</span><br><span class="line">        ax.scatter(X[mask, <span class="number">0</span>], X[mask, <span class="number">1</span>], z[mask], c=colors[mask], marker=marker, label=<span class="string">f&#x27;Class <span class="subst">&#123;i&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製超平面</span></span><br><span class="line">grid = np.linspace(-<span class="number">1.5</span>, <span class="number">1.5</span>)</span><br><span class="line">xx, yy = np.meshgrid(grid, grid)</span><br><span class="line">ax.plot_surface(xx, yy, x3(xx, yy), color=<span class="string">&#x27;gray&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改視角</span></span><br><span class="line">ax.view_init(elev=<span class="number">20</span>, azim=-<span class="number">120</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加標題和標籤</span></span><br><span class="line">plt.title(<span class="string">&quot;支援向量機-顯示平面上下的數據點&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">r&#x27;$x_&#123;1&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">r&#x27;$x_&#123;2&#125;$&#x27;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic10.png" class="" title="pic10">
+</div>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic11.png" class="" title="pic11">
+</div>
+
+<h4 id="核函數"><a href="#核函數" class="headerlink" title="核函數"></a>核函數</h4><h5 id="linear"><a href="#linear" class="headerlink" title="linear"></a>linear</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic12.png" class="" title="pic12">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 50個點, 25個為分類0, 25個為分類1</span></span><br><span class="line">X,y = make_blobs(n_samples=<span class="number">50</span>, centers=<span class="number">2</span>, random_state=<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立線性SVM模型</span></span><br><span class="line">svc = svm.SVC(kernel=<span class="string">&#x27;linear&#x27;</span>)</span><br><span class="line">svc.fit(X, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製數據點,分類0使用圓圈, 分類1使用星型</span></span><br><span class="line"><span class="keyword">for</span> i, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>] ):</span><br><span class="line">    plt.scatter(X[y == i, <span class="number">0</span>], X[y == i, <span class="number">1</span>], marker=marker, label=<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line">ax = plt.gca()</span><br><span class="line">xlim = ax.get_xlim()</span><br><span class="line">ylim = ax.get_ylim()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立格點來評估模型</span></span><br><span class="line">xx = np.linspace(xlim[<span class="number">0</span>], xlim[<span class="number">1</span>], <span class="number">30</span>)</span><br><span class="line">yy = np.linspace(ylim[<span class="number">0</span>], ylim[<span class="number">1</span>], <span class="number">30</span>)</span><br><span class="line">XX, YY = np.meshgrid(xx, yy)</span><br><span class="line">xy = np.vstack([XX.ravel(), YY.ravel()]).T</span><br><span class="line">Z = svc.decision_function(xy).reshape(XX.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製決策邊和超平面</span></span><br><span class="line"><span class="comment"># 繪製 2D 等高線, -1 , 0, 1</span></span><br><span class="line">ax.contour(XX, YY, Z, colors=<span class="string">&#x27;b&#x27;</span>, levels=[-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>], alpha=<span class="number">0.5</span>,</span><br><span class="line">           linestyles=[<span class="string">&#x27;--&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;--&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用圓圈繪製支援向量</span></span><br><span class="line"><span class="comment"># s=100 設置每個散點的大小</span></span><br><span class="line"><span class="comment"># facecolors=&#x27;none&#x27;, &#x27;none&#x27; 表示點沒有填充顏色</span></span><br><span class="line"><span class="comment"># edgecolors=&#x27;k&#x27;, 設置點的邊界顏色 &#x27;k&#x27; 是黑色的縮寫</span></span><br><span class="line">plt.scatter(svc.support_vectors_[:,<span class="number">0</span>], svc.support_vectors_[:,<span class="number">1</span>],</span><br><span class="line">            s=<span class="number">100</span>, facecolors=<span class="string">&#x27;none&#x27;</span>, edgecolors=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&quot;支援向量機-kernel=&#x27;linear&#x27;&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic13.png" class="" title="pic13">
+</div>
+
+<h5 id="徑向基函數-Radial-basic-function-rbf"><a href="#徑向基函數-Radial-basic-function-rbf" class="headerlink" title="徑向基函數(Radial basic function) - rbf"></a>徑向基函數(Radial basic function) - rbf</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic14.png" class="" title="pic14">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 50個點, 25個為分類0, 25個為分類1</span></span><br><span class="line">X,y = make_blobs(n_samples=<span class="number">50</span>, centers=<span class="number">2</span>, random_state=<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 繪製子圖,每個 gamma 值一張圖</span></span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">2</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">10</span>,<span class="number">10</span>))</span><br><span class="line">ax = np.ravel(ax)</span><br><span class="line"></span><br><span class="line">gammas = [<span class="number">0.1</span>, <span class="number">0.5</span>, <span class="number">1.0</span>, <span class="number">10.0</span>]</span><br><span class="line"><span class="keyword">for</span> i, gamma <span class="keyword">in</span> <span class="built_in">enumerate</span>(gammas):</span><br><span class="line">    <span class="comment"># 建立一個RBF SVM 模型</span></span><br><span class="line">    svc = svm.SVC(kernel=<span class="string">&#x27;rbf&#x27;</span>, gamma=gamma)</span><br><span class="line">    svc.fit(X, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 繪製數據點,分類0使用圓圈,分類1使用星型</span></span><br><span class="line">    <span class="keyword">for</span> j, marker <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">0</span>, <span class="number">1</span>], [<span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;*&#x27;</span>] ):</span><br><span class="line">        ax[i].scatter(X[y == j, <span class="number">0</span>], X[y == j, <span class="number">1</span>], marker=marker, label=<span class="built_in">str</span>(j))</span><br><span class="line"></span><br><span class="line">    xlim = ax[i].get_xlim()</span><br><span class="line">    ylim = ax[i].get_ylim()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 建立格點來評估模型</span></span><br><span class="line">    xx = np.linspace(xlim[<span class="number">0</span>], xlim[<span class="number">1</span>], <span class="number">30</span>)</span><br><span class="line">    yy = np.linspace(ylim[<span class="number">0</span>], ylim[<span class="number">1</span>], <span class="number">30</span>)</span><br><span class="line">    XX, YY = np.meshgrid(xx, yy)</span><br><span class="line">    xy = np.vstack([XX.ravel(), YY.ravel()]).T</span><br><span class="line">    Z = svc.decision_function(xy).reshape(XX.shape)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 繪製決策邊和超平面</span></span><br><span class="line">    <span class="comment"># 繪製 2D 等高線, -1 , 0, 1</span></span><br><span class="line">    ax[i].contour(XX, YY, Z, colors=<span class="string">&#x27;b&#x27;</span>, levels=[-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>], alpha=<span class="number">0.5</span>,</span><br><span class="line">            linestyles=[<span class="string">&#x27;--&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;--&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 用圓圈繪製支援向量</span></span><br><span class="line">    <span class="comment"># s=100 設置每個散點的大小</span></span><br><span class="line">    <span class="comment"># facecolors=&#x27;none&#x27;, &#x27;none&#x27; 表示點沒有填充顏色</span></span><br><span class="line">    <span class="comment"># edgecolors=&#x27;k&#x27;, 設置點的邊界顏色 &#x27;k&#x27; 是黑色的縮寫</span></span><br><span class="line">    ax[i].scatter(svc.support_vectors_[:,<span class="number">0</span>], svc.support_vectors_[:,<span class="number">1</span>],</span><br><span class="line">                s=<span class="number">100</span>, facecolors=<span class="string">&#x27;none&#x27;</span>, edgecolors=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    ax[i].set_title(<span class="string">f&quot;支援向量機 - kernel=&#x27;rbf&#x27;, gamma=<span class="subst">&#123;gamma&#125;</span>&quot;</span>)</span><br><span class="line">    ax[i].legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 調整子圖間的間距</span></span><br><span class="line">plt.subplots_adjust(wspace=<span class="number">0.2</span>, hspace=<span class="number">0.4</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic15.png" class="" title="pic15">
+</div>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic16.png" class="" title="pic16">
+</div>
+
+<h5 id="多項式函數-Polynomail-function-poly"><a href="#多項式函數-Polynomail-function-poly" class="headerlink" title="多項式函數(Polynomail function) - poly"></a>多項式函數(Polynomail function) - poly</h5><div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic17.png" class="" title="pic17">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_moons</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 make_moons 數據</span></span><br><span class="line">X,y = make_moons(n_samples=<span class="number">200</span>, noise=<span class="number">0.1</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定繪圖區域</span></span><br><span class="line">x_min, x_max = X[:,<span class="number">0</span>].<span class="built_in">min</span>() - <span class="number">0.2</span>, X[:,<span class="number">0</span>].<span class="built_in">max</span>() + <span class="number">0.2</span></span><br><span class="line">y_min, y_max = X[:,<span class="number">1</span>].<span class="built_in">min</span>() - <span class="number">0.2</span>, X[:,<span class="number">1</span>].<span class="built_in">max</span>() + <span class="number">0.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 產生所有平面座標點</span></span><br><span class="line">xx, yy = np.meshgrid(np.arange(x_min, x_max, <span class="number">0.01</span>),</span><br><span class="line">                     np.arange(y_min, y_max, <span class="number">0.01</span>))</span><br><span class="line"></span><br><span class="line">degrees = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ,<span class="number">5</span>]</span><br><span class="line">titles = [<span class="string">&#x27;Poly核函數 degree=2&#x27;</span>, <span class="string">&#x27;Poly核函數 degree=3&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;Poly核函數 degree=4&#x27;</span>, <span class="string">&#x27;Poly核函數 degree=5&#x27;</span>]</span><br><span class="line"></span><br><span class="line">fig, sub = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># 調整子圖空間</span></span><br><span class="line">plt.subplots_adjust(wspace=<span class="number">0.4</span>, hspace=<span class="number">0.4</span>)</span><br><span class="line"><span class="comment"># 將子圖的陣列進行扁平化處理(原sub 為2*2)</span></span><br><span class="line">sub = sub.flatten()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> degree, title, ax <span class="keyword">in</span> <span class="built_in">zip</span>(degrees, titles, sub):</span><br><span class="line">    model = SVC(kernel=<span class="string">&#x27;poly&#x27;</span>, degree=degree, gamma=<span class="string">&#x27;scale&#x27;</span>)</span><br><span class="line">    model.fit(X, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 將 xx, yy 先扁平化再組成為二維陣列,然後再預測分類</span></span><br><span class="line">    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])</span><br><span class="line">    Z = Z.reshape(xx.shape)</span><br><span class="line">    <span class="comment"># 繪製填充等高線</span></span><br><span class="line">    ax.contourf(xx, yy, Z, alpha=<span class="number">0.3</span>)</span><br><span class="line">    <span class="comment"># cmap=&#x27;viridis&#x27;,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 顯示散點圖,標籤0使用點,標籤1使用星型</span></span><br><span class="line">    scatter = ax.scatter(X[:,<span class="number">0</span>][y == <span class="number">0</span>], X[:,<span class="number">1</span>][y == <span class="number">0</span>], c=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">    scatter = ax.scatter(X[:,<span class="number">0</span>][y == <span class="number">1</span>], X[:,<span class="number">1</span>][y == <span class="number">1</span>], c=<span class="string">&#x27;r&#x27;</span>, marker=<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    ax.set_title(title + <span class="string">f&quot;準確率(<span class="subst">&#123;accuracy_score(y, model.predict(X)):<span class="number">.2</span>f&#125;</span>)&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic18.png" class="" title="pic18">
+</div>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic19.png" class="" title="pic19">
+</div>
+
+<h5 id="同一數據-分別使用linear-rbf-poly"><a href="#同一數據-分別使用linear-rbf-poly" class="headerlink" title="同一數據,分別使用linear, rbf, poly"></a>同一數據,分別使用linear, rbf, poly</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_moons</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows 使用 微軟正黑體</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;font.family&quot;</span>] = [<span class="string">&quot;Microsoft JhengHei&quot;</span>]</span><br><span class="line"><span class="comment"># 顯示負號</span></span><br><span class="line">plt.rcParams[<span class="string">&quot;axes.unicode_minus&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 make_moons 數據</span></span><br><span class="line">X,y = make_moons(n_samples=<span class="number">200</span>, noise=<span class="number">0.1</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定繪圖區域</span></span><br><span class="line">x_min, x_max = X[:,<span class="number">0</span>].<span class="built_in">min</span>() - <span class="number">0.2</span>, X[:,<span class="number">0</span>].<span class="built_in">max</span>() + <span class="number">0.2</span></span><br><span class="line">y_min, y_max = X[:,<span class="number">1</span>].<span class="built_in">min</span>() - <span class="number">0.2</span>, X[:,<span class="number">1</span>].<span class="built_in">max</span>() + <span class="number">0.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 產生所有平面座標點</span></span><br><span class="line">xx, yy = np.meshgrid(np.arange(x_min, x_max, <span class="number">0.01</span>),</span><br><span class="line">                     np.arange(y_min, y_max, <span class="number">0.01</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernels = [<span class="string">&#x27;linear&#x27;</span>, <span class="string">&#x27;rbf&#x27;</span>, <span class="string">&#x27;rbf&#x27;</span>, <span class="string">&#x27;poly&#x27;</span>]</span><br><span class="line">gamma_values = [<span class="string">&#x27;scale&#x27;</span>, <span class="number">0.5</span>, <span class="number">100</span>, <span class="string">&#x27;scale&#x27;</span>]</span><br><span class="line">titles = [<span class="string">&#x27;Linear kernel&#x27;</span>, <span class="string">&#x27;RBF kernel, gamma=0.5&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;RBF kernel, gamma=100&#x27;</span>, <span class="string">&#x27;Poly kernel&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fig, sub = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># 調整子圖空間</span></span><br><span class="line">plt.subplots_adjust(wspace=<span class="number">0.4</span>, hspace=<span class="number">0.4</span>)</span><br><span class="line"><span class="comment"># 將子圖的陣列進行扁平化處理(原sub 為2*2)</span></span><br><span class="line">sub = sub.flatten()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> kernel, gamma, title, ax <span class="keyword">in</span> <span class="built_in">zip</span>(kernels, gamma_values, titles, sub):</span><br><span class="line">    model = SVC(kernel=kernel, gamma=gamma)</span><br><span class="line">    model.fit(X, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 將 xx, yy 先扁平化再組成為二維陣列,然後再預測分類</span></span><br><span class="line">    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])</span><br><span class="line">    Z = Z.reshape(xx.shape)</span><br><span class="line">    <span class="comment"># 繪製填充等高線</span></span><br><span class="line">    ax.contourf(xx, yy, Z, alpha=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 顯示散點圖,標籤0使用點,標籤1使用星型</span></span><br><span class="line">    scatter = ax.scatter(X[:,<span class="number">0</span>][y == <span class="number">0</span>], X[:,<span class="number">1</span>][y == <span class="number">0</span>], c=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">    scatter = ax.scatter(X[:,<span class="number">0</span>][y == <span class="number">1</span>], X[:,<span class="number">1</span>][y == <span class="number">1</span>], c=<span class="string">&#x27;r&#x27;</span>, marker=<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    ax.set_title(title + <span class="string">f&quot;準確率(<span class="subst">&#123;accuracy_score(y, model.predict(X)):<span class="number">.2</span>f&#125;</span>)&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:500px">
+  <img src="/2024/08/05/python-34/pic20.png" class="" title="pic20">
+</div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/book/" rel="tag"># book</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/ML/" rel="tag"># ML</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/27/python-33/" rel="prev" title="(2) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據">
+                  <i class="fa fa-chevron-left"></i> (2) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/09/30/python-35/" rel="next" title="Python:股票×ETF量化交易實戰105個活用技巧">
+                  Python:股票×ETF量化交易實戰105個活用技巧 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2024/08/05/python-34/";
+    this.page.identifier = "2024/08/05/python-34/";
+    this.page.title = "(3) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

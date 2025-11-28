@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="快速鍵 跳至 Command line : ctrl+shift+p 或 F1(Mac Cmd+Shift+P) 全螢幕切換 : F11 搜尋檔案 : Ctrl + P    移動整行程式碼 : Alt + ↑ 或 Alt + ↓ (Mac option + ↑, Option + ↓) 重整程式排列 : shift + alt + F 複製一行 : Ctrl+C 設註解 : ctrl+&amp;#x2F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode">
+<meta property="og:url" content="https://hot5656.github.io/2021/04/19/vscode-1/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="快速鍵 跳至 Command line : ctrl+shift+p 或 F1(Mac Cmd+Shift+P) 全螢幕切換 : F11 搜尋檔案 : Ctrl + P    移動整行程式碼 : Alt + ↑ 或 Alt + ↓ (Mac option + ↑, Option + ↓) 重整程式排列 : shift + alt + F 複製一行 : Ctrl+C 設註解 : ctrl+&amp;#x2F">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2021/04/19/vscode-1/pic1.png">
+<meta property="article:published_time" content="2021-04-19T05:51:51.000Z">
+<meta property="article:modified_time" content="2025-11-28T07:16:16.942Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="tool">
+<meta property="article:tag" content="vscode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2021/04/19/vscode-1/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/04/19/vscode-1/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>VSCode | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%8D%B5"><span class="nav-number">1.</span> <span class="nav-text">快速鍵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operation"><span class="nav-number">2.</span> <span class="nav-text">Operation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%89%E6%8F%9B-n-to-%E6%8F%9B%E8%A1%8C"><span class="nav-number">2.1.</span> <span class="nav-text">轉換 \n to 換行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Package-Usage-ctrl-shift-p-x2F-F1-%E8%B7%B3%E8%87%B3-Command-line"><span class="nav-number">3.</span> <span class="nav-text">Package Usage (ctrl+shift+p&#x2F;F1 跳至 Command line)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#default"><span class="nav-number">3.1.</span> <span class="nav-text">default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHD"><span class="nav-number">3.2.</span> <span class="nav-text">GitHD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Untabify-Replace-tabs-with-spaces-and-vice-versa"><span class="nav-number">3.3.</span> <span class="nav-text">Untabify - Replace tabs with spaces and vice versa.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A"><span class="nav-number">4.</span> <span class="nav-text">設定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-%E4%B8%AD%E6%96%87%E4%BB%8B%E9%9D%A2"><span class="nav-number">4.1.</span> <span class="nav-text">設定 中文介面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show-CR-x2F-tab-x2F-space"><span class="nav-number">4.2.</span> <span class="nav-text">show CR&#x2F;tab&#x2F;space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tab-change-space-no"><span class="nav-number">4.3.</span> <span class="nav-text">tab change space(no)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-indent-using-tabs-no"><span class="nav-number">4.4.</span> <span class="nav-text">set indent using tabs(no)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#table-size"><span class="nav-number">4.5.</span> <span class="nav-text">table size</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VSCode-Show-Full-Path-in-Title-Bar"><span class="nav-number">4.6.</span> <span class="nav-text">VSCode Show Full Path in Title Bar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E6%8F%9B%E8%A1%8C"><span class="nav-number">4.7.</span> <span class="nav-text">自動換行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSX-snippets"><span class="nav-number">4.8.</span> <span class="nav-text">JSX snippets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-path"><span class="nav-number">4.9.</span> <span class="nav-text">set path</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-%E8%A8%AD%E5%AE%9A"><span class="nav-number">5.</span> <span class="nav-text">JSON 設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Plug"><span class="nav-number">6.</span> <span class="nav-text">Plug</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/04/19/vscode-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VSCode
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-04-19 13:51:51" itemprop="dateCreated datePublished" datetime="2021-04-19T13:51:51+08:00">2021-04-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-11-28 15:16:16" itemprop="dateModified" datetime="2025-11-28T15:16:16+08:00">2025-11-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/19/vscode-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/19/vscode-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="快速鍵"><a href="#快速鍵" class="headerlink" title="快速鍵"></a>快速鍵</h3><ul>
+<li>跳至 Command line : ctrl+shift+p 或 F1(Mac Cmd+Shift+P)</li>
+<li>全螢幕切換 : F11</li>
+<li>搜尋檔案 : Ctrl + P</li>
+</ul>
+<hr>
+<ul>
+<li>移動整行程式碼 : Alt + ↑ 或 Alt + ↓ (Mac option + ↑, Option + ↓)</li>
+<li>重整程式排列 : shift + alt + F</li>
+<li>複製一行 : Ctrl+C</li>
+<li>設註解 : ctrl+&#x2F; (Mac Cmd+&#x2F;)</li>
+<li>跳至某一行 : Ctrl+G</li>
+<li>多行編輯-選擇行   :  alt+(mouse-left)</li>
+<li>多行編輯-選擇多行 :  alt+shift+(mouse-left) 移動位置 (Mac shift+Option+(mouse-left))</li>
+<li>左移一個字 : Ctrl + Left</li>
+<li>右移一個字 : Ctrl + Right</li>
+<li>編輯所有符合字串 : 選擇字串 –&gt; Ctrl + shift + L</li>
+<li>編輯下一個符合字串 : 選擇字串 –&gt; Ctrl + D</li>
+<li>移除前一個編輯符合字串 : 選擇字串 –&gt; Ctrl + U</li>
+<li>選擇一整行 : Ctrl + L</li>
+<li>複製區塊(前面&#x2F;後面) : Shift + Alt + UP&#x2F;DOWN</li>
+</ul>
+<hr>
+<ul>
+<li>切換左邊功能表(sidebar) : Crtl + B</li>
+<li>分割畫面 : Ctrl + \</li>
+<li>開關 terminal : Ctrl + &#96; (反引號)</li>
+<li>關閉所有檔案 : Ctrl + K + W</li>
+<li>儲存檔案   : Ctrl + s (Mac Cmd+s)</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="Operation"><a href="#Operation" class="headerlink" title="Operation"></a>Operation</h3><h4 id="轉換-n-to-換行"><a href="#轉換-n-to-換行" class="headerlink" title="轉換 \n to 換行"></a>轉換 \n to 換行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Select Replace</span></span><br><span class="line">Ctrl+H (Windows/Linux) </span><br><span class="line">Cmd+Option+F (macOS)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Select : Use Regular expressoin</span></span><br><span class="line">.*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Search filed</span></span><br><span class="line">//n or //t</span><br><span class="line"></span><br><span class="line"><span class="comment"># Replace fiels</span></span><br><span class="line">/n or /t</span><br><span class="line"></span><br><span class="line"><span class="comment"># Replace All</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Package-Usage-ctrl-shift-p-x2F-F1-跳至-Command-line"><a href="#Package-Usage-ctrl-shift-p-x2F-F1-跳至-Command-line" class="headerlink" title="Package Usage (ctrl+shift+p&#x2F;F1 跳至 Command line)"></a>Package Usage (ctrl+shift+p&#x2F;F1 跳至 Command line)</h3><h4 id="default"><a href="#default" class="headerlink" title="default"></a>default</h4><ul>
+<li>移除每行後面的空白 - Trailing spaces not allowed<br>Press <code>F1</code> –&gt; <code>Trim Trailing Whitespace</code></li>
+</ul>
+<h4 id="GitHD"><a href="#GitHD" class="headerlink" title="GitHD"></a>GitHD</h4><ul>
+<li>View History : 看 history, 看檔案與前版差異</li>
+<li>View File History : 看 某檔案有關 history, 看檔案與前版差異</li>
+</ul>
+<h4 id="Untabify-Replace-tabs-with-spaces-and-vice-versa"><a href="#Untabify-Replace-tabs-with-spaces-and-vice-versa" class="headerlink" title="Untabify - Replace tabs with spaces and vice versa."></a>Untabify - Replace tabs with spaces and vice versa.</h4><ul>
+<li>table –&gt; space</li>
+</ul>
+<ol>
+<li>open file</li>
+<li>Press <code>F1</code> –&gt; <code>Untabify</code> –&gt; <code>Enter</code> –&gt; <code>number</code>(for spece) –&gt; <code>Enter</code></li>
+</ol>
+<ul>
+<li>space –&gt; table</li>
+</ul>
+<ol>
+<li>open file</li>
+<li>Press <code>F1</code> –&gt; <code>Tabify</code> –&gt; <code>Enter</code> –&gt; <code>number</code>(for spece) –&gt; <code>Enter</code></li>
+</ol>
+<h3 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h3><div style="width:700px">
+    <img src="/2021/04/19/vscode-1/pic1.png" class="" title="pic1">
+</div>
+
+<h4 id="設定-中文介面"><a href="#設定-中文介面" class="headerlink" title="設定 中文介面"></a>設定 中文介面</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install package Chinese(traditional) Lanaguage Pack</span><br><span class="line">ctrl+<span class="built_in">shift</span>+p --&gt; configure Display Language zh-TW</span><br><span class="line">重新啟動 VSCode</span><br></pre></td></tr></table></figure>
+
+<h4 id="show-CR-x2F-tab-x2F-space"><a href="#show-CR-x2F-tab-x2F-space" class="headerlink" title="show CR&#x2F;tab&#x2F;space"></a>show CR&#x2F;tab&#x2F;space</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Commonly Used --&gt; Editor:Render Whitespace</span><br><span class="line">	none : no show</span><br><span class="line">	all  : show</span><br></pre></td></tr></table></figure>
+
+<h4 id="tab-change-space-no"><a href="#tab-change-space-no" class="headerlink" title="tab change space(no)"></a>tab change space(no)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Commonly Used --&gt; Editor:Insert Spaces</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-indent-using-tabs-no"><a href="#set-indent-using-tabs-no" class="headerlink" title="set indent using tabs(no)"></a>set indent using tabs(no)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 檔案開啟自動偵測 indentation </span></span><br><span class="line">Text Editor --&gt; Detect indentation</span><br></pre></td></tr></table></figure>
+
+<h4 id="table-size"><a href="#table-size" class="headerlink" title="table size"></a>table size</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Commonly Used --&gt; Editor:Tab Size</span><br></pre></td></tr></table></figure>
+
+<h4 id="VSCode-Show-Full-Path-in-Title-Bar"><a href="#VSCode-Show-Full-Path-in-Title-Bar" class="headerlink" title="VSCode Show Full Path in Title Bar"></a>VSCode Show Full Path in Title Bar</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Window -&gt; Title</span><br><span class="line">default :</span><br><span class="line">	default : <span class="variable">$&#123;dirty&#125;</span><span class="variable">$&#123;activeEditorShort&#125;</span><span class="variable">$&#123;separator&#125;</span><span class="variable">$&#123;rootName&#125;</span><span class="variable">$&#123;separator&#125;</span><span class="variable">$&#123;appName&#125;</span></span><br><span class="line">	full fath : <span class="variable">$&#123;activeEditorLong&#125;</span><span class="variable">$&#123;separator&#125;</span><span class="variable">$&#123;rootName&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="自動換行"><a href="#自動換行" class="headerlink" title="自動換行"></a>自動換行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Commonly Used --&gt; Editor:Word Wrap</span><br><span class="line">	on : 自動換行</span><br></pre></td></tr></table></figure>
+
+<h4 id="JSX-snippets"><a href="#JSX-snippets" class="headerlink" title="JSX snippets"></a>JSX snippets</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;emmet.includeLanguages&quot;: &#123;</span><br><span class="line">   &quot;javascript&quot;: &quot;javascriptreact&quot;</span><br><span class="line"> &#125;,</span><br><span class="line">&quot;emmet.triggerExpansionOnTab&quot;: true,</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-path"><a href="#set-path" class="headerlink" title="set path"></a>set path</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;terminal.integrated.profiles.windows&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;PowerShell&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;source&quot;</span>: <span class="string">&quot;PowerShell&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;PATH&quot;</span>: <span class="string">&quot;$&#123;env:PATH&#125;;D:\\app\\python_other\\Graphviz-12.0.0-win64\\bin&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;Command Prompt&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;path&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;$&#123;env:windir&#125;\\System32\\cmd.exe&quot;</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;PATH&quot;</span>: <span class="string">&quot;$&#123;env:PATH&#125;;D:\\app\\python_other\\Graphviz-12.0.0-win64\bin&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;terminal.integrated.defaultProfile.windows&quot;</span>: <span class="string">&quot;PowerShell&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON-設定"><a href="#JSON-設定" class="headerlink" title="JSON 設定"></a>JSON 設定</h3><ul>
+<li>“editor.detectIndentation”: false, - 不可選,否則排版會跟預期不同</li>
+<li>“editor.renderWhitespace”: “all”, - 顯示空白</li>
+<li>“editor.tabSize”: 2, - table size</li>
+<li>“editor.renderControlCharacters”: true, - 顯示tab</li>
+<li>“editor.insertSpaces”: false - tab 不自動轉為 space</li>
+</ul>
+<h3 id="Plug"><a href="#Plug" class="headerlink" title="Plug"></a>Plug</h3><ul>
+<li>Live Server : Web server</li>
+<li>Chinese Lorem : 中文假字(fenerate by ctlorem)</li>
+<li>Live Sass Compiler : compile sas&#x2F;scss(按 Watch Sass)</li>
+<li>Indent-Rainbow : 縮排採紅色條</li>
+<li>Git History :  see git log</li>
+<li>colorize : color 可見可選</li>
+<li>WhatFont : 網頁字型、字體樣式自動偵測工具</li>
+<li>AutoFileName : 程式中自動選擇檔案</li>
+<li>Beautify : Beautify javascript, JSON, CSS, Sass, and HTML in Visual Studio Code</li>
+<li>EJS language support : 2019 - EJS language support for Visual Studio Code.</li>
+<li>ES7+ React&#x2F;Redux&#x2F;React-Native snippets : JavaScript and React&#x2F;Redux snippets in ES7+ with Babel plugin features for VS Code</li>
+<li>ESLint : Integrates ESLint JavaScript into VS Code.</li>
+<li>Fake Image Snippet Collection :  some nice fake image service for prototyping use</li>
+<li>Favorites : Add files and directories to workspace favorites. </li>
+<li>hex-to-rgba : Allows designers to convert selected Hex Code to RGBA</li>
+<li>Highlight Matching Tag : Highlights matching closing and opening tags</li>
+<li>JavaScript (ES6) code snippets : Code snippets for JavaScript in ES6 syntax</li>
+<li>jQuery Code Snippets : jQuery Code Snippets</li>
+<li>Jupyter : Jupyter Extension for Visual Studio Code</li>
+<li>Prettier - Code formatter : Code formatter using prettier</li>
+<li>ftp-simple : ftp editer(ftp-simple-temp.json)  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;ununtu server&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;host&quot;</span>: <span class="string">&quot;192.168.126.187&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;port&quot;</span>: <span class="number">21</span>,</span><br><span class="line">		<span class="attr">&quot;type&quot;</span>: <span class="string">&quot;ftp&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;username&quot;</span>: <span class="string">&quot;user&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;password&quot;</span>: <span class="string">&quot;password&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;path&quot;</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;autosave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">		<span class="attr">&quot;confirm&quot;</span>: <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tool/" rel="tag"># tool</a>
+              <a href="/tags/vscode/" rel="tag"># vscode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/19/git-6/" rel="prev" title="Git Issue">
+                  <i class="fa fa-chevron-left"></i> Git Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/03/yarn-1/" rel="next" title="Yarn">
+                  Yarn <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/04/19/vscode-1/";
+    this.page.identifier = "2021/04/19/vscode-1/";
+    this.page.title = "VSCode";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

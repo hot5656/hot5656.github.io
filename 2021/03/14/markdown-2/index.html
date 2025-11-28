@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="分隔線使用三個連續符號表示（-、*) 1***  1---">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown 使用">
+<meta property="og:url" content="https://hot5656.github.io/2021/03/14/markdown-2/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="分隔線使用三個連續符號表示（-、*) 1***  1---">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-03-14T06:36:25.000Z">
+<meta property="article:modified_time" content="2025-01-02T05:55:11.138Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/03/14/markdown-2/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Markdown 使用 | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%B7%9A"><span class="nav-number">1.</span> <span class="nav-text">分隔線</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">標題</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C-1"><span class="nav-number"></span> <span class="nav-text">標題 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C-2"><span class="nav-number"></span> <span class="nav-text">標題 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C-4"><span class="nav-number">0.1.</span> <span class="nav-text">標題 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C-5"><span class="nav-number">0.1.1.</span> <span class="nav-text">標題 5</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C-6"><span class="nav-number">0.1.1.1.</span> <span class="nav-text">標題 6</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%A8%99%E9%A1%8C-2-%E7%9A%84%E9%A1%8F%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">設定標題 2 的顏色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E5%96%AE"><span class="nav-number">2.</span> <span class="nav-text">清單</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E5%AD%97%E6%B8%85%E5%96%AE"><span class="nav-number">3.</span> <span class="nav-text">數字清單</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%80%E5%A1%8A%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">4.</span> <span class="nav-text">區塊程式碼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">5.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%A3%E7%B5%90"><span class="nav-number">6.</span> <span class="nav-text">連結</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%96%E7%89%87"><span class="nav-number">7.</span> <span class="nav-text">圖片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E5%AD%97%E9%AB%94"><span class="nav-number">8.</span> <span class="nav-text">文字字體</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E9%A1%8F%E8%89%B2"><span class="nav-number">9.</span> <span class="nav-text">文字顏色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%85%E8%BE%A6%E4%BA%8B%E9%A0%85"><span class="nav-number">10.</span> <span class="nav-text">待辦事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8D%80%E5%A1%8A"><span class="nav-number">11.</span> <span class="nav-text">引用區塊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%85%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">12.</span> <span class="nav-text">行內程式碼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="nav-number">13.</span> <span class="nav-text">流程圖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%82%E5%BA%8F%E5%9C%96"><span class="nav-number">14.</span> <span class="nav-text">時序圖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E5%AD%B8%E5%85%AC%E5%BC%8F"><span class="nav-number">15.</span> <span class="nav-text">數學公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">16.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/03/14/markdown-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Markdown 使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-03-14 14:36:25" itemprop="dateCreated datePublished" datetime="2021-03-14T14:36:25+08:00">2021-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-01-02 13:55:11" itemprop="dateModified" datetime="2025-01-02T13:55:11+08:00">2025-01-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/14/markdown-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/14/markdown-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h3><p>使用三個連續符號表示（-、*)</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**<span class="emphasis">*</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---</span><br></pre></td></tr></table></figure>
+<hr>
+<span id="more"></span>
+
+<h3 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 標題 1</span></span><br><span class="line"><span class="comment">## 標題 2</span></span><br><span class="line"><span class="comment">### 標題 3</span></span><br><span class="line"><span class="comment">#### 標題 4</span></span><br><span class="line"><span class="comment">##### 標題 5</span></span><br><span class="line"><span class="comment">###### 標題 6</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="標題-1"><a href="#標題-1" class="headerlink" title="標題 1"></a>標題 1</h1><h2 id="標題-2"><a href="#標題-2" class="headerlink" title="標題 2"></a><font color=#555555>標題 2</font></h2><h4 id="標題-4"><a href="#標題-4" class="headerlink" title="標題 4"></a>標題 4</h4><h5 id="標題-5"><a href="#標題-5" class="headerlink" title="標題 5"></a>標題 5</h5><h6 id="標題-6"><a href="#標題-6" class="headerlink" title="標題 6"></a>標題 6</h6><hr>
+<h3 id="設定標題-2-的顏色"><a href="#設定標題-2-的顏色" class="headerlink" title="設定標題 2 的顏色"></a>設定標題 2 的顏色</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">h2</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: orange; </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h3><p>一般列表的使用彈性較高，-、+、* 等符號後方加上一個空白後都可以轉為列表，要表示下一個層級可多一個縮排或是兩個空白即可</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 這是清單</span><br><span class="line"><span class="bullet">+</span> 這也是清單</span><br><span class="line"><span class="bullet">*</span> 這同樣是清單</span><br><span class="line"><span class="bullet">	-</span> 清單子項目</span><br></pre></td></tr></table></figure>
+<ul>
+<li>這是清單</li>
+</ul>
+<ul>
+<li>這也是清單</li>
+</ul>
+<ul>
+<li>這同樣是清單<ul>
+<li>清單子項目</li>
+</ul>
+</li>
+</ul>
+<h3 id="數字清單"><a href="#數字清單" class="headerlink" title="數字清單"></a>數字清單</h3><p>數字 + .作為開頭</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 數字型清單</span><br><span class="line"><span class="bullet">2.</span> 第二個數字清單</span><br><span class="line"><span class="bullet">2.</span> 數字清單不需要連續數字</span><br><span class="line"><span class="bullet">	3.</span> 數字清單子項目</span><br></pre></td></tr></table></figure>
+<ol>
+<li>數字型清單</li>
+<li>第二個數字清單</li>
+<li>數字清單不需要連續數字<ol start="3">
+<li>數字清單子項目</li>
+</ol>
+</li>
+</ol>
+<p>如果段落文字需要以數字 + . 作為開頭，可以改為 數字 + 反斜線 + .</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2020\. 不平靜的一年</span><br></pre></td></tr></table></figure>
+<p>2020. 不平靜的一年</p>
+<h3 id="區塊程式碼"><a href="#區塊程式碼" class="headerlink" title="區塊程式碼"></a>區塊程式碼</h3><p>三個連續的反引號（&#96;）開頭及結尾做為區塊的程式碼，並且可以在首行的位置補上該段程式碼的語言類別，藉此輸出具有 Highlight 的程式碼。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">``` c </span></span><br><span class="line"><span class="code">while (condition) &#123;</span></span><br><span class="line"><span class="code">	statements;</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">...</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition) &#123;</span><br><span class="line">	statements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| thead 1 | thrad 2 | thread 3 |</span><br><span class="line">|---------|---------|----------|</span><br><span class="line">| td      | td      | td       |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>thead 1</th>
+<th>thrad 2</th>
+<th>thread 3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>td</td>
+<td>td</td>
+<td>td</td>
+</tr>
+</tbody></table>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 預設對齊 | 靠左對齊 | 靠右對齊 | 置中對齊 |</span><br><span class="line">|----- | :----- | -----: | :-----: |</span><br><span class="line">| Text1 | Text2 | Text3 | Text4 |</span><br><span class="line">| Text5 | Text6 | Text7 | Text8 |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>預設對齊</th>
+<th align="left">靠左對齊</th>
+<th align="right">靠右對齊</th>
+<th align="center">置中對齊</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Text1</td>
+<td align="left">Text2</td>
+<td align="right">Text3</td>
+<td align="center">Text4</td>
+</tr>
+<tr>
+<td>Text5</td>
+<td align="left">Text6</td>
+<td align="right">Text7</td>
+<td align="center">Text8</td>
+</tr>
+</tbody></table>
+<h3 id="連結"><a href="#連結" class="headerlink" title="連結"></a>連結</h3><p>前者為 [ ]：中括號內需要補上連結的顯示文字。<br>後者為 ( )：小括號內補上的是連結路徑。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">Google</span>](<span class="link">https://www.google.com.tw/</span>)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.google.com.tw/">Google</a></p>
+<h3 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h3><p>圖片也與連結結構接近，只不過前方多了 !</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">picture 1</span>](<span class="link">test.png</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="文字字體"><a href="#文字字體" class="headerlink" title="文字字體"></a>文字字體</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">**我是粗體**</span><br><span class="line">*我是斜體*</span><br><span class="line">以下空一行(---,***,- - -or* * *)</span><br><span class="line">---</span><br><span class="line">***我是粗斜體***</span><br><span class="line">~~我是刪除線~~</span><br><span class="line">&lt;u&gt;我是底線&lt;/u&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>我是粗體</strong><br><em>我是斜體</em><br>以下空一行</p>
+<hr>
+<p><em><strong>我是粗斜體</strong></em><br><del>我是刪除線</del><br><u>我是底線</u></p>
+<h3 id="文字顏色"><a href="#文字顏色" class="headerlink" title="文字顏色"></a>文字顏色</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">red</span>&gt;</span>紅色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">yellow</span>&gt;</span>黃色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">green</span>&gt;</span>綠色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">blue</span>&gt;</span>藍色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">purple</span>&gt;</span>紫色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><font color=red>紅色</font><br><font color=yellow>黃色</font><br><font color=green>綠色</font><br><font color=blue>藍色</font><br><font color=purple>紫色</font></p>
+<h3 id="待辦事項"><a href="#待辦事項" class="headerlink" title="待辦事項"></a>待辦事項</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 香蕉</span><br><span class="line"><span class="bullet">-</span> [x] 玉米</span><br><span class="line"><span class="bullet">-</span> [x] 蘋果</span><br><span class="line"><span class="bullet">-</span> [ ] 番茄</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input disabled="" type="checkbox"> 香蕉</li>
+<li><input checked="" disabled="" type="checkbox"> 玉米</li>
+<li><input checked="" disabled="" type="checkbox"> 蘋果</li>
+<li><input disabled="" type="checkbox"> 番茄</li>
+</ul>
+<h3 id="引用區塊"><a href="#引用區塊" class="headerlink" title="引用區塊"></a>引用區塊</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 我勸你不要顧惜華貴的金縷衣，</span></span><br><span class="line"><span class="quote">&gt; 我勸你一定要珍惜青春少年時。</span></span><br><span class="line"><span class="quote">&gt; 花開宜折的時候就要抓緊去折，</span></span><br><span class="line"><span class="quote">&gt; 不要等到花謝時只折了個空枝。</span></span><br><span class="line"><span class="quote">&gt; &gt;作者：杜秋娘(第二層)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我勸你不要顧惜華貴的金縷衣，<br>我勸你一定要珍惜青春少年時。<br>花開宜折的時候就要抓緊去折，<br>不要等到花謝時只折了個空枝。</p>
+<blockquote>
+<p>作者：杜秋娘(第二層)</p>
+</blockquote>
+</blockquote>
+<h3 id="行內程式碼"><a href="#行內程式碼" class="headerlink" title="行內程式碼"></a>行內程式碼</h3><p>如果要標記一小段行內程式碼，你可以用反引號把它包起來</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Use the `<span class="built_in">printf</span>()` <span class="keyword">function</span>.</span><br></pre></td></tr></table></figure>
+<p>Use the <code>printf()</code> function.</p>
+<h3 id="流程圖"><a href="#流程圖" class="headerlink" title="流程圖"></a>流程圖</h3><p>設程式碼為 flow<br>設定 元素 tag&#x3D;&gt;type: content<br>基本型別</p>
+<ul>
+<li>start</li>
+<li>end</li>
+<li>operation</li>
+<li>subroutine</li>
+<li>condition</li>
+<li>inputoutput</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 設定 元素</span></span><br><span class="line">st=&gt;start: 開始</span><br><span class="line"><span class="keyword">in</span>=&gt;inputoutput: 输入</span><br><span class="line">e=&gt;end: 結束</span><br><span class="line">op=&gt;operation: 操作</span><br><span class="line">cond=&gt;condition: 條件</span><br><span class="line">sub=&gt;subroutine: 子程序</span><br><span class="line">out=&gt;inputoutput: 输出</span><br><span class="line"><span class="comment"># 畫圖</span></span><br><span class="line">st(right)-&gt;<span class="keyword">in</span>-&gt;op-&gt;cond</span><br><span class="line">cond(yes,right)-&gt;out-&gt;e</span><br><span class="line">cond(no)-&gt;sub</span><br></pre></td></tr></table></figure>
+
+<div id="flowchart-0" class="flow-chart"></div>
+
+<h3 id="時序圖"><a href="#時序圖" class="headerlink" title="時序圖"></a>時序圖</h3><p>styles.styl 要做相對設定<br>加入 tag div(set class sequence)<br>設程式碼為 sequence</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加入 class sequence</span></span><br><span class="line">&lt;div class=<span class="string">&quot;sequence&quot;</span>&gt;</span><br><span class="line"><span class="comment"># 設程式碼為 sequence</span></span><br><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="sequence">
+<div id="sequence-0"></div>
+</div>
+
+<h3 id="數學公式"><a href="#數學公式" class="headerlink" title="數學公式"></a>數學公式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下標 _ 改為 \_</span></span><br><span class="line"><span class="comment"># 條件表達式 每列 \\ 改為 \\\\</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 行內公式</span></span><br><span class="line">質能方程式<span class="variable">$E</span> = mc^2$</span><br><span class="line"><span class="comment"># 獨立公式</span></span><br><span class="line">質能方程式$<span class="variable">$E</span> = mc^2$$</span><br><span class="line"><span class="comment"># ^ 上標, _ 下標</span></span><br><span class="line">$<span class="variable">$x</span> = a\_&#123;1&#125;^n + a\_&#123;2&#125;^n + a\_&#123;3&#125;^n$$</span><br><span class="line"><span class="comment"># 分數使用\frac&#123;分母&#125;&#123;分子&#125; 不過推薦使用\cfrac來代替\frac，顯示公式不會太擠</span></span><br><span class="line">$$\frac&#123;1&#125;&#123;3&#125; 與\cfrac&#123;1&#125;&#123;3&#125;$$</span><br><span class="line"><span class="comment"># &#123;&#125;因為有特殊作用因此當需要顯示大括號時一般使用\lbrace \rbrace來表示</span></span><br><span class="line">$<span class="variable">$f</span>(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$</span><br><span class="line"><span class="comment"># 開根號 \sqrt[次数]&#123;被开方数&#125;</span></span><br><span class="line">$$\sqrt[3]&#123;X&#125; \sqrt&#123;5 - x&#125;$$ </span><br><span class="line"><span class="comment"># 極限</span></span><br><span class="line"><span class="variable">$g</span>. \lim\limits_&#123;n \rightarrow a&#125; [f(x)/g(x)]=L/M$</span><br><span class="line"><span class="comment"># 條件表達式</span></span><br><span class="line">$$</span><br><span class="line">y=</span><br><span class="line">\begin&#123;cases&#125;</span><br><span class="line">-x,\quad x\leq 0 \\\\</span><br><span class="line">x,\quad x&gt;0</span><br><span class="line">\end&#123;cases&#125;</span><br><span class="line">$$</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    f(n) =</span><br><span class="line">    \begin&#123;cases&#125;</span><br><span class="line">    n/2, &amp; \text&#123;<span class="keyword">if</span> $n$ is even&#125; \\\\</span><br><span class="line">    3n+1, &amp; \text&#123;<span class="keyword">if</span> $n$ is odd&#125;</span><br><span class="line">    \end&#123;cases&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 矩陣與行列式</span></span><br><span class="line">$ a =</span><br><span class="line">\left(</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">	a_x	\\\\</span><br><span class="line">	a_y \\\\</span><br><span class="line">	a_z </span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right)</span><br><span class="line">$</span><br><span class="line"></span><br><span class="line">$  a × b =</span><br><span class="line">\left|</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">	i 	&amp; j 	&amp; k		\\\\</span><br><span class="line">	a_x &amp; a_y &amp; a_z \\\\</span><br><span class="line">	b_x &amp; b_y &amp; b_z </span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right|</span><br><span class="line">= </span><br><span class="line">\left(</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">	a_yb_z - a_zb_y	\\\\</span><br><span class="line">	a_zb_x - a_xb_z \\\\</span><br><span class="line">	a_xb_y - a_yb_x </span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right)</span><br><span class="line">$</span><br><span class="line"></span><br><span class="line"><span class="comment"># \tag&#123;1&#125; 為後面的標示</span></span><br><span class="line">$$ \begin&#123;matrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;matrix&#125; \tag&#123;1&#125;$$</span><br><span class="line">$$ \begin&#123;pmatrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;pmatrix&#125; \tag&#123;1<span class="string">&#x27;&#125;$$</span></span><br><span class="line"><span class="string">$$ \begin&#123;bmatrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;bmatrix&#125; \tag&#123;1-1&#125;$$</span></span><br><span class="line"><span class="string">$$ \begin&#123;Bmatrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;Bmatrix&#125; \tag&#123;*&#125;$$</span></span><br><span class="line"><span class="string">$$ \begin&#123;vmatrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;vmatrix&#125; $$</span></span><br><span class="line"><span class="string">$$ \begin&#123;Vmatrix&#125; 1 &amp; 2 \\\\ 3 &amp; 4 \end&#123;Vmatrix&#125; $$</span></span><br></pre></td></tr></table></figure>
+
+<p>質能方程式$E &#x3D; mc^2$<br>質能方程式$$E &#x3D; mc^2$$<br>上標,下標<br>$$x &#x3D; a_{1}^n + a_{2}^n + a_{3}^n$$<br>分數使用<br>$$\frac{1}{3} 與\cfrac{1}{3}$$<br>括號<br>$$f(x, y) &#x3D; 100 * \lbrace[(x + y) * 3] - 5\rbrace$$<br>開根號<br>$$\sqrt[3]{X} \sqrt{5 - x}$$<br>極限<br>$\lim\limits_{n \rightarrow a} [f(x)&#x2F;g(x)]&#x3D;L&#x2F;M$<br>條件表達式<br>$$<br>y&#x3D;<br>\begin{cases}<br>-x,\quad x\leq 0 \\<br>x,\quad x&gt;0<br>\end{cases}<br>$$</p>
+<p>\begin{equation}<br>    f(n) &#x3D;<br>    \begin{cases}<br>    n&#x2F;2, &amp; \text{if $n$ is even} \\<br>    3n+1, &amp; \text{if $n$ is odd}<br>    \end{cases}<br>\end{equation}</p>
+<p>矩陣與行列式<br>$ a &#x3D;<br>\left(<br>\begin{matrix}<br>    a_x	\\<br>    a_y \\<br>    a_z<br>\end{matrix}<br>\right)<br>$</p>
+<p>$  a × b &#x3D;<br>\left|<br>\begin{matrix}<br>    i 	&amp; j 	&amp; k		\\<br>    a_x &amp; a_y &amp; a_z \\<br>    b_x &amp; b_y &amp; b_z<br>\end{matrix}<br>\right|<br>&#x3D;<br>\left(<br>\begin{matrix}<br>    a_yb_z - a_zb_y	\\<br>    a_zb_x - a_xb_z \\<br>    a_xb_y - a_yb_x<br>\end{matrix}<br>\right)<br>$</p>
+<p>$$ \begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \end{matrix} \tag{1}$$<br>$$ \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} \tag{1’}$$<br>$$ \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix} \tag{1-1}$$<br>$$ \begin{Bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{Bmatrix} \tag{*}$$<br>$$ \begin{vmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{vmatrix} $$<br>$$ \begin{Vmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{Vmatrix} $$</p>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.maxkit.com.tw/2020/02/markdown.html">如何在 Markdown 輸入數學公式及符號</a></li>
+</ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 開始
+in=>inputoutput: 输入
+e=>end: 結束
+op=>operation: 操作
+cond=>condition: 條件
+sub=>subroutine: 子程序
+out=>inputoutput: 输出
+
+st(right)->in->op->cond
+cond(yes,right)->out->e
+cond(no)->sub</textarea><textarea id="flowchart-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.27/webfontloader.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script><textarea id="sequence-0-code" style="display: none">Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!</textarea><textarea id="sequence-0-options" style="display: none">{"theme":"simple","scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("sequence-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-0-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-0", options);</script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/markdown/" rel="tag"># markdown</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/14/issue-hexo-2/" rel="prev" title="Hexo Issue">
+                  <i class="fa fa-chevron-left"></i> Hexo Issue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/14/hexo-4/" rel="next" title="hexo 備份">
+                  hexo 備份 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/03/14/markdown-2/";
+    this.page.identifier = "2021/03/14/markdown-2/";
+    this.page.title = "Markdown 使用";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

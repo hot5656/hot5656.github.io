@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Commandinstallinstall selenium1pip install selenium  install webdriver_manager(support auto download driver)1pip install webdriver_manager  install scrapy-selenium1pip install scrapy-selenium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python Selenium 說明(自動化測試)">
+<meta property="og:url" content="https://hot5656.github.io/2022/12/24/python-12/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="Commandinstallinstall selenium1pip install selenium  install webdriver_manager(support auto download driver)1pip install webdriver_manager  install scrapy-selenium1pip install scrapy-selenium">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2022/12/24/python-12/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2022/12/24/python-12/screenshot.png">
+<meta property="article:published_time" content="2022-12-24T11:33:33.000Z">
+<meta property="article:modified_time" content="2024-04-23T09:22:41.732Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="crawling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2022/12/24/python-12/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2022/12/24/python-12/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>python Selenium 說明(自動化測試) | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command"><span class="nav-number">1.</span> <span class="nav-text">Command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#install-selenium"><span class="nav-number">1.1.1.</span> <span class="nav-text">install selenium</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#install-webdriver-manager-support-auto-download-driver"><span class="nav-number">1.1.2.</span> <span class="nav-text">install webdriver_manager(support auto download driver)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#install-scrapy-selenium"><span class="nav-number">1.1.3.</span> <span class="nav-text">install scrapy-selenium</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#download-browser-driver-check-same-as-currenct-use"><span class="nav-number">1.1.4.</span> <span class="nav-text">download browser driver(check same as currenct use)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Selenium-%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">Selenium 功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#basic"><span class="nav-number">1.2.1.</span> <span class="nav-text">basic</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#option"><span class="nav-number">1.2.2.</span> <span class="nav-text">option</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-element"><span class="nav-number">1.2.3.</span> <span class="nav-text">find element</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-data"><span class="nav-number">1.2.4.</span> <span class="nav-text">get data</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#run-javascript"><span class="nav-number">1.2.5.</span> <span class="nav-text">run javascript</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#send-keys"><span class="nav-number">1.2.6.</span> <span class="nav-text">send keys</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#click"><span class="nav-number">1.2.7.</span> <span class="nav-text">click</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#submit"><span class="nav-number">1.2.8.</span> <span class="nav-text">submit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Explicit-Waits"><span class="nav-number">1.2.9.</span> <span class="nav-text">Explicit Waits</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forward-x2F-backward"><span class="nav-number">1.2.10.</span> <span class="nav-text">forward&#x2F;backward</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#information"><span class="nav-number">1.2.11.</span> <span class="nav-text">information</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cookie"><span class="nav-number">1.2.12.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#save-page-to-image"><span class="nav-number">1.2.13.</span> <span class="nav-text">save page to image</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#write-page-to-file"><span class="nav-number">1.2.14.</span> <span class="nav-text">write page to file</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#special-coding"><span class="nav-number">1.3.</span> <span class="nav-text">special coding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#convert-element-to-Selector"><span class="nav-number">1.3.1.</span> <span class="nav-text">convert element to Selector</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coding"><span class="nav-number">2.</span> <span class="nav-text">Coding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#selenium-run-by-python-1"><span class="nav-number">2.1.</span> <span class="nav-text">selenium run by python #1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1st-test1-py"><span class="nav-number">2.1.1.</span> <span class="nav-text">1st - test1.py</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#selenium-run-by-python-2"><span class="nav-number">2.2.</span> <span class="nav-text">selenium run by python #2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#basic-run-selenium"><span class="nav-number">2.2.1.</span> <span class="nav-text">basic run selenium</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#copy-chromedriver-exe-to-x2F-app-x2F-ChromeDrive"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">copy chromedriver.exe to &#x2F;app&#x2F;ChromeDrive</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#basics-py"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">basics.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">run</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#executable-path-by-which-or-run-current-Chrome"><span class="nav-number">2.2.2.</span> <span class="nav-text">executable_path by which or run current Chrome</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#basics-py-1"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">basics.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run-1"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">run</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#search-%E2%80%9CMy-User-Agent%E2%80%9D"><span class="nav-number">2.2.3.</span> <span class="nav-text">search “My User Agent”</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#basics-py-2"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">basics.py</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#no-open-browse-close-driver-and-%E2%80%9Cwebdriver-Chrome-change-executable-path-to-service%E2%80%9D"><span class="nav-number">2.2.4.</span> <span class="nav-text">no open browse, close driver and  “webdriver.Chrome() change executable_path to service”</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#basics-py-3"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">basics.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run-2"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">run</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#selenium-run-by-scrapy"><span class="nav-number">2.3.</span> <span class="nav-text">selenium run by scrapy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#livecoin"><span class="nav-number">2.3.1.</span> <span class="nav-text">livecoin</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#coin-selenium-py"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">coin_selenium.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run-3"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#json"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">json</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-selenium"><span class="nav-number">2.4.</span> <span class="nav-text">scrapy_selenium</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#basic-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">basic</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#create-project-and-spider"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">create project and spider</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#change-settings-py"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">change settings.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#example-py"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">example.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run-4"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#check-output-screenshot-png"><span class="nav-number">2.4.1.5.</span> <span class="nav-text">check output screenshot.png</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#search-%E2%80%9CHello-World%E2%80%9D"><span class="nav-number">2.4.2.</span> <span class="nav-text">search “Hello World”</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#example-py-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">example.py</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#run-5"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">run</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2022/12/24/python-12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python Selenium 說明(自動化測試)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2022-12-24 19:33:33" itemprop="dateCreated datePublished" datetime="2022-12-24T19:33:33+08:00">2022-12-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-04-23 17:22:41" itemprop="dateModified" datetime="2024-04-23T17:22:41+08:00">2024-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/12/24/python-12/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/12/24/python-12/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>21k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>19 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h3><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><h5 id="install-selenium"><a href="#install-selenium" class="headerlink" title="install selenium"></a>install selenium</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install selenium</span><br></pre></td></tr></table></figure>
+
+<h5 id="install-webdriver-manager-support-auto-download-driver"><a href="#install-webdriver-manager-support-auto-download-driver" class="headerlink" title="install webdriver_manager(support auto download driver)"></a>install webdriver_manager(support auto download driver)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install webdriver_manager</span><br></pre></td></tr></table></figure>
+
+<h5 id="install-scrapy-selenium"><a href="#install-scrapy-selenium" class="headerlink" title="install scrapy-selenium"></a>install scrapy-selenium</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install scrapy-selenium</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h5 id="download-browser-driver-check-same-as-currenct-use"><a href="#download-browser-driver-check-same-as-currenct-use" class="headerlink" title="download browser driver(check same as currenct use)"></a>download browser driver(check same as currenct use)</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://sites.google.com/chromium.org/driver/downloads">Chrome driver</a></li>
+</ul>
+<h4 id="Selenium-功能"><a href="#Selenium-功能" class="headerlink" title="Selenium 功能"></a>Selenium 功能</h4><h5 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.service <span class="keyword">import</span> Service</span><br><span class="line"><span class="keyword">from</span> webdriver_manager.chrome <span class="keyword">import</span> ChromeDriverManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># set browser not auto quit()</span></span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;detach&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add argument headless - no open browser</span></span><br><span class="line"><span class="comment"># options.add_argument(&#x27;--headless&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auto install driver</span></span><br><span class="line">driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)</span><br><span class="line">driver.get(<span class="string">&quot;https://www.dcard.tw/f&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># show title</span></span><br><span class="line"><span class="built_in">print</span>(driver.title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># quit browser</span></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+<h5 id="option"><a href="#option" class="headerlink" title="option"></a>option</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># set browser not auto quit()</span></span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;detach&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 防止跳出通知</span></span><br><span class="line">chrome_options = webdriver.ChromeOptions()</span><br><span class="line">prefs = &#123;</span><br><span class="line">    <span class="string">&quot;profile.default_content_setting_values.notifications&quot;</span>: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">chrome_options.add_experimental_option(<span class="string">&quot;prefs&quot;</span>, prefs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用無痕模式,應沒有甚麼用</span></span><br><span class="line"><span class="comment"># options.add_argument(&quot;--incognito&quot;)  </span></span><br><span class="line"><span class="comment"># ua = &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36&quot;</span></span><br><span class="line"><span class="comment"># 使用偽造的 user-agent,應沒有甚麼用</span></span><br><span class="line"><span class="comment"># options.add_argument(&quot;user-agent=&#123;&#125;&quot;.format(ua))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add argument headless - no open browser</span></span><br><span class="line">options.add_argument(<span class="string">&#x27;--headless&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="find-element"><a href="#find-element" class="headerlink" title="find element"></a>find element</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"></span><br><span class="line">search_input = driver.find_element(By.ID, <span class="string">&quot;keyword&quot;</span>)</span><br><span class="line"></span><br><span class="line">elements = driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;foo&#x27;</span>)</span><br><span class="line"></span><br><span class="line">obj = driver.find_element(By.NAME, <span class="string">&quot;IamBanana&quot;</span>)</span><br><span class="line">obj = driver.find_element(By.LINK_TEXT, <span class="string">&quot;https://rootttt.com.tw&quot;</span>)</span><br><span class="line">obj = driver.find_element(By.CSS_SELECTOR, <span class="string">&quot;#car span.blue.wow&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定位&lt;form&gt;標籤</span></span><br><span class="line">form = driver.find_element(By.XPATH, <span class="string">&quot;//form[@id=&#x27;fm1&#x27;]&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(form.get_attribute(<span class="string">&quot;type&quot;</span>))</span><br><span class="line"><span class="comment"># 定位密碼欄位</span></span><br><span class="line">pwd = driver.find_element(By.XPATH, <span class="string">&quot;//form[@id=&#x27;fm1&#x27;]/section[2]/input&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(pwd.get_attribute(<span class="string">&quot;type&quot;</span>))</span><br><span class="line"><span class="comment"># 定位登入按鈕</span></span><br><span class="line">clear = driver.find_element(By.XPATH, <span class="string">&quot;//input[@class=&#x27;btn-submit&#x27;]&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(clear.get_attribute(<span class="string">&quot;type&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># CLASS_NAME = &#x27;class name&#x27;</span></span><br><span class="line"><span class="comment"># CSS_SELECTOR = &#x27;css selector&#x27;</span></span><br><span class="line"><span class="comment"># ID = &#x27;id&#x27;</span></span><br><span class="line"><span class="comment"># LINK_TEXT = &#x27;link text&#x27;</span></span><br><span class="line"><span class="comment"># NAME = &#x27;name&#x27;</span></span><br><span class="line"><span class="comment"># PARTIAL_LINK_TEXT = &#x27;partial link text&#x27;</span></span><br><span class="line"><span class="comment"># TAG_NAME = &#x27;tag name&#x27;</span></span><br><span class="line"><span class="comment"># XPATH = &#x27;xpath&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="get-data"><a href="#get-data" class="headerlink" title="get data"></a>get data</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># text</span></span><br><span class="line"><span class="built_in">print</span>(driver.find_element_by_id(<span class="string">&quot;signupModalButton&quot;</span>).text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># html</span></span><br><span class="line">product_sel = Selector(text=product.get_attribute(<span class="string">&#x27;innerHTML&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># attribute </span></span><br><span class="line">elements = driver.find_elements_by_id(<span class="string">&quot;link&quot;</span>)</span><br><span class="line">element.get_attribute(<span class="string">&#x27;href&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># property</span></span><br><span class="line">element = driver.find_element_by_link_text(<span class="string">&quot;Courses&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(element.get_property(<span class="string">&#x27;href&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#tag name</span></span><br><span class="line">elements = driver.find_elements_by_name(<span class="string">&quot;passwd&quot;</span>)</span><br><span class="line">element.tag_name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h5 id="run-javascript"><a href="#run-javascript" class="headerlink" title="run javascript"></a>run javascript</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="string">&quot;window.scrollTo(0, document.body.scrollHeight);&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="send-keys"><a href="#send-keys" class="headerlink" title="send keys"></a>send keys</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="comment"># input string</span></span><br><span class="line">search_input.send_keys(<span class="string">&#x27;iphone 12&#x27;</span>)</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># clear string</span></span><br><span class="line">search_input.clear()</span><br><span class="line"></span><br><span class="line"><span class="comment"># input string</span></span><br><span class="line">search_input.send_keys(<span class="string">&#x27;iphone 14 pro&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># input special key</span></span><br><span class="line">search_input.send_keys(Keys.ENTER)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ctrl-c , ctrl-v</span></span><br><span class="line">element.send_keys(Keys.CONTROL, <span class="string">&quot;c&quot;</span>)</span><br><span class="line">element.send_keys(Keys.CONTROL, <span class="string">&quot;v&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># some special key</span></span><br><span class="line">TAB </span><br></pre></td></tr></table></figure>
+
+<h5 id="click"><a href="#click" class="headerlink" title="click"></a>click</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">phone_1st = driver.find_element(By.CLASS_NAME, <span class="string">&quot;prdImg&quot;</span>)</span><br><span class="line">phone_1st.click()</span><br></pre></td></tr></table></figure>
+
+<h5 id="submit"><a href="#submit" class="headerlink" title="submit"></a>submit</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 送出表單</span></span><br><span class="line">element = driver.find_element_by_id(<span class="string">&#x27;Hi&#x27;</span>)</span><br><span class="line">element.submit()</span><br></pre></td></tr></table></figure>
+
+<h5 id="Explicit-Waits"><a href="#Explicit-Waits" class="headerlink" title="Explicit Waits"></a>Explicit Waits</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    element = WebDriverWait(driver, <span class="number">10</span>).until(</span><br><span class="line">        EC.presence_of_element_located((By.ID, <span class="string">&quot;toothUl&quot;</span>))</span><br><span class="line">    )</span><br><span class="line">    phone_1st = driver.find_element(By.CLASS_NAME, <span class="string">&quot;prdImg&quot;</span>)</span><br><span class="line">    phone_1st.click()</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="comment"># driver.quit()</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="forward-x2F-backward"><a href="#forward-x2F-backward" class="headerlink" title="forward&#x2F;backward"></a>forward&#x2F;backward</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 最大化視窗</span></span><br><span class="line">driver.maximize_window()</span><br><span class="line"></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前一頁</span></span><br><span class="line">driver.back()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下一頁</span></span><br><span class="line">driver.forward()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新整理</span></span><br><span class="line">driver.fresh()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 關閉視窗</span></span><br><span class="line">driver.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 關閉瀏覽器</span></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+<h5 id="information"><a href="#information" class="headerlink" title="information"></a>information</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show title</span></span><br><span class="line"><span class="built_in">print</span>(driver.title)</span><br></pre></td></tr></table></figure>
+
+<h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show cookie</span></span><br><span class="line"><span class="built_in">print</span>(driver.get_cookies())</span><br></pre></td></tr></table></figure>
+
+<h5 id="save-page-to-image"><a href="#save-page-to-image" class="headerlink" title="save page to image"></a>save page to image</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># save page to image</span></span><br><span class="line">driver.save_screenshot(<span class="string">&quot;datacamp.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="write-page-to-file"><a href="#write-page-to-file" class="headerlink" title="write page to file"></a>write page to file</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># open file in write mode with encoding</span></span><br><span class="line">name = os.path.join(<span class="string">&quot;&quot;</span>, <span class="string">&quot;index.html&quot;</span>)</span><br><span class="line">file = codecs.<span class="built_in">open</span>(name, <span class="string">&quot;w&quot;</span>, <span class="string">&quot;utf−8&quot;</span>)</span><br><span class="line"><span class="comment"># obtain page source</span></span><br><span class="line">h = driver.page_source</span><br><span class="line"><span class="comment"># write page source content to file</span></span><br><span class="line">file.write(h)</span><br></pre></td></tr></table></figure>
+
+<h4 id="special-coding"><a href="#special-coding" class="headerlink" title="special coding"></a>special coding</h4><h5 id="convert-element-to-Selector"><a href="#convert-element-to-Selector" class="headerlink" title="convert element to Selector"></a>convert element to Selector</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.selector <span class="keyword">import</span> Selector</span><br><span class="line"></span><br><span class="line">products = driver.find_elements(By.XPATH, <span class="string">&quot;//div[@class=&#x27;listArea&#x27;]/ul/li&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> product <span class="keyword">in</span> products:</span><br><span class="line">    <span class="comment"># element to Selector</span></span><br><span class="line">    product_sel = Selector(text=product.get_attribute(<span class="string">&#x27;innerHTML&#x27;</span>))</span><br><span class="line">    title = product_sel.xpath(<span class="string">&quot;.//h3[@class=&#x27;prdName&#x27;]/text()&quot;</span>).get()</span><br><span class="line">    <span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h3><h4 id="selenium-run-by-python-1"><a href="#selenium-run-by-python-1" class="headerlink" title="selenium run by python #1"></a>selenium run by python #1</h4><h5 id="1st-test1-py"><a href="#1st-test1-py" class="headerlink" title="1st - test1.py"></a>1st - test1.py</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.service <span class="keyword">import</span> Service</span><br><span class="line"><span class="keyword">from</span> webdriver_manager.chrome <span class="keyword">import</span> ChromeDriverManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># set browser not auto quit()</span></span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;detach&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add argument headless - no open browser</span></span><br><span class="line"><span class="comment"># options.add_argument(&#x27;--headless&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auto install driver</span></span><br><span class="line">driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)</span><br><span class="line">driver.get(<span class="string">&quot;https://www.dcard.tw/f&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># show title</span></span><br><span class="line"><span class="built_in">print</span>(driver.title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># quit browser</span></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="selenium-run-by-python-2"><a href="#selenium-run-by-python-2" class="headerlink" title="selenium run by python #2"></a>selenium run by python #2</h4><h5 id="basic-run-selenium"><a href="#basic-run-selenium" class="headerlink" title="basic run selenium"></a>basic run selenium</h5><h6 id="copy-chromedriver-exe-to-x2F-app-x2F-ChromeDrive"><a href="#copy-chromedriver-exe-to-x2F-app-x2F-ChromeDrive" class="headerlink" title="copy chromedriver.exe to &#x2F;app&#x2F;ChromeDrive"></a>copy chromedriver.exe to &#x2F;app&#x2F;ChromeDrive</h6><h6 id="basics-py"><a href="#basics-py" class="headerlink" title="basics.py"></a>basics.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome(executable_path=<span class="string">&quot;/app/ChromeDrive/chromedriver.exe&quot;</span>)</span><br><span class="line">driver.get(<span class="string">&quot;https://duckduckgo.com&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h6 id="run"><a href="#run" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\selenium_basics&gt;python basics.py</span><br><span class="line">D:\work\run\python_crawler\107-selenium\selenium_basics\basics.py:3: DeprecationWarning: executable_path has been deprecated, please pass <span class="keyword">in</span> a Service object</span><br><span class="line">  driver = webdriver.Chrome(executable_path=<span class="string">&quot;/app/ChromeDrive/chromedriver.exe&quot;</span>)</span><br><span class="line">DevTools listening on ws://127.0.0.1:58048/devtools/browser/b34c4e48-a418-445e-8446-c541a8db145d</span><br><span class="line"></span><br><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\selenium_basics&gt;</span><br></pre></td></tr></table></figure>
+
+<div style="max-width:700px">
+    <img src="/2022/12/24/python-12/pic1.png" class="" title="pic1">
+</div>
+
+
+<h5 id="executable-path-by-which-or-run-current-Chrome"><a href="#executable-path-by-which-or-run-current-Chrome" class="headerlink" title="executable_path by which or run current Chrome"></a>executable_path by which or run current Chrome</h5><h6 id="basics-py-1"><a href="#basics-py-1" class="headerlink" title="basics.py"></a>basics.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> shutil <span class="keyword">import</span> which</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># use which find &quot;chromedriver.exe&quot;</span></span><br><span class="line"><span class="comment"># need copy &quot;chromedriver.exe&quot; to PATH directory : I copy to C:\Windows\System32</span></span><br><span class="line">chrome_path = which(<span class="string">&quot;chromedriver.exe&quot;</span>)</span><br><span class="line">driver = webdriver.Chrome(executable_path=chrome_path,options=options)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接使用 目前使用似乎可行</span></span><br><span class="line"><span class="comment"># driver = webdriver.Chrome(options=options)</span></span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">&quot;https://duckduckgo.com&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加上 slppe() 否則 browser 很快就關起來</span></span><br><span class="line">time.sleep(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<h6 id="run-1"><a href="#run-1" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\selenium_basics&gt;python basics.py</span><br><span class="line">D:\work\run\python_crawler\107-selenium\selenium_basics\basics.py:15: DeprecationWarning: executable_path has been deprecated, please pass <span class="keyword">in</span> a Service object</span><br><span class="line">  driver = webdriver.Chrome(executable_path=chrome_path,options=options)</span><br></pre></td></tr></table></figure>
+
+<h5 id="search-“My-User-Agent”"><a href="#search-“My-User-Agent”" class="headerlink" title="search “My User Agent”"></a>search “My User Agent”</h5><h6 id="basics-py-2"><a href="#basics-py-2" class="headerlink" title="basics.py"></a>basics.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> shutil <span class="keyword">import</span> which</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># use which find &quot;chromedriver.exe&quot;</span></span><br><span class="line"><span class="comment"># need copy &quot;chromedriver.exe&quot; to PATH directory : I copy to C:\Windows\System32</span></span><br><span class="line">chrome_path = which(<span class="string">&quot;chromedriver.exe&quot;</span>)</span><br><span class="line">driver = webdriver.Chrome(executable_path=chrome_path,options=options)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接使用 目前使用似乎可行</span></span><br><span class="line"><span class="comment"># driver = webdriver.Chrome(options=options)</span></span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">&quot;https://duckduckgo.com&quot;</span>)</span><br><span class="line"></span><br><span class="line">search_input = driver.find_element(By.ID, <span class="string">&quot;search_form_input_homepage&quot;</span>)</span><br><span class="line">search_input.send_keys(<span class="string">&quot;My User Agent&quot;</span>)</span><br><span class="line"><span class="comment"># click button</span></span><br><span class="line"><span class="comment"># search_btn = driver.find_element(By.ID, &quot;search_button_homepage&quot;)</span></span><br><span class="line"><span class="comment"># search_btn.click()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># press Enter</span></span><br><span class="line">search_input.send_keys(Keys.ENTER)</span><br><span class="line"></span><br><span class="line"><span class="comment"># find_element(By.ID, &quot;id&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.NAME, &quot;name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.XPATH, &quot;xpath&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.LINK_TEXT, &quot;link text&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.PARTIAL_LINK_TEXT, &quot;partial link text&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.TAG_NAME, &quot;tag name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.CLASS_NAME, &quot;class name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.CSS_SELECTOR, &quot;css selector&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加上 slppe() 否則 browser 很快就關起來</span></span><br><span class="line">time.sleep(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="no-open-browse-close-driver-and-“webdriver-Chrome-change-executable-path-to-service”"><a href="#no-open-browse-close-driver-and-“webdriver-Chrome-change-executable-path-to-service”" class="headerlink" title="no open browse, close driver and  “webdriver.Chrome() change executable_path to service”"></a>no open browse, close driver and  “webdriver.Chrome() change executable_path to service”</h5><h6 id="basics-py-3"><a href="#basics-py-3" class="headerlink" title="basics.py"></a>basics.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.service <span class="keyword">import</span> Service</span><br><span class="line"><span class="keyword">from</span> webdriver_manager.chrome <span class="keyword">import</span> ChromeDriverManager</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出現以下錯誤, 增加 options mask</span></span><br><span class="line"><span class="comment"># [15856:11828:1225/110356.222:ERROR:device_event_log_impl.cc(215)]</span></span><br><span class="line"><span class="comment"># [11:03:56.222] USB: usb_device_handle_win.cc:1045 Failed to read descriptor from node connection: 連結到系統的某個裝置失去作用。 (0x1F)</span></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line"><span class="comment"># add argument headless - no open browser</span></span><br><span class="line">options.add_argument(<span class="string">&#x27;--headless&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># change executable_path to service</span></span><br><span class="line">driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)</span><br><span class="line">driver.get(<span class="string">&quot;https://duckduckgo.com&quot;</span>)</span><br><span class="line"></span><br><span class="line">search_input = driver.find_element(By.ID, <span class="string">&quot;search_form_input_homepage&quot;</span>)</span><br><span class="line">search_input.send_keys(<span class="string">&quot;My User Agent&quot;</span>)</span><br><span class="line"><span class="comment"># click button</span></span><br><span class="line"><span class="comment"># search_btn = driver.find_element(By.ID, &quot;search_button_homepage&quot;)</span></span><br><span class="line"><span class="comment"># search_btn.click()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># press Enter</span></span><br><span class="line">search_input.send_keys(Keys.ENTER)</span><br><span class="line"></span><br><span class="line"><span class="comment"># find_element(By.ID, &quot;id&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.NAME, &quot;name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.XPATH, &quot;xpath&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.LINK_TEXT, &quot;link text&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.PARTIAL_LINK_TEXT, &quot;partial link text&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.TAG_NAME, &quot;tag name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.CLASS_NAME, &quot;class name&quot;)</span></span><br><span class="line"><span class="comment"># find_element(By.CSS_SELECTOR, &quot;css selector&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;======================================&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(driver.page_source)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;======================================&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># need close</span></span><br><span class="line">driver.close()</span><br></pre></td></tr></table></figure>
+
+<h6 id="run-2"><a href="#run-2" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\selenium_basics&gt;python basics.py</span><br><span class="line">======================================</span><br><span class="line">......</span><br><span class="line">======================================</span><br></pre></td></tr></table></figure>
+
+<h4 id="selenium-run-by-scrapy"><a href="#selenium-run-by-scrapy" class="headerlink" title="selenium run by scrapy"></a>selenium run by scrapy</h4><h5 id="livecoin"><a href="#livecoin" class="headerlink" title="livecoin"></a>livecoin</h5><h6 id="coin-selenium-py"><a href="#coin-selenium-py" class="headerlink" title="coin_selenium.py"></a>coin_selenium.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> scrapy.selector <span class="keyword">import</span> Selector</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.service <span class="keyword">import</span> Service</span><br><span class="line"><span class="keyword">from</span> webdriver_manager.chrome <span class="keyword">import</span> ChromeDriverManager</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CoinSpiderSeleniunm</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;coin_selenium&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;web.archive.org&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&#x27;https://web.archive.org/web/20200116052415/https://www.livecoin.net/en&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        options = webdriver.ChromeOptions()</span><br><span class="line">        options.add_experimental_option(<span class="string">&#x27;excludeSwitches&#x27;</span>, [<span class="string">&#x27;enable-logging&#x27;</span>])</span><br><span class="line">        <span class="comment"># add argument headless - no open browser</span></span><br><span class="line">        options.add_argument(<span class="string">&#x27;--headless&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># change executable_path to service</span></span><br><span class="line">        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)</span><br><span class="line">        <span class="comment"># set windows size(width, height)</span></span><br><span class="line">        driver.set_window_size(<span class="number">1920</span>, <span class="number">1080</span>)</span><br><span class="line">        driver.get(<span class="string">&quot;https://web.archive.org/web/20200116052415/https://www.livecoin.net/en&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=======================&quot;</span>)</span><br><span class="line">        <span class="comment"># get by class then click - not ok</span></span><br><span class="line">        <span class="comment"># rur_tab_class = driver.find_element(By.CLASS_NAME, &quot;filterPanelItem___2z5Gb &quot;)</span></span><br><span class="line">        <span class="comment"># rur_tab_class[4].click()</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># get by xpath then click - ok</span></span><br><span class="line">        rur_tab = driver.find_element(By.XPATH,<span class="string">&quot;//div[@class=&#x27;filterPanelItem___2z5Gb &#x27;][4]&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># add deleay, then click ok</span></span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(&quot;=======================&quot;)</span></span><br><span class="line">        <span class="comment"># print(rur_tab)</span></span><br><span class="line">        <span class="comment"># print(rur_tab.text)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=======================&quot;</span>)</span><br><span class="line">        <span class="comment"># get by xpath then click - ok</span></span><br><span class="line">        rur_tab.click()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=======================&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># time.sleep(200)</span></span><br><span class="line"></span><br><span class="line">        self.html = driver.page_source</span><br><span class="line">        driver.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        resp = Selector(text=self.html)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(resp)</span></span><br><span class="line">        <span class="keyword">for</span> currency <span class="keyword">in</span> resp.xpath(<span class="string">&quot;//div[contains(@class,&#x27;ReactVirtualized__Table__row tableRow___3EtiS &#x27;)]&quot;</span>):</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">&#x27;currency pair&#x27;</span>: currency.xpath(<span class="string">&quot;.//div[1]/div/text()&quot;</span>).get(),</span><br><span class="line">                <span class="string">&#x27;volume(24h)&#x27;</span>: currency.xpath(<span class="string">&quot;.//div[2]/span/text()&quot;</span>).get()</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="run-3"><a href="#run-3" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\106-scrapy-splash\livecoin&gt;scrapy crawl coin_selenium -o coin_selenium.json</span><br><span class="line">......</span><br><span class="line">&#123;<span class="string">&#x27;downloader/request_bytes&#x27;</span>: 979,</span><br><span class="line"> <span class="string">&#x27;downloader/request_count&#x27;</span>: 3,</span><br><span class="line"> <span class="string">&#x27;downloader/request_method_count/GET&#x27;</span>: 3,</span><br><span class="line"> <span class="string">&#x27;downloader/response_bytes&#x27;</span>: 98326,</span><br><span class="line"> <span class="string">&#x27;downloader/response_count&#x27;</span>: 3,</span><br><span class="line"> <span class="string">&#x27;downloader/response_status_count/200&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;downloader/response_status_count/302&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;downloader/response_status_count/404&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;elapsed_time_seconds&#x27;</span>: 1.858024,</span><br><span class="line"> <span class="string">&#x27;finish_reason&#x27;</span>: <span class="string">&#x27;finished&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;finish_time&#x27;</span>: datetime.datetime(2022, 12, 26, 2, 43, 6, 510084),</span><br><span class="line"> <span class="string">&#x27;httpcompression/response_bytes&#x27;</span>: 417920,</span><br><span class="line"> <span class="string">&#x27;httpcompression/response_count&#x27;</span>: 1,</span><br><span class="line"> <span class="comment"># item_scraped_count</span></span><br><span class="line"> <span class="string">&#x27;item_scraped_count&#x27;</span>: 28,</span><br><span class="line"> <span class="string">&#x27;log_count/DEBUG&#x27;</span>: 66,</span><br><span class="line"> <span class="string">&#x27;log_count/INFO&#x27;</span>: 13,</span><br><span class="line"> <span class="string">&#x27;response_received_count&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;robotstxt/request_count&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;robotstxt/response_count&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;robotstxt/response_status_count/404&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;scheduler/dequeued&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;scheduler/dequeued/memory&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;scheduler/enqueued&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;scheduler/enqueued/memory&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;start_time&#x27;</span>: datetime.datetime(2022, 12, 26, 2, 43, 4, 652060)&#125;</span><br><span class="line">2022-12-26 10:43:06 [scrapy.core.engine] INFO: Spider closed (finished)</span><br></pre></td></tr></table></figure>
+
+<h6 id="json"><a href="#json" class="headerlink" title="json"></a>json</h6><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;currency pair&quot;</span>: <span class="string">&quot;BTC/RUR&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;volume(24h)&quot;</span>: <span class="string">&quot;11 664 872.72 RUR&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;currency pair&quot;</span>: <span class="string">&quot;ETH/RUR&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;volume(24h)&quot;</span>: <span class="string">&quot;1 520 135.17 RUR&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">......</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;currency pair&quot;</span>: <span class="string">&quot;MNC/RUR&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;volume(24h)&quot;</span>: <span class="string">&quot;0.00 RUR&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;currency pair&quot;</span>: <span class="string">&quot;LKE/RUR&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;volume(24h)&quot;</span>: <span class="string">&quot;0.00 RUR&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h4 id="scrapy-selenium"><a href="#scrapy-selenium" class="headerlink" title="scrapy_selenium"></a>scrapy_selenium</h4><h5 id="basic-1"><a href="#basic-1" class="headerlink" title="basic"></a>basic</h5><h6 id="create-project-and-spider"><a href="#create-project-and-spider" class="headerlink" title="create project and spider"></a>create project and spider</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium&gt;scrapy startproject silkdeals</span><br><span class="line">New Scrapy project <span class="string">&#x27;silkdeals&#x27;</span>, using template directory <span class="string">&#x27;D:\app\python_env\myenv10_scrapy\lib\site-packages\scrapy\templates\project&#x27;</span>, created <span class="keyword">in</span>:</span><br><span class="line">    D:\work\run\python_crawler\107-selenium\silkdeals</span><br><span class="line">You can start your first spider with:</span><br><span class="line">    <span class="built_in">cd</span> silkdeals</span><br><span class="line">    scrapy genspider example example.com</span><br><span class="line"></span><br><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium&gt;<span class="built_in">cd</span> silkdeals</span><br><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\silkdeals&gt;scrapy genspider example example.com</span><br><span class="line">Created spider <span class="string">&#x27;example&#x27;</span> using template <span class="string">&#x27;basic&#x27;</span> <span class="keyword">in</span> module:</span><br><span class="line">  silkdeals.spiders.example</span><br></pre></td></tr></table></figure>
+
+<h6 id="change-settings-py"><a href="#change-settings-py" class="headerlink" title="change settings.py"></a>change settings.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable or disable downloader middlewares</span></span><br><span class="line"><span class="comment"># See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html</span></span><br><span class="line"><span class="comment">#DOWNLOADER_MIDDLEWARES = &#123;</span></span><br><span class="line"><span class="comment">#    &#x27;silkdeals.middlewares.SilkdealsDownloaderMiddleware&#x27;: 543,</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">    <span class="string">&#x27;scrapy_selenium.SeleniumMiddleware&#x27;</span>: <span class="number">800</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># selenium</span></span><br><span class="line"><span class="keyword">from</span> shutil <span class="keyword">import</span> which</span><br><span class="line"></span><br><span class="line">SELENIUM_DRIVER_NAME = <span class="string">&#x27;chrome&#x27;</span></span><br><span class="line">SELENIUM_DRIVER_EXECUTABLE_PATH = which(<span class="string">&#x27;chromedriver&#x27;</span>)</span><br><span class="line">SELENIUM_DRIVER_ARGUMENTS=[<span class="string">&#x27;-headless&#x27;</span>]  <span class="comment"># &#x27;--headless&#x27; if using chrome instead of firefox</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="example-py"><a href="#example-py" class="headerlink" title="example.py"></a>example.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> scrapy_selenium <span class="keyword">import</span> SeleniumRequest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;example&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">yield</span> SeleniumRequest(</span><br><span class="line">            url=<span class="string">&#x27;https://duckduckgo.com&#x27;</span>,</span><br><span class="line">            wait_time=<span class="number">3</span>,</span><br><span class="line">            screenshot=<span class="literal">True</span>,</span><br><span class="line">            callback=self.parse</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        img = response.request.meta[<span class="string">&#x27;screenshot&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;screenshot.png&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(img)</span><br></pre></td></tr></table></figure>
+
+<h6 id="run-4"><a href="#run-4" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\silkdeals&gt;scrapy crawl example</span><br></pre></td></tr></table></figure>
+
+<h6 id="check-output-screenshot-png"><a href="#check-output-screenshot-png" class="headerlink" title="check output screenshot.png"></a>check output screenshot.png</h6><div style="width:500px">
+    <img src="/2022/12/24/python-12/screenshot.png" class="" title="screenshot">
+</div>
+
+<h5 id="search-“Hello-World”"><a href="#search-“Hello-World”" class="headerlink" title="search “Hello World”"></a>search “Hello World”</h5><h6 id="example-py-1"><a href="#example-py-1" class="headerlink" title="example.py"></a>example.py</h6><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> scrapy.selector <span class="keyword">import</span> Selector</span><br><span class="line"><span class="keyword">from</span> scrapy_selenium <span class="keyword">import</span> SeleniumRequest</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;example&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">yield</span> SeleniumRequest(</span><br><span class="line">            url=<span class="string">&#x27;https://duckduckgo.com&#x27;</span>,</span><br><span class="line">            wait_time=<span class="number">3</span>,</span><br><span class="line">            screenshot=<span class="literal">True</span>,</span><br><span class="line">            callback=self.parse</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        <span class="comment"># img = response.request.meta[&#x27;screenshot&#x27;]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># with open(&#x27;screenshot.png&#x27;, &#x27;wb&#x27;) as f:</span></span><br><span class="line">        <span class="comment">#     f.write(img)</span></span><br><span class="line"></span><br><span class="line">        driver = response.meta[<span class="string">&#x27;driver&#x27;</span>]</span><br><span class="line">        search_input = driver.find_element(By.XPATH, <span class="string">&quot;//input[@id=&#x27;search_form_input_homepage&#x27;]&quot;</span>)</span><br><span class="line">        search_input.send_keys(<span class="string">&#x27;Hello World&#x27;</span>)</span><br><span class="line">        <span class="comment"># screenshot after send &quot;Hello World&quot;</span></span><br><span class="line">        <span class="comment"># driver.save_screenshot(&#x27;after_filling_input.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">        search_input.send_keys(Keys.ENTER)</span><br><span class="line">        <span class="comment"># screenshot after press Enter</span></span><br><span class="line">        <span class="comment"># driver.save_screenshot(&#x27;enter.png&#x27;)</span></span><br><span class="line"></span><br><span class="line">        html = driver.page_source</span><br><span class="line">        response_obj = Selector(text=html)</span><br><span class="line"></span><br><span class="line">        links = response_obj.xpath(<span class="string">&quot;//h2[@class=&#x27;LnpumSThxEWMIsDdAT17 CXMyPcQ6nDv47DKFeywM&#x27;]&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">&#x27;URL&#x27;</span> : link.xpath(<span class="string">&quot;.//a/@href&quot;</span>).get(),</span><br><span class="line">                <span class="string">&#x27;Title&#x27;</span> : link.xpath(<span class="string">&quot;.//span/text()&quot;</span>).get()</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="run-5"><a href="#run-5" class="headerlink" title="run"></a>run</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">(myenv10_scrapy) D:\work\run\python_crawler\107-selenium\silkdeals&gt;scrapy crawl example</span><br><span class="line">......</span><br><span class="line">2022-12-26 16:34:29 [scrapy.core.scraper] DEBUG: Scraped from &lt;200 https://duckduckgo.com/&gt;</span><br><span class="line">&#123;<span class="string">&#x27;URL&#x27;</span>: <span class="string">&#x27;https://learn.microsoft.com/en-us/shows/hello-world/&#x27;</span>, <span class="string">&#x27;Title&#x27;</span>: <span class="string">&#x27;Hello World | Microsoft Learn&#x27;</span>&#125;</span><br><span class="line">2022-12-26 16:34:29 [scrapy.core.scraper] DEBUG: Scraped from &lt;200 https://duckduckgo.com/&gt;</span><br><span class="line">&#123;<span class="string">&#x27;URL&#x27;</span>: <span class="string">&#x27;https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/hello-world&#x27;</span>, <span class="string">&#x27;Title&#x27;</span>: <span class="string">&#x27;Hello World - Introduction to C# interactive C# tutorial&#x27;</span>&#125;</span><br><span class="line">2022-12-26 16:34:29 [scrapy.core.scraper] DEBUG: Scraped from &lt;200 https://duckduckgo.com/&gt;</span><br><span class="line">&#123;<span class="string">&#x27;URL&#x27;</span>: <span class="string">&#x27;https://en.wikipedia.org/wiki/Hello_World_(film)&#x27;</span>, <span class="string">&#x27;Title&#x27;</span>: <span class="string">&#x27;Hello World (film) - Wikipedia&#x27;</span>&#125;</span><br><span class="line">......</span><br><span class="line">&#123;<span class="string">&#x27;downloader/request_bytes&#x27;</span>: 224,</span><br><span class="line"> <span class="string">&#x27;downloader/request_count&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;downloader/request_method_count/GET&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;downloader/response_bytes&#x27;</span>: 24379,</span><br><span class="line"> <span class="string">&#x27;downloader/response_count&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;downloader/response_status_count/200&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;elapsed_time_seconds&#x27;</span>: 5.245749,</span><br><span class="line"> <span class="string">&#x27;finish_reason&#x27;</span>: <span class="string">&#x27;finished&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;finish_time&#x27;</span>: datetime.datetime(2022, 12, 26, 8, 34, 29, 59814),</span><br><span class="line"> <span class="string">&#x27;httpcompression/response_bytes&#x27;</span>: 321,</span><br><span class="line"> <span class="string">&#x27;httpcompression/response_count&#x27;</span>: 1,</span><br><span class="line"> <span class="comment"># item_scraped_count</span></span><br><span class="line"> <span class="string">&#x27;item_scraped_count&#x27;</span>: 10,</span><br><span class="line"> <span class="string">&#x27;log_count/DEBUG&#x27;</span>: 57,</span><br><span class="line"> <span class="string">&#x27;log_count/INFO&#x27;</span>: 10,</span><br><span class="line"> <span class="string">&#x27;response_received_count&#x27;</span>: 2,</span><br><span class="line"> <span class="string">&#x27;robotstxt/request_count&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;robotstxt/response_count&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;robotstxt/response_status_count/200&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;scheduler/dequeued&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;scheduler/dequeued/memory&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;scheduler/enqueued&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;scheduler/enqueued/memory&#x27;</span>: 1,</span><br><span class="line"> <span class="string">&#x27;start_time&#x27;</span>: datetime.datetime(2022, 12, 26, 8, 34, 23, 814065)&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://selenium-python.readthedocs.io/">Selenium with Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/clemfromspace/scrapy-selenium">Scrapy with selenium</a></li>
+<li><a target="_blank" rel="noopener" href="https://steam.oxxostudio.tw/category/python/spider/selenium.html">Selenium 函式庫</a></li>
+<li><a target="_blank" rel="noopener" href="https://scrapeops.io/python-scrapy-playbook/scrapy-selenium/">Scrapy Selenium Guide</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/crawling/" rel="tag"># crawling</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/22/python-11/" rel="prev" title="Python Splash Example">
+                  <i class="fa fa-chevron-left"></i> Python Splash Example
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/24/python-13/" rel="next" title="python Selenium Example(自動化測試)">
+                  python Selenium Example(自動化測試) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2022/12/24/python-12/";
+    this.page.identifier = "2022/12/24/python-12/";
+    this.page.title = "python Selenium 說明(自動化測試)";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

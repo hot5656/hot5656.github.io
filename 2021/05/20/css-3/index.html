@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="index.scss123456@import &quot;variable&quot;;@import &amp;#x27;mixin&amp;#x27;;@import &amp;#x27;grid&amp;#x27;;@import &amp;#x27;reset&amp;#x27;;@import &amp;#x27;layout&amp;#x27;;@import &amp;#x27;pages&#x2F;index&amp;#x27;;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RWD CSS example">
+<meta property="og:url" content="https://hot5656.github.io/2021/05/20/css-3/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="index.scss123456@import &quot;variable&quot;;@import &amp;#x27;mixin&amp;#x27;;@import &amp;#x27;grid&amp;#x27;;@import &amp;#x27;reset&amp;#x27;;@import &amp;#x27;layout&amp;#x27;;@import &amp;#x27;pages&#x2F;index&amp;#x27;;">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-05-20T15:45:51.000Z">
+<meta property="article:modified_time" content="2022-06-09T03:38:34.557Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="rwd">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2021/05/20/css-3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>RWD CSS example | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#index-scss"><span class="nav-number">1.</span> <span class="nav-text">index.scss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#variable-scss"><span class="nav-number">2.</span> <span class="nav-text">_variable.scss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixin-scss"><span class="nav-number">3.</span> <span class="nav-text">_mixin.scss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grid-scss"><span class="nav-number">4.</span> <span class="nav-text">_grid.scss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layout-scss"><span class="nav-number">5.</span> <span class="nav-text">_layout.scss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#index-scss-1"><span class="nav-number">6.</span> <span class="nav-text">_index.scss</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2021/05/20/css-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RWD CSS example
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-20 23:45:51" itemprop="dateCreated datePublished" datetime="2021-05-20T23:45:51+08:00">2021-05-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2022-06-09 11:38:34" itemprop="dateModified" datetime="2022-06-09T11:38:34+08:00">2022-06-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Front-End/" itemprop="url" rel="index"><span itemprop="name">Front End</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/05/20/css-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/05/20/css-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="index-scss"><a href="#index-scss" class="headerlink" title="index.scss"></a>index.scss</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;variable&quot;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;mixin&#x27;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;grid&#x27;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;reset&#x27;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;layout&#x27;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;pages/index&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="variable-scss"><a href="#variable-scss" class="headerlink" title="_variable.scss"></a>_variable.scss</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* color */</span></span><br><span class="line">$highline-color: #fff;</span><br><span class="line">$bright-color: #F56C23;</span><br><span class="line">$base-color: #3D1101;</span><br><span class="line">$dark-color: #000;</span><br><span class="line">$ground-color: #EFE9E7;</span><br><span class="line">$activemenu-color: #777;</span><br><span class="line"><span class="comment">/* 字型大小 */</span></span><br><span class="line">$font-3l: 48px;</span><br><span class="line">$font-2l: 36px;</span><br><span class="line">$font-l: 24px;</span><br><span class="line">$font-m: 20px;</span><br><span class="line">$font-s: 18px;</span><br><span class="line">$font-xs: 16px;</span><br><span class="line">$font-xxs: 14px;</span><br><span class="line">$font-3s: 12px;</span><br><span class="line">$font-symb1: 32px;</span><br><span class="line">$font-symb2: 28px;</span><br><span class="line">$font-symb3: 26px;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mixin-scss"><a href="#mixin-scss" class="headerlink" title="_mixin.scss"></a>_mixin.scss</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@mixin</span> font-hex &#123;</span><br><span class="line">	<span class="comment">/* 微軟正黑體 */</span></span><br><span class="line">	<span class="comment">/* font-family: &quot;Microsoft JhengHei&quot;; */</span></span><br><span class="line">	<span class="attribute">font-family</span>:微軟正黑體;</span><br><span class="line">	<span class="attribute">font-size</span>: $font-xs;</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@mixin</span> horizontal-line($long, $weight, $<span class="attribute">color</span> ) &#123;</span><br><span class="line">	<span class="attribute">width</span>: $long;</span><br><span class="line">	<span class="attribute">height</span>: $weight;</span><br><span class="line">	<span class="attribute">border-bottom</span>: <span class="number">1px</span> solid $color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="grid-scss"><a href="#grid-scss" class="headerlink" title="_grid.scss"></a>_grid.scss</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* http://meyerweb.com/eric/tools/css/reset/ </span></span><br><span class="line"><span class="comment">   v2.0 | 20110126</span></span><br><span class="line"><span class="comment">   License: none (public domain)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">div</span>, <span class="selector-tag">span</span>, applet, <span class="selector-tag">object</span>, <span class="selector-tag">iframe</span>,</span><br><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span>, <span class="selector-tag">p</span>, <span class="selector-tag">blockquote</span>, pre,</span><br><span class="line"><span class="selector-tag">a</span>, <span class="selector-tag">abbr</span>, acronym, <span class="selector-tag">address</span>, big, <span class="selector-tag">cite</span>, <span class="selector-tag">code</span>,</span><br><span class="line"><span class="selector-tag">del</span>, <span class="selector-tag">dfn</span>, <span class="selector-tag">em</span>, <span class="selector-tag">img</span>, <span class="selector-tag">ins</span>, <span class="selector-tag">kbd</span>, <span class="selector-tag">q</span>, s, <span class="selector-tag">samp</span>,</span><br><span class="line">small, strike, <span class="selector-tag">strong</span>, sub, <span class="selector-tag">sup</span>, tt, <span class="selector-tag">var</span>,</span><br><span class="line"><span class="selector-tag">b</span>, u, <span class="selector-tag">i</span>, center,</span><br><span class="line"><span class="selector-tag">dl</span>, <span class="selector-tag">dt</span>, <span class="selector-tag">dd</span>, <span class="selector-tag">ol</span>, <span class="selector-tag">ul</span>, <span class="selector-tag">li</span>,</span><br><span class="line"><span class="selector-tag">fieldset</span>, <span class="selector-tag">form</span>, <span class="selector-tag">label</span>, <span class="selector-tag">legend</span>,</span><br><span class="line"><span class="selector-tag">table</span>, <span class="selector-tag">caption</span>, <span class="selector-tag">tbody</span>, <span class="selector-tag">tfoot</span>, <span class="selector-tag">thead</span>, <span class="selector-tag">tr</span>, <span class="selector-tag">th</span>, <span class="selector-tag">td</span>,</span><br><span class="line"><span class="selector-tag">article</span>, <span class="selector-tag">aside</span>, <span class="selector-tag">canvas</span>, <span class="selector-tag">details</span>, embed, </span><br><span class="line"><span class="selector-tag">figure</span>, <span class="selector-tag">figcaption</span>, <span class="selector-tag">footer</span>, <span class="selector-tag">header</span>, <span class="selector-tag">hgroup</span>, </span><br><span class="line"><span class="selector-tag">menu</span>, <span class="selector-tag">nav</span>, output, ruby, <span class="selector-tag">section</span>, <span class="selector-tag">summary</span>,</span><br><span class="line"><span class="selector-tag">time</span>, <span class="selector-tag">mark</span>, <span class="selector-tag">audio</span>, <span class="selector-tag">video</span> &#123;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">100%</span>;</span><br><span class="line">	<span class="attribute">font</span>: inherit;</span><br><span class="line">	<span class="attribute">vertical-align</span>: baseline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* HTML5 display-role reset for older browsers */</span></span><br><span class="line"><span class="selector-tag">article</span>, <span class="selector-tag">aside</span>, <span class="selector-tag">details</span>, <span class="selector-tag">figcaption</span>, <span class="selector-tag">figure</span>, </span><br><span class="line"><span class="selector-tag">footer</span>, <span class="selector-tag">header</span>, <span class="selector-tag">hgroup</span>, <span class="selector-tag">menu</span>, <span class="selector-tag">nav</span>, <span class="selector-tag">section</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ol</span>, <span class="selector-tag">ul</span> &#123;</span><br><span class="line">	<span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">blockquote</span>, <span class="selector-tag">q</span> &#123;</span><br><span class="line">	<span class="attribute">quotes</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">blockquote</span>:before, blockquote:after,</span><br><span class="line">q:before, q:after &#123;</span><br><span class="line">	content: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="attribute">content</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">table</span> &#123;</span><br><span class="line">	<span class="attribute">border-collapse</span>: collapse;</span><br><span class="line">	<span class="attribute">border-spacing</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">	<span class="comment">/* 防止img解析度變差 */</span></span><br><span class="line">	<span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">	<span class="attribute">height</span>: auto;</span><br><span class="line">	<span class="comment">/* 修正放於div底部會有空白 */</span></span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/* 全域 border-box */</span></span><br><span class="line"> *,*<span class="selector-pseudo">::before</span>,*<span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">	<span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line">	<span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="layout-scss"><a href="#layout-scss" class="headerlink" title="_layout.scss"></a>_layout.scss</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">	<span class="keyword">@include</span> font-hex;</span><br><span class="line">	<span class="attribute">color</span>: $base-color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.wrap</span> &#123;</span><br><span class="line">	<span class="attribute">max-width</span>: <span class="number">1024px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">	<span class="attribute">background</span>: $ground-color;</span><br><span class="line">	<span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h2</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: $font-m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h3</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: $font-l;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h4</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: $font-m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 漢堡選單 input 隱藏 */</span></span><br><span class="line"><span class="selector-id">#menu_control</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">z-index</span>: -<span class="number">2</span>;</span><br><span class="line">	<span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	&amp;<span class="selector-pseudo">:checked</span>~<span class="selector-class">.header</span> <span class="selector-class">.menu</span> &#123;</span><br><span class="line">		// 設定一個可容納的高度</span><br><span class="line">		<span class="attribute">max-height</span>: <span class="number">500px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.header</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">justify-content</span>: space-between;</span><br><span class="line">	<span class="attribute">align-items</span>: center;</span><br><span class="line">	<span class="attribute">background</span>: $dark-color;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">15px</span> <span class="number">30px</span> <span class="number">15px</span> <span class="number">40px</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.logo</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">24px</span>;</span><br><span class="line">		<span class="attribute">font-weight</span>: bolder;</span><br><span class="line">		<span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">		<span class="attribute">text-decoration</span>: none;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">display</span>: flex;</span><br><span class="line">			<span class="attribute">justify-content</span>: center;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.menu-btn</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: none;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="comment">/* 漢堡大小 40*40 靠上層 top: 5px,right: 10px */</span></span><br><span class="line">			<span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">			<span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">position</span>: absolute;</span><br><span class="line">			<span class="attribute">top</span>: <span class="number">5px</span>;</span><br><span class="line">			<span class="attribute">right</span>: <span class="number">10px</span>;</span><br><span class="line"></span><br><span class="line">			<span class="selector-tag">span</span> &#123;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">1px</span>;</span><br><span class="line">				<span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line">				<span class="attribute">display</span>: block;</span><br><span class="line">				<span class="attribute">overflow</span>: hidden;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">				<span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">				<span class="attribute">position</span>: absolute;</span><br><span class="line">				<span class="attribute">left</span>: <span class="number">2px</span>;</span><br><span class="line">				// 漢寶線寬度 <span class="number">2px</span>, 長度 <span class="number">36px</span></span><br><span class="line">				<span class="attribute">height</span>: <span class="number">2px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">36px</span>;</span><br><span class="line">				<span class="comment">/* 畫中間線 */</span></span><br><span class="line">				<span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">				<span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">				<span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">				<span class="attribute">margin</span>: auto;</span><br><span class="line">				<span class="comment">/* 畫上下線 上下各 8px 距離*/</span></span><br><span class="line">				<span class="attribute">box-shadow</span>: <span class="number">0px</span> <span class="number">8px</span> <span class="number">#fff</span>,</span><br><span class="line">					<span class="number">0px</span> -<span class="number">8px</span> <span class="number">#fff</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.menu</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* 漢堡選單使用*/</span></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">max-height</span>: <span class="number">0</span>;</span><br><span class="line">			<span class="attribute">overflow</span>: hidden;</span><br><span class="line">			<span class="attribute">display</span>: block; // <span class="attribute">mask</span> <span class="attribute">flex</span></span><br><span class="line">			<span class="attribute">position</span>: absolute;</span><br><span class="line">			<span class="attribute">top</span>: <span class="number">54px</span>;</span><br><span class="line">			<span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">			<span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">			<span class="attribute">z-index</span>: <span class="number">100</span>;</span><br><span class="line">			<span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">			<span class="comment">/* 轉換速度 */</span></span><br><span class="line">			<span class="attribute">transition</span>: max-height <span class="number">1s</span>;</span><br><span class="line"></span><br><span class="line">			<span class="selector-tag">li</span> &#123;</span><br><span class="line">				// <span class="attribute">float</span>: none; // <span class="attribute">mask</span> for <span class="attribute">float</span></span><br><span class="line">				<span class="attribute">border-bottom</span>: <span class="number">1px</span> dashed <span class="number">#69CA62</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">a</span> &#123;</span><br><span class="line">			<span class="attribute">padding</span>: <span class="number">16px</span> <span class="number">15px</span>;</span><br><span class="line">			<span class="attribute">font-size</span>: $font-m;</span><br><span class="line">			<span class="attribute">color</span>: $highline-color;</span><br><span class="line">			<span class="attribute">text-decoration</span>: none;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-pseudo">:hover</span>,</span><br><span class="line">			&amp;<span class="selector-class">.active</span> &#123;</span><br><span class="line">				<span class="attribute">background</span>: $activemenu-color;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">display</span>: block;</span><br><span class="line">				<span class="attribute">text-align</span>: center;</span><br><span class="line"></span><br><span class="line">				// 擋掉上層 active 顯示</span><br><span class="line">				&amp;<span class="selector-class">.active</span> &#123;</span><br><span class="line">					<span class="attribute">background</span>: transparent;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				&amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">					<span class="attribute">background</span>: $activemenu-color;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.banner</span> &#123;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">../images/header.jpg</span>) center no-repeat;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">420px</span>;</span><br><span class="line">	<span class="attribute">color</span>: $highline-color;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">flex-direction</span>: column;</span><br><span class="line">	<span class="attribute">justify-content</span>: center;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.top-text</span> &#123;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">460px</span>;</span><br><span class="line">		<span class="attribute">height</span>: <span class="number">152px</span>;</span><br><span class="line">		<span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.35</span>);</span><br><span class="line">		<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">		<span class="attribute">text-align</span>: center;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> screen640() &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">			<span class="attribute">height</span>: <span class="number">194px</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.yummy</span> &#123;</span><br><span class="line">		<span class="attribute">font-size</span>: $font-<span class="number">2</span>l;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">p</span> &#123;</span><br><span class="line">		<span class="attribute">line-height</span>: <span class="number">24px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.footer</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">justify-content</span>: space-between;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">40px</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">padding</span>: <span class="number">20px</span> <span class="number">10px</span> <span class="number">50px</span> <span class="number">10px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h3</span> &#123;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.text</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-class">.about</span> &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">			<span class="attribute">margin-right</span>: <span class="number">20px</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.foot-link</span> &#123;</span><br><span class="line">		<span class="selector-tag">a</span> &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">font-size</span>: <span class="number">48px</span>;</span><br><span class="line">			<span class="attribute">font-weight</span>: bolder;</span><br><span class="line">			<span class="attribute">color</span>: $base-color;</span><br><span class="line">			<span class="attribute">text-decoration</span>: none;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">display</span>: flex;</span><br><span class="line">				<span class="attribute">justify-content</span>: flex-end;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.media-link</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">justify-content</span>: flex-end;</span><br><span class="line">	<span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">i</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">margin-left</span>: <span class="number">10px</span>;</span><br><span class="line">		<span class="attribute">font-size</span>: $font-<span class="number">2</span>l;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.fa-google-plus-square</span> &#123;</span><br><span class="line">		<span class="attribute">color</span>: <span class="number">#DB4437</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.fa-twitter-square</span> &#123;</span><br><span class="line">		<span class="attribute">color</span>: <span class="number">#41ABE1</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.fa-facebook-square</span> &#123;</span><br><span class="line">		<span class="attribute">color</span>: <span class="number">#3A5795</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="index-scss-1"><a href="#index-scss-1" class="headerlink" title="_index.scss"></a>_index.scss</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.our-special</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">50px</span> <span class="number">2.5%</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">		<span class="attribute">padding-right</span>: <span class="number">0px</span>;</span><br><span class="line">		<span class="attribute">padding-left</span>: <span class="number">0px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h2</span> &#123;</span><br><span class="line">		<span class="attribute">text-align</span>: center;</span><br><span class="line">		<span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h4</span> &#123;</span><br><span class="line">		<span class="attribute">text-align</span>: center;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">img</span> &#123;</span><br><span class="line">		<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">		<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">ul</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line">		<span class="attribute">justify-content</span>: space-evenly;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">li</span> &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">30%</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">max-width</span>: <span class="number">320px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">320px</span>;</span><br><span class="line">				<span class="attribute">padding-left</span>: <span class="number">30px</span>;</span><br><span class="line">				<span class="attribute">padding-right</span>: <span class="number">30px</span>;</span><br><span class="line">				<span class="attribute">margin</span>: <span class="number">30px</span> auto;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 畫兩橫線 */</span></span><br><span class="line">	<span class="selector-class">.good-chef</span> &#123;</span><br><span class="line">		<span class="attribute">position</span>: relative;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">		<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line"></span><br><span class="line">		<span class="selector-class">.line1</span> &#123;</span><br><span class="line">			<span class="attribute">position</span>: absolute;</span><br><span class="line">			<span class="attribute">top</span>: -<span class="number">60px</span>;</span><br><span class="line">			<span class="attribute">left</span>: -<span class="number">140px</span>;</span><br><span class="line">			<span class="keyword">@include</span> horizontal-line(<span class="number">120px</span>, <span class="number">1px</span>, #<span class="number">989898</span>);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">display</span>: none;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-class">.line2</span> &#123;</span><br><span class="line">			<span class="attribute">position</span>: absolute;</span><br><span class="line">			<span class="attribute">top</span>: -<span class="number">60px</span>;</span><br><span class="line">			<span class="attribute">left</span>: <span class="number">220px</span>;</span><br><span class="line">			<span class="keyword">@include</span> horizontal-line(<span class="number">120px</span>, <span class="number">1px</span>, #<span class="number">989898</span>);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">display</span>: none;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.chef</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">background</span>: $base-color;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">2.5%</span>;</span><br><span class="line">	<span class="attribute">padding-right</span>: <span class="number">2.5%</span>;</span><br><span class="line">	<span class="attribute">color</span>: $ground-color;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">		<span class="attribute">padding-right</span>: <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h3</span> &#123;</span><br><span class="line">		<span class="attribute">font-size</span>: $font-m;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">5px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">p</span> &#123;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.start</span> &#123;</span><br><span class="line">		<span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">		<span class="attribute">max-width</span>: <span class="number">470px</span>;</span><br><span class="line">		<span class="attribute">height</span>: <span class="number">460px</span>;</span><br><span class="line">		<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">../../images/star.jpg</span>) center no-repeat;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.text</span> &#123;</span><br><span class="line">		<span class="attribute">padding-left</span>: <span class="number">20px</span>;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">80px</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">padding-left</span>: <span class="number">0px</span>;</span><br><span class="line">			<span class="attribute">padding-bottom</span>: <span class="number">30px</span>;</span><br><span class="line">			<span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">			<span class="attribute">margin-left</span>: <span class="number">30px</span>;</span><br><span class="line">			<span class="attribute">margin-right</span>: <span class="number">30px</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.response</span> &#123;</span><br><span class="line">	<span class="attribute">padding-top</span>: <span class="number">50px</span>;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h3</span> &#123;</span><br><span class="line">		<span class="attribute">text-align</span>: center;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h4</span> &#123;</span><br><span class="line">		<span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">p</span> &#123;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line"></span><br><span class="line">		&amp;<span class="selector-class">.title</span> &#123;</span><br><span class="line">			<span class="attribute">float</span>: right;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">img</span> &#123;</span><br><span class="line">		<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">ul</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line">		<span class="attribute">justify-content</span>: space-between;</span><br><span class="line">		<span class="attribute">padding</span>: <span class="number">50px</span> <span class="number">2.5%</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">padding</span>: <span class="number">30px</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">li</span> &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">32%</span>;</span><br><span class="line">			<span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">max-width</span>: <span class="number">320px</span>;</span><br><span class="line">				<span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">320px</span>;</span><br><span class="line">				<span class="attribute">margin</span>: <span class="number">0</span> auto <span class="number">30px</span> auto;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="selector-class">.pic</span> &#123;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">67px</span>;</span><br><span class="line">				<span class="attribute">flex-grow</span>: <span class="number">0</span>;</span><br><span class="line">				<span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="selector-class">.text</span> &#123;</span><br><span class="line">				<span class="attribute">margin-left</span>: <span class="number">10px</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.book</span> &#123;</span><br><span class="line">	<span class="attribute">padding-top</span>: <span class="number">50px</span>;</span><br><span class="line">	<span class="attribute">padding-bottom</span>: <span class="number">50px</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#F6F4F3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">		<span class="attribute">padding-top</span>: <span class="number">40px</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">h3</span> &#123;</span><br><span class="line">		<span class="attribute">text-align</span>: center;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="selector-class">.book-info</span> &#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line">		<span class="attribute">justify-content</span>: space-evenly;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">40px</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">label</span> &#123;</span><br><span class="line">			<span class="attribute">font-size</span>: $font-xxs;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">button</span> &#123;</span><br><span class="line">			<span class="attribute">font-size</span>: $font-xxs;</span><br><span class="line">			<span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">			<span class="attribute">color</span>: $highline-color;</span><br><span class="line">			<span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">float</span>: right;</span><br><span class="line">			<span class="attribute">margin-left</span>: <span class="number">20px</span>;</span><br><span class="line">			<span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">			<span class="attribute">outline</span>: none;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-attr">[type=reset]</span> &#123;</span><br><span class="line">				<span class="attribute">background</span>: <span class="number">#A09E9E</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-attr">[type=submit]</span> &#123;</span><br><span class="line">				<span class="attribute">background</span>: $bright-color;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">				<span class="attribute">cursor</span>: pointer;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-class">.map</span> &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">45%</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">max-width</span>: <span class="number">460px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">				<span class="attribute">margin</span>: <span class="number">0</span> auto <span class="number">30px</span> auto;</span><br><span class="line">				;</span><br><span class="line">				<span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">form</span> &#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">@include</span> pad-below() &#123;</span><br><span class="line">				<span class="attribute">max-width</span>: <span class="number">460px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">				<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">				<span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-class">.row</span> &#123;</span><br><span class="line">			<span class="attribute">display</span>: block;</span><br><span class="line">			<span class="attribute">margin-bottom</span>: <span class="number">5px</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="selector-tag">input</span> &#123;</span><br><span class="line">			&amp;<span class="selector-attr">[type=radio]</span> &#123;</span><br><span class="line">				<span class="attribute">margin-right</span>: <span class="number">35px</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			&amp;<span class="selector-class">.row</span> &#123;</span><br><span class="line">				<span class="attribute">line-height</span>: <span class="number">32px</span>;</span><br><span class="line">				<span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">font-size</span>: $font-xs;</span><br><span class="line">				<span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+              <a href="/tags/rwd/" rel="tag"># rwd</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/20/chrome-2/" rel="prev" title="Chrome 功能">
+                  <i class="fa fa-chevron-left"></i> Chrome 功能
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/21/css-4/" rel="next" title="SCSS">
+                  SCSS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2021/05/20/css-3/";
+    this.page.identifier = "2021/05/20/css-3/";
+    this.page.title = "RWD CSS example";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

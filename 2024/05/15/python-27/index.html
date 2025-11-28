@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="commandinstall1pip install gradio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradio">
+<meta property="og:url" content="https://hot5656.github.io/2024/05/15/python-27/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="commandinstall1pip install gradio">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic1.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic2.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic3.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic4.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic5.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic6.png">
+<meta property="og:image" content="https://hot5656.github.io/2024/05/15/python-27/pic7.png">
+<meta property="article:published_time" content="2024-05-15T06:25:22.000Z">
+<meta property="article:modified_time" content="2024-05-15T06:49:57.516Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2024/05/15/python-27/pic1.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2024/05/15/python-27/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Gradio | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#command"><span class="nav-number">1.</span> <span class="nav-text">command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1st-example"><span class="nav-number">2.1.</span> <span class="nav-text">1st example</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Code"><span class="nav-number">2.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-run"><span class="nav-number">2.1.2.</span> <span class="nav-text">public run</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#local-run"><span class="nav-number">2.1.3.</span> <span class="nav-text">local run</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#QR-code-Brave"><span class="nav-number">2.1.4.</span> <span class="nav-text">QR code Brave</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#QR-code-Chrome"><span class="nav-number">2.1.5.</span> <span class="nav-text">QR code Chrome</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%90%8C%E5%85%B8-Web-App"><span class="nav-number">2.2.</span> <span class="nav-text">萌典 Web App</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2024/05/15/python-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gradio
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2024-05-15 14:25:22 / 修改時間：14:49:57" itemprop="dateCreated datePublished" datetime="2024-05-15T14:25:22+08:00">2024-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2024/05/15/python-27/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/05/15/python-27/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install gradio</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1st-example"><a href="#1st-example" class="headerlink" title="1st example"></a>1st example</h4><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h5><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Gradio 1st example</span></span><br><span class="line"><span class="comment"># [Hugging Face](https://huggingface.co/)</span></span><br><span class="line"><span class="comment"># pip install gradio</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:7860/</span></span><br><span class="line"><span class="comment"># https://609f0dd05ce375b555.gradio.live/</span></span><br><span class="line"><span class="keyword">import</span> gradio <span class="keyword">as</span> gr</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rStr</span>(<span class="params">text</span>):</span></span><br><span class="line">    <span class="keyword">return</span> text.replace(<span class="string">&quot;morning&quot;</span>, <span class="string">&quot;night&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 gradio</span></span><br><span class="line"><span class="comment"># rStr : 處理函數</span></span><br><span class="line"><span class="comment"># inputs : 輸入欄位</span></span><br><span class="line"> <span class="comment"># outputs : 輸出欄位</span></span><br><span class="line">grobj = gr.Interface(fn = rStr,</span><br><span class="line">            inputs = gr.Textbox(),</span><br><span class="line">            outputs = gr.Textbox())</span><br><span class="line"><span class="comment"># 啟動 gradio</span></span><br><span class="line"><span class="comment"># share=True : public 執行</span></span><br><span class="line"><span class="comment"># grobj.launch(share=True)</span></span><br><span class="line">grobj.launch()</span><br></pre></td></tr></table></figure>
+
+<h5 id="public-run"><a href="#public-run" class="headerlink" title="public run"></a>public run</h5><div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic1.png" class="" title="pic1">
+</div>
+<div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic2.png" class="" title="pic2">
+</div>
+
+<h5 id="local-run"><a href="#local-run" class="headerlink" title="local run"></a>local run</h5><div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic3.png" class="" title="pic3">
+</div>
+
+<h5 id="QR-code-Brave"><a href="#QR-code-Brave" class="headerlink" title="QR code Brave"></a>QR code Brave</h5><div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic4.png" class="" title="pic4">
+</div>
+
+<div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic5.png" class="" title="pic5">
+</div>
+
+<h5 id="QR-code-Chrome"><a href="#QR-code-Chrome" class="headerlink" title="QR code Chrome"></a>QR code Chrome</h5><div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic6.png" class="" title="pic6">
+</div>
+
+<h4 id="萌典-Web-App"><a href="#萌典-Web-App" class="headerlink" title="萌典 Web App"></a>萌典 Web App</h4><div style="max-width:500px">
+    <img src="/2024/05/15/python-27/pic7.png" class="" title="pic7">
+</div>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 萌典 Web App</span></span><br><span class="line"><span class="comment"># [Hugging Face](https://huggingface.co/)</span></span><br><span class="line"><span class="comment"># pip install gradio</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:7860/</span></span><br><span class="line"><span class="comment"># https://609f0dd05ce375b555.gradio.live/</span></span><br><span class="line"><span class="keyword">import</span> gradio <span class="keyword">as</span> gr</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rStr</span>(<span class="params">word</span>):</span></span><br><span class="line">    reStr = <span class="string">&quot;&quot;</span></span><br><span class="line">    url = <span class="string">f&quot;https://www.moedict.tw/uni/<span class="subst">&#123;word&#125;</span>&quot;</span></span><br><span class="line">    resp = requests.get(url)</span><br><span class="line">    <span class="keyword">if</span> resp <span class="keyword">and</span> resp.status_code == <span class="number">200</span>:</span><br><span class="line">        info = json.loads(resp.text)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;查詢字詞:<span class="subst">&#123;info[<span class="string">&#x27;title&#x27;</span>]&#125;</span>\n&quot;</span>)</span><br><span class="line">        reStr += <span class="string">f&quot;查詢字詞:<span class="subst">&#123;info[<span class="string">&#x27;title&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">        reStr += <span class="string">f&quot;部首:<span class="subst">&#123;info[<span class="string">&#x27;radical&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">        reStr += <span class="string">f&quot;筆畫:<span class="subst">&#123;info[<span class="string">&#x27;stroke_count&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">        <span class="keyword">for</span> index, data <span class="keyword">in</span> <span class="built_in">enumerate</span>(info[<span class="string">&#x27;heteronyms&#x27;</span>]):</span><br><span class="line">            reStr += <span class="string">f&quot;[<span class="subst">&#123;index+<span class="number">1</span>&#125;</span>]&quot;</span></span><br><span class="line">            reStr += <span class="string">f&quot;  注音:<span class="subst">&#123;data[<span class="string">&#x27;bopomofo&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">            reStr += <span class="string">f&quot;  羅馬拼音:<span class="subst">&#123;data[<span class="string">&#x27;bopomofo2&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">            reStr += <span class="string">f&quot;  漢語拼音:<span class="subst">&#123;data[<span class="string">&#x27;pinyin&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">            <span class="keyword">for</span> i, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(data[<span class="string">&#x27;definitions&#x27;</span>]):</span><br><span class="line">                reStr += <span class="string">f&quot;  (<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>):<span class="subst">&#123;item[<span class="string">&#x27;def&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&quot;type&quot;</span> <span class="keyword">in</span> item:</span><br><span class="line">                    reStr += <span class="string">f&quot;    詞性：<span class="subst">&#123;item[<span class="string">&#x27;type&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&quot;example&quot;</span> <span class="keyword">in</span> item:</span><br><span class="line">                    reStr += <span class="string">f&quot;    解釋：<span class="subst">&#123;item[<span class="string">&#x27;example&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&quot;quote&quot;</span> <span class="keyword">in</span> item:</span><br><span class="line">                    reStr += <span class="string">f&quot;    引用：<span class="subst">&#123;item[<span class="string">&#x27;quote&#x27;</span>]&#125;</span>\n&quot;</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&quot;link&quot;</span> <span class="keyword">in</span> item:</span><br><span class="line">                    reStr += <span class="string">f&quot;    參考\n&quot;</span></span><br><span class="line">                    <span class="keyword">for</span> ref <span class="keyword">in</span> item[<span class="string">&#x27;link&#x27;</span>]:</span><br><span class="line">                        reStr += <span class="string">f&quot;      <span class="subst">&#123;ref&#125;</span>\n&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> reStr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立 gradio</span></span><br><span class="line">grobj = gr.Interface(fn = rStr,</span><br><span class="line">            inputs = gr.Textbox(),</span><br><span class="line">            outputs = gr.Textbox())</span><br><span class="line"><span class="comment"># 啟動 gradio</span></span><br><span class="line"><span class="comment"># share=True : public 執行</span></span><br><span class="line"><span class="comment"># grobj.launch(share=True)</span></span><br><span class="line">grobj.launch()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/">Hugging Face</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/01/python-26/" rel="prev" title="python plotly">
+                  <i class="fa fa-chevron-left"></i> python plotly
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/15/python-28/" rel="next" title="(1) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據">
+                  (1) 機器學習最強入門:基礎數學/機率/統計邁向AI真實數據 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2024/05/15/python-27/";
+    this.page.identifier = "2024/05/15/python-27/";
+    this.page.title = "Gradio";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

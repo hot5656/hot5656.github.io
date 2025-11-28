@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hot5656.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.json","localsearch":{"enable":"enable","trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="workflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="n8n - AI Agents, AI Automations &amp; AI Voice Agents (3)&lt;br&gt; RAG &amp; Research AI Agents">
+<meta property="og:url" content="https://hot5656.github.io/2025/11/17/n8n-4/index.html">
+<meta property="og:site_name" content="Robert 雜記">
+<meta property="og:description" content="workflow">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://hot5656.github.io/2025/11/17/n8n-4/pic_12_122.png">
+<meta property="og:image" content="https://hot5656.github.io/2025/11/17/n8n-4/pic_12_123.png">
+<meta property="og:image" content="https://hot5656.github.io/2025/11/17/n8n-4/pic_12_124.png">
+<meta property="og:image" content="https://hot5656.github.io/2025/11/17/n8n-4/pic_12_125.png">
+<meta property="article:published_time" content="2025-11-17T07:18:34.000Z">
+<meta property="article:modified_time" content="2025-11-28T07:54:41.970Z">
+<meta property="article:author" content="Robert Kao">
+<meta property="article:tag" content="n8n">
+<meta property="article:tag" content="udemy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hot5656.github.io/2025/11/17/n8n-4/pic_12_122.png">
+
+
+<link rel="canonical" href="https://hot5656.github.io/2025/11/17/n8n-4/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>n8n - AI Agents, AI Automations & AI Voice Agents (3)<br> RAG & Research AI Agents | Robert 雜記</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Robert 雜記</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔列表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#workflow"><span class="nav-number">1.</span> <span class="nav-text">workflow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-save-RAG"><span class="nav-number">1.1.</span> <span class="nav-text">12_122 Build RAG Agent with n8n &amp; Pinecorn(save RAG)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-ask-for-RAG"><span class="nav-number">1.2.</span> <span class="nav-text">12_122 Build RAG Agent with n8n &amp; Pinecorn(ask for RAG)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-123-DeepSeek-R1-Planner-Gemini"><span class="nav-number">1.3.</span> <span class="nav-text">12_123 DeepSeek R1 Planner(Gemini)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-save-communication-amp-get-RAG"><span class="nav-number">1.4.</span> <span class="nav-text">12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - save communication &amp; get RAG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-load-document"><span class="nav-number">1.5.</span> <span class="nav-text">12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - load document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-125-Build-DeepSeek-R1-WhatApp-AI-Agent-to-Plan-and-Research-llama-Telegram"><span class="nav-number">1.6.</span> <span class="nav-text">12_125 Build DeepSeek R1 WhatApp AI Agent to Plan and Research(llama + Telegram)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Robert Kao"
+      src="/images/head.png">
+  <p class="site-author-name" itemprop="name">Robert Kao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://hot5656.github.io/2025/11/17/n8n-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.png">
+      <meta itemprop="name" content="Robert Kao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert 雜記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          n8n - AI Agents, AI Automations & AI Voice Agents (3)<br> RAG & Research AI Agents
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-11-17 15:18:34" itemprop="dateCreated datePublished" datetime="2025-11-17T15:18:34+08:00">2025-11-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2025-11-28 15:54:41" itemprop="dateModified" datetime="2025-11-28T15:54:41+08:00">2025-11-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2025/11/17/n8n-4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/11/17/n8n-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>9 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h3><span id="more"></span>
+
+<h4 id="12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-save-RAG"><a href="#12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-save-RAG" class="headerlink" title="12_122 Build RAG Agent with n8n &amp; Pinecorn(save RAG)"></a>12_122 Build RAG Agent with n8n &amp; Pinecorn(save RAG)</h4><div style="max-width:700px">
+    <img src="/2025/11/17/n8n-4/pic_12_122.png" class="" title="pic_12_122">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Drive --&gt; On changes involving a specific folder</span></span><br><span class="line">Folder(By ID): ...(<span class="keyword">for</span> First RAG Agent)</span><br><span class="line">Watch For: File Created</span><br><span class="line"></span><br><span class="line"><span class="comment"># Drive --&gt; Download file</span></span><br><span class="line">File(By ID) : &#123;&#123; <span class="variable">$json</span>.id &#125;&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># pinecorn  Vector Store --&gt; add docuemnts to vector store</span></span><br><span class="line">Pinecone Index(From list): n8nragagent</span><br><span class="line">Options:</span><br><span class="line">  Pinecone Namespace: ragagent or ragagent2(更改空間)</span><br><span class="line">Embedding Document: Embedding Google Gemini</span><br><span class="line">Data loader:　Default Data loader</span><br><span class="line">  Type of Data: Binary</span><br><span class="line">  Mode: Load All Input Data</span><br><span class="line">  Data Format: PDF</span><br><span class="line">  Text Splitting: Custom (外接 Text Splitter)</span><br><span class="line">  ext Splitter　--&gt; add <span class="string">&quot;Recursive Character Text Splitter&quot;</span>(以下設定有較好的效率)</span><br><span class="line">            Chunk Size: 900</span><br><span class="line">            Chunk Overlap: 50</span><br><span class="line">  Options</span><br><span class="line">    Metadata: (可使用於搜尋時加過濾條件)</span><br><span class="line">      Name: Apple</span><br><span class="line">      Value: &#123;&#123; <span class="variable">$json</span>.name &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-ask-for-RAG"><a href="#12-122-Build-RAG-Agent-with-n8n-amp-Pinecorn-ask-for-RAG" class="headerlink" title="12_122 Build RAG Agent with n8n &amp; Pinecorn(ask for RAG)"></a>12_122 Build RAG Agent with n8n &amp; Pinecorn(ask for RAG)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># chat trigger</span></span><br><span class="line">what about Image Playground</span><br><span class="line">what about Writing Tools</span><br><span class="line"><span class="string">&quot;I am robert, I like dog</span></span><br><span class="line"><span class="string">What&#x27;s my name and what animal do I like?</span></span><br><span class="line"><span class="string">what I aks previous ?&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent</span></span><br><span class="line">System Message: </span><br><span class="line">  <span class="string">&quot;</span></span><br><span class="line"><span class="string">  # Role  </span></span><br><span class="line"><span class="string">  You are an AI assistant designed to answer questions about iOS 18, based on the official feature documents stored in the TOOL&#x27;s &quot;</span>iOS RAG<span class="string">&quot; vector database.  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  # Objective  </span></span><br><span class="line"><span class="string">  Your goal is to help users understand the new features, settings, and changes introduced in iOS 18. All answers should come directly from the information found in the vector database.  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  If a user asks about something not covered in the stored content, let them know that the information isn’t currently available.  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  # Rules  </span></span><br><span class="line"><span class="string">  - if cannot link to &quot;</span>iOS RAG<span class="string">&quot; just response unknow</span></span><br><span class="line"><span class="string">  - Use bullet points or short paragraphs for lists or multiple features.  </span></span><br><span class="line"><span class="string">  - Do not guess or assume anything. Use only the verified data from the vector database.  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Your main goal: Provide helpful, accurate, and easy-to-understand answers using only the stored documents — no speculation or outside sources.  </span></span><br><span class="line"><span class="string">  &quot;</span></span><br><span class="line">Chat Mode: Google gemini Chat model</span><br><span class="line">meomey : simple memory : context window length:10</span><br><span class="line">Tool: Answer questions with a vector store (iOS RAG)</span><br><span class="line">  Description of Data: <span class="keyword">for</span> ask IOS</span><br><span class="line">  Model: gemin chat model</span><br><span class="line">  Vector store:Pinecone Vector Store </span><br><span class="line">    Operation Mode: Retrieve Documents (As Vector Store <span class="keyword">for</span> Chain/Tool)</span><br><span class="line">    Pinecone Index(From list): n8nragagent</span><br><span class="line">    Options: </span><br><span class="line">      Pinecone Namespace: ragagent or or ragagent2(更改空間)</span><br><span class="line">    Embedding: embedding google gemini</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-123-DeepSeek-R1-Planner-Gemini"><a href="#12-123-DeepSeek-R1-Planner-Gemini" class="headerlink" title="12_123 DeepSeek R1 Planner(Gemini)"></a>12_123 DeepSeek R1 Planner(Gemini)</h4><div style="max-width:700px">
+    <img src="/2025/11/17/n8n-4/pic_12_123.png" class="" title="pic_12_123">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># On chat message</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line"><span class="string">Schedule a meeting for me with Jack. Her email is kyp001@gmail.com at 1 pm on November 21th, 2025, for 1 hour. Also, please send an email to her.</span></span><br><span class="line"><span class="string">&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent(Planner AI Agent)</span></span><br><span class="line">System Message:</span><br><span class="line">  ** Mission **</span><br><span class="line">  You are an AI tasked with drafting clear, practical prompts that <span class="built_in">help</span> a personal assistant complete any job at hand.</span><br><span class="line"></span><br><span class="line">  ** Operating Scope **</span><br><span class="line">  - No external tools or references.</span><br><span class="line">  - Keep every instruction brief, ordered, and unmistakable.</span><br><span class="line">  - Jobs can be simple or complex, but your wording must remain straightforward.</span><br><span class="line"></span><br><span class="line">  ** Workflow **</span><br><span class="line">  - Receive the user’s request.</span><br><span class="line">  - Decompose the request into a short series of logical actions.</span><br><span class="line">  - Write each action so it can be executed immediately—no guesswork.</span><br><span class="line">  - Note prerequisites or context the assistant needs to know.</span><br><span class="line">  - Proof-read the prompt <span class="keyword">for</span> clarity and fullness before sending it.</span><br><span class="line"></span><br><span class="line">  ** Illustrative Scenarios **</span><br><span class="line"></span><br><span class="line">  Example 1:</span><br><span class="line">  --------User Request</span><br><span class="line">  “Book a doctor’s appointment <span class="keyword">for</span> next week.”</span><br><span class="line"></span><br><span class="line">  --------Prompt You Produce</span><br><span class="line">  1. Find open slots with the doctor next week. 2. Pick a time that doesn’t clash with existing events.</span><br><span class="line">  3. Book the slot by phone or online. 4. Add the appointment to the calendar.</span><br><span class="line"></span><br><span class="line">  Example 2:</span><br><span class="line">  --------User Request</span><br><span class="line">  “Get ready <span class="keyword">for</span> John’s birthday party.”</span><br><span class="line"></span><br><span class="line">  --------Prompt You Produce</span><br><span class="line">  1. Select a date and time <span class="keyword">for</span> the party. 2. Draft a guest list. 3. Buy and <span class="built_in">set</span> up decorations beforehand.</span><br><span class="line">  4. Arrange food and drinks. 5. Send invitations.</span><br><span class="line"></span><br><span class="line">  ** Operating Checklist (SOP) **</span><br><span class="line">  - Hear the goal.</span><br><span class="line">  - Break it into clear, ordered, actionable steps.</span><br><span class="line">  - Supply any needed background details.</span><br><span class="line">  - Double-check that the plan is complete and plain.</span><br><span class="line">  - Deliver the polished prompt to the assistant.</span><br><span class="line"></span><br><span class="line">  ** Closing Reminders **</span><br><span class="line">  - Favor simplicity over flourish.</span><br><span class="line">  - Omit anything irrelevant or overly wordy.</span><br><span class="line">  - Hand over a ready-to-execute plan that needs no further clarification.</span><br><span class="line">  - Current date/time: &#123;&#123; <span class="variable">$now</span> &#125;&#125;</span><br><span class="line">Caht Model: Google Gemini chat Model</span><br><span class="line">Memory: Simple Memory</span><br><span class="line">  Context Window Length: 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent(Execute AI AGent)</span></span><br><span class="line">Source <span class="keyword">for</span> Prompt (User Message): Define below</span><br><span class="line">Prompt (User Message): &#123;&#123; <span class="variable">$json</span>.output &#125;&#125;</span><br><span class="line">System Message:</span><br><span class="line">  <span class="comment"># Tool</span></span><br><span class="line">  - Send a message <span class="keyword">in</span> Gmail: support send email</span><br><span class="line">  - Create an event <span class="keyword">in</span> Google Calendar: support <span class="built_in">set</span> calendar event</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Note</span></span><br><span class="line">  - Don<span class="string">&#x27;t need to wait for an email response, directly set a calendar event and give a proper title</span></span><br><span class="line"><span class="string">  - my name is Robert</span></span><br><span class="line"><span class="string">  - The email use HTMl format</span></span><br><span class="line"><span class="string">  - Directly do what toy can do, show what you do in output message</span></span><br><span class="line"><span class="string">Caht Model: Google Gemini chat Model</span></span><br><span class="line"><span class="string">Tool: </span></span><br><span class="line"><span class="string">  Gmail Tool</span></span><br><span class="line"><span class="string">    To: &#123;&#123;$fromAI(&#x27;</span>emailAddress<span class="string">&#x27;)&#125;&#125;</span></span><br><span class="line"><span class="string">    Subject: &#123;&#123;$fromAI(&#x27;</span>subject<span class="string">&#x27;)&#125;&#125;</span></span><br><span class="line"><span class="string">    Email Type: HTML</span></span><br><span class="line"><span class="string">    Message: &#123;&#123;$fromAI(&#x27;</span>message<span class="string">&#x27;)&#125;&#125;</span></span><br><span class="line"><span class="string">    Options: Append n8n Attribution: Disable</span></span><br><span class="line"><span class="string">  Google Calendar Tool</span></span><br><span class="line"><span class="string">    Calendar: my_google_email</span></span><br><span class="line"><span class="string">    Start: &#123;&#123; $fromAI(&#x27;</span>startDate<span class="string">&#x27;)&#125;&#125;</span></span><br><span class="line"><span class="string">    End: &#123;&#123; $fromAI(&#x27;</span>endDate<span class="string">&#x27;)&#125;&#125;</span></span><br><span class="line"><span class="string">    Additional Fields</span></span><br><span class="line"><span class="string">      Summary: &#123;&#123; $fromAI(&#x27;</span>title<span class="string">&#x27;)&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-save-communication-amp-get-RAG"><a href="#12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-save-communication-amp-get-RAG" class="headerlink" title="12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - save communication &amp; get RAG"></a>12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - save communication &amp; get RAG</h4><div style="max-width:700px">
+    <img src="/2025/11/17/n8n-4/pic_12_124.png" class="" title="pic_12_124">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># On chat Message</span></span><br><span class="line">hello --&gt; Supabase table n8n_chat_histories can see send and response recorded message</span><br><span class="line">please tell me about <span class="string">&quot;Role&quot;</span></span><br><span class="line">please tell me about <span class="string">&quot;Next Steps&quot;</span></span><br><span class="line">what is the prompt about?</span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent - RAG Agent</span></span><br><span class="line">Chat mode: Google Gemini Chat Model</span><br><span class="line">Memory: Postgres Chat Memoey</span><br><span class="line">Tool: Supabase Vector Store</span><br><span class="line">  Description: Use this to get information about the AI voice Agent prompt</span><br><span class="line">  Table Name: documents</span><br><span class="line">  Embedding: Embeddings Google Gemini</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-load-document"><a href="#12-124-Build-AI-Agent-that-Remembers-Everything-Supabase-VB-PostgreSQL-load-document" class="headerlink" title="12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - load document"></a>12_124 Build AI Agent that Remembers Everything(Supabase VB + PostgreSQL) - load document</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Drive --&gt; download file</span></span><br><span class="line">File: AIVOIC_1.PDF</span><br><span class="line"></span><br><span class="line"><span class="comment"># Superbase Vector Store --&gt; add Documents to vector store</span></span><br><span class="line">Table Name: documents (select when table <span class="string">&quot;documents&quot;</span> create already)</span><br><span class="line">embedding : Embeddings Google Gemini</span><br><span class="line">ocuemnt loader : Default Data loader </span><br><span class="line">  Type of Data: Binary</span><br><span class="line"></span><br><span class="line"><span class="comment"># run load file </span></span><br></pre></td></tr></table></figure>
+
+<h4 id="12-125-Build-DeepSeek-R1-WhatApp-AI-Agent-to-Plan-and-Research-llama-Telegram"><a href="#12-125-Build-DeepSeek-R1-WhatApp-AI-Agent-to-Plan-and-Research-llama-Telegram" class="headerlink" title="12_125 Build DeepSeek R1 WhatApp AI Agent to Plan and Research(llama + Telegram)"></a>12_125 Build DeepSeek R1 WhatApp AI Agent to Plan and Research(llama + Telegram)</h4><div style="max-width:700px">
+    <img src="/2025/11/17/n8n-4/pic_12_125.png" class="" title="pic_12_125">
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Telegram --&gt; on message</span></span><br><span class="line">Plan a budget-friendly one-month stay <span class="keyword">in</span> Thailand as a digital nomad. I need a cheap place to stay, good Wifi, coworking spaces, and some great traction to visit.</span><br><span class="line">規劃一個預算友好的台灣一個月數位遊牧生活，我需要便宜的住宿、良好的WiFi、共享辦公空間，以及一些很棒的旅遊景點。 </span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent(Planner Agent)</span></span><br><span class="line">Source <span class="keyword">for</span> Prompt (User Message): Define below</span><br><span class="line">Prompt (User Message):</span><br><span class="line">  &#123;&#123; <span class="variable">$json</span>.message.text &#125;&#125;</span><br><span class="line">System Message:</span><br><span class="line">  Role: You are an AI Planner Agent</span><br><span class="line">Chat model : Groq Chat Model</span><br><span class="line">  Model : llama-3.3-70b-versatile</span><br><span class="line">Memory : Simple Memory</span><br><span class="line">  Session ID: Define below</span><br><span class="line">  Key: &#123;&#123; $(<span class="string">&#x27;Telegram Trigger&#x27;</span>).item.json.message.text &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># AI Agent(Research Agent)</span></span><br><span class="line">Source <span class="keyword">for</span> Prompt (User Message): Define below</span><br><span class="line">Prompt (User Message):</span><br><span class="line">  &#123;&#123;<span class="variable">$json</span>.output&#125;&#125;</span><br><span class="line">System Message:</span><br><span class="line">  <span class="comment"># Role</span></span><br><span class="line">  You are an AI Search Agent integrating SerpAPI to support an AI Travel Planner Agent. Your purpose is to locate and provide comprehensive, actionable information about ALL locations, services, and resources mentioned <span class="keyword">in</span> the Planner<span class="string">&#x27;s structured itinerary.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  ## Task</span></span><br><span class="line"><span class="string">  1. Receive the Planner&#x27;</span>s detailed itinerary input as `&#123;&#123; <span class="variable">$json</span>.output &#125;&#125;`.</span><br><span class="line">  2. the output language same as `&#123;&#123; <span class="variable">$json</span>.output &#125;&#125;`</span><br><span class="line">  3. Extract EVERY specific place, service, or resource mentioned (e.g., hostels like <span class="string">&quot;Stamps Backpackers&quot;</span>, coworking spaces like <span class="string">&quot;Hub53&quot;</span>, attractions like <span class="string">&quot;Doi Suthep&quot;</span>, websites like <span class="string">&quot;Airbnb&quot;</span>).</span><br><span class="line">  4. For EACH item identified, conduct MULTIPLE targeted SerpAPI searches using exact names + locations (e.g., <span class="string">&quot;Stamps Backpackers Chiang Mai official website&quot;</span>, <span class="string">&quot;Hub53 Chiang Mai address booking&quot;</span>).</span><br><span class="line">  5. Provide AT LEAST 3-5 high-quality options per category when possible, including alternatives <span class="keyword">if</span> exact matches are limited.</span><br><span class="line">  6. For every result, include COMPREHENSIVE details:</span><br><span class="line">    - **Name** (full official name)</span><br><span class="line">    - **Exact Location/Address** (street, city, postal code)</span><br><span class="line">    - **Official Website** (direct booking/official links ONLY)</span><br><span class="line">    - **Phone/Contact** (<span class="keyword">if</span> available)</span><br><span class="line">    - **Prices/Rates** (current monthly rates, day passes)</span><br><span class="line">    - **Booking Links** (direct reservation URLs)</span><br><span class="line">    - **Reviews/Ratings** (from Google/Trustpilot)</span><br><span class="line">    - **Key Features** (WiFi speed, amenities, nomad-friendly notes)</span><br><span class="line">    - **Multiple Options** (2-3 alternatives per location)</span><br><span class="line">  7. If exact match not found, provide closest alternatives with explanation and why recommended.</span><br><span class="line">  8. Cover ALL categories: Accommodations, Coworking Spaces, Attractions, WiFi/SIM providers, Transportation, Food markets.</span><br><span class="line">  9. Prioritize 2025 current data from official sites, Booking.com, Airbnb, Google Maps, TripAdvisor.</span><br><span class="line">  10. Structure output by Planner<span class="string">&#x27;s original sections (e.g., &quot;Accommodation Options&quot;, &quot;Coworking Spaces&quot;).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  ## Output Format</span></span><br><span class="line"><span class="string">  Organize by Planner&#x27;</span>s sections. Use this EXACT plain text template <span class="keyword">for</span> each item:</span><br><span class="line"></span><br><span class="line">  Step/Category Name:</span><br><span class="line">  Name: [Full Name]</span><br><span class="line">  Location: [Complete Address]</span><br><span class="line">  Website: [Direct URL]</span><br><span class="line">  Phone: [Number]</span><br><span class="line">  Prices: [Current Rates]</span><br><span class="line">  Booking: [Direct Link]</span><br><span class="line">  Ratings: [Score/Source]</span><br><span class="line">  Features: [Key Amenities]</span><br><span class="line">  Alternatives:</span><br><span class="line">  - Option 1: [Name, Location, Website]</span><br><span class="line"></span><br><span class="line">  **NEVER use <span class="string">&quot;Note: could not find&quot;</span> - always provide alternatives.**</span><br><span class="line">  **Include 3+ options per category minimum.**</span><br><span class="line">  **Output ONLY structured data, no extra commentary.**</span><br><span class="line">Chat model : Google Gemini Chat Model</span><br><span class="line">Tool : SerpAPI</span><br><span class="line"></span><br><span class="line"><span class="comment"># code</span></span><br><span class="line">const inputData = <span class="variable">$input</span>.first();</span><br><span class="line">const longText = inputData.json.output;</span><br><span class="line"></span><br><span class="line">// 分割長訊息</span><br><span class="line"><span class="keyword">function</span> splitMessage(message, <span class="built_in">limit</span> = 4096) &#123;</span><br><span class="line">  <span class="built_in">let</span> messages = [];</span><br><span class="line">  <span class="built_in">let</span> currentChunk = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  const words = message.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">  <span class="keyword">for</span> (const word of words) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((currentChunk + <span class="string">&#x27; &#x27;</span> + word).length &gt; <span class="built_in">limit</span>) &#123;</span><br><span class="line">      messages.push(currentChunk);</span><br><span class="line">      currentChunk = word;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      currentChunk += (currentChunk ? <span class="string">&#x27; &#x27;</span> : <span class="string">&#x27;&#x27;</span>) + word;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (currentChunk) messages.push(currentChunk);</span><br><span class="line">  <span class="built_in">return</span> messages;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 分段後，轉成 n8n 的 items 格式</span><br><span class="line">const chunks = splitMessage(longText, 3600);</span><br><span class="line">const items = chunks.map(chunk =&gt; (&#123;</span><br><span class="line">  json: &#123;</span><br><span class="line">    ...inputData.json,   // 保留原始 json 內容</span><br><span class="line">    output: chunk         // 把 output 改成當前這一段</span><br><span class="line">  &#125;</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="built_in">return</span> items;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Telegram -&gt; Send a text message</span></span><br><span class="line">Chat ID: &#123;&#123; $(<span class="string">&#x27;Telegram Trigger&#x27;</span>).item.json.message.chat.id &#125;&#125;</span><br><span class="line">Text: &#123;&#123; <span class="variable">$json</span>.output &#125;&#125;</span><br><span class="line">Append n8n Attribution: Disable</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/n8n/" rel="tag"># n8n</a>
+              <a href="/tags/udemy/" rel="tag"># udemy</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/10/30/youtube-3/" rel="prev" title="Youtube - Priority List">
+                  <i class="fa fa-chevron-left"></i> Youtube - Priority List
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert Kao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">2.7m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">40:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hot5656-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://hot5656.github.io/2025/11/17/n8n-4/";
+    this.page.identifier = "2025/11/17/n8n-4/";
+    this.page.title = "n8n - AI Agents, AI Automations & AI Voice Agents (3)<br> RAG & Research AI Agents";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hot5656-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
