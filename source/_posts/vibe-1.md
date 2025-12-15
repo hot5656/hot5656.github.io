@@ -97,14 +97,193 @@ select funtion
 	{% asset_img pic1.png pic_1 %}
 </div>
 
+``` bash
+# Manual Trigger
+
+# sheet --> Get row(s) in sheet
+Document: Content ideas
+Filters
+  Column: Completed
+  Value:        - empty
+Options
+  Return only First Matching Row: Enable
+
+# Google Gemini --> Message a model
+Prompt:
+"
+  You are an expert SEO content writer and blogger, and an absolute expert in this field. Write a detailed, high-quality article based on the topic:
+  {{ $json.Prompt }}
+
+  ### Formatting Instructions:
+  - Add a concise summary or definition in the introduction (120 words).
+  - Divide the article into 4–5 meaningful sections with `##` headings. Each section must explore a **distinct, non-overlapping** subtopic.
+  - Under each `##`, write 2–4 paragraphs with deep, insightful content. Avoid shallow or generic points.
+  - Use `** **` for emphasis and `* *` for nuance. Include `+` lists where appropriate.
+  - End with a `## Conclusion` section summarizing the article (approx. 120 words).
+
+  ### Content Quality:
+  - Write for an audience that wants practical, trustworthy, and well-structured answers.
+  - Use a friendly, engaging, and informative tone.
+  - Include rhetorical questions or transitions to guide the reader naturally.
+  - Include related keywords and synonyms to boost semantic SEO.
+  - Avoid repetition. Ensure each section adds new value.
+  - use markdown format
+  - no wrappers, no explanations, just the markdown.
+
+  ### Optional:
+  - If relevant, add a short FAQ section using `###` for each question for answers.
+
+  Only output the complete wrappers article — no explanations.
+
+  ### note : the ouput language same as {{ $json.Prompt }}
+"
+
+# Google Gemini --> Message a model
+Prompt:
+"
+  You are an expert SEO copywriter. 
+  The input article is {{ $json.content.parts[0].text }}
+
+  generate field as below:
+    title: Create a compelling, high-converting blog post title (maximum 60 characters) for the following article
+    excerpt: A short summary of the article
+    read_time: count the article read time 
+    tags:  show the article
+
+  ### Instructions:
+  - Include the main topic keyword or variation near the beginning.
+  - Make it attention-grabbing and benefit-driven.
+  - Match the search intent of a user looking for this topic.
+  - Use clear, strong language that encourages clicks without sounding like clickbait.
+  - Avoid vague words like “things”, “stuff”, “info”.
+  - Do not use any HTML characters
+  - Do not use quotation marks. The only special characters allowed are ":" and ",".
+  - Output only the raw string containing the title — no notes, no wrappers, no code blocks.
+
+  Your goal is to maximize SEO, search intent match, and reader engagement with this headline.
+
+  The output example is below :
+  {
+    "title": "Create a compelling, high-converting blog post title (maximum 60 characters) for the following article"
+    "excerpt": "A short summary of the article"
+    read_time: "5 min read",
+    tags:  ["Technology", "AI"]
+  }
+
+  ### note : the ouput language same as {{ $('Get row(s) in sheet').item.json.Prompt }}
+"
+Output Content as JSON: Enable
+
+# Edit Field
+output(object): {{ $json.content.parts[0].text.parseJson() }}
+author_fig: {{ $('Get row(s) in sheet').first().json.Author.replace(' ','_') }}.jpg
+
+# if
+{{ $('Edit Fields').item.json.author_fig }} "is equal to" .jpg
+
+# Edit field #1
+author_fig: Mr._alligator.jpg
+author: Mr. alligator
+
+# Edit field #2
+author_fig: {{ $('Edit Fields').item.json.author_fig }}
+author: {{ $('Get row(s) in sheet').item.json.Author }}
+
+# Edit field(Author Fig)
+author_fig: {{ $json.author_fig }}
+author: {{ $json.author }}
+
+# HTTP request(Create Image)
+Method: POST
+URL: https://api.openai.com/v1/images/generations
+Authentication: Predefined Credential Type
+Credential Type: OpenAi
+OpenAi: OpenAi account
+Send Body: Enable
+Body Content Type: JSON
+Specify Body: Using JSON
+  {
+    "model": "gpt-image-1-mini",
+    "prompt": "{{ $('Edit Fields').item.json.output.title }}, The image doesn't include any words and and don't use comic style",
+    "size": "1536x1024",
+    "quality": "low",
+    "output_format": "jpeg"
+  }
+
+# Convert to File --> Move base64 string to file
+Base64 Input Field: data[0].b64_json
+
+# Drive --> Upload File
+File Name: {{ $('Edit Fields').item.json.output.title }}.{{ $('Convert to File').first().binary.data.fileExtension }}
+Parent Drive: My Drive
+Parent Folder: post_image
+
+# Drive --> Download File
+File: {{ $json.webViewLink }}
+
+# HTTP request
+Method: POST
+URL: https://ukloaaccuetocrkxsdlv.supabase.co/functions/v1/create-post
+Authentication: Generic Credential Type
+Generic Auth Type:Custom Auth
+Custom Auth: Custom Auth (supabase post)
+  JSON:
+    {
+      "headers": {
+        "apikey": "<api_key>",
+        "Authorization": "Bearer <api_key>",
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      }
+    } 
+Send Body: Enable
+Body Content Type: Form-Data
+  Parameter Type:  Form Data
+  Name:  title
+  Value:   {{ $('Edit Fields').item.json.output.title }}
+  
+  Parameter Type: Form Data
+  Name: content
+  Value: {{ $('Message a model').item.json.content.parts[0].text }}
+  
+  Parameter Type:   Form Data
+  Name: excerpt
+  Value: {{ $('Edit Fields').item.json.output.excerpt }}
+  
+  Parameter Type: Form Data
+  Name: author_name
+  Value: {{ $('Author Fig').item.json.author }}
+  
+  Parameter Type: Form Data
+  Name: tags
+  Value: {{ $('Edit Fields').item.json.output.tags.map(tag => `"${tag}"`).join(', ') }}
+
+  Parameter Type: n8n Binary File
+  Name: image
+  Input Data Field Name: data
+
+  Parameter Type: Form Data
+  Name: author_avatar
+  Value: {{ $('Author Fig').item.json.author_fig }}
+  
+# sheet update row in sheet
+Document: Content ideas
+Mapping Column Mode: Map Each Column Manually
+Column to match on: Prompt
+  Prompt (using to match): {{ $('Get row(s) in sheet').item.json.Prompt }}
+  Date: {{$now.format('yyyy-MM-dd HH:mm:ss')}}
+  Author: {{ $('Author Fig').item.json.author }}
+  Title: {{ $json.post.title }}
+  Post ID: {{ $json.post.id }}
+  Completed: Yes
+```
+
 #### Lovable coding
 ##### Supabase database
 ``` bash
 # create a project - blog_post
 Project URL: ...
 API Key: ...
-
-
 ```
 
 #### Lovable setting
@@ -114,7 +293,7 @@ Robert --> Settings
   --> Connectors
   --> Supabase
   --> Manage Connected Organization
-  (I don'n know, why do I nto set Project URL and API Key)
+  (I don'n know, why  I don't need set Project URL and API Key, 可能 Lovable 自動抓取)
 ```
 
 
@@ -569,7 +748,60 @@ ON public.posts FOR DELETE
 TO authenticated 
 USING (public.has_role(auth.uid(), 'admin'));
 
+# disable Confirm email: 加速測試過程
+Authentication
+  --> Sign In/Providers
+  --> Confirm email: Disable 
+# if Confirm email - set correct flow
+Authentication
+  --> Notifications
+  --> Email
+  --> Set up SMTP
 
+# 實作前端管理員登入系統
+
+# 註冊第一帳號: email, password(by app, yahoo-gogo999)
+Authentication
+  --> Users 
+  --> see UID information
+Table Editor 
+  --> user_roles
+  --> Insert
+  --> Insert row
+  --> user_id(select created UID) 
+  --> role --> select admin
+  --> Save
+
+# enable Confirm email(app add new user, google 001-demo5656) 
+Authentication
+  --> Sign In/Providers
+  --> Confirm email: Enable   
+
+# email confirm error --> set URL Configuration
+Supabase
+  --> Authentication
+  --> URL Configuration
+    Site URL: https://xxx.lovable.app (example)
+    Redirect URLs: https://xxx.lovable.app/* (example)
+
+# 忘記密碼功能實作 for reset-password
+Supabase
+  --> Authentication
+  --> URL Configuration
+    Redirect URLs: https://xxx.lovable.app/reset-password (example)
+
+# 正確預覽畫面的 URL
+Lovable 編輯畫面 --> mouse right 
+  --> 在新分頁開啟連接 (才是正確的 程式預覽 URL): https://xxx.lovable.app/ (example)
+# add URL
+Supabase
+  --> Authentication
+  --> URL Configuration
+    Site URL: https://xxx.lovable.app (example)
+    Redirect URLs: https://xxx.lovable.app/** (example)
+    (如此可以包含 /reset-password)
+
+# 密碼重置 ok
 ```
 
 
