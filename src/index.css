@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply text-stone-800 leading-relaxed;
+  }
+
+  .prose h1 {
+    @apply text-4xl font-light mb-6 mt-10 text-stone-900;
+  }
+
+  .prose h2 {
+    @apply text-3xl font-light mb-4 mt-8 text-stone-900;
+  }
+
+  .prose h3 {
+    @apply text-2xl font-light mb-3 mt-6 text-stone-900;
+  }
+
+  .prose h4 {
+    @apply text-xl font-medium mb-2 mt-4 text-stone-900;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .prose a {
+    @apply text-stone-900 underline hover:text-stone-600 transition-colors;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 pl-6;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-stone-300 pl-4 italic my-4 text-stone-600;
+  }
+
+  .prose code {
+    @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm font-mono text-stone-800;
+  }
+
+  .prose pre {
+    @apply bg-stone-900 text-stone-100 p-4 rounded-lg overflow-x-auto my-4;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+
+  .prose img {
+    @apply rounded-lg my-6;
+  }
+
+  .prose table {
+    @apply w-full border-collapse my-4;
+  }
+
+  .prose th {
+    @apply bg-stone-100 border border-stone-300 px-4 py-2 text-left font-medium;
+  }
+
+  .prose td {
+    @apply border border-stone-300 px-4 py-2;
+  }
+
+  .prose hr {
+    @apply border-stone-200 my-8;
+  }
+
+  .prose-lg {
+    @apply text-lg;
+  }
+
+  .prose-lg h1 {
+    @apply text-5xl;
+  }
+
+  .prose-lg h2 {
+    @apply text-4xl;
+  }
+
+  .prose-lg h3 {
+    @apply text-3xl;
+  }
+}
