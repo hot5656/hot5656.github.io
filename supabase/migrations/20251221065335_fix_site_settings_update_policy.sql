@@ -12,11 +12,11 @@
 */
 
 -- Drop the existing restrictive policy
-DROP POLICY IF EXISTS "Authenticated users can update site settings" ON site_settings;
+DROP POLICY IF EXISTS "Authenticated users can update site settings" ON roberthut_site_settings;
 
 -- Create new policy that allows anonymous users to update
 CREATE POLICY "Anyone can update site settings"
-  ON site_settings
+  ON roberthut_site_settings
   FOR UPDATE
   TO anon, authenticated
   USING (true)

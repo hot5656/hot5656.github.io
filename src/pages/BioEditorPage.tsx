@@ -25,7 +25,7 @@ export function BioEditorPage() {
   async function loadBio() {
     try {
       const { data, error } = await supabase
-        .from('site_settings')
+        .from('roberthut_site_settings')
         .select('*')
         .limit(1)
         .maybeSingle();
@@ -65,7 +65,7 @@ export function BioEditorPage() {
       };
 
       const { error } = await supabase
-        .from('site_settings')
+        .from('roberthut_site_settings')
         .update(bioData)
         .eq('id', settingsId);
 

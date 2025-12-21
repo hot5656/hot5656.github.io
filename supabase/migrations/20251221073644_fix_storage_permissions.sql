@@ -22,19 +22,19 @@ CREATE POLICY "Anyone can upload images"
   ON storage.objects
   FOR INSERT
   TO public
-  WITH CHECK (bucket_id = 'blog-images');
+  WITH CHECK (bucket_id = 'roberthut-blog-images');
 
 -- Allow anyone to update images
 CREATE POLICY "Anyone can update images"
   ON storage.objects
   FOR UPDATE
   TO public
-  USING (bucket_id = 'blog-images')
-  WITH CHECK (bucket_id = 'blog-images');
+  USING (bucket_id = 'roberthut-blog-images')
+  WITH CHECK (bucket_id = 'roberthut-blog-images');
 
 -- Allow anyone to delete images
 CREATE POLICY "Anyone can delete images"
   ON storage.objects
   FOR DELETE
   TO public
-  USING (bucket_id = 'blog-images');
+  USING (bucket_id = 'roberthut-blog-images');
