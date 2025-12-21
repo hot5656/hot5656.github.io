@@ -25,7 +25,7 @@ export function ImageGallery({ onSelect, onClose }: ImageGalleryProps) {
   async function loadImages() {
     try {
       const { data, error } = await supabase.storage
-        .from('blog-images')
+        .from('roberthut-blog-images')
         .list('covers', {
           limit: 100,
           offset: 0,
@@ -36,7 +36,7 @@ export function ImageGallery({ onSelect, onClose }: ImageGalleryProps) {
 
       const imageList = data.map((file) => {
         const { data: { publicUrl } } = supabase.storage
-          .from('blog-images')
+          .from('roberthut-blog-images')
           .getPublicUrl(`covers/${file.name}`);
 
         return {
@@ -59,7 +59,7 @@ export function ImageGallery({ onSelect, onClose }: ImageGalleryProps) {
 
     try {
       const { error } = await supabase.storage
-        .from('blog-images')
+        .from('roberthut-blog-images')
         .remove([`covers/${imageName}`]);
 
       if (error) throw error;

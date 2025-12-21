@@ -14,7 +14,7 @@ export function HomePage() {
   async function loadData() {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('roberthut_posts')
         .select('*')
         .eq('published', true)
         .order('created_at', { ascending: false });

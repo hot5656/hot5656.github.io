@@ -15,7 +15,7 @@ export function AdminPage() {
   async function loadPosts() {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('roberthut_posts')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -31,7 +31,7 @@ export function AdminPage() {
   async function handleDelete(id: string) {
     try {
       const { error } = await supabase
-        .from('posts')
+        .from('roberthut_posts')
         .delete()
         .eq('id', id);
 
