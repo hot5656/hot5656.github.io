@@ -21,7 +21,7 @@ export function PostDetailPage() {
   async function loadPost(slug: string) {
     try {
       const { data, error } = await supabase
-        .from('roberthut_posts')
+        .from('posts')
         .select('*')
         .eq('slug', slug)
         .maybeSingle();

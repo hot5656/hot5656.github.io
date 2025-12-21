@@ -24,7 +24,7 @@ export function ImageLibraryPage() {
   async function loadImages() {
     try {
       const { data, error } = await supabase.storage
-        .from('roberthut-blog-images')
+        .from('blog-images')
         .list('covers', {
           limit: 100,
           offset: 0,
@@ -35,7 +35,7 @@ export function ImageLibraryPage() {
 
       const imageList = data.map((file) => {
         const { data: { publicUrl } } = supabase.storage
-          .from('roberthut-blog-images')
+          .from('blog-images')
           .getPublicUrl(`covers/${file.name}`);
 
         return {
@@ -76,7 +76,7 @@ export function ImageLibraryPage() {
       const filePath = `covers/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
-        .from('roberthut-blog-images')
+        .from('blog-images')
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
@@ -97,7 +97,7 @@ export function ImageLibraryPage() {
 
     try {
       const { error } = await supabase.storage
-        .from('roberthut-blog-images')
+        .from('blog-images')
         .remove([`covers/${imageName}`]);
 
       if (error) throw error;

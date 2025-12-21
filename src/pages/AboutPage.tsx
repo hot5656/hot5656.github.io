@@ -14,7 +14,7 @@ export function AboutPage() {
   async function loadBio() {
     try {
       const { data, error } = await supabase
-        .from('roberthut_site_settings')
+        .from('site_settings')
         .select('*')
         .limit(1)
         .maybeSingle();

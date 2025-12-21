@@ -41,7 +41,7 @@ export function PostEditorPage() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('roberthut_posts')
+        .from('posts')
         .select('*')
         .eq('id', postId)
         .maybeSingle();
@@ -107,13 +107,13 @@ export function PostEditorPage() {
       const filePath = `covers/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
-        .from('roberthut-blog-images')
+        .from('blog-images')
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage
-        .from('roberthut-blog-images')
+        .from('blog-images')
         .getPublicUrl(filePath);
 
       setFormData(prev => ({
@@ -207,14 +207,14 @@ export function PostEditorPage() {
 
       if (id) {
         const { error } = await supabase
-          .from('roberthut_posts')
+          .from('posts')
           .update(postData)
           .eq('id', id);
 
         if (error) throw error;
       } else {
         const { error } = await supabase
-          .from('roberthut_posts')
+          .from('posts')
           .insert([postData]);
 
         if (error) throw error;
