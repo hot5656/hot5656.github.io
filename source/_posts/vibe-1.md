@@ -201,12 +201,18 @@ Lovable 適合非碼農快速上線，費用可預測但擴展需升級；Replit
 
 #### Lovable 
 ``` bash
-...
+# .env
+# 不能設定 .env 僅能寫於 code 可修改 抓取部署平台之 Environment Variables 
+# src/integrations/supabase/client.ts 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https:...";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "api_key ...";
+
 ```
 
 #### BoltNew 
 ``` bash
-...
+# table 建立 SQL code 見
+supabase/migrations/
 ```
 
 #### Replit 
@@ -308,6 +314,9 @@ Netlify Pro 以點數系統管理流量，頻寬較彈性但超額依包計費�
 
 #### Netlify - [current credit](https://app.netlify.com/teams/kyp001/billing/general)
 ``` bash
+# support Production & Preview App 
+可設定不同 Environment Variables
+
 # 消耗 credit
 Netlify 的 Continuous Deployment 會在每次 push 後自動觸發建置與部署，因此會一直消耗你的 credit
 
@@ -320,6 +329,43 @@ select project
 	--> Build status 
 	--> Stopped builds
 	(Netlify will not build your project automatically. You can build locally via the CLI and then publish new deploys manually via the CLI or the API.)
+
+
+# set https://tarot-cards.roberthut.com/ domain name
+# namecheap setting
+Domain List --> VERIFY CONTACTS
+  --> Manage
+  --> Advanced DNS
+  --> Host Records
+  --> Add New Record
+  --> CNAME Record, tarot-cards, cname.vercel-dns.com, Automatic
+# Vercel setting
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: tarot-cards.roberthut.com
+
+# set https://roberthut.com/tools domain name( roberthut.com 自動跳轉)
+# Vercel setting
+# @ 代表根域名
+# 76.76.21.21 是 Vercel 提供的官方 A 記錄 IP 位址，用於根域名（apex domain，如 example.com）的 DNS 設定，讓流量指向 Vercel 的全球 CDN 網路。
+  --> Manage
+  --> Advanced DNS
+  --> Host Records
+  --> Add New Record
+  --> A Record, @, 76.76.21.21, Automatic
+  --> Add New Record
+  --> CNAME, www, cname.vercel-dns.com, Automatic
+​# Vercel setting
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add:roberthut.com
+# github vu. 修改 ./vercel.json
+{
+  "basePath": "/tools",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
 ```
 
 #### Vercel - [current userage](https://vercel.com/roberts-projects-2b1cd09b)
@@ -360,6 +406,33 @@ Settings
 
 ### Database
 #### Supabase
+##### Setting
+``` bash
+# URL 
+Project settings 
+  --> Data API
+	--> URL
+# Public API key
+Project settings 
+  --> API Keys
+  --> Publishable and secrect API keys
+	--> Publishable key
+
+# 使用 URL and ANON_KEY can access database
+# 依 table RLS setting
+Table Editor 
+  --> select table
+	--> 3 dot
+	--> View policies
+
+# 另一組 API key
+# legacy anon/service_role 是基於專案 JWT secret 產生、輪替成本高，所以建議改用新的 publishable/secret keys
+# 一般皆可用
+Project settings 
+  --> API Keys
+  --> Legacy anon, service_role API keys
+  --> public
+```
 ##### 功能
 Supabase 是一個開源的後端即服務 (BaaS) 平台，以 PostgreSQL 為核心，提供多項功能讓開發者快速建置應用。
 
@@ -400,6 +473,20 @@ Enterprise 提供 SOC2、SSO 和自帶雲端部署。
 
 
 ### Prompt
+#### Share
+##### Bilingual Support
+``` bash
+1. 增加 app 介面 雙語功能,提供切換 bottom 英文網頁 url 為 / 中文 為 /zh-tw
+2. 語言切換按鈕 若在英文模式 地球 icon 後 直接加註 中文 , 若在中文模式 地球 icon 後 直接加註 English, 直接可以切換 不用選擇
+3. 輸入url 或 refresh 偵測 browser 語言, 若為 中文 不管輸入 url 為 / or /ch-tw 自動切換至 /ch-tw , 若為 英文 不管輸入 url 為 / or /ch-tw 自動切換至 /, 但 按語言button後即不自動切換
+```
+
+##### Feedback
+``` bash
+1. 幫我寫一個 SQL for 產生 意見回饋 table 包含以下欄位 app_name, user_name, user_email, message, create_date ,status
+2. 幫我加入 意見回饋(Feedback) 輸入功能 含欄位 user_name , email , content ,  email 為 option 輸入, create_date 自動填入, app_name 內容填 tarot
+```
+
 #### Lovable 
 ##### Image generaye app
 ``` bash
@@ -439,7 +526,215 @@ Tone:
 Trustworthy, caring, and approachable.
 ```
 
-### Blog post automation - [Blog Journal](https://blog-canvas-roan.vercel.app/)
+### Blog post automation - [Blog Journal](https://blog-canvas-roan.vercel.app/) (Lovable)
+
+#### Supabase table/bucket and Edge fynction create 
+##### table/bucket create SQL
+``` SQL
+-- 建立 posts 表
+CREATE TABLE public.posts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  excerpt TEXT,
+  featured_image TEXT DEFAULT '/placeholder.svg',
+  author_name TEXT DEFAULT 'Anonymous',
+  author_avatar TEXT DEFAULT '/placeholder.svg',
+  date DATE DEFAULT CURRENT_DATE,
+  read_time TEXT,
+  tags TEXT[] DEFAULT '{}',
+  status TEXT DEFAULT 'published',
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 啟用 RLS
+ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+
+-- RLS 政策：允許所有人讀取已發布的文章
+CREATE POLICY "Anyone can read published posts"
+ON public.posts FOR SELECT
+USING (status = 'published');
+
+-- RLS 政策：認證用戶可以讀取自己的草稿
+CREATE POLICY "Users can read own drafts"
+ON public.posts FOR SELECT TO authenticated
+USING (user_id = auth.uid());
+
+-- 建立 Storage buckets
+INSERT INTO storage.buckets (id, name, public) VALUES ('blog-images', 'blog-images', true);
+INSERT INTO storage.buckets (id, name, public) VALUES ('author-avatars', 'author-avatars', true);
+```
+
+##### Edge function create
+``` bash
+# supabase/functions/create-post/index.ts
+```
+
+##### crease user table from creatch 
+``` bash
+# 1. 建立 Profiles 表（用戶資料）
+-- 建立 profiles 表
+create table public.profiles (
+  id uuid not null references auth.users on delete cascade,
+  name text,
+  avatar_url text,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now(),
+  primary key (id)
+);
+
+-- 啟用 RLS
+alter table public.profiles enable row level security;
+
+-- RLS 政策：所有人可讀取
+create policy "Anyone can view profiles"
+on public.profiles for select
+using (true);
+
+-- RLS 政策：用戶可更新自己的資料
+create policy "Users can update own profile"
+on public.profiles for update
+to authenticated
+using (auth.uid() = id);
+
+-- 自動建立 profile 的函數
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, name, avatar_url)
+  values (new.id, new.raw_user_meta_data ->> 'name', new.raw_user_meta_data ->> 'avatar_url');
+  return new;
+end;
+$$;
+
+-- 觸發器：新用戶註冊時自動建立 profile
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
+
+# 2. 建立 User Roles 表（角色管理）
+-- 建立角色 enum
+create type public.app_role as enum ('admin', 'moderator', 'user');
+
+-- 建立 user_roles 表
+create table public.user_roles (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  role app_role not null default 'user',
+  created_at timestamp with time zone default now(),
+  unique (user_id, role)
+);
+
+-- 啟用 RLS
+alter table public.user_roles enable row level security;
+
+-- 檢查角色的安全函數
+create or replace function public.has_role(_user_id uuid, _role app_role)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.user_roles
+    where user_id = _user_id
+      and role = _role
+  )
+$$;
+
+-- RLS 政策：用戶可查看自己的角色
+create policy "Users can view own roles"
+on public.user_roles for select
+to authenticated
+using (auth.uid() = user_id);
+
+-- RLS 政策：管理員可查看所有角色
+create policy "Admins can view all roles"
+on public.user_roles for select
+to authenticated
+using (public.has_role(auth.uid(), 'admin'));
+
+-- RLS 政策：管理員可管理角色
+create policy "Admins can manage roles"
+on public.user_roles for all
+to authenticated
+using (public.has_role(auth.uid(), 'admin'));
+
+
+# 3. 手動建立 user(註冊就有)
+Authentication
+	--> Users
+	--> Add user	
+	--> Email, User Password(Auto confirm User:Enable)
+
+# 4. 手動新增管理員(admin 才要加入)	
+Table Editor
+	--> user_roles
+	--> Inset
+	--> Insert row
+		user_id: select 手動建立 user
+		role: admin
+
+# disable email confirm
+Authentication
+  --> Sign In/Providers
+  --> Confirm email: Disable 
+```
+
+##### bucket policies(bucket policies 和原始非一致)
+``` bash
+# dump status
+# 1) 查 storage.objects 的 owner
+select
+  c.oid::regclass as table_name,
+  c.relowner::regrole as owner
+from pg_class c
+where c.oid = 'storage.objects'::regclass;
+# 也一起查 schema：
+select
+  c.relnamespace::regnamespace as schema,
+  c.relname as table_name,
+  c.relowner::regrole as owner
+from pg_class c
+where c.oid = 'storage.objects'::regclass;
+# 查你「目前」用什麼角色在執行
+select current_user, session_user;
+
+# 太複雜手動修改
+Storgae 
+  --> Policies 
+  --> author-avatars
+  --> New policy
+    Policy name: (bucket_id = 'author-avatars'::text) 187wgs8_0 - 輸入時似乎會自動變
+    commandL SELECT
+    Target roles: anon, authenticated
+    Using expression: (bucket_id = 'author-avatars'::text)
+ Storgae 
+  --> Policies    
+  --> blog-images
+  --> New policy
+    Policy name: Public read access bjsgsj_0 - 輸入時似乎會自動變
+    commandL SELECT
+    Target roles: Default to all(public) roles if non selected
+    Using expression: (bucket_id = 'blog-images'::text)
+  --> New policy
+    Policy name: Allow uploads bjsgsj_0 - 輸入時似乎會自動變
+    commandL INSERT
+    Target roles: Default to all(public) roles if non selected
+    Using expression: (bucket_id = 'blog-images'::text)
+
+# Email confirm 有問題,暫不用
+不知道為什麼原用dababase ok,但新加去不行
+``` 
+
 #### Supabase 
 ##### Supabase CLI
 ``` bash
@@ -1148,7 +1443,7 @@ Authentication
 
 # 實作前端管理員登入系統
 
-# 註冊第一帳號: email, password(by app, yahoo-gogo999)
+# 註冊第一帳號: email, password(by app, yahoo-gogo999/gogo888)
 Authentication
   --> Users 
   --> see UID information
@@ -1612,9 +1907,9 @@ porject
 		VITE_SUPABASE_ANON_KEY(Publishable key)
 ```
 
-### [Practical Tools Collection](https://tools-collection-smoky.vercel.app/zh-tw)
+### [Practical Tools Collection](https://tools-collection-smoky.vercel.app/zh-tw)(Bolt.New)
 
-### [Robert hut](https://robert-hut.vercel.app/)
+### [Robert hut](https://robert-hut.vercel.app/)((Bolt.New))
 
 ### Ref
 + [Hostinger VPS](https://www.hostinger.com/)- cpupon "DIEGODAVILA"
