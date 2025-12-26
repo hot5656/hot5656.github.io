@@ -432,7 +432,43 @@ Project settings
   --> API Keys
   --> Legacy anon, service_role API keys
   --> public
+
+# set bucket size
+Storage
+  --> FileS 
+  --> select one bucket
+  --> Edit bucket
+  --> Bucket settings
+  --> Publick bucket(without limit)
+  --> Restrict file size(support size) - also set support file type
 ```
+
+##### SQL command
+
+###### get table all data
+``` sql
+SELECT *
+FROM roberthut_posts;
+```
+
+###### get table all field name and type
+``` sql
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND table_name = 'roberthut_posts'
+ORDER BY ordinal_position;
+```
+
+###### add some field
+``` bash
+ALTER TABLE public.roberthut_posts
+  ADD COLUMN IF NOT EXISTS eng_title text,
+  ADD COLUMN IF NOT EXISTS eng_content text,
+  ADD COLUMN IF NOT EXISTS eng_excerpt text,
+  ADD COLUMN IF NOT EXISTS eng_tags text[];
+```
+
 ##### 功能
 Supabase 是一個開源的後端即服務 (BaaS) 平台，以 PostgreSQL 為核心，提供多項功能讓開發者快速建置應用。
 
@@ -2169,6 +2205,406 @@ gaoyiping@gaoyipingdeMacBook-Pro ~ % curl -X POST "https://ukloaaccuetocrkxsdlv.
   -F "content=這是curl測試" \
   -F "slug=curl-test"
 {"error":"Failed to create post","details":"Could not find the 'status' column of 'roberthut_posts' in the schema cache"}%  
+```
+
+#### add english field
+``` sql
+ALTER TABLE public.roberthut_posts
+  ADD COLUMN IF NOT EXISTS eng_title text,
+  ADD COLUMN IF NOT EXISTS eng_content text,
+  ADD COLUMN IF NOT EXISTS eng_excerpt text,
+  ADD COLUMN IF NOT EXISTS eng_tags text[];
+```
+
+#### add edge function create-post-hut
+``` ts
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-n8n-api-key",
+};
+
+// 產生 slug：小寫、空白變 -、移除特殊符號，最後加一段隨機碼避免重複
+function makeSlug(title: string): string {
+  if (!title) return crypto.randomUUID(); // 保底
+
+  let slug = title.toLowerCase().trim();
+
+  // 空白 → -
+  slug = slug.replace(/\s+/g, "-");
+
+  // 僅保留英數、-、_（如果你想包含中文，可以改這行）
+  // slug = slug.replace(/[^a-z0-9-_]/g, "");
+
+  // 合併多個 -，去掉頭尾 -
+  slug = slug.replace(/-+/g, "-").replace(/^-+|-+$/g, "");
+
+  // 隨機碼（用 UUID 截一段）
+  const rand = crypto.randomUUID().slice(0, 7); // 例如 mji1v5fp[web:67][web:80]
+
+  return slug ? `${slug}-${rand}` : rand;
+}
+
+serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    // 🔐 驗證 n8n API Key
+    const n8nApiKey = Deno.env.get("N8N_API_KEY_ROBERT_HUT");
+    const providedApiKey = req.headers.get("x-n8n-api-key");
+
+    if (!n8nApiKey) {
+      console.error("N8N_API_KEY_ROBERT_HUT not configured");
+      return new Response(
+        JSON.stringify({ error: "Server configuration error" }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    if (!providedApiKey || providedApiKey !== n8nApiKey) {
+      console.error("Invalid API key");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    console.log("✅ API key validated");
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // 🚫 檔案大小限制 (10MB)
+    const contentLength = req.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > 10 * 1024 * 1024) {
+      return new Response(
+        JSON.stringify({ error: "Payload too large (max 10MB)" }),
+        {
+          status: 413,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    // Parse multipart form data
+    const formData = await req.formData();
+
+    const title = formData.get("title") as string;
+    const slugInput = formData.get("slug") as string | null;
+    let content = formData.get("content") as string;
+    let excerpt = (formData.get("excerpt") as string) || "";
+    const tagsString = (formData.get("tags") as string) || "";
+    const imageFile = formData.get("image") as File | null;
+
+    console.log("📥 Form data received:", {
+      title: title?.substring(0, 50),
+      hasImage: !!imageFile,
+    });
+
+    // 必要欄位驗證
+    if (!title || !content) {
+      return new Response(
+        JSON.stringify({ error: "Title and content are required" }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    // Convert literal \n strings to actual newlines
+    content = content.replace(/\\n/g, "\n");
+    excerpt = excerpt.replace(/\\n/g, "\n");
+
+    // 📁 圖片上傳到 roberthut-blog-images 儲存桶
+    let coverImageUrl = "/placeholder.svg";
+    if (imageFile && imageFile.size > 0) {
+      console.log("🖼️ Uploading image:", imageFile.name, imageFile.size);
+
+      const fileExt = imageFile.name.split(".").pop() || "jpg";
+      const fileName = `${crypto.randomUUID()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("roberthut-blog-images")
+        .upload(fileName, imageFile, {
+          contentType: imageFile.type || "image/jpeg",
+          upsert: false,
+        });
+
+      if (uploadError) {
+        console.error("❌ Image upload error:", uploadError);
+        return new Response(
+          JSON.stringify({
+            error: "Failed to upload image",
+            details: uploadError.message,
+          }),
+          {
+            status: 500,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
+        );
+      }
+
+      // 取得公開 URL
+      const { data: urlData } = supabase.storage
+        .from("roberthut-blog-images")
+        .getPublicUrl(fileName);
+
+      coverImageUrl = urlData.publicUrl;
+      console.log("✅ Image uploaded:", coverImageUrl);
+    }
+
+    // Parse tags (array or empty)
+    const tags = tagsString
+      ? tagsString.split(",").map((tag) => tag.trim()).filter(Boolean)
+      : [];
+
+    // 🔧 自動生成 slug（若 n8n 沒傳或為空字串，就用標題自動產生）
+    const finalSlug =
+      slugInput && slugInput.trim() !== "" ? slugInput : makeSlug(title);
+
+    console.log("📝 Inserting post:", {
+      title: title.substring(0, 30),
+      slug: finalSlug,
+      hasImage: coverImageUrl !== "/placeholder.svg",
+    });
+
+    // 🚀 插入到 roberthut_posts 資料表
+    const { data: post, error: insertError } = await supabase
+      .from("roberthut_posts")
+      .insert({
+        title,
+        slug: finalSlug,
+        content,
+        excerpt,
+        cover_image_url: coverImageUrl,
+        tags,
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error("❌ Insert error:", insertError);
+      return new Response(
+        JSON.stringify({
+          error: "Failed to create post",
+          details: insertError.message,
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    console.log("🎉 Post created successfully:", post.id);
+
+    return new Response(
+      JSON.stringify({ success: true, post }),
+      {
+        status: 201,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  } catch (error) {
+    console.error("💥 Unexpected error:", error);
+    const errorMessage = error instanceof Error
+      ? error.message
+      : "Unknown error";
+    return new Response(
+      JSON.stringify({
+        error: "Internal server error",
+        details: errorMessage,
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+});
+```
+
+#### add edge function update-post-hut-english
+``` ts
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-n8n-api-key",
+};
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  // x-n8n-api-key 驗證
+  const n8nApiKey = Deno.env.get("N8N_API_KEY_ROBERT_HUT");
+  const providedApiKey = req.headers.get("x-n8n-api-key");
+  if (!n8nApiKey || providedApiKey !== n8nApiKey) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  );
+
+  // 讀 JSON
+  const body = await req.json();
+  const slug = (body.slug ?? "").toString().trim();
+
+  if (!slug) {
+    return new Response(JSON.stringify({ error: "slug is required" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  // eng_tags 建議 n8n 直接傳陣列，例如 ["ai","news"]
+  //const eng_tags = Array.isArray(body.eng_tags)
+  //  ? body.eng_tags.map((t: unknown) => String(t).trim()).filter(Boolean)
+  //  : null;
+  const eng_tags =
+  Array.isArray(body.eng_tags)
+    ? body.eng_tags
+    : typeof body.eng_tags === "string"
+      ? body.eng_tags.replace(/^=/, "").split(",").map(t => t.trim()).filter(Boolean)
+      : null;
+      
+  // 更新（只更新你要的四個欄位）
+  const { data, error } = await supabase
+    .from("roberthut_posts")
+    .update({
+      eng_title: body.eng_title ?? null,
+      eng_content: body.eng_content ?? null,
+      eng_excerpt: body.eng_excerpt ?? null,
+      eng_tags,
+    })
+    .eq("slug", slug)
+    .select()
+    .single();
+
+  // update 預設不回傳資料，所以鏈上 .select() 才會回傳更新後那筆 [web:87]
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  return new Response(JSON.stringify({ success: true, post: data }), {
+    status: 200,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+});
+```
+
+#### diaable JWT
+``` bash
+Edge Functions
+  --> Functions
+  --> select your function
+  --> Details
+  --> Verify JWT with legacy secret: disanle
+```
+
+#### set variable(supabase)
+``` bash
+N8N_API_KEY
+N8N_API_KEY_ROBERT_HUT
+```
+
+#### n8n HTTP request create
+``` bash
+Method: POST
+URL: https://ukloaaccuetocrkxsdlv.supabase.co/functions/v1/create-post-hut
+Authentication: Generic Credential Type
+Generic Auth Type: Custom Auth
+Custom Auth:Custom Auth (supabase hut post)
+{
+  "headers": {
+    "x-n8n-api-key": "n8n_sk_n8n_s..."
+  }
+}
+Send Body: Enable
+Body Content Type: Form-Data
+  Parameter Type: Form Data
+  Name: title
+  Value:{ $('Edit Fields3').item.json.title }}
+  
+
+  Parameter Type:Form Data
+  Name:content
+  Value:{{ $('Edit Fields3').item.json.Content }}
+  
+  Parameter Type:Form Data
+  Name:excerpt
+  Value:{{ $('Edit Fields3').item.json.Extract }}
+  
+  Parameter Type:Form Data
+  Name:tags
+  Value:{{ $('Edit Fields3').item.json.Tags }}
+  
+  Parameter Type: n8n Binary File
+  Name: image
+  Input Data Field Name: data
+```
+
+#### n8n HTTP request update
+``` bash
+Method: POST
+URL: https://ukloaaccuetocrkxsdlv.supabase.co/functions/v1/update-post-hut-english
+Authentication: Generic Credential Type
+Generic Auth Type: Custom Auth
+Custom Auth: Custom Auth (supabase hut update)
+  {
+    "headers": {
+      "x-n8n-api-key": "n8n_sk_....",
+      "content-type": "application/json"
+    }
+  }
+Send Body: Enable
+Body Content Type: JSON
+Specify Body: Using Fields Below
+  Name: slug
+  Value: {{ $('Get row(s) in sheet').item.json.Slug }}
+
+  Name: eng_title
+  Value: {{ $json["English Title"] }}
+  
+  From Zero to Launch: My First Vibe Coding Blog, Empowered by AI for Content Creation!
+  Name: eng_content
+  Value: {{ $json["English Content"] }}
+
+  Name: eng_excerpt
+  Value: {{ $json["English Extract"] }}
+
+  Name: eng_tags
+  Value: {{ ($json["English Tags"] || "").replace(/^=/,"").split(",").map(t => t.trim()).filter(Boolean) }}
+ 
+
+
+
 ```
 
 ### Ref
