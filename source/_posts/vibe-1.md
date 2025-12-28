@@ -222,6 +222,47 @@ supabase/migrations/
 
 
 ### Deploy Host
+#### Domain mapping
+``` bash
+url mapping:
+  roberthut blog: roberthut.com
+  tarot cards: tarot-cards.roberthut.com
+  blog journal: blog-journal.demo.roberthut.com
+  tools: tools.demo.roberthut.com
+
+# namecheap setting
+Domain List --> VERIFY CONTACTS
+  --> Manage
+  --> Advanced DNS
+  --> Host Records
+  --> Add New Record
+    | Type	      | Host             | Value                 | TTL.     | 
+    | A Record.   | @                |  76.76.21.21.         | Automatic| 
+    | CNAME Record| blog-journal.demo|  cname.vercel-dns.com.| Automatic| 
+    | CNAME Record| tarot-cards.     |  name.vercel-dns.com. | Automatic| 
+    | CNAME Record| tools.demo.      |  cname.vercel-dns.com.| Automatic| 
+    | CNAME Record| www.             |  cname.vercel-dns.com.| Automatic| 
+      ps: cname.vercel-dns.com. 後面的點是自動加上去
+
+# Vercel setting - robert-hut
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: roberthut.com
+# Vercel setting - tarot-cards
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: tarot-cards.roberthut.com
+# Vercel setting - blog-canvas
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: blog-journal.demo.roberthut.com
+# Vercel setting - tools-collectiont
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: tools.demo.roberthut.com
+    ps: ./vercel.json 不用加入, 因單純 Vercel 會自動調整
+```
+
 #### 平台比較
 - Vercel 和 Netlify 都是領先的靜態網站和 Jamstack 部署平台，適合現代前端開發，但 Vercel 更優化 Next.js 等框架，而 Netlify 在免費額度上更寬鬆。
 - 兩平台皆內建全球 CDN，Vercel 邊緣網絡涵蓋 100+ 地點優化 Next.js，Netlify CDN 強調靜態內容與 Jamstack 分發，無需額外設定即可全球加速
@@ -329,43 +370,6 @@ select project
 	--> Build status 
 	--> Stopped builds
 	(Netlify will not build your project automatically. You can build locally via the CLI and then publish new deploys manually via the CLI or the API.)
-
-
-# set https://tarot-cards.roberthut.com/ domain name
-# namecheap setting
-Domain List --> VERIFY CONTACTS
-  --> Manage
-  --> Advanced DNS
-  --> Host Records
-  --> Add New Record
-  --> CNAME Record, tarot-cards, cname.vercel-dns.com, Automatic
-# Vercel setting
-Vercel 專案 Settings 
-  --> Domains 
-  --> Add: tarot-cards.roberthut.com
-
-# set https://roberthut.com/tools domain name( roberthut.com 自動跳轉)
-# Vercel setting
-# @ 代表根域名
-# 76.76.21.21 是 Vercel 提供的官方 A 記錄 IP 位址，用於根域名（apex domain，如 example.com）的 DNS 設定，讓流量指向 Vercel 的全球 CDN 網路。
-  --> Manage
-  --> Advanced DNS
-  --> Host Records
-  --> Add New Record
-  --> A Record, @, 76.76.21.21, Automatic
-  --> Add New Record
-  --> CNAME, www, cname.vercel-dns.com, Automatic
-​# Vercel setting
-Vercel 專案 Settings 
-  --> Domains 
-  --> Add:roberthut.com
-# github vu. 修改 ./vercel.json
-{
-  "basePath": "/tools",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}
 ```
 
 #### Vercel - [current userage](https://vercel.com/roberts-projects-2b1cd09b)
@@ -443,6 +447,24 @@ Storage
   --> Restrict file size(support size) - also set support file type
 ```
 
+##### Deploy Edge Function from github
+``` bash
+#資料夾裡建立以下結構：
+  supabase/
+    functions/
+      grab-post-hut/
+        index.ts
+
+# commmit --> phsh to github
+
+# 部署到 Supabase
+supabase functions deploy grab-post-hut
+
+# if need disable JWT
+# 在 function 資料夾裡 supabase/functions/grab-post-hut/index.ts 同層，建立或更新 config.toml
+verify_jwt = false
+``` 
+
 ##### SQL command
 
 ###### get table all data
@@ -467,6 +489,12 @@ ALTER TABLE public.roberthut_posts
   ADD COLUMN IF NOT EXISTS eng_content text,
   ADD COLUMN IF NOT EXISTS eng_excerpt text,
   ADD COLUMN IF NOT EXISTS eng_tags text[];
+```
+
+###### add field translate for supabase data translate
+``` bash
+ALTER TABLE public.roberthut_posts
+  ADD COLUMN IF NOT EXISTS translate text;
 ```
 
 ##### 功能
@@ -2601,10 +2629,102 @@ Specify Body: Using Fields Below
 
   Name: eng_tags
   Value: {{ ($json["English Tags"] || "").replace(/^=/,"").split(",").map(t => t.trim()).filter(Boolean) }}
- 
+```
 
+#### add Edge function - grab-post-hut(JWT disable)
+``` bash
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-n8n-api-key",
+};
 
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  const n8nApiKey = Deno.env.get("N8N_API_KEY_ROBERT_HUT");
+  const providedApiKey = req.headers.get("x-n8n-api-key");
+  if (!n8nApiKey || providedApiKey !== n8nApiKey) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  );
+
+  const { data, error } = await supabase
+    .from("roberthut_posts")
+    .select("slug, title, content, excerpt, tags, translate")
+    .eq("translate", "yes")
+    .order("id", { ascending: true })
+    .limit(1)
+    .maybeSingle(); // 查不到時 data = null, error = null [web:64]
+
+  // 真正查詢錯誤（SQL / 權限等）才回 500
+  if (error) {
+    return new Response(
+      JSON.stringify({ success: false, error: error.message }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  // 沒有任何 translate = "yes" 的資料 → 不當成錯誤，status 200
+  if (!data) {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        reason: "no_post_to_translate",
+        post: null,
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  // 有找到一筆
+  return new Response(
+    JSON.stringify({
+      success: true,
+      post: data,
+    }),
+    {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    },
+  );
+});
+```
+
+#### n8n HTTP request grap
+``` bash
+Method: POST
+URL: https://poiywggogkjurvfudoyk.supabase.co/functions/v1/grab-post-hut
+Authentication:  Generic Credential Type
+Generic Auth Type: Custom Auth
+Custom Auth: Custom Auth (supabase hut update)
+  {
+    "headers": {
+      "x-n8n-api-key": "n8n_sk_...",
+      "content-type": "application/json"
+    }
+  }
+Send Body: Enable
+Body Content Type: JSON
+Specify Body: Using Fields Below
 ```
 
 ### Ref
