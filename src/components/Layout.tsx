@@ -35,13 +35,6 @@ export function Layout() {
               <User className="w-4 h-4" />
               <span>關於我</span>
             </Link>
-            <Link
-              to="/admin"
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
-            >
-              <Settings className="w-4 h-4" />
-              <span>管理</span>
-            </Link>
           </div>
         </nav>
       </header>
