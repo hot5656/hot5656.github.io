@@ -15,10 +15,6 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="post/:slug" element={<PostDetailPage />} />
-          <Route path="admin/new" element={<PostEditorPage />} />
-          <Route path="admin/edit/:id" element={<PostEditorPage />} />
-          <Route path="admin/bio" element={<BioEditorPage />} />
-          <Route path="admin/images" element={<ImageLibraryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
