@@ -15,7 +15,7 @@ export function Layout() {
                 Robert hut
               </span>
               <span className="text-xs text-stone-500 tracking-wide">
-                創作者的小屋
+                n8n, code & AI
               </span>
             </div>
           </Link>
