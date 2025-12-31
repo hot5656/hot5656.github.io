@@ -14,7 +14,7 @@ export function Layout() {
               <span className="text-2xl font-semibold tracking-tight text-stone-900">
                 Robert hut
               </span>
-              <span className="text-xs text-stone-500 tracking-wide">
+              <span className="text-base text-stone-500 tracking-wide">
                 n8n, code & AI
               </span>
             </div>
