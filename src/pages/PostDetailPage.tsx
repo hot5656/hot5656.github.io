@@ -13,9 +13,7 @@ export function PostDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (slug) {
-      loadPost(slug);
-    }
+    if (slug) loadPost(slug);
   }, [slug]);
 
   async function loadPost(slug: string) {
@@ -55,7 +53,7 @@ export function PostDetailPage() {
   }
 
   return (
-    <article className="max-w-3xl mx-auto">
+    <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-0 py-6 sm:py-10">
       <Link
         to="/"
         className="inline-flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors mb-8"
@@ -68,22 +66,23 @@ export function PostDetailPage() {
         <img
           src={post.cover_image_url}
           alt={post.title}
-          className="w-full h-96 object-cover rounded-lg mb-8"
+          className="w-full aspect-[16/9] object-cover rounded-xl mb-8"
+          loading="lazy"
         />
       )}
 
-      <header className="mb-8">
-        <h1 className="text-4xl md:text-5xl font-light mb-4 leading-tight">
+      <header className="mb-10">
+        <h1 className="text-4xl md:text-5xl font-light leading-tight text-stone-900">
           {post.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500">
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-stone-500">
           <time className="flex items-center gap-1.5">
             <Calendar className="w-4 h-4" />
             {new Date(post.created_at).toLocaleDateString('zh-TW', {
               year: 'numeric',
               month: 'long',
-              day: 'numeric'
+              day: 'numeric',
             })}
           </time>
 
@@ -105,16 +104,43 @@ export function PostDetailPage() {
         </div>
       </header>
 
-      <div className="prose prose-stone prose-lg max-w-none">
+      <div
+        className="
+          prose prose-stone md:prose-lg
+          max-w-none
+          prose-headings:font-light prose-headings:text-stone-900
+          prose-h1:mt-10 prose-h1:mb-6
+          prose-h2:mt-10 prose-h2:mb-4
+          prose-h3:mt-8 prose-h3:mb-3
+          prose-h4:mt-6 prose-h4:mb-2 prose-h4:font-medium
+          prose-p:leading-relaxed prose-p:mb-4
+          prose-a:text-stone-900 prose-a:underline prose-a:decoration-stone-300 prose-a:underline-offset-4
+          hover:prose-a:decoration-stone-500
+          prose-blockquote:border-stone-300 prose-blockquote:text-stone-600
+          prose-code:bg-stone-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-stone-800
+          prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:rounded-xl
+          prose-img:rounded-xl
+          prose-hr:my-10
+        "
+      >
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
           components={{
-            img: ({ node, ...props }) => (
-              <img {...props} className="rounded-lg w-full" loading="lazy" />
+            img: ({ node, className, ...props }) => (
+              <img
+                {...props}
+                loading="lazy"
+                className={['w-full', className].filter(Boolean).join(' ')}
+              />
             ),
-            a: ({ node, ...props }) => (
-              <a {...props} className="text-stone-900 hover:text-stone-600 transition-colors" />
+            a: ({ node, className, ...props }) => (
+              <a
+                {...props}
+                className={['transition-colors hover:text-stone-600', className]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
             ),
           }}
         >
@@ -124,3 +150,4 @@ export function PostDetailPage() {
     </article>
   );
 }
+
