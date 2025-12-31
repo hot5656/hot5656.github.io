@@ -72,7 +72,7 @@ export function PostDetailPage() {
       )}
 
       <header className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-light leading-tight text-stone-900">
+        <h1 className="text-3xl md:text-4xl font-light leading-tight text-stone-900">
           {post.title}
         </h1>
 
