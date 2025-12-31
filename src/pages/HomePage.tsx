@@ -40,7 +40,7 @@ export function HomePage() {
     <div>
       <div className="mb-12">
         <h1 className="text-4xl md:text-5xl font-light mb-4">最新文章</h1>
-        <p className="text-lg text-stone-600">從想法到上線：workflow、coding 與 AI</p>
+        <p className="text-lg text-stone-600">從想法到上線｜Workflow・Coding・AI</p>
       </div>
 
       {posts.length === 0 ? (
