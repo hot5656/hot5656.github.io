@@ -104,25 +104,7 @@ export function PostDetailPage() {
         </div>
       </header>
 
-      <div
-        className="
-          prose prose-stone md:prose-lg
-          max-w-none
-          prose-headings:font-light prose-headings:text-stone-900
-          prose-h1:mt-10 prose-h1:mb-6
-          prose-h2:mt-10 prose-h2:mb-4
-          prose-h3:mt-8 prose-h3:mb-3
-          prose-h4:mt-6 prose-h4:mb-2 prose-h4:font-medium
-          prose-p:leading-relaxed prose-p:mb-4
-          prose-a:text-stone-900 prose-a:underline prose-a:decoration-stone-300 prose-a:underline-offset-4
-          hover:prose-a:decoration-stone-500
-          prose-blockquote:border-stone-300 prose-blockquote:text-stone-600
-          prose-code:bg-stone-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-stone-800
-          prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:rounded-xl
-          prose-img:rounded-xl
-          prose-hr:my-10
-        "
-      >
+      <div className="md-content max-w-none text-stone-800">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
