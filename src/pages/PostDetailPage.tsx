@@ -53,7 +53,7 @@ export function PostDetailPage() {
   }
 
   return (
-    <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-0 py-6 sm:py-10">
+    <article className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-0 py-6 sm:py-10">
       <Link
         to="/"
         className="inline-flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors mb-8"
@@ -74,7 +74,7 @@ export function PostDetailPage() {
       <header className="mb-10">
         <h1
           style={{ fontSize: 'clamp(28px, 2.6vw + 12px, 44px)' }}
-          className="font-light leading-tight text-stone-900"
+          className="font-light leading-tight text-stone-900 mb-6"
         >
           {post.title}
         </h1>
