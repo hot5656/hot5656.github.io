@@ -56,14 +56,14 @@
     @apply mb-4;
   }
 
-  /* Links */
-  .md-content a {
-    @apply text-stone-900 underline decoration-stone-300 underline-offset-4 transition-colors;
-  }
+   /* Links - text-blue-* 是連結文字顏色，decoration-blue-* 是底線顏色*/
+   .md-content a {
+     @apply text-blue-600 underline decoration-blue-300 underline-offset-4 transition-colors;
+   }
 
-  .md-content a:hover {
-    @apply text-stone-600 decoration-stone-500;
-  }
+   .md-content a:hover {
+     @apply text-blue-700 decoration-blue-400;
+   }
 
   /* Lists */
   .md-content ul,
