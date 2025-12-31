@@ -72,7 +72,10 @@ export function PostDetailPage() {
       )}
 
       <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-light leading-tight text-stone-900">
+        <h1
+          style={{ fontSize: 'clamp(28px, 2.6vw + 12px, 44px)' }}
+          className="font-light leading-tight text-stone-900"
+        >
           {post.title}
         </h1>
 
