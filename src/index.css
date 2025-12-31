@@ -81,7 +81,7 @@
 
   /* (微調點 #3) 列表行距：長句更好讀 */
   .md-content li {
-    @apply mb-2 leading-relaxed;
+    @apply mb-3 leading-relaxed;
   }
 
   /* Blockquote */
