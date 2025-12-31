@@ -13,6 +13,8 @@ tags:
 　+ dark mode
 	+ disable javascript
 
++ [下載紀錄頁](chrome://downloads/)
+
 ### Chrome special key
 + ``Esc`` - 停止載入目前網頁
 

@@ -17,6 +17,97 @@ tags: AI
 
 <!--more-->
 
+### customing
+#### 更改 icon & 縮圖
++ add icon
+  ``` html
+  <link rel="icon" type="image/png" href="/Robert_hut_128.png" sizes="128x128" />
+  ```
++ icon & 縮圖預先放於 /public 下
++ fb 縮圖測試: [ Sharing Debugger](https://developers.facebook.com/tools/debug)
++ 若 icon 或 縮圖看不到 在其後更動version 加入 ?v=n
+
+##### 原 index.html
+``` html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Journal - Stories that inspire</title>
+    <meta name="description" content="A curated collection of thoughts on design, technology, culture, and the art of mindful living." />
+    <meta name="author" content="The Journal" />
+
+    <meta property="og:title" content="The Journal - Stories that inspire" />
+    <meta property="og:description" content="A curated collection of thoughts on design, technology, culture, and the art of mindful living." />
+    <meta property="og:type" content="website" />
+    <!-- 分享連結時的預覽大圖 建議放「較大、橫幅」的分享圖（例如 1200×630 這種常見比例） -->
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@TheJournal" />
+    <!-- 分享連結時的預覽大圖 建議放「較大、橫幅」的分享圖（例如 1200×630 這種常見比例） -->
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+##### 更動後 index.html
+``` html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>The Journal - Stories that inspire</title>
+    <meta
+      name="description"
+      content="A curated collection of thoughts on design, technology, culture, and the art of mindful living."
+    />
+    <meta name="author" content="The Journal" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/Robert_hut_dark_128.png?v=2" sizes="128x128" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Journal - Stories that inspire" />
+    <meta
+      property="og:description"
+      content="A curated collection of thoughts on design, technology, culture, and the art of mindful living."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://blog-journal.demo.roberthut.com/" />
+
+    <meta
+      property="og:image"
+      content="https://blog-journal.demo.roberthut.com/blog-journal-og-banner.png?v=2"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1227" />
+    <meta property="og:image:height" content="626" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@TheJournal" />
+    <meta
+      name="twitter:image"
+      content="https://blog-journal.demo.roberthut.com/blog-journal-og-banner.png?v=2"
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
 ### Vibe coding
 #### some notes
 ##### Bolt.new 代頻繁成本較高
@@ -406,6 +497,23 @@ Settings
     Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
     --> save
   --> Redeploy
+
+# 設定 Preview 先驗證, 再手動上線 Production 
+# Preview 可測試 但 Production 不會直接執行
+Vercel 
+  --> 選擇 Project 
+  --> Settings
+  --> Environments 
+  --> Production
+  --> Branch Tracking
+  --> Auto-assign Custom Production Domains: Disable
+# 啟動 Production 更新  
+Vercel 
+  --> 選擇 Project 
+  --> Deployments 
+  --> 找到你要上線的那個部署
+  --> 3 dot
+  --> Promote
 ```
 
 ### Database
@@ -591,6 +699,21 @@ Trustworthy, caring, and approachable.
 ```
 
 ### Blog post automation - [Blog Journal](https://blog-canvas-roan.vercel.app/) (Lovable)
+####  URL & anon key position
+``` bash
+src/integrations/supabase/client.ts
+```
+
+#### Edge function position(need set JWT disable)
+``` bash
+# supabase/functions/create-post/index.ts
+
+# supabase add variable for n8n credential
+Function 
+  --> Secrects
+  	N8N_API_KEY: for blog demo
+  	N8N_API_KEY_ROBERT_HUT for blog hut
+```
 
 #### Supabase table/bucket and Edge fynction create 
 ##### table/bucket create SQL
@@ -1977,10 +2100,77 @@ porject
 ```
 
 ### [Practical Tools Collection](https://tools-collection-smoky.vercel.app/zh-tw)(Bolt.New)
+#### browser 為 中文 為自動應換 解析
+``` bash
+# 中文瀏覽器自動切到 /zh-tw」就是在 LanguageContext.tsx 裡用 React Router 的 navigate() 做的
+# src/contexts/LanguageContext.tsx
+- 在 LanguageProvider 裡的 useEffect 會在「使用者沒手動切換過」時執行
+  若偵測到 browserLang === 'zh-tw' 且目前不在 /zh-tw，就 navigate('/zh-tw', { replace: true })
+  若偵測到 browserLang === 'en' 且目前在 /zh-tw，就 navigate('/', { replace: true })
+- 如何「只第一次自動導」  
+  它用 localStorage 的 language-manual-switch 當旗標：hasManuallySwitch() 會檢查這個 key 是否為 'true'。
+  ​只要你在 UI 切語系時呼叫 setLanguage(lang, true)，就會把旗標寫進 localStorage，之後進站就不再依瀏覽器語言強制導頁。  
+```
+
 
 ### [Robert hut](https://robert-hut.vercel.app/)(Bolt.New)
+#### redeploy 某 commit preview
+``` bash
+# 若更改 variable 後要 redeploy
 
-#### supabase set n8n interface
+# 找之前 deploy 的 preview url
+Reployments
+	--> select commit item
+	--> 3 dot
+	--> copy URL
+
+# 安裝 vercel cli
+C:\Users\RobertKao>npm i -g vercel
+C:\Users\RobertKao>vercel --version
+	Vercel CLI 50.1.3
+	50.1.3
+# 登入
+vercel login
+# 讓 preview 到新變數
+vercel redeploy <deployment-url> --target=preview
+# check status
+vercel whoami
+	Vercel CLI 50.1.3
+	> kyp001-7668
+vercel teams list
+	Vercel CLI 50.1.3
+	id                            Team name
+	roberts-projects-2b1cd09b     Robert's projects	
+# switcg teams
+vercel teams switch roberts-projects-2b1cd09b
+	Vercel CLI 50.1.3
+	> Success! The team Robert's projects (roberts-projects-2b1cd09b) is now active!
+# redeploy
+vercel redeploy robert-...vercel.app --target=preview
+	Vercel CLI 50.1.3
+	> Fetching deployment "robert-....vercel.app" in roberts-projects-2b1cd09b…
+		To deploy to production (robert-....vercel.app), run `vercel --prod`
+		Inspect: https://vercel.com/roberts-.../EqyxHyfg8DKYYgDP53VXdUZ3gBGS [2s]
+		Preview: https://robert-....vercel.app [2s]
+# redeploy 會產生不同的 URL
+```
+
+#### Edge function position(need set JWT disable)
+``` bash
+# supabase/functions/create-post-hut/index.ts
+# supabase/functions/grab-post-hut/index.ts
+# supabase/functions/update-post-hut-english/index.ts
+
+# supabase add variable for n8n credential
+Function 
+  --> Secrects
+  	N8N_API_KEY: for blog demo
+  	N8N_API_KEY_ROBERT_HUT for blog hut
+```
+
+
+#### supabase & n8n setting
+##### 1st set supabase + n8n interface
 ``` bash
 # add edge function - create-post-hut
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
@@ -2235,7 +2425,7 @@ gaoyiping@gaoyipingdeMacBook-Pro ~ % curl -X POST "https://ukloaaccuetocrkxsdlv.
 {"error":"Failed to create post","details":"Could not find the 'status' column of 'roberthut_posts' in the schema cache"}%  
 ```
 
-#### add english field
+##### SQL add english field
 ``` sql
 ALTER TABLE public.roberthut_posts
   ADD COLUMN IF NOT EXISTS eng_title text,
@@ -2244,7 +2434,7 @@ ALTER TABLE public.roberthut_posts
   ADD COLUMN IF NOT EXISTS eng_tags text[];
 ```
 
-#### add edge function create-post-hut
+##### add edge function create-post-hut(include slug)
 ``` ts
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -2466,7 +2656,7 @@ serve(async (req) => {
 });
 ```
 
-#### add edge function update-post-hut-english
+##### add edge function update-post-hut-english
 ``` ts
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -2547,7 +2737,7 @@ serve(async (req) => {
 });
 ```
 
-#### diaable JWT
+##### disable JWT(our Edge all need)
 ``` bash
 Edge Functions
   --> Functions
@@ -2556,13 +2746,13 @@ Edge Functions
   --> Verify JWT with legacy secret: disanle
 ```
 
-#### set variable(supabase)
+##### set variable(supabase)
 ``` bash
-N8N_API_KEY
-N8N_API_KEY_ROBERT_HUT
+N8N_API_KEY: for blog journel
+N8N_API_KEY_ROBERT_HUT: blog robert hut
 ```
 
-#### n8n HTTP request create
+##### n8n HTTP request - create
 ``` bash
 Method: POST
 URL: https://ukloaaccuetocrkxsdlv.supabase.co/functions/v1/create-post-hut
@@ -2598,7 +2788,7 @@ Body Content Type: Form-Data
   Input Data Field Name: data
 ```
 
-#### n8n HTTP request update
+##### n8n HTTP request - update
 ``` bash
 Method: POST
 URL: https://ukloaaccuetocrkxsdlv.supabase.co/functions/v1/update-post-hut-english
@@ -2631,7 +2821,7 @@ Specify Body: Using Fields Below
   Value: {{ ($json["English Tags"] || "").replace(/^=/,"").split(",").map(t => t.trim()).filter(Boolean) }}
 ```
 
-#### add Edge function - grab-post-hut(JWT disable)
+##### add Edge function - grab-post-hut(JWT disable)
 ``` bash
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -2709,7 +2899,7 @@ serve(async (req) => {
 });
 ```
 
-#### n8n HTTP request grap
+##### n8n HTTP request grap
 ``` bash
 Method: POST
 URL: https://poiywggogkjurvfudoyk.supabase.co/functions/v1/grab-post-hut
