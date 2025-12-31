@@ -48,9 +48,9 @@ export function Layout() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-stone-500">
             <p>&copy; {new Date().getFullYear()} Robert hut. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-stone-900 transition-colors">Twitter</a>
-              <a href="#" className="hover:text-stone-900 transition-colors">GitHub</a>
-              <a href="#" className="hover:text-stone-900 transition-colors">LinkedIn</a>
+              <a href="https://www.facebook.com/profile.php?id=61585313653246" className="hover:text-stone-900 transition-colors">Facebook</a>
+              <a href="https://github.com/hot5656" className="hover:text-stone-900 transition-colors">GitHub</a>
+              <a href="https://www.linkedin.com/in/robert-kao-48ab8a125/" className="hover:text-stone-900 transition-colors">LinkedIn</a>
             </div>
           </div>
         </div>
