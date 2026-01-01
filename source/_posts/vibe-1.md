@@ -108,6 +108,29 @@ tags: AI
 </html>
 ```
 
+#### post image size(fb, instagram, thread, substack 和 LinkedIn 適合的圖片 size)
+- 1080 x 1080 px 的正方形尺寸是最適合跨 Facebook、Instagram、Threads、Substack 和 LinkedIn 的通用選擇，各平台皆支援此尺寸作為貼文圖片，且不易變形。
+- 若偏好垂直圖，1080 x 1350 px 也廣泛相容（Instagram、Facebook、LinkedIn），但 Threads 可能需調整至 3:4。
+
+- Facebook、Instagram、Threads、Substack 和 LinkedIn 的推薦圖片尺寸因貼文類型（如橫幅、貼文、封面）而異，主要以像素為單位，建議使用 JPG 或 PNG 格式以確保清晰度。
+- 此尺寸符合所有平台的推薦正方形貼文規格，例如 Facebook 和 Instagram 的 1080 x 1080 px、LinkedIn 的 1080 x 1080 px、Threads 的最小/最大寬度範圍，以及 Substack 的文章圖片基礎。
+- 上傳時確保檔案大小不超過 8 MB，使用 JPG 或 PNG 格式；平台會自動裁切，但正方形比例減少失真風險。
+
+#####  Facebook
+推薦貼文尺寸包括正方形 1080 x 1080 px、垂直 1080 x 1350 px、橫向 1200 x 630 px；封面照片為 851 x 315 px；頭像為 320 x 320 px。
+
+#####  Instagram
+貼文最佳尺寸為正方形 1080 x 1080 px、垂直 1080 x 1350 px、橫向 1080 x 566 px；Stories 和 Reels 為 1080 x 1920 px；頭像 320 x 320 px。
+
+#####  Threads
+貼文圖片推薦 1440 x 1920 px（3:4 比例），最小寬度 320 px、最大 1440 px；頭像 640 x 640 px；連結預覽 1200 x 600 px。
+
+#####  Substack
+文章封面推薦 1500 x 1000 px（3:2）或 1600 x 900 px（16:9）；標誌至少 512 x 512 px；社群預覽至少 1456 x 1048 px。
+
+#####  LinkedIn
+貼文推薦橫向 1200 x 627 px、正方形 1200 x 1200 px、垂直 720 x 900 px；頭像 400 x 400 px；封面 1128 x 191 px（公司頁）。
+
 ### Vibe coding
 #### some notes
 ##### Bolt.new 代頻繁成本較高
