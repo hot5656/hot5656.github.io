@@ -7,9 +7,15 @@ export function Layout() {
       <header className="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
           <Link to="/" className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="bg-gradient-to-br from-stone-800 to-stone-600 p-2.5 rounded-lg shadow-md group-hover:shadow-lg transition-shadow">
-              <BookOpen className="w-7 h-7 text-white" strokeWidth={2.5} />
+
+            <div className="p-2.5 rounded-lg shadow-md group-hover:shadow-lg transition-shadow bg-white">
+              <img
+                src="/Robert_hut_512_nb.png"
+                alt="Robert hut"
+                className="w-8 h-8"
+              />
             </div>
+      
             <div className="flex flex-col">
               <span className="text-2xl font-semibold tracking-tight text-stone-900">
                 Robert hut
