@@ -12,7 +12,7 @@ export function Layout() {
               <img
                 src="/Robert_hut_512_nb.png"
                 alt="Robert hut"
-                className="w-12 h-12"
+                className="w-14 h-14"
               />
             </div>
       
