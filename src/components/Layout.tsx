@@ -8,7 +8,7 @@ export function Layout() {
         <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
           <Link to="/" className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
 
-            <div className="p-2.5 rounded-lg shadow-md group-hover:shadow-lg transition-shadow bg-white">
+            <div className="rounded-lg group-hover:shadow-lg transition-shadow bg-white">
               <img
                 src="/Robert_hut_512_nb.png"
                 alt="Robert hut"
