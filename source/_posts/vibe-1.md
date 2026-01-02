@@ -18,6 +18,29 @@ tags: AI
 <!--more-->
 
 ### customing
+#### Prompt
+``` bash
+# 生成圖檔
+我的部落格標題及summary 如下 請幫我生成一個 1080 x 1080 圖檔(不要有文字)
+請一樣的圖幫我調成  1024 x 512 圖檔
+
+# fb 貼文
+我的 blog 貼文如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 Robert Hut 若有期望的網頁 ideas 也歡迎提供
+
+# linkedin 貼文
+我要貼到 linkedin 幫我修飾 並且幫我寫成雙語
+
+# instagram 貼文
+我要貼到 instagram 請幫我修飾
+
+# thread 貼文
+我要貼到 thread 請幫我修飾
+
+# substack 貼文
+我要貼到 substack 請幫我修飾
+請給我 主標題及副標題
+```
+
 #### 更改 icon & 縮圖
 + add icon
   ``` html
@@ -541,6 +564,12 @@ Vercel
 
 ### Database
 #### Supabase
+##### Useage
+``` bash
+Supabase --> Usage
+``` 
+
+
 ##### Setting
 ``` bash
 # URL 
