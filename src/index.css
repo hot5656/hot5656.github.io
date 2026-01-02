@@ -23,6 +23,10 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
       'Liberation Mono', 'Courier New', monospace;
   }
+   
+  .prose code{
+    color: rgb(240,240,240);
+  }
 }
 
 /* =========
