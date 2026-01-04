@@ -18,27 +18,51 @@ tags: AI
 <!--more-->
 
 ### customing
-#### Prompt
+#### Prompt + post 注意
 ``` bash
 # 生成圖檔
 我的部落格標題及summary 如下 請幫我生成一個 1080 x 1080 圖檔(不要有文字)
 請一樣的圖幫我調成  1024 x 512 圖檔
 
 # fb 貼文
-我的 blog 貼文如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 Robert Hut 若有期望的網頁 ideas 也歡迎提供
+我的 blog 貼文如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 Robert Hut 若有期望的網頁 ideas 也
+# 直接貼網址,不用加 https://
+link example : 已經正式上線囉 👉 The Journal : blog-journal.demo.roberthut.com
+               歡迎到 👉 Robert Hut : roberthut.com
 
 # linkedin 貼文
 我要貼到 linkedin 幫我修飾 並且幫我寫成雙語
+# 直接貼網址,不用加 https://(但不知為何有些網址會被轉址,或許網址較長)
+link example : 👉 專案連結 ：tarot-cards.roberthut.com
+               👉 完整開發細節，請到 Robert Hut：roberthut.com 
+
 
 # instagram 貼文
 我要貼到 instagram 請幫我修飾
+# 貼文無法加link 先指導 Bio - example
+  從「Vibe Coding」的靈光一閃，到 Bolt.new + Perplexity AI 幫我畫藍圖
+  歷經修羅場（錯誤鬼打牆、資料庫拔河），終於上線！
+
+  ✨ 特色：
+  • 深度互動追問
+  • 完整牌義解釋庫
+  • 結果自動儲存
+  • 中英雙語
+
+  試試你的運勢？👉 https://tarot-cards.roberthut.com/
+
+  #n8n #VibeCoding #AI #塔羅牌 #自動化 #NoCode
+# instagram end ...
 
 # thread 貼文
 我要貼到 thread 請幫我修飾
+# 直接貼網址(含 https)
+link example: 完整細節👉 https://www.roberthut.com/
 
 # substack 貼文
 我要貼到 substack 請幫我修飾
 請給我 主標題及副標題
+# link : 選文字,點link
 ```
 
 #### 更改 icon & 縮圖
