@@ -2993,5 +2993,354 @@ Body Content Type: JSON
 Specify Body: Using Fields Below
 ```
 
+### [Life Organizer]() (Lovable)
+#### Prompt to Perplexity 
+``` text
+I want to use Lovable to make an app with the following functions,
+  1. todolist: But you can build two floors such as travel plan 2016 - decide on the location,
+     - book a room ... And can display the Completion Percentage, 
+  2. 事件紀錄簿: 甚麼時間發生麼事, 可加 tag, 
+  3. 資訊記事: 如我的五年計畫 , 
+要support 多用戶, 所以要有使用者管理系統,我回提供logo 請加入,logo 的 link 為 https://www.roberthut.com/ , 
+要做雙語介面(中英文), database 使用 supabase, 請幫我產生 prompt (中文)
+```
+
+#### prompt for Lovable
+##### Prompt + Phase 0
+``` text
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 0（骨架與環境）
+- 禁止偷跑：不要建立資料表、不要寫 RLS、不要做 Edge Functions、不要做 CRUD
+- 禁止大改：除非為了完成本 Phase 驗收點，否則不要重構、不換套件、不改路由結構
+- 最小變更：只修改完成本 Phase 必要的檔案
+- 若資訊不足：先用問題清單向我確認（最多 5 題），不要自行假設
+
+【交付格式】
+1) 本 Phase 做了哪些變更（檔案清單）
+2) 本 Phase 驗收報告：逐項 ✅/❌ + 可重現步驟 + 證據描述 + Fail 修正計畫
+3) 等我確認後再進下一個 Phase
+
+你是一位資深全端工程師＋產品設計師，請用 Lovable 生成可部署的 Web App（RWD），並整合 Supabase 作為資料庫與 Auth。請嚴格依照以下規格實作，先做 MVP，但架構要可擴充。
+
+# 0) 多產品（同網域）總覽
+同一個 Supabase（同一個 Postgres）服務多個 app，app_id 清單固定：
+- life_organizer
+- tarot_cards
+- the_journal
+- roberthut
+
+資料隔離策略：
+- 共用表放 public schema：profiles、apps、feedback（以及必要的 helper functions）
+- 各 app 自己的業務表放在「schema-per-app」，且 schema 名稱必須與 app_id 完全一致（life_organizer / tarot_cards / the_journal / roberthut）
+
+# 1) Supabase 專案與環境（dev/prod）
+目前只有 dev 專案：
+- Supabase DEV URL：https://rcscpveyxtlhxxgpgxit.supabase.co
+- PROD 專案日後再提供（請設計成可輕易切換）
+
+要求：
+- 所有 DB 結構變更必須以 migrations 管理（supabase/migrations/*.sql），可重放到另一個 Supabase project。
+- 產出 .env.example（只放變數名稱，不放真實 key）
+- service role key 只允許存在 Edge Function secrets，前端永遠不接觸
+
+# 2) i18n（中英雙語）與路由
+- 支援語系：en（預設、URL 不加 prefix）、zh-TW（URL prefix 為 /zh-tw）
+- 初次進站語系依瀏覽器語言偵測；但若使用者手動切換過，需以 preferredLocale（cookie/localStorage）為準並持久化。
+- 翻譯 key 命名規範固定：module.section.key
+- 除使用者輸入內容外，所有 UI 文案一律不得寫死，必須走 i18n keys。
+
+# 3) Logo/品牌
+- Top bar 左側顯示 Logo 圖片（外部 URL）：
+  https://www.roberthut.com/Robert_hut_512_nb.png
+- 點擊 Logo 新分頁開啟：https://www.roberthut.com/
+
+# 4) Life Organizer：公開頁與受保護頁
+- 公開頁：/ 與 /zh-tw/
+- Auth：/auth/login、/auth/register、/auth/upgrade、/auth/callback（含 zh-tw 版本）
+- App：/app/dashboard、/app/plans、/app/events、/app/notes（含 zh-tw 版本）
+- Admin：/admin/feedback（含 zh-tw 版本，僅 role=admin）
+
+# Phase 0（只做骨架）
+請你現在只完成 Phase 0：
+- 建好路由骨架與 layout（Top bar + language switch + user menu）
+- 建好 i18n 檔案架構（zh-TW/en），所有 UI 文案走 i18n keys
+- 建好 Supabase client 封裝與 .env.example（不放真 key）
+- 最後輸出「Phase 0 驗收報告」（逐項 Pass/Fail + 重現步驟）
+```
+
+##### add supabase connect
+``` bash
+Supabase
+  --> All projects
+  --> select project(Life Organizer Hub) 
+  --> Settings
+  --> connectors
+  --> supabase
+  --> project
+  --> connect a project
+  --> Robert
+  --> apps_develop
+```
+
+##### found some error 
+``` bash
+按 Try to fix, 看後續
+```
+
+##### Phase 1
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 1（DB schema + RLS + migrations）
+- 禁止偷跑：不要做 Auth UI、不要做 CRUD UI、不要做 Edge Functions（seed/feedback）
+- 最小變更：只新增/修改 supabase/migrations 與 DB 相關程式（若必要）
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) migrations 清單（檔名 + 內容重點）
+2) RLS/policies 檢查方式（SQL）
+3) Phase 1 驗收報告（逐項 ✅/❌）
+
+Phase 1：Supabase schema + RLS + migrations（先做 DB）
+請你現在完成 Phase 1：
+
+目標：
+- 建立 public schema 的共用表：profiles、apps、feedback + helper functions
+- 建立 life_organizer schema 的業務表：plans、tasks、events、tags、event_tags、notes
+- 所有 table 都必須開 RLS，並提供完整 policies
+- 一般使用者只能存取自己的資料（auth.uid() = user_id）
+- admin（profiles.role='admin'）可看全部 feedback 並可更新工單狀態欄位
+- migrations 必須放在 supabase/migrations/*.sql，可重放
+
+同時建立 apps 表並塞入 4 筆 app_id（life_organizer, tarot_cards, the_journal, roberthut）。
+
+最後輸出「Phase 1 驗收報告」（含：兩個帳號互相看不到資料、admin 可看全部 feedback 的測試步驟）。
+```
+
+##### migrations file generate
+``` bash
+# 20260105_phase1_schema_rls.sql
+建立 app_role enum、user_roles、profiles、apps、feedback (public)；建立 life_organizer schema 及其 6 張表 (plans, tasks, events, tags, event_tags, notes)；所有 RLS 啟用 + policies；auto-profile trigger
+
+# 建立 migration file
+Supabase Dashboard 的 Database → Migrations 頁面查看已執行的 migration 歷史。
+若需要匯出 SQL 到本地版控，可從 Dashboard 下載或使用 supabase db dump CLI 指令。
+```
+
+##### RLS/Policies 檢查 SQL
+``` bash
+# check 1
+-- 查看所有 policies
+SELECT schemaname, tablename, policyname, cmd, qual
+FROM pg_policies 
+WHERE schemaname IN ('public', 'life_organizer')
+ORDER BY schemaname, tablename;
+
+-- 驗證 has_role function
+SELECT proname, prosecdef FROM pg_proc WHERE proname = 'has_role';
+
+--> result
+| proname  | prosecdef |
+| -------- | --------- |
+| has_role | true      |
+
+# check 2
+SELECT schemaname, tablename, policyname, cmd, qual, with_check
+FROM pg_policies
+WHERE schemaname IN ('public','life_organizer')
+ORDER BY schemaname, tablename, policyname;
+
+--> result
+| schemaname     | tablename  | policyname                                     | cmd    | qual                                                                                                                     | with_check                                                                                                               |
+| -------------- | ---------- | ---------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| life_organizer | event_tags | Users can CRUD event_tags for their own events | ALL    | (EXISTS ( SELECT 1
+   FROM life_organizer.events e
+  WHERE ((e.id = event_tags.event_id) AND (e.user_id = auth.uid())))) | (EXISTS ( SELECT 1
+   FROM life_organizer.events e
+  WHERE ((e.id = event_tags.event_id) AND (e.user_id = auth.uid())))) |
+| life_organizer | events     | Users can CRUD their own events                | ALL    | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| life_organizer | notes      | Users can CRUD their own notes                 | ALL    | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| life_organizer | plans      | Users can CRUD their own plans                 | ALL    | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| life_organizer | tags       | Users can CRUD their own tags                  | ALL    | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| life_organizer | tasks      | Users can CRUD their own tasks                 | ALL    | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| public         | apps       | Admins can manage apps                         | ALL    | has_role(auth.uid(), 'admin'::app_role)                                                                                  | has_role(auth.uid(), 'admin'::app_role)                                                                                  |
+| public         | apps       | Apps are publicly readable                     | SELECT | true                                                                                                                     | null                                                                                                                     |
+| public         | feedback   | Admins can update all feedback                 | UPDATE | has_role(auth.uid(), 'admin'::app_role)                                                                                  | null                                                                                                                     |
+| public         | feedback   | Admins can view all feedback                   | SELECT | has_role(auth.uid(), 'admin'::app_role)                                                                                  | null                                                                                                                     |
+| public         | feedback   | Users can create feedback                      | INSERT | null                                                                                                                     | (auth.uid() = user_id)                                                                                                   |
+| public         | feedback   | Users can update their own feedback            | UPDATE | (auth.uid() = user_id)                                                                                                   | (auth.uid() = user_id)                                                                                                   |
+| public         | feedback   | Users can view their own feedback              | SELECT | (auth.uid() = user_id)                                                                                                   | null                                                                                                                     |
+| public         | profiles   | Users can insert their own profile             | INSERT | null                                                                                                                     | (auth.uid() = id)                                                                                                        |
+| public         | profiles   | Users can update their own profile             | UPDATE | (auth.uid() = id)                                                                                                        | (auth.uid() = id)                                                                                                        |
+| public         | profiles   | Users can view their own profile               | SELECT | (auth.uid() = id)                                                                                                        | null                                                                                                                     |
+| public         | user_roles | Admins can manage roles                        | ALL    | has_role(auth.uid(), 'admin'::app_role)                                                                                  | has_role(auth.uid(), 'admin'::app_role)                                                                                  |
+| public         | user_roles | Admins can view all roles                      | SELECT | has_role(auth.uid(), 'admin'::app_role)                                                                                  | null                                                                                                                     |
+| public         | user_roles | Users can view their own roles                 | SELECT | (auth.uid() = user_id)                                                                                                   | null                                                                                                                     |
+```
+
+
+``` bash
+# has_role() security definer ✅ 防止 RLS 遞迴
+SELECT p.proname, p.prosecdef, p.proconfig
+FROM pg_proc p
+JOIN pg_namespace n ON n.oid = p.pronamespace
+WHERE p.proname = 'has_role';
+
+--> result
+| proname  | prosecdef | proconfig              |
+| -------- | --------- | ---------------------- |
+| has_role | true      | ["search_path=public"] |
+
+# Linter 無警告✅ No linter issues found
+```
+
+##### Phase 2
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 2（Auth：email/password + 匿名 + 升級）
+- 禁止偷跑：不要做 seed、不要做 CRUD、不要做 feedback/admin 工單
+- 最小變更：只動 auth flow 相關頁面/元件/設定
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) 變更檔案清單
+2) Phase 2 驗收報告（逐項 ✅/❌ + 重現步驟）
+
+Phase 2：Auth（只要 email/password + 匿名登入 + 匿名升級）
+請你完成：
+
+- Email/Password 登入/註冊流程
+- 支援匿名登入（signInAnonymously）
+  - 只能在沒有 session 時呼叫，避免每次刷新都建立新匿名 user
+  - 匿名也算有 session，可進入 /app
+- 升級流程（選 B）：
+  - 匿名 user 點「升級帳號」
+  - 先 updateUser({ email }) 觸發 email 驗證
+  - 驗證完成後再 updateUser({ password }) 完成升級
+  - 升級後 user.id 不變，資料保留
+- /admin/** 匿名不可進，只允許 role=admin
+
+最後輸出「Phase 2 驗收報告」（含：匿名→升級後資料仍在的測試步驟）。
+```
+
+##### Phase 3
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 3（seed-user-demo-data Edge Function + idempotent）
+- 禁止偷跑：不要做 CRUD 完整功能、不要做 feedback/admin
+- 最小變更：只動 profiles 欄位/migration、seed function、與呼叫 seed 的最小前端鉤子
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) migrations + Edge Function 檔案清單
+2) Phase 3 驗收報告
+
+Phase 3：Onboarding Seed（選 A：Edge Function）
+請你完成：
+
+- profiles 新增 onboarded_at
+- 建立 Edge Function：seed-user-demo-data
+  - 驗 JWT，取得 user.id
+  - onboarded_at is null 才 seed，否則回 alreadySeeded=true（必須 idempotent）
+  - request body: { locale: "en" | "zh-TW" }
+  - 範例資料依 locale 建立（英文/中文各一套文案）
+- 前端：登入/匿名登入成功後，如未 onboarded，自動呼叫 seed
+
+最後輸出「Phase 3 驗收報告」（含：不會重複 seed、不同語系 seed 的測試步驟）。
+```
+
+##### Phase 4
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 4（life_organizer 三模組 CRUD）
+- 禁止偷跑：不要做 feedback/admin 工單、不要加新 app（tarot 等）
+- 最小變更：以既有 schema/RLS 為前提做前端功能
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) 變更檔案清單
+2) Phase 4 驗收報告
+
+Phase 4：Life Organizer 三大模組 CRUD
+請你完成：
+
+A) To-do（Plan → Task 固定兩層）
+- Plan 列表顯示完成百分比 + 進度條
+- Plan 詳細頁：Task CRUD、勾選 done、排序（position）
+
+B) 事件紀錄簿
+- 時間線（occurred_at 倒序）
+- Tag CRUD、多選、tag 篩選、搜尋
+
+C) 資訊記事
+- Note CRUD、搜尋（title/content）、pinned、排序 updated_at
+
+最後輸出「Phase 4 驗收報告」（含：兩個不同使用者互相看不到資料、完成率正確的測試步驟）。
+```
+
+##### Phase 5
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 5（feedback Edge Function + Upstash 限流 + Admin）
+- 禁止偷跑：不要重做 life organizer 的 CRUD、不要大改 i18n/router
+- 最小變更：只動 feedback 相關 DB/Edge Function/Admin UI/前端 feedback 表單
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) Edge Function + env/secrets 需求清單
+2) Phase 5 驗收報告（含 429 測試）
+
+Phase 5：Feedback（多 app 共用）
+請你完成：
+
+資料表：public.feedback（含工單欄位）
+- status open/closed（default open）
+- handled_by（admin user_id）、handled_at、admin_note
+
+寫入：一律走 Edge Function submit-feedback
+- 匿名/登入皆可送出
+- 必填 app_id 且必須在白名單（4 個 app）
+- 寫入 page_url、user_agent
+- Upstash Redis rate limit：
+  - 匿名：依 IP 每 60 秒最多 3 次
+  - 登入：依 user_id 每 60 秒最多 3 次
+- 超過限制回 429 + payload：
+  { ok:false, error:{code:'RATE_LIMITED'}, retry_after_seconds:60 }
+
+前端 429 UX：
+- cooldown 60 秒；表單仍可編輯，但 Submit disabled
+- 顯示倒數 + 小字（i18n keys：feedback.rateLimitHint / feedback.cooldownHint / feedback.ctaCooldown）
+- cooldown 持久化（localStorage feedbackCooldownUntil）
+
+Admin 後台：
+- /admin/feedback：可依 app_id/status 篩選、搜尋、排序
+- 可把 status 改 closed 並填 handled_by/handled_at/admin_note
+
+最後輸出「Phase 5 驗收報告」（含：第 4 次送出 429、倒數與 disable 正常、admin 可關單的測試步驟）。
+```
+
+##### Phase 6
+``` txt
+【本次範圍鎖定 / 一次只做一件事】
+- 本次只允許完成：Phase 6（總驗收 + 修到全 Pass）
+- 禁止偷跑：不要再新增功能，只允許修 bug、補缺漏、補 states、補 i18n
+- 最小變更：以最少改動讓驗收全 Pass
+- 若資訊不足：先問我（最多 5 題），不要自行假設
+
+【交付格式】
+1) 回歸測試清單
+2) 最終驗收報告（逐項 ✅/❌ + 待辦）
+
+Phase 6：總驗收（品質門檻）
+請你做最後總驗收並修到全 Pass：
+
+- 抽查主要頁面：無硬編碼 UI 文案（除使用者輸入內容）
+- Loading / empty / error state 齊全
+- 安全：前端無 service role key；feedback/seed 走 Edge Functions
+- 回歸測試：重跑 Phase 2~5 的關鍵情境
+- 輸出最終驗收報告（逐項 Pass/Fail + 待辦清單）
+```
+
+
+
 ### Ref
 + [Hostinger VPS](https://www.hostinger.com/)- cpupon "DIEGODAVILA"
