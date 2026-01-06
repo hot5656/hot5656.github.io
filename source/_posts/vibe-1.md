@@ -2993,7 +2993,7 @@ Body Content Type: JSON
 Specify Body: Using Fields Below
 ```
 
-### [Life Organizer]() (Lovable)
+### [Life Organizer]() (Lovable) - [Prompt link](https://www.perplexity.ai/search/i-want-to-use-lovable-to-make-gzbUCvoBSGKlvpiELC_VpQ#72)
 #### Prompt to Perplexity 
 ``` text
 I want to use Lovable to make an app with the following functions,
@@ -3068,7 +3068,7 @@ I want to use Lovable to make an app with the following functions,
 - 最後輸出「Phase 0 驗收報告」（逐項 Pass/Fail + 重現步驟）
 ```
 
-##### add supabase connect
+###### add supabase connect
 ``` bash
 Supabase
   --> All projects
@@ -3082,7 +3082,7 @@ Supabase
   --> apps_develop
 ```
 
-##### found some error 
+###### found some error 
 ``` bash
 按 Try to fix, 看後續
 ```
@@ -3116,7 +3116,7 @@ Phase 1：Supabase schema + RLS + migrations（先做 DB）
 最後輸出「Phase 1 驗收報告」（含：兩個帳號互相看不到資料、admin 可看全部 feedback 的測試步驟）。
 ```
 
-##### migrations file generate
+###### migrations file generate
 ``` bash
 # 20260105_phase1_schema_rls.sql
 建立 app_role enum、user_roles、profiles、apps、feedback (public)；建立 life_organizer schema 及其 6 張表 (plans, tasks, events, tags, event_tags, notes)；所有 RLS 啟用 + policies；auto-profile trigger
@@ -3126,7 +3126,7 @@ Supabase Dashboard 的 Database → Migrations 頁面查看已執行的 migratio
 若需要匯出 SQL 到本地版控，可從 Dashboard 下載或使用 supabase db dump CLI 指令。
 ```
 
-##### RLS/Policies 檢查 SQL
+###### RLS/Policies 檢查 SQL
 ``` bash
 # check 1
 -- 查看所有 policies
@@ -3177,7 +3177,7 @@ ORDER BY schemaname, tablename, policyname;
 | public         | user_roles | Users can view their own roles                 | SELECT | (auth.uid() = user_id)                                                                                                   | null                                                                                                                     |
 ```
 
-
+###### 驗收項目 紀錄
 ``` bash
 # has_role() security definer ✅ 防止 RLS 遞迴
 SELECT p.proname, p.prosecdef, p.proconfig
@@ -3191,6 +3191,47 @@ WHERE p.proname = 'has_role';
 | has_role | true      | ["search_path=public"] |
 
 # Linter 無警告✅ No linter issues found
+# 查 package.json 是否含 "lint"
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+# GitHub repo → Actions → New workflow → "set up a workflow yourself"
+# 建立檔案：.github/workflows/lint.yml
+name: Lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+# ----end
+# 前往 GitHub repo → Actions tab
+# 可看到  Lint workflow run
+```
+
+###### add admin
+``` bash
+# get user's UID
+Autentication
+  --> User
+
+# add admin
+Table Editor
+  --> user_roles: user_id + role(admin)
 ```
 
 ##### Phase 2
@@ -3221,6 +3262,12 @@ Phase 2：Auth（只要 email/password + 匿名登入 + 匿名升級）
 
 最後輸出「Phase 2 驗收報告」（含：匿名→升級後資料仍在的測試步驟）。
 ```
+##### supabase enable 匿名登入
+``` bash
+Authentication 
+  --> Sign In/Providers
+  --> Anonymous Sign-ins : Enabled
+```
 
 ##### Phase 3
 ``` txt
@@ -3247,6 +3294,128 @@ Phase 3：Onboarding Seed（選 A：Edge Function）
 
 最後輸出「Phase 3 驗收報告」（含：不會重複 seed、不同語系 seed 的測試步驟）。
 ```
+
+###### response Lovabel 問題
+``` bash
+# Lovable ask 
+在開始之前，我有幾個問題需要確認：
+Seed 的範例資料類型：seed 要建立哪些表的資料？目前看到有 notes 和 feedback 表，請問 seed 只建立 notes 嗎？還是兩者都要？
+範例資料數量：每個語系要 seed 幾筆資料？（例如：2-3 筆 notes？）
+前端呼叫時機：登入成功後在哪裡觸發 seed？
+A：在 useAuth hook 內，auth 狀態變更時自動呼叫
+B：在 Dashboard 頁面載入時檢查並呼叫
+C：其他（請說明）
+
+語系判斷來源：seed 的 locale 參數來源？
+A：從 profiles.preferred_locale 讀取
+B：從前端 i18n 當前語系讀取
+C：其他
+
+Edge Function 回傳格式：成功時回傳什麼？
+A：{ success: true, seeded: true/false }
+B：{ success: true, data: [...seeded items...] }
+C：其他
+
+# response
+Phase 3 回覆確認（請依此實作，不要自行延伸）
+
+1) Seed 的範例資料類型
+- 只 seed life_organizer 相關資料：notes + events + plans + tasks（最小可用的 demo）
+- 不 seed public.feedback（feedback 是真實回饋資料，不要混入 demo）
+
+2) 範例資料數量（每個 locale）
+- notes：2 筆（1 筆 pinned=true，1 筆 pinned=false）
+- events：3 筆（occurred_at 分佈在最近 7 天內，倒序能看出時間線）
+- plans：1 個 plan + 3 個 tasks（包含 done=true/false 混合，能看出完成率）
+- tags：3 個（供 events 打 tag；event_tags 建立至少 2 個關聯）
+
+3) 前端呼叫時機
+- 選 A：在 useAuth hook 內，auth 狀態變更且 user 存在時自動呼叫
+- 但要加防呆：只有「profiles.onboarded_at is null」才呼叫；避免每次 reload 重複打 function
+
+4) 語系判斷來源
+- 選 B：從前端 i18n 當前語系讀取，傳給 function（locale: "en" | "zh-TW"）
+- profiles.preferred_locale 之後再做（目前不阻塞 Phase 3）
+
+5) Edge Function 回傳格式
+- 選 A：{ success: true, seeded: true/false }
+- 額外加上：{ success: true, seeded: true/false, reason?: 'ALREADY_ONBOARDED' | 'SEEDED_NOW' }
+
+6) Idempotent 規則（必做）
+- profiles.onboarded_at 為 null 才 seed；seed 成功後立刻把 onboarded_at 設為 now()
+- 若已 onboarded，直接回 seeded:false + reason:'ALREADY_ONBOARDED'
+- 任何情況都不可重複建立第二套 demo 資料
+
+7) 安全規則
+- function 必須驗證 Supabase JWT，取得 user.id
+- 寫入 demo 資料時 user_id 一律使用該 user.id
+- service role key 只能存在於 Edge Function secrets，前端不可出現
+
+8) 驗收報告（請你最後輸出）
+- 新匿名 user 第一次進入 app：會自動出現 demo 資料
+- reload 10 次：demo 資料不會翻倍（確認數量固定）
+- 切換到 zh-TW 再用新 user：demo 文案為中文
+
+# ask again 2nd
+我需要先確認一個關鍵問題：
+
+目前資料庫只有 notes 表存在，以下表格尚未建立：
+
+events
+plans
+tasks
+tags
+event_tags
+請確認 Phase 3 範圍：
+
+A：Phase 3 同時建立這些缺失的表（migration）+ Edge Function + 前端鉤子
+B：Phase 3 只 seed 現有的 notes 表，其他表留到後續 Phase 再處理
+C：其他安排（請說明）
+
+# response 2nd
+我選 B。
+
+Phase 3 範圍鎖定：
+- Phase 3 只做：
+  1) seed-user-demo-data Edge Function（idempotent）
+  2) 只 seed life_organizer.notes（因為目前只有 notes 表存在）
+  3) 前端在 auth 狀態確立後（useAuth）且 profiles.onboarded_at is null 才呼叫 seed
+- Phase 3 不做：
+  - 不建立 events/plans/tasks/tags/event_tags（這些留到後續 DB phase）
+  - 不 seed feedback（feedback 不要 demo 資料）
+
+Seed 數量/語系：
+- notes：每個 locale 2 筆（1 pinned=true、1 pinned=false），內容依 en / zh-TW 生成
+
+Edge Function 回傳：
+- { success: true, seeded: true/false, reason: 'SEEDED_NOW' | 'ALREADY_ONBOARDED' }
+
+驗收：
+- 新 user 第一次進入 /app/notes 會看到 demo notes
+- reload 不會重複新增（數量不翻倍）
+- 切換 zh-TW 建新 user 時 demo 文案為中文
+
+# ask 3
+我發現 notes 表目前沒有 pinned 欄位。請確認：
+
+Phase 3 是否要新增 notes.pinned 欄位？
+
+A：是，Phase 3 一併新增 notes.pinned 欄位（boolean, default false）
+B：否，Phase 3 不加 pinned，seed 時只建立 2 筆普通 notes（pinned 留到後續）
+（另：profiles.onboarded_at 欄位會在 Phase 3 migration 一併新增）
+
+# response 3
+我選 B。
+
+Phase 3 範圍確認：
+- Phase 3 migration：只新增 profiles.onboarded_at（timestamp/timestamptz，預設 null）
+- Phase 3 seed：只針對 life_organizer.notes 建立 2 筆 demo notes（不含 pinned 欄位，因為目前 schema 沒有 pinned）
+- pinned 功能與 notes schema 擴充（notes.pinned boolean default false）留到後續 Notes 功能 Phase 再做
+
+請你依此實作：Edge Function idempotent（以 profiles.onboarded_at 判斷），前端在 auth 狀態確立後且 onboarded_at is null 才呼叫。
+回傳：{ success:true, seeded:true/false, reason:'SEEDED_NOW'|'ALREADY_ONBOARDED' }。
+最後輸出 Phase 3 驗收報告（新 user 有 demo notes、reload 不翻倍）。
+``` 
 
 ##### Phase 4
 ``` txt
@@ -3276,6 +3445,26 @@ C) 資訊記事
 
 最後輸出「Phase 4 驗收報告」（含：兩個不同使用者互相看不到資料、完成率正確的測試步驟）。
 ```
+
+###### response Lovabel 問題
+``` bash
+Phase 1 的 life_organizer schema 表（plans, tasks, events, tags, event_tags）似乎尚未建立。是否要我現在先建立這些表和 RLS 政策？
+是，請先建立 schema
+
+Notes 模組應該使用現有的 public.notes 表，還是需要新建一個 life_organizer 版本的 notes 表？
+新建獨立的 notes 表
+
+Tasks 的 position 欄位排序方式偏好？
+建立時間排序
+``` 
+
+###### 因 app table 由 public 移到 life_organizer 手動修改 supabase
+``` bash
+Project Settings 
+  --> Data API
+  --> Exposed schemas 欄位加入 life_organizer
+```
+
 
 ##### Phase 5
 ``` txt
@@ -3318,6 +3507,11 @@ Admin 後台：
 最後輸出「Phase 5 驗收報告」（含：第 4 次送出 429、倒數與 disable 正常、admin 可關單的測試步驟）。
 ```
 
+###### Lovable ask
+``` bash
+```
+
+
 ##### Phase 6
 ``` txt
 【本次範圍鎖定 / 一次只做一件事】
@@ -3340,7 +3534,19 @@ Phase 6：總驗收（品質門檻）
 - 輸出最終驗收報告（逐項 Pass/Fail + 待辦清單）
 ```
 
-
+### app map to supabase
+``` bash
+robert-hut 
+	https://cybibirheihmwdtsmgit.supabase.co
+	https://cybibirheihmwdtsmgit.supabase.co
+tarot-cards
+	https://ukloaaccuetocrkxsdlv.supabase.co
+	https://poiywggogkjurvfudoyk.supabase.co
+blog-canvas
+	https://ukloaaccuetocrkxsdlv.supabase.co
+	https://poiywggogkjurvfudoyk.supabase.co
+tools-collection
+```
 
 ### Ref
 + [Hostinger VPS](https://www.hostinger.com/)- cpupon "DIEGODAVILA"
