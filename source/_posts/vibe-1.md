@@ -2994,6 +2994,15 @@ Specify Body: Using Fields Below
 ```
 
 ### [Life Organizer]() (Lovable) - [Prompt link](https://www.perplexity.ai/search/i-want-to-use-lovable-to-make-gzbUCvoBSGKlvpiELC_VpQ#72)
+
+#### vercel variable
+``` bash
+# 只有在 Vercel Preview（或非正式）才允許 fallback；Production 一律禁用 fallback
+在 Vercel：
+Preview environment vars：VITE_APP_ENV=staging
+Production environment vars：VITE_APP_ENV=production
+```
+
 #### Prompt to Perplexity 
 ``` text
 I want to use Lovable to make an app with the following functions,
@@ -3262,7 +3271,7 @@ Phase 2：Auth（只要 email/password + 匿名登入 + 匿名升級）
 
 最後輸出「Phase 2 驗收報告」（含：匿名→升級後資料仍在的測試步驟）。
 ```
-##### supabase enable 匿名登入
+###### supabase enable 匿名登入
 ``` bash
 Authentication 
   --> Sign In/Providers
@@ -3508,7 +3517,29 @@ Admin 後台：
 ```
 
 ###### Lovable ask
+
 ``` bash
+# ask 
+要求 UPSTASH_REDIS_REST_URL & UPSTASH_REDIS_REST_TOKEN
+
+# 更改為不用 UPSTASH REDIS
+我不使用 Upstash Redis secrets 改用以下方案 【需求：不使用外部 API】
+
+前端 cooldown（只針對 feedback submit）
+使用者按「送出回饋」成功或失敗後，Submit 按鈕 disabled 30 秒
+顯示倒數（30→0），倒數期間表單仍可編輯
+cooldown 必須持久化：使用 localStorage 記錄 feedbackCooldownUntil（timestamp），刷新頁面倒數不中斷
+cooldown 期間若使用者硬按（或透過快捷鍵觸發），仍不應送出 request
+基本長度限制（前後端都要）
+message 必填，trim 後長度 10~1000（超過或不足都顯示錯誤）
+title（若有）長度 0~120
+page_url（若有）長度 <= 500
+user_agent（若有）長度 <= 500 前端：即時或 submit 時提示錯誤（i18n keys） 後端 Edge Function：再次驗證，若不符合回 400 + { error: { code:'VALIDATION_ERROR', message:'...' } }
+驗收
+連續按送出：第一次送出後開始 30 秒倒數，30 秒內不會再次發 request
+刷新頁面：倒數仍在
+message 太短/太長：前端會擋，後端也會回 400
+notes/plans/events 的操作不受影響
 ```
 
 
@@ -3532,6 +3563,187 @@ Phase 6：總驗收（品質門檻）
 - 安全：前端無 service role key；feedback/seed 走 Edge Functions
 - 回歸測試：重跑 Phase 2~5 的關鍵情境
 - 輸出最終驗收報告（逐項 Pass/Fail + 待辦清單）
+```
+
+##### 後面修正
+``` text
+【目標】
+修復/補齊匿名登入的新用戶體驗：第一次進入 app 時，Notes/Plans/Events 各自都有 1 筆 demo 資料，且 reload 不會重複新增。
+
+【重要事實（請遵守）】
+- Notes 的表名固定是 life_organizer.lo_notes（這是目前專案既有狀態），不要 rename、不新增 life_organizer.notes、不做資料搬遷。
+- plans/events 表已存在：life_organizer.plans、life_organizer.events。
+
+【本次範圍鎖定（不要偷跑）】
+- 只做：1) 統一表名引用（用常數） 2) seed demo 資料（lo_notes + plans + events）
+- 不做：Phase 4 CRUD UI、Upstash、DB schema 變更、auth/router 大重構
+
+----------------------------------------------------------------
+A) 新增「表名常數」檔（必做）
+1) 新增檔案：src/lib/dbTables.ts
+內容至少包含：
+export const DB_SCHEMA_LIFE = 'life_organizer'
+export const TABLE_LO_NOTES = 'lo_notes'
+export const TABLE_PLANS = 'plans'
+export const TABLE_EVENTS = 'events'
+
+2) 全專案檢查並修正所有 Notes/Plans/Events 的 DB 存取（包含 seed function）：
+必須統一改成：
+supabase.schema(DB_SCHEMA_LIFE).from(TABLE_LO_NOTES)
+supabase.schema(DB_SCHEMA_LIFE).from(TABLE_PLANS)
+supabase.schema(DB_SCHEMA_LIFE).from(TABLE_EVENTS)
+
+禁止在任何檔案硬編碼 'life_organizer.lo_notes' / 'lo_notes' / 'plans' / 'events' 字串。
+
+（說明：Supabase JS 支援 per-query schema：.schema('life_organizer')） 
+
+----------------------------------------------------------------
+B) 更新 seed-user-demo-data（或你目前用的 onboarding seed Edge Function）
+需求：
+1) idempotent（只跑一次）
+- 判斷條件：profiles.onboarded_at is null 才允許 seed
+- seeded 成功後：把 profiles.onboarded_at 設為 now()
+- reload / 重進不可重複新增
+
+2) 寫入 demo（都必須帶 user_id = auth.uid()）
+- life_organizer.lo_notes：插入 1 筆 demo note（title/content 依 locale）
+- life_organizer.plans：插入 1 筆 demo plan（title 依 locale）
+- life_organizer.events：插入 1 筆 demo event（title/description 依 locale；日期設為最近 1~3 天）
+
+3) locale
+- 由前端 i18n 當前語系傳入（至少支援 en / zh-TW），demo 文案需依語系切換。
+
+4) 回傳格式（前端用來 debug/驗收）
+{ success:true, seeded:true/false, reason:'SEEDED_NOW'|'ALREADY_ONBOARDED' }
+
+----------------------------------------------------------------
+C) 驗收（必須附上）
+1) 新匿名 user 第一次進入 app：
+- /app/notes 有 1 筆 demo
+- /app/plans 有 1 筆 demo
+- /app/events 有 1 筆 demo
+
+2) 同一個 user reload：
+- 三個模組的 demo 不會翻倍
+
+3) 交付報告需列出：
+- 新增的 src/lib/dbTables.ts
+- 你修改過哪些檔案把硬編碼表名改成 constants（檔案清單）
+- seed function response 範例（seeded true/false 各一）
+```
+
+##### Addition
+###### 把功能在 staging（預備/類正式環境） 跑到完全 OK
+``` bash
+確認流程從頭到尾都能走通、資料也寫得進去、權限也沒問題，才把同一套變更部署到 production。
+
+## 什麼叫「走通」在這個 case
+以現在的 seed/onboarding 需求來說，「staging 打通」通常包含這幾件事都過關：
+- 前端用 staging 的 `SUPABASE_URL/ANON_KEY` 連到 staging project，能正常登入/匿名登入。[^1]
+- 第一次進入：seed function 會成功寫入 `life_organizer.lo_notes / plans / events` 各 1 筆 demo，且回傳 `seeded: true`。
+- 重新整理/重進：seed 不會重複插入（回傳 `seeded: false` 或 `reason: ALREADY_ONBOARDED`），資料不翻倍。
+```
+
+###### 建立 staging + prod 兩套環境
+``` bash
+我要在同一個 repo 建立 staging + prod 兩套環境。
+現況：前端是 Vite，Repo 主分支是 main，準備部署到 Vercel；後端是 Supabase。
+
+【目標】
+- Vercel Preview deployments 連到 Supabase staging project
+- Vercel Production deployments（main 分支）連到 Supabase prod project
+- 既有 seed/onboarding（notes/plans/events demo 只新增一次）在 staging 先驗收通過，再上 prod
+
+----------------------------------------------------------------
+A) Supabase 環境拆分
+1) 建立兩個 Supabase projects：staging 與 prod（資料與 key 完全隔離）。
+2) 請列出我需要在 staging project 套用哪些東西，才能與 prod 一致：
+- schema/tables（包含 life_organizer schema 與 lo_notes/plans/events）
+- RLS policies
+- Edge Functions（例如 seed-user-demo-data）
+- Edge Functions / DB 需要的 env vars（列出變數名）
+
+交付：用「待辦清單」方式列出 staging 要補的設定項目。
+
+----------------------------------------------------------------
+B) 前端（Vercel）環境變數與部署
+1) 程式碼必須只透過 import.meta.env 讀取：
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
+不得硬編碼 URL/key。
+
+2) 請提供 Vercel Dashboard 設定指引：
+- Environment Variables：同名變數各設定兩套值
+  - Preview：填 staging 的 URL/ANON_KEY
+  - Production：填 prod 的 URL/ANON_KEY
+- 確認 production branch 是 main（main 的部署就是 Production）。
+
+3) 若 Vercel 未自動識別 Vite，請註明 build/output：
+- Build command: npm run build
+- Output directory: dist
+
+----------------------------------------------------------------
+C) DB/Function 部署方式（可重複）
+1) DB：所有 DB 變更必須放 supabase/migrations（不要直接在 prod console 手改）。
+2) Functions：說明如何把 seed function 部署到 staging / prod（要能明確區分部署到哪個 project）。
+
+----------------------------------------------------------------
+D) 測試/驗收（你要寫成 step-by-step）
+1) Staging 驗收：
+- 建一個非 main 分支 push，上 Vercel 取得 Preview URL（它應吃 Preview env vars → 連 staging）
+- 用全新匿名 user 進站
+- 驗證 seed：notes/plans/events 各 1 筆 demo；reload 不翻倍（seeded true/false 各有預期）
+
+2) Prod 冒煙測試：
+- merge 到 main 產生 Production deploy（吃 Production env vars → 連 prod）
+- 用全新帳號走一次 onboarding，確認 seed 行為正常（只做最小驗證）
+
+交付物：
+- 你改了哪些檔案（清單）
+- Vercel env vars 需要新增哪些 key（清單）
+- 一份我照做就能完成 staging→prod 的部署與測試流程（含預期結果）
+```
+
+###### do some Lovable response
+``` bash
+# Lovable ask 
+Lovable 平台不支援 import.meta.env.VITE_*，需改回 hardcode。Vercel 部署時再用 env vars。
+
+# response
+請不要 hardcode Supabase URL/ANON_KEY。
+
+本專案是 Vite，必須使用 import.meta.env 讀取 VITE_* 變數（這是 Vite 的標準行為）。
+請確認目前 supabase client 初始化改成：
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+並在缺少變數時 throw 明確錯誤（例如：Missing VITE_SUPABASE_URL），方便在 Lovable/本機/CI 立刻發現。
+
+另外：repo 內只保留 .env.example（不放真值），實際值將在 Vercel 的 Preview/Production env vars 設定。
+若 Lovable 預覽環境無法注入 env vars，請提供一個可選的 fallback 機制：
+- 支援從 window.__APP_CONFIG__ 讀取（由 index.html 注入），或
+- 提供一份 README 說明如何在 Lovable 預覽模式測試（可先用公開的 staging key）
+但仍禁止把 key hardcode 進程式碼或 commit。
+
+# Lovable ask 2nd
+部署時：
+  Vercel：設定 VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY 在 env vars，會優先讀取
+  Lovable 預覽：透過 index.html 的 __APP_CONFIG__ 運作
+
+# response 2nd
+請在 src/integrations/supabase/client.ts 補保護：
+
+1) 嚴格優先順序：
+- 先讀 import.meta.env.VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY
+- 若缺少才 fallback 到 window.__APP_CONFIG__
+- 若兩邊都缺，throw Error 並提示要去哪裡設定（Vercel env vars / Lovable index.html）
+
+2) 禁止在 Production deployment 使用 __APP_CONFIG__：
+- 若偵測到是 production（例如透過 Vercel 的 VITE_VERCEL_TARGET_ENV=production 或至少 import.meta.env.MODE === 'production'）
+  則不允許 fallback，缺 env 就直接 throw，避免 prod 誤連 staging。
+
+3) 請確認 index.html 的 __APP_CONFIG__ 只放 anon key，不得放任何 server-side secrets。
 ```
 
 ### app map to supabase
