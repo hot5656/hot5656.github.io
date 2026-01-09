@@ -400,9 +400,10 @@ Domain List --> VERIFY CONTACTS
     | Type	      | Host             | Value                 | TTL.     | 
     | A Record.   | @                |  76.76.21.21.         | Automatic| 
     | CNAME Record| blog-journal.demo|  cname.vercel-dns.com.| Automatic| 
-    | CNAME Record| tarot-cards.     |  name.vercel-dns.com. | Automatic| 
+    | CNAME Record| tarot-cards.     |  cname.vercel-dns.com.| Automatic| 
     | CNAME Record| tools.demo.      |  cname.vercel-dns.com.| Automatic| 
     | CNAME Record| www.             |  cname.vercel-dns.com.| Automatic| 
+    | CNAME Record| life-organizer   |  cname.vercel-dns.com.| Automatic| 
       ps: cname.vercel-dns.com. 後面的點是自動加上去
 
 # Vercel setting - robert-hut
@@ -422,6 +423,10 @@ Vercel 專案 Settings
   --> Domains 
   --> Add: tools.demo.roberthut.com
     ps: ./vercel.json 不用加入, 因單純 Vercel 會自動調整
+# Vercel setting - life-organizer
+Vercel 專案 Settings 
+  --> Domains 
+  --> Add: life-organizer.roberthut.com
 ```
 
 #### 平台比較
