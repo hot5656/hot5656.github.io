@@ -66,6 +66,9 @@ link example: 完整細節👉 https://www.roberthut.com/
 ```
 
 #### 更改 icon & 縮圖
+瀏覽器上的 logo（favicon）標準尺寸為 16x16 或 32x32 像素，用於標籤頁和書籤顯示。
+縮圖（Open Graph 圖像）推薦 1200x630 像素，以確保社群分享預覽最佳效果，至少 600x315 像素。
+
 + add icon
   ``` html
   <link rel="icon" type="image/png" href="/Robert_hut_128.png" sizes="128x128" />
@@ -177,6 +180,112 @@ link example: 完整細節👉 https://www.roberthut.com/
 
 #####  LinkedIn
 貼文推薦橫向 1200 x 627 px、正方形 1200 x 1200 px、垂直 720 x 900 px；頭像 400 x 400 px；封面 1128 x 191 px（公司頁）。
+
+#### GitHub 互相匯入專案，實現跨平台繼續開發
+``` bash
+# 機制
+Replit 甚至有專屬的 Lovable 和 Bolt 匯入選項，直接選擇來源後自動處理。
+Lovable 和 Bolt 也支援從 GitHub repo 匯入既有專案。
+
+# 從 Lovable/Bolt 到 Replit：
+- 在 Lovable/Bolt 點 GitHub 圖示匯出 repo 
+- replit.com/import 選 Lovable/Bolt --> 連 GitHub --> 選 repo 匯入（包含程式碼、UI、資產、後端）。
+
+# 從 Replit 到 Bolt/Lovable：
+- Replit 匯出到 GitHub 
+- Bolt/Lovable 新專案選 "Import from GitHub" 或輸入 repo URL。
+
+# 其他
+- 資料庫內容（如 Supabase）和 secrets（如 API key）不會自動遷移，需手動重新設定；(Replit Agent 可幫忙調整。)
+- 在這些平台 prompt 時，加 "generate portable code with standard Next.js and GitHub export ready"，確保輸出易遷移。
+- 若遇相容問題，用 Replit Agent prompt: "fix this imported Lovable project for Replit runtime"。
+```
+
+#### app 共用 supabase
+``` bash
+# app table 可用 schema 分別,public 為共用
+prompt 範例："Generate Supabase migration SQL for app1 schema: add users table with RLS, compatible with multi-app shared project."
+
+# migration 
+migration 加開頭 app1_..., app2_..
+
+# 共用 User 資料機制
+# 後上 app 只產生自己的 schema migration
+1. 建立後上 schema：CREATE SCHEMA IF NOT EXISTS app2;
+2. 產生僅 app2 migration：只在 app2 schema 加 table
+3. 引用 public user：在 app2 table 加 FK
+(FK 是 Foreign Key（外鍵）的縮寫。外鍵是關聯式資料庫中，一個資料表欄位參照另一個資料表主鍵（Primary Key）的機制，用來建立資料表間的關聯並確保參照完整性。)
+user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE
+4. 部署：supabase db push，public 架構不變。
+
+# prompt example 
+1. prompt："Generate Supabase SQL migration for app2 schema: create data table with FK to public.profiles(id), add RLS for shared user auth, no changes to public schema." 
+2. "使用我現有的 Supabase project，不要建立新 table 或 migration。只在 app2 schema 新增 tables，引用 public.profiles(id) 作為 FK。現有 tables: [從 screenshot 列出，如 profiles, users]。生成 client code 用 supabase.from('app2.data').eq('user_id', user.id)。"
+```
+
+#### bolt.new db 遷移到 Supabase - [link](https://www.perplexity.ai/search/wo-ruo-jiang-ige-supabase-proj-FQ7bZqGCTp61tF4GIK1Ovw#3)
+``` bash
+# 使用 Bolt 官方遷移功能
+# 在 bolt.new project：
+1. 確保已連接 Supabase 帳號（Settings --> Applications --> Connect Supabase）。
+2. 點 Database icon（頂中） --> Advanced tab --> Claim your Bolt database in Supabase。
+3. 選擇目標 Supabase project（你的既有 project），bolt 會自動遷移 schema、資料、RLS 到 Supabase，保留所有資料。
+4. 刷新 browser，code 自動切換用 Supabase DB。
+
+# 手動導出與匯入（備案）
+# 導出 Bolt DB：
+1. 在 bolt project 找 /supabase/migrations/ 或 /db/ 資料夾，複製所有 SQL migration 檔案（schema）。
+2. Prompt bolt AI："Export all data from current Bolt DB as CSV/JSON，包括所有 tables（如 profiles），保留現有資料。"
+3. 或用 Supabase CLI（若本地）：supabase db dump --data-only > bolt_data.sql（但 bolt DB 可能需 browser console）。
+# 匯入 Supabase：
+1. 在你的 Supabase Dashboard --> SQL Editor，執行 migration SQL 建 schema（若未有）。
+2. 匯入資料：用 COPY 或 pg_dump/pg_restore，若 CSV 用 Table Editor --> Import。
+3. 更新 .env：SUPABASE_URL 和 SUPABASE_ANON_KEY 指向你的 project。
+
+# 步驟細節與注意
+1. Backup bolt DB：prompt "Generate full DB dump SQL"。
+2. 連接 Supabase 後，supabase db push 或 SQL Editor 跑 migrations。
+3. 驗證資料：query 現有 tables 確認無損失。
+4. 若 fork project，先 consolidate migrations 成單檔避免衝突。
+
+# Vibe Prompt 加速遷移
+"Migrate my Bolt.new DB to existing Supabase project [project-ref]，保留所有資料：1. Export schema/migrations 和 data dump。2. Generate SQL for Supabase import。3. Update env vars。No data loss，handle RLS。"
+用此 prompt 讓 AI 生成完整腳本，直接 copy 到 Supabase SQL Editor。
+```
+
+#### app tools 加入 robert_hut - [link](https://www.perplexity.ai/search/jie-shi-yi-xia-prompt-for-bolt-gAsa6wP4R_Gu7Xko9O_o4A#2) 
+``` bash
+# Vibe Prompt 範例
+"Build Robert_hut blog app with tools 子功能：
+1. Blog pages (/posts)。
+2. Git submodule https://github.com/[user]/tools.git as /tools。
+3. Shared Supabase：auth from public.profiles，tools data in tools schema with FK。
+4. Nav: Blog | Tools。
+5. Single deploy。"
+
+# 安全提示內容
+請僅實作我明確要求的特定變更—不得更改、刪除或修改任何其他代碼、樣式或頁面元件，除非我明確要求。
+若我的要求與現有代碼衝突，或預見潛在問題，請暫停執行並告知我以獲得批准。此規則適用於每項變更。若有疑慮，請先徵詢我。
+# prompt
+在現有 專案中，僅執行以下最小變更：
+1. Git Submodule 整合
+git submodule add https://github.com/[你的用戶名]/tools.git tools
+git submodule update --init --recursive
+
+2. 導航更新（僅此處修改）
+原導航 → 新導航：
+Home (/) | Tools (/tools)
+
+3. 新增路由（僅新增，不修改現有）
+路由：/tools → 顯示 /tools 資料夾內容
+方式：iframe 或直接 import（依 tools 內容自動判斷）
+保持原目前 project 風格一致
+
+4. 嚴格限制
+✅ 僅修改：Nav Bar + 新增 /tools 路由
+❌ 禁止：修改任何現有頁面邏輯、樣式、組件
+❌ 禁止：變更原有功能
+```
 
 ### Vibe coding
 #### some notes
@@ -3751,18 +3860,149 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 3) 請確認 index.html 的 __APP_CONFIG__ 只放 anon key，不得放任何 server-side secrets。
 ```
 
+##### Migration to supabase
+###### Vercel set Environment Variables
+``` bash
+select project
+  --> Settings 
+  --> Environment Variables
+  add Preview variable 
+      VITE_APP_ENV: staging
+      VITE_SUPABASE_URL: 
+      VITE_SUPABASE_ANON_KEY: 
+  add Product variable 
+      VITE_APP_ENV: production
+      VITE_SUPABASE_URL: 
+      VITE_SUPABASE_ANON_KEY: 
+```
+
+###### migration to new supabase project(product)
+``` bash
+# enter supabase cli
+supabase login
+
+# see project in supabase
+supabase projects list
+
+# 先 link to 專案 (maybe production)（用文件裡的 ref）
+supabase link --project-ref cjjhrkrepiidbpywecgz
+
+# 推 migrations / schema / RLS / triggers 到 prod DB
+supabase db push
+
+# 部署所有 Edge Functions 到 prod
+supabase functions deploy
+
+# supabase enable 匿名登入
+Authentication
+ --> Sign In/Providers
+ --> Anonymous Sign-ins : Enabled
+
+# add life_organizer to Exposed schemas
+Project Settings 
+  --> Data API 
+  --> Data API Settings
+  --> Exposed schemas 欄位加入 life_organizer
+
+# add Redirect URLs - for email verify
+Authentication
+  --> URL Configuration
+  --> Site URL
+  --> https://life-organizer-hub.vercel.app/
+  --> Redirect URLs
+  --> Add URL : https://life-organizer-hub.vercel.app/**
+
+# email link 失敗
+# 這是因為 Vercel 需要設定 SPA 路由重寫規則，讓所有路由都導向 index.html。需建立 vercel.json 設定檔。 
+# /vercel.json
+{
+  "rewrites": [
+    {
+      "source": "/((?!api|_next|static|favicon.ico|robots.txt|placeholder.svg).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
+# add admin user
+Table Editor
+  --> user_roles
+  --> insert
+  --> inser row
+  --> user_id: copy user id
+  --> role: admin 
+  --> save
+```
+
+###### windows supabase cli
+``` bash
+# install
+npx supabase
+  Need to install the following packages:
+  supabase@2.72.1
+  Ok to proceed? (y) y
+
+# check version
+npx supabase --version
+  2.72.1
+
+# login 
+npx supabase login
+  Hello from Supabase! Press Enter to open browser and login automatically.
+
+# see project in supabase
+npx supabase projects list
+
+# link to poject
+npx supabase link --project-ref rcscpveyxtlhxxgpgxit
+  Finished supabase link.
+
+# 推 migrations / schema / RLS / triggers 到  DB
+# 這是 錯誤 example (Lovable 產生不知道為什麼有時間差)
+npx supabase db push
+  Initialising login role...
+  Connecting to remote database...
+  Remote migration versions not found in local migrations directory.
+
+  Make sure your local git repo is up-to-date. If the error persists, try repairing the migration history table:
+  supabase migration repair --status reverted 20260105080906 20260106025604 20260106064903 20260106065950 20260106073140 20260106081207 20260106081605 20260106082207 20260107014645 20260107015830 20260107035153 20260107040715 20260109040318 20260109041642 20260109042200
+
+  And update local migrations to match remote database:
+  supabase db pull
+
+# check migration 差異
+# migration 應增加而不是修改
+npx supabase migration list
+  Initialising login role...
+  Connecting to remote database...
+
+    Local           | Remote         | Time (UTC)
+    ----------------|----------------|---------------------
+                    | 20260105080906 | 2026-01-05 08:09:06
+     20260105080908 |                | 2026-01-05 08:09:08
+```
+
+###### Supabase project 備份,複製 - [link](https://www.perplexity.ai/search/wo-ruo-jiang-ige-supabase-proj-FQ7bZqGCTp61tF4GIK1Ovw#6)
+``` bash
+```
+
 ### app map to supabase
 ``` bash
 robert-hut 
-	https://cybibirheihmwdtsmgit.supabase.co
-	https://cybibirheihmwdtsmgit.supabase.co
+	https://cybibirheihmwdtsmgit.supabase.co( blog_robert_hut)
+	https://cybibirheihmwdtsmgit.supabase.co( blog_robert_hut)
 tarot-cards
-	https://ukloaaccuetocrkxsdlv.supabase.co
-	https://poiywggogkjurvfudoyk.supabase.co
+	https://ukloaaccuetocrkxsdlv.supabase.co(blog_post)
+	https://poiywggogkjurvfudoyk.supabase.co(test_db)
 blog-canvas
-	https://ukloaaccuetocrkxsdlv.supabase.co
-	https://poiywggogkjurvfudoyk.supabase.co
+	https://ukloaaccuetocrkxsdlv.supabase.co(blog_post)
+	https://poiywggogkjurvfudoyk.supabase.co(test_db)
 tools-collection
+  https://uimqqfnctcexyyqmbnrr.supabase.co(in bolt.new)
+  
+life-organizer
+  https://cjjhrkrepiidbpywecgz.supabase.co(apps_product)
+  https://rcscpveyxtlhxxgpgxit.supabase.co(apps_develop)
 ```
 
 ### Ref
