@@ -287,6 +287,436 @@ Home (/) | Tools (/tools)
 ❌ 禁止：變更原有功能
 ```
 
+#### windows use supabase cli
+``` bash
+# Scoop 是 Windows 上的命令列套件管理工具（類似 macOS 的 Homebrew / Linux 的 apt），用來下載、安裝、更新與移除各種開發工具與應用程式，
+# 且通常安裝在使用者家目錄、盡量避免跳出 UAC 視窗干擾。
+
+# install scoop(windows 一定要使用 power shell 安裝,但 cmd 可用)
+#確認 PowerShell 版本至少 5.1
+$PSVersionTable.PSVersion
+  Major  Minor  Build  Revision
+  -----  -----  -----  --------
+  5      1      26100  7462
+# install scoop
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+  Type 'scoop help' for instructions.
+# check scoop version 
+scoop --version
+  Current Scoop version:
+  b588a06e (HEAD -> master, tag: v0.5.3, origin/master, origin/HEAD) chore(release): Bump to version 0.5.3 (resync) (#6436)
+  'main' bucket:
+  9c1dd73c9b (HEAD -> master, origin/master, origin/HEAD) resvg: Update to version 0.46.0
+# 更新 scope
+scoop update
+  Updating Scoop...
+  Updating Buckets...
+  Scoop was updated successfully!
+scoop --version
+  Current Scoop version:
+  b588a06e (HEAD -> master, tag: v0.5.3, origin/master, origin/HEAD) chore(release): Bump to version 0.5.3 (resync) (#6436)
+  'main' bucket:
+  9c1dd73c9b (HEAD -> master, origin/master, origin/HEAD) resvg: Update to version 0.46.0
+
+# install supabase 
+scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
+  Checking repo... OK
+  The supabase bucket was added successfully.
+scoop install supabase
+  WARN  Multiple buckets contain manifest 'supabase', the current selection is 'main/supabase'.
+  Installing '7zip' (25.01) [64bit] from 'main' bucket
+  ....
+  '7zip' (25.01) was installed successfully!
+  Notes
+  -----
+  Add 7-Zip as a context menu option by running:
+  reg import "C:\Users\RobertKao\scoop\apps\7zip\current\install-context.reg"
+  Installing 'supabase' (2.67.1) [64bit] from 'main' bucket
+  supabase_windows_amd64.tar.gz (28.1 MB) [========================================================================] 100%
+  Checking hash of supabase_windows_amd64.tar.gz ... ok.
+  Extracting supabase_windows_amd64.tar.gz ... done.
+  Linking ~\scoop\apps\supabase\current => ~\scoop\apps\supabase\2.67.1
+  Creating shim for 'supabase'.
+  'supabase' (2.67.1) was installed successfully!
+supabase -v
+  2.67.1
+
+# install pg_dump
+scoop install postgresql
+  Installing 'postgresql' (18.1) [64bit] from 'main' bucket
+  postgresql-18.1-1-windows-x64-binaries.zip (319.4 MB) [==========================================================] 100%
+  Checking hash of postgresql-18.1-1-windows-x64-binaries.zip ... ok.
+  Extracting postgresql-18.1-1-windows-x64-binaries.zip ... done.
+  Linking ~\scoop\apps\postgresql\current => ~\scoop\apps\postgresql\18.1
+  Creating shortcut for pgAdmin 4 (pgAdmin4.exe)
+  Adding ~\scoop\apps\postgresql\current\bin to your path.
+  Persisting data
+  Running post_install script...資料庫系統的檔案屬於使用者 "RobertKao"，該使用者也必須擁有伺服器行程。
+
+  資料庫叢集將以區域 "C" 進行初始化。
+  預設文字搜尋配置將被設為 "english"。
+
+  已啟動資料頁檢查。
+
+  修復現有目錄 C:/Users/RobertKao/scoop/apps/postgresql/current/data 的權限… ok
+  建立子目錄… ok
+  選擇動態共享記憶體實作方式… windows
+  selecting default "max_connections" ... 100
+  selecting default "shared_buffers" ... 128MB
+  選擇預設時區 … Asia/Taipei
+  建立組態檔… ok
+  執行啟動腳本… ok
+  執行啟動後的初始化程序… ok
+  同步資料到磁碟… ok
+
+  initdb: 警告: 啟動本機連線的 "trust" 身份驗證
+  initdb: 提示: 您可以在下次執行 initdb 時透過編輯 pg_hba.conf 或用選項 -A 或 --auth-local 和 --auth-host 來變更這個設定。
+
+  成功，您現在可以用下列命令啟動資料庫伺服器:
+
+      ^"C^:^\Users^\RobertKao^\scoop^\apps^\postgresql^\current^\bin^\pg^_ctl^" -D ^"C^:^\Users^\RobertKao^\scoop^\apps^\postgresql^\current^\data^" -l logfile start
+
+  done.
+  'postgresql' (18.1) was installed successfully!
+  Notes
+  -----
+  Run 'pg_ctl start' to start the database and 'pg_ctl stop' to stop it.
+  Register it as a service by running 'pg_ctl register -N PostgreSQL' from an elevated shell.
+  Default superuser login: postgres, password: <blank>
+# check version(要重開 cmd)
+pg_dump --version
+  pg_dump (PostgreSQL) 18.1
+```
+
+##### supabase cli
+``` bash
+# login
+supabase login
+  Hello from Supabase! Press Enter to open browser and login automatically.
+  Here is your login link in case browser did not open https://supabase.com/dashboard/cli/login?session_id=0d6c681c-358b-4a81-9fda-2f82ae3716e5&token_name=cli_CANDTSOLUTION\RobertKao@C15611110525001_1768186946&public_key=0475165c162943b804ca39cfdf544e4291440734d6732a9205527b4d54c2fcc42f2b30e00f3b6b92b1778679b301bc1683f43dc3982c593849f2b1d9d089d8ec1f
+  Enter your verification code: 2de84ec1
+  Token cli_CANDTSOLUTION\RobertKao@C15611110525001_1768186946 created successfully.
+  You are now logged in. Happy coding!
+# list all project
+D:\temp\db_backup\apps_develop\supabase_cli>supabase projects list
+  Cannot find project ref. Have you run supabase link?
+# link to project
+supabase link --project-ref rcscpveyxtlhxxgpgxit
+  Finished supabase link.
+# db dumping --> erro (no docker)
+supabase db dump -f backup_2026_0112.sql
+  Initialising login role...
+  Dumping schemas from remote database...
+  failed to inspect docker image: error during connect: in the default daemon configuration on Windows, the docker client must be run with elevated privileges to connect: Get "http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.51/images/public.ecr.aws/supabase/postgres:17.6.1.063/json": open //./pipe/docker_engine: The system cannot find the file specified.
+  Docker Desktop is a prerequisite for local development. Follow the official docs to install: https://docs.docker.com/desktop 
+# 備份資料庫
+# db dumping
+supabase db dump -f backup_2026_0112.sql
+  Initialising login role...
+  Dumping schemas from remote database...
+  17.6.1.063: Pulling from supabase/postgres
+  ...
+  Digest: sha256:178f0976b54a39237096bfa310c1a352dbc82fb1b08dda45cdb8acb5d40c1426
+  Status: Downloaded newer image for public.ecr.aws/supabase/postgres:17.6.1.063
+  Dumped schema to D:\temp\db_backup\apps_develop\supabase_cli\backup_2026_0112.sql.  
+
+# 備份 Storage 檔案(因為本 porject 沒有, 這是另一個 project)
+# link project (如果前面沒有 link)
+supabase link --project-ref ukloaaccuetocrkxsdlv
+  Finished supabase link.
+# add directory
+mkdir storage_backup
+    目錄: D:\temp\db_backup\apps_develop\pg_dump
+		Mode                 LastWriteTime         Length Name
+		----                 -------------         ------ ----
+		d-----       2026/1/12  下午 02:41                storage_backup
+# list all file 
+supabase --experimental storage ls -r --linked
+	Initialising login role...
+	/roberthut-blog-images/3aaff656-a9c5-4a99-aa85-5b530b02b1a6.jpg
+	/roberthut-blog-images/418b1ae8-c718-439a-8721-734a9384ff64.jpg
+	/roberthut-blog-images/6147b5c4-4e92-48dd-aa66-ca6d8cb6588c.jpg
+	/roberthut-blog-images/952087bb-4b6f-43a3-aede-5c9151703636.png
+	/roberthut-blog-images/c4d923e1-dd25-4960-85b9-c5784e418ae1.jpeg
+	/roberthut-blog-images/covers/1766312284818-i9sj4h.jpg
+	/roberthut-blog-images/covers/1766312292220-ur7pn.jpg
+	/roberthut-blog-images/covers/1766395164882-9l4oh.jpg
+	/roberthut-blog-images/covers/1766462050223-sz7ct.jpg
+	/roberthut-blog-images/covers/1766493079346-iammtt.jpg
+	/roberthut-blog-images/covers/1766568348048-od0qd.jpg
+	/author-avatars/Boy_ape.jpg
+	/author-avatars/Girl_bird.png
+	/author-avatars/Miss_cat.jpg
+	/author-avatars/Mr._alligator.jpg
+	/blog-images/015549b5-0310-43c6-aff1-194110282d0e.jpg
+	/blog-images/0a2be67c-c6fb-43b1-9938-f687ab79335b.jpg
+	/blog-images/22c19d51-ed51-4e88-8618-d4d92a8e9596.jpg
+	/blog-images/2a78563c-ea8c-449e-b327-ecaffdd6640f.jpg
+	/blog-images/2e2baa7b-4f1c-4332-8fbb-a6059f11ac2e.jpg
+	/blog-images/3d6957bd-9131-42ae-9928-c953c25e9cb5.jpg
+	/blog-images/3dff136f-63b0-49cf-b893-a50f0b6ebf32.jpg
+	/blog-images/41f5faf3-f203-4fed-b1bf-fbd558a6ba64.jpg
+	/blog-images/68898737-3805-4e2b-bc93-176709087c86.jpg
+	/blog-images/75bf6fb6-312c-4e75-bfcc-20482e54c923.jpg
+	/blog-images/81c5be3c-1dd6-401e-8d90-b778fe6710f5.jpg
+	/blog-images/8c846cf9-fdde-495b-bce6-e1f5bfd5ca25.jpg
+	/blog-images/964bfc04-bdc3-4069-93ec-368a38883141.jpg
+	/blog-images/a5011b97-a0d4-4602-b35c-73e97b1aede3.jpg
+	/blog-images/af130806-b76c-49e7-b43e-31c6198acdb9.jpg
+	/blog-images/b10f7915-9e0e-4109-aad3-23047393b89c.jpg
+	/blog-images/bc71f133-83f4-4242-a3f2-42a20597747d.jpg
+	/blog-images/c1c55642-1a5c-46c7-b420-4003aece4713.jpg
+	/blog-images/c20a8748-b378-4b60-9805-5bfff64a8af3.jpg
+	/blog-images/c45f0326-9c57-4c5d-9112-10896065786a.jpg
+	/blog-images/daabdb67-5fea-4da7-ae63-dbe0bf1f33a7.jpg
+	/blog-images/e5018ceb-4da1-4275-a451-63db1537f5e6.jpg
+	/blog-images/e7a5b0ae-f780-470c-9e8f-6c7c51aaf0db.jpg
+	/blog-images/e8a2f0f9-da26-4197-bb06-7a7732547280.jpg
+	/blog-images/covers/1766311467709-3lcnf9.jpg
+# copy 各 bucket image
+supabase --experimental storage cp -r ss:///roberthut-blog-images ./storage_backup/roberthut-blog-images --linked
+supabase --experimental storage cp -r ss:///author-avatars      ./storage_backup/author-avatars      --linked
+supabase --experimental storage cp -r ss:///blog-images         ./storage_backup/blog-images         --linked
+
+# 備份設定檔
+# Secrets (API keys 等)
+supabase secrets list --project-ref rcscpveyxtlhxxgpgxit > secrets_backup.txt
+# Migrations 歷史
+supabase migration list --linked > migrations_backup.txt
+# Edge Functions（若有）
+mkdir .\functions_backup -Force | Out-Null
+supabase functions list --project-ref rcscpveyxtlhxxgpgxit
+   ID                                   | NAME                | SLUG                | STATUS | VERSION | UPDATED_AT (UTC)  
+  --------------------------------------|---------------------|---------------------|--------|---------|---------------------
+   d63a8808-1b0d-4646-b290-b359059d42d0 | seed-user-demo-data | seed-user-demo-data | ACTIVE | 14      | 2026-01-09 13:54:30
+   93bb1234-9974-467e-b5ca-3de04dbeb29b | submit-feedback     | submit-feedback     | ACTIVE | 8       | 2026-01-09 13:54:30
+supabase --workdir .\functions_backup functions download seed-user-demo-data --project-ref rcscpveyxtlhxxgpgxit
+	Using workdir .\functions_backup
+	Downloading seed-user-demo-data
+	v1.69.28: Pulling from supabase/edge-runtime
+	3c7087f7d5d6: Pull complete
+	dc7edb44ebf7: Pull complete
+	8e44f01296e3: Pull complete
+	44853b555aa1: Pull complete
+	6da94a0492b9: Pull complete
+	736d8da83dd3: Pull complete
+	f4636f1ce867: Download complete
+	Digest: sha256:29d8fbebb409bd71a68e2efdca20fadcd52af343965a718f4f157b2dff7018ab
+	Status: Downloaded newer image for public.ecr.aws/supabase/edge-runtime:v1.69.28
+	Eszip extracted successfully inside path /home/deno
+supabase --workdir .\functions_backup functions download submit-feedback --project-ref rcscpveyxtlhxxgpgxit
+	Using workdir .\functions_backup
+	Downloading submit-feedback
+	Eszip extracted successfully inside path /home/deno
+```
+
+##### pg_dump
+``` bash
+# 備份資料庫
+# command(可能aws-0- or aws-1-)
+pg_dump "postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres" -f backup_2026_0112.dump
+
+# 查完整 string(除 password)
+Project overview 
+	--> connect
+	--> ORMs
+	--> # Direct connection to the database. Used for migrations
+		DIRECT_URL="postgresql://postgres.rcscpveyxtlhxxgpgxit:[YOUR-PASSWORD]@aws-1-ap-south-1.pooler.supabase.com:5432/postgres"
+
+# REF：URL 中 app.supabase.com/project/[REF]（如 abcdefghijklmnop）。
+# PASSWORD：
+  --> Database
+  --> Setting 
+  --> Database password 點 Reset database password 可重設 
+# REGION(不完整)
+  --> Storage
+  --> S3 
+  --> Region : ap-south-1
+
+# 檢查檔案(未測試) - 測試時因 format 有問題不能檢查
+# pg_restore --list backup_20260111.dump
+# 如果你想要能用 pg_restore --list, 下次備份時要用 custom format（或 tar/directory），
+# pg_dump -Fc "postgresql://USER:PASSWORD@HOST:5432/mydb" -f backup_2026_0112.dump
+# pg_dump --format=custom（-Fc）產出的檔案才是 pg_restore 能列出/選擇性還原的 archive 格式。
+# 因為這種備份本質是 SQL 指令腳本，所以要用 psql 來執行，而不是 pg_restore。
+# psql "postgresql://USER:PASSWORD@HOST:5432/mydb" -f .\backup_2026_0112.dump
+
+# 還原到新 project(未測試)
+pg_restore -d "新連線字串" --verbose backup_20260111.dump
+```
+
+##### 新 Free project 還原
+``` bash
+# 還原資料庫
+supabase link --project-ref wkvqqybqlnprntofevun
+# 1) 先確認 psql 有裝好
+psql --version
+# 2) 用 Supabase dashboard 複製來的 connection string（psql 格式）
+$CONN="postgresql://postgres.wkvqqybqlnprntofevun:你的密碼@aws-0-你的region.pooler.supabase.com:5432/postgres"
+# 3) 匯入
+psql $CONN -f .\backup_2026_0112.sql
+
+# 還原 Storage 檔案(不知道為何, 有些檔案 error)
+supabase --experimental storage ls -r ss:///roberthut-blog-images --linked
+supabase --experimental storage ls -r ss:///author-avatars --linked
+supabase --experimental storage ls -r ss:///blog-images --linked
+
+
+```
+
+##### windows install docker(建議搭配 WSL 2 後端使用)
+``` bash
+# link to new project
+supabase link --project-ref wkvqqybqlnprntofevun
+  Finished supabase link.
+
+# 確認 wsl 使否安裝 
+wsl --status
+  未安裝Windows 子系統 Linux 版。您可以執行 'wsl.exe --install' 進行安裝。
+  如需詳細資訊，請造訪 https://aka.ms/wslinstall
+# install wsl (系統管理員身分開啟 PowerShell 後執行)
+wsl --install
+  正在下載：Windows 子系統 Linux 版 2.6.3
+  正在安裝：Windows 子系統 Linux 版 2.6.3
+  已完成安裝 Windows 子系統 Linux 版 2.6.3。
+  正在安裝 Windows 選用元件: VirtualMachinePlatform
+  部署映像服務與管理工具
+  版本: 10.0.26100.5074
+  映像版本: 10.0.26200.7462
+  啟用功能
+  [==========================100.0%==========================]
+  操作順利完成。
+  已成功執行所要求的操作。請重新開機，變更才能生效。
+  已成功執行所要求的操作。請重新開機，變更才能生效。
+# 重開機後 check version
+wsl --version
+  WSL 版本： 2.6.3.0
+  核心版本： 6.6.87.2-1
+  WSLg 版本： 1.0.71
+  MSRDC 版本： 1.2.6353
+  Direct3D 版本： 1.611.1-81528511
+  DXCore 版本： 10.0.26100.1-240331-1435.ge-release
+  Windows 版本： 10.0.26200.7462
+wsl -l -v
+  "
+  Windows 子系統 Linux 版 沒有已安裝的發佈。
+  您可以使用下列指示安裝發佈以解決此問題：
+
+  使用 『wsl.exe --list --online' 列出可用的發佈
+  和 『wsl.exe --install <Distro>』 來安裝。
+  "
+# check status
+wsl --status
+  預設版本: 2
+  您目前的電腦設定不支援 WSL1。
+  請啟用「Windows 子系統 Linux 版」選用元件以使用 WSL1。
+
+# download Docker Desktop
+# install Docker Desktop
+"Allow windows Containers to be used with this installation" 
+  --> 通常不選
+  除非確定需要跑「Windows 容器」（例如 Windows Server Core / Nano Server 之類的 image），
+  不然維持預設用 WSL 2 跑 Linux containers 最省事、相容性也最好。
+# 安裝後要重開機
+# check version and status
+docker version
+  Client:
+  Version:           29.1.3
+  API version:       1.52
+  Go version:        go1.25.5
+  Git commit:        f52814d
+  Built:             Fri Dec 12 14:51:52 2025
+  OS/Arch:           windows/amd64
+  Context:           desktop-linux
+
+  Server: Docker Desktop 4.55.0 (213807)
+  Engine:
+    Version:          29.1.3
+    API version:      1.52 (minimum version 1.44)
+    Go version:       go1.25.5
+    Git commit:       fbf3ed2
+    Built:            Fri Dec 12 14:49:51 2025
+    OS/Arch:          linux/amd64
+    Experimental:     false
+  containerd:
+    Version:          v2.2.0
+    GitCommit:        1c4457e00facac03ce1d75f7b6777a7a851e5c41
+  runc:
+    Version:          1.3.4
+    GitCommit:        v1.3.4-0-gd6d73eb8
+  docker-init:
+    Version:          0.19.0
+    GitCommit:        de40ad0
+docker ps
+  CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
+#### windows curl test(要使用 curl.exe, 不能用 curl)
+``` bash
+# check curl 
+Get-Command curl.exe
+  CommandType     Name                                               Version    Source
+  -----------     ----                                               -------    ------
+  Application     curl.exe                                           8.16.0.0   C:\WINDOWS\system32\curl.exe
+# curl version
+curl.exe --version
+  curl 8.16.0 (Windows) libcurl/8.16.0 Schannel zlib/1.3.1 WinIDN
+  Release-Date: 2025-09-10
+  Protocols: dict file ftp ftps gopher gophers http https imap imaps ipfs ipns ldap ldaps mqtt pop3 pop3s smb smbs smtp smtps telnet tftp ws wss
+  Features: alt-svc AsynchDNS HSTS HTTPS-proxy IDN IPv6 Kerberos Largefile libz NTLM SPNEGO SSL SSPI threadsafe Unicode UnixSockets
+# 僅表示 https://roberthut.com 有 redirect
+curl.exe https://roberthut.com
+  Redirecting...
+# -L（follow redirects） 跟著跳轉並拿到內容
+curl.exe -L https://roberthut.com
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+
+      <!-- Favicon -->
+      <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+      <link
+        rel="icon"
+        type="image/png"
+        href="/Robert_hut_dark_128.png?v=1"
+        sizes="128x128"
+      />
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Robert Hut</title>
+
+      <!-- Open Graph -->
+      <meta property="og:url" content="https://www.roberthut.com/" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Robert Hut" />
+      <meta property="og:image" content="https://www.roberthut.com/roberthut-og-banner.png?v=1" />
+      <meta property="og:image:width" content="1138" />
+      <meta property="og:image:height" content="765" />
+
+      <!-- Twitter Card -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="https://www.roberthut.com/roberthut-og-banner.png?v=1" />
+      <script type="module" crossorigin src="/assets/index-m1K2g44N.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-Cpb77-BR.css">
+    </head>
+    <body>
+      <div id="root"></div>
+    </body>
+  </html>
+# 看回應標頭
+curl.exe -I https://roberthut.com
+  HTTP/1.1 307 Temporary Redirect
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/plain
+  Date: Mon, 12 Jan 2026 02:20:23 GMT
+  Location: https://www.roberthut.com/
+  Server: Vercel
+  Strict-Transport-Security: max-age=63072000
+  X-Vercel-Id: hkg1::677cc-1768184423669-240b8e39f2e6
+```
+
 ### Vibe coding
 #### some notes
 ##### Bolt.new 代頻繁成本較高
@@ -1131,6 +1561,13 @@ supabase functions list
 
 # delete Edge function 
 supabase functions delete create-post
+
+# install pg_dump at Mac
+# Homebrew（推薦）
+brew install postgresql@16  # 或 postgresql
+
+# 驗證
+pg_dump --version
 ```
 
 ##### Edge function control
