@@ -1,7 +1,17 @@
-import { Link, Outlet } from 'react-router-dom';
-import { BookOpen, Home, Settings, User } from 'lucide-react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { BookOpen, Home, Settings, User, LogOut } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { supabase } from '../lib/supabase';
 
 export function Layout() {
+  const { isAdmin } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    navigate('/');
+  }
+
   return (
     <div className="min-h-screen bg-stone-50 text-stone-900">
       <header className="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
@@ -15,7 +25,7 @@ export function Layout() {
                 className="w-14 h-14"
               />
             </div>
-      
+
             <div className="flex flex-col">
               <span className="text-2xl font-semibold tracking-tight text-stone-900">
                 Robert hut
@@ -41,13 +51,25 @@ export function Layout() {
               <User className="w-4 h-4" />
               <span>關於我</span>
             </Link>
-            <Link
-              to="/admin"
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
-            >
-              <Settings className="w-4 h-4" />
-              <span>管理</span>
-            </Link>
+            {isAdmin && (
+              <>
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>管理</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-red-600 transition-colors font-medium"
+                  title="登出"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>登出</span>
+                </button>
+              </>
+            )}
           </div>
         </nav>
       </header>

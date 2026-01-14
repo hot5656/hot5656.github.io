@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { PostDetailPage } from './pages/PostDetailPage';
+import { LoginPage } from './pages/LoginPage';
 import { AdminPage } from './pages/AdminPage';
 import { PostEditorPage } from './pages/PostEditorPage';
 import { BioEditorPage } from './pages/BioEditorPage';
@@ -16,11 +18,12 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="post/:slug" element={<PostDetailPage />} />
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="admin/new" element={<PostEditorPage />} />
-          <Route path="admin/edit/:id" element={<PostEditorPage />} />
-          <Route path="admin/bio" element={<BioEditorPage />} />
-          <Route path="admin/images" element={<ImageLibraryPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+          <Route path="admin/new" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />
+          <Route path="admin/edit/:id" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />
+          <Route path="admin/bio" element={<ProtectedRoute><BioEditorPage /></ProtectedRoute>} />
+          <Route path="admin/images" element={<ProtectedRoute><ImageLibraryPage /></ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>
