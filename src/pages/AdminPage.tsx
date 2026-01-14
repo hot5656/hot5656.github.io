@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, User, Image } from 'lucide-react';
 import { supabase, Post } from '../lib/supabase';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 export function AdminPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const { t, i18n } = useTranslation();
+  const localePath = useLocalePath();
 
   useEffect(() => {
     loadPosts();
@@ -41,14 +45,14 @@ export function AdminPage() {
       setDeleteConfirm(null);
     } catch (error) {
       console.error('Error deleting post:', error);
-      alert('Failed to delete post');
+      alert(t('admin.deleteFailed'));
     }
   }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-stone-400">載入中...</div>
+        <div className="text-stone-400">{t('common.loading')}</div>
       </div>
     );
   }
@@ -56,41 +60,41 @@ export function AdminPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-light">內容管理</h1>
+        <h1 className="text-3xl font-light">{t('admin.title')}</h1>
         <div className="flex items-center gap-3">
           <Link
-            to="/admin/images"
+            to={localePath('/admin/images')}
             className="flex items-center gap-2 px-4 py-2.5 bg-white border border-stone-300 text-stone-700 rounded-md hover:bg-stone-50 transition-colors"
           >
             <Image className="w-4 h-4" />
-            圖片庫
+            {t('admin.manageImages')}
           </Link>
           <Link
-            to="/admin/bio"
+            to={localePath('/admin/bio')}
             className="flex items-center gap-2 px-4 py-2.5 bg-white border border-stone-300 text-stone-700 rounded-md hover:bg-stone-50 transition-colors"
           >
             <User className="w-4 h-4" />
-            編輯自我介紹
+            {t('admin.editBio')}
           </Link>
           <Link
-            to="/admin/new"
+            to={localePath('/admin/new')}
             className="flex items-center gap-2 px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            新增文章
+            {t('admin.newPost')}
           </Link>
         </div>
       </div>
 
       {posts.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-lg border border-stone-200">
-          <p className="text-stone-500 mb-6">還沒有文章，開始創作第一篇吧！</p>
+          <p className="text-stone-500 mb-6">{t('admin.noPosts')}</p>
           <Link
-            to="/admin/new"
+            to={localePath('/admin/new')}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            新增文章
+            {t('admin.newPost')}
           </Link>
         </div>
       ) : (
@@ -99,19 +103,19 @@ export function AdminPage() {
             <thead className="bg-stone-50 border-b border-stone-200">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 tracking-wider">
-                  標題
+                  {t('postEditor.title')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 tracking-wider">
-                  狀態
+                  {t('admin.published')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 tracking-wider">
-                  網址代碼
+                  {t('postEditor.slug')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 tracking-wider">
-                  建立日期
+                  {i18n.language === 'zh-TW' ? '建立日期' : 'Created Date'}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-stone-500 tracking-wider">
-                  操作
+                  {i18n.language === 'zh-TW' ? '操作' : 'Actions'}
                 </th>
               </tr>
             </thead>
@@ -120,7 +124,7 @@ export function AdminPage() {
                 <tr key={post.id} className="hover:bg-stone-50 transition-colors">
                   <td className="px-6 py-4">
                     <Link
-                      to={`/post/${post.slug}`}
+                      to={localePath(`/post/${post.slug}`)}
                       className="text-stone-900 hover:text-stone-600 transition-colors"
                     >
                       {post.title}
@@ -134,21 +138,21 @@ export function AdminPage() {
                           : 'bg-yellow-100 text-yellow-800'
                       }`}
                     >
-                      {post.published ? '已發布' : '草稿'}
+                      {post.published ? t('admin.published') : t('admin.draft')}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-stone-500">
                     {post.slug}
                   </td>
                   <td className="px-6 py-4 text-sm text-stone-500">
-                    {new Date(post.created_at).toLocaleDateString('zh-TW')}
+                    {new Date(post.created_at).toLocaleDateString(i18n.language === 'zh-TW' ? 'zh-TW' : 'en-US')}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <Link
-                        to={`/admin/edit/${post.id}`}
+                        to={localePath(`/admin/edit/${post.id}`)}
                         className="p-2 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded transition-colors"
-                        title="編輯"
+                        title={t('admin.edit')}
                       >
                         <Edit2 className="w-4 h-4" />
                       </Link>
@@ -159,20 +163,20 @@ export function AdminPage() {
                             onClick={() => handleDelete(post.id)}
                             className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
                           >
-                            確認刪除
+                            {t('common.confirm')} {t('admin.delete')}
                           </button>
                           <button
                             onClick={() => setDeleteConfirm(null)}
                             className="px-3 py-1 text-sm bg-stone-200 text-stone-700 rounded hover:bg-stone-300 transition-colors"
                           >
-                            取消
+                            {t('common.cancel')}
                           </button>
                         </div>
                       ) : (
                         <button
                           onClick={() => setDeleteConfirm(post.id)}
                           className="p-2 text-stone-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
-                          title="刪除"
+                          title={t('admin.delete')}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>

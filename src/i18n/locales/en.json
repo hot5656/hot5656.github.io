@@ -6,9 +6,13 @@
     "logout": "Logout"
   },
   "home": {
-    "title": "Welcome",
+    "title": "Latest Posts",
+    "subtitle": "From Idea to Production | Workflow・Coding・AI",
     "noPosts": "No posts yet",
-    "readMore": "Read More"
+    "noPostsSubtitle": "Start creating your first post",
+    "createPost": "Create Post",
+    "readMore": "Read More →",
+    "loading": "Loading..."
   },
   "about": {
     "title": "About",

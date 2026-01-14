@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { supabase, SiteSettings } from '../lib/supabase';
@@ -6,6 +7,7 @@ import { supabase, SiteSettings } from '../lib/supabase';
 export function AboutPage() {
   const [bio, setBio] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadBio();
@@ -31,7 +33,7 @@ export function AboutPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-stone-400">載入中...</div>
+        <div className="text-stone-400">{t('common.loading')}</div>
       </div>
     );
   }
@@ -39,7 +41,7 @@ export function AboutPage() {
   if (!bio) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-light text-stone-400">尚未設定個人介紹</h2>
+        <h2 className="text-2xl font-light text-stone-400">{t('about.noBio')}</h2>
       </div>
     );
   }
