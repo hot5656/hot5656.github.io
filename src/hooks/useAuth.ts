@@ -16,28 +16,40 @@ export function useAuth(): AuthState {
   });
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const user = session?.user ?? null;
-      const isAdmin = checkIsAdmin(user);
-      setState({ user, loading: false, isAdmin });
-    });
+    checkAuthState();
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      const user = session?.user ?? null;
-      const isAdmin = checkIsAdmin(user);
-      setState({ user, loading: false, isAdmin });
+      checkAuthState();
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
+  async function checkAuthState() {
+    const { data: { session } } = await supabase.auth.getSession();
+    const user = session?.user ?? null;
+
+    if (user) {
+      const isAdmin = await checkIsAdmin(user.email!);
+      setState({ user, loading: false, isAdmin });
+    } else {
+      setState({ user: null, loading: false, isAdmin: false });
+    }
+  }
+
   return state;
 }
 
-function checkIsAdmin(user: User | null): boolean {
-  if (!user) return false;
-  const role = user.app_metadata?.role;
-  return role === 'admin';
+async function checkIsAdmin(userEmail: string): Promise<boolean> {
+  const { data } = await supabase
+    .from('roberthut_site_settings')
+    .select('admin_emails')
+    .single();
+
+  if (!data?.admin_emails) return false;
+
+  const adminEmails = data.admin_emails as string[];
+  return adminEmails.includes(userEmail);
 }
