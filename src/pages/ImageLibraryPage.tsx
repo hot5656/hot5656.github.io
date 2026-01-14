@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Upload, Copy, Check, Trash2, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 interface StorageImage {
   name: string;
@@ -16,6 +18,8 @@ export function ImageLibraryPage() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+  const { t, i18n } = useTranslation();
+  const localePath = useLocalePath();
 
   useEffect(() => {
     loadImages();
@@ -59,12 +63,12 @@ export function ImageLibraryPage() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('請選擇圖片檔案');
+      alert(i18n.language === 'zh-TW' ? '請選擇圖片檔案' : 'Please select an image file');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('圖片大小不能超過 5MB');
+      alert(i18n.language === 'zh-TW' ? '圖片大小不能超過 5MB' : 'Image size cannot exceed 5MB');
       return;
     }
 
@@ -86,14 +90,14 @@ export function ImageLibraryPage() {
       e.target.value = '';
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('上傳圖片失敗，請重試');
+      alert(t('imageLibrary.uploadFailed'));
     } finally {
       setUploading(false);
     }
   }
 
   async function handleDelete(imageName: string) {
-    if (!confirm('確定要刪除這張圖片嗎？此操作無法復原。')) return;
+    if (!confirm(t('imageLibrary.confirmDelete'))) return;
 
     try {
       const { error } = await supabase.storage
@@ -105,7 +109,7 @@ export function ImageLibraryPage() {
       setImages(prev => prev.filter(img => img.name !== imageName));
     } catch (error) {
       console.error('Error deleting image:', error);
-      alert('刪除失敗，請重試');
+      alert(t('imageLibrary.deleteFailed'));
     }
   }
 
@@ -127,11 +131,11 @@ export function ImageLibraryPage() {
     <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => navigate('/admin')}
+          onClick={() => navigate(localePath('/admin'))}
           className="flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          返回管理頁面
+          {i18n.language === 'zh-TW' ? '返回管理頁面' : 'Back to Admin'}
         </button>
 
         <div className="border-2 border-dashed border-stone-300 rounded-lg px-6 py-3 hover:border-stone-400 transition-colors">
@@ -149,7 +153,7 @@ export function ImageLibraryPage() {
           >
             <Upload className="w-5 h-5 text-stone-600" />
             <span className="text-sm font-medium text-stone-700">
-              {uploading ? '上傳中...' : '上傳圖片'}
+              {uploading ? t('imageLibrary.uploading') : t('imageLibrary.uploadButton')}
             </span>
           </label>
         </div>
@@ -157,21 +161,21 @@ export function ImageLibraryPage() {
 
       <div className="bg-white rounded-lg border border-stone-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-light">圖片庫</h1>
+          <h1 className="text-2xl font-light">{t('imageLibrary.title')}</h1>
           <div className="text-sm text-stone-500">
-            共 {images.length} 張圖片
+            {i18n.language === 'zh-TW' ? `共 ${images.length} 張圖片` : `${images.length} images`}
           </div>
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="text-stone-500">載入中...</div>
+            <div className="text-stone-500">{t('common.loading')}</div>
           </div>
         ) : images.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-center">
             <ImageIcon className="w-16 h-16 text-stone-300 mb-4" />
-            <p className="text-stone-500 mb-2">圖片庫是空的</p>
-            <p className="text-sm text-stone-400">上傳第一張圖片吧！</p>
+            <p className="text-stone-500 mb-2">{t('imageLibrary.noImages')}</p>
+            <p className="text-sm text-stone-400">{i18n.language === 'zh-TW' ? '上傳第一張圖片吧！' : 'Upload your first image!'}</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -194,24 +198,24 @@ export function ImageLibraryPage() {
                     <button
                       onClick={() => handleCopyUrl(image.url)}
                       className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-stone-900 text-white text-sm font-medium rounded hover:bg-stone-800 transition-colors"
-                      title="複製 URL"
+                      title={t('imageLibrary.clickToCopy')}
                     >
                       {copiedUrl === image.url ? (
                         <>
                           <Check className="w-4 h-4" />
-                          已複製
+                          {t('imageLibrary.copied')}
                         </>
                       ) : (
                         <>
                           <Copy className="w-4 h-4" />
-                          複製
+                          {i18n.language === 'zh-TW' ? '複製' : 'Copy'}
                         </>
                       )}
                     </button>
                     <button
                       onClick={() => handleDelete(image.name)}
                       className="p-2 bg-red-100 hover:bg-red-200 rounded transition-colors"
-                      title="刪除圖片"
+                      title={t('imageLibrary.delete')}
                     >
                       <Trash2 className="w-4 h-4 text-red-600" />
                     </button>
@@ -219,13 +223,13 @@ export function ImageLibraryPage() {
 
                   <div className="text-xs text-stone-500 space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium">大小</span>
+                      <span className="font-medium">{i18n.language === 'zh-TW' ? '大小' : 'Size'}</span>
                       <span>{formatFileSize(image.size)}</span>
                     </div>
                     {image.created_at && (
                       <div className="flex items-center justify-between">
-                        <span className="font-medium">上傳</span>
-                        <span>{new Date(image.created_at).toLocaleDateString('zh-TW')}</span>
+                        <span className="font-medium">{i18n.language === 'zh-TW' ? '上傳' : 'Uploaded'}</span>
+                        <span>{new Date(image.created_at).toLocaleDateString(i18n.language === 'zh-TW' ? 'zh-TW' : 'en-US')}</span>
                       </div>
                     )}
                   </div>

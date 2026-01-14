@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Save, Eye, Edit3, ArrowLeft } from 'lucide-react';
 import { supabase, SiteSettings } from '../lib/supabase';
+import { useLocalePath } from '../hooks/useLocalePath';
 
 export function BioEditorPage() {
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ export function BioEditorPage() {
   const [saving, setSaving] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [settingsId, setSettingsId] = useState<string>('');
+  const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   const [formData, setFormData] = useState({
     bio_title: '',
@@ -51,7 +55,7 @@ export function BioEditorPage() {
     e.preventDefault();
 
     if (!formData.bio_content.trim()) {
-      alert('請填寫自我介紹內容');
+      alert(t('bioEditor.contentPlaceholder'));
       return;
     }
 
@@ -71,10 +75,10 @@ export function BioEditorPage() {
 
       if (error) throw error;
 
-      navigate('/admin');
+      navigate(localePath('/admin'));
     } catch (error) {
       console.error('Error saving bio:', error);
-      alert('儲存失敗');
+      alert(t('bioEditor.saveFailed'));
     } finally {
       setSaving(false);
     }
@@ -83,7 +87,7 @@ export function BioEditorPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-stone-400">載入中...</div>
+        <div className="text-stone-400">{t('common.loading')}</div>
       </div>
     );
   }
@@ -92,11 +96,11 @@ export function BioEditorPage() {
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => navigate('/admin')}
+          onClick={() => navigate(localePath('/admin'))}
           className="flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          返回管理頁面
+          {t('postDetail.backToHome').replace('首頁', '管理頁面').replace('Home', 'Admin')}
         </button>
 
         <div className="flex items-center gap-3">
@@ -108,12 +112,12 @@ export function BioEditorPage() {
             {previewMode ? (
               <>
                 <Edit3 className="w-4 h-4" />
-                編輯
+                {t('common.edit')}
               </>
             ) : (
               <>
                 <Eye className="w-4 h-4" />
-                預覽
+                {t('postEditor.published').includes('Published') ? 'Preview' : '預覽'}
               </>
             )}
           </button>
@@ -124,7 +128,7 @@ export function BioEditorPage() {
             className="flex items-center gap-2 px-4 py-2 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
-            {saving ? '儲存中...' : '儲存'}
+            {saving ? t('bioEditor.saveButtonLoading') : t('bioEditor.saveButton')}
           </button>
         </div>
       </div>
@@ -134,7 +138,7 @@ export function BioEditorPage() {
           <>
             <div>
               <label htmlFor="bio_title" className="block text-sm font-medium text-stone-700 mb-2">
-                標題
+                {t('postEditor.title')}
               </label>
               <input
                 type="text"
@@ -142,13 +146,13 @@ export function BioEditorPage() {
                 value={formData.bio_title}
                 onChange={(e) => setFormData({ ...formData, bio_title: e.target.value })}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
-                placeholder="關於我"
+                placeholder={t('about.title')}
               />
             </div>
 
             <div>
               <label htmlFor="avatar_url" className="block text-sm font-medium text-stone-700 mb-2">
-                頭像圖片網址
+                {t('postEditor.coverImage').replace('封面圖片', '頭像圖片').replace('Cover Image', 'Avatar Image')}
               </label>
               <input
                 type="url"
@@ -162,7 +166,7 @@ export function BioEditorPage() {
 
             <div>
               <label htmlFor="bio_content" className="block text-sm font-medium text-stone-700 mb-2">
-                自我介紹內容（Markdown 格式）*
+                {t('bioEditor.content')}
               </label>
               <textarea
                 id="bio_content"
@@ -170,7 +174,7 @@ export function BioEditorPage() {
                 onChange={(e) => setFormData({ ...formData, bio_content: e.target.value })}
                 rows={20}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
-                placeholder="使用 Markdown 格式撰寫自我介紹..."
+                placeholder={t('bioEditor.contentPlaceholder')}
                 required
               />
             </div>
@@ -188,7 +192,7 @@ export function BioEditorPage() {
               <div className="flex-1">
                 <div className="prose prose-stone max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {formData.bio_content || '*尚無內容*'}
+                    {formData.bio_content || `*${t('about.noBio').replace('尚無個人簡介。', '尚無內容').replace('No bio available yet.', 'No content')}*`}
                   </ReactMarkdown>
                 </div>
               </div>

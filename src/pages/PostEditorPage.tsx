@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import { Save, Eye, Edit3, ArrowLeft, Upload, X, Image as ImageIcon, Link, Pencil } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { ImageGallery } from '../components/ImageGallery';
+import { useLocalePath } from '../hooks/useLocalePath';
 import 'highlight.js/styles/github-dark.css';
 
 export function PostEditorPage() {
@@ -20,6 +22,8 @@ export function PostEditorPage() {
   const [urlInput, setUrlInput] = useState('');
   const [editingUrl, setEditingUrl] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const { t, i18n } = useTranslation();
+  const localePath = useLocalePath();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -61,7 +65,7 @@ export function PostEditorPage() {
       }
     } catch (error) {
       console.error('Error loading post:', error);
-      alert('載入文章失敗');
+      alert(t('postEditor.loadFailed'));
     } finally {
       setLoading(false);
     }
@@ -90,12 +94,12 @@ export function PostEditorPage() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('請選擇圖片檔案');
+      alert(i18n.language === 'zh-TW' ? '請選擇圖片檔案' : 'Please select an image file');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('圖片大小不能超過 5MB');
+      alert(i18n.language === 'zh-TW' ? '圖片大小不能超過 5MB' : 'Image size cannot exceed 5MB');
       return;
     }
 
@@ -122,7 +126,7 @@ export function PostEditorPage() {
       }));
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('上傳圖片失敗，請重試');
+      alert(t('imageLibrary.uploadFailed'));
     } finally {
       setUploading(false);
     }
@@ -181,7 +185,7 @@ export function PostEditorPage() {
     e.preventDefault();
 
     if (!formData.title.trim() || !formData.slug.trim() || !formData.content.trim()) {
-      setValidationError('請填寫標題、網址代碼和內容');
+      setValidationError(i18n.language === 'zh-TW' ? '請填寫標題、網址代碼和內容' : 'Please fill in title, slug, and content');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -220,10 +224,10 @@ export function PostEditorPage() {
         if (error) throw error;
       }
 
-      navigate('/admin');
+      navigate(localePath('/admin'));
     } catch (error) {
       console.error('Error saving post:', error);
-      setValidationError('儲存失敗，請檢查網址代碼是否重複');
+      setValidationError(i18n.language === 'zh-TW' ? '儲存失敗，請檢查網址代碼是否重複' : 'Save failed, please check if slug is duplicated');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setSaving(false);
@@ -233,7 +237,7 @@ export function PostEditorPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-stone-400">載入中...</div>
+        <div className="text-stone-400">{t('common.loading')}</div>
       </div>
     );
   }
@@ -249,7 +253,7 @@ export function PostEditorPage() {
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-red-800">無法儲存</h3>
+              <h3 className="text-sm font-medium text-red-800">{i18n.language === 'zh-TW' ? '無法儲存' : 'Cannot Save'}</h3>
               <p className="mt-1 text-sm text-red-700">{validationError}</p>
             </div>
             <button
@@ -264,17 +268,17 @@ export function PostEditorPage() {
 
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => navigate('/admin')}
+          onClick={() => navigate(localePath('/admin'))}
           className="flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          返回管理頁面
+          {i18n.language === 'zh-TW' ? '返回管理頁面' : 'Back to Admin'}
         </button>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-4 py-2 border border-stone-300 rounded-md bg-white">
             <label htmlFor="published" className="text-sm font-medium text-stone-700 cursor-pointer">
-              發布狀態：
+              {i18n.language === 'zh-TW' ? '發布狀態：' : 'Status:'}
             </label>
             <select
               id="published"
@@ -282,8 +286,8 @@ export function PostEditorPage() {
               onChange={(e) => setFormData({ ...formData, published: e.target.value === 'published' })}
               className="text-sm border-0 bg-transparent focus:ring-0 font-medium cursor-pointer"
             >
-              <option value="draft">草稿</option>
-              <option value="published">已發布</option>
+              <option value="draft">{t('admin.draft')}</option>
+              <option value="published">{t('admin.published')}</option>
             </select>
           </div>
 
@@ -295,12 +299,12 @@ export function PostEditorPage() {
             {previewMode ? (
               <>
                 <Edit3 className="w-4 h-4" />
-                編輯
+                {t('common.edit')}
               </>
             ) : (
               <>
                 <Eye className="w-4 h-4" />
-                預覽
+                {i18n.language === 'zh-TW' ? '預覽' : 'Preview'}
               </>
             )}
           </button>
@@ -311,7 +315,7 @@ export function PostEditorPage() {
             className="flex items-center gap-2 px-4 py-2 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
-            {saving ? '儲存中...' : '儲存'}
+            {saving ? t('postEditor.saving') : t('common.save')}
           </button>
         </div>
       </div>
@@ -321,7 +325,7 @@ export function PostEditorPage() {
           <>
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-stone-700 mb-2">
-                標題 *
+                {t('postEditor.title')} *
               </label>
               <input
                 type="text"
@@ -329,13 +333,14 @@ export function PostEditorPage() {
                 value={formData.title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                placeholder={t('postEditor.titlePlaceholder')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-stone-700 mb-2">
-                封面圖片
+                {t('postEditor.coverImage')}
               </label>
 
               {formData.cover_image_url && !editingUrl ? (
@@ -343,7 +348,7 @@ export function PostEditorPage() {
                   <div className="relative">
                     <img
                       src={formData.cover_image_url}
-                      alt="封面預覽"
+                      alt={i18n.language === 'zh-TW' ? '封面預覽' : 'Cover Preview'}
                       className="w-full h-64 object-cover rounded-lg border border-stone-300"
                     />
                     <button
@@ -358,7 +363,7 @@ export function PostEditorPage() {
                   <div className="bg-stone-50 p-4 rounded-lg border border-stone-200">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-stone-600 mb-1">圖片網址</p>
+                        <p className="text-xs font-medium text-stone-600 mb-1">{i18n.language === 'zh-TW' ? '圖片網址' : 'Image URL'}</p>
                         <p className="text-xs text-stone-500 font-mono break-all">
                           {formData.cover_image_url}
                         </p>
@@ -369,7 +374,7 @@ export function PostEditorPage() {
                         className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white border border-stone-300 text-stone-700 rounded hover:bg-stone-50 transition-colors shrink-0"
                       >
                         <Pencil className="w-3.5 h-3.5" />
-                        編輯
+                        {t('common.edit')}
                       </button>
                     </div>
                   </div>
@@ -398,21 +403,21 @@ export function PostEditorPage() {
                       onClick={handleSaveEditedUrl}
                       className="px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors"
                     >
-                      儲存
+                      {t('common.save')}
                     </button>
                     <button
                       type="button"
                       onClick={handleCancelEdit}
                       className="px-4 py-2.5 border border-stone-300 rounded-md hover:bg-stone-50 transition-colors"
                     >
-                      取消
+                      {t('common.cancel')}
                     </button>
                   </div>
                   {urlInput && (
                     <div className="relative">
                       <img
                         src={urlInput}
-                        alt="預覽"
+                        alt={i18n.language === 'zh-TW' ? '預覽' : 'Preview'}
                         className="w-full h-48 object-cover rounded-lg border border-stone-300"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -447,7 +452,7 @@ export function PostEditorPage() {
                       onClick={handleUrlSubmit}
                       className="px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors"
                     >
-                      確定
+                      {t('common.confirm')}
                     </button>
                   </div>
                   <button
@@ -458,7 +463,7 @@ export function PostEditorPage() {
                     }}
                     className="text-sm text-stone-600 hover:text-stone-900"
                   >
-                    取消
+                    {t('common.cancel')}
                   </button>
                 </div>
               ) : (
@@ -479,10 +484,10 @@ export function PostEditorPage() {
                       <Upload className="w-8 h-8 text-stone-400" />
                       <div>
                         <p className="text-sm font-medium text-stone-700">
-                          {uploading ? '上傳中...' : '上傳新圖片'}
+                          {uploading ? t('imageLibrary.uploading') : (i18n.language === 'zh-TW' ? '上傳新圖片' : 'Upload New Image')}
                         </p>
                         <p className="text-xs text-stone-500 mt-1">
-                          最大 5MB
+                          {i18n.language === 'zh-TW' ? '最大 5MB' : 'Max 5MB'}
                         </p>
                       </div>
                     </label>
@@ -497,10 +502,10 @@ export function PostEditorPage() {
                       <ImageIcon className="w-8 h-8 text-stone-400" />
                       <div>
                         <p className="text-sm font-medium text-stone-700">
-                          從圖庫選擇
+                          {i18n.language === 'zh-TW' ? '從圖庫選擇' : 'From Gallery'}
                         </p>
                         <p className="text-xs text-stone-500 mt-1">
-                          瀏覽已上傳
+                          {i18n.language === 'zh-TW' ? '瀏覽已上傳' : 'Browse Uploaded'}
                         </p>
                       </div>
                     </div>
@@ -515,10 +520,10 @@ export function PostEditorPage() {
                       <Link className="w-8 h-8 text-stone-400" />
                       <div>
                         <p className="text-sm font-medium text-stone-700">
-                          輸入網址
+                          {i18n.language === 'zh-TW' ? '輸入網址' : 'Enter URL'}
                         </p>
                         <p className="text-xs text-stone-500 mt-1">
-                          外部連結
+                          {i18n.language === 'zh-TW' ? '外部連結' : 'External Link'}
                         </p>
                       </div>
                     </div>
@@ -529,7 +534,7 @@ export function PostEditorPage() {
 
             <div>
               <label htmlFor="excerpt" className="block text-sm font-medium text-stone-700 mb-2">
-                文章摘要
+                {i18n.language === 'zh-TW' ? '文章摘要' : 'Excerpt'}
               </label>
               <textarea
                 id="excerpt"
@@ -537,13 +542,13 @@ export function PostEditorPage() {
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
                 rows={2}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent resize-none"
-                placeholder="簡短描述這篇文章的內容..."
+                placeholder={i18n.language === 'zh-TW' ? '簡短描述這篇文章的內容...' : 'Brief description of this post...'}
               />
             </div>
 
             <div>
               <label htmlFor="tags" className="block text-sm font-medium text-stone-700 mb-2">
-                標籤
+                {i18n.language === 'zh-TW' ? '標籤' : 'Tags'}
               </label>
               <input
                 type="text"
@@ -551,13 +556,13 @@ export function PostEditorPage() {
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
-                placeholder="react, typescript, 網頁開發（逗號分隔）"
+                placeholder={i18n.language === 'zh-TW' ? 'react, typescript, 網頁開發（逗號分隔）' : 'react, typescript, web development (comma separated)'}
               />
             </div>
 
             <div>
               <label htmlFor="content" className="block text-sm font-medium text-stone-700 mb-2">
-                內容（Markdown 格式）*
+                {t('postEditor.content')} *
               </label>
               <textarea
                 id="content"
@@ -565,7 +570,7 @@ export function PostEditorPage() {
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                 rows={20}
                 className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
-                placeholder="使用 Markdown 格式撰寫文章內容..."
+                placeholder={t('postEditor.contentPlaceholder')}
                 required
               />
             </div>
@@ -581,7 +586,7 @@ export function PostEditorPage() {
             )}
 
             <h1 className="text-4xl md:text-5xl font-light mb-4 leading-tight">
-              {formData.title || '未命名文章'}
+              {formData.title || (i18n.language === 'zh-TW' ? '未命名文章' : 'Untitled Post')}
             </h1>
 
             {formData.tags && (
@@ -607,7 +612,7 @@ export function PostEditorPage() {
                   ),
                 }}
               >
-                {formData.content || '*尚無內容*'}
+                {formData.content || (i18n.language === 'zh-TW' ? '*尚無內容*' : '*No content*')}
               </ReactMarkdown>
             </div>
           </div>
