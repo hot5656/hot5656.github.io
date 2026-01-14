@@ -25,7 +25,7 @@ tags: AI
 請一樣的圖幫我調成  1024 x 512 圖檔
 
 # fb 貼文
-我的 blog 貼文如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 Robert Hut 若有期望的網頁 ideas 也
+我的 blog 貼文 如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 [Robert Hut](roberthut.com)  若有 ideas 也歡迎提出討論 
 # 直接貼網址,不用加 https://
 link example : 已經正式上線囉 👉 The Journal : blog-journal.demo.roberthut.com
                歡迎到 👉 Robert Hut : roberthut.com
@@ -40,16 +40,8 @@ link example : 👉 專案連結 ：tarot-cards.roberthut.com
 # instagram 貼文
 我要貼到 instagram 請幫我修飾
 # 貼文無法加link 先指導 Bio - example
-  從「Vibe Coding」的靈光一閃，到 Bolt.new + Perplexity AI 幫我畫藍圖
-  歷經修羅場（錯誤鬼打牆、資料庫拔河），終於上線！
-
-  ✨ 特色：
-  • 深度互動追問
-  • 完整牌義解釋庫
-  • 結果自動儲存
-  • 中英雙語
-
-  試試你的運勢？👉 https://tarot-cards.roberthut.com/
+完整實錄在 Robert Hut : roberthut.com
+（連結在 Bio）
 
   #n8n #VibeCoding #AI #塔羅牌 #自動化 #NoCode
 # instagram end ...
@@ -542,6 +534,10 @@ Project overview
 # 因為這種備份本質是 SQL 指令腳本，所以要用 psql 來執行，而不是 pg_restore。
 # psql "postgresql://USER:PASSWORD@HOST:5432/mydb" -f .\backup_2026_0112.dump
 
+# 檢查檔案 - ok
+pg_dump -Fc "postgresql://USER:PASSWORD@HOST:5432/mydb" -f backup_2026_0112.dump
+pg_restore --list backup_2026_0112.dump
+
 # 還原到新 project(未測試)
 pg_restore -d "新連線字串" --verbose backup_20260111.dump
 ```
@@ -715,6 +711,64 @@ curl.exe -I https://roberthut.com
   Server: Vercel
   Strict-Transport-Security: max-age=63072000
   X-Vercel-Id: hkg1::677cc-1768184423669-240b8e39f2e6
+```
+
+#### supabase change email verify
+``` bash
+# Confirm Sign up/Reset Password
+Authentication
+	--> Emails 
+	--> Reset password or Confirm sign up
+
+# Reset password
+# Subject
+Life Organizer｜Reset Your Password
+# Body
+<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">
+  <h2>Reset your Life Organizer password</h2>
+
+  <p>Hi,</p>
+  <p>We received a request to reset the password for your Life Organizer account.</p>
+
+  <p>
+    <a href="{{ .ConfirmationURL }}"
+       style="display:inline-block; padding:10px 16px; background:#111827; color:#ffffff; text-decoration:none; border-radius:8px;">
+      Reset password
+    </a>
+  </p>
+
+  <p>If you didn’t request a password reset, you can safely ignore this email—your password won’t be changed.</p>
+
+  <p style="margin-top: 20px;">
+    Robert hut<br/>
+    Life Organizer
+  </p>
+</div>
+
+# Confirm sign up
+# Subject
+Life Organizer｜Confirm Your Signup
+# Body
+<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6;">
+  <h2>Confirm your Life Organizer account</h2>
+
+  <p>Hi,</p>
+  <p>Thanks for signing up for Life Organizer. Please confirm your email address to activate your account.</p>
+
+  <p>
+    <a href="{{ .ConfirmationURL }}"
+       style="display:inline-block; padding:10px 16px; background:#111827; color:#ffffff; text-decoration:none; border-radius:8px;">
+      Confirm email
+    </a>
+  </p>
+
+  <p>If you didn’t create this account, you can safely ignore this email.</p>
+
+  <p style="margin-top: 20px;">
+    Robert hut<br/>
+    Life Organizer
+  </p>
+</div>
 ```
 
 ### Vibe coding
@@ -3544,7 +3598,167 @@ Body Content Type: JSON
 Specify Body: Using Fields Below
 ```
 
-### [Life Organizer]() (Lovable) - [Prompt link](https://www.perplexity.ai/search/i-want-to-use-lovable-to-make-gzbUCvoBSGKlvpiELC_VpQ#72)
+### Robert hut - 2nd
+#### prompt for admin
+``` bash
+你是一位資深全端工程師，請只針對我現有個人 blog 的「管理入口」功能做安全重構（其他功能不要動、不要重做 UI）。目前頁面右上角有「管理（齒輪）」按鈕（如附圖），這種做法不安全。請完成以下需求並提供可直接套用的程式碼修改建議與檔案差異（diff）。
+
+現況與目標
+前台內容：公開，所有人都可瀏覽文章列表與文章內容。
+
+後台：只允許我本人使用 admin 權限進入。
+
+後台入口：統一使用 /admin（可以是同網域路徑），但即使有人猜到 /admin 也必須被擋下來。
+
+身分系統：使用 Supabase Auth（同一套帳號），不新增另一套帳密。
+
+資料安全：所有寫入/更新/刪除操作必須由 Supabase RLS 保護，不能只靠前端隱藏按鈕。
+
+需要你做的修改（請逐項完成）
+前台「管理（齒輪）」按鈕顯示規則
+
+未登入：不要顯示「管理」按鈕。
+
+已登入但非 admin：不要顯示「管理」按鈕。
+
+已登入且為 admin：顯示「管理」按鈕，點擊後導向 /admin。
+
+請提供一個 isAdmin(user) 的實作策略（優先用 JWT claims / app_metadata 或 user id allowlist），並說明哪個更穩定。
+
+/admin 路由保護（前端層）
+
+未登入：導向登入頁（或顯示「請登入」），不可看到任何 admin UI。
+
+已登入但非 admin：顯示 403（或導回首頁）。
+
+已登入且 admin：可進入 admin UI。
+
+請給出 route guard / middleware 實作（依我目前技術棧），並避免閃爍（避免先顯示再跳走）。
+
+/admin 路由保護（伺服器/DB 層）
+
+說明並提供 Supabase RLS SQL 範例：
+
+public 只能 select 已發布文章（published=true）。
+
+admin 才能 insert/update/delete。
+
+強調前端僅能使用 anon key；service_role key 不得出現在前端。
+
+移除不安全的入口與行為
+
+刪除任何「直接在前台編輯內容」或可從公開頁面觸發寫入的功能。
+
+確保公開 API 不提供未授權的寫入端點。
+
+交付格式（很重要）
+先列出你判斷我目前使用的框架/路由方式（例如 Next.js App Router / Pages Router / Nuxt / React Router / Vue Router），如果無法判斷，先問我 3 個最關鍵問題再繼續，其他不要猜。
+
+產出：
+
+需要新增/修改的檔案列表
+
+每個檔案的具體程式碼（或清楚的 diff）
+
+必要的 Supabase 設定步驟（Auth claims / allowlist / RLS SQL）
+
+非目標（請勿做）
+不要重做整個後台（我已有基本功能）。
+
+不要加入多餘功能（例如文章 SEO、評論系統）。
+
+不要更換 Supabase，不要改動文章展示 UI。
+
+附圖：我目前頁面右上角有「管理（齒輪）」按鈕（請以此為目標重構）。
+```
+
+#### update supabase
+``` bash
+# run mingration 20260114062811_add_admin_emails_field.sql
+
+# SQL add admin(bolt.new give)
+UPDATE auth.users
+SET raw_app_metadata = jsonb_set(
+  COALESCE(raw_app_metadata, '{}'::jsonb),
+  '{role}',
+  '"admin"'
+)
+WHERE email = '您的管理員信箱@example.com';
+
+# supabase need change 
+UPDATE auth.users
+SET raw_app_meta_data = jsonb_set(
+  COALESCE(raw_app_meta_data, '{}'::jsonb),
+  '{role}',
+  '"admin"',
+  true
+)
+WHERE email = '您的管理員信箱@example.com';
+
+# 回應 非 admin
+
+# test it
+SELECT id, admin_emails FROM roberthut_site_settings;
+
+Error: Failed to run sql query: ERROR: 42703: column "admin_emails" does not exist LINE 1: SELECT id, admin_emails FROM roberthut_site_settings; ^
+Note: A limit of 100 was applied to your query. If this was the cause of a syntax error, try selecting "No limit" instead and re-run the query.
+
+# 看來生產環境中還沒有執行 20260114062811_add_admin_emails_field.sql
+
+# run below 
+"
+-- Add admin_emails column if it doesn't exist
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'roberthut_site_settings' AND column_name = 'admin_emails'
+  ) THEN
+    ALTER TABLE roberthut_site_settings 
+    ADD COLUMN admin_emails jsonb DEFAULT '[]'::jsonb;
+  END IF;
+END $$;
+
+-- Insert or update the admin email
+INSERT INTO roberthut_site_settings (id, admin_emails)
+VALUES (
+  'a0000000-0000-0000-0000-000000000000'::uuid,
+  '["kyp001@gmail.com"]'::jsonb
+)
+ON CONFLICT (id) 
+DO UPDATE SET admin_emails = '["kyp001@gmail.com"]'::jsonb;
+"
+Success. No rows returned
+
+
+# check
+SELECT id, admin_emails FROM roberthut_site_settings;
+| id                                   | admin_emails         |
+| ------------------------------------ | -------------------- |
+| 379b9d3d-3d38-45cb-831e-121534417c74 | []                   |
+| a0000000-0000-0000-0000-000000000000 | ["kyp001@gmail.com"] |
+
+# 註冊回應沒有管理權限
+# run SQL
+# 資料庫中有兩筆 roberthut_site_settings 記錄，而程式使用 .single() 時可能抓到錯誤的那筆（空的 admin_emails）。
+# 刪除空的資料
+-- 刪除空的記錄
+DELETE FROM roberthut_site_settings 
+WHERE id = '379b9d3d-3d38-45cb-831e-121534417c74';
+
+-- 確認只剩一筆正確的記錄
+SELECT id, admin_emails FROM roberthut_site_settings;
+
+# 註冊 email verify error 
+set correct Redirect URLs
+
+# 登入後 首頁 管理 都看不到 post
+run mingration 20260114085021_update_rls_use_admin_emails.sql
+
+# test access ok
+```
+
+### [Life Organizer](https://life-organizer.roberthut.com/) (Lovable) - [Prompt link](https://www.perplexity.ai/search/i-want-to-use-lovable-to-make-gzbUCvoBSGKlvpiELC_VpQ#72)
 
 #### vercel variable
 ``` bash
