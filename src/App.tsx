@@ -5,6 +5,8 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { PostDetailPage } from './pages/PostDetailPage';
 import { LoginPage } from './pages/LoginPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { AdminPage } from './pages/AdminPage';
 import { PostEditorPage } from './pages/PostEditorPage';
 import { BioEditorPage } from './pages/BioEditorPage';
@@ -19,6 +21,8 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="post/:slug" element={<PostDetailPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
           <Route path="admin/new" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />
           <Route path="admin/edit/:id" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />

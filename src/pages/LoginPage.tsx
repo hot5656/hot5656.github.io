@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { LogIn, UserPlus } from 'lucide-react';
 
@@ -140,9 +140,19 @@ export function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-stone-700 mb-2">
-              密碼 {isSignUp && <span className="text-stone-500 font-normal">(至少 6 個字元)</span>}
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-stone-700">
+                密碼 {isSignUp && <span className="text-stone-500 font-normal">(至少 6 個字元)</span>}
+              </label>
+              {!isSignUp && (
+                <Link
+                  to="/forgot-password"
+                  className="text-xs text-stone-600 hover:text-stone-900 transition-colors"
+                >
+                  忘記密碼？
+                </Link>
+              )}
+            </div>
             <input
               type="password"
               id="password"
