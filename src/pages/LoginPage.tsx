@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { LogIn, UserPlus } from 'lucide-react';
+import { addLocalePrefix, type SupportedLocale } from '../i18n/config';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +13,9 @@ export function LoginPage() {
   const [success, setSuccess] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
   useEffect(() => {
     checkAdmin();
@@ -21,7 +26,7 @@ export function LoginPage() {
     if (session?.user) {
       const isAdmin = await checkIsAdmin(session.user.email!);
       if (isAdmin) {
-        navigate('/admin');
+        navigate(localePath('/admin'));
       }
     }
   }
@@ -56,12 +61,12 @@ export function LoginPage() {
         const isAdmin = await checkIsAdmin(email);
 
         if (!isAdmin) {
-          setError('此 email 沒有管理員權限。請聯繫管理員。');
+          setError(t('login.noAdminPermission'));
           setLoading(false);
           return;
         }
 
-        setSuccess('註冊成功！正在登入...');
+        setSuccess(t('login.signupSuccess'));
 
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
@@ -70,7 +75,7 @@ export function LoginPage() {
 
         if (signInError) throw signInError;
 
-        navigate('/admin');
+        navigate(localePath('/admin'));
       } else {
         const { data, error: signInError } = await supabase.auth.signInWithPassword({
           email,
@@ -83,13 +88,13 @@ export function LoginPage() {
 
         if (!isAdmin) {
           await supabase.auth.signOut();
-          throw new Error('您沒有管理員權限');
+          throw new Error(t('login.noAdminPermission'));
         }
 
-        navigate('/admin');
+        navigate(localePath('/admin'));
       }
     } catch (err: any) {
-      setError(err.message || (isSignUp ? '註冊失敗' : '登入失敗，請檢查您的帳號密碼'));
+      setError(err.message || (isSignUp ? t('login.signupFailed') : t('login.loginFailed')));
     } finally {
       setLoading(false);
     }
@@ -103,10 +108,10 @@ export function LoginPage() {
             {isSignUp ? <UserPlus className="w-8 h-8" /> : <LogIn className="w-8 h-8" />}
           </div>
           <h1 className="text-2xl font-light text-stone-900">
-            {isSignUp ? '管理員註冊' : '管理員登入'}
+            {isSignUp ? t('login.signupTitle') : t('login.title')}
           </h1>
           <p className="text-sm text-stone-600 mt-2">
-            {isSignUp ? '請使用授權的 email 註冊' : '請使用您的管理員帳號登入'}
+            {isSignUp ? t('login.signupSubtitle') : t('login.subtitle')}
           </p>
         </div>
 
@@ -125,7 +130,7 @@ export function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">
-              電子信箱
+              {t('login.email')}
             </label>
             <input
               type="email"
@@ -133,7 +138,7 @@ export function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent transition-all"
-              placeholder="kyp001@gmail.com"
+              placeholder={t('login.emailPlaceholder')}
               required
               disabled={loading}
             />
@@ -142,14 +147,14 @@ export function LoginPage() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <label htmlFor="password" className="block text-sm font-medium text-stone-700">
-                密碼 {isSignUp && <span className="text-stone-500 font-normal">(至少 6 個字元)</span>}
+                {t('login.password')} {isSignUp && <span className="text-stone-500 font-normal">{t('login.passwordHint')}</span>}
               </label>
               {!isSignUp && (
                 <Link
-                  to="/forgot-password"
+                  to={localePath('/forgot-password')}
                   className="text-xs text-stone-600 hover:text-stone-900 transition-colors"
                 >
-                  忘記密碼？
+                  {t('login.forgotPassword')}
                 </Link>
               )}
             </div>
@@ -171,7 +176,7 @@ export function LoginPage() {
             disabled={loading}
             className="w-full px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
-            {loading ? (isSignUp ? '註冊中...' : '登入中...') : (isSignUp ? '註冊' : '登入')}
+            {loading ? (isSignUp ? t('login.signupButtonLoading') : t('login.loginButtonLoading')) : (isSignUp ? t('login.signupButton') : t('login.loginButton'))}
           </button>
         </form>
 
@@ -186,17 +191,17 @@ export function LoginPage() {
             className="text-sm text-stone-600 hover:text-stone-900 transition-colors"
             disabled={loading}
           >
-            {isSignUp ? '已有帳號？前往登入' : '還沒有帳號？前往註冊'}
+            {isSignUp ? t('login.toggleLogin') : t('login.toggleSignup')}
           </button>
         </div>
 
         <div className="mt-6 pt-6 border-t border-stone-200 text-center">
-          <a
-            href="/"
+          <Link
+            to={localePath('/')}
             className="text-sm text-stone-600 hover:text-stone-900 transition-colors"
           >
-            返回首頁
-          </a>
+            {t('login.backToHome')}
+          </Link>
         </div>
       </div>
     </div>

@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { Mail, ArrowLeft } from 'lucide-react';
+import { addLocalePrefix, type SupportedLocale } from '../i18n/config';
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,14 +21,14 @@ export function ForgotPasswordPage() {
 
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: `${window.location.origin}${localePath('/reset-password')}`,
       });
 
       if (resetError) throw resetError;
 
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || '發送重設密碼信件失敗，請稍後再試');
+      setError(err.message || t('forgotPassword.sendFailed'));
     } finally {
       setLoading(false);
     }
@@ -38,10 +43,10 @@ export function ForgotPasswordPage() {
               <Mail className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-light text-stone-900 mb-2">
-              檢查您的信箱
+              {t('forgotPassword.successTitle')}
             </h1>
             <p className="text-sm text-stone-600">
-              我們已經將重設密碼的連結寄送至：
+              {t('forgotPassword.successMessage')}
             </p>
             <p className="text-sm font-medium text-stone-900 mt-2">
               {email}
@@ -50,15 +55,15 @@ export function ForgotPasswordPage() {
 
           <div className="bg-stone-50 rounded-md p-4 mb-6">
             <p className="text-sm text-stone-700 leading-relaxed">
-              請點擊信件中的連結來重設您的密碼。如果幾分鐘內沒有收到信件，請檢查垃圾信件匣。
+              {t('forgotPassword.successNote')}
             </p>
           </div>
 
           <Link
-            to="/login"
+            to={localePath('/login')}
             className="block w-full px-4 py-2.5 bg-stone-900 text-white text-center rounded-md hover:bg-stone-800 transition-colors font-medium"
           >
-            返回登入頁面
+            {t('forgotPassword.returnToLogin')}
           </Link>
         </div>
       </div>
@@ -73,10 +78,10 @@ export function ForgotPasswordPage() {
             <Mail className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-light text-stone-900">
-            忘記密碼
+            {t('forgotPassword.title')}
           </h1>
           <p className="text-sm text-stone-600 mt-2">
-            輸入您的 email，我們將寄送重設密碼的連結給您
+            {t('forgotPassword.subtitle')}
           </p>
         </div>
 
@@ -89,7 +94,7 @@ export function ForgotPasswordPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">
-              電子信箱
+              {t('forgotPassword.email')}
             </label>
             <input
               type="email"
@@ -97,7 +102,7 @@ export function ForgotPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent transition-all"
-              placeholder="kyp001@gmail.com"
+              placeholder={t('forgotPassword.emailPlaceholder')}
               required
               disabled={loading}
             />
@@ -108,17 +113,17 @@ export function ForgotPasswordPage() {
             disabled={loading}
             className="w-full px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
-            {loading ? '發送中...' : '發送重設密碼信件'}
+            {loading ? t('forgotPassword.sendButtonLoading') : t('forgotPassword.sendButton')}
           </button>
         </form>
 
         <div className="mt-6 pt-6 border-t border-stone-200">
           <Link
-            to="/login"
+            to={localePath('/login')}
             className="flex items-center justify-center text-sm text-stone-600 hover:text-stone-900 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            返回登入頁面
+            {t('forgotPassword.backToLogin')}
           </Link>
         </div>
       </div>

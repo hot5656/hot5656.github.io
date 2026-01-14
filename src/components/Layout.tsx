@@ -1,22 +1,28 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { BookOpen, Home, Settings, User, LogOut } from 'lucide-react';
+import { Home, Settings, User, LogOut } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { addLocalePrefix, type SupportedLocale } from '../i18n/config';
 
 export function Layout() {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    navigate('/');
+    navigate(localePath('/'));
   }
 
   return (
     <div className="min-h-screen bg-stone-50 text-stone-900">
       <header className="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Link to="/" className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <Link to={localePath('/')} className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
 
             <div className="rounded-lg group-hover:shadow-lg transition-shadow bg-white">
               <img
@@ -38,38 +44,39 @@ export function Layout() {
 
           <div className="flex items-center gap-6">
             <Link
-              to="/"
+              to={localePath('/')}
               className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
             >
               <Home className="w-4 h-4" />
-              <span>首頁</span>
+              <span>{t('nav.home')}</span>
             </Link>
             <Link
-              to="/about"
+              to={localePath('/about')}
               className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
             >
               <User className="w-4 h-4" />
-              <span>關於我</span>
+              <span>{t('nav.about')}</span>
             </Link>
             {isAdmin && (
               <>
                 <Link
-                  to="/admin"
+                  to={localePath('/admin')}
                   className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
                 >
                   <Settings className="w-4 h-4" />
-                  <span>管理</span>
+                  <span>{t('nav.admin')}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-red-600 transition-colors font-medium"
-                  title="登出"
+                  title={t('nav.logout')}
                 >
                   <LogOut className="w-4 h-4" />
-                  <span>登出</span>
+                  <span>{t('nav.logout')}</span>
                 </button>
               </>
             )}
+            <LanguageSwitcher />
           </div>
         </nav>
       </header>

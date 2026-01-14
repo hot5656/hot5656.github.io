@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
 import { Lock, CheckCircle } from 'lucide-react';
+import { addLocalePrefix, type SupportedLocale } from '../i18n/config';
 
 export function ResetPasswordPage() {
   const [password, setPassword] = useState('');
@@ -10,6 +12,9 @@ export function ResetPasswordPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
   useEffect(() => {
     supabase.auth.onAuthStateChange((event) => {
@@ -24,12 +29,12 @@ export function ResetPasswordPage() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('密碼不一致，請重新輸入');
+      setError(t('resetPassword.passwordMismatch'));
       return;
     }
 
     if (password.length < 6) {
-      setError('密碼至少需要 6 個字元');
+      setError(t('resetPassword.passwordTooShort'));
       return;
     }
 
@@ -45,10 +50,10 @@ export function ResetPasswordPage() {
       setSuccess(true);
 
       setTimeout(() => {
-        navigate('/login');
+        navigate(localePath('/login'));
       }, 2000);
     } catch (err: any) {
-      setError(err.message || '重設密碼失敗，請重新嘗試');
+      setError(err.message || t('resetPassword.resetFailed'));
     } finally {
       setLoading(false);
     }
@@ -63,10 +68,10 @@ export function ResetPasswordPage() {
               <CheckCircle className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-light text-stone-900 mb-2">
-              密碼重設成功
+              {t('resetPassword.successTitle')}
             </h1>
             <p className="text-sm text-stone-600">
-              正在導向登入頁面...
+              {t('resetPassword.successMessage')}
             </p>
           </div>
         </div>
@@ -82,10 +87,10 @@ export function ResetPasswordPage() {
             <Lock className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-light text-stone-900">
-            重設密碼
+            {t('resetPassword.title')}
           </h1>
           <p className="text-sm text-stone-600 mt-2">
-            請輸入您的新密碼
+            {t('resetPassword.subtitle')}
           </p>
         </div>
 
@@ -98,7 +103,7 @@ export function ResetPasswordPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-stone-700 mb-2">
-              新密碼 <span className="text-stone-500 font-normal">(至少 6 個字元)</span>
+              {t('resetPassword.password')} <span className="text-stone-500 font-normal">{t('resetPassword.passwordHint')}</span>
             </label>
             <input
               type="password"
@@ -115,7 +120,7 @@ export function ResetPasswordPage() {
 
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-stone-700 mb-2">
-              確認新密碼
+              {t('resetPassword.confirmPassword')}
             </label>
             <input
               type="password"
@@ -135,7 +140,7 @@ export function ResetPasswordPage() {
             disabled={loading}
             className="w-full px-4 py-2.5 bg-stone-900 text-white rounded-md hover:bg-stone-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
-            {loading ? '重設中...' : '重設密碼'}
+            {loading ? t('resetPassword.resetButtonLoading') : t('resetPassword.resetButton')}
           </button>
         </form>
       </div>
