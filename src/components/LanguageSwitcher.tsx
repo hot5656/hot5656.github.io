@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
         aria-label="Switch language"
       >
         <Globe className="w-4 h-4" />
-        <span className="uppercase">{currentLocale === 'zh-TW' ? 'zh' : currentLocale}</span>
+        <span>{currentLocale === 'zh-TW' ? '繁體中文' : 'English'}</span>
       </button>
 
       <div className="absolute right-0 mt-1 w-32 bg-white border border-stone-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
