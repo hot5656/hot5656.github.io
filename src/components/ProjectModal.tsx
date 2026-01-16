@@ -13,6 +13,7 @@ interface Project {
   status_zh: string;
   status_en: string;
   order_num: number;
+  thumbnail_url?: string;
 }
 
 interface ProjectModalProps {
@@ -33,6 +34,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     status_zh: '',
     status_en: '',
     order_num: 0,
+    thumbnail_url: '',
   });
 
   const [allProjects, setAllProjects] = useState<Project[]>([]);
@@ -52,6 +54,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         status_zh: project.status_zh,
         status_en: project.status_en,
         order_num: project.order_num,
+        thumbnail_url: project.thumbnail_url || '',
       });
     }
     fetchAllProjects();
@@ -257,6 +260,22 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="https://..."
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {isZh ? '縮圖網址（選填）' : 'Thumbnail URL (Optional)'}
+                </label>
+                <input
+                  type="url"
+                  value={formData.thumbnail_url}
+                  onChange={(e) => setFormData({ ...formData, thumbnail_url: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  placeholder="https://..."
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {isZh ? '若留空，系統會自動從網址抓取 OG 圖片' : 'If empty, will auto-fetch OG image from URL'}
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

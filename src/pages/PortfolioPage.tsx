@@ -16,6 +16,7 @@ interface Project {
   status_zh: string;
   status_en: string;
   order_num: number;
+  thumbnail_url?: string;
 }
 
 export default function PortfolioPage() {
@@ -46,7 +47,9 @@ export default function PortfolioPage() {
 
       if (data) {
         data.forEach(project => {
-          fetchOGImage(project.url, project.id);
+          if (!project.thumbnail_url) {
+            fetchOGImage(project.url, project.id);
+          }
         });
       }
     } catch (error) {
@@ -124,9 +127,9 @@ export default function PortfolioPage() {
             className="group bg-white border border-stone-200 rounded-lg overflow-hidden hover:border-stone-300 transition-colors"
           >
             <div className="relative h-48 bg-stone-100 overflow-hidden">
-              {ogImages[project.id] ? (
+              {(project.thumbnail_url || ogImages[project.id]) ? (
                 <img
-                  src={ogImages[project.id]}
+                  src={project.thumbnail_url || ogImages[project.id]}
                   alt={isZh ? project.name_zh : project.name_en}
                   className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
                   onError={(e) => {
