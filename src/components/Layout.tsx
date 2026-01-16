@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { Home, Settings, User, LogOut, Wrench } from 'lucide-react';
+import { Home, Settings, User, LogOut, Wrench, Briefcase } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
@@ -56,6 +56,13 @@ export function Layout() {
             >
               <User className="w-4 h-4" />
               <span>{t('nav.about')}</span>
+            </Link>
+            <Link
+              to={localePath('/portfolio')}
+              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+            >
+              <Briefcase className="w-4 h-4" />
+              <span>{t('nav.portfolio')}</span>
             </Link>
             <Link
               to={localePath('/tools')}

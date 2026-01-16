@@ -2,6 +2,7 @@
   "nav": {
     "home": "首頁",
     "about": "關於",
+    "portfolio": "作品集",
     "tools": "工具箱",
     "admin": "管理",
     "logout": "登出"
