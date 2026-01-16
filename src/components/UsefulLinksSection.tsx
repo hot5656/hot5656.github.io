@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Edit2, Trash2, X, ExternalLink } from 'lucide-react';
+import { Plus, Edit2, Trash2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase, UsefulLink } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
@@ -11,6 +11,7 @@ export function UsefulLinksSection() {
   const [editingLink, setEditingLink] = useState<UsefulLink | null>(null);
   const [formData, setFormData] = useState({ name_zh: '', name_en: '', url: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null);
   const { t, i18n } = useTranslation();
   const { isAdmin } = useAuth();
 
@@ -103,16 +104,24 @@ export function UsefulLinksSection() {
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm(t('tools.usefulLinks.confirmDelete'))) return;
+  function openDeleteConfirm(link: UsefulLink) {
+    const displayName = i18n.language === 'zh-TW'
+      ? (link.name_zh || link.name_en || link.url)
+      : (link.name_en || link.name_zh || link.url);
+    setDeleteConfirm({ id: link.id, name: displayName });
+  }
+
+  async function handleDelete() {
+    if (!deleteConfirm) return;
 
     try {
       const { error } = await supabase
         .from('useful_links')
         .delete()
-        .eq('id', id);
+        .eq('id', deleteConfirm.id);
 
       if (error) throw error;
+      setDeleteConfirm(null);
     } catch (error) {
       console.error('Error deleting link:', error);
       alert('Failed to delete link');
@@ -149,64 +158,43 @@ export function UsefulLinksSection() {
           {t('tools.usefulLinks.noLinks')}
         </div>
       ) : (
-        <div className="border border-stone-200 rounded-lg overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-stone-50 border-b border-stone-200">
-              <tr>
-                <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
-                  {t('tools.usefulLinks.name')}
-                </th>
-                {isAdmin && (
-                  <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
-                    {t('tools.usefulLinks.actions')}
-                  </th>
-                )}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-200">
-              {links.map((link) => {
-                const displayName = i18n.language === 'zh-TW'
-                  ? (link.name_zh || link.name_en || link.url)
-                  : (link.name_en || link.name_zh || link.url);
+        <div className="space-y-2">
+          {links.map((link) => {
+            const displayName = i18n.language === 'zh-TW'
+              ? (link.name_zh || link.name_en || link.url)
+              : (link.name_en || link.name_zh || link.url);
 
-                return (
-                  <tr key={link.id} className="hover:bg-stone-50">
-                    <td className="px-4 py-3 text-sm">
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
-                      >
-                        <span>{displayName}</span>
-                        <ExternalLink className="w-3 h-3 flex-shrink-0" />
-                      </a>
-                    </td>
-                    {isAdmin && (
-                      <td className="px-4 py-3 text-sm">
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => openForm(link)}
-                            className="p-1 text-stone-600 hover:text-blue-600 transition-colors"
-                            title={t('tools.usefulLinks.edit')}
-                          >
-                            <Edit2 className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(link.id)}
-                            className="p-1 text-stone-600 hover:text-red-600 transition-colors"
-                            title={t('tools.usefulLinks.delete')}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+            return (
+              <div key={link.id} className="border border-stone-200 rounded-lg overflow-hidden hover:bg-stone-50">
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 text-blue-600 hover:text-blue-800"
+                >
+                  {displayName}
+                </a>
+                {isAdmin && (
+                  <div className="px-4 py-2 bg-stone-50 border-t border-stone-200 flex gap-2">
+                    <button
+                      onClick={() => openForm(link)}
+                      className="p-1 text-stone-600 hover:text-blue-600 transition-colors"
+                      title={t('tools.usefulLinks.edit')}
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => openDeleteConfirm(link)}
+                      className="p-1 text-stone-600 hover:text-red-600 transition-colors"
+                      title={t('tools.usefulLinks.delete')}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -281,6 +269,33 @@ export function UsefulLinksSection() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {deleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-stone-900 mb-4">
+              {t('tools.usefulLinks.confirmDelete')}
+            </h3>
+            <p className="text-stone-600 mb-6">
+              {deleteConfirm.name}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={handleDelete}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              >
+                {t('tools.usefulLinks.delete')}
+              </button>
+              <button
+                onClick={() => setDeleteConfirm(null)}
+                className="flex-1 px-4 py-2 bg-stone-200 text-stone-700 rounded-md hover:bg-stone-300 transition-colors"
+              >
+                {t('tools.usefulLinks.cancel')}
+              </button>
+            </div>
           </div>
         </div>
       )}
