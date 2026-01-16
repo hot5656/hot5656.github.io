@@ -36,7 +36,8 @@ function App() {
       <LocaleSync />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<Navigate to="/blog" replace />} />
+          <Route path="blog" element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
           <Route path="tools" element={<ToolsPage />} />
@@ -52,7 +53,8 @@ function App() {
         </Route>
 
         <Route path="/zh-tw" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<Navigate to="/zh-tw/blog" replace />} />
+          <Route path="blog" element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
           <Route path="tools" element={<ToolsPage />} />

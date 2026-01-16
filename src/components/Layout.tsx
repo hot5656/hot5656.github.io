@@ -16,7 +16,10 @@ export function Layout() {
 
   const isActivePath = (path: string) => {
     const currentPath = location.pathname.replace(/^\/(en|zh-TW)/, '') || '/';
-    const targetPath = path === '/' ? '/' : path;
+    const targetPath = path;
+    if (path === '/blog') {
+      return currentPath === '/' || currentPath === '/blog';
+    }
     return currentPath === targetPath || (path !== '/' && currentPath.startsWith(targetPath));
   };
 
@@ -51,9 +54,9 @@ export function Layout() {
 
           <div className="flex items-center gap-6">
             <Link
-              to={localePath('/')}
+              to={localePath('/blog')}
               className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
-                isActivePath('/')
+                isActivePath('/blog')
                   ? 'bg-stone-200 text-stone-900'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
               }`}
