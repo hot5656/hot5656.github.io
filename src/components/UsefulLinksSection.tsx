@@ -154,13 +154,7 @@ export function UsefulLinksSection() {
             <thead className="bg-stone-50 border-b border-stone-200">
               <tr>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
-                  {t('tools.usefulLinks.nameZh')}
-                </th>
-                <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
-                  {t('tools.usefulLinks.nameEn')}
-                </th>
-                <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
-                  {t('tools.usefulLinks.url')}
+                  {t('tools.usefulLinks.name')}
                 </th>
                 {isAdmin && (
                   <th className="px-4 py-2 text-left text-sm font-semibold text-stone-700">
@@ -170,47 +164,47 @@ export function UsefulLinksSection() {
               </tr>
             </thead>
             <tbody className="divide-y divide-stone-200">
-              {links.map((link) => (
-                <tr key={link.id} className="hover:bg-stone-50">
-                  <td className="px-4 py-3 text-sm text-stone-900">
-                    {link.name_zh || '-'}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-stone-900">
-                    {link.name_en || '-'}
-                  </td>
-                  <td className="px-4 py-3 text-sm">
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
-                    >
-                      <span className="truncate max-w-md">{link.url}</span>
-                      <ExternalLink className="w-3 h-3 flex-shrink-0" />
-                    </a>
-                  </td>
-                  {isAdmin && (
+              {links.map((link) => {
+                const displayName = i18n.language === 'zh-TW'
+                  ? (link.name_zh || link.name_en || link.url)
+                  : (link.name_en || link.name_zh || link.url);
+
+                return (
+                  <tr key={link.id} className="hover:bg-stone-50">
                     <td className="px-4 py-3 text-sm">
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => openForm(link)}
-                          className="p-1 text-stone-600 hover:text-blue-600 transition-colors"
-                          title={t('tools.usefulLinks.edit')}
-                        >
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(link.id)}
-                          className="p-1 text-stone-600 hover:text-red-600 transition-colors"
-                          title={t('tools.usefulLinks.delete')}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                      >
+                        <span>{displayName}</span>
+                        <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                      </a>
                     </td>
-                  )}
-                </tr>
-              ))}
+                    {isAdmin && (
+                      <td className="px-4 py-3 text-sm">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openForm(link)}
+                            className="p-1 text-stone-600 hover:text-blue-600 transition-colors"
+                            title={t('tools.usefulLinks.edit')}
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(link.id)}
+                            className="p-1 text-stone-600 hover:text-red-600 transition-colors"
+                            title={t('tools.usefulLinks.delete')}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
