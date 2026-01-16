@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Home, Settings, User, LogOut, Wrench, Briefcase } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
@@ -9,9 +9,16 @@ import { addLocalePrefix, type SupportedLocale } from '../i18n/config';
 export function Layout() {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
 
   const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
+
+  const isActivePath = (path: string) => {
+    const currentPath = location.pathname.replace(/^\/(en|zh-TW)/, '') || '/';
+    const targetPath = path === '/' ? '/' : path;
+    return currentPath === targetPath || (path !== '/' && currentPath.startsWith(targetPath));
+  };
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -45,28 +52,44 @@ export function Layout() {
           <div className="flex items-center gap-6">
             <Link
               to={localePath('/')}
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+              className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
+                isActivePath('/')
+                  ? 'bg-stone-200 text-stone-900'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+              }`}
             >
               <Home className="w-4 h-4" />
               <span>{t('nav.home')}</span>
             </Link>
             <Link
               to={localePath('/about')}
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+              className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
+                isActivePath('/about')
+                  ? 'bg-stone-200 text-stone-900'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+              }`}
             >
               <User className="w-4 h-4" />
               <span>{t('nav.about')}</span>
             </Link>
             <Link
               to={localePath('/portfolio')}
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+              className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
+                isActivePath('/portfolio')
+                  ? 'bg-stone-200 text-stone-900'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+              }`}
             >
               <Briefcase className="w-4 h-4" />
               <span>{t('nav.portfolio')}</span>
             </Link>
             <Link
               to={localePath('/tools')}
-              className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+              className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
+                isActivePath('/tools')
+                  ? 'bg-stone-200 text-stone-900'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+              }`}
             >
               <Wrench className="w-4 h-4" />
               <span>{t('nav.tools')}</span>
@@ -75,14 +98,18 @@ export function Layout() {
               <>
                 <Link
                   to={localePath('/admin')}
-                  className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-900 transition-colors font-medium"
+                  className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
+                    isActivePath('/admin')
+                      ? 'bg-stone-200 text-stone-900'
+                      : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                  }`}
                 >
                   <Settings className="w-4 h-4" />
                   <span>{t('nav.admin')}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-red-600 transition-colors font-medium"
+                  className="flex items-center gap-1.5 text-sm text-stone-600 hover:text-red-600 transition-colors font-medium px-3 py-2 rounded-lg hover:bg-stone-100"
                   title={t('nav.logout')}
                 >
                   <LogOut className="w-4 h-4" />
