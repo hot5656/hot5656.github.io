@@ -126,12 +126,12 @@ export default function PortfolioPage() {
             key={project.id}
             className="group bg-white border border-stone-200 rounded-lg overflow-hidden hover:border-stone-300 transition-colors"
           >
-            <div className="relative h-48 bg-stone-100 overflow-hidden">
+            <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: '1200/630' }}>
               {(project.thumbnail_url || ogImages[project.id]) ? (
                 <img
                   src={project.thumbnail_url || ogImages[project.id]}
                   alt={isZh ? project.name_zh : project.name_en}
-                  className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                  className="w-full h-full object-contain group-hover:opacity-90 transition-opacity"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
