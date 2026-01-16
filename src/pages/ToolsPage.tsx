@@ -7,6 +7,7 @@ import HexAsciiConverter from '../components/tools/HexAsciiConverter';
 import LineBreakConverter from '../components/tools/LineBreakConverter';
 import MarkdownToHtmlConverter from '../components/tools/MarkdownToHtmlConverter';
 import ImageCompressor from '../components/tools/ImageCompressor';
+import { UsefulLinksSection } from '../components/UsefulLinksSection';
 
 type ToolType = 'currency' | 'date' | 'hex-ascii' | 'line-break' | 'markdown' | 'image-compressor';
 
@@ -64,7 +65,7 @@ export function ToolsPage() {
 
   return (
     <div className="flex gap-8 min-h-[600px]">
-      <aside className="w-64 flex-shrink-0">
+      <aside className="w-64 flex-shrink-0 space-y-6">
         <div className="bg-white rounded-lg border border-stone-200 overflow-hidden sticky top-24">
           <div className="p-4 border-b border-stone-200">
             <h2 className="text-lg font-semibold text-stone-900">{t('tools.title')}</h2>
@@ -86,6 +87,10 @@ export function ToolsPage() {
               </button>
             ))}
           </nav>
+        </div>
+
+        <div className="bg-white rounded-lg border border-stone-200 p-4">
+          <UsefulLinksSection />
         </div>
       </aside>
 

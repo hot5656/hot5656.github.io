@@ -29,3 +29,11 @@ export interface SiteSettings {
   avatar_url?: string;
   updated_at: string;
 }
+
+export interface UsefulLink {
+  id: string;
+  name_en?: string;
+  name_zh?: string;
+  url: string;
+  created_at: string;
+}
