@@ -24,7 +24,11 @@ export function Layout() {
   };
 
   async function handleLogout() {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut({ scope: 'local' });
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
     navigate(localePath('/'));
   }
 
