@@ -32,6 +32,11 @@ export function PostEditorPage() {
     excerpt: '',
     cover_image_url: '',
     tags: '',
+    eng_title: '',
+    eng_content: '',
+    eng_excerpt: '',
+    eng_tags: '',
+    translate: 'no',
     published: false,
   });
 
@@ -60,6 +65,11 @@ export function PostEditorPage() {
           excerpt: data.excerpt || '',
           cover_image_url: data.cover_image_url || '',
           tags: data.tags?.join(', ') || '',
+          eng_title: data.eng_title || '',
+          eng_content: data.eng_content || '',
+          eng_excerpt: data.eng_excerpt || '',
+          eng_tags: data.eng_tags?.join(', ') || '',
+          translate: data.translate || 'no',
           published: data.published || false,
         });
       }
@@ -199,6 +209,11 @@ export function PostEditorPage() {
         .map(tag => tag.trim())
         .filter(tag => tag.length > 0);
 
+      const engTags = formData.eng_tags
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(tag => tag.length > 0);
+
       const postData = {
         title: formData.title.trim(),
         slug: formData.slug.trim(),
@@ -206,6 +221,11 @@ export function PostEditorPage() {
         excerpt: formData.excerpt.trim() || null,
         cover_image_url: formData.cover_image_url.trim() || null,
         tags: tags.length > 0 ? tags : null,
+        eng_title: formData.eng_title.trim() || null,
+        eng_content: formData.eng_content.trim() || null,
+        eng_excerpt: formData.eng_excerpt.trim() || null,
+        eng_tags: engTags.length > 0 ? engTags : null,
+        translate: formData.translate,
         published: formData.published,
       };
 
@@ -573,6 +593,85 @@ export function PostEditorPage() {
                 placeholder={t('postEditor.contentPlaceholder')}
                 required
               />
+            </div>
+
+            <div className="border-t border-stone-300 pt-6 mt-6">
+              <h3 className="text-lg font-medium text-stone-900 mb-4">
+                {i18n.language === 'zh-TW' ? '英文翻譯' : 'English Translation'}
+              </h3>
+
+              <div className="space-y-6">
+                <div>
+                  <label htmlFor="translate" className="block text-sm font-medium text-stone-700 mb-2">
+                    {i18n.language === 'zh-TW' ? '翻譯狀態' : 'Translation Status'}
+                  </label>
+                  <select
+                    id="translate"
+                    value={formData.translate}
+                    onChange={(e) => setFormData({ ...formData, translate: e.target.value })}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                  >
+                    <option value="no">{i18n.language === 'zh-TW' ? '否' : 'No'}</option>
+                    <option value="yes">{i18n.language === 'zh-TW' ? '是' : 'Yes'}</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="eng_title" className="block text-sm font-medium text-stone-700 mb-2">
+                    {i18n.language === 'zh-TW' ? '英文標題' : 'English Title'}
+                  </label>
+                  <input
+                    type="text"
+                    id="eng_title"
+                    value={formData.eng_title}
+                    onChange={(e) => setFormData({ ...formData, eng_title: e.target.value })}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                    placeholder={i18n.language === 'zh-TW' ? '輸入英文標題...' : 'Enter English title...'}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="eng_excerpt" className="block text-sm font-medium text-stone-700 mb-2">
+                    {i18n.language === 'zh-TW' ? '英文摘要' : 'English Excerpt'}
+                  </label>
+                  <textarea
+                    id="eng_excerpt"
+                    value={formData.eng_excerpt}
+                    onChange={(e) => setFormData({ ...formData, eng_excerpt: e.target.value })}
+                    rows={2}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent resize-none"
+                    placeholder={i18n.language === 'zh-TW' ? '簡短描述這篇文章的英文內容...' : 'Brief description in English...'}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="eng_tags" className="block text-sm font-medium text-stone-700 mb-2">
+                    {i18n.language === 'zh-TW' ? '英文標籤' : 'English Tags'}
+                  </label>
+                  <input
+                    type="text"
+                    id="eng_tags"
+                    value={formData.eng_tags}
+                    onChange={(e) => setFormData({ ...formData, eng_tags: e.target.value })}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                    placeholder={i18n.language === 'zh-TW' ? 'react, typescript, web development（逗號分隔）' : 'react, typescript, web development (comma separated)'}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="eng_content" className="block text-sm font-medium text-stone-700 mb-2">
+                    {i18n.language === 'zh-TW' ? '英文內容' : 'English Content'}
+                  </label>
+                  <textarea
+                    id="eng_content"
+                    value={formData.eng_content}
+                    onChange={(e) => setFormData({ ...formData, eng_content: e.target.value })}
+                    rows={20}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
+                    placeholder={i18n.language === 'zh-TW' ? '支援 Markdown 格式的英文內容...' : 'English content in Markdown format...'}
+                  />
+                </div>
+              </div>
             </div>
           </>
         ) : (
