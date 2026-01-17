@@ -7,7 +7,7 @@ import { supabase, SiteSettings } from '../lib/supabase';
 export function AboutPage() {
   const [bio, setBio] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     loadBio();
@@ -46,6 +46,10 @@ export function AboutPage() {
     );
   }
 
+  const isEnglish = i18n.language === 'en';
+  const title = isEnglish && bio.bio_title_en ? bio.bio_title_en : bio.bio_title;
+  const content = isEnglish && bio.bio_content_en ? bio.bio_content_en : bio.bio_content;
+
   return (
     <div className="max-w-3xl mx-auto">
       <div className="bg-white rounded-xl p-8 md:p-12 shadow-sm border border-stone-200">
@@ -57,12 +61,12 @@ export function AboutPage() {
               className="w-40 h-40 rounded-full object-cover shadow-lg mb-6"
             />
           )}
-          <h1 className="text-4xl font-light mb-2">{bio.bio_title}</h1>
+          <h1 className="text-4xl font-light mb-2">{title}</h1>
         </div>
 
         <div className="prose prose-stone prose-lg max-w-none">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {bio.bio_content}
+            {content}
           </ReactMarkdown>
         </div>
       </div>

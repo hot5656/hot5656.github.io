@@ -13,12 +13,15 @@ export function BioEditorPage() {
   const [saving, setSaving] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [settingsId, setSettingsId] = useState<string>('');
+  const [activeLanguage, setActiveLanguage] = useState<'zh' | 'en'>('zh');
   const { t } = useTranslation();
   const localePath = useLocalePath();
 
   const [formData, setFormData] = useState({
     bio_title: '',
     bio_content: '',
+    bio_title_en: '',
+    bio_content_en: '',
     avatar_url: '',
   });
 
@@ -41,6 +44,8 @@ export function BioEditorPage() {
         setFormData({
           bio_title: data.bio_title,
           bio_content: data.bio_content,
+          bio_title_en: data.bio_title_en || '',
+          bio_content_en: data.bio_content_en || '',
           avatar_url: data.avatar_url || '',
         });
       }
@@ -65,6 +70,8 @@ export function BioEditorPage() {
       const bioData = {
         bio_title: formData.bio_title.trim(),
         bio_content: formData.bio_content.trim(),
+        bio_title_en: formData.bio_title_en.trim(),
+        bio_content_en: formData.bio_content_en.trim(),
         avatar_url: formData.avatar_url.trim() || null,
       };
 
@@ -136,18 +143,31 @@ export function BioEditorPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {!previewMode ? (
           <>
-            <div>
-              <label htmlFor="bio_title" className="block text-sm font-medium text-stone-700 mb-2">
-                {t('postEditor.title')}
-              </label>
-              <input
-                type="text"
-                id="bio_title"
-                value={formData.bio_title}
-                onChange={(e) => setFormData({ ...formData, bio_title: e.target.value })}
-                className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
-                placeholder={t('about.title')}
-              />
+            <div className="border-b border-stone-200 mb-6">
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setActiveLanguage('zh')}
+                  className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                    activeLanguage === 'zh'
+                      ? 'border-stone-900 text-stone-900'
+                      : 'border-transparent text-stone-500 hover:text-stone-700'
+                  }`}
+                >
+                  中文
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLanguage('en')}
+                  className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                    activeLanguage === 'en'
+                      ? 'border-stone-900 text-stone-900'
+                      : 'border-transparent text-stone-500 hover:text-stone-700'
+                  }`}
+                >
+                  English
+                </button>
+              </div>
             </div>
 
             <div>
@@ -164,20 +184,68 @@ export function BioEditorPage() {
               />
             </div>
 
-            <div>
-              <label htmlFor="bio_content" className="block text-sm font-medium text-stone-700 mb-2">
-                {t('bioEditor.content')}
-              </label>
-              <textarea
-                id="bio_content"
-                value={formData.bio_content}
-                onChange={(e) => setFormData({ ...formData, bio_content: e.target.value })}
-                rows={20}
-                className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
-                placeholder={t('bioEditor.contentPlaceholder')}
-                required
-              />
-            </div>
+            {activeLanguage === 'zh' ? (
+              <>
+                <div>
+                  <label htmlFor="bio_title" className="block text-sm font-medium text-stone-700 mb-2">
+                    {t('postEditor.title')} (中文)
+                  </label>
+                  <input
+                    type="text"
+                    id="bio_title"
+                    value={formData.bio_title}
+                    onChange={(e) => setFormData({ ...formData, bio_title: e.target.value })}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                    placeholder={t('about.title')}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="bio_content" className="block text-sm font-medium text-stone-700 mb-2">
+                    {t('bioEditor.content')} (中文)
+                  </label>
+                  <textarea
+                    id="bio_content"
+                    value={formData.bio_content}
+                    onChange={(e) => setFormData({ ...formData, bio_content: e.target.value })}
+                    rows={20}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
+                    placeholder={t('bioEditor.contentPlaceholder')}
+                    required
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label htmlFor="bio_title_en" className="block text-sm font-medium text-stone-700 mb-2">
+                    Title (English)
+                  </label>
+                  <input
+                    type="text"
+                    id="bio_title_en"
+                    value={formData.bio_title_en}
+                    onChange={(e) => setFormData({ ...formData, bio_title_en: e.target.value })}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent"
+                    placeholder="About Me"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="bio_content_en" className="block text-sm font-medium text-stone-700 mb-2">
+                    Content (English)
+                  </label>
+                  <textarea
+                    id="bio_content_en"
+                    value={formData.bio_content_en}
+                    onChange={(e) => setFormData({ ...formData, bio_content_en: e.target.value })}
+                    rows={20}
+                    className="w-full px-4 py-2.5 border border-stone-300 rounded-md focus:ring-2 focus:ring-stone-900 focus:border-transparent font-mono text-sm resize-y"
+                    placeholder="Write your bio in English (Markdown supported)..."
+                  />
+                </div>
+              </>
+            )}
           </>
         ) : (
           <div className="bg-white border border-stone-200 rounded-xl p-8 md:p-12 shadow-sm">
@@ -190,9 +258,14 @@ export function BioEditorPage() {
                 />
               )}
               <div className="flex-1">
+                <h2 className="text-2xl font-semibold mb-4">
+                  {activeLanguage === 'zh' ? formData.bio_title : formData.bio_title_en}
+                </h2>
                 <div className="prose prose-stone max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {formData.bio_content || `*${t('about.noBio').replace('尚無個人簡介。', '尚無內容').replace('No bio available yet.', 'No content')}*`}
+                    {activeLanguage === 'zh'
+                      ? (formData.bio_content || `*${t('about.noBio').replace('尚無個人簡介。', '尚無內容').replace('No bio available yet.', 'No content')}*`)
+                      : (formData.bio_content_en || '*No content available in English*')}
                   </ReactMarkdown>
                 </div>
               </div>

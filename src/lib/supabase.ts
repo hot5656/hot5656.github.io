@@ -32,6 +32,8 @@ export interface SiteSettings {
   id: string;
   bio_title: string;
   bio_content: string;
+  bio_title_en?: string;
+  bio_content_en?: string;
   avatar_url?: string;
   updated_at: string;
 }
