@@ -69,15 +69,15 @@ export function Layout() {
               <span>{t('nav.home')}</span>
             </Link>
             <Link
-              to={localePath('/about')}
+              to={localePath('/tools')}
               className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
-                isActivePath('/about')
+                isActivePath('/tools')
                   ? 'bg-stone-200 text-stone-900'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
               }`}
             >
-              <User className="w-4 h-4" />
-              <span>{t('nav.about')}</span>
+              <Wrench className="w-4 h-4" />
+              <span>{t('nav.tools')}</span>
             </Link>
             <Link
               to={localePath('/portfolio')}
@@ -91,15 +91,15 @@ export function Layout() {
               <span>{t('nav.portfolio')}</span>
             </Link>
             <Link
-              to={localePath('/tools')}
+              to={localePath('/about')}
               className={`flex items-center gap-1.5 text-sm transition-colors font-medium px-3 py-2 rounded-lg ${
-                isActivePath('/tools')
+                isActivePath('/about')
                   ? 'bg-stone-200 text-stone-900'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
               }`}
             >
-              <Wrench className="w-4 h-4" />
-              <span>{t('nav.tools')}</span>
+              <User className="w-4 h-4" />
+              <span>{t('nav.about')}</span>
             </Link>
             {isAdmin && (
               <>
