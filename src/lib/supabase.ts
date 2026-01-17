@@ -23,6 +23,11 @@ export interface Post {
   excerpt?: string;
   cover_image_url?: string;
   tags?: string[];
+  eng_title?: string;
+  eng_content?: string;
+  eng_excerpt?: string;
+  eng_tags?: string[];
+  translate?: string;
   published: boolean;
   created_at: string;
   updated_at: string;
