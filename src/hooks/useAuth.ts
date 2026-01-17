@@ -21,7 +21,9 @@ export function useAuth(): AuthState {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      checkAuthState();
+      (async () => {
+        await checkAuthState();
+      })();
     });
 
     return () => subscription.unsubscribe();
