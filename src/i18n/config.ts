@@ -36,6 +36,12 @@ i18n
     },
   });
 
+// 🔥 這段加在 i18n.init() 後，exports 前
+i18n.on('languageChanged', (lng) => {
+  console.log('🌐 Language changed:', lng);
+  i18n.reloadResources(lng);
+});
+
 export const SUPPORTED_LOCALES = ['en', 'zh-TW'] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
