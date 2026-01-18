@@ -12,8 +12,14 @@ export function Layout() {
   const location = useLocation();
   const { t, i18n, ready } = useTranslation();  // 🔥 加 ready
 
-  // 🔥 Debug：確認語言狀態
-  console.log('Layout i18n:', { language: i18n.language, ready, t_home: t('nav.home') });
+   // 🔥 加這行 debug
+  console.log('🔥 Layout Debug:', {
+    pathname: location.pathname,
+    i18n_language: i18n.language,
+    ready,
+    t_nav_home: t('nav.home'),
+    t_nav_tools: t('nav.tools')
+  });
   
   // 🔥 等待 i18n 準備好
   if (!ready) return <div>Loading...</div>;
