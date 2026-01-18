@@ -18,10 +18,19 @@ i18n
     resources,
     fallbackLng: 'en',
     supportedLngs: ['en', 'zh-TW'],
+    nonExplicitSupportedLngs: true,
+    load: 'languageOnly',
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['querystring', 'localStorage', 'navigator'],
       caches: ['localStorage'],
+      lookupQuerystring: 'lang',
       lookupLocalStorage: PREFERRED_LOCALE_KEY,
+      convertDetectedLanguage: (lng: string) => {
+        if (lng.toLowerCase().startsWith('zh')) {
+          return 'zh-TW';
+        }
+        return lng;
+      },
     },
     interpolation: {
       escapeValue: false,
