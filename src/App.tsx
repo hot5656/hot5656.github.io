@@ -39,6 +39,7 @@ function RootRedirect() {
   const location = useLocation();
 
   useEffect(() => {
+    console.log('🚀 RootRedirect ALWAYS:', location.pathname);  // 永遠印
     if (location.pathname === '/') {
       const locale = getPreferredLocale('/');  // 自動偵測 navigator -> zh-TW
       const targetPath = addLocalePrefix('/blog', locale);
