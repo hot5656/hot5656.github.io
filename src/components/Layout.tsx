@@ -14,13 +14,14 @@ export function Layout() {
 
   const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
+  // 修正：忽略大小寫，統一 zh-tw/zh-TW
   const isActivePath = (path: string) => {
-    const currentPath = location.pathname.replace(/^\/(en|zh-TW)/, '') || '/';
-    const targetPath = path;
-    if (path === '/blog') {
+    const currentPath = location.pathname.replace(/^\/(en|zh-tw|zh-TW)/i, '') || '/';
+    const targetPath = path.replace(/^\/(en|zh-tw|zh-TW)/i, '') || '/';
+    if (targetPath === '/blog' || path.includes('/blog')) {
       return currentPath === '/' || currentPath === '/blog';
     }
-    return currentPath === targetPath || (path !== '/' && currentPath.startsWith(targetPath));
+    return currentPath === targetPath || (targetPath !== '/' && currentPath.startsWith(targetPath));
   };
 
   async function handleLogout() {
@@ -37,7 +38,6 @@ export function Layout() {
       <header className="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
           <Link to={localePath('/')} className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
-
             <div className="rounded-lg group-hover:shadow-lg transition-shadow bg-white">
               <img
                 src="/Robert_hut_512_nb.png"
@@ -45,7 +45,6 @@ export function Layout() {
                 className="w-14 h-14"
               />
             </div>
-
             <div className="flex flex-col">
               <span className="text-2xl font-semibold tracking-tight text-stone-900">
                 Robert hut
@@ -148,3 +147,4 @@ export function Layout() {
     </div>
   );
 }
+
