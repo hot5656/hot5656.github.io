@@ -41,29 +41,29 @@ export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
 // 🔥 方案2：navigator 優先 localStorage！
 export const getPreferredLocale = (pathname: string = window.location.pathname): SupportedLocale => {
-  console.log('🔍 getPreferredLocale START:', { pathname, navigator: navigator.language });
+  // console.log('🔍 getPreferredLocale START:', { pathname, navigator: navigator.language });
   
   // 1. path 最高優先
   if (pathname.startsWith('/zh-tw')) {
-    console.log('✅ Path: zh-TW');
+    // console.log('✅ Path: zh-TW');
     return 'zh-TW';
   }
   
   // 2. navigator 自動偵測（比 localStorage 優先！）
   const browserLang = navigator.language.toLowerCase();
   if (browserLang.startsWith('zh')) {
-    console.log('✅ AUTO DETECT zh-TW!');
+    // console.log('✅ AUTO DETECT zh-TW!');
     return 'zh-TW';
   }
   
   // 3. 最後才用 localStorage（使用者手動選擇）
   const stored = localStorage.getItem(PREFERRED_LOCALE_KEY);
   if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
-    console.log('✅ Use stored:', stored);
+    // console.log('✅ Use stored:', stored);
     return stored as SupportedLocale;
   }
   
-  console.log('❌ Fallback en');
+  // console.log('❌ Fallback en');
   return 'en';
 };
 
