@@ -2,9 +2,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import i18n from './i18n/config';  // 🔥 改 default import
+import i18n from './i18n/config';
 
-// 🔥 等待初始化
+// 🔥 等待 i18n 初始化
 i18n.init().then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -12,3 +12,4 @@ i18n.init().then(() => {
     </StrictMode>
   );
 });
+
