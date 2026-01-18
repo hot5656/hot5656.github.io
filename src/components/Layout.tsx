@@ -14,13 +14,13 @@ export function Layout() {
 
   const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
-  // 修正：忽略大小寫，統一 zh-tw/zh-TW
+  // 只改 isActivePath
   const isActivePath = (path: string) => {
     const currentPath = location.pathname.replace(/^\/(en|zh-tw|zh-TW)/i, '') || '/';
     const targetPath = path.replace(/^\/(en|zh-tw|zh-TW)/i, '') || '/';
-    if (targetPath === '/blog' || path.includes('/blog')) {
+    if (targetPath === '/blog') {
       return currentPath === '/' || currentPath === '/blog';
-    }
+    } 
     return currentPath === targetPath || (targetPath !== '/' && currentPath.startsWith(targetPath));
   };
 
