@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from './i18n/config';  // 🔥 import i18n
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
@@ -52,7 +51,6 @@ function RootRedirect() {
 
 function App() {
   return (
-    <I18nextProvider i18n={i18n}>  {/* 🔥 最外層包 */}
       <BrowserRouter>
         <LocaleSync />
         <RootRedirect />
@@ -94,7 +92,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </I18nextProvider>
   );
 }
 
