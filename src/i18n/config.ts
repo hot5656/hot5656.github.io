@@ -18,10 +18,18 @@ i18n
     resources,
     fallbackLng: 'en',
     supportedLngs: ['en', 'zh-TW'],
+    nonExplicitSupportedLngs: true,
+    load: 'languageOnly',
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['navigator', 'localStorage'],  // 關鍵：首次 navigator 自動偵測，之後用 localStorage
       caches: ['localStorage'],
       lookupLocalStorage: PREFERRED_LOCALE_KEY,
+      convertDetectedLanguage: (lng: string) => {  // 新增：自動轉中文
+        if (lng.toLowerCase().startsWith('zh')) {
+          return 'zh-TW';
+        }
+        return lng;
+      },
     },
     interpolation: {
       escapeValue: false,
@@ -32,16 +40,16 @@ export const SUPPORTED_LOCALES = ['en', 'zh-TW'] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
 export const getPreferredLocale = (): SupportedLocale => {
-  const stored = localStorage.getItem(PREFERRED_LOCALE_KEY);
-  if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
-    return stored as SupportedLocale;
+  // 直接依賴 i18n 偵測結果，或手動 fallback
+  const detected = i18n.language as SupportedLocale || localStorage.getItem(PREFERRED_LOCALE_KEY) as SupportedLocale;
+  if (detected && SUPPORTED_LOCALES.includes(detected)) {
+    return detected;
   }
 
   const browserLang = navigator.language;
-  if (browserLang.startsWith('zh')) {
+  if (browserLang.toLowerCase().startsWith('zh')) {
     return 'zh-TW';
   }
-
   return 'en';
 };
 
@@ -71,5 +79,11 @@ export const addLocalePrefix = (path: string, locale: SupportedLocale): string =
   return `${prefix}${cleanPath}`;
 };
 
+export const resetPreferredLocale = (): void => {  // 新增重置功能
+  localStorage.removeItem(PREFERRED_LOCALE_KEY);
+  i18n.changeLanguage(getPreferredLocale());
+};
+
 export default i18n;
+
 
