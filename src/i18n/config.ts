@@ -21,7 +21,7 @@ i18n
     nonExplicitSupportedLngs: true,
     load: 'languageOnly',
     detection: {
-      order: ['querystring', 'localStorage', 'navigator'],
+      order: ['querystring', 'navigator', 'localStorage'],  // 首次 navigator 自動偵測
       caches: ['localStorage'],
       lookupQuerystring: 'lang',
       lookupLocalStorage: PREFERRED_LOCALE_KEY,
@@ -45,12 +45,11 @@ export const getPreferredLocale = (): SupportedLocale => {
   if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
     return stored as SupportedLocale;
   }
-
+  // 首次無 stored 時自動偵測 navigator
   const browserLang = navigator.language;
-  if (browserLang.startsWith('zh')) {
+  if (browserLang.toLowerCase().startsWith('zh')) {
     return 'zh-TW';
   }
-
   return 'en';
 };
 
@@ -80,4 +79,12 @@ export const addLocalePrefix = (path: string, locale: SupportedLocale): string =
   return `${prefix}${cleanPath}`;
 };
 
+// 新增：重置語言偏好，回歸自動偵測
+export const resetPreferredLocale = () => {
+  localStorage.removeItem(PREFERRED_LOCALE_KEY);
+  const autoLocale = getPreferredLocale();
+  i18n.changeLanguage(autoLocale);
+};
+
 export default i18n;
+
