@@ -21,10 +21,11 @@ i18n
     nonExplicitSupportedLngs: true,
     load: 'languageOnly',
     detection: {
-      order: ['navigator', 'localStorage'],  // 關鍵：首次 navigator 自動偵測，之後用 localStorage
+      order: ['path', 'navigator', 'localStorage'],  // 新增 path 優先偵測
       caches: ['localStorage'],
       lookupLocalStorage: PREFERRED_LOCALE_KEY,
-      convertDetectedLanguage: (lng: string) => {  // 新增：自動轉中文
+      lookupPath: 'path',  // 從 URL path 偵測 locale
+      convertDetectedLanguage: (lng: string) => {
         if (lng.toLowerCase().startsWith('zh')) {
           return 'zh-TW';
         }
@@ -39,15 +40,19 @@ i18n
 export const SUPPORTED_LOCALES = ['en', 'zh-TW'] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
-export const getPreferredLocale = (): SupportedLocale => {
-  // 直接依賴 i18n 偵測結果，或手動 fallback
-  const detected = i18n.language as SupportedLocale || localStorage.getItem(PREFERRED_LOCALE_KEY) as SupportedLocale;
-  if (detected && SUPPORTED_LOCALES.includes(detected)) {
-    return detected;
+// 改進：綜合 path、storage、navigator
+export const getPreferredLocale = (pathname: string = window.location.pathname): SupportedLocale => {
+  // 1. 先從 path 判斷
+  if (pathname.startsWith('/zh-tw')) return 'zh-TW';
+  
+  const stored = localStorage.getItem(PREFERRED_LOCALE_KEY);
+  if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
+    return stored as SupportedLocale;
   }
 
-  const browserLang = navigator.language;
-  if (browserLang.toLowerCase().startsWith('zh')) {
+  // 3. 自動 navigator
+  const browserLang = navigator.language.toLowerCase();
+  if (browserLang.startsWith('zh')) {
     return 'zh-TW';
   }
   return 'en';
@@ -70,20 +75,21 @@ export const getLocaleFromPath = (pathname: string): SupportedLocale => {
 };
 
 export const removeLocalePrefix = (pathname: string): string => {
-  return pathname.replace(/^\/(zh-tw)/, '') || '/';
+  return pathname.replace(/^\/zh-tw/, '') || '/';
 };
 
 export const addLocalePrefix = (path: string, locale: SupportedLocale): string => {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   const prefix = getLocalePrefix(locale);
-  return `${prefix}${cleanPath}`;
+  return `${prefix ? '/' + prefix : ''}/${cleanPath}`.replace('//', '/');
 };
 
-export const resetPreferredLocale = (): void => {  // 新增重置功能
-  localStorage.removeItem(PREFERRED_LOCALE_KEY);
-  i18n.changeLanguage(getPreferredLocale());
+export const redirectToLocale = (pathname: string): string => {
+  const locale = getPreferredLocale(pathname);
+  return addLocalePrefix(removeLocalePrefix(pathname), locale);
 };
 
 export default i18n;
+
 
 
