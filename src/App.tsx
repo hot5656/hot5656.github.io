@@ -15,7 +15,7 @@ import { AdminPage } from './pages/AdminPage';
 import { PostEditorPage } from './pages/PostEditorPage';
 import { BioEditorPage } from './pages/BioEditorPage';
 import { ImageLibraryPage } from './pages/ImageLibraryPage';
-import { getPreferredLocale, getLocaleFromPath, addLocalePrefix, removeLocalePrefix } from './i18n/config';
+import { getPreferredLocale, getLocaleFromPath, addLocalePrefix } from './i18n/config';
 
 function LocaleSync() {
   const { i18n } = useTranslation();
@@ -23,8 +23,7 @@ function LocaleSync() {
   useEffect(() => {
     const pathLocale = getLocaleFromPath(window.location.pathname);
     const preferredLocale = getPreferredLocale(window.location.pathname);
-    const targetLocale = pathLocale || preferredLocale;  // path 優先，無則自動偵測
-    
+    const targetLocale = pathLocale || preferredLocale;
     if (i18n.language !== targetLocale) {
       i18n.changeLanguage(targetLocale);
     }
@@ -33,20 +32,18 @@ function LocaleSync() {
   return null;
 }
 
-// 新增：根路徑自動導向邏輯
+// 根路徑自動導向 zh-TW（只執行一次）
 function RootRedirect() {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    console.log('🚀 RootRedirect ALWAYS:', location.pathname);  // 永遠印
     if (location.pathname === '/') {
-      const locale = getPreferredLocale('/');  // 自動偵測 navigator -> zh-TW
+      const locale = getPreferredLocale('/');
       const targetPath = addLocalePrefix('/blog', locale);
-      console.log('🔍 RootRedirect:', { pathname: location.pathname, locale, targetPath, navigator: navigator.language });
       navigate(targetPath, { replace: true });
     }
-  }, [location.pathname, navigate]);
+  }, []);  // 空依賴，只首次執行
 
   return null;
 }
@@ -57,9 +54,9 @@ function App() {
       <LocaleSync />
       <RootRedirect />
       <Routes>
-        {/* 統一 :locale? 動態路由，取代重複定義 */}
+        {/* 通用路由 (英文預設) */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="/blog" replace />} />
+          {/* 🔥 移除 index Navigate，由 RootRedirect 處理 */}
           <Route path="blog" element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
@@ -74,15 +71,23 @@ function App() {
           <Route path="admin/bio" element={<ProtectedRoute><BioEditorPage /></ProtectedRoute>} />
           <Route path="admin/images" element={<ProtectedRoute><ImageLibraryPage /></ProtectedRoute>} />
         </Route>
-        
-        {/* zh-tw 明確路由（backup） */}
-        <Route path="/zh-tw/*" element={<Layout />}>
+
+        {/* 中文明確路由 */}
+        <Route path="/zh-tw" element={<Layout />}>
           <Route index element={<Navigate to="/zh-tw/blog" replace />} />
           <Route path="blog" element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
           <Route path="tools" element={<ToolsPage />} />
-          {/* ... 其他相同 */}
+          <Route path="post/:slug" element={<PostDetailPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
+          <Route path="admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+          <Route path="admin/new" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />
+          <Route path="admin/edit/:id" element={<ProtectedRoute><PostEditorPage /></ProtectedRoute>} />
+          <Route path="admin/bio" element={<ProtectedRoute><BioEditorPage /></ProtectedRoute>} />
+          <Route path="admin/images" element={<ProtectedRoute><ImageLibraryPage /></ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -90,4 +95,5 @@ function App() {
 }
 
 export default App;
+
 
