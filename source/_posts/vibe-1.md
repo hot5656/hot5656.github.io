@@ -24,6 +24,14 @@ tags: AI
 我的部落格標題及summary 如下 請幫我生成一個 1080 x 1080 圖檔(不要有文字)
 請一樣的圖幫我調成  1024 x 512 圖檔
 
+# 作品集
+幫我產生作品集 Description
+標題...
+內容...
+# 英文
+轉成英文
+...
+
 # fb 貼文
 我的 blog 貼文 如下 我想把它貼至 fb 粉絲頁 請幫我整理一下 並幫我加入 若想知道開發細節請到 [Robert Hut](roberthut.com)  若有 ideas 也歡迎提出討論 
 # 直接貼網址,不用加 https://
@@ -712,8 +720,8 @@ curl.exe -I https://roberthut.com
   Strict-Transport-Security: max-age=63072000
   X-Vercel-Id: hkg1::677cc-1768184423669-240b8e39f2e6
 ```
-
-#### supabase change email verify
+#### change supabase email verify to Resend
+##### supabase change email verify
 ``` bash
 # Confirm Sign up/Reset Password
 Authentication
@@ -770,6 +778,68 @@ Life Organizer｜Confirm Your Signup
   </p>
 </div>
 ```
+
+##### Namecheap 轉寄服務設定
+``` bash
+Domain List
+  --> 選擇網域 MANAGE
+  --> Domain 分頁下方，找到 Redirect Email 區塊
+  --> Advanced DNS
+  --> Mail Settings
+  --> Email forwarding
+  --> SAVE ALL CHANGE
+  --> Doamin (top)
+  --> Redirect Email
+  --> ADD FORWARDER
+  --> robert --> xxx@gmail.com
+```
+
+##### Resend setting
+``` bash
+Domains
+  --> add domain name --> verify
+API key 
+  --> Create API key
+```
+
+##### Supabse set Resend SMTP - [DNS Guides for Namecheap](https://resend.com/docs/knowledge-base/namecheap)
+``` bash
+Authentication
+  --> Email
+  --> Set up custom SMTP
+  --> Set up SMTP
+  --> Enable custom SMTP: Enable
+  Sender details 
+    Sender email address: noreply@roberthut.com
+    Sender name: Life Organizer
+  Life Organizer: 
+    Host: smtp.resend.com
+    Port number: 587
+    Minimum interval per user: 60
+    Username: resend
+    Password: <API key>
+```
+
+#### 網站掛 GA
+``` bash
+# 設定 GA4追蹤碼
+進入 Google Analytics（analytics.google.com）
+  --> 在左下角點「管理」
+  --> 建立帳戶
+  --> code 放入網頁
+  --> 測試安插狀態
+
+# 查 GA4追蹤碼
+進入 Google Analytics（analytics.google.com）
+  --> 在左下角點「管理」
+  --> 資料收集和修改
+  --> 資料串流
+  --> 點選網站
+  --> 網頁串流詳情
+  --> 查看代碼操作說明
+  --> 手動安裝
+```
+
 
 ### Vibe coding
 #### some notes
@@ -3758,7 +3828,49 @@ run mingration 20260114085021_update_rls_use_admin_emails.sql
 # test access ok
 ```
 
+#### Tools 增加 參考資源
+``` bash
+請僅實作我明確要求的特定變更—不得更改、刪除或修改任何其他代碼、樣式、頁面元件、資料表或功能，除非我明確指示。保持現有 Tools 頁面所有工具完整不變。
+
+在現有 Tools 主頁面基礎上，新增 admin 管理「參考資源」功能，使用 Supabase：
+
+【資料庫】
+- 新 table: public.useful_links (id uuid PK default uuid_generate_v4(), name_en text, name_zh text, url text, created_at timestamptz default now())
+- RLS: SELECT true (公開), INSERT/UPDATE/DELETE authenticated (auth.uid() in profiles.id)
+
+【UI 修改】
+- 左側工具表格 (如 Currency Converter 等) 下方，新增獨立表格區塊「參考資源 (Useful Links)」
+- 表格欄位：中文名稱 | 英文名稱 | 連結 (新頁開啟 target="_blank")
+- 非登入：只顯示連結清單，從 Supabase 即時載入，按 created_at 降序
+- Admin 登入 (Supabase auth)：表格上方新增「新增連結」按鈕 → 彈出表單 (name_zh, name_en, url)，儲存後更新表格；每行加「編輯」「刪除」按鈕
+
+【功能】
+- Supabase: SUPABASE_URL=[YOUR_SUPABASE_URL], SUPABASE_ANON_KEY=[YOUR_SUPABASE_ANON_KEY]
+- Auth: 整合現有 profiles，登入顯示管理 UI
+- 即時：supabase channel 訂閱變化
+- 樣式：Tailwind，匹配左側表格 (邊框、間距)，不交錯工具列表，使用 hr 分隔
+
+先 migration SQL，然後主頁 /tools 整合表格，最後 admin CRUD。保持現有導航/工具 100% 不變。
+
+```
+
+#### fix Currency Converter Network error
+``` bash
+# set exchange-rates JWT: disable
+exchange-rates JWT: disable
+```
+
 ### [Life Organizer](https://life-organizer.roberthut.com/) (Lovable) - [Prompt link](https://www.perplexity.ai/search/i-want-to-use-lovable-to-make-gzbUCvoBSGKlvpiELC_VpQ#72)
+
+#### modify function
+``` bash
+# 支援 中英雙語
+支援 i18n（中英雙語）
+- 支援語系：en（預設、URL 不加 prefix）、zh-TW（URL prefix 為 /zh-tw）
+- 初次進站語系依瀏覽器語言偵測；但若使用者手動切換過，需以 preferredLocale（cookie/localStorage）為準並持久化。
+- 除使用者輸入內容外，所有 UI 文案一律不得寫死，必須走 i18n keys。
+
+```
 
 #### vercel variable
 ``` bash
@@ -4509,6 +4621,13 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
   則不允許 fallback，缺 env 就直接 throw，避免 prod 誤連 staging。
 
 3) 請確認 index.html 的 __APP_CONFIG__ 只放 anon key，不得放任何 server-side secrets。
+```
+
+###### add feedback send email to support email
+``` bash
+# supabase set secrect 
+SUPPORT_EMAIL
+RESEND_API_KEY
 ```
 
 ##### Migration to supabase
