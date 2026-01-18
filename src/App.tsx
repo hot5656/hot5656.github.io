@@ -18,16 +18,17 @@ import { ImageLibraryPage } from './pages/ImageLibraryPage';
 import { getPreferredLocale, getLocaleFromPath, addLocalePrefix } from './i18n/config';
 
 function LocaleSync() {
-  const { i18n } = useTranslation();
+  const { i18n, ready } = useTranslation();
 
   useEffect(() => {
+    if (!ready) return;
     const pathLocale = getLocaleFromPath(window.location.pathname);
     const preferredLocale = getPreferredLocale(window.location.pathname);
     const targetLocale = pathLocale || preferredLocale;
     if (i18n.language !== targetLocale) {
       i18n.changeLanguage(targetLocale);
     }
-  }, [i18n]);
+  },  [i18n, ready]);  // 🔥 加 ready
 
   return null;
 }
