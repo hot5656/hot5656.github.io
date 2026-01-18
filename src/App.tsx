@@ -42,6 +42,7 @@ function RootRedirect() {
     if (location.pathname === '/') {
       const locale = getPreferredLocale('/');  // 自動偵測 navigator -> zh-TW
       const targetPath = addLocalePrefix('/blog', locale);
+      console.log('🔍 RootRedirect:', { pathname: location.pathname, locale, targetPath, navigator: navigator.language });
       navigate(targetPath, { replace: true });
     }
   }, [location.pathname, navigate]);
