@@ -42,19 +42,29 @@ export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
 // 改進：綜合 path、storage、navigator
 export const getPreferredLocale = (pathname: string = window.location.pathname): SupportedLocale => {
+  console.log('🔍 getPreferredLocale START:', { pathname, navigator: navigator.language });
+  
   // 1. 先從 path 判斷
-  if (pathname.startsWith('/zh-tw')) return 'zh-TW';
+  if (pathname.startsWith('/zh-tw')){
+    console.log('✅ Path: zh-TW');
+    return 'zh-TW';
+  }
   
   const stored = localStorage.getItem(PREFERRED_LOCALE_KEY);
   if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
+    console.log('✅ Use stored:', stored);
     return stored as SupportedLocale;
   }
 
   // 3. 自動 navigator
   const browserLang = navigator.language.toLowerCase();
+  console.log('🔍 Browser lang:', browserLang);
   if (browserLang.startsWith('zh')) {
+    console.log('✅ AUTO DETECT zh-TW!');
     return 'zh-TW';
   }
+
+  console.log('❌ Fallback en');
   return 'en';
 };
 
