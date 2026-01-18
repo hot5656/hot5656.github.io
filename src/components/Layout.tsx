@@ -10,8 +10,11 @@ export function Layout() {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t, i18n, ready } = useTranslation();  // 🔥 加 ready
 
+  // 🔥 等待 i18n 準備好
+  if (!ready) return <div>Loading...</div>;
+  
   const localePath = (path: string) => addLocalePrefix(path, i18n.language as SupportedLocale);
 
   // 只改 isActivePath
