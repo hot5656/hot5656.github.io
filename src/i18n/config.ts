@@ -56,6 +56,25 @@ i18n.on('languageChanged', (lng) => {
   console.log('🌐 Language changed:', lng);
 });
 
+export const getPreferredLocale = (
+  pathname: string = window.location.pathname
+): SupportedLocale => {
+  // 1) URL path 最高優先
+  if (pathname.toLowerCase().startsWith('/zh-tw')) return 'zh-TW';
+
+  // 2) 使用者選擇（只要選過就永遠優先）
+  const stored = localStorage.getItem(PREFERRED_LOCALE_KEY);
+  if (stored && SUPPORTED_LOCALES.includes(stored as SupportedLocale)) {
+    return stored as SupportedLocale;
+  }
+
+  // 3) 首次自動：navigator
+  const browserLang = navigator.language?.toLowerCase() ?? '';
+  if (browserLang.startsWith('zh')) return 'zh-TW';
+
+  return 'en';
+};
+
 export const setPreferredLocale = (locale: SupportedLocale) => {
   // ✅ 只有使用者手動切換時才記住
   localStorage.setItem(PREFERRED_LOCALE_KEY, locale);
