@@ -1,9 +1,9 @@
 ---
-title: Vibe coding 
+title: Vibe coding(1)
 abbrlink: 7c84
 date: 2025-12-09 11:48:37
 categories:
-tags: AI
+tags: 
   - Vibe Coding
 ---
 
@@ -838,6 +838,9 @@ Authentication
   --> 網頁串流詳情
   --> 查看代碼操作說明
   --> 手動安裝
+
+# add GA
+幫我安插 GA 代碼
 ```
 
 
@@ -4705,6 +4708,8 @@ Table Editor
 ```
 
 ###### windows supabase cli
+- [Supabase project 備份,複製](https://www.perplexity.ai/search/wo-ruo-jiang-ige-supabase-proj-FQ7bZqGCTp61tF4GIK1Ovw#6)
+
 ``` bash
 # install
 npx supabase
@@ -4752,9 +4757,6 @@ npx supabase migration list
      20260105080908 |                | 2026-01-05 08:09:08
 ```
 
-###### Supabase project 備份,複製 - [link](https://www.perplexity.ai/search/wo-ruo-jiang-ige-supabase-proj-FQ7bZqGCTp61tF4GIK1Ovw#6)
-``` bash
-```
 
 ### app map to supabase
 ``` bash
@@ -4768,12 +4770,25 @@ blog-canvas
 	https://ukloaaccuetocrkxsdlv.supabase.co(blog_post)
 	https://poiywggogkjurvfudoyk.supabase.co(test_db)
 tools-collection
-  https://uimqqfnctcexyyqmbnrr.supabase.co(in bolt.new)
-  
+  https://uimqqfnctcexyyqmbnrr.supabase.co(in bolt.new) 
 life-organizer
   https://cjjhrkrepiidbpywecgz.supabase.co(apps_product)
   https://rcscpveyxtlhxxgpgxit.supabase.co(apps_develop)
 ```
 
+``` bash
+Gmail
+	--> 設定
+	--> 查看所有設定
+	--> 帳戶和匯入
+	-->選擇寄件地址
+	--> 新增另一個電子郵件地址:填 名稱 及 電子郵件地址
+	--> 填 resend data
+		SMTP 伺服器: smtp.resend.com
+    通訊埠: 587
+    使用者名稱: resend
+    密碼: <API KAY>
+    * 採用 TLS 的加密連線 (建議使用)
+```
 ### Ref
 + [Hostinger VPS](https://www.hostinger.com/)- cpupon "DIEGODAVILA"
