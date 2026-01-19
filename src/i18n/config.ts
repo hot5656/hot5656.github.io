@@ -52,9 +52,9 @@ i18n
   });
 
 // （可留可刪）偵錯用
-i18n.on('languageChanged', (lng) => {
-  console.log('🌐 Language changed:', lng);
-});
+//i18n.on('languageChanged', (lng) => {
+//  console.log('🌐 Language changed:', lng);
+//});
 
 export const getPreferredLocale = (
   pathname: string = window.location.pathname
