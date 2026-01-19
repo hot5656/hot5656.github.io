@@ -12,18 +12,18 @@ export function Layout() {
   const location = useLocation();
   const { t, i18n, ready } = useTranslation();  // 🔥 加 ready
   // 2026/01/19: add debug page tw error
-  console.log('i18n.language=', i18n.language);
-  console.log('resolvedLanguage=', i18n.resolvedLanguage);
-  console.log('nav.home=', t('nav.home'));
+  // console.log('i18n.language=', i18n.language);
+  // console.log('resolvedLanguage=', i18n.resolvedLanguage);
+  // console.log('nav.home=', t('nav.home'));
   
-   // 🔥 加這行 debug
-  console.log('🔥 Layout Debug:', {
-    pathname: location.pathname,
-    i18n_language: i18n.language,
-    ready,
-    t_nav_home: t('nav.home'),
-    t_nav_tools: t('nav.tools')
-  });
+  // 🔥 加這行 debug
+  // console.log('🔥 Layout Debug:', {
+  //  pathname: location.pathname,
+  //  i18n_language: i18n.language,
+  //  ready,
+  //  t_nav_home: t('nav.home'),
+  //  t_nav_tools: t('nav.tools')
+  // });
   
   // 🔥 等待 i18n 準備好
   if (!ready) return <div>Loading...</div>;
