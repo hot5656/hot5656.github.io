@@ -53,7 +53,7 @@ export function Layout() {
     <div className="min-h-screen bg-stone-50 text-stone-900">
       <header className="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <nav className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Link to={localePath('/')} className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <Link to={localePath('/blog')} className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="rounded-lg group-hover:shadow-lg transition-shadow bg-white">
               <img
                 src="/Robert_hut_512_nb.png"
