@@ -11,7 +11,11 @@ export function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t, i18n, ready } = useTranslation();  // 🔥 加 ready
-
+  // 2026/01/19: add debug page tw error
+  console.log('i18n.language=', i18n.language);
+  console.log('resolvedLanguage=', i18n.resolvedLanguage);
+  console.log('nav.home=', t('nav.home'));
+  
    // 🔥 加這行 debug
   console.log('🔥 Layout Debug:', {
     pathname: location.pathname,
