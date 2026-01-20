@@ -1036,15 +1036,53 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "api_key ...
 
 ```
 
-#### BoltNew 
+#### BoltNew - [Link](https://www.perplexity.ai/search/bolt-new-hen-fei-tokens-0WTD8huDSxuGC3a9iGWjvg#7)
 ``` bash
 # table 建立 SQL code 見
 supabase/migrations/
+
+# 節省 token 
+# 1. 問問題選 plan
+# 2. 限制範圍
+- 官方也明確建議把需求鎖定在特定檔案/函式、避免它掃全專案，並用 .bolt/ignore 把不需要的檔案排除在 AI 可見範圍外，降低每次回合上下文成本。
+# 把這段貼進去通常能避免它「大改特改」：
+- 只修改 src/components/SocialLinks.tsx（或你實際檔名），不要改其他任何檔案。
+- 目標：把三個社群連結的文字改成 @icons-pack/react-simple-icons 的 icon。
+- 不要重構、不新增新元件、不改版面結構；只替換 <a> 內容並補上 aria-label。
+# 3. 增加 .bolt/ignore(基本內容)
+node_modules/*
+dist/*
+build/*
+coverage/*
+**/*.log
+**/*.map
+
+# 4. 最重要的省 token 習慣
+- Plan/Discussion 就先用，不要一開始就 Build；官方明講 Build mode 每次送出都會更新程式碼、因此更耗 tokens，而 Plan/Discussion 用更少 tokens。
+- prompt 只做「單一變更」，並且指名檔案路徑/元件名稱；官方建議保持 prompt 具體聚焦，避免它掃全專案後大改。
+- 連續按自動修復/反覆嘗試（例如一直 Fix / Attempt fix）；官方把「避免重複自動修錯」列為省 token 的重點。
 ```
 
-#### Replit 
+#### Replit - [Linlk](https://www.perplexity.ai/search/replit-hao-xiang-hen-fei-credi-hxV740LuQBeZ48bN8IOT.A#5)
 ``` bash
-...
+# 節省 credit
+# 先用 Plan 拆解任務,等較清楚才用 Bulid 執行
+# 新開發 需求一直變：先用 Medium 或 Low，讓它每次改動更小、更可控，減少「一次改太多導致你要回滾/再改」的浪費。
+
+# 你每次要它動手前，都先貼這段（會明顯降低返工）：
+-「本次只做：___（一句話）」
+-「允許改動的檔案：最多 ___ 個；若要新增依賴先問我」
+-「先列出你將修改的檔案與步驟；等我回覆 GO 才開始寫」
+-「完成後必須附上可操作的驗收 checklist；完成就停」
+
+# Fast mode 
+# 適合
+- 適合「輕量變更」：像 UI 微調（顏色、間距、字體）、小功能（搜尋框、loading state、表單驗證、排序）、小 bug（錯字、連結壞掉）等。
+- 特性是快（多數 10–60 秒）、改動更聚焦、不容易自動擴大範圍，因此結果更可預期。
+- 官方也直接說它通常「每次請求成本更便宜」，但仍是 effort-based pricing（依工作量計價）。
+# 不適合
+- 不適合「從零做新 app」、需要跨多檔案的架構決策、整體重構、新整合（第三方服務/API）、資料庫 schema 變更等。
+- 它會跳過較完整的規劃/測試流程；如果你要做像你 DiffDock 的 Phase 0/1 那種工程骨架，通常還是用 Full Agent（非 Fast）比較穩。
 ```
 
 

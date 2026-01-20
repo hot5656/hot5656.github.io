@@ -98,3 +98,26 @@ cygcheck -p bin/gcc
 		gccmakedep-1.0.3-1 - gccmakedep: X Makefile dependency tool for GCC (installed b
 		inaries and support files)
 ```
+
+#### WinMerge
+##### 直接顯示比對兩個檔案
+``` bash
+# 顯示或不顯示 目錄
+View
+	--> Tree Mode
+# 檔案總管 option
+Edit (這些是讓在檔案總管使用較方便)
+	--> Options
+	--> Shell Integration
+		Add to context menu: Enable
+		Enable advanced menu: Enable
+#filetr some file no compare
+Option
+	--> Folder: Filter
+		!.git\;!*.o 	\(不比較 git 及 *.o)
+# ignore 比較差異
+Edit 
+	--> Options 
+	--> Compare 
+	--> General，啟用 Ignore EOL differences
+```
