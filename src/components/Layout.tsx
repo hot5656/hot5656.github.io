@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Settings, User, LogOut, Wrench, Briefcase, Facebook, Github, Linkedin } from 'lucide-react';
+import { Home, Settings, User, LogOut, Wrench, Briefcase, Facebook, Github, Linkedin, Instagram, FileStack } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
@@ -162,6 +162,7 @@ export function Layout() {
               >
                 <Facebook className="w-5 h-5" />
               </a>
+            
               <a
                 href="https://github.com/hot5656"
                 target="_blank"
@@ -171,6 +172,7 @@ export function Layout() {
               >
                 <Github className="w-5 h-5" />
               </a>
+            
               <a
                 href="https://www.linkedin.com/in/robert-kao-48ab8a125/"
                 target="_blank"
@@ -179,6 +181,26 @@ export function Layout() {
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
+              </a>
+            
+              <a
+                href="https://www.instagram.com/roberthut.lab/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#E1306C] transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+            
+              <a
+                href="https://substack.com/@roberthut"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#FF7731] transition-colors"
+                aria-label="Substack"
+              >
+                <FileStack className="w-5 h-5" />
               </a>
             </div>
           </div>
