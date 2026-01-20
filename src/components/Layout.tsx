@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Settings, User, LogOut, Wrench, Briefcase } from 'lucide-react';
+import { Home, Settings, User, LogOut, Wrench, Briefcase, Facebook, Github, Linkedin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
@@ -152,10 +152,34 @@ export function Layout() {
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-stone-500">
             <p>&copy; {new Date().getFullYear()} Robert hut. All rights reserved.</p>
-            <div className="flex gap-6">
-              <a href="https://www.facebook.com/profile.php?id=61585313653246" className="hover:text-stone-900 transition-colors">Facebook</a>
-              <a href="https://github.com/hot5656" className="hover:text-stone-900 transition-colors">GitHub</a>
-              <a href="https://www.linkedin.com/in/robert-kao-48ab8a125/" className="hover:text-stone-900 transition-colors">LinkedIn</a>
+            <div className="flex gap-4">
+              <a
+                href="https://www.facebook.com/profile.php?id=61585313653246"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#0866FF] transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://github.com/hot5656"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-stone-900 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/robert-kao-48ab8a125/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#0A66C2] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
