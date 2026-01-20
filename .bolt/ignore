@@ -2,12 +2,5 @@ node_modules/*
 dist/*
 build/*
 coverage/*
-.next/*
-out/*
-.vscode/*
-.idea/*
 **/*.log
 **/*.map
-public/*
-supabase/*.sql
-**/*.sql
