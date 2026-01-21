@@ -820,6 +820,19 @@ Authentication
     Password: <API key>
 ```
 
+##### 修正加 resend, namecheap 不能做 email foward
+``` bash
+# add ImprovMX for email forward
+* robert --> xxx@gmail.com
+
+# Namecheap
+# Mail Setting
+MX record @ mx1.improvmx.com 10
+MX record @ mx2.improvmx.com 20
+# Host record
+TXT Rrecord @ v=spf1 include:spf.improvmx.com ~all
+```
+
 #### 網站掛 GA
 ``` bash
 # 設定 GA4追蹤碼
