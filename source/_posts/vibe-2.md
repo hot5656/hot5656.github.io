@@ -7,6 +7,23 @@ tags:
   - Vibe Coding
 ---
 
+### Amp free
+#### item
+``` bash
+# login 後要填 : Try to convince that you're human 表單
+
+# vscode install  Amp (Research Preview)
+# 開一個新 thread（Cmd/Ctrl + L)
+  --> Login in Amp
+  --> Open
+  --> Configure Amp for VS Code
+
+# clone a github project
+
+# 在 VS Code 裡要讓 Amp 產生/更新 AGENTS.md
+「請掃描這個 repo，幫我在專案根目錄建立（或更新）AGENTS.md，包含：如何安裝依賴、如何啟動、如何跑測試/lint、程式碼風格/慣例，以及常見陷阱。」
+```
+
 ### Robert hut(Replit) - [Link](https://www.perplexity.ai/search/https-winmerge-org-downloads-l-AZ9IX4uvTw.Hy0GrCvlHtA#15)
 
 <!--more-->

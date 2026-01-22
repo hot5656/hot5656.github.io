@@ -1096,6 +1096,36 @@ coverage/*
 # 不適合
 - 不適合「從零做新 app」、需要跨多檔案的架構決策、整體重構、新整合（第三方服務/API）、資料庫 schema 變更等。
 - 它會跳過較完整的規劃/測試流程；如果你要做像你 DiffDock 的 Phase 0/1 那種工程骨架，通常還是用 Full Agent（非 Fast）比較穩。
+
+# put to github
+右上角 Seatch
+  --> Git
+  --> create Repository
+  --> Push branch as 'origin/main'
+# sync github 
+右上角 Seatch
+  --> Git
+  --? Sync Change
+# fix replit commit error - Vercel - No GitHub account was found matching the commit author email address
+# check - replit console
+~/workspace$ git config --get user.name
+  hot5656
+~/workspace$ git config --get user.email
+  kyp001@yahoo.com.tw
+~/workspace$ git log -1 --pretty=format:'%an <%ae>%n'
+  kyp001 <5380700-kyp001@users.noreply.replit.com>
+# fix
+~/workspace$ git config user.name "hot5656"
+~/workspace$ git config user.email "kyp001@yahoo.com.tw"
+~/workspace$ git commit --allow-empty -m "chore: trigger vercel deploy"
+  [main d617acd] chore: trigger vercel deploy
+~/workspace$ git push
+  Enumerating objects: 1, done.
+  Counting objects: 100% (1/1), done.
+  Writing objects: 100% (1/1), 192 bytes | 192.00 KiB/s, done.
+  Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+  To https://github.com/hot5656/DiffDock
+    38c195a..d617acd  main -> main
 ```
 
 
