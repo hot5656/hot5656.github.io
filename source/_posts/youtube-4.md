@@ -60,7 +60,17 @@ Image
 ```
 
 ### Capcut
+``` bash
+# 開隱藏資料夾
+檔案總管
+  -->「檢視 View」
+  -->「顯示 Show」
+  --> 勾選「隱藏的項目 Hidden items」
 
+# video 輸出位置
+C:\Users\RobertKao\AppData\Local\CapCut\Videos
+
+```
 
 ### Ref
 #### YouTube channel
