@@ -504,6 +504,22 @@ Codex > 解釋這個專案的架構
 
 #### run app windows
 ``` bash
+# show wsl version
+D:\work\run\DiffDock>wsl --version
+WSL 版本： 2.6.3.0
+核心版本： 6.6.87.2-1
+WSLg 版本： 1.0.71
+MSRDC 版本： 1.2.6353
+Direct3D 版本： 1.611.1-81528511
+DXCore 版本： 10.0.26100.1-240331-1435.ge-release
+Windows 版本： 10.0.26200.7623
+
+# show all wsl
+D:\work\run\DiffDock>wsl --list --verbose
+  NAME              STATE           VERSION
+* docker-desktop    Stopped         2
+  Ubuntu            Stopped         2
+
 # enter wls
 D:\work\run\DiffDock>wsl -d Ubuntu
   robert@C15611110525001:/mnt/d/work/run/DiffDock$ ls
@@ -822,7 +838,7 @@ gaoyiping@gaoyipingdeMacBook-Pro ~ % curl -I http://127.0.0.1:5000/
 # 原生套件在特定情況下仍可能需要它，你留著只會在必要時才用到，不會平常「一直在背景跑」。
 ```
 
-#### run app mac - 重新 clone
+#### run app windows - 重新 clone
 ``` bash
 # change listen
   // Other ports are firewalled. Default to 5000 if not specified.
@@ -867,6 +883,55 @@ gaoyiping@gaoyipingdeMacBook-Pro DiffDock % npm run start
   > rest-express@1.0.0 start
   > NODE_ENV=production node dist/index.cjs
   ✅ Server running on http://127.0.0.1:5001
+```
+
+#### command - codex
+``` bash
+# 建立 AGENTS.md
+在你的專案根目錄新增檔案 AGENTS.md，建議包含這幾段（用 Markdown 即可，格式不嚴格）：
+- Project 概述：這個 repo 是做什麼
+- Tech stack：Vite/React/Node 版本、是否有 server、DB（drizzle）等
+- 常用指令：npm install, npm run dev, npm run build, npm test…
+- 目錄結構：client/, server/, shared/ 分工
+- 開發規範：TypeScript、lint/format、命名、commit 規則
+- 安全/限制：不要動 production key、不要自動刪檔、遇到危險命令要先問
+# 用 Codex 幫你生成骨架
+在 repo 根目錄開 codex 後請它「依照專案結構生成一份 AGENTS.md」，再由你微調（官方文件就是鼓勵用這種方式逐步完善）
+
+# 建立 NOTES.md
+請產出「交接輸出」(markdown)，包含：
+1) Done：本次做了哪些事（用條列，含關鍵決策）
+2) Files changed：列出修改過的檔案與每個檔案做了什麼
+3) How to verify：我該跑哪些指令驗證（含預期結果）
+4) Next：下一步待辦清單（按優先順序）
+5) Known issues / risks：可能的坑、需要人工確認的點
+請控制在 200~400 字內，適合貼到 PR 描述或 NOTES.md。
+
+# 剛新增或更新 AGENTS.md 後，跑這句可以快速驗證 Codex 是否真的載入了專案規範，並用摘要讓你檢查它理解的規則是否正確。
+codex --ask-for-approval never "Summarize the current instructions."
+# show example
+› Summarize the current instructions.
+• Instructions Summary
+  - Run npm install once to fetch both client and server deps; dev mode is npm run dev; build/test via npm run build/npm
+    start; manifest also notes npm run check for strict TypeScript.
+  - Chrome-only compare page relies on showDirectoryPicker; guard directory handles with permission checks, don’t polyfill.
+  - Follow TS conventions (typed exports, shared i18n strings), Tailwind + components/ui/*, centralized diff logic in
+    client/src/lib/fileSystem, keep compare modal using TextCompareOptions.
+  - Avoid destructive git commands; no approvals allowed for shell commands—work within provided sandbox; use apply_patch
+    for edits when practical; prefer rg for searches.
+  - Skills: only skill-creator and skill-installer listed; nothing else required unless user requests.
+
+# 看你前一次（或更早）在同一個 Git repo 的互動紀錄
+codex resume
+
+# ask only
+Please provide a conceptual analysis only. Do not output any code blocks in your response.
+```
+
+#### command - npm
+``` bash
+# check code 是否有錯誤
+npm run check
 ```
 
 ### Robert hut(Replit) - [Link](https://www.perplexity.ai/search/https-winmerge-org-downloads-l-AZ9IX4uvTw.Hy0GrCvlHtA#15)
