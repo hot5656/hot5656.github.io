@@ -72,6 +72,14 @@ C:\Users\RobertKao\AppData\Local\CapCut\Videos
 
 ```
 
+### Psychological
+
+### flow
+``` bash
+
+
+```
+
 ### Ref
 #### YouTube channel
 + [NextGen Process](https://www.youtube.com/@NextGenprocess)
@@ -91,3 +99,19 @@ C:\Users\RobertKao\AppData\Local\CapCut\Videos
 
 #### Tools 
 + [HandBake](https://handbrake.fr/downloads.php): 影片壓縮, add Preset for short
++ [Whisk](https://labs.google/fx/zh/tools/whisk): 生圖
++ [Grok Image](https://grok.com/imagine): 生影片
++ [Translate Subtitles](https://translatesubtitles.co/index.php): 翻譯字幕
++ 語音轉字幕 .ipyba
+``` bash
+# install
+!pip install git+https://github.com/Softcatala/whisper-ctranslate2
+
+# 轉字幕
+!whisper-ctranslate2 "Prehisttorical human_a_10s.mp3" --device cuda --model large-v3
+
+# 轉字幕: 避免長字幕
+!whisper-ctranslate2 "Why is it that no matter how hard you try.wav" --device cuda --model large-v3 --vad_filter True --vad_max_speech_duration_s 3 --vad_min_silence_duration_ms 300 --max_line_width 30 --max_line_count 1 --word_timestamps True --output_format srt
+```
+
+
