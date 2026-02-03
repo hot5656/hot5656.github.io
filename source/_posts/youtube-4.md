@@ -16,6 +16,12 @@ tags:
 
 # 可放至 capcut cover
 # 輸出無字幕及中文字幕
+
+# 本影片我要放到 youtube 請幫我生成 title and 說明(英文)
+
+# 產生 youtube 16:9 縮圖 prompt(含英文文字）
+# or
+# 參考附圖 style 產生 youtube 16:9 縮圖 prompt(含英文文字）
 ```
 
 #### Windows
@@ -291,6 +297,55 @@ You’re lying in bed at night. The room is quiet. Your phone is face down. And 
 # integrate audio, subtitle amd video by capcut
 
 # generate thumbnail 
+```
+
+### [Kids Bible](https://chatgpt.com/share/6981b92f-5f48-8001-abaf-0b57851bfa81)
+#### prompt
+``` bash
+# Story Idea Prompt
+Bring the Bible to life with 5 animated stories that spark wonder and stay true to Scripture. Each story should capture hearts with vivid storytelling, memorable characters, and powerful lessons—crafted to inspire viewers of all ages on my YouTube channel.
+
+# Video Prompt
+number 1 : Craft a vibrant, 1–3 minute video script that reimagines a Bible story in a fresh, relatable way. Divide the tale into a clear beginning, middle, and end, highlighting the key moments and deeper meaning. Use friendly, imaginative narration that draws in viewers—whether they're seasoned believers or hearing the story for the first time. Make it easy to picture, hard to forget, and rich with timeless. Truth.
+'
+# 請幫每一段幫我加上預估時間刻度
+
+# Image Prompt
+Create 3D Pixar-style detailed image prompt for each scene and shots that can be copy and paste into image generator
+
+# Role Prompt
+Create 3D Pixar-style detailed image prompt for the main characters in the story
+
+# video prompt
+Create video scenes for each of the story scenes above
+輸出內容參考附件
+```
+
+#### flow 
+``` bash
+# generate Story Idea Prompt by GPT
+# generate Video Prompt by GPT
+# generate Image Prompt by GPT
+# generate Role Prompt by GPT
+
+# generate role
+# gener scene(if need)
+Wsisk 
+  --> 主題
+  --> character prompt
+  --> 場景
+  --> create a 3d pixar style image of a bible story edge sea of Israel and philistine 
+
+# whisk generate image
+
+# generate video prompt by GPT
+
+# generate video
+
+# google AI studio
+--> text to speech with gemini(generate audio)
+--> single-Speaker audio
+--> Algeiba
 ```
 
 ### Ref
