@@ -348,6 +348,49 @@ Wsisk
 --> Algeiba
 ```
 
+### Fantasy Cinematic Video #1
+#### prompt
+``` bash
+# prompt start
+Create a fast-paced, highly detailed, fictional cinematic video script lasting 25–50 seconds. The script must follow the identical structure, pacing, and formatting style of the sample sequence below, including: • Time codes for each 1–2 second segment • Camera Move • Scene • Characters • Actions • Dramatic expressions • Over-the-top transformations • Monster forms • Superpower clashes • Emotional ending All events are fictional and exaggerated for fantasy storytelling. Use the following inputs: Main Celebrity: [CELEBRITY NAME 1] Secondary Celebrity (optional): [CELEBRITY NAME 2] Transformation Theme: [e.g., lizard mutation, dragon form, monster awakening, alien infection] Superpower Theme (optional): [e.g., lightning powers, energy blast, telekinesis] General Story Style: [e.g., action-comedy, dark cinematic, superhero, sci-fi chaos] Locations to Include: [List 5–8 locations, e.g., bedroom, kitchen, city street, supermarket, laboratory] Final Ending Tone: [dramatic, emotional, comedic, heroic] Now generate a full script using the exact structural pattern of the following: Start with the main celebrity in a normal everyday setting. Introduce a strange creature, item, or event that triggers the transformation. Show escalating discomfort, chaos, or comedic panic. Show the secondary celebrity reacting or participating. Transition into a sequence of extreme or absurd actions (eating objects, running wild, destruction, etc.). Show the transformation progressing in stages: – small physical changes – hands or skin mutating – full body mutation Present an external wide shot of city-scale destruction or chaos. Introduce the secondary character performing a counter-action (e.g., drinking serum, gaining powers). Build to a final confrontation between the transformed celebrity and the empowered secondary celebrity. End with a resolution: – monster defeated – transformation reversed – emotional conclusion Use this formatting for every segment: Time Code: 00:00–00:02 Camera Move: Scene: Characters: Actions: Continue this structure until the full 25–50 second script is complete. Before you generate the full 25–50 second cinematic script, you need to request the required inputs: Main Celebrity, Secondary Celebrity (optional), Transformation Theme, Superpower Theme (optional), General Story Style, Locations to Include (5–8 total) and Final Ending Tone.
+
+# prompt example
+Main Celebrity: Cristiano Ronaldo 
+
+Secondary Celebrity (optional): Neymar 
+
+Transformation Theme: Lizard enters Ronaldo’s Mouth while he is sleeping, snoring and leaves his mouth very wide open. The Lizard moves into his stomach through the esophagus leading to a progressive reptilian/Godzilla-like mutation.
+
+Superpower Theme (optional): Neymar gains blue lightning energy and enhanced strength after drinking a glowing serum.
+
+General Story Style: Fast-paced action fantasy with dramatic, animalistic, chaotic, and cinematic sequences (YouTube Shorts style) 
+
+
+Locations to Include (5–8 total): 
+Bedroom,
+Inside the throat (fantasy view),
+Hallway,
+Kitchen,
+Refrigerator interior,
+Living room,
+Supermarket, 
+Destroyed city street, 
+Science laboratory City,
+battlefield,
+
+Final Ending Tone: Emotional, dramatic, and intense
+
+```
+
+#### flow
+``` bash
+# prmpt start by GPT
+
+# input data 
+
+
+```
+
 ### Ref
 #### YouTube channel
 + [NextGen Process](https://www.youtube.com/@NextGenprocess)
