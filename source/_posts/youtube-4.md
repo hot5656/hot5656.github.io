@@ -11,8 +11,10 @@ tags:
 #### Other
 ``` bash
 # YouTube 縮圖
-推薦尺寸：1280×720（16:9），最低寬度 640px。 (1024x5767 放大)
+推薦尺寸：1280×720（16:9），最低寬度 640px。 (1024x576 放大)
 檔案大小：建議控制在 2MB 以內，格式常用 JPG/PNG（YouTube 支援多種格式）。
+
+YouTube Shorts 影片本體是直式 9:16（常見 1080×1920）
 
 # 可放至 capcut cover
 # 輸出無字幕及中文字幕
@@ -23,6 +25,8 @@ tags:
 # or
 # 參考附圖 style 產生 youtube 16:9 縮圖 prompt(含英文文字）
 ```
+
+<!--more-->
 
 #### Windows
 ``` bash
@@ -38,9 +42,6 @@ C:\Users\RobertKao\AppData\Local\CapCut\Videos
 # project 位置
 C:\Users\RobertKao\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft
 ```
-
-<!--more-->
-
 
 ### [Prehistory AI Video](https://chatgpt.com/share/6980087c-c978-8001-a070-bff40c982f7d)
 #### prompt
@@ -348,45 +349,117 @@ Wsisk
 --> Algeiba
 ```
 
-### Fantasy Cinematic Video #1
-#### prompt
+### [Fantasy Cinematic Video #1](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1-video/c/6982bb37-c140-83a4-afc7-6776ca673fbb)
+#### [prompt - 2md link](https://chatgpt.com/share/698562d2-3314-8001-b05f-dfc9bafda7b3)
 ``` bash
 # prompt start
-Create a fast-paced, highly detailed, fictional cinematic video script lasting 25–50 seconds. The script must follow the identical structure, pacing, and formatting style of the sample sequence below, including: • Time codes for each 1–2 second segment • Camera Move • Scene • Characters • Actions • Dramatic expressions • Over-the-top transformations • Monster forms • Superpower clashes • Emotional ending All events are fictional and exaggerated for fantasy storytelling. Use the following inputs: Main Celebrity: [CELEBRITY NAME 1] Secondary Celebrity (optional): [CELEBRITY NAME 2] Transformation Theme: [e.g., lizard mutation, dragon form, monster awakening, alien infection] Superpower Theme (optional): [e.g., lightning powers, energy blast, telekinesis] General Story Style: [e.g., action-comedy, dark cinematic, superhero, sci-fi chaos] Locations to Include: [List 5–8 locations, e.g., bedroom, kitchen, city street, supermarket, laboratory] Final Ending Tone: [dramatic, emotional, comedic, heroic] Now generate a full script using the exact structural pattern of the following: Start with the main celebrity in a normal everyday setting. Introduce a strange creature, item, or event that triggers the transformation. Show escalating discomfort, chaos, or comedic panic. Show the secondary celebrity reacting or participating. Transition into a sequence of extreme or absurd actions (eating objects, running wild, destruction, etc.). Show the transformation progressing in stages: – small physical changes – hands or skin mutating – full body mutation Present an external wide shot of city-scale destruction or chaos. Introduce the secondary character performing a counter-action (e.g., drinking serum, gaining powers). Build to a final confrontation between the transformed celebrity and the empowered secondary celebrity. End with a resolution: – monster defeated – transformation reversed – emotional conclusion Use this formatting for every segment: Time Code: 00:00–00:02 Camera Move: Scene: Characters: Actions: Continue this structure until the full 25–50 second script is complete. Before you generate the full 25–50 second cinematic script, you need to request the required inputs: Main Celebrity, Secondary Celebrity (optional), Transformation Theme, Superpower Theme (optional), General Story Style, Locations to Include (5–8 total) and Final Ending Tone.
+影片創作邏輯如下 Create a fast-paced, highly detailed, fictional cinematic video script lasting 25–50 seconds. The script must follow the identical structure, pacing, and formatting style of the sample sequence below, including: ‧ Time codes for each 1–2 second segment ‧ Camera Move ‧ Scene ‧ Characters ‧ Actions ‧ Dramatic expressions ‧ Over-the-top transformations ‧ Monster forms ‧ Superpower clashes ‧ Emotional ending All events are fictional and exaggerated for fantasy storytelling. Use the following inputs: Main Celebrity: [CELEBRITY NAME 1] Secondary Celebrity (optional): [CELEBRITY NAME 2] Transformation Theme: [e.g., lizard mutation, dragon form, monster awakening, alien infection] Superpower Theme (optional): [e.g., lightning powers, energy blast, telekinesis] General Story Style: [e.g., action-comedy, dark cinematic, superhero, sci-fi chaos] Locations to Include: [List 5–8 locations, e.g., bedroom, kitchen, city street, supermarket, laboratory] Final Ending Tone: [dramatic, emotional, comedic, heroic] Now generate a full script using the exact structural pattern of the following: Start with the main celebrity in a normal everyday setting. Introduce a strange creature, item, or event that triggers the transformation. Show escalating discomfort, chaos, or comedic panic. Show the secondary celebrity reacting or participating. Transition into a sequence of extreme or absurd actions (eating objects, running wild, destruction, etc.). Show the transformation progressing in stages: – small physical changes – hands or skin mutating – full body mutation Present an external wide shot of city-scale destruction or chaos. Introduce the secondary character performing a counter-action (e.g., drinking serum, gaining powers). Build to a final confrontation between the transformed celebrity and the empowered secondary celebrity. End with a resolution: – monster defeated – transformation reversed – emotional conclusion Use this formatting for every segment: Time Code: 00:00–00:06 Camera Move: Scene: Characters: Actions: Continue this structure until the full 25–50 second script is complete. Before you generate the full 25–50 second cinematic script, you need to request the required inputs: Main Celebrity, Secondary Celebrity (optional), Transformation Theme, Superpower Theme (optional), General Story Style, Locations to Include (5–8 total) and Final Ending Tone. 輸入 example 如下 Main Celebrity: Jeremy Shu-How Lin Secondary Celebrity (optional): Joseph Shuwei Lin Transformation Theme: Lizard enters Ronaldo’s Mouth while he is sleeping, snoring and leaves his mouth very wide. The Lizard moves into his stomach through the esophagus leading to a progressive reptilian/Godzilla-like mutation. Superpower Theme (optional): Neymar gains blue lightning energy and enhanced strength after drinking a glowing serum. General Story Style: Fast-paced action fantasy with dramatic, animalistic, chaotic, and cinematic sequences (YouTube Shorts style) Locations to Include (5–8 total): Bedroom, Inside the throat (fantasy view), Hallway, Kitchen, Refrigerator interior, Living room, Supermarket, Destroyed city street, Science laboratory City, battlefield, Final Ending Tone: Emotional, dramatic, and intense 請依照 example 格式 幫我產生 3 個 影片輸入(ENGLISH)
 
-# prompt example
-Main Celebrity: Cristiano Ronaldo 
+# next
+第一組優化成更容易爆 Shorts 的版本
 
-Secondary Celebrity (optional): Neymar 
+# open new chat - prompt
+Create a fast-paced, highly detailed, fictional cinematic video script lasting 25–50 seconds. The script must follow the identical structure, pacing, and formatting style of the sample sequence below, including: ‧ Time codes for each 1–2 second segment ‧ Camera Move ‧ Scene ‧ Characters ‧ Actions ‧ Dramatic expressions ‧ Over-the-top transformations ‧ Monster forms ‧ Superpower clashes ‧ Emotional ending All events are fictional and exaggerated for fantasy storytelling. Use the following inputs: Main Celebrity: [CELEBRITY NAME 1] Secondary Celebrity (optional): [CELEBRITY NAME 2] Transformation Theme: [e.g., lizard mutation, dragon form, monster awakening, alien infection] Superpower Theme (optional): [e.g., lightning powers, energy blast, telekinesis] General Story Style: [e.g., action-comedy, dark cinematic, superhero, sci-fi chaos] Locations to Include: [List 5–8 locations, e.g., bedroom, kitchen, city street, supermarket, laboratory] Final Ending Tone: [dramatic, emotional, comedic, heroic] Now generate a full script using the exact structural pattern of the following: Start with the main celebrity in a normal everyday setting. Introduce a strange creature, item, or event that triggers the transformation. Show escalating discomfort, chaos, or comedic panic. Show the secondary celebrity reacting or participating. Transition into a sequence of extreme or absurd actions (eating objects, running wild, destruction, etc.). Show the transformation progressing in stages: – small physical changes – hands or skin mutating – full body mutation Present an external wide shot of city-scale destruction or chaos. Introduce the secondary character performing a counter-action (e.g., drinking serum, gaining powers). Build to a final confrontation between the transformed celebrity and the empowered secondary celebrity. End with a resolution: – monster defeated – transformation reversed – emotional conclusion Use this formatting for every segment: Time Code: 00:00–00:06 Camera Move: Scene: Characters: Actions: Continue this structure until the full 25–50 second script is complete. Before you generate the full 25–50 second cinematic script, you need to request the required inputs: Main Celebrity, Secondary Celebrity (optional), Transformation Theme, Superpower Theme (optional), General Story Style, Locations to Include (5–8 total) and Final Ending Tone.
 
-Transformation Theme: Lizard enters Ronaldo’s Mouth while he is sleeping, snoring and leaves his mouth very wide open. The Lizard moves into his stomach through the esophagus leading to a progressive reptilian/Godzilla-like mutation.
+# copy generate from 1st chat
+Main Celebrity: Elon Musk Secondary Celebrity (optional): Mark Zuckerberg Transformation Theme: During a late-night experiment, a cracked Neuralink chip suddenly releases a glowing alien neural parasite. The creature crawls directly into Elon’s ear and down his spine, hijacking his brain signals. His body begins merging with biomechanical alien flesh — metal veins, glowing circuitry under skin — evolving into a massive techno-organic monster capable of reshaping reality through thought. Superpower Theme (optional): Mark Zuckerberg drinks a neon-blue data serum inside a VR chamber, instantly activating a full digital combat form. He gains holographic armor, hard-light weapons, time-slow perception, and the ability to rewrite physical space like corrupted code. General Story Style: Ultra-fast sci-fi chaos with horror elements, explosive transformations, meme-level intensity, and cinematic destruction (High-energy YouTube Shorts style, no slow moments) Locations to Include (5–8 total): Neuralink laboratory, Extreme close-up inside the nervous system (fantasy view), Hallway with flickering lights, Mirror reflection scene (identity breakdown), Server room meltdown, City rooftop at night, Tech campus exploding outward, Digital-vs-organic battlefield cityscape Final Ending Tone: Darkly emotional, intense, and haunting — with a final moment of silence after total chaos
 
-Superpower Theme (optional): Neymar gains blue lightning energy and enhanced strength after drinking a glowing serum.
+# create youtube title + scription
+give me YouTube Shorts title + description
 
-General Story Style: Fast-paced action fantasy with dramatic, animalistic, chaotic, and cinematic sequences (YouTube Shorts style) 
+# 產生縮圖
+I choice Option 1 , please give me thumbnail text + image prompt
+幫我建立一個 9:16 縮圖 prompt(含 英文文字)
 
-
-Locations to Include (5–8 total): 
-Bedroom,
-Inside the throat (fantasy view),
-Hallway,
-Kitchen,
-Refrigerator interior,
-Living room,
-Supermarket, 
-Destroyed city street, 
-Science laboratory City,
-battlefield,
-
-Final Ending Tone: Emotional, dramatic, and intense
-
+# generate suno prompt
+generate Suno song/lyrics prompt for this video
 ```
 
 #### flow
 ``` bash
 # prmpt start by GPT
 
-# input data 
+# generate video by Grok
+
+
+# suno - generate song
+  --> create 
+
+# shot 縮圖放讚最前面 0.5s
+
+# 手機 load video to youtube(can select 縮圖)
+```
+
+### [Anatomy of Human Digestive System_1_coffee](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1-video/c/6982bb37-c140-83a4-afc7-6776ca673fbb)
+#### [prompt - 2nd link](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1-video/c/69835123-3084-8323-9509-b4d03933ef54)
+``` bash
+# prompt
+以下是要下給AI的 prompt, 如果是喝咖啡 要不要調整 以達到更好的效果
+
+You are an advanced AI visual prompt engineer specializing in cinematic, medical-style, 3D anatomical imagery and short-form video prompt generation. When activated, your first action is to ask a single question: “Please enter the name of the food or drink.” After I provide the name — for example, “milk” — you will immediately produce the full set of prompts outlined below, substituting the provided item wherever the variable {{food_or_drink}} appears. Do not restate or explain the template; proceed directly to outputting the final prompts.
+Generate a comprehensive series of high-detail, 3D rendered image prompts, each set against a completely green background. The first image should depict a surreal anatomical illustration of a human figure with exposed internal organs — brain, lungs, heart, stomach, and intestines — shown with realistic medical accuracy, while the individual holds a glass of {{food_or_drink}} near the mouth. The second image should focus exclusively on the stomach, showing {{food_or_drink}} entering it in precise medical detail. The third image should illustrate the intestines absorbing nutrients from {{food_or_drink}}, including glowing nutrient particles entering the bloodstream in a microscopic, hyper-detailed style. The fourth image should portray the positive distribution of these nutrients throughout the body, with illuminated organs and musculature rendered in a cinematic anatomical aesthetic.
+Next, create three to four additional image prompts emphasizing the potential benefits of {{food_or_drink}} using medically realistic anatomy and metaphorical visualization. Include one image showcasing enhanced brain activity with illuminated neurons and active synapses; one highlighting muscular nourishment with emphasized muscle groups and nutrient flow; one focusing on gut health with a vibrant microbiome; and one optionally depicting increased energy represented by a human silhouette radiating light. All images must maintain a consistent 3D anatomical rendering style and green background.
+Then, generate three to four 3D anatomical image prompts illustrating possible side effects of {{food_or_drink}}. Include one depicting stomach irritation with visibly inflamed tissue; one showing an allergic response with localized inflammation; one showing a blood-sugar spike represented by excessive glucose particles in the bloodstream; and one depicting fatigue or reduced vitality through diminished cellular illumination. These must match the same visual, anatomical, and background style.
+After completing all image prompts, produce short 3D cinematic video prompts (five to ten seconds each) corresponding to every scene described — including the four primary images, the benefit-focused images, and the side-effect images. Each video prompt should specify animated motion, camera behavior, and realistic lighting. For example, a video may follow nutrient particles from {{food_or_drink}} as they travel through the intestines and enter the bloodstream under cinematic microscopic lighting against a green background.
+Organize all outputs under two clearly labeled sections: “📸 IMAGE PROMPTS” and “🎥 VIDEO PROMPTS,” listing each prompt sequentially. Begin generating results immediately upon receiving the name of the food or drink.
+
+# next
+Coffee 專用完整版 Prompt（可直接丟給 AI）
+
+# prompt 2 - copy from 1st 
+
+# slect drink
+coffee
+
+# generate script
+Write one minutes script with the above video Instructions Drink coffee喝下咖啡後的身體影響 by english
+
+# too long change length
+Compress this into 35s
+
+# youtube title and script
+本影片我要放到 youtube short 請幫我生成 title and 說明(英文)
+
+# 縮圖
+I select title : What Happens Inside Your Body After Drinking Coffee 
+請 產生 youtube 9:16 縮圖 prompt(含英文文字）
+```
+
+#### flow
+``` bash
+# generate image by whisk
+
+# generate video by Grok
+
+# shot 縮圖放讚最前面 0.5s
+
+# 手機 load video to youtube(can select 縮圖)
+```
+
+### [Factory Products Processing_1_Smartphones](https://chatgpt.com/share/698560ee-eb74-8001-9f90-e85de71ce764)
+#### prompt
+``` bash
+# start
+You are an AI cinematic video-prompt generator that specializes in producing complete factory and industrial process video concepts for VEO 3. Before generating any prompts, always begin by asking the user for the topic (for example: “How Coca-Cola Is Made”). After the user provides the topic, generate a fully structured cinematic video prompt sequence that adheres exactly to the framework defined below. All outputs must remain consistent, highly cinematic, realistic, technically accurate, and directly relevant to the selected subject matter. REQUIRED OUTPUT STRUCTURE Video Title “How [TOPIC] Is Made Today: Inside the Modern Factory” Scene 1: Introduction with On-Screen Worker Prompt: Cinematic, photorealistic 3D-rendered modern factory interior. A uniformed worker stands confidently in front of an active production line and smiles toward the camera. The worker states: “Welcome to our factory! Today, I’ll show you exactly how [TOPIC] is made — step by step. Don’t forget to subscribe for more behind-the-scenes videos like this!” Voiceover: Friendly and professional. Sound Effects: Subtle industrial ambience, light upbeat tone, soft machine hum. Visual Style: Realistic lighting, lifelike material textures, shallow depth of field, professional manufacturing environment. PRODUCTION PHASES Each production phase must contain three distinct cinematic video prompts, each with different camera movement and perspective. PHASE 1: Raw Materials & Preparation Prompt 1 — Wide View: Expansive cinematic shot showing raw materials arriving at the facility. Workers unload, inspect, and verify components related to [TOPIC]. Sound: Conveyor hum, large-space warehouse ambience. Prompt 2 — Close-Up: Tight close-up of ingredients or materials being sorted, weighed, measured, or poured into stainless-steel industrial containers. Sound: Pouring liquids, mechanical clicks. Prompt 3 — Dynamic Motion: Drone-style tracking shot moving through a corridor of preparation machinery, complete with steam, warm industrial backlighting, and high-contrast reflections. Sound: Air vents, rhythmic mechanical soundscape. PHASE 2: Mixing & Processing Prompt 1: Large automated mixers or processors blend materials associated with [TOPIC], showing internal motion and mechanical precision. Voiceover: Calm explanation of mixture ratios and quality balancing. Sound: Deep mechanical mixing resonance. Prompt 2: Technicians inside the control room monitor digital dashboards, gauges, and automation interfaces ensuring correct parameters. Sound: Button presses, steady mechanical pulse. Prompt 3: Tracking shot following pipes, tubes, or conveyors transporting the processed material onward. Sound: Liquid flow or metallic reverberation. PHASE 3: Transformation / Core Production Prompt 1: Macro cinematic shot capturing the core transformation (e.g., heating, molding, pressurizing, fermenting, extrusion, carbonation, etc.). Sound: Detailed process noise (bubbling, welding, mechanical shaping). Prompt 2: Robotic arms or skilled workers handle the product with precision during transformation. Voiceover: “Every batch is refined and tested for quality.” Sound: Robotic arm beeps, controlled machinery ambience. Prompt 3: Slow-motion sequence capturing the product taking form, with dramatic lighting and close-up texture details. Sound: Subtle cinematic tone layered over the natural production environment. PHASE 4: Filling / Assembly / Packaging Prompt 1: High-speed conveyor sequence showing filling, sealing, assembly, or product finalization. Sound: Rhythmic clinks, pressurized air hissing. Prompt 2: Close-up of labeling, wrapping, capping, or other finishing processes in flawless synchronization. Sound: Label rollers, seal clicks. Prompt 3: Wide drone shot of the complete packaging department — workers and robots operating efficiently beneath bright industrial lighting. Music: Modern industrial background track. PHASE 5: Quality Check & Distribution Prompt 1: Inspectors review finished products under LED inspection lights, checking alignment, cleanliness, or functionality. Voiceover: “Every product is checked before leaving the facility.” Sound: Soft scanning beeps, quiet factory hum. Prompt 2: Forklifts transport branded boxes to outbound logistics areas as loading crews move products into trucks. Sound: Forklift movement, truck engine rumble. Prompt 3: Cinematic rising pan revealing the entire facility in the late-day light, with reflective surfaces and a polished industrial exterior. Music: Uplifting orchestral outro. ENDING SEQUENCES Prompt 1 — On-Screen Worker Outro: The worker reappears, smiling confidently: “And that’s how [TOPIC] is made — from start to finish!” Voiceover: Friendly and assured. Sound: Soft industrial ambience fading out. Prompt 2 — Call-to-Action: Cinematic end-card with the text: “Subscribe for more AI-generated factory tours and process documentaries.” Sound: Light whoosh and upbeat closing chime. Overall Video Requirements Visual Style: Realistic 3D, cinema-grade lighting, accurate reflections, light film grain. Mood: Educational, professional, and inspiring. Camera Techniques: Smooth dolly, drone, macro, and tracking shots. Audio: Integrated environmental sound, subtle narration cues. Format: Fully optimized for VEO 3 video-prompt generation. End of Prompt Specification
+
+# next
+How Smartphones Are Assembled
+```
+
+#### flash
+``` bash
+# generate prompt
+
+# generate video
+Flow (prompt 1000 AI credit)
+  --> 新建項目
+    Scenebuilder(場景建構器)
+    Veo 3.1 - Fast(20 credit 含語音) 
+    - 16:0
+    - output: 1
+
+
+--> Create with Veo 3.1
 
 
 ```
@@ -412,6 +485,7 @@ Final Ending Tone: Emotional, dramatic, and intense
 + [HandBake](https://handbrake.fr/downloads.php): 影片壓縮, add Preset for short
 + [Google](https://aistudio.google.com/): generate audio
 + [Whisk](https://labs.google/fx/zh/tools/whisk): 生圖
++ [Flow](https://labs.google/fx/zh/tools/flow): 生影片
 + [Grok Image](https://grok.com/imagine): 生影片
 + [Translate Subtitles](https://translatesubtitles.co/index.php): 翻譯字幕
 + 語音轉字幕 .ipyba
@@ -425,6 +499,7 @@ Final Ending Tone: Emotional, dramatic, and intense
 # 轉字幕: 避免長字幕
 !whisper-ctranslate2 "Why is it that no matter how hard you try.wav" --device cuda --model large-v3 --vad_filter True --vad_max_speech_duration_s 3 --vad_min_silence_duration_ms 300 --max_line_width 30 --max_line_count 1 --word_timestamps True --output_format srt
 ```
++ [SUNO](https://suno.com/): 創作音樂
 
 #### link 
 + [字幕&平台建議](https://www.perplexity.ai/search/wo-zuo-yourube-ying-wen-ai-yin-8_M6hMaOT2.HO16QpssSDw#3)
