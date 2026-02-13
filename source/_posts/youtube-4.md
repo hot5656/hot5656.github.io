@@ -24,6 +24,35 @@ YouTube Shorts 影片本體是直式 9:16（常見 1080×1920）
 # 產生 youtube 16:9 縮圖 prompt(含英文文字）
 # or
 # 參考附圖 style 產生 youtube 16:9 縮圖 prompt(含英文文字）
+
+# short 生成 1
+我有一個影片
+title: 
+說明：
+長度 : 3:03 16:9 上線 8天 曝光 667 觀看次數 28 你有什麼建議？
+請把這支影片幫我拆成 Shorts 
+
+# short 生成 1
+我有一個影片
+title: 
+說明：
+script 如下:
+video 共有 12 個段落如下
+長度 : 2:09 16:9 影片 上線 6天 曝光 172次 觀看次數 8 你有什麼建議？
+請把這支影片幫我拆成 Shorts 
+
+#  mapping and 出疊字字幕
+幫我將各 short 對應到原始 video段落 , 並列出疊字字幕（英文）
+
+# 請幫我生成各 short, title and 說明(英文)
+
+# 請幫我生成各 short, 9:16 縮圖 prompt(含英文文字）
+
+# SEO & tags
+title and description 考慮最佳 SEO
+tags 大於  400 characters(小於 500 400 characters)
+
+# 16:9 片尾
 ```
 
 <!--more-->
@@ -301,7 +330,7 @@ You’re lying in bed at night. The room is quiet. Your phone is face down. And 
 ```
 
 ### [Kids Bible](https://chatgpt.com/share/6981b92f-5f48-8001-abaf-0b57851bfa81)
-#### prompt
+#### prompt - [2nd link short](https://gemini.google.com/share/e213b30bf324)
 ``` bash
 # Story Idea Prompt
 Bring the Bible to life with 5 animated stories that spark wonder and stay true to Scripture. Each story should capture hearts with vivid storytelling, memorable characters, and powerful lessons—crafted to inspire viewers of all ages on my YouTube channel.
@@ -436,8 +465,13 @@ I select title : What Happens Inside Your Body After Drinking Coffee
 # 手機 load video to youtube(can select 縮圖)
 ```
 
-### [Factory Products Processing_1_Smartphones](https://chatgpt.com/share/698560ee-eb74-8001-9f90-e85de71ce764)
-#### prompt - [2nd link for short](https://chatgpt.com/c/6986c58f-6b10-83a7-bb8e-a198a00753af)
+
+### Processing_1_Smartphones
+#### Ooffee
++ [Coffee 1](https://chatgpt.com/share/698560ee-eb74-8001-9f90-e85de71ce764)
++ [Coffee 2](https://chatgpt.com/c/6986c58f-6b10-83a7-bb8e-a198a00753af)
+##### GPT prompt
+
 ``` bash
 # start
 You are an AI cinematic video-prompt generator that specializes in producing complete factory and industrial process video concepts for VEO 3. Before generating any prompts, always begin by asking the user for the topic (for example: “How Coca-Cola Is Made”). After the user provides the topic, generate a fully structured cinematic video prompt sequence that adheres exactly to the framework defined below. All outputs must remain consistent, highly cinematic, realistic, technically accurate, and directly relevant to the selected subject matter. REQUIRED OUTPUT STRUCTURE Video Title “How [TOPIC] Is Made Today: Inside the Modern Factory” Scene 1: Introduction with On-Screen Worker Prompt: Cinematic, photorealistic 3D-rendered modern factory interior. A uniformed worker stands confidently in front of an active production line and smiles toward the camera. The worker states: “Welcome to our factory! Today, I’ll show you exactly how [TOPIC] is made — step by step. Don’t forget to subscribe for more behind-the-scenes videos like this!” Voiceover: Friendly and professional. Sound Effects: Subtle industrial ambience, light upbeat tone, soft machine hum. Visual Style: Realistic lighting, lifelike material textures, shallow depth of field, professional manufacturing environment. PRODUCTION PHASES Each production phase must contain three distinct cinematic video prompts, each with different camera movement and perspective. PHASE 1: Raw Materials & Preparation Prompt 1 — Wide View: Expansive cinematic shot showing raw materials arriving at the facility. Workers unload, inspect, and verify components related to [TOPIC]. Sound: Conveyor hum, large-space warehouse ambience. Prompt 2 — Close-Up: Tight close-up of ingredients or materials being sorted, weighed, measured, or poured into stainless-steel industrial containers. Sound: Pouring liquids, mechanical clicks. Prompt 3 — Dynamic Motion: Drone-style tracking shot moving through a corridor of preparation machinery, complete with steam, warm industrial backlighting, and high-contrast reflections. Sound: Air vents, rhythmic mechanical soundscape. PHASE 2: Mixing & Processing Prompt 1: Large automated mixers or processors blend materials associated with [TOPIC], showing internal motion and mechanical precision. Voiceover: Calm explanation of mixture ratios and quality balancing. Sound: Deep mechanical mixing resonance. Prompt 2: Technicians inside the control room monitor digital dashboards, gauges, and automation interfaces ensuring correct parameters. Sound: Button presses, steady mechanical pulse. Prompt 3: Tracking shot following pipes, tubes, or conveyors transporting the processed material onward. Sound: Liquid flow or metallic reverberation. PHASE 3: Transformation / Core Production Prompt 1: Macro cinematic shot capturing the core transformation (e.g., heating, molding, pressurizing, fermenting, extrusion, carbonation, etc.). Sound: Detailed process noise (bubbling, welding, mechanical shaping). Prompt 2: Robotic arms or skilled workers handle the product with precision during transformation. Voiceover: “Every batch is refined and tested for quality.” Sound: Robotic arm beeps, controlled machinery ambience. Prompt 3: Slow-motion sequence capturing the product taking form, with dramatic lighting and close-up texture details. Sound: Subtle cinematic tone layered over the natural production environment. PHASE 4: Filling / Assembly / Packaging Prompt 1: High-speed conveyor sequence showing filling, sealing, assembly, or product finalization. Sound: Rhythmic clinks, pressurized air hissing. Prompt 2: Close-up of labeling, wrapping, capping, or other finishing processes in flawless synchronization. Sound: Label rollers, seal clicks. Prompt 3: Wide drone shot of the complete packaging department — workers and robots operating efficiently beneath bright industrial lighting. Music: Modern industrial background track. PHASE 5: Quality Check & Distribution Prompt 1: Inspectors review finished products under LED inspection lights, checking alignment, cleanliness, or functionality. Voiceover: “Every product is checked before leaving the facility.” Sound: Soft scanning beeps, quiet factory hum. Prompt 2: Forklifts transport branded boxes to outbound logistics areas as loading crews move products into trucks. Sound: Forklift movement, truck engine rumble. Prompt 3: Cinematic rising pan revealing the entire facility in the late-day light, with reflective surfaces and a polished industrial exterior. Music: Uplifting orchestral outro. ENDING SEQUENCES Prompt 1 — On-Screen Worker Outro: The worker reappears, smiling confidently: “And that’s how [TOPIC] is made — from start to finish!” Voiceover: Friendly and assured. Sound: Soft industrial ambience fading out. Prompt 2 — Call-to-Action: Cinematic end-card with the text: “Subscribe for more AI-generated factory tours and process documentaries.” Sound: Light whoosh and upbeat closing chime. Overall Video Requirements Visual Style: Realistic 3D, cinema-grade lighting, accurate reflections, light film grain. Mood: Educational, professional, and inspiring. Camera Techniques: Smooth dolly, drone, macro, and tracking shots. Audio: Integrated environmental sound, subtle narration cues. Format: Fully optimized for VEO 3 video-prompt generation. End of Prompt Specification
@@ -446,7 +480,7 @@ You are an AI cinematic video-prompt generator that specializes in producing com
 How Smartphones Are Assembled
 ```
 
-#### flash
+##### flow
 ``` bash
 # generate prompt
 
@@ -460,12 +494,69 @@ Flow (prompt 1000 AI credit)
 
 
 --> Create with Veo 3.1
-
-
 ```
 
+#### Cherry(Grok)
 + [cherry 1](https://chatgpt.com/share/69887a27-5f90-8001-802a-3ec9c47cc330)
 + [cherry 2](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1/c/698870dd-4164-83ab-9501-dad3ab7985f4)
+
+
+### 透明骷髏
+#### [If You Eat Glass](https://gemini.google.com/share/e14897ab2fc5)
+``` bash
+# Gemini
+描述這張圖形
+
+幫我寫文案 What If You Eat Glass (Englis)
+
+please generate image prompt for Option 1
+
+please generate image prompt for Option 1 ( include 4 Scene and not include any words about it)
+
+please generate 4 video prompt (include sound and Voiceover)
+
+本影片我要放到 youtube 請幫我生成 title and 說明(英文)
+
+我選 title : ⚠️ What Happens If You Eat Glass?
+產生 youtube 9:16 縮圖 prompt(含合適的英文文字）
+
+# Gemini 
+產生縮圖 
+  --> 去水印
+  --> 調成 1080×1920
+  --> 壓縮
+
+# Whisk 產生 image
+# Grok 產生 video(load image)
+
+# Capcut
+  --> 縮圖(0.2s)
+  --> Video
+  --> export audio
+
+# 語音轉文字.ipynb
+  --> 產生 english 字幕
+
+# [Translate Subtitles](https://translatesubtitles.co/index.php)
+  --> 轉 中文字幕
+
+# Capcut 加中英文字幕
+```
+
++ [Link 1](https://gemini.google.com/share/556a91645111)
++ [Link 2](https://gemini.google.com/share/66564ddd74f8)
+
+
+### [pyVideoTrans](https://github.com/jianchang512/pyvideotrans)
+--> release 下載
+--> 解壓縮
+--> run sp.exe
+--> 翻譯視頻或音頻
+--> 選擇音頻或視頻 (清理已生成-不會使用舊生成文件)
+--> 輸出到-選擇輸出位置
+--> 翻譯渠道 - 可選翻譯引擎(翻譯設置 可設定)
+--> 配音渠道(發音 Edge-TTS free and ok)
+
 
 ### Ref
 #### YouTube channel
@@ -476,6 +567,12 @@ Flow (prompt 1000 AI credit)
 + [Bible In a Nutshell](https://www.youtube.com/@BibleNutshells)
 + [PsycheDepth](https://www.youtube.com/@PsycheDepth-o7w)
 + [CristianoFlash](https://www.youtube.com/@cristianoflash-cr7)
++ [dr_data](https://www.youtube.com/@dr_data_dr) : 透明骷髏
++ [SkelePets](https://www.youtube.com/@skelepets)
++ [WatchData](https://www.youtube.com/@WatchDataVerified)
++ [Infinite Comparison](https://www.youtube.com/@InfiniteComparison)
+
++ [VividCore_AI](https://www.youtube.com/@vividcore_ai)
 
 #### TikTok
 + [Science Craft](https://www.tiktok.com/@science.craft)
