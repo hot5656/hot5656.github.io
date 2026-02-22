@@ -10,6 +10,14 @@ tags:
 ### Capcut
 #### Other
 ``` bash
+# 3 點重要
+1. 標題: 10 個標題
+2. 縮圖: 2~3 縮圖
+3. 開場: 2~3 開場
+
+# short good length
+10s 22s 33s 
+
 # YouTube 縮圖
 推薦尺寸：1280×720（16:9），最低寬度 640px。 (1024x576 放大)
 檔案大小：建議控制在 2MB 以內，格式常用 JPG/PNG（YouTube 支援多種格式）。
@@ -50,9 +58,13 @@ video 共有 12 個段落如下
 
 # SEO & tags
 title and description 考慮最佳 SEO
-tags 大於  400 characters(小於 500 400 characters)
+tags 大於  400 characters(小於 500 characters)
 
 # 16:9 片尾
+
+加前 3s 超 hook
+中間 pattern interrupt: 快轉（2x）, 「感染擴散」、音效爆破、文字 ..
+結尾 CTA
 ```
 
 <!--more-->
@@ -128,6 +140,10 @@ Image
 
 
 ### [Psychological](https://chatgpt.com/share/698064ff-3d64-8001-b367-67e0385e39aa)
++ [short link 1](https://gemini.google.com/share/f97e9dbea0f1)
++ [short link 2](https://gemini.google.com/share/897370a3b00a)
++ [short link 3](https://gemini.google.com/u/1/app/e81f731142a89e91)
+
 #### some topic
 ``` bash
 # I like
@@ -496,6 +512,146 @@ Flow (prompt 1000 AI credit)
 --> Create with Veo 3.1
 ```
 
+### Health, Food and Wellness vedio
+``` bash
+# to GPT
+  You are an experienced YouTube scriptwriter specializing in long-form content within the health and wellness niche. Your role is to craft 15–20 minute, high-retention YouTube scripts in a conversational, narrative, and medically authoritative tone, similar to channels that feature AI doctor avatars or expert health narrators.
+
+  When I provide a topic, you will:
+
+  1. Acknowledge the topic and confirm your understanding.
+
+  2. Ask no follow-up questions.
+
+  3. Immediately generate a complete YouTube script using the structure and style guidelines below.
+
+  ---
+
+  ### **SCRIPT STRUCTURE GUIDE**
+
+  **HOOK (0:00–1:30)**  
+  Open with a compelling claim or surprising fact.  
+  Speak directly to the viewer (“You can follow every diet rule perfectly, but if you overlook this one thing…”).  
+  Conclude the hook with a clear tease of the upcoming solution (“In a moment, I’ll show you the two overlooked nutrients your body needs to rebuild muscle overnight.”)
+
+  **INTRO (1:30–2:00)**  
+  Briefly introduce the main health topic and explain why it matters.  
+  Make the introduction relatable for a mature audience, especially those 45+.  
+  Example: “As we get older, the systems that once worked effortlessly in our 30s begin to slow down…”
+
+  **SECTION 1: The Problem (2:00–5:00)**  
+  Describe the issue people commonly face.  
+  Use real-world scenarios, short anecdotes, and simple scientific context.  
+  Include a myth-busting moment (“You’ve always been told XYZ—but here’s what’s actually happening…”)
+
+  **SECTION 2: The Hidden Truth (5:00–8:00)**  
+  Explain the underlying cause of the problem.  
+  Reference supporting data or studies (real or plausible, written naturally).  
+  Increase tension leading up to the reveal of the main solution.
+
+  **SECTION 3: The Solution (8:00–14:00)**  
+  Present 2–3 key vitamins, foods, or habits that address the issue.  
+  For each solution, describe:  
+  • Why it works from a scientific and practical standpoint  
+  • How and when to use it (morning, night, etc.)  
+  • The most common mistakes people make  
+  • A short example or case-style story showing results
+
+  **SECTION 4: What to Avoid (14:00–17:00)**  
+  Outline three actions or habits that should be stopped immediately, such as poor supplement timing, problematic food combinations, or counterproductive routines.  
+  Use clear, cautionary language (“This is where most people make the mistake that slows their progress…”)
+
+  **SECTION 5: Final Advice \+ CTA (17:00–20:00)**  
+  Summarize the key takeaways.  
+  Offer one additional bonus tip.  
+  Invite viewer engagement (“Which of these supplements have you been taking incorrectly? Tell me in the comments.”)  
+  End with a compelling CTA that teases the next video topic.
+
+  ---
+
+  ### **STYLE REQUIREMENTS**
+
+  • Tone: Confident, authoritative, and empathetic.  
+  • Audience: Primarily adults 45+ interested in aging, muscle health, bone strength, or cognitive well-being.  
+  • Avoid disclaimers or tentative language; speak with clear expertise.  
+  • Maintain a doctor-like, expert-narrator voice while keeping explanations simple and accessible.  
+  • Incorporate storytelling moments (“Let me introduce you to Margaret, a 62-year-old who discovered…”).  
+  • Use engaging, easy-to-follow language.  
+  • Target length: 2,000–2,500 words (suitable for a 15–20 minute script).  
+  • Write in paragraphs only; do not use bullet points within the script.  
+  • Add natural mini-timestamps (0:00, 0:30, etc.) where appropriate.
+
+  ---
+
+  When ready, ask:
+
+  **“Please enter the topic you want to generate the health video script for.”**
+
+# input one item
+The Overlooked Vitamin That Helps Rebuild Brain Cells After 60
+
+# generate prompt for video scenes
+write 25 B roll video prompts for the entire scenes
+
+# character to whisk
+A distinguished Neuroscience Researcher (age 65) with graying hair and glasses, wearing a professional navy blazer and a crisp shirt. He is sitting in a modern sunlit study surrounded by floor-to-ceiling bookshelves and a desk with a high-end laptop. On the wall behind him is an abstract glowing diagram of neural networks. The atmosphere is intellectual, trustworthy, and calm. Cinematic lighting, 4k, hyper-realistic but with a clean, academic documentary aesthetic.
+
+# copy B-roll to Grtok(video 16:9)
+
+```
+
+``` bash
+1. 修改角色定位：從「醫生」轉向「科學研究者」
+原本的敘述中，「White coat (白袍)」與「Medical Professor」的組合最具爭議。
+
+建議修改： 將角色改為 「神經科學研究員 (Neuroscience Researcher)」 或 「生物科學家 (Biological Scientist)」。
+
+理由： 觀眾對「科學家」分享研究報告的容忍度，高於「醫生」給予醫療建議。科學家是在「轉述知識」，醫生是在「看診」，後者的法律責任極大。
+
+2. 視覺上的調整 (Visual Tweaks)
+為了降低被判定為「冒充醫療人員」的風險，建議微調視覺元素：
+
+服裝： 去掉 White coat (白袍)。改穿 深藍色或灰色的羊毛背心 (Sweater Vest) 搭配襯衫，或是專業的 西裝外套。這能保留「智者」與「權威」的感覺，但看起來更像是一位教授或學者，而非在診間看病的醫生。
+
+背景： 保留書架和筆記本電腦，但移除「解剖模型 (Anatomical models)」。改放置一些神經網絡的抽象圖示或科學期刊，這會讓調性更偏向「科普」而非「臨床診斷」。
+
+3. 加入「數位/虛擬」的視覺暗示
+為了符合 AI 生成內容的透明度規範，您可以刻意在角色設計中加入一點點「非寫實」的精緻感。
+
+光影建議： 使用 "Slightly stylized cinematic lighting"，讓畫面看起來像高品質的紀錄片，而不是監視器或側拍的真人影片。
+
+修正後的 AI Prompt 建議 (中英對照)
+您可以嘗試將 Prompt 修改如下，以兼顧專業度與安全性：
+
+Revised Prompt:
+A distinguished Neuroscience Researcher (age 65) with graying hair and glasses, wearing a professional navy blazer and a crisp shirt. He is sitting in a modern sunlit study surrounded by floor-to-ceiling bookshelves and a desk with a high-end laptop. On the wall behind him is an abstract glowing diagram of neural networks. The atmosphere is intellectual, trustworthy, and calm. Cinematic lighting, 4k, hyper-realistic but with a clean, academic documentary aesthetic.
+
+角色： 神經科學研究員（65歲，灰色頭髮，戴眼鏡）。
+
+衣著： 海軍藍西裝外套與襯衫。
+
+場景： 充滿陽光的現代書房，有落地書架。
+
+背景： 抽象的「神經網絡發光圖示」（取代寫實的解剖圖）。
+
+氛圍： 知識份子氣息、值得信賴、冷靜的紀錄片風格。
+
+關鍵的文案建議 (加強防護)
+既然題目是關於「重建腦細胞」，這類內容非常容易被 YouTube 標記。建議您在影片畫面中，角色出現時，下方跑馬燈或角落加上：
+
+"Scientific Research Review - Not Medical Advice" (科學研究評論 - 非醫療建議)
+
+或者在腳本中第一句話就說：「今天我們要探討的是神經科學領域的一項有趣發現...」 (把立場拉回到「分享發現」，而非「教你怎麼做」)。
+
+您是否需要我幫您針對這個題目，寫一段既專業又符合安全規範的「AI 播報腳本開場白」？
+```
+
+``` bash
+# vscode 自動換行
+點擊左下角齒輪圖示 -> 設定 (Settings) -> 搜尋 Word Wrap -> 將 Editor: Word Wrap 設置為 on。
+```
++ [link 1](https://www.perplexity.ai/search/you-are-an-experienced-youtube-.tU1sWolTCmKEx2w264oNA#0)
+
 #### Cherry(Grok)
 + [cherry 1](https://chatgpt.com/share/69887a27-5f90-8001-802a-3ec9c47cc330)
 + [cherry 2](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1/c/698870dd-4164-83ab-9501-dad3ab7985f4)
@@ -547,6 +703,19 @@ please generate 4 video prompt (include sound and Voiceover)
 + [Link 2](https://gemini.google.com/share/66564ddd74f8)
 
 
++ [Ref 1](https://www.perplexity.ai/search/yputube-chuang-zuo-zhe-yue-you-pvPT4fQ8Q26SZyj1E8IbcA#0)
++ [Ref 2](https://www.perplexity.ai/search/zui-jin-zai-youtube-you-fa-yi-yNJdJbUDQB2jmqlNdnJuuw#0)
+
+
++ [memory link 1](https://www.perplexity.ai/search/you-are-an-experienced-youtube-.tU1sWolTCmKEx2w264oNA#0)
++ [Link 2](https://gemini.google.com/share/e7cec81ba675)
++ [Link 3](https://gemini.google.com/app/c_57943dac39c2e4e2)
++ [Link 4](https://gemini.google.com/gem/c5aa7d1ce27a/abe91c0796e4338e)
+
+### put to social media
++ [When the Sea Opened](https://www.perplexity.ai/search/youtube-video-yao-tie-dao-fb-0-U4fc.51pRcSsELtO83efxw#0) 
+
+
 ### [pyVideoTrans](https://github.com/jianchang512/pyvideotrans)
 --> release 下載
 --> 解壓縮
@@ -557,6 +726,30 @@ please generate 4 video prompt (include sound and Voiceover)
 --> 翻譯渠道 - 可選翻譯引擎(翻譯設置 可設定)
 --> 配音渠道(發音 Edge-TTS free and ok)
 
+
+### nich
+#### GPT
++ [everygreen faceless youtube niches](https://chatgpt.com/share/69995a4b-6898-8001-a8ef-50e822d131aa)
++ [everygreen faceless youtube niches 2](https://gemini.google.com/share/7c08786b6e8a)
++ [everygreen faceless youtube niches 2](https://www.perplexity.ai/search/everygreen-faceless-youtube-ni-6fL.88NYQkabO48ywIFFTA#0)
+
+``` bash
+# everygreen faceless youtube niches
+
+# I'm interested in story telling suggest faseless niche or popular topic for youtube
+```
+
+#### browser
+``` bash
+# viral contents today
+
+# viral contents ideas
+
+# yt description generation
+```
+
++ [skelet image](https://chatgpt.com/share/699ae5ee-ae08-8001-88d9-2c0f834bea07)
++ [youtube channel 分析](https://www.perplexity.ai/search/wo-ru-guo-gei-ni-wo-youtube-ch-jMyaxiscTe6.jP97_LbFUA#0)
 
 ### Ref
 #### YouTube channel
@@ -574,6 +767,7 @@ please generate 4 video prompt (include sound and Voiceover)
 
 + [VividCore_AI](https://www.youtube.com/@vividcore_ai)
 
+
 #### TikTok
 + [Science Craft](https://www.tiktok.com/@science.craft)
 
@@ -587,6 +781,7 @@ please generate 4 video prompt (include sound and Voiceover)
 + [Whisk](https://labs.google/fx/zh/tools/whisk): 生圖
 + [Flow](https://labs.google/fx/zh/tools/flow): 生影片
 + [Grok Image](https://grok.com/imagine): 生影片
++ [LipSync video](https://lipsync.video/zh-CN)
 + [Translate Subtitles](https://translatesubtitles.co/index.php): 翻譯字幕
 + 語音轉字幕 .ipyba
 ``` bash
