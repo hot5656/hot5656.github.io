@@ -10,6 +10,11 @@ tags:
 ### Capcut
 #### Other
 ``` bash
+# title 
+懸念與好奇心 
+以問題或衝突開頭：即使是精美的內容，你也可以在開頭提出問題或突出一個意想不到的方面。
+例如，“骷髏也能可愛嗎？”或“一頭骨象的秘密生活…”
+
 # 3 點重要
 1. 標題: 10 個標題
 2. 縮圖: 2~3 縮圖
@@ -65,6 +70,9 @@ tags 大於  400 characters(小於 500 characters)
 加前 3s 超 hook
 中間 pattern interrupt: 快轉（2x）, 「感染擴散」、音效爆破、文字 ..
 結尾 CTA
+
+# analyze youtubr channel
+[youtube channel] please analyze this channel
 ```
 
 <!--more-->
@@ -84,8 +92,11 @@ C:\Users\RobertKao\AppData\Local\CapCut\Videos
 C:\Users\RobertKao\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft
 ```
 
-### [Prehistory AI Video](https://chatgpt.com/share/6980087c-c978-8001-a070-bff40c982f7d)
-#### prompt - [2nd link for short](https://chatgpt.com/share/69884989-2d84-8001-a960-3dcc4c3dba8e)
+### Prehistory AI Video
++ [Chathpt for video](https://chatgpt.com/share/6980087c-c978-8001-a070-bff40c982f7d)
++ [Chathpt for short](https://chatgpt.com/share/69884989-2d84-8001-a960-3dcc4c3dba8e)
+
+#### prompt 
 ##### Pre-Historic Documentary Story Prompt
 ``` txt
 Create a YouTube documentary script of 500 words or more that explores prehistoric humans and their struggle for survival, written in a serious, cinematic, and emotionally resonant tone. Structure the script into clear chapters, with each chapter addressing a core dimension of prehistoric life: the unforgiving environment, hunting and gathering practices, encounters with dangerous wildlife, the discovery and transformative impact of fire, the role of tribal cohesion, the development of tools and adaptive survival techniques, and the overarching battle against extinction.
@@ -139,10 +150,10 @@ Image
 
 
 
-### [Psychological](https://chatgpt.com/share/698064ff-3d64-8001-b367-67e0385e39aa)
-+ [short link 1](https://gemini.google.com/share/f97e9dbea0f1)
-+ [short link 2](https://gemini.google.com/share/897370a3b00a)
-+ [short link 3](https://gemini.google.com/u/1/app/e81f731142a89e91)
+### Psychological
++ [ChatGPT video](https://chatgpt.com/share/698064ff-3d64-8001-b367-67e0385e39aa)
++ [Gemini short 1](https://gemini.google.com/share/f97e9dbea0f1)
++ [Gemini short 2](https://gemini.google.com/share/897370a3b00a)
 
 #### some topic
 ``` bash
@@ -345,8 +356,11 @@ You’re lying in bed at night. The room is quiet. Your phone is face down. And 
 # generate thumbnail 
 ```
 
-### [Kids Bible](https://chatgpt.com/share/6981b92f-5f48-8001-abaf-0b57851bfa81)
-#### prompt - [2nd link short](https://gemini.google.com/share/e213b30bf324)
+### Kids Bible
++ [ChatGPT video](https://chatgpt.com/share/6981b92f-5f48-8001-abaf-0b57851bfa81)
++ [Gemini short](https://gemini.google.com/share/e213b30bf324)
+
+#### prompt 
 ``` bash
 # Story Idea Prompt
 Bring the Bible to life with 5 animated stories that spark wonder and stay true to Scripture. Each story should capture hearts with vivid storytelling, memorable characters, and powerful lessons—crafted to inspire viewers of all ages on my YouTube channel.
@@ -482,12 +496,14 @@ I select title : What Happens Inside Your Body After Drinking Coffee
 ```
 
 
-### Processing_1_Smartphones
-#### Ooffee
-+ [Coffee 1](https://chatgpt.com/share/698560ee-eb74-8001-9f90-e85de71ce764)
-+ [Coffee 2](https://chatgpt.com/c/6986c58f-6b10-83a7-bb8e-a198a00753af)
-##### GPT prompt
+### factory Processing Smartphones
++ [Smartphones ChatGPT video](https://chatgpt.com/share/699e5b5d-3da8-8001-a418-11a0d0dc67eb)
++ [Smartphones ChatGPT short](https://chatgpt.com/share/69883ba9-c754-8001-9c7f-e137fd12eee7)
++ [cherry ChatGPT 1](https://chatgpt.com/share/69887a27-5f90-8001-802a-3ec9c47cc330)
++ [cherry ChatGPT 2](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1/c/698870dd-4164-83ab-9501-dad3ab7985f4)
++ [Massive Windows - ChatGPT video/short](https://chatgpt.com/share/699fa3f8-5b1c-8001-b146-ad232d98e0cc)
 
+#### GPT prompt
 ``` bash
 # start
 You are an AI cinematic video-prompt generator that specializes in producing complete factory and industrial process video concepts for VEO 3. Before generating any prompts, always begin by asking the user for the topic (for example: “How Coca-Cola Is Made”). After the user provides the topic, generate a fully structured cinematic video prompt sequence that adheres exactly to the framework defined below. All outputs must remain consistent, highly cinematic, realistic, technically accurate, and directly relevant to the selected subject matter. REQUIRED OUTPUT STRUCTURE Video Title “How [TOPIC] Is Made Today: Inside the Modern Factory” Scene 1: Introduction with On-Screen Worker Prompt: Cinematic, photorealistic 3D-rendered modern factory interior. A uniformed worker stands confidently in front of an active production line and smiles toward the camera. The worker states: “Welcome to our factory! Today, I’ll show you exactly how [TOPIC] is made — step by step. Don’t forget to subscribe for more behind-the-scenes videos like this!” Voiceover: Friendly and professional. Sound Effects: Subtle industrial ambience, light upbeat tone, soft machine hum. Visual Style: Realistic lighting, lifelike material textures, shallow depth of field, professional manufacturing environment. PRODUCTION PHASES Each production phase must contain three distinct cinematic video prompts, each with different camera movement and perspective. PHASE 1: Raw Materials & Preparation Prompt 1 — Wide View: Expansive cinematic shot showing raw materials arriving at the facility. Workers unload, inspect, and verify components related to [TOPIC]. Sound: Conveyor hum, large-space warehouse ambience. Prompt 2 — Close-Up: Tight close-up of ingredients or materials being sorted, weighed, measured, or poured into stainless-steel industrial containers. Sound: Pouring liquids, mechanical clicks. Prompt 3 — Dynamic Motion: Drone-style tracking shot moving through a corridor of preparation machinery, complete with steam, warm industrial backlighting, and high-contrast reflections. Sound: Air vents, rhythmic mechanical soundscape. PHASE 2: Mixing & Processing Prompt 1: Large automated mixers or processors blend materials associated with [TOPIC], showing internal motion and mechanical precision. Voiceover: Calm explanation of mixture ratios and quality balancing. Sound: Deep mechanical mixing resonance. Prompt 2: Technicians inside the control room monitor digital dashboards, gauges, and automation interfaces ensuring correct parameters. Sound: Button presses, steady mechanical pulse. Prompt 3: Tracking shot following pipes, tubes, or conveyors transporting the processed material onward. Sound: Liquid flow or metallic reverberation. PHASE 3: Transformation / Core Production Prompt 1: Macro cinematic shot capturing the core transformation (e.g., heating, molding, pressurizing, fermenting, extrusion, carbonation, etc.). Sound: Detailed process noise (bubbling, welding, mechanical shaping). Prompt 2: Robotic arms or skilled workers handle the product with precision during transformation. Voiceover: “Every batch is refined and tested for quality.” Sound: Robotic arm beeps, controlled machinery ambience. Prompt 3: Slow-motion sequence capturing the product taking form, with dramatic lighting and close-up texture details. Sound: Subtle cinematic tone layered over the natural production environment. PHASE 4: Filling / Assembly / Packaging Prompt 1: High-speed conveyor sequence showing filling, sealing, assembly, or product finalization. Sound: Rhythmic clinks, pressurized air hissing. Prompt 2: Close-up of labeling, wrapping, capping, or other finishing processes in flawless synchronization. Sound: Label rollers, seal clicks. Prompt 3: Wide drone shot of the complete packaging department — workers and robots operating efficiently beneath bright industrial lighting. Music: Modern industrial background track. PHASE 5: Quality Check & Distribution Prompt 1: Inspectors review finished products under LED inspection lights, checking alignment, cleanliness, or functionality. Voiceover: “Every product is checked before leaving the facility.” Sound: Soft scanning beeps, quiet factory hum. Prompt 2: Forklifts transport branded boxes to outbound logistics areas as loading crews move products into trucks. Sound: Forklift movement, truck engine rumble. Prompt 3: Cinematic rising pan revealing the entire facility in the late-day light, with reflective surfaces and a polished industrial exterior. Music: Uplifting orchestral outro. ENDING SEQUENCES Prompt 1 — On-Screen Worker Outro: The worker reappears, smiling confidently: “And that’s how [TOPIC] is made — from start to finish!” Voiceover: Friendly and assured. Sound: Soft industrial ambience fading out. Prompt 2 — Call-to-Action: Cinematic end-card with the text: “Subscribe for more AI-generated factory tours and process documentaries.” Sound: Light whoosh and upbeat closing chime. Overall Video Requirements Visual Style: Realistic 3D, cinema-grade lighting, accurate reflections, light film grain. Mood: Educational, professional, and inspiring. Camera Techniques: Smooth dolly, drone, macro, and tracking shots. Audio: Integrated environmental sound, subtle narration cues. Format: Fully optimized for VEO 3 video-prompt generation. End of Prompt Specification
@@ -513,6 +529,10 @@ Flow (prompt 1000 AI credit)
 ```
 
 ### Health, Food and Wellness vedio
++ [Rebuild Brain Cells - Perplexity](https://www.perplexity.ai/search/you-are-an-experienced-youtube-.tU1sWolTCmKEx2w264oNA#0)
++ [ai影片 for 健康爭議 - Gemini](https://gemini.google.com/share/e7cec81ba675)
+
+#### flow
 ``` bash
 # to GPT
   You are an experienced YouTube scriptwriter specializing in long-form content within the health and wellness niche. Your role is to craft 15–20 minute, high-retention YouTube scripts in a conversational, narrative, and medically authoritative tone, similar to channels that feature AI doctor avatars or expert health narrators.
@@ -650,11 +670,7 @@ A distinguished Neuroscience Researcher (age 65) with graying hair and glasses, 
 # vscode 自動換行
 點擊左下角齒輪圖示 -> 設定 (Settings) -> 搜尋 Word Wrap -> 將 Editor: Word Wrap 設置為 on。
 ```
-+ [link 1](https://www.perplexity.ai/search/you-are-an-experienced-youtube-.tU1sWolTCmKEx2w264oNA#0)
 
-#### Cherry(Grok)
-+ [cherry 1](https://chatgpt.com/share/69887a27-5f90-8001-802a-3ec9c47cc330)
-+ [cherry 2](https://chatgpt.com/g/g-p-690c4d38f5dc8191b2e46474ce1cb8a1/c/698870dd-4164-83ab-9501-dad3ab7985f4)
 
 
 ### 透明骷髏
@@ -699,20 +715,43 @@ please generate 4 video prompt (include sound and Voiceover)
 # Capcut 加中英文字幕
 ```
 
-+ [Link 1](https://gemini.google.com/share/556a91645111)
-+ [Link 2](https://gemini.google.com/share/66564ddd74f8)
+#### Luckiest Person
++ [Gemini video](https://gemini.google.com/share/556a91645111)
++ [Gemini short](https://gemini.google.com/share/66564ddd74f8)
 
+#### skelet animal
++ [skelet image - ChatGPT](https://chatgpt.com/share/699ae5ee-ae08-8001-88d9-2c0f834bea07)
++ [cute skelet animal + Realistic Cute Skeleton Animals - ChatGpt video](https://chatgpt.com/share/699ae5ee-ae08-8001-88d9-2c0f834bea07)
++ [海洋動物 - chatGPT 未完成](https://chatgpt.com/share/699bee20-76e4-8001-97ea-32bc5591a3c8)
++ [海洋動物 - Perplxity](https://www.perplexity.ai/search/ni-shuo-shi-yong-realistic-cut-MaD1RqSjRMaRYlYwAHZY.A#0)
 
-+ [Ref 1](https://www.perplexity.ai/search/yputube-chuang-zuo-zhe-yue-you-pvPT4fQ8Q26SZyj1E8IbcA#0)
-+ [Ref 2](https://www.perplexity.ai/search/zui-jin-zai-youtube-you-fa-yi-yNJdJbUDQB2jmqlNdnJuuw#0)
+### other
++ [yputube 創作者 約有 幾% 有獲利 - Perplexity](https://www.perplexity.ai/search/yputube-chuang-zuo-zhe-yue-you-pvPT4fQ8Q26SZyj1E8IbcA#0)
++ [other media platform - Perplexity](https://www.perplexity.ai/search/zui-jin-zai-youtube-you-fa-yi-yNJdJbUDQB2jmqlNdnJuuw#0)
++ [my youtube channel 分析 - Perplexity ](https://www.perplexity.ai/search/wo-ru-guo-gei-ni-wo-youtube-ch-jMyaxiscTe6.jP97_LbFUA#0)
++ [字幕&平台建議 - Perplexity](https://www.perplexity.ai/search/wo-zuo-yourube-ying-wen-ai-yin-8_M6hMaOT2.HO16QpssSDw#3)
++ [Video 精華剪輯 - Perplexity](https://www.perplexity.ai/search/you-mei-you-jian-bu-fen-jing-h-Erzv9Lj1QciBUaFP29_ikw#0)
 
+### niches
++ [everygreen faceless youtube niches - ChatGPT](https://chatgpt.com/share/69995a4b-6898-8001-a8ef-50e822d131aa)
++ [everygreen faceless youtube niches - Gemini](https://gemini.google.com/share/7c08786b6e8a)
++ [everygreen faceless youtube niches - Perplexity](https://www.perplexity.ai/search/everygreen-faceless-youtube-ni-6fL.88NYQkabO48ywIFFTA#0)
 
-+ [memory link 1](https://www.perplexity.ai/search/you-are-an-experienced-youtube-.tU1sWolTCmKEx2w264oNA#0)
-+ [Link 2](https://gemini.google.com/share/e7cec81ba675)
-+ [Link 3](https://gemini.google.com/app/c_57943dac39c2e4e2)
-+ [Link 4](https://gemini.google.com/gem/c5aa7d1ce27a/abe91c0796e4338e)
+``` bash
+# ChatGPT
+# everygreen faceless youtube niches
 
-### put to social media
+# I'm interested in story telling suggest faseless niche or popular topic for youtube
+
+# browser
+# viral contents today
+
+# viral contents ideas
+
+# yt description generation
+```
+
+#### put to social media
 + [When the Sea Opened](https://www.perplexity.ai/search/youtube-video-yao-tie-dao-fb-0-U4fc.51pRcSsELtO83efxw#0) 
 
 
@@ -726,30 +765,62 @@ please generate 4 video prompt (include sound and Voiceover)
 --> 翻譯渠道 - 可選翻譯引擎(翻譯設置 可設定)
 --> 配音渠道(發音 Edge-TTS free and ok)
 
+### stick
++ [Simple, Actually channel 分析 - ChatGPT](https://chatgpt.com/share/699d0136-d710-8001-803c-4630ac102b1e)
++ [give sampe style character - Perplexity](https://www.perplexity.ai/search/please-i-want-same-type-charac-4IWLeuLOTqGfMo7L2CDIog)
 
-### nich
-#### GPT
-+ [everygreen faceless youtube niches](https://chatgpt.com/share/69995a4b-6898-8001-a8ef-50e822d131aa)
-+ [everygreen faceless youtube niches 2](https://gemini.google.com/share/7c08786b6e8a)
-+ [everygreen faceless youtube niches 2](https://www.perplexity.ai/search/everygreen-faceless-youtube-ni-6fL.88NYQkabO48ywIFFTA#0)
+#### video 1 - not do
++ [stick man - perplexity video](https://www.perplexity.ai/search/generate-a-complete-30-second-b7R2VkKsTRK7kU3PslnVhQ#0)
 
 ``` bash
-# everygreen faceless youtube niches
+Generate a complete 30-second YouTube video based on this topic : Psychology
 
-# I'm interested in story telling suggest faseless niche or popular topic for youtube
+OUTPUT SHOULD INCLUDE:
+
+PART 1: VIDEO SCRIPT
+Write a short, engaging script in English.
+Divide the script into 5–6 scenes (6 seconds each).
+Mention what the stickman is doing, thinking, or expressing in each scene.
+Include facial expressions and small actions.
+Keep language simple and easy to read.
+
+PART 2: IMAGE PROMPTS (PARAGRAPH STYLE)
+For each scene, write a simple paragraph describing the stickman image.
+Begin each paragraph with: "Use the same stickman character as before."
+Then describe: 
+   • Pose  
+   • Action  
+   • Expression  
+   • Props (if any)  
+   • Background (plain/clean)
+
+
+PART 3: VIDEO / MOTION PROMPTS
+For each scene, give short, simple instructions for animation.
+Only animate arms, head, or props; body stays the same.
+幫我依需求加上合適的旁白和音效
+
+RULES TO FOLLOW:
+1. Only pose, action, expression, or props should change.
+2. Keep everything beginner-friendly, simple, and easy to understand
+
 ```
 
-#### browser
+#### video 2
++ [simple character - perplexity video](https://www.perplexity.ai/search/wo-xiang-yao-yong-stick-man-zu-DqPc_krPQ5SdnKYnZSK0bA)
+
 ``` bash
-# viral contents today
+# analyze youtubr channel
+[youtube channel] please analyze this channel
 
-# viral contents ideas
+# 貼圖 產生腳色
+please i want same type character in every image 
+please give me a save consistent  character and provide me 10 image prompts with the same character style
+# video prompt
+please give me video motion prompts
 
-# yt description generation
+please give me full video prompts
 ```
-
-+ [skelet image](https://chatgpt.com/share/699ae5ee-ae08-8001-88d9-2c0f834bea07)
-+ [youtube channel 分析](https://www.perplexity.ai/search/wo-ru-guo-gei-ni-wo-youtube-ch-jMyaxiscTe6.jP97_LbFUA#0)
 
 ### Ref
 #### YouTube channel
@@ -763,6 +834,7 @@ please generate 4 video prompt (include sound and Voiceover)
 + [dr_data](https://www.youtube.com/@dr_data_dr) : 透明骷髏
 + [SkelePets](https://www.youtube.com/@skelepets)
 + [WatchData](https://www.youtube.com/@WatchDataVerified)
++ [simple, actually](https://www.youtube.com/@simpleactuallyus): stick man
 + [Infinite Comparison](https://www.youtube.com/@InfiniteComparison)
 
 + [VividCore_AI](https://www.youtube.com/@vividcore_ai)
@@ -795,7 +867,5 @@ please generate 4 video prompt (include sound and Voiceover)
 !whisper-ctranslate2 "Why is it that no matter how hard you try.wav" --device cuda --model large-v3 --vad_filter True --vad_max_speech_duration_s 3 --vad_min_silence_duration_ms 300 --max_line_width 30 --max_line_count 1 --word_timestamps True --output_format srt
 ```
 + [SUNO](https://suno.com/): 創作音樂
++ [DesignArena](https://www.designarena.ai/): image/video
 
-#### link 
-+ [字幕&平台建議](https://www.perplexity.ai/search/wo-zuo-yourube-ying-wen-ai-yin-8_M6hMaOT2.HO16QpssSDw#3)
-+ [Video 精華剪輯](https://www.perplexity.ai/search/you-mei-you-jian-bu-fen-jing-h-Erzv9Lj1QciBUaFP29_ikw#0)
