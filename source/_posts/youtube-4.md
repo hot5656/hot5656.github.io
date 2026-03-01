@@ -77,6 +77,24 @@ tags 大於  400 characters(小於 500 characters)
 
 <!--more-->
 
+``` bash
+# 分析
+Fox 在做：
+  情緒翻轉
+Elephant 在做：
+  美感展示
+Shorts 平台 90% 時候：
+  情緒翻轉 > 美感展示
+
+# image to prompt
+1. 幫我將這個圖片轉成詳細 image prompt
+2. 我想利用這個 image 相同的風格 請你幫我編寫一個 含有能激起 aduience 好奇心 和 情緒翻轉 的 script 裡面的角色是ㄧ些小動物
+3. 以上已完成 video 已含環境音 當我剪輯時 建議我加背景音樂? 我使用 capcut 若需要 請建議 seach keyword
+
+# script rule
+幫我以 6s 為單位設計每個 clip (若需要也可以 2s+4s, 3s+3s) 產生各 clip 的 video prompt , prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , 旁白或角色說話 要註明其音色,
+```
+
 #### Windows
 ``` bash
 # 開隱藏資料夾
@@ -724,6 +742,14 @@ please generate 4 video prompt (include sound and Voiceover)
 + [cute skelet animal + Realistic Cute Skeleton Animals - ChatGpt video](https://chatgpt.com/share/699ae5ee-ae08-8001-88d9-2c0f834bea07)
 + [海洋動物 - chatGPT 未完成](https://chatgpt.com/share/699bee20-76e4-8001-97ea-32bc5591a3c8)
 + [海洋動物 - Perplxity](https://www.perplexity.ai/search/ni-shuo-shi-yong-realistic-cut-MaD1RqSjRMaRYlYwAHZY.A#0)
++ [fox and elephant 分析(wolf)-chatGPT](https://chatgpt.com/share/69a159f3-d79c-8001-8a3c-e7124416b17c)
++ [This Cheetah Skeleton Is Built for Speed 🐆🦴](https://chatgpt.com/share/69a41ab4-0fb8-8001-9dd4-ee34b9bc2a4a)
+``` bash
+1️⃣ Skeleton Style Anchor + Species 特徵（固定前綴）
+Ultra-realistic animal skeleton, scientifically accurate bone proportions, natural joint articulation, museum-quality anatomical model, clean bone texture (no cracks, no damage), not horror, not creepy, educational wildlife documentary style, soft natural lighting, cinematic depth of field, realistic biomechanics, elegant motion, National Geographic style cinematography, high detail 3D render, physically accurate bone movement.
+Cheetah skeleton with elongated spine, flexible lumbar vertebrae, lightweight rib cage, long slender limbs designed for sprinting, aerodynamic posture.
+
+```
 
 ### other
 + [yputube 創作者 約有 幾% 有獲利 - Perplexity](https://www.perplexity.ai/search/yputube-chuang-zuo-zhe-yue-you-pvPT4fQ8Q26SZyj1E8IbcA#0)
@@ -821,6 +847,11 @@ please give me video motion prompts
 
 please give me full video prompts
 ```
+
+### story
++ [Why Did the Lights Turn On at Midnight - ChatGPT script](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
++ [Why Did the Lights Turn On at Midnight(BGM) - ChatGPT script](https://chatgpt.com/share/69a275d2-8bbc-8001-980a-a3527333e24b)
+
 
 ### Ref
 #### YouTube channel
