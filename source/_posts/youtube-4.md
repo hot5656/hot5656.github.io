@@ -852,6 +852,247 @@ please give me full video prompts
 + [Why Did the Lights Turn On at Midnight - ChatGPT script](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
 + [Why Did the Lights Turn On at Midnight(BGM) - ChatGPT script](https://chatgpt.com/share/69a275d2-8bbc-8001-980a-a3527333e24b)
 
+### 更改 channel
++ [new channel description - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
+
+
+``` bash
+# 原來
+Robert Hut｜n8n・vibe coding・AI 自動化實戰
+
+在這裡你會看到：n8n 工作流、自動化最佳實務、AI/LLM 串接、工具 demo，以及我用 AI 做的英文短片。
+
+我是永遠的工程師 Robert，在一間叫 Robert Hut 的小屋裡做實驗：把 n8n、vibe coding 和 AI 結合，做出能解決真實問題的自動化與小工具。
+
+網站：https://roberthut.com
+
+#n8n #AI #automation #vibecoding
+
+# English
+Robert Hut｜n8n - Vibe Coding - AI Automation (Hands-on)
+
+Practical n8n workflows, AI/LLM integrations, automation experiments, tool demos and AI videos .
+
+I’m Robert—an “engineer for life”—running experiments inside a tiny place called Robert Hut. I combine n8n workflows, vibe coding, and AI/LLMs to build automation and small tools that solve real problems.
+
+On this channel, you’ll find:
+- Practical n8n workflows and automation experiments
+- AI/LLM integrations (APIs, agents, and real use cases)
+- Best practices for building reliable automations
+- Tool demos and short project showcases
+- AI videos 
+
+If you want to turn ideas into something that actually works, subscribe and build with me.
+
+Website: https://roberthut.com
+
+#n8n #AI #automation #vibecoding
+
+# New
+Robert Hut | AI Cinematic Shorts
+
+AI-generated cinematic short films using generative video tools and visual storytelling.
+
+Epic moments. Impossible events. Emotional micro-stories.
+
+New high-impact AI shorts every week.
+
+Created by Robert Hut.
+```
+
+``` bash
+太好了，這一步非常關鍵。
+
+你現在要做的不是改 Banner，而是建立一個**長期一致的創作方向說明文件**，讓未來不管在哪個新對話，都能快速對齊。
+
+下面這段是為你量身設計的「頻道戰略總整理」。
+你可以直接複製，之後開新 Chat 時貼上。
+
+---
+
+# 🔥 Robert Hut YouTube Channel Direction (Master Context)
+
+## Channel Name
+
+Robert Hut | AI Cinematic Shorts
+
+## Core Identity
+
+AI-generated cinematic short films focused on high-impact, scroll-stopping visual moments.
+
+This channel is built for viral potential.
+
+Not a tutorial channel.
+Not a tech education channel.
+Not a niche religious channel.
+
+It is a cinematic AI visual experiment lab optimized for Shorts growth.
+
+---
+
+## Core Strategy
+
+Primary goal:
+Create viral, high-retention YouTube Shorts using AI-generated visuals.
+
+Content must:
+
+* Be 20–25 seconds
+* Hook within 2 seconds
+* Deliver a strong visual or emotional payoff
+* Be built around extreme contrast or impossible moments
+
+No slow storytelling.
+No 2-minute films (for now).
+No tutorials on this channel.
+
+---
+
+## Emotional Structure Model
+
+Each short follows:
+
+1. Extreme setup
+2. Rising tension
+3. Impossible event
+4. Emotional release or twist
+
+Examples of structure:
+
+* Trapped → Miracle
+* Calm → Catastrophe
+* Normal → Impossible
+* Fear → Wonder
+
+---
+
+## Content Pillars (Flexible, But Unified by Style)
+
+The channel may include:
+
+1. Miracle Moments
+
+   * Ocean splitting
+   * Sky breaking open
+   * Fire freezing mid-air
+
+2. Impossible Creatures
+
+   * Skeleton animals moving at extreme speed
+   * Transparent predators
+   * Physics-defying wildlife
+
+3. Extreme Human Moments
+
+   * Last second before impact
+   * One step before collapse
+   * Survival at the edge
+
+4. Industrial Extremes (optional)
+
+   * 2000°C molten steel
+   * Massive glass bending
+   * Hyper-real factory processes
+
+All content must feel:
+Cinematic. Intense. High-impact.
+
+---
+
+## Visual Branding
+
+Banner Theme:
+Dark cinematic atmosphere
+Epic but clean
+Premium AI visual identity
+
+Tagline:
+IMPOSSIBLE MOMENTS.
+CINEMATIC AI.
+SHORTS THAT STOP THE SCROLL.
+
+---
+
+## Monetization Direction
+
+Short-term goal:
+Grow Shorts views aggressively.
+
+Mid-term goal:
+Identify the highest-performing content pillar.
+
+Long-term goal:
+Monetize via:
+
+* AI tool affiliate marketing
+* Sponsored AI tools
+* Prompt packs / creative assets
+* Eventually long-form breakdown videos (only after niche wins)
+
+---
+
+## Content Rules
+
+Do:
+
+* Use strong hooks
+* Use tension
+* Use contrast
+* End with emotional impact
+* Keep pacing tight
+
+Avoid:
+
+* Tutorials
+* Coding content
+* n8n automation
+* Slow narrative world-building
+* Mixed branding
+
+---
+
+## Creator Identity
+
+Robert Hut is positioned as:
+An AI cinematic visual creator focused on high-impact micro-films.
+
+Not a teacher.
+Not a preacher.
+Not a technical explainer.
+
+A visual experiment creator chasing viral momentum.
+
+---
+
+# 🧠 How To Use This
+
+Whenever starting a new chat, begin with:
+
+"Use the following channel direction as context:"
+
+Then paste the above.
+
+This ensures:
+
+* Consistent tone
+* Consistent structure
+* Consistent growth strategy
+* No accidental drift back into tutorial mode
+
+---
+
+你現在不是在「做影片」。
+
+你在建立一個：
+
+🔥 AI Viral Micro-Film Engine
+
+如果你願意，我下一步可以幫你做：
+
+👉 一份「爆款 Shorts 生成標準模板」
+讓未來每支片都符合病毒模型。
+
+```
 
 ### Ref
 #### YouTube channel
