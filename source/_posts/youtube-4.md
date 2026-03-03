@@ -851,9 +851,12 @@ please give me full video prompts
 ### story
 + [Why Did the Lights Turn On at Midnight - ChatGPT script](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
 + [Why Did the Lights Turn On at Midnight(BGM) - ChatGPT script](https://chatgpt.com/share/69a275d2-8bbc-8001-980a-a3527333e24b)
++ [cooking flowASMR](https://www.perplexity.ai/search/bang-wo-fen-xi-zhe-ge-channel-vb0yDxdETRK.ggSMH53x7A)
++ [Why Did the Clock Tower Stop at 3:17 #1](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
++ [Why Did the Clock Tower Stop at 3:17 #2](https://chatgpt.com/share/69a6a773-803c-8001-86ae-614ffac3c3d1)
 
 ### 更改 channel
-+ [new channel description - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
++ [new channel description(jump rabbit) - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
 
 
 ``` bash
