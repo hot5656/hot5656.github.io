@@ -10,6 +10,17 @@ tags:
 ### Capcut
 #### Other
 ``` bash
+# category
+1. stick man
+2. AI Viral Micro-Film Engine(skelet)
+3. 懸疑 + 情緒翻轉
+4. ? ASMR (short not good) 
+5. ? bible story
+6. ? 史前生物
+
+# Experiment
+Experimental Short by Robert Hut
+
 # title 
 懸念與好奇心 
 以問題或衝突開頭：即使是精美的內容，你也可以在開頭提出問題或突出一個意想不到的方面。
@@ -857,6 +868,8 @@ please give me full video prompts
 
 ### 更改 channel
 + [new channel description(jump rabbit) - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
++ [change playlist - chatGPT](https://chatgpt.com/share/69a7d406-5b98-8001-bc59-f1fb14bb1667)
++ [change playlist - Perplexity(not do)](https://www.perplexity.ai/search/wo-de-ut-gai-ban-channel-https-0Unz5xWITyqbRiMoWztthA)
 
 
 ``` bash
