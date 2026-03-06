@@ -755,6 +755,9 @@ please generate 4 video prompt (include sound and Voiceover)
 + [海洋動物 - Perplxity](https://www.perplexity.ai/search/ni-shuo-shi-yong-realistic-cut-MaD1RqSjRMaRYlYwAHZY.A#0)
 + [fox and elephant 分析(wolf)-chatGPT](https://chatgpt.com/share/69a159f3-d79c-8001-8a3c-e7124416b17c)
 + [This Cheetah Skeleton Is Built for Speed 🐆🦴](https://chatgpt.com/share/69a41ab4-0fb8-8001-9dd4-ee34b9bc2a4a)
++ [A Dinosaur Skeleton That Comes Back to Life - my ChatGPT](https://chatgpt.com/c/69aa89df-ab14-8320-8618-3d08420447fa)
+
+
 ``` bash
 1️⃣ Skeleton Style Anchor + Species 特徵（固定前綴）
 Ultra-realistic animal skeleton, scientifically accurate bone proportions, natural joint articulation, museum-quality anatomical model, clean bone texture (no cracks, no damage), not horror, not creepy, educational wildlife documentary style, soft natural lighting, cinematic depth of field, realistic biomechanics, elegant motion, National Geographic style cinematography, high detail 3D render, physically accurate bone movement.
@@ -865,10 +868,12 @@ please give me full video prompts
 + [cooking flowASMR](https://www.perplexity.ai/search/bang-wo-fen-xi-zhe-ge-channel-vb0yDxdETRK.ggSMH53x7A)
 + [Why Did the Clock Tower Stop at 3:17 #1](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
 + [Why Did the Clock Tower Stop at 3:17 #2](https://chatgpt.com/share/69a6a773-803c-8001-86ae-614ffac3c3d1)
++ [Who Was Ringing the Bell in an Empty Village?](https://chatgpt.com/share/69aa54ac-2d48-8001-ad68-8250ae2bf257)
 
 ### 更改 channel
 + [new channel description(jump rabbit) - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
 + [change playlist - chatGPT](https://chatgpt.com/share/69a7d406-5b98-8001-bc59-f1fb14bb1667)
++ [change playlist - my chatGPT #2](https://chatgpt.com/c/69a79293-7d1c-8322-b88c-b45fbf008d9a)
 + [change playlist - Perplexity(not do)](https://www.perplexity.ai/search/wo-de-ut-gai-ban-channel-https-0Unz5xWITyqbRiMoWztthA)
 
 
