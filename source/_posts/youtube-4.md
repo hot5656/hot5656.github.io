@@ -21,6 +21,9 @@ tags:
 # Experiment
 Experimental Short by Robert Hut
 
+# image to prompt
+轉成 detail 說明(English)
+
 # title 
 懸念與好奇心 
 以問題或衝突開頭：即使是精美的內容，你也可以在開頭提出問題或突出一個意想不到的方面。
@@ -756,6 +759,7 @@ please generate 4 video prompt (include sound and Voiceover)
 + [fox and elephant 分析(wolf)-chatGPT](https://chatgpt.com/share/69a159f3-d79c-8001-8a3c-e7124416b17c)
 + [This Cheetah Skeleton Is Built for Speed 🐆🦴](https://chatgpt.com/share/69a41ab4-0fb8-8001-9dd4-ee34b9bc2a4a)
 + [A Dinosaur Skeleton That Comes Back to Life - my ChatGPT](https://chatgpt.com/c/69aa89df-ab14-8320-8618-3d08420447fa)
++ [A Shark Skeleton That Swims in the Dark - my ChatGPT](https://chatgpt.com/c/69ad7b15-bec4-83a2-ba51-b3d98f7ea8e8)
 
 
 ``` bash
@@ -869,12 +873,15 @@ please give me full video prompts
 + [Why Did the Clock Tower Stop at 3:17 #1](https://chatgpt.com/share/69a24bac-0a68-8001-aa8f-79f66aa2a121)
 + [Why Did the Clock Tower Stop at 3:17 #2](https://chatgpt.com/share/69a6a773-803c-8001-86ae-614ffac3c3d1)
 + [Who Was Ringing the Bell in an Empty Village?](https://chatgpt.com/share/69aa54ac-2d48-8001-ad68-8250ae2bf257)
++ [Why Were There Footprints on the Rooftops? - My ChatGPT Serial](https://chatgpt.com/c/69aad3ac-1dcc-8323-ba60-39d23bc9e880)
++ [Why Did the River Start Glowing](https://chatgpt.com/c/69ad0f08-207c-83a9-8da6-5154c01a48ce)
 
 ### 更改 channel
 + [new channel description(jump rabbit) - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)
 + [change playlist - chatGPT](https://chatgpt.com/share/69a7d406-5b98-8001-bc59-f1fb14bb1667)
 + [change playlist - my chatGPT #2](https://chatgpt.com/c/69a79293-7d1c-8322-b88c-b45fbf008d9a)
 + [change playlist - Perplexity(not do)](https://www.perplexity.ai/search/wo-de-ut-gai-ban-channel-https-0Unz5xWITyqbRiMoWztthA)
++ [try ChatGPT](https://chatgpt.com/c/69aae249-9378-8324-b9fe-69dc79830293)
 
 
 ``` bash
@@ -1113,6 +1120,284 @@ This ensures:
 👉 一份「爆款 Shorts 生成標準模板」
 讓未來每支片都符合病毒模型。
 
+```
+
+＋[Animal Village Shorts Writer](https://chatgpt.com/g/g-69abbd910adc819190dbda90591df429-animal-village-shorts-writer)
++ [Animal Village Creator GPT v4](https://chatgpt.com/g/g-69abe510c3f88191a962b4f6153ee784-animal-village-creator-gpt-v4)
++ [Animal Village Creator GPT v4.6](https://chatgpt.com/g/g-69abe510c3f88191a962b4f6153ee784-animal-village-creator-gpt-v4-6)
+
++ [Animal Village Creator GPT v4.6 - chat #1](https://chatgpt.com/c/69ac0151-2ba8-83ab-8192-41c8f7eeb7a1)
+
++ [Animal Village Creator GPT v4.8](https://chatgpt.com/g/g-69acdedba57c81918c560f9d825fa4d2-animal-village-gpt-v4-8)
++ [Animal Village Creator GPT v4.8 - chat #1](]https://chatgpt.com/g/g-69acdedba57c81918c560f9d825fa4d2-animal-village-gpt-v4-8/c/69ace12f-8074-83a3-b010-35f5b617bc99)
+
++ [Animal Village Creator GPT v4.8](https://chatgpt.com/g/g-69acdedba57c81918c560f9d825fa4d2-animal-village-gpt-v4-8)
++ [Animal Village Creator GPT v4.8 - chat #1](https://chatgpt.com/g/g-69acdedba57c81918c560f9d825fa4d2-animal-village-gpt-v4-8/c/69acf10a-2588-83aa-a22c-2e307fc8d98f)
+
+``` bash
+
+
+🕰 Clock Tower & Village Square（1–20）
+
+Why Did the Clock Tower Stop at 3:17?
+
+Who Was Ringing the Bell in the Empty Village?
+
+Why Did the Clock Tower Light Up at Midnight?
+
+Who Left Flowers Around the Clock Tower?
+
+Why Did the Bell Ring Three Times Every Night?
+
+Who Climbed the Clock Tower Roof?
+
+Why Was the Clock Tower Door Open?
+
+Why Did the Statue Move Every Night?
+
+Who Left Lanterns Around the Fountain?
+
+Why Did the Fountain Start Flowing at Night?
+
+Who Was Dancing in the Village Square?
+
+Why Did the Fountain Glow Blue?
+
+Who Painted Stars on the Square?
+
+Why Did the Lantern Tree Light Up?
+
+Who Left Footprints Around the Fountain?
+
+Why Did the Square Fill with Fireflies?
+
+Who Built a Tiny Stage in the Square?
+
+Why Did the Clock Tower Shadow Move?
+
+Who Hung Ribbons Across the Square?
+
+Why Did the Bell Ring Without Wind?
+
+🏠 Rooftops & Houses（21–40）
+
+Why Were There Footprints on the Rooftops?
+
+Who Was Walking Across the Rooftops at Night?
+
+Why Did a Window Glow in the Empty House?
+
+Who Kept Lighting a Candle in the Old House?
+
+Why Did the Rooftop Lantern Move?
+
+Who Left Food on the Rooftops?
+
+Why Did the Chimney Smoke at Midnight?
+
+Who Opened Every Window in the Village?
+
+Why Did the Roof Tiles Glow?
+
+Who Built a Ladder to the Rooftop?
+
+Why Did the Old House Door Open?
+
+Who Was Knocking on the Roof?
+
+Why Did a Shadow Cross the Rooftops?
+
+Who Left Tiny Footprints on the Chimney?
+
+Why Did the Roof Bells Ring?
+
+Who Painted the Rooftops Blue?
+
+Why Did the Cat Sit on the Highest Roof?
+
+Who Walked the Rooftops Every Night?
+
+Why Did the Lanterns Appear on the Roof?
+
+Who Fixed the Broken Roof Overnight?
+
+🌉 Lantern Bridge & River（41–60）
+
+Why Did the Lantern Bridge Glow at Midnight?
+
+Who Lit Lanterns Along the Bridge?
+
+Why Did the River Start Glowing?
+
+Who Was Singing Under the Bridge?
+
+Why Did the River Flow Backwards?
+
+Who Built a Tiny Boat on the River?
+
+Why Did Lanterns Float Down the River?
+
+Who Left a Basket on the Bridge?
+
+Why Did the Bridge Shake at Night?
+
+Who Was Crossing the Bridge After Midnight?
+
+Why Did the River Turn Silver?
+
+Who Dropped Flowers in the River?
+
+Why Did Fish Gather Under the Bridge?
+
+Who Left Footprints on the Bridge?
+
+Why Did the Bridge Lanterns Light Themselves?
+
+Who Placed Stones in the River?
+
+Why Did the Water Start Singing?
+
+Who Was Waiting on the Bridge?
+
+Why Did the Bridge Gate Open?
+
+Who Left Soup Beside the River?
+
+🌲 Whispering Forest（61–80）
+
+Why Did the Forest Start Whispering?
+
+Who Was Walking Between the Trees?
+
+Why Did Lanterns Hang in the Forest?
+
+Who Left a Path of Lights?
+
+Why Did the Forest Glow at Night?
+
+Who Built a Tiny Hut in the Woods?
+
+Why Did the Fireflies Gather in One Tree?
+
+Who Planted Flowers in the Forest?
+
+Why Did the Trees Bend Toward the Village?
+
+Who Was Singing in the Forest?
+
+Why Did the Forest Path Appear Overnight?
+
+Who Left a Lantern at the Forest Edge?
+
+Why Did the Leaves Glow Silver?
+
+Who Was Watching from the Trees?
+
+Why Did the Deer Return to the Village?
+
+Who Carved Symbols on the Tree?
+
+Why Did the Forest Echo Bells?
+
+Who Left Footprints in the Moss?
+
+Why Did the Wind Stop in the Forest?
+
+Who Was Lighting Candles in the Woods?
+
+⛰ Windmill Hill & Village Edge（81–100）
+
+Why Did the Windmill Start Turning at Midnight?
+
+Who Climbed the Windmill Hill?
+
+Why Did the Windmill Stop Suddenly?
+
+Who Lit Lanterns on the Hill?
+
+Why Did the Hill Glow at Night?
+
+Who Left a Basket on the Hilltop?
+
+Why Did the Grass Move in Circles?
+
+Who Built a Stone Circle on the Hill?
+
+Why Did the Windmill Light Shine?
+
+Who Was Flying Above the Hill?
+
+Why Did the Sky Turn Purple Over the Hill?
+
+Who Drew Maps on the Hill?
+
+Why Did the Hill Lanterns Appear?
+
+Who Planted Trees on the Hill?
+
+Why Did the Wind Stop at the Windmill?
+
+Who Left Music on the Hill?
+
+Why Did the Stars Shine Brighter There?
+
+Who Was Watching the Village from the Hill?
+
+Why Did the Windmill Door Open?
+
+Who Built a Small Tower Beside the Windmill?
+
+⭐ 最可能爆的 20 個（建議優先拍）
+
+如果從 100 個挑 最容易 viral 的題材：
+
+Why Did the Clock Tower Stop at 3:17?
+
+Who Was Ringing the Bell in the Empty Village?
+
+Why Were There Footprints on the Rooftops?
+
+Why Did the River Start Glowing?
+
+Who Was Walking Across the Rooftops at Night?
+
+Why Did the Lantern Bridge Glow at Midnight?
+
+Who Was Singing Under the Bridge?
+
+Why Did Lanterns Hang in the Forest?
+
+Why Did the Forest Glow at Night?
+
+Why Did the Windmill Start Turning at Midnight?
+
+Who Left Lanterns Around the Fountain?
+
+Why Did the Fountain Glow Blue?
+
+Who Left Tiny Footprints on the Chimney?
+
+Why Did the Bridge Lanterns Light Themselves?
+
+Why Did the Water Start Singing?
+
+Who Was Watching from the Trees?
+
+Why Did the Hill Glow at Night?
+
+Why Did the Leaves Glow Silver?
+
+Why Did the Square Fill with Fireflies?
+
+Why Did the Lantern Tree Light Up?
+```
+``` bash
+# 建立「動物村短影片文案 GPT」
+Explore GPT(探索 GPT)
+  --> Create(建立)
+  --> Configure (設定)
+    Name : Animal Village Shorts Writer
+    Description : Generate cinematic YouTube Shorts stories for the Animal Village mystery series.
 ```
 
 ### Ref
