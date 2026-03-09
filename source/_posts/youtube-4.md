@@ -760,6 +760,7 @@ please generate 4 video prompt (include sound and Voiceover)
 + [This Cheetah Skeleton Is Built for Speed 🐆🦴](https://chatgpt.com/share/69a41ab4-0fb8-8001-9dd4-ee34b9bc2a4a)
 + [A Dinosaur Skeleton That Comes Back to Life - my ChatGPT](https://chatgpt.com/c/69aa89df-ab14-8320-8618-3d08420447fa)
 + [A Shark Skeleton That Swims in the Dark - my ChatGPT](https://chatgpt.com/c/69ad7b15-bec4-83a2-ba51-b3d98f7ea8e8)
++ [An Eagle Skeleton That Takes Flight](https://chatgpt.com/c/69ae3707-360c-83a5-be36-b528b150e123)
 
 
 ``` bash
