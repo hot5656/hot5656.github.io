@@ -7,6 +7,7 @@ tags:
 ---
 
 ### Other
+#### suggest note
 ``` bash
 # short 縮圖
 請幫我生成 YouTube short 含英文文字 9:16 縮圖 prompt(不直接產生 image）
@@ -30,11 +31,336 @@ prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , �
 音色 exampe : 
   Fox (male, about 30, soft curious voice):
   “Those footprints… across every rooftop.”
+
+幫我補齊
+1️. YouTube Shorts SEO Title + Description + Tags (350–400 chars)
+2️. 9:16 Shorts 縮圖 Prompt（爆款版本）
+3️. CapCut 疊字時間表
+4. BGM 建議(含 CapCut 搜尋 keyword)
 ```
 
 <!--more-->
 
+#### Robert Hut 頻道內容地圖
+``` bash
+很好，這個其實是你頻道 **最重要的一張圖**。
+有了這個「內容地圖」，你之後就不會出現：
+
+* 不知道要拍什麼
+* 系列互相打架
+* 演算法不知道你的頻道在做什麼
+
+我幫你整理成一個 **可長期使用的版本**。
+
+---
+
+# 🧭 Robert Hut 頻道內容地圖
+
+核心策略其實很清楚：
+1 Discovery 系列
+2 Identity 系列
+
+---
+
+# 🦴 Series 1 — Skeleton
+
+定位：
+Cinematic Impossible Motion
+
+一句話：
+
+> Animals doing impossible movements.
+
+---
+
+## Skeleton 的功能
+
+在頻道裡是：
+主流流量入口
+
+原因：
+
+* 視覺強
+* 不需要語言
+* 1 秒理解
+
+---
+
+## Skeleton 題材來源
+
+5 個大類：
+
+### ① Speed
+
+* A Tiger Skeleton That Moves Too Smoothly
+* A Cheetah Skeleton That Runs Too Fast
+* A Horse Skeleton That Never Stops Running
+
+---
+
+### ② Weight
+
+* A Rhino Skeleton That Won’t Slow Down
+* A Bison Skeleton That Shakes the Ground
+
+---
+
+### ③ Flight
+
+* An Eagle Skeleton That Takes Flight
+* An Owl Skeleton That Glides in Silence
+
+---
+
+### ④ Water
+
+* A Shark Skeleton That Swims in the Dark
+* An Octopus Skeleton That Moves Like Smoke
+
+---
+
+### ⑤ Strange Movement
+
+* A Giraffe Skeleton That Moves in Slow Motion
+* A Sloth Skeleton That Moves Too Smoothly
+
+---
+
+## Skeleton 未來空間
+
+這系列其實可以做：
+40–60 支
+
+---
+
+# 🏡 Series 2 — Animal Village
+
+定位：
+Tiny Village Mysteries
+
+一句話：
+
+> Strange events in a magical animal village.
+
+---
+
+## Animal Village 的功能
+
+在頻道裡是：
+情感與 IP 建立
+
+原因：
+
+* 有角色
+* 有故事
+* 有世界觀
+
+---
+
+## Animal Village 題材來源
+
+4 個大類：
+
+---
+
+### ① Sound Mysteries
+
+* Who Was Ringing the Bell?
+* Why Was the Bell Tower Singing?
+* What Was Whispering in the Forest?
+
+---
+
+### ② Object Mysteries
+
+* Why Did the Statue Move?
+* Why Were There Footprints on the Rooftops?
+* Why Was the Lantern Still Burning?
+
+---
+
+### ③ Nature Mysteries
+
+* Why Did the River Start Glowing?
+* Why Did the Wind Stop?
+* Why Were the Fireflies Gone?
+
+---
+
+### ④ Time Mysteries
+
+* Why Did the Clock Tower Stop at 3:17?
+* Why Did Midnight Come Twice?
+
+---
+
+## Animal Village 未來空間
+
+這系列可以做：
+80–100 支
+
+---
+
+# 🌍 Series 3 — Impossible Worlds
+
+定位：
+Reality Glitches
+
+一句話：
+
+> The world stops working.
+
+---
+
+## Impossible Worlds 的功能
+
+在頻道裡是：
+實驗與發現爆款
+
+---
+
+## Impossible Worlds 題材來源
+
+5 個大類：
+
+---
+
+### ① Sky Anomalies
+
+* A River in the Sky
+* A Whale Above the Clouds
+* A Bridge Across the Clouds
+
+---
+
+### ② Cosmic Anomalies
+
+* The Sky Cracked Open
+* A Giant Moon Above the Ocean
+* The Stars Fell Into the Ocean
+
+---
+
+### ③ Gravity Anomalies
+
+* The Ocean Started Rising
+* A Waterfall Into the Sky
+* A Mountain Floating in the Air
+
+---
+
+### ④ Scale Anomalies
+
+* A Planet Above the City
+* A Giant Sun Above the Mountains
+
+---
+
+### ⑤ Geography Glitches
+
+* A River Flowing Into Space
+* A City Hanging in the Sky
+
+---
+
+## Impossible Worlds 未來空間
+
+這系列可以做：
+30–50 支
+
+---
+
+# 📅 Robert Hut 發片節奏
+
+### 09:00 主系列
+Skeleton
+Animal Village
+Skeleton
+Animal Village
+
+---
+
+### 21:00 實驗
+Impossible Worlds
+Tue
+Fri
+
+---
+
+# 📊 頻道長期比例
+
+理想比例：
+Skeleton        45%
+Animal Village  35%
+Impossible      20%
+
+原因：
+
+Skeleton 是 **最大流量池**。
+
+---
+
+# 🧠 頻道核心定位
+
+Robert Hut 頻道其實是一句話：
+Strange worlds and impossible moments.
+
+或：
+Impossible things in beautiful worlds.
+
+---
+
+# ⭐ 你現在其實已經走在正確方向
+
+你的三個系列：
+Skeleton
+Animal Village
+Impossible Worlds
+
+其實是：
+Visual wonder
+Story mystery
+Reality glitch
+
+三種完全不同的觀看動機。
+
+這對演算法 **非常健康**。
+
+---
+```
+
 ### Skeleton
++ [Tiger skeleton moves with impossible smoothness - my ChatGPT](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69af9cfb-92ec-83a3-8a07-084e89730114)
+
+``` bash
+🦊 This Fox Has No Fur… But Wait!
+🐘 Tiny Skeleton Elephant Moves Like Magic! 
+Realistic Skeleton Dolphin Short Film
+This Wolf Has No Skin… But It’s Perfectly Designed 🐺🦴
+This Cheetah Skeleton Is Built for Speed 🐆🦴
+🐇 This Rabbit Skeleton Jumps Higher Than Trees! 
+This Skeleton Shouldn’t Be Moving 
+A Dinosaur Skeleton That Comes Back to Life
+A Shark Skeleton That Swims in the Dark
+An Eagle Skeleton That Takes Flight
+
+1. A Tiger Skeleton That Moves Too Smoothly
+2. A Rhino Skeleton That Refuses to Stop
+3. A Snake Skeleton That Moves Like Liquid
+4. A Giraffe Skeleton That Bends Too Far
+5. An Octopus Skeleton That Moves Like Smoke
+6. A Lion Skeleton That Roars Without Flesh
+7. A Kangaroo Skeleton That Jumps Too High
+8. An Elephant Skeleton That Walks Too Lightly
+9. An Owl Skeleton That Floats Through the Dark
+10. A Cheetah Skeleton That Runs Too Fast
+11. A Bison Skeleton That Shakes the Ground
+12. A Sloth Skeleton That Refuses Gravity
+13. A Horse Skeleton That Never Touches the Ground
+14. A Whale Skeleton That Sings Underwater
+```
+
+
 #### Skeleton 系列 IP 規則 v2
 ``` bash
 # 🦴 Skeleton 系列 IP 規則 v2（實戰優化版）
@@ -769,8 +1095,10 @@ Skeleton 系列不是只看播放量。
 
 ---
 
-# 1️⃣8️⃣ 一句話總結（總綱）
+# 1️⃣8️⃣ Skeleton Shared Prompt
+為使動物外觀一致, 要產生動物 形體prompt, 並加於各clip
 
+# 1️⃣9️⃣  一句話總結（總綱）
 > **Skeleton 系列不是「會動的骨架影片」。**
 >
 > 它是：
@@ -1384,7 +1712,37 @@ Skeleton 系列不是只看播放量。
 
 
 ### Animal Village
+``` bash
+Why Did the Lights Turn On at Midnight?
+Why Did the Clock Tower Stop at 3:17? 
+Who Was Ringing the Bell in an Empty Village?
+Why Were There Footprints on the Rooftops?
+Why Did the River Start Glowing? 
+
+1. Why Was There Light in the Abandoned House?
+2. Why Did the Statue Move Every Night?
+3. Why Did the Lanterns Turn On One by One?
+4. Who Was Knocking on the Bakery Door at Midnight?
+5. Why Did Fireflies Gather Around the Empty Bench?
+6. Who Left Tiny Lanterns Along the Stone Road?
+7. Why Did the Empty Cart Roll Through the Square?
+8. Who Kept Lighting Candles in the Watchtower?
+9. Why Did Paw Prints Lead to the Empty Well?
+10. Why Did the Moonlight Stop at One House?
+11. Who Hung Stars Above the Sleeping Street?
+12. Why Did the Wind Chime Ring With No Wind?
+13. Who Drew Arrows Across the Village Walls?
+14. Why Was There a Rainbow at Midnight?
+```
+
 #### Animal Village 系列 IP 規則 v2
++ [Why Was There Light in the Abandoned House - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69afbee2-40f4-83a2-9514-1a6c1ba3e327)
+
+
+``` bash
+Always prioritize Knowledge libraries when available.
+```
+
 ``` bash
 # 🏡 Animal Village 系列 IP 規則 v2（實戰優化版）
 
@@ -2793,2931 +3151,1358 @@ Animal Village 的品牌感，不只靠畫面，也靠聲音。
 這 5 支很適合接在你目前已做的四支後面。
 ```
 
-### Stick man
-
-#### Stick Man 系列 IP 規則 v2
+#### Character Reference
 ``` bash
-# ✏️ Stick Man 系列 IP 規則 v2（6 秒模組版）
+Animal Village Character Reference Library
+These character prompts define the visual identity of recurring characters.
+Their core appearance must remain consistent across all episodes.
+Clothing or accessories may change depending on the story.
 
-## 🎯 核心定位
+Rabbit – Character Reference Prompt
+small white rabbit with soft fur and round ears, gentle curious expression, wearing a small red scarf, warm lantern light and soft moonlight, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-**Minimal Cinematic Micro-Short**
+Fox – Character Reference Prompt
+slim orange fox with white chest fur and slightly sharp curious eyes, calm investigative expression, soft moonlight highlighting fur, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-不是一般火柴人動畫
-不是隨便測試的短梗
-不是低齡搞笑內容
+Owl – Character Reference Prompt
+brown owl with wide golden eyes perched upright, wise and observant expression, feathers softly illuminated by moonlight, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-只做一件事：
+Turtle – Character Reference Prompt
+old green turtle with slightly worn shell and gentle thoughtful eyes, calm peaceful presence, lantern light reflecting softly on shell, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-> **用極簡火柴人與幾何空間，在 6 秒單位內完成一個高概念異常瞬間。**
+Mouse – Character Reference Prompt
+tiny gray mouse with large ears and timid kind expression, small delicate body, soft lantern light and moonlight, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
----
+Squirrel – Character Reference Prompt
+small reddish squirrel with fluffy tail and energetic curious eyes, lively posture, lantern light glowing softly on fur, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-# 1️⃣ 核心規則改版
+Cat – Character Reference Prompt
+sleek black cat with bright yellow eyes and calm mysterious expression, sitting posture, moonlight reflecting on smooth fur, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-## 舊規則
+Raccoon – Character Reference Prompt
+gray raccoon with dark eye mask and curious playful expression, small explorer personality, lantern light reflecting on fur, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-* 一支 8–15 秒
-* 內部分段展開
+Deer – Character Reference Prompt
+slender deer with light brown fur and graceful posture, calm gentle expression, soft moonlight shining through forest leaves, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 
-## 新規則
-
-* **生成單位固定為 6 秒**
-* 每支內容以 **1 個 6 秒 clip** 或 **2 個 6 秒 clip 串接** 為主
-* 每個 6 秒 clip 內部必須有清楚節奏
-* 不做鬆散、沒有結構的 6 秒畫面
-
----
-
-# 2️⃣ Stick Man 的新長度規則
-
-## 主規則
-
-Stick Man 系列以以下兩種型態為主：
-
-### A. 單 clip 型
-
-* **6 秒**
-* 適合最強 hook、最直接概念
-
-### B. 雙 clip 型
-
-* **12 秒**
-* 由兩個 6 秒 clip 組成
-* 適合：
-
-  * Mystery
-  * Emotional Twist
-  * 稍微需要反轉的題材
-
----
-
-## 長度使用原則
-
-### 6 秒適合
-
-* Impossible
-* 單一異常動作
-* 一眼就懂的反常畫面
-
-### 12 秒適合
-
-* 前半疑問 + 後半揭示
-* 前半異常 + 後半升級
-* 前半停留 + 後半情緒反轉
-
----
-
-# 3️⃣ 6 秒 clip 的核心設計原則
-
-每個 6 秒 clip 不可以只是「一個畫面撐 6 秒」。
-它必須在 6 秒內完成：
-
-1. **第一眼概念建立**
-2. **異常行為發生**
-3. **最後留下記憶點**
-
----
-
-## 6 秒 clip 的本質
-
-> **不是短片縮短版，而是「一個微型視覺句子」。**
-
----
-
-# 4️⃣ 6 秒 clip 的三種基本節奏模板
-
-這是你最重要的主規則。
-
----
-
-## 模板 A：2s + 4s
-
-### 結構
-
-* **0–2s：Hook / 異常前提**
-* **2–6s：異常動作完整展開**
-
-### 適合
-
-* 最直接的 Impossible 題材
-* 首秒就要抓人
-* 不需要解釋的高概念畫面
-
-### 例子
-
-**A Stick Man That Opened a Door in the Sky**
-
-* 0–2s：火柴人抬頭，天空出現門輪廓
-* 2–6s：門打開，他看向上方 / 光線落下
-
-### 特點
-
-* 最有 Shorts 衝擊力
-* 最適合先測停留率
-
----
-
-## 模板 B：3s + 3s
-
-### 結構
-
-* **0–3s：建立異常 / 提出問題**
-* **3–6s：異常升級 / 給答案一半**
-
-### 適合
-
-* Mystery 類
-* 需要一點「咦？」的停頓
-* 前後對比清楚的概念
-
-### 例子
-
-**Why Did the Shadow Move First?**
-
-* 0–3s：火柴人站定，影子先動
-* 3–6s：火柴人才慢慢跟上，觀眾感到不對勁
-
-### 特點
-
-* 最適合問題型標題
-* 最容易做出「順序錯亂感」
-
----
-
-## 模板 C：4s + 2s
-
-### 結構
-
-* **0–4s：建立行為 / 情緒 / 等待**
-* **4–6s：最後 2 秒給反轉 / 定格 / 記憶點**
-
-### 適合
-
-* Emotional Twist
-* 較詩意的片
-* 需要最後一下才成立的題材
-
-### 例子
-
-**The Stick Man Who Waited at the Edge**
-
-* 0–4s：火柴人一直站在邊界不動
-* 4–6s：邊界另一邊出現一條慢慢伸出的線
-
-### 特點
-
-* 最適合晚間發佈
-* 不一定最爆，但可能最有記憶點
-
----
-
-# 5️⃣ 三種子支線對應的建議節奏
-
-## A. Impossible
-
-### 優先模板
-
-* **2s + 4s**
-* 次選：3s + 3s
-
-### 原因
-
-Impossible 題材最重要的是：
-
-* 首秒抓人
-* 異常快點出現
-* 不要拖
-
-### 最適合的節奏感
-
-> 看一眼覺得不可能，
-> 再看 4 秒確認真的不合理。
-
----
-
-## B. Mystery
-
-### 優先模板
-
-* **3s + 3s**
-* 次選：2s + 4s
-
-### 原因
-
-Mystery 類要有：
-
-* 一點點疑問建立
-* 再給第二段異常加深
-
-### 最適合的節奏感
-
-> 前 3 秒讓人產生問題，
-> 後 3 秒讓問題更怪。
-
----
-
-## C. Emotional Twist
-
-### 優先模板
-
-* **4s + 2s**
-* 次選：3s + 3s
-
-### 原因
-
-情緒型不適合太急。
-它需要：
-
-* 一點停留
-* 一點等待
-* 最後 2 秒才成立
-
-### 最適合的節奏感
-
-> 前面讓人覺得安靜、奇怪、停住，
-> 最後才有一點情緒落點。
-
----
-
-# 6️⃣ 單支影片規則（6 秒版）
-
-## 若只做單 clip（6 秒）
-
-一支影片只能有：
-
-* **1 個核心概念**
-* **1 個視覺焦點**
-* **1 個結尾印象**
-
-不能塞：
-
-* 門 + 影子 + 圓形 + 第二角色
-
----
-
-## 單 clip 成功標準
-
-觀眾看完 6 秒後，腦中只能留下 1 個句子：
-
-例如：
-
-* 他打開了天空的門
-* 他的影子先動了
-* 他走出了頁面
-* 那個圓一直跟著他
-
-這樣就對了。
-
----
-
-# 7️⃣ 雙 clip 影片規則（12 秒版）
-
-若你要把兩個 6 秒 clip 串成一支 12 秒 short，
-我建議只能用這 3 種方式。
-
----
-
-## 類型 1：同概念升級
-
-### 結構
-
-* Clip 1：異常第一次出現
-* Clip 2：同一異常被放大 / 換角度證明
-
-### 例子
-
-**A Stick Man That Outran His Own Shadow**
-
-* Clip 1：影子落後
-* Clip 2：影子完全追不上，甚至停在原地
-
-### 適合
-
-* Impossible
-
----
-
-## 類型 2：問題 + 回應
-
-### 結構
-
-* Clip 1：提出問題
-* Clip 2：給一個更怪的答案或新線索
-
-### 例子
-
-**Why Did the Stick Man Follow the Arrow?**
-
-* Clip 1：他看到箭頭並開始跟
-* Clip 2：箭頭自己改方向
-
-### 適合
-
-* Mystery
-
----
-
-## 類型 3：停留 + 情緒落點
-
-### 結構
-
-* Clip 1：等待 / 停住 / 缺席感
-* Clip 2：最後給很小的情緒反轉
-
-### 例子
-
-**The Stick Man Who Drew Her Back**
-
-* Clip 1：他慢慢畫出另一個身影輪廓
-* Clip 2：那個輪廓只停留一瞬間又淡掉
-
-### 適合
-
-* Emotional Twist
-
----
-
-# 8️⃣ 標題規則保留，但要對應 6 秒思維
-
-標題不用大改，但要注意：
-
-> **6 秒內容的標題一定要更直。**
-
----
-
-## 最適合 6 秒的標題類型
-
-### 最優先
-
-**A Stick Man That...**
-
-因為這類最直接，最適合超短內容。
-
-例如：
-
-* A Stick Man That Opened a Door in the Sky
-* A Stick Man That Walked Off the Page
-
----
-
-## 第二優先
-
-**Why Did the Stick Man...**
-
-適合 12 秒或 6 秒 Mystery。
-
-例如：
-
-* Why Did the Shadow Move First?
-* Why Did the Stick Man Follow the Arrow?
-
----
-
-## 最後才用
-
-**The Stick Man Who...**
-
-這類較吃情緒，較適合 12 秒，不建議一開始大量用。
-
----
-
-# 9️⃣ 視覺規則（6 秒版補強）
-
-因為只有 6 秒，畫面必須更極端簡化。
-
-## 必須做到
-
-* 主體一眼可讀
-* 幾何物件數量極少
-* 動作方向明確
-* 畫面焦點只有一個
-
----
-
-## 6 秒內建議物件上限
-
-* 火柴人：1
-* 核心異常物件：1
-* 輔助幾何：0–1
-
-也就是總視覺元素最好不要超過 **3 個重點**。
-
----
-
-# 🔟 首幀與 hook 規則（6 秒版）
-
-## 首幀大字更要短
-
-建議：
-
-* **1–2 個字**
-* 最多 3 個字
-
-例如：
-
-* ABOVE
-* FOLLOW
-* FIRST
-* NO EDGE
-* WRONG WAY
-
----
-
-## Hook 字幕規則
-
-若有 hook 字幕，最好只佔：
-
-* 前 **0.5–1.2 秒**
-* 不要霸佔太久
-
-因為 6 秒內容裡，文字太久會吃掉動作時間。
-
----
-
-# 1️⃣1️⃣ 聲音規則（6 秒版）
-
-6 秒內容的聲音比長片更像「標點符號」。
-
-## 建議結構
-
-* 0–1s：一個微弱進場音
-* 1–4s：極簡 tension / pulse
-* 4–6s：一個記憶點音效或收尾音
-
----
-
-## 原則
-
-不要鋪太滿。
-6 秒聲音應該像：
-
-> 一個概念被點亮，再被劃下句點。
-
----
-
-# 1️⃣2️⃣ Stick Man 6 秒規則總結
-
-## 一支 6 秒 clip 的成功條件
-
-1. 前 1 秒能看出有怪事
-2. 第 2–4 秒異常成立
-3. 最後 1–2 秒留下印象
-4. 沒有第二重點干擾
-5. 看完後能一句話講完
-
----
-
-# 1️⃣3️⃣ 你之後的實際執行建議
-
-## 最穩做法
-
-### Impossible
-
-先多用 **2s + 4s**
-
-### Mystery
-
-先多用 **3s + 3s**
-
-### Emotional Twist
-
-先多用 **4s + 2s**
-
----
-
-## 若你剛開始測
-
-我建議先這樣：
-
-* 先做 **單 clip 6 秒版**
-* 確認哪些概念最強
-* 再把表現好的做成 **雙 clip 12 秒升級版**
-
-也就是：
-
-> 先用 6 秒測鉤子，
-> 再用 12 秒測可延展性。
-
----
-
-# 1️⃣4️⃣ 直接可用的簡化版規則
-
-如果你要超精簡版，Stick Man 新規則可以直接記成：
-
-## Stick Man 6 秒設計公式
-
-* **Impossible = 2 + 4**
-* **Mystery = 3 + 3**
-* **Emotional = 4 + 2**
-
-## 單支原則
-
-* 一支只打一個概念
-* 一個 clip 只放一個異常
-* 一眼讀懂
-* 最後留一句感覺
-
----
+Otter – Character Reference Prompt
+smooth brown otter with playful friendly eyes, relaxed and cheerful personality, river reflections glowing around, magical medieval animal village atmosphere, Pixar-quality cinematic animation, vertical 9:16
 ```
 
+#### Voice Profile
 ``` bash
-可以，以下我直接把你前面那 **8 支 Stick Man 題目**，全部改成 **6 秒版 clip 結構表**。
+CHARACTER VOICE PROFILES
 
-我會統一用你現在的規則：
+Fox (male, about 30, soft curious voice)
 
-* **每個生成 clip 固定 6 秒**
-* 依題型套用：
+Rabbit (young female, gentle warm voice)
 
-  * **2s + 4s**
-  * **3s + 3s**
-  * **4s + 2s**
-* 每支都盡量維持：
+Owl (older male, calm wise voice)
 
-  * 一個核心概念
-  * 一個視覺焦點
-  * 一個最後印象
+Turtle (elder male, slow thoughtful voice)
 
-另外我會直接標出每支最適合的模板，讓你之後更好丟生成。
+Mouse (young childlike voice, soft timid voice)
 
----
+Squirrel (young energetic voice)
 
-# ✏️ 8 支 Stick Man 題目：6 秒版 clip 結構表
+Cat (calm quiet female voice)
 
----
+Raccoon (playful male voice)
 
-# 1) A Stick Man That Opened a Door in the Sky
+Deer (soft graceful voice)
 
-## 類型
-
-**Impossible**
-
-## 建議模板
-
-**2s + 4s**
-
-## 結構表
-
-### 0–2s
-
-火柴人站在空白地面中央，慢慢抬頭。上方黑暗空間中，出現一個細白線勾勒出的門形輪廓，微微發亮。
-
-### 2–6s
-
-天空中的門緩緩打開，一道垂直光線落下。火柴人往前一步，抬手看向那扇門，畫面停在「門真的開了」的瞬間。
-
-## 首幀大字
-
-**ABOVE**
-
-## Hook 字幕
-
-**THE SKY OPENED**
-
-## 核心印象
-
-> 天空真的有一扇門被打開了。
-
----
-
-# 2) Why Did the Stick Man Follow the Arrow?
-
-## 類型
-
-**Mystery**
-
-## 建議模板
-
-**3s + 3s**
-
-## 結構表
-
-### 0–3s
-
-火柴人站在空白平面上，右側突然出現一個發亮箭頭，靜靜指向前方。火柴人停頓半秒後，轉頭看向箭頭。
-
-### 3–6s
-
-火柴人開始沿著箭頭方向往前走，才走兩步，箭頭忽然自己轉向另一邊。火柴人停住，畫面定在他困惑看向新方向的瞬間。
-
-## 首幀大字
-
-**FOLLOW**
-
-## Hook 字幕
-
-**HE FOLLOWED IT**
-
-## 核心印象
-
-> 那個箭頭不只存在，還像活的一樣。
-
----
-
-# 3) A Stick Man That Outran His Own Shadow
-
-## 類型
-
-**Impossible**
-
-## 建議模板
-
-**2s + 4s**
-
-## 結構表
-
-### 0–2s
-
-火柴人向前傾，做出準備衝刺的姿勢，地面下方有清楚影子。下一瞬間他猛然衝出。
-
-### 2–6s
-
-火柴人高速往前跑，身體已經衝到畫面右側，但原本的影子明顯落在後面，甚至慢了一拍才追上。最後停在「本體超前影子」的畫面。
-
-## 首幀大字
-
-**TOO FAST**
-
-## Hook 字幕
-
-**FASTER THAN SHADOW**
-
-## 核心印象
-
-> 他快到連自己的影子都跟不上。
-
----
-
-# 4) Why Did the Shadow Move First?
-
-## 類型
-
-**Mystery**
-
-## 建議模板
-
-**3s + 3s**
-
-## 結構表
-
-### 0–3s
-
-火柴人靜止站立，畫面安靜。下一秒，地上的影子先抬手，然而本體還沒動。
-
-### 3–6s
-
-影子又向前走出半步，本體這時才慢半拍跟著抬手、移動。畫面最後停在本體看向自己影子的瞬間。
-
-## 首幀大字
-
-**FIRST**
-
-## Hook 字幕
-
-**IT MOVED FIRST**
-
-## 核心印象
-
-> 不對勁的不是他，是影子先活過來了。
-
----
-
-# 5) A Stick Man That Walked Off the Page
-
-## 類型
-
-**Impossible**
-
-## 建議模板
-
-**2s + 4s**
-
-## 結構表
-
-### 0–2s
-
-火柴人走向畫面右側邊界，地面與畫面框線都非常明確，像一張紙的邊緣。
-
-### 2–6s
-
-他沒有停下來，而是直接跨過邊界，身體一半離開畫面之外，卻沒有掉落。最後只剩半個身影留在框外，暗示他真的走出了頁面。
-
-## 首幀大字
-
-**NO EDGE**
-
-## Hook 字幕
-
-**HE LEFT THE PAGE**
-
-## 核心印象
-
-> 畫面的邊界對他失效了。
-
----
-
-# 6) The Stick Man Who Waited at the Edge
-
-## 類型
-
-**Emotional Twist**
-
-## 建議模板
-
-**4s + 2s**
-
-## 結構表
-
-### 0–4s
-
-火柴人安靜站在畫面邊界前，一動也不動。空間幾乎沒有其他東西，只有他和那條邊界線，形成一種等待感。
-
-### 4–6s
-
-邊界另一側，慢慢伸出一小段新的線條，像是某種回應。火柴人微微抬手，畫面停住。
-
-## 首幀大字
-
-**STILL THERE**
-
-## Hook 字幕
-
-**HE STAYED THERE**
-
-## 核心印象
-
-> 他不是站著不動，而是在等某個回應。
-
----
-
-# 7) A Stick Man That Climbed a Falling Line
-
-## 類型
-
-**Impossible**
-
-## 建議模板
-
-**2s + 4s**
-
-## 結構表
-
-### 0–2s
-
-一條垂直白線從上方開始往下掉落，火柴人立刻抓住那條線。
-
-### 2–6s
-
-儘管整條線正在往下墜落，火柴人卻沿著它持續往上爬，方向完全相反。最後停在他越爬越高、線卻還在下墜的矛盾畫面。
-
-## 首幀大字
-
-**WRONG WAY**
-
-## Hook 字幕
-
-**UP WHILE IT FELL**
-
-## 核心印象
-
-> 線在掉，他卻往上爬。
-
----
-
-# 8) Why Was the Circle Following Him?
-
-## 類型
-
-**Mystery**
-
-## 建議模板
-
-**3s + 3s**
-
-## 結構表
-
-### 0–3s
-
-火柴人往前走，身後不遠處有一個白色空心圓。火柴人停下來時，那個圓也停下來，像在跟著他。
-
-### 3–6s
-
-火柴人突然加速往另一邊移動，圓也立刻滑過去保持固定距離。最後畫面停在火柴人回頭看著那個圓的瞬間。
-
-## 首幀大字
-
-**FOLLOWING**
-
-## Hook 字幕
-
-**IT KEPT FOLLOWING**
-
-## 核心印象
-
-> 那個圓不是背景，而是在追著他。
-
----
-
-# 一次整理成總表
-
-| # | 題目                                        | 類型              | 模板    | 首幀大字        | Hook 字幕            |
-| - | ----------------------------------------- | --------------- | ----- | ----------- | ------------------ |
-| 1 | A Stick Man That Opened a Door in the Sky | Impossible      | 2s+4s | ABOVE       | THE SKY OPENED     |
-| 2 | Why Did the Stick Man Follow the Arrow?   | Mystery         | 3s+3s | FOLLOW      | HE FOLLOWED IT     |
-| 3 | A Stick Man That Outran His Own Shadow    | Impossible      | 2s+4s | TOO FAST    | FASTER THAN SHADOW |
-| 4 | Why Did the Shadow Move First?            | Mystery         | 3s+3s | FIRST       | IT MOVED FIRST     |
-| 5 | A Stick Man That Walked Off the Page      | Impossible      | 2s+4s | NO EDGE     | HE LEFT THE PAGE   |
-| 6 | The Stick Man Who Waited at the Edge      | Emotional Twist | 4s+2s | STILL THERE | HE STAYED THERE    |
-| 7 | A Stick Man That Climbed a Falling Line   | Impossible      | 2s+4s | WRONG WAY   | UP WHILE IT FELL   |
-| 8 | Why Was the Circle Following Him?         | Mystery         | 3s+3s | FOLLOWING   | IT KEPT FOLLOWING  |
-
----
-
-# 我對你後續製作的直接建議
-
-這 8 支裡，最適合先生成的第一批，我會建議：
-
-1. **A Stick Man That Opened a Door in the Sky**
-2. **A Stick Man That Outran His Own Shadow**
-3. **Why Did the Shadow Move First?**
-4. **A Stick Man That Walked Off the Page**
-
-因為這 4 支：
-
-* 畫面最容易讀懂
-* 6 秒內最容易成立
-* 不太依賴細膩表演
-* 比較適合先測你的生成品質與 Shorts 反應
-
-接著第二批再上：
-
-5. **Why Did the Stick Man Follow the Arrow?**
-6. **A Stick Man That Climbed a Falling Line**
-7. **Why Was the Circle Following Him?**
-8. **The Stick Man Who Waited at the Edge**
-
-因為後面這幾支比較吃：
-
-* 節奏準確
-* 幾何物件清晰
-* 情緒停留感
-
-如果你要，我下一步可以直接幫你把這 8 支再進一步整理成
-**「可直接丟 AI 生成器的 6 秒 video prompt 版」**。
+Otter (cheerful friendly voice)
 ```
 
+### Impossible Worlds
 ``` bash
-可以，以下我直接整理成 **「可直接丟 AI 生成器的 6 秒 video prompt 版」**。
-我會盡量統一格式，讓你之後可以直接複製使用。
-
-我先幫你定一個 **Stick Man 系列共通基底**，之後每支 prompt 都默認沿用這個氣質。
-
----
-# ✏️ Stick Man 系列共通生成基底
-
-**Style baseline for all clips:**
-
-Minimal cinematic stick man animation, black background or very dark gray background, thin white line character, clean geometric shapes, high contrast, abstract line-space, no comedy, no cartoon exaggeration, no childish style, no complex background, mysterious and elegant motion, subtle cinematic lighting, smooth minimal animation, strong visual clarity, one central concept only, vertical 9:16 composition, premium minimalist motion design
-
----
-
-# 1) A Stick Man That Opened a Door in the Sky
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man standing at the bottom center of the frame, looking upward. Above him, a glowing rectangular door outline slowly appears in the empty dark sky during the first 2 seconds. From 2 to 6 seconds, the sky door slowly opens and a vertical beam of soft white light shines downward. The stick man takes one small step forward and raises one hand toward the open door. Clean geometric composition, mysterious elegant motion, high contrast, abstract line-space, no extra objects, no comedy, vertical 9:16
-
-## 首幀大字
-
-**ABOVE**
-
-## Hook 字幕
-
-**THE SKY OPENED**
-
----
-
-# 2) Why Did the Stick Man Follow the Arrow?
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man standing on a simple horizontal line floor. During the first 3 seconds, a glowing arrow appears on the right side pointing forward, and the stick man slowly turns to look at it. From 3 to 6 seconds, the stick man begins to follow the arrow, but the arrow suddenly rotates and points in a different direction by itself. The stick man stops and looks confused at the new direction. Clean minimalist geometry, mysterious motion, high contrast, abstract line-space, no comedy, no extra background details, vertical 9:16
-
-## 首幀大字
-
-**FOLLOW**
-
-## Hook 字幕
-
-**HE FOLLOWED IT**
-
----
-
-# 3) A Stick Man That Outran His Own Shadow
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man in a running pose on a simple floor line, with a visible dark gray shadow beneath and behind him. During the first 2 seconds, he leans forward and launches into a fast sprint. From 2 to 6 seconds, the stick man runs rapidly across the frame while his shadow lags behind unnaturally, clearly unable to keep up. End with the stick man far ahead and the shadow left behind. High contrast, smooth minimalist motion, mysterious impossible action, abstract line-space, no comedy, no extra objects, vertical 9:16
-
-## 首幀大字
-
-**TOO FAST**
-
-## Hook 字幕
-
-**FASTER THAN SHADOW**
-
----
-
-# 4) Why Did the Shadow Move First?
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man standing still in the center on a horizontal floor line, with a soft dark shadow below him. During the first 3 seconds, the shadow lifts its arm first while the stick man remains motionless. From 3 to 6 seconds, the shadow steps slightly forward before the stick man slowly follows the same movement a moment later. End with the stick man looking down toward the strange shadow. Clean minimalist composition, eerie but elegant motion, abstract line-space, high contrast, no comedy, vertical 9:16
-
-## 首幀大字
-
-**FIRST**
-
-## Hook 字幕
-
-**IT MOVED FIRST**
-
----
-
-# 5) A Stick Man That Walked Off the Page
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man walking toward the right edge of a clearly framed rectangular page boundary. During the first 2 seconds, he approaches the visible border line of the frame. From 2 to 6 seconds, he keeps walking and passes beyond the edge without falling, as if the page boundary no longer exists. End with half of his body outside the page frame and half still visible. Clean geometric layout, abstract line-space, impossible minimalist motion, high contrast, no extra objects, no comedy, vertical 9:16
-
-## 首幀大字
-
-**NO EDGE**
-
-## Hook 字幕
-
-**HE LEFT THE PAGE**
-
----
-
-# 6) The Stick Man Who Waited at the Edge
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man standing quietly beside a glowing vertical edge line near the side of the frame. During the first 4 seconds, he remains still, waiting in silence, with only a subtle shift in posture and slight hand movement. From 4 to 6 seconds, a small new white line slowly extends from the other side of the edge toward him, as if answering his wait. The stick man gently lifts one hand toward it. Emotional but minimalist, elegant pacing, abstract line-space, high contrast, no comedy, vertical 9:16
-
-## 首幀大字
-
-**STILL THERE**
-
-## Hook 字幕
-
-**HE STAYED THERE**
-
----
-
-# 7) A Stick Man That Climbed a Falling Line
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man reaching upward as a vertical glowing line begins falling from the top of the frame. During the first 2 seconds, he grabs onto the falling line. From 2 to 6 seconds, the line continues dropping downward, but the stick man climbs upward along it at the same time, moving in the opposite direction of the fall. End with the line still descending while he rises higher. Clean impossible motion, strong direction contrast, abstract geometric space, high contrast, no comedy, no extra objects, vertical 9:16
-
-## 首幀大字
-
-**WRONG WAY**
-
-## Hook 字幕
-
-**UP WHILE IT FELL**
-
----
-
-# 8) Why Was the Circle Following Him?
-
-## 6s Video Prompt
-
-Minimal cinematic stick man animation, black background, thin white line stick man walking slowly across a simple floor line, with a glowing hollow white circle behind him. During the first 3 seconds, the stick man walks and the circle quietly follows at a fixed distance. From 3 to 6 seconds, the stick man suddenly changes direction, but the circle instantly follows and keeps the same distance behind him. End with the stick man turning back toward the circle in confusion. Minimal geometric composition, mysterious abstract motion, high contrast, no comedy, no extra background details, vertical 9:16
-
-## 首幀大字
-
-**FOLLOWING**
-
-## Hook 字幕
-
-**IT KEPT FOLLOWING**
-
----
-
-# 統一補充句，可加在每支 prompt 最後
-
-如果你的生成器對風格一致性很敏感，可以在每支最後再補這段：
-
-**Consistent premium minimalist stick man series style, smooth motion, elegant timing, one clear impossible or mysterious concept, no humor, no childish design, no clutter, strong first-frame readability.**
-
----
-
-# 我建議你實際使用時的做法
-
-## 最穩版本
-
-每次貼上時用這個順序：
-
-1. **主 prompt**
-2. **首幀大字**
-3. **Hook 字幕**
-4. 若生成器支援，再補：
-
-   * `9:16 vertical`
-   * `6 seconds`
-   * `minimal cinematic motion`
-
----
-
-# 更方便複製的超精簡版
-
-如果你想要更短、更像一段直接貼上，我也幫你整理一個格式範例。
-
-## 範例格式
-
-**A Stick Man That Opened a Door in the Sky**
-Minimal cinematic stick man animation, black background, thin white line stick man standing at the bottom center looking upward. A glowing rectangular door outline appears in the sky during the first 2 seconds. From 2 to 6 seconds, the door slowly opens and a vertical beam of white light shines downward. The stick man takes one small step forward and raises one hand toward it. High contrast, abstract line-space, elegant mysterious motion, no comedy, vertical 9:16.
-On-screen text: ABOVE
-Hook text: THE SKY OPENED
-
----
+A River in the Sky
+A Bridge Across the Sky River
+A Waterfall Into the Sky River
+
+A Giant Moon Above the Ocean
+A Whale Above the Clouds
+The Sky Cracked Open
+A Floating Island in the Sky
 ```
 
-#### Rule (極簡、快速、高概念的微型 Shorts)
+#### Impossible Worlds IP Rule v2
 ``` bash
-# ✏️ Stick Man 系列 IP 規則 v1（實戰測試版）
+是的，**建議做小幅修改，但不是推翻重做**。
+因為經過我們剛剛實際討論與生成測試，你已經發現幾個很重要的實戰問題：
 
-## 🎯 核心定位
+1. **AI 生成可行性**
+2. **觀眾 1 秒理解**
+3. **畫面辨識度（anchor）**
+4. **concept 不要太抽象**
 
-**Minimal Cinematic Micro-Short**
+所以 Impossible Worlds 的 Rule 應該從 **理論版 v1 → 實戰版 v2**。
 
-不是搞笑火柴人
-不是亂畫 meme
-不是低齡卡通
-不是純梗圖動畫
-
-只做一件事：
-
-> **用極簡火柴人與幾何線條，快速呈現一個高概念、異常、神秘或微情緒反轉的瞬間。**
-
-Stick Man 系列的本質不是「火柴人動畫」，而是：
-
-> **用最低視覺複雜度，測試最高概念鉤子的 Shorts 系列。**
+我幫你整理成一份 **可保存的版本**。
 
 ---
 
-# 1️⃣ 系列總綱
-
-## Stick Man 必須完成的 4 件事
-
-1. **前 1–2 秒就有概念鉤子**
-2. **畫面極簡，但異常感明確**
-3. **一支只講一個核心概念**
-4. **看完要留下「好妙 / 好怪 / 好有感」的單一印象**
+# 🌍 Impossible Worlds IP Rule v2（實戰版）
 
 ---
 
-## 系列品牌句
+# 1️⃣ 核心定位
 
-> **Simple lines. Strange moments.**
+一句話：
+One impossible world event that can be understood in one second.
 
-或：
+中文：
 
-> **Tiny impossible stories in stick form.**
+> **一個一秒就看懂的世界異常。**
 
----
-
-# 2️⃣ 系列在頻道中的定位
-
-## Stick Man 不是主線取代者
-
-它的角色是：
-
-* 測 hook
-* 測高概念
-* 測短秒數留存
-* 測極簡風格的傳播力
+不是哲學概念
+不是抽象藝術
+而是：
+世界規則壞掉
 
 ---
 
-## Stick Man 與另外兩個系列的關係
+# 2️⃣ 長度 Rule
 
-### 與 Skeleton 的關係
-
-Skeleton 是：
-
-* 詩意
-* 神秘
-* cinematic
-* 動物異常
-
-Stick Man 是：
-
-* 更極簡
-* 更快
-* 更抽象
-* 更像概念實驗室
-
-### 與 Animal Village 的關係
-
-Animal Village 是：
-
-* 故事型
-* 角色型
-* 溫暖反轉型
-
-Stick Man 是：
-
-* 非世界觀依賴
-* 更純 hook
-* 更純概念驅動
-
----
-
-# 3️⃣ 標題規則
-
-我建議 Stick Man 不要用和 Skeleton 一樣的固定句型，
-因為它的價值在「概念多樣，但外觀統一」。
-
-## 主標題方向
-
-可固定使用 3 種句型池，避免太散。
-
----
-
-## 句型 A：A Stick Man That...
-
-> **A Stick Man That [Impossible / Strange Action]**
-
-例：
-
-* A Stick Man That Opened a Door in the Sky
-* A Stick Man That Outran His Own Shadow
-* A Stick Man That Walked Off the Page
-
-適合：
-
-* Impossible
-* 視覺異常
-* 最接近 Skeleton 氣質
-
----
-
-## 句型 B：Why Did the Stick Man...
-
-> **Why Did the Stick Man [Strange Event]?**
-
-例：
-
-* Why Did the Stick Man Stop at the Edge?
-* Why Did the Stick Man Follow the Arrow?
-* Why Did the Stick Man Draw a Second Door?
-
-適合：
-
-* Mystery
-* 問題感
-* 接近 Animal Village 的 curiosity gap
-
----
-
-## 句型 C：The Stick Man Who...
-
-> **The Stick Man Who [Emotional / Strange Twist]**
-
-例：
-
-* The Stick Man Who Waited for One More Line
-* The Stick Man Who Drew Her Back
-* The Stick Man Who Stayed After the Page Ended
-
-適合：
-
-* Emotional Twist
-* 稍微詩意
-* 較適合晚間實驗
-
----
-
-## 標題規則建議
-
-* 初期以 **A / Why** 兩類為主
-* `The Stick Man Who...` 只占少量
-* 不要每支都換完全不同風格
-* 標題必須讓人一眼看出：**有怪事 / 有概念**
-
----
-
-# 4️⃣ 三大子支線規則
-
-這系列最適合固定成 3 個小支線。
-
----
-
-## A. Impossible
-
-### 定位
-
-最直接的高概念鉤子
-最適合拉停留
-
-### 核心
-
-> **不可能動作 / 不可能空間 / 不可能物理**
-
-### 題材例子
-
-* A Stick Man That Opened a Door in the Sky
-* A Stick Man That Outran His Own Shadow
-* A Stick Man That Climbed a Falling Line
-* A Stick Man That Walked on a Broken Circle
-
----
-
-## B. Mystery
-
-### 定位
-
-最適合測好奇心與留言反應
-
-### 核心
-
-> **發生了什麼？他為什麼這樣做？這條線是什麼？**
-
-### 題材例子
-
-* Why Did the Stick Man Follow the Arrow?
-* Why Was There a Line Behind Him?
-* Why Did the Door Appear Twice?
-* Why Did the Page Keep Changing?
-
----
-
-## C. Emotional Twist
-
-### 定位
-
-最適合測情緒記憶與收藏感
-
-### 核心
-
-> **前面很簡單，最後一秒有小小情緒反轉**
-
-### 題材例子
-
-* The Stick Man Who Waited at the Edge
-* The Stick Man Who Drew Her Back
-* The Stick Man Who Saved the Last Line
-* The Stick Man Who Stayed After the Fade
-
----
-
-# 5️⃣ 子支線比例建議
-
-初期不要平均分配。
-
-## 建議比例
-
-* **Impossible：40%**
-* **Mystery：40%**
-* **Emotional Twist：20%**
+固定：
+6 seconds
 
 原因：
 
-* 你現在最需要先測的是抓人能力
-* Emotional 題材通常比較吃 execution
-* 先確認「停留」和「看完率」，再放大情緒支線
+* 容易 loop
+* retention 高
+* AI生成穩定
 
 ---
 
-# 6️⃣ 長度規則
+# 3️⃣ 結構 Rule（6 秒）
+0–1s  奇觀出現
+1–3s  異常開始
+3–5s  異常持續
+5–6s  Hold
 
-## 主長度區間
+不要：
 
-> **8–15 秒**
-
-這是 Stick Man 最重要的規則之一。
-
----
-
-## 長度分級
-
-### 8–10 秒
-
-適合：
-
-* 單一反常動作
-* 極短 hook
-* 強收尾
-
-### 11–13 秒
-
-適合：
-
-* 有一點追查感
-* 有一點節奏變化
-* 最常用
-
-### 14–15 秒
-
-適合：
-
-* Emotional Twist
-* 需要最後一秒反轉的片
+* 快速剪輯
+* 太多鏡頭
 
 ---
 
-## 不建議
+# 4️⃣ Concept Rule（最重要）
 
-* 超過 18 秒
-* 做成小故事解說
-* 拖太慢
-
-因為 Stick Man 的優勢就是：
-
-> **簡、快、狠。**
-
----
-
-# 7️⃣ 結構規則
-
-## 標準結構
-
-### 0–2s
-
-概念 hook 出現
-
-### 2–6s
-
-異常動作 / 事件展開
-
-### 6–10s
-
-異常升級 / 問題加深
-
-### 10–15s
-
-收尾 / 反轉 / 定格
-
----
-
-## 關鍵原則
-
-不要有多餘鋪陳。
-不要先解釋背景。
-不要花太多時間讓觀眾理解世界觀。
-
-Stick Man 必須做到：
-
-> **看 1 秒懂一半，看完懂全部。**
-
----
-
-# 8️⃣ 視覺規則
-
-## 視覺總原則
-
-> **越簡單越好，但不能隨便。**
-
----
-
-## 固定元素
-
-* 火柴人主體
-* 黑 / 白 / 灰基底優先
-* 線條清楚
-* 高對比
-* 幾何圖形可入鏡
-* 空間元素極少
-
----
-
-## 可加入的元素
-
-* 線
-* 門
-* 箭頭
-* 圓形
-* 平台
-* 階梯
-* 陰影
-* 小光點
-
----
-
-## 不建議
-
-* 太多顏色
-* 太複雜背景
-* 太多角色
-* 太多物件
-* 太擬真
-
----
-
-## 視覺原則
-
-> 不是畫面豐富，而是概念清楚。
-
----
-
-# 9️⃣ 色彩規則
-
-## 主建議
-
-* 黑底白線
-* 白底黑線
-* 深灰底白線
-
----
-
-## 點綴色
-
-只允許 **1 個點綴色** 作為焦點。
+每支影片：
+只允許一個世界異常
 
 例如：
 
-* 黃色：門 / 星 / 光點
-* 紅色：警示 / 心 / 特殊線
-* 藍色：邊界 / 冷感空間
+✔ River in the Sky
+✔ Giant Moon
+✔ Floating Island
+
+不要：
+
+✖ 月亮 + 城市 + 火山 + 海嘯
 
 ---
 
-## 色彩原則
+# 5️⃣ Visual Anchor Rule（新增）
 
-* 每支不要超過 2–3 色
-* 讓焦點物件一眼可辨
-* 點綴色只服務核心概念
-
----
-
-# 🔟 動作規則
-
-## 一支只允許一個核心異常
-
-和 Skeleton 一樣，這條很重要。
+每支影片必須有：
+一個現實辨識物件
 
 例如：
 
-* 開天空的門
-* 追自己的影子
-* 沿不存在的線往上走
-* 站在頁面邊界不掉下去
+| concept         | anchor      |
+| --------------- | ----------- |
+| sky river       | river banks |
+| giant moon      | ocean       |
+| floating island | trees       |
+| whale sky       | clouds      |
 
-不要同時塞：
+沒有 anchor 時：
 
-* 門
-* 影子
-* 分身
-* 爆炸
-* 空間扭曲
+觀眾會看不懂。
 
----
-
-## 動作設計原則
-
-Stick Man 不是看細節動畫，
-而是看：
-
-* 反常
-* 方向
-* 關係
-* 結果
+這是你 **Sky River 測試得到的結論**。
 
 ---
 
-# 1️⃣1️⃣ 疊字規則
+# 6️⃣ Simplicity Rule
 
-## 建議每支只放 1–2 組短字
+畫面元素：
+1–2 個主體
 
-因為畫面已經很簡。
+例如：
 
----
+✔ moon + ocean
+✔ whale + clouds
 
-## 可用類型
+不要：
 
-### Hook 型
-
-* NOT POSSIBLE
-* TOO FAR
-* NO WAY
-* WHY?
-
-### Concept 型
-
-* THE EDGE
-* ONE MORE LINE
-* SECOND DOOR
-* HIS SHADOW
+✖ city + ocean + planet + mountains
 
 ---
 
-## 原則
+# 7️⃣ Title Rule
 
-* 字不要比畫面更複雜
-* 不要每支都滿版大字
-* 疊字是提示，不是主角
+固定使用：
 
----
+### 模板 A
+A [Object] in the Sky
 
-# 1️⃣2️⃣ 聲音規則
-
-Stick Man 雖然極簡，但聲音很重要。
-
-## 音樂方向
-
-* minimal pulse
-* soft tension
-* glitch ambient
-* abstract cinematic
-* gentle mystery tone
+例如：
+A River in the Sky
+A Whale in the Sky
+A City in the Sky
 
 ---
 
-## 音效方向
+### 模板 B
+A Giant [Object] Above the [Place]
 
-可用：
-
-* 喀答
-* 線條劃出聲
-* 空氣切開聲
-* 微弱低頻
-* 回音點擊
-* 紙面擦過聲
+例如：
+A Giant Moon Above the Ocean
 
 ---
 
-## 不可用
+### 模板 C
+The [World Object] Started [Impossible Action]
 
-* 搞笑音效
-* meme 音樂
-* 太卡通彈跳音
-* 太吵的 EDM
-* 太恐怖的 jump scare hit
 
----
-
-## 聲音原則
-
-> 要有存在感，但不能破壞極簡的高級感。
+例如：
+The Ocean Started Rising
+The Sky Cracked Open
 
 ---
 
-# 1️⃣3️⃣ 角色規則
+# 8️⃣ 首幀文字 Rule
 
-## 主規則
+每支影片：
+1 word
 
-每支以 **1 個 Stick Man 為主**
+例如：
+ABOVE
+HOW
+BROKEN
+FLOATING
+RISING
 
----
-
-## 可例外
-
-只有少數情況才可出現：
-
-* 影子版自己
-* 第二個火柴人
-* 記憶殘影
-* 結尾出現另一角色
+不要：
+長句
 
 ---
 
-## 原則
+# 9️⃣ Sound Rule
 
-* 不做多人吵鬧互動
-* 不靠角色群戲
-* 重點永遠是單一概念事件
+Sound 必須：
+ambient
+subtle
+cinematic
 
----
+不要：
 
-# 1️⃣4️⃣ 世界觀規則
-
-Stick Man 不需要像 Animal Village 那樣有完整村莊世界，
-但要有統一感。
-
-## 統一世界觀定義
-
-> **Abstract line-space**
-
-也就是：
-
-* 空白空間
-* 幾何空間
-* 邊界
-* 門
-* 線
-* 平台
-* 影子
-* 空洞
+✖ narration
+✖ loud music
+✖ comedy
 
 ---
 
-## 感覺要像
+# 🔟 發布 Rule
 
-* 一個概念空間
-* 一個未完成的世界
-* 一個規則突然失效的地方
+Impossible Worlds：
+Tue 9 PM
+Fri 9 PM
 
----
+用途：
+實驗 short
 
-# 1️⃣5️⃣ 系列禁區
-
-以下不要碰：
-
-* 純搞笑梗圖
-* 火柴人打架亂鬥
-* 低齡惡搞
-* 解說型
-* 太複雜劇情
-* 顏色太花
-* 太多角色
-* 過度 meme 化
+不是主系列。
 
 ---
 
-## 原因
+# 11️⃣ 成功指標
 
-這會讓 Stick Man 從「高概念實驗」掉到「普通火柴人動畫」。
+只看三個：
 
----
-
-# 1️⃣6️⃣ 成功判斷標準
-
-## 一支合格 Stick Man short，至少應做到：
-
-1. 前 1–2 秒就有概念鉤子
-2. 畫面一眼能讀懂
-3. 全片只有一個核心問題或異常
-4. 看完有單一明確印象
-5. 即使極簡，仍有 Robert Hut 氣質
+### Viewed vs Swiped
+>70%
 
 ---
 
-## 系列層級成功
-
-如果連續幾支片讓觀眾感覺：
-
-* 很簡單
-* 但很怪
-* 很短
-* 但有記憶點
-* 而且風格一致
-
-那 Stick Man 系列就成立了。
+### Average Viewed
+>110%
 
 ---
 
-# 1️⃣7️⃣ 與主頻道品牌的一致性規則
-
-雖然 Stick Man 是實驗系列，
-仍要保留 Robert Hut 的核心味道：
-
-* 神秘
-* 概念感
-* 微詩意
-* 非搞笑主導
-* 非低幼
-* 有一點 impossible / mystery / emotion
+### Like Ratio
+>3%
 
 ---
 
-## 一句話要求
+# 12️⃣ 系列發展 Rule
 
-> **它可以更輕，但不能更俗。**
+如果某個 concept 成功：
+
+例如：
+Giant Moon
+
+才擴展：
+Moon above city
+Moon above mountains
+Moon above desert
+
+不要一開始就：
+建立 universe
+---
+
+
+# 和 v1 最大差異
+v2 新增了 **兩個最重要的實戰 rule**：
+
+### Anchor Rule
+觀眾要看得懂。
+
+### Simplicity Rule
+畫面要簡單。
+```
+
+#### Impossible Worlds IP Rule v1
+``` bash
+很好，**Impossible Worlds** 其實非常適合你的頻道，因為它同時符合：
+
+* **視覺強**
+* **AI容易生成**
+* **1 秒看懂**
+* **不需要語言理解**
+
+而且它和你現有的兩個系列 **不衝突**：
+
+* Skeleton → 生物 / 解剖 / 不可能動作
+* Animal Village → 懸疑故事
+* **Impossible Worlds → 世界規則被打破**
+
+下面我整理成一份 **完整可保存的 IP 文件**，你以後即使重開對話也可以直接往下做。
 
 ---
 
-# 1️⃣8️⃣ 發布規則
+# 🌍 Robert Hut 系列
 
-## 現階段建議
-
-* 放在 **09:00 PM 實驗槽**
-* 每週 **2 支**
-* 先連跑 **4 週**
+# Impossible Worlds IP Rule v1
 
 ---
 
-## 測試方法
+# 1️⃣ 核心定位
 
-固定 Stick Man 外殼，
-只改：
+**一句話定義**
 
-* 題材
-* 子支線
-* hook
-* 片長
-* 收尾方式
+> Worlds where reality stops working.
 
-不要同時測太多完全不同類型內容。
+中文理解：
 
----
+> **世界規則壞掉的瞬間**
 
-# 1️⃣9️⃣ 一句話總綱
+重點不是故事，而是：
 
-> **Stick Man 系列不是隨便的火柴人短片。**
->
-> 它是：
->
-> **用極簡線條、極短秒數、單一高概念鉤子，測試 Shorts 傳播力的抽象微型 IP。**
+**一個世界異常畫面**
 
 ---
 
-# 2️⃣0️⃣ 你現在最適合的執行方式
+# 2️⃣ 影片長度
 
-## 先跑這個版本
+**建議長度：6–8 秒**
 
-* 晚上 9 點
-* 每週 2 支
-* 固定 Stick Man
-* 交互測：
+原因：
 
-  * Impossible
-  * Mystery
-  * Emotional Twist
+* 概念型 short
+* AI生成穩定
+* 容易 loop
 
 ---
 
-## 初期最適合的題材方向
+# 3️⃣ 基本結構
 
-### Impossible
+### 6 秒結構
 
-* A Stick Man That Opened a Door in the Sky
-* A Stick Man That Outran His Own Shadow
+```
+0–1s   Hook 畫面
+1–3s   異常開始
+3–5s   異常強化
+5–6s   Hold（loop）
+```
 
-### Mystery
+---
 
-* Why Did the Stick Man Follow the Arrow?
-* Why Was There a Line Behind Him?
+# 4️⃣ Title Rule
 
-### Emotional Twist
+固定結構：
 
-* The Stick Man Who Waited at the Edge
-* The Stick Man Who Drew Her Back
+```
+A / The + World Object + Impossible Event
+```
+
+例如：
+
+* A River Flowing Through the Sky
+* The Moon Fell Into the Ocean
+* A Whale Flying Over the City
+
+---
+
+# 5️⃣ 視覺 Rule
+
+每支影片必須：
+
+✔ **一個主要異常**
+✔ **一個主要物件**
+✔ **背景簡單**
+
+不要：
+
+✖ 太多元素
+✖ 太複雜動作
+✖ 太多角色
+
+---
+
+# 6️⃣ Hook Rule
+
+首幀要能做到：
+
+**1 秒理解**
+
+例如：
+
+| 畫面    | 梗                |
+| ----- | ---------------- |
+| 河在天上  | gravity broken   |
+| 鯨魚在天空 | impossible scale |
+| 月亮掉海裡 | cosmic anomaly   |
+
+---
+
+# 7️⃣ Text Overlay Rule
+
+每支只用：
+
+**1–2 個字**
+
+例如：
+
+* ABOVE
+* IMPOSSIBLE
+* HOW
+* BROKEN
+* FALLING
+
+不要長句。
+
+---
+
+# 8️⃣ Sound Rule
+
+Sound 必須：
+
+✔ ambient
+✔ subtle
+✔ cinematic
+
+不要：
+
+✖ 音樂太滿
+✖ narration
+✖ comedy
+
+---
+
+# 9️⃣ AI Prompt 基本模板
+
+你可以固定使用：
+
+```
+Minimal cinematic surreal world scene, dark background or atmospheric sky, one impossible world event happening, elegant motion, high contrast lighting, mysterious atmosphere, slow cinematic motion, vertical 9:16
+```
+
+---
+
+# 🔟 Sound Prompt 模板
+
+```
+No dialogue, no narration, subtle cinematic ambient sound, soft atmospheric drone, quiet spatial effects, mysterious tone.
+```
+
+---
+
+# 📚 Impossible Worlds 題庫（20 個）
+
+以下都是：
+
+**1 秒能理解的 concept**
+
+---
+
+## 1
+
+A River Flowing Through the Sky
+
+天空有一條河
+
+---
+
+## 2
+
+The Moon Fell Into the Ocean
+
+月亮掉進海
+
+---
+
+## 3
+
+A Whale Swimming Above the Clouds
+
+鯨魚在雲上游
+
+---
+
+## 4
+
+The Sun Turned Off
+
+太陽熄滅
+
+---
+
+## 5
+
+A Waterfall Falling Into the Sky
+
+瀑布往天上流
+
+---
+
+## 6
+
+A Mountain Floating Above the Sea
+
+山漂在海上
+
+---
+
+## 7
+
+The Ocean Started Rising
+
+海水往上升
+
+---
+
+## 8
+
+A City Hanging in the Sky
+
+城市倒掛天空
+
+---
+
+## 9
+
+A Giant Moon Over a Tiny Village
+
+巨大月亮
+
+---
+
+## 10
+
+The Sky Cracked Open
+
+天空裂開
+
+---
+
+## 11
+
+A Forest Growing on the Clouds
+
+雲上的森林
+
+---
+
+## 12
+
+A Tornado Made of Water
+
+水龍捲
+
+---
+
+## 13
+
+The Ocean Was Above the Clouds
+
+海在天上
+
+---
+
+## 14
+
+A Giant Planet Above the City
+
+城市上方巨大星球
+
+---
+
+## 15
+
+A Bridge Between Two Moons
+
+月亮之橋
+
+---
+
+## 16
+
+The Horizon Started Moving
+
+地平線在移動
+
+---
+
+## 17
+
+A Lighthouse Floating in the Sky
+
+天空燈塔
+
+---
+
+## 18
+
+The Stars Fell Into the Ocean
+
+星星掉進海
+
+---
+
+## 19
+
+A River Flowing Into Space
+
+河流流向宇宙
+
+---
+
+## 20
+
+The World Was Upside Down
+
+世界顛倒
+
+---
+
+# 🔥 最推薦先做的 6 個
+
+如果你要測試 v1，我會先做：
+
+1️⃣ A River Flowing Through the Sky
+2️⃣ A Whale Swimming Above the Clouds
+3️⃣ The Moon Fell Into the Ocean
+4️⃣ A Waterfall Falling Into the Sky
+5️⃣ A City Hanging in the Sky
+6️⃣ The Sky Cracked Open
+
+原因：
+
+✔ 畫面衝擊
+✔ AI容易生成
+✔ 1秒理解
+
+---
+
+# 發片策略
+
+Impossible Worlds 建議：
+
+**晚上 9:00 PM**
+
+作為：
+
+> 實驗 short
+
+與 Skeleton / Animal Village 不衝突。
+
+---
+
+# 最重要的一句話
+
+Impossible Worlds 的成功關鍵：
+
+```
+看到畫面
+立刻知道不可能
+```
+
+而不是：
+
+```
+需要思考
+```
+
+---
+
+如果你願意，我可以幫你再做一份 **Impossible Worlds v2（50 個 concept）**，
+那會是 **非常完整的一套 Shorts 題庫**。
+
+```
+
+#### 3 description + tags
+``` bash
+很好 👍
+我幫你做 **YouTube Shorts 最適合的版本**：
+
+原則我會用：
+
+* **description 短但含關鍵字**
+* **tags 350–400 characters**
+* 包含 **Robert Hut**
+* 包含 **AI / surreal / impossible / cinematic**
+* 適合 **Shorts discovery**
+
+---
+
+# 1️⃣ A River in the Sky
+
+## Description
+
+A river flowing across the sky above the clouds.
+In this Impossible Worlds short, reality breaks as a floating river stretches across the heavens.
+
+A surreal cinematic micro-scene exploring impossible landscapes and dreamlike worlds.
+
+More AI cinematic shorts on the Robert Hut channel.
+
+---
+
+## Tags (≈370 characters)
+
+river in the sky, impossible world, surreal landscape, floating river, sky river, cinematic surreal, impossible nature, fantasy landscape, dreamlike world, AI generated video, AI cinematic short, surreal environment, strange world concept, atmospheric sky scene, visual paradox, cinematic short film, surreal nature scene, fantasy sky river, vertical short video, Robert Hut
+
+---
+
+# 2️⃣ A Bridge Across the Sky River
+
+## Description
+
+A bridge crossing a river that flows through the sky.
+In this Impossible Worlds short, a surreal landscape appears where a floating river and bridge exist above the clouds.
+
+A cinematic AI short exploring impossible places and mysterious worlds.
+
+Created for the Robert Hut channel.
+
+---
+
+## Tags (≈370 characters)
+
+sky river bridge, bridge in the sky, impossible world, surreal landscape, floating river bridge, cinematic surreal scene, fantasy sky world, impossible architecture, dreamlike environment, surreal sky river, atmospheric cinematic short, AI generated landscape, fantasy environment video, impossible geography, strange world concept, cinematic short film, surreal sky scene, vertical short video, Robert Hut
+
+---
+
+# 3️⃣ A Waterfall Into the Sky River
+
+## Description
+
+A waterfall rising from the clouds and pouring into a river in the sky.
+In this Impossible Worlds short, gravity breaks as water flows upward into a floating river above the clouds.
+
+A surreal cinematic moment from the Robert Hut AI shorts series.
+
+---
+
+## Tags (≈380 characters)
+
+waterfall in the sky, impossible waterfall, sky river waterfall, surreal landscape, floating waterfall, reverse waterfall, impossible world scene, fantasy sky environment, cinematic surreal video, dreamlike nature scene, AI generated landscape, impossible nature phenomenon, atmospheric sky world, fantasy water landscape, cinematic short film, strange world concept, surreal nature video, vertical short video, Robert Hut
+
+---
+
+✅ 這三組我特別做了幾件事：
+
+* tags **約 360–380 characters**
+* 每組 **SEO slightly different**
+* 避免 **tag 重複過高**
+* 加入 **AI / surreal / cinematic / impossible**
+
+這樣 YouTube **更容易分類內容**。
+
+---
+
+如果你願意，我可以再幫你做一個 **很關鍵的東西**：
+
+👉 **Impossible Worlds 爆款 Title 模板（20 個）**
+
+這會讓你之後 **生成影片 → 直接套標題**，速度會快很多。
+
+```
+
+#### Impossible Worlds 爆款 Title 模板（20 個）
+``` bash
+很好 👍
+下面這份是 **Impossible Worlds 爆款 Title 模板（20 個）**，我特別依照 **YouTube Shorts 的常見爆款結構**整理。
+
+原則是：
+
+* **短**
+* **1 秒看懂**
+* **畫面導向**
+* **好奇心（curiosity gap）**
+
+我也分成 **4 種模板類型**，方便你之後自己延伸。
+
+---
+
+# 🌍 Impossible Worlds 爆款 Title 模板（20 個）
+
+---
+
+# ① 世界規則壞掉型（最容易爆）
+
+模板：
+The [World Object] Started [Impossible Action]
+
+例子：
+
+1️⃣ The Sky Started Flowing Like Water
+2️⃣ The Ocean Started Rising Into the Sky
+3️⃣ The Moon Fell Into the Ocean
+4️⃣ The Clouds Turned Into Water
+5️⃣ The Horizon Started Moving
+
+這種標題的優點：
+
+> **觀眾一眼知道世界出 bug**
+
+---
+
+# ② 不可能地形型（視覺衝擊強）
+
+模板：
+A [Landscape] in the Sky
+
+例子：
+
+6️⃣ A River in the Sky
+7️⃣ A Waterfall in the Clouds
+8️⃣ A Mountain Floating in the Sky
+9️⃣ A City Hanging Above the Clouds
+🔟 A Bridge Across the Sky
+
+這類非常適合 **AI 生成 + Shorts**。
+
+---
+
+# ③ 巨物奇觀型（YouTube 很喜歡）
+
+模板：
+A Giant [Object] Above the [Place]
+
+例子：
+
+11️⃣ A Giant Moon Above the Ocean
+12️⃣ A Planet Above the City
+13️⃣ A Giant Whale Above the Clouds
+14️⃣ A Floating Island Above the Sea
+15️⃣ A Lighthouse in the Sky
+
+這類畫面 **非常容易停滑**。
+
+---
+
+# ④ 宇宙異常型（mysterious）
+
+模板：
+The Sky [Impossible Event]
+
+例子：
+"
+16️⃣ The Sky Cracked Open
+17️⃣ The Sky Started Breaking
+18️⃣ The Stars Fell Into the Ocean
+19️⃣ The Sun Suddenly Turned Off
+20️⃣ The Sky Wasn't Empty
+"
+
+這種標題通常 **很適合暗色 cinematic**。
+
+---
+
+# ⭐ 最推薦先測的 8 個
+
+如果要做 **Impossible Worlds v2 測試**
+我會先做：
+
+1️⃣ A River in the Sky
+2️⃣ A Giant Moon Above the Ocean
+3️⃣ The Sky Cracked Open
+4️⃣ A Whale Above the Clouds
+5️⃣ The Ocean Started Rising
+6️⃣ A Floating Island in the Sky
+7️⃣ A Bridge Across the Clouds
+8️⃣ The Stars Fell Into the Ocean
+
+原因：
+
+✔ AI容易生成
+✔ 1 秒看懂
+✔ 視覺強
+
+---
+
+# 📌 一個非常重要的 Shorts 原則
+
+Impossible Worlds 成功關鍵：
+觀眾滑到影片
+1秒知道不可能
+
+而不是：
+觀眾需要思考
+
+---
+
+# 再給你一個關鍵技巧
+
+標題最好包含：
+
+**一個真實物件**
+
+例如：
+
+* river
+* moon
+* city
+* whale
+* waterfall
+
+因為 **現實物件越清楚 → 不可能感越強**。
 
 ---
 ```
 
-#### Stick Man 選題資料庫 v1，30 個可拍題目。
+#### Impossible Worlds 爆款 Prompt v1（20 支）
 ``` bash
-# ✏️ Stick Man 選題資料庫 v1
+很好 👍
+下面這份是 **Robert Hut — Impossible Worlds 爆款 Prompt v1（20 支）**。
 
-**30 個可拍題目**
+設計原則：
 
-我會依照你目前的 Stick Man 系列規則來設計：
+* **6 秒 Shorts**
+* **1 秒看懂**
+* **AI 容易生成**
+* **畫面衝擊強**
+* **每支只有一個不可能事件**
 
-* 極簡
-* 高概念
-* 一支只打一個核心鉤子
-* 以 **Impossible / Mystery / Emotional Twist** 三小支線為主
-* 保持 Robert Hut 的氣質：
+每個都包含：
 
-  * 神秘
-  * 微詩意
-  * 非搞笑
-  * 非低幼
-
-我也會盡量讓題目本身就有 Shorts 感，也就是：
-
-> **看標題就能立刻感覺到有一個怪事。**
+* Title
+* 首幀文字
+* Video Prompt（可直接貼）
+* Sound Prompt
 
 ---
 
-# A. Impossible 類（12 題）
-
-這一類最適合先測，因為最直接、最好抓停留。
-
-## 1.
-
-**A Stick Man That Opened a Door in the Sky**
-核心：天空出現一扇門
-
-## 2.
-
-**A Stick Man That Outran His Own Shadow**
-核心：比自己的影子還快
-
-## 3.
-
-**A Stick Man That Walked Off the Page**
-核心：離開畫面邊界
-
-## 4.
-
-**A Stick Man That Climbed a Falling Line**
-核心：線在掉，他卻往上爬
-
-## 5.
-
-**A Stick Man That Stood on Air**
-核心：站在不存在的平台上
-
-## 6.
-
-**A Stick Man That Drew a Staircase Upward**
-核心：邊畫邊往上走
-
-## 7.
-
-**A Stick Man That Jumped Through a Circle**
-核心：穿過一個不合理的幾何入口
-
-## 8.
-
-**A Stick Man That Pulled the Moon Down**
-核心：用一條線把月亮拉下來
-
-## 9.
-
-**A Stick Man That Walked on a Broken Line**
-核心：明明斷掉，卻還能行走
-
-## 10.
-
-**A Stick Man That Entered His Own Drawing**
-核心：走進自己剛畫出來的空間
-
-## 11.
-
-**A Stick Man That Turned a Corner That Wasn’t There**
-核心：在空白處轉彎
-
-## 12.
-
-**A Stick Man That Crossed the Edge Without Falling**
-核心：走過畫面邊界卻沒掉下去
+# 🌍 Impossible Worlds — 20 爆款 Prompt
 
 ---
 
-# B. Mystery 類（10 題）
+# 1️⃣ A River in the Sky
 
-這一類最適合測 curiosity gap，接近你 Animal Village 的懸疑優勢。
+首幀文字
+ABOVE
 
-## 13.
+Video Prompt
+Minimal cinematic surreal world scene above a sea of clouds, vertical 9:16 composition. From the first frame the word "ABOVE" appears at the top center. A wide winding river with visible river banks flows across the sky like a floating landscape above the clouds. Water gently flows along the curved river path while clouds drift slowly below. Cinematic lighting, mysterious atmosphere.
 
-**Why Did the Stick Man Follow the Arrow?**
-核心：箭頭不知通往哪裡
+Sound Prompt
+Soft ambient drone with gentle flowing water sound and light wind above the clouds. No dialogue.
 
-## 14.
-
-**Why Was There a Line Behind Him?**
-核心：身後突然多出一條線
-
-## 15.
-
-**Why Did the Door Appear Twice?**
-核心：同一扇門出現兩次
-
-## 16.
-
-**Why Did the Page Keep Changing?**
-核心：空間規則不斷變動
-
-## 17.
-
-**Why Did the Stick Man Stop at the Edge?**
-核心：他明明可以走，卻停下來
-
-## 18.
-
-**Why Was the Circle Following Him?**
-核心：一個幾何圖形一直跟著他
-
-## 19.
-
-**Why Did the Shadow Move First?**
-核心：影子先動，本體後動
-
-## 20.
-
-**Why Did the Line Lead Nowhere?**
-核心：線條像在指路，卻沒有終點
-
-## 21.
-
-**Why Did the Second Door Stay Open?**
-核心：第二扇門的存在不合理
-
-## 22.
-
-**Why Did the Floor Disappear Under Him?**
-核心：腳下空間突然消失
 
 ---
 
-# C. Emotional Twist 類（8 題）
+# 2️⃣ A Giant Moon Above the Ocean
 
-這一類比較適合晚間、較詩意、較有記憶點的微反轉。
+首幀文字
+TOO CLOSE
 
-## 23.
+Video Prompt
+Cinematic ocean horizon at night, vertical 9:16. A massive glowing moon hangs extremely low above the ocean surface, appearing enormous and unreal. Moonlight reflects across calm water while clouds move slowly in the sky. Surreal scale, dramatic lighting.
 
-**The Stick Man Who Waited at the Edge**
-核心：一直站在邊界等待什麼
-
-## 24.
-
-**The Stick Man Who Drew Her Back**
-核心：畫回一個失去的人影
-
-## 25.
-
-**The Stick Man Who Saved the Last Line**
-核心：留下最後一條線，不讓它消失
-
-## 26.
-
-**The Stick Man Who Stayed After the Fade**
-核心：畫面都快消失了，他還在
-
-## 27.
-
-**The Stick Man Who Left One Space Empty**
-核心：刻意為某個不存在的人留位置
-
-## 28.
-
-**The Stick Man Who Reached for the Missing Shape**
-核心：想碰到一個缺席的形狀
-
-## 29.
-
-**The Stick Man Who Waited for One More Line**
-核心：他在等最後一筆完成
-
-## 30.
-
-**The Stick Man Who Watched the Door Close Slowly**
-核心：一扇門慢慢關上，像錯過了什麼
+Sound Prompt
+Deep atmospheric ambient drone with subtle ocean waves and distant wind.
 
 ---
 
-# 我最推薦你先拍的 10 題
+# 3️⃣ The Sky Cracked Open
 
-如果你是要先做一輪最容易測出效果的，我建議先從這 10 題開始：
+首幀文字
+BROKEN
 
-## 第一梯隊
+Video Prompt
+Dark cloudy sky scene, vertical 9:16 composition. A thin glowing crack appears across the sky and slowly spreads wider revealing bright light behind the sky. Clouds move slowly around the glowing fracture. Cinematic surreal atmosphere.
 
-1. **A Stick Man That Opened a Door in the Sky**
-2. **A Stick Man That Outran His Own Shadow**
-3. **A Stick Man That Walked Off the Page**
-4. **Why Did the Stick Man Follow the Arrow?**
-5. **Why Did the Shadow Move First?**
-
-## 第二梯隊
-
-6. **A Stick Man That Climbed a Falling Line**
-7. **Why Was the Circle Following Him?**
-8. **The Stick Man Who Waited at the Edge**
-9. **The Stick Man Who Drew Her Back**
-10. **A Stick Man That Crossed the Edge Without Falling**
-
-這 10 題的優點是：
-
-* 首秒就容易懂
-* 概念夠乾淨
-* 不需要複雜世界觀
-* 能同時測 Impossible / Mystery / Emotional Twist 三種方向
+Sound Prompt
+Subtle tension drone with faint cracking sound and airy glowing tone.
 
 ---
 
-# 我幫你再分成適合的測試用途
+# 4️⃣ A Whale Above the Clouds
 
-## 1. 最適合測停留率
+首幀文字
+IMPOSSIBLE
 
-這些題目第一眼最直接：
+Video Prompt
+Wide sky scene above a sea of clouds. A giant whale slowly swims through the sky as if it were water, moving gently above the clouds. Cinematic surreal atmosphere, slow motion movement.
 
-* A Stick Man That Opened a Door in the Sky
-* A Stick Man That Outran His Own Shadow
-* A Stick Man That Walked Off the Page
-* A Stick Man That Climbed a Falling Line
-* A Stick Man That Stood on Air
-
----
-
-## 2. 最適合測留言 / 好奇心
-
-這些題目較容易讓人想問「為什麼」：
-
-* Why Did the Stick Man Follow the Arrow?
-* Why Was There a Line Behind Him?
-* Why Did the Door Appear Twice?
-* Why Did the Shadow Move First?
-* Why Was the Circle Following Him?
+Sound Prompt
+Deep ambient drone with soft wind and distant whale tone.
 
 ---
 
-## 3. 最適合測收藏 / 情緒記憶
+# 5️⃣ The Ocean Started Rising
 
-這些題目比較詩意，也更可能讓觀眾記住：
+首幀文字
+RISING
 
-* The Stick Man Who Waited at the Edge
-* The Stick Man Who Drew Her Back
-* The Stick Man Who Saved the Last Line
-* The Stick Man Who Waited for One More Line
-* The Stick Man Who Left One Space Empty
+Video Prompt
+Cinematic ocean scene, vertical 9:16. The entire ocean surface begins slowly rising upward into the sky like gravity reversed. Water lifts upward forming a massive floating ocean wall. Dramatic surreal lighting.
 
----
-
-# 如果你要做 4 週晚間測試
-
-我會建議你先從這種結構開始：
-
-## 第 1 週
-
-* A Stick Man That Opened a Door in the Sky
-* Why Did the Stick Man Follow the Arrow?
-
-## 第 2 週
-
-* A Stick Man That Outran His Own Shadow
-* The Stick Man Who Waited at the Edge
-
-## 第 3 週
-
-* A Stick Man That Walked Off the Page
-* Why Did the Shadow Move First?
-
-## 第 4 週
-
-* 把前 3 週表現最好的兩種方向再各做 1 支
+Sound Prompt
+Low cinematic drone with distant rushing water sound.
 
 ---
 
-# 題目使用原則
+# 6️⃣ A Floating Island in the Sky
 
-這 30 題雖然可拍，但建議你記住 3 個原則：
+首幀文字
+FLOATING
 
-## 1. 一次只拍一個核心概念
+Video Prompt
+Surreal sky landscape above clouds. A giant rocky island floats in midair with grass and trees growing on top while clouds drift beneath it. Cinematic lighting and slow atmospheric motion.
 
-不要把：
-
-* 門
-* 影子
-* 邊界
-* 圓形
-* 第二角色
-
-全塞進同一支。
+Sound Prompt
+Soft ambient drone with light wind atmosphere.
 
 ---
 
-## 2. 外觀要一致
+# 7️⃣ A Bridge Across the Clouds
 
-即使題目不同，也最好保持：
+首幀文字
+WHERE?
 
-* 黑白灰為主
-* 線條乾淨
-* 幾何元素少量
-* 高對比
-* 不搞笑
+Video Prompt
+A long bridge stretches across a sea of clouds connecting two floating rock cliffs in the sky. Clouds drift slowly beneath the bridge. Surreal cinematic lighting.
 
----
-
-## 3. 初期先偏 Impossible / Mystery
-
-Emotional Twist 很好，但它比較吃 execution。
-所以前幾週還是建議以：
-
-* Impossible
-* Mystery
-
-為主。
+Sound Prompt
+Soft wind ambience with subtle atmospheric drone.
 
 ---
 
-# 一句話建議
+# 8️⃣ The Stars Fell Into the Ocean
 
-如果 Skeleton 是「動物骨架的詩意異常」，
-Animal Village 是「溫暖反轉的村莊懸疑」，
-那 Stick Man 最好的定位就是：
+首幀文字
+FALLING
 
-> **極簡畫面裡的一個高概念怪瞬間。**
+Video Prompt
+Night ocean horizon scene. Bright stars slowly fall from the sky into the ocean surface creating glowing reflections on the water. Surreal cosmic atmosphere.
+
+Sound Prompt
+Gentle ambient drone with soft splash echoes and ocean waves.
+
+---
+
+# 9️⃣ A Waterfall Into the Sky
+
+首幀文字
+HOW
+
+Video Prompt
+A giant waterfall flows upward from the ground into the sky instead of falling downward. Water streams rise toward the clouds. Cinematic surreal lighting.
+
+Sound Prompt
+Reversed water rushing sound with subtle ambient drone.
+
+---
+
+# 🔟 A City Hanging in the Sky
+
+首幀文字
+UPSIDE
+
+Video Prompt
+A city skyline hangs upside down in the sky above the horizon while clouds drift between the floating city and the ground below. Surreal cinematic lighting.
+
+Sound Prompt
+Atmospheric drone with distant wind.
+
+---
+
+# 11️⃣ A Lighthouse in the Sky
+
+首幀文字
+GUIDING
+
+Video Prompt
+A tall lighthouse stands on a floating rock island high above the clouds while its light beam slowly rotates across the sky. Cinematic surreal atmosphere.
+
+Sound Prompt
+Soft ambient drone with distant wind and faint ocean ambience.
+
+---
+
+# 12️⃣ A Giant Planet Above the City
+
+首幀文字
+TOO BIG
+
+Video Prompt
+City skyline at night with an enormous glowing planet hovering extremely close above the buildings. Dramatic surreal lighting.
+
+Sound Prompt
+Deep atmospheric drone with subtle cosmic tone.
+
+---
+
+# 13️⃣ The Horizon Started Moving
+
+首幀文字
+WAIT
+
+Video Prompt
+Wide landscape view where the distant horizon slowly shifts sideways as if the world itself is sliding. Surreal cinematic atmosphere.
+
+Sound Prompt
+Soft tension drone with light wind ambience.
+
+---
+
+# 14️⃣ A Forest on the Clouds
+
+首幀文字
+GROWING
+
+Video Prompt
+A dense forest grows on a floating cloud platform high in the sky while clouds drift around the trees. Cinematic surreal lighting.
+
+Sound Prompt
+Soft wind ambience with subtle atmospheric drone.
+
+---
+
+# 15️⃣ The Sun Turned Off
+
+首幀文字
+DARK
+
+Video Prompt
+Bright daytime sky suddenly dims as the sun fades out like a light switching off. The sky becomes darker instantly. Cinematic surreal moment.
+
+Sound Prompt
+Low fading drone with soft atmospheric tone.
+
+---
+
+# 16️⃣ A River Flowing Into Space
+
+首幀文字
+ENDLESS
+
+Video Prompt
+A long river stretches upward into the sky disappearing into outer space beyond the clouds. Cinematic surreal landscape.
+
+Sound Prompt
+Soft ambient drone with flowing water sound.
+
+---
+
+# 17️⃣ A Mountain Floating Above the Sea
+
+首幀文字
+FLOATING
+
+Video Prompt
+A massive mountain floats in midair above the ocean while clouds drift around its base. Dramatic surreal lighting.
+
+Sound Prompt
+Atmospheric drone with distant ocean sound.
+
+---
+
+# 18️⃣ The Ocean Was Above the Clouds
+
+首幀文字
+ABOVE
+
+Video Prompt
+A vast ocean surface floats above the clouds with waves moving slowly while the sky appears beneath it. Surreal inverted world scene.
+
+Sound Prompt
+Soft water ambience with airy drone.
+
+---
+
+# 19️⃣ A Tornado Made of Water
+
+首幀文字
+SPINNING
+
+Video Prompt
+A giant swirling tornado made entirely of water rises from the ocean surface into the sky. Dramatic cinematic lighting.
+
+Sound Prompt
+Rushing water sound with atmospheric tension drone.
+
+---
+
+# 20️⃣ The World Was Upside Down
+
+首幀文字
+UPSIDE
+
+Video Prompt
+A landscape appears completely upside down with sky below and land above, creating a surreal inverted world. Cinematic mysterious lighting.
+
+Sound Prompt
+Low atmospheric drone with subtle wind ambience.
+
+---
+
+# ⭐ 我給你的實戰建議
+
+先測這 **5 支最容易成功的：**
+
+1️⃣ A Giant Moon Above the Ocean
+2️⃣ A Whale Above the Clouds
+3️⃣ The Sky Cracked Open
+4️⃣ A River in the Sky
+5️⃣ A Floating Island in the Sky
+
+原因：
+
+✔ AI 容易生成
+✔ 1 秒理解
+✔ 視覺衝擊
+
+---
 ```
 
-#### 4 週晚間發片順序建議
+#### 5個 description + tags
 ``` bash
-* Stick Man 放在 **09:00 PM**
-* 每週 **2 支**
-* 總共先跑 **4 週**
-* 目標不是亂測，而是：
+很好 👍
+我幫你把 **這 5 支 Impossible Worlds** 做成 **YouTube Shorts 最適合的 SEO description + tags**。
 
-  * 測 **Impossible**
-  * 測 **Mystery**
-  * 少量測 **Emotional Twist**
-* 同時保持它還是屬於 **Robert Hut 的風格宇宙**
+設計原則：
 
-也就是：
-
-> **固定 Stick Man 這個外殼，只測裡面的 hook 類型。**
+* description **短、清楚、含關鍵字**
+* tags **350–400 characters**
+* 避免 tags 完全重複
+* 包含 **AI / surreal / cinematic / impossible**
+* 包含 **Robert Hut**
 
 ---
 
-# ✏️ Stick Man 接下來 4 週晚間發片順序建議
+# 1️⃣ A Giant Moon Above the Ocean
 
-## 整體測試邏輯
+## Description
 
-這 4 週不是平均亂排，而是：
+A giant moon hanging just above the ocean.
+In this Impossible Worlds short, reality bends as a massive moon appears impossibly close to the sea, lighting the water with an eerie glow.
 
-### 前 2 週
+A cinematic surreal landscape from the Robert Hut AI shorts series exploring impossible worlds and dreamlike scenes.
 
-先測最容易抓人的兩種：
+## Tags (≈370 chars)
 
-* Impossible
-* Mystery
-
-### 第 3 週
-
-加入一次 Emotional Twist
-
-### 第 4 週
-
-用前 3 週最有潛力的方向做二次驗證
+giant moon above ocean, huge moon horizon, surreal moon scene, impossible moon sky, cinematic moon landscape, surreal ocean night, dreamlike moon reflection, fantasy night sky, massive moon illusion, impossible worlds short, surreal cinematic short, atmospheric sky scene, AI generated landscape, fantasy ocean sky, strange world concept, cinematic short video, surreal nature video, Robert Hut
 
 ---
 
-# Week 1
+# 2️⃣ A Whale Above the Clouds
 
-## 週二 9:00 PM
+## Description
 
-### **A Stick Man That Opened a Door in the Sky**
+A whale swimming slowly through the sky above the clouds.
+In this Impossible Worlds short, gravity seems to disappear as a giant whale moves across the sky like an ocean creature in the air.
 
-**支線：Impossible**
+A surreal cinematic moment from the Robert Hut AI shorts series.
 
-### 為什麼先發這支
+## Tags (≈370 chars)
 
-* 概念一眼就懂
-* 視覺非常強
-* 很適合當 Stick Man 系列起手式
-* 有「Robert Hut 式不合理感」
-
-### 這支主要觀察
-
-* 前 1–2 秒停留
-* 首幀吸引力
-* Viewed vs Swiped Away
-* 看完率
+whale above clouds, flying whale sky, surreal sky whale, impossible whale scene, fantasy sky creature, cinematic surreal landscape, dreamlike sky world, impossible nature concept, floating whale video, surreal animal sky, AI generated creature scene, fantasy atmosphere video, cinematic sky short film, strange world visual, surreal cinematic short, atmospheric cloud scene, vertical short video, Robert Hut
 
 ---
 
-## 週五 9:00 PM
+# 3️⃣ The Sky Cracked Open
 
-### **Why Did the Stick Man Follow the Arrow?**
+## Description
 
-**支線：Mystery**
+The sky suddenly begins to crack open.
+In this Impossible Worlds short, the sky splits apart revealing a glowing light beyond the clouds, creating a surreal cinematic moment.
 
-### 為什麼接這支
+A mysterious AI cinematic short from the Robert Hut Impossible Worlds series.
 
-* 和前一支差異明顯
-* 同樣簡單，但更偏 curiosity gap
-* 可以測觀眾對「問題型火柴人」是否有反應
+## Tags (≈370 chars)
 
-### 這支主要觀察
-
-* 留言意願
-* 完播率
-* 有沒有引發「我想知道後面」的感覺
+sky cracked open, broken sky scene, glowing sky crack, surreal sky phenomenon, impossible sky event, cinematic sky fracture, fantasy sky world, dreamlike atmosphere scene, mysterious sky opening, strange world concept, surreal cinematic short film, atmospheric cloud sky video, AI generated sky landscape, dramatic sky moment, fantasy visual effect, vertical surreal short video, cinematic mystery scene, Robert Hut
 
 ---
 
-# Week 2
+# 4️⃣ A River in the Sky
 
-## 週二 9:00 PM
+## Description
 
-### **A Stick Man That Outran His Own Shadow**
+A river flowing across the sky above the clouds.
+In this Impossible Worlds short, gravity breaks as a wide river stretches across the heavens like a floating landscape.
 
-**支線：Impossible**
+A surreal cinematic micro-scene from the Robert Hut AI shorts exploring impossible environments.
 
-### 為什麼放第 2 週
+## Tags (≈370 chars)
 
-* 比 door in the sky 更動態
-* 能測「影子概念」是否比「門概念」更強
-* 仍然屬於高抓眼的 impossible 題材
-
-### 這支主要觀察
-
-* 和 Week 1 Impossible 相比，哪種概念更強
-* 動態型是否比空間型更有效
+river in the sky, floating river landscape, surreal sky river, impossible world scene, fantasy sky water, cinematic surreal landscape, dreamlike sky river, strange nature phenomenon, surreal environment video, fantasy water sky world, atmospheric sky scene, impossible geography concept, AI generated landscape video, surreal cinematic short film, vertical fantasy short, mysterious sky environment, Robert Hut
 
 ---
 
-## 週五 9:00 PM
+# 5️⃣ A Floating Island in the Sky
 
-### **Why Did the Shadow Move First?**
+## Description
 
-**支線：Mystery**
+A giant island floating high above the clouds.
+In this Impossible Worlds short, a massive floating island drifts through the sky creating a surreal dreamlike landscape.
 
-### 為什麼這樣排
+Another cinematic AI short exploring impossible worlds from the Robert Hut channel.
 
-* 和前一支形成呼應，但不是重複
-* 影子本身就很適合極簡風格
-* mystery 感比 arrow 更強、更詭異
+## Tags (≈370 chars)
 
-### 這支主要觀察
-
-* shadow 類型是否比 arrow 類型更有吸引力
-* mystery 類是否真的比較容易引發留言
+floating island sky, island in the clouds, surreal floating island, impossible sky landscape, fantasy floating land, cinematic sky island scene, dreamlike sky world, surreal nature environment, floating mountain island, impossible world concept, AI generated fantasy landscape, atmospheric sky scene, cinematic surreal short video, strange world environment, fantasy sky visual, mysterious floating island video, Robert Hut
 
 ---
 
-# Week 3
+💡 **小技巧（對 Shorts 很重要）**
 
-## 週二 9:00 PM
+Description 前 **兩行一定要有關鍵字**，因為：
 
-### **A Stick Man That Walked Off the Page**
+YouTube 在 Shorts feed 會優先抓：
 
-**支線：Impossible**
-
-### 為什麼先放這支
-
-* 邊界概念很適合 Stick Man
-* 很簡單，但很有 Shorts 感
-* 可測「畫面邊界」這種 meta 概念是否有效
-
-### 這支主要觀察
-
-* 是否比前兩支 Impossible 更容易被理解
-* 極簡概念會不會反而更好
-
----
-
-## 週五 9:00 PM
-
-### **The Stick Man Who Waited at the Edge**
-
-**支線：Emotional Twist**
-
-### 為什麼第 3 週才放
-
-* Emotional Twist 比較吃 execution
-* 前兩週先測抓人能力比較合理
-* 這支和前一支共享「edge」概念，能讓測試更乾淨
-
-### 這支主要觀察
-
-* 完播率有沒有特別高
-* 收藏感 / 重看感
-* 雖然 views 可能不一定最高，但是否更有記憶點
-
----
-
-# Week 4
-
-第 4 週的重點不是開新題，而是做**二次驗證**。
-也就是用前 3 週表現好的方向，再各做 1 支。
-
-我先給你一個 **預設版**，如果你還沒看到數據，就先這樣跑。
-
----
-
-## 週二 9:00 PM
-
-### **A Stick Man That Climbed a Falling Line**
-
-**支線：Impossible**
-
-### 為什麼適合第 4 週
-
-* 延續 Impossible 強鉤子
-* 比前面幾支多一點「動作對抗感」
-* 可測線條本身是不是比門 / 邊界 / 影子更有趣
-
-### 這支主要觀察
-
-* impossible 類型裡，到底哪種元素最強：
-
-  * 門
-  * 影子
-  * 邊界
-  * 線
-
----
-
-## 週五 9:00 PM
-
-### **Why Was the Circle Following Him?**
-
-**支線：Mystery**
-
-### 為什麼用這支收尾
-
-* circle 是更抽象但也很乾淨的概念
-* 能測觀眾對幾何 mystery 的反應
-* 適合作為第 4 週的觀察支點
-
-### 這支主要觀察
-
-* mystery 類的最佳元素是：
-
-  * arrow
-  * shadow
-  * circle
-
----
-
-# 4 週完整總表
-
-## Week 1
-
-* 週二：**A Stick Man That Opened a Door in the Sky**
-* 週五：**Why Did the Stick Man Follow the Arrow?**
-
-## Week 2
-
-* 週二：**A Stick Man That Outran His Own Shadow**
-* 週五：**Why Did the Shadow Move First?**
-
-## Week 3
-
-* 週二：**A Stick Man That Walked Off the Page**
-* 週五：**The Stick Man Who Waited at the Edge**
-
-## Week 4
-
-* 週二：**A Stick Man That Climbed a Falling Line**
-* 週五：**Why Was the Circle Following Him?**
-
----
-
-# 這樣排的好處
-
-## 1. 先測最有機會的
-
-前兩週先把：
-
-* Impossible
-* Mystery
-
-打清楚。
-
-因為你現在最需要先知道的是：
-
-> Stick Man 到底能不能抓住人。
-
----
-
-## 2. Emotional Twist 不會太早進來干擾
-
-如果一開始就放太多情緒型，你會難判斷：
-
-* 是題材弱
-* 還是 execution 還沒調好
-
-所以第 3 週才插 1 支，這樣最穩。
-
----
-
-## 3. 題目彼此有關聯，但不重複
-
-你會發現這 8 支不是亂排，而是有些成對關係：
-
-* Door / Arrow
-* Shadow / Shadow
-* Page / Edge
-* Line / Circle
-
-這樣比較像在測**概念族群**，不是一支一支散掉。
-
----
-
-# 每週你要看什麼
-
-我建議你每週只看這 5 個：
-
-## 1. Viewed vs Swiped Away
-
-判斷首秒鉤子有沒有成立
-
-## 2. 平均觀看百分比
-
-判斷這種極簡內容能不能撐住
-
-## 3. Likes / 1000 views
-
-判斷觀眾是不是有被這種形式打到
-
-## 4. Comments / 1000 views
-
-尤其看 Mystery 類
-
-## 5. 是否有人開始辨識系列
-
-例如留言出現：
-
-* more stick man
-* this style is cool
-* I want part 2
-* this one felt different
-
-這種很重要。
-
----
-
-# 4 週後你怎麼判斷
-
-跑完之後，你大概會得到 3 種結果之一：
-
-## 情況 A：Impossible 最強
-
-那就代表 Stick Man 最適合做成：
-
-> 極簡不可能瞬間系列
-
-之後可把比重拉到：
-
-* Impossible 60%
-* Mystery 30%
-* Emotional 10%
-
----
-
-## 情況 B：Mystery 最強
-
-那就代表你頻道觀眾很吃：
-
-> 問題式極簡懸疑
-
-之後可把 Stick Man 做得更接近：
-
-* 問題句標題
-* 畫面中有追查感
-* 留白更多
-
----
-
-## 情況 C：Emotional Twist 雖然量不大，但最有記憶點
-
-那就表示這系列未來可能更適合晚間、較詩意、較精品化的方向。
-但仍建議不要太快全面轉向，先多驗證幾支。
-
----
-
-# 我對你最直接的建議
-
-如果你現在就要開始排，我建議這 8 支照順序跑，不要中間亂改：
-
-> Door in the Sky
-> → Follow the Arrow
-> → Outran His Own Shadow
-> → Why Did the Shadow Move First?
-> → Walked Off the Page
-> → Waited at the Edge
-> → Climbed a Falling Line
-> → Was the Circle Following Him?
-
-這樣你 4 週後會得到一組很乾淨的初始數據。
+```
+前 80–120 characters
 ```
 
-####  8 支 Stick Man 的 Hook 字幕 + 首幀大字建議
-``` bash
----
+我已經幫你把：
 
-# 共通原則
+* impossible worlds
+* surreal
+* cinematic
+* AI
 
-## 1. Hook 字幕要比 Skeleton / Animal Village 更短
-
-因為 Stick Man 本身畫面極簡，字幕也要更極簡。
-
-### 建議：
-
-* **1–3 個字** 最強
-* 最多不要超過 **4 個字**
+都放在 **前段**。
 
 ---
-
-## 2. 首幀大字不要解釋完整事件
-
-要做的是：
-
-* 強化怪感
-* 強化概念
-* 強化停留
-
-不要變成把標題重複貼一次。
-
----
-
-## 3. 風格統一
-
-我建議 Stick Man 這系列的字都偏這種感覺：
-
-* 全大寫
-* 極短
-* 高對比
-* 偏抽象
-* 偏概念詞
-
-例如：
-
-* WHY
-* ABOVE
-* NO EDGE
-* TOO FAR
-* FOLLOW
-* STILL HERE
-
----
-
-## 4. 位置建議
-
-Stick Man 的首幀大字最好固定一套，不要亂跳。
-
-### 建議位置：
-
-* **Top Center**
-* 約畫面上方 **18–22%**
-* 不要壓到主體動作
-
----
-
-以下直接進入 8 支。
-
----
-
-# 1. A Stick Man That Opened a Door in the Sky
-
-## Hook 字幕建議
-
-### 主推薦
-
-**THE SKY OPENED**
-
-### 備選
-
-* A DOOR ABOVE
-* NOT POSSIBLE
-* IT OPENED
-
-## 首幀大字建議
-
-### 主推薦
-
-**ABOVE**
-
-### 備選
-
-* SKY DOOR
-* OPENED
-* HOW?
-
-## 建議說明
-
-這支的第一賣點不是 stick man，而是：
-
-> **天空居然有門**
-
-所以首幀大字最好強化「上方異常」。
-
----
-
-# 2. Why Did the Stick Man Follow the Arrow?
-
-## Hook 字幕建議
-
-### 主推薦
-
-**HE FOLLOWED IT**
-
-### 備選
-
-* THE ARROW MOVED
-* WHY FOLLOW?
-* THIS WAY?
-
-## 首幀大字建議
-
-### 主推薦
-
-**FOLLOW**
-
-### 備選
-
-* THE ARROW
-* WHY?
-* THIS WAY
-
-## 建議說明
-
-這支最重要的是：
-
-* 有方向感
-* 有疑問感
-
-所以大字建議不要太長，讓箭頭本身成為畫面主角之一。
-
----
-
-# 3. A Stick Man That Outran His Own Shadow
-
-## Hook 字幕建議
-
-### 主推薦
-
-**FASTER THAN SHADOW**
-
-### 備選
-
-* TOO FAST
-* HIS SHADOW LOST
-* NOT NATURAL
-
-## 首幀大字建議
-
-### 主推薦
-
-**TOO FAST**
-
-### 備選
-
-* SHADOW LOST
-* FASTER
-* NO WAY
-
-## 建議說明
-
-這支是 8 支裡很適合直接衝擊的題目。
-所以首幀大字應該偏直接，不要太文。
-
----
-
-# 4. Why Did the Shadow Move First?
-
-## Hook 字幕建議
-
-### 主推薦
-
-**IT MOVED FIRST**
-
-### 備選
-
-* BEFORE HIM
-* THE SHADOW MOVED
-* WHY FIRST?
-
-## 首幀大字建議
-
-### 主推薦
-
-**FIRST**
-
-### 備選
-
-* THE SHADOW
-* BEFORE HIM
-* WHY?
-
-## 建議說明
-
-這支的異常點在於順序被顛倒。
-所以「FIRST」這個字非常好，乾淨又有怪感。
-
----
-
-# 5. A Stick Man That Walked Off the Page
-
-## Hook 字幕建議
-
-### 主推薦
-
-**HE LEFT THE PAGE**
-
-### 備選
-
-* NO EDGE
-* OFF THE PAGE
-* HE KEPT WALKING
-
-## 首幀大字建議
-
-### 主推薦
-
-**NO EDGE**
-
-### 備選
-
-* OFF PAGE
-* PAST IT
-* BEYOND
-
-## 建議說明
-
-這支的核心不是單純走路，而是：
-
-> **畫面邊界失效**
-
-所以首幀大字用 **NO EDGE** 很適合。
-
----
-
-# 6. The Stick Man Who Waited at the Edge
-
-## Hook 字幕建議
-
-### 主推薦
-
-**HE STAYED THERE**
-
-### 備選
-
-* AT THE EDGE
-* STILL WAITING
-* ONE MORE SECOND
-
-## 首幀大字建議
-
-### 主推薦
-
-**STILL THERE**
-
-### 備選
-
-* THE EDGE
-* WAITING
-* DON’T GO
-
-## 建議說明
-
-這支偏 Emotional Twist，
-所以字不要太硬，應該要有一點情緒停留感。
-
----
-
-# 7. A Stick Man That Climbed a Falling Line
-
-## Hook 字幕建議
-
-### 主推薦
-
-**UP WHILE IT FELL**
-
-### 備選
-
-* IT KEPT FALLING
-* HE CLIMBED UP
-* WRONG WAY
-
-## 首幀大字建議
-
-### 主推薦
-
-**WRONG WAY**
-
-### 備選
-
-* STILL UP
-* FALLING LINE
-* UPWARD
-
-## 建議說明
-
-這支的異常點是方向衝突。
-所以 **WRONG WAY** 非常適合，直接讓觀眾感覺規則不對。
-
----
-
-# 8. Why Was the Circle Following Him?
-
-## Hook 字幕建議
-
-### 主推薦
-
-**IT KEPT FOLLOWING**
-
-### 備選
-
-* THE CIRCLE MOVED
-* STILL BEHIND HIM
-* WHY FOLLOW?
-
-## 首幀大字建議
-
-### 主推薦
-
-**FOLLOWING**
-
-### 備選
-
-* THE CIRCLE
-* STILL THERE
-* WHY?
-
-## 建議說明
-
-這支畫面上 circle 很可能會很搶眼，
-所以大字不要太複雜，避免和幾何焦點打架。
-
----
-
-# 最推薦的首幀大字總表
-
-| 題目                                        | 首幀大字主推薦         |
-| ----------------------------------------- | --------------- |
-| A Stick Man That Opened a Door in the Sky | **ABOVE**       |
-| Why Did the Stick Man Follow the Arrow?   | **FOLLOW**      |
-| A Stick Man That Outran His Own Shadow    | **TOO FAST**    |
-| Why Did the Shadow Move First?            | **FIRST**       |
-| A Stick Man That Walked Off the Page      | **NO EDGE**     |
-| The Stick Man Who Waited at the Edge      | **STILL THERE** |
-| A Stick Man That Climbed a Falling Line   | **WRONG WAY**   |
-| Why Was the Circle Following Him?         | **FOLLOWING**   |
-
----
-
-# 最推薦的 Hook 字幕總表
-
-| 題目                                        | Hook 字幕主推薦             |
-| ----------------------------------------- | ---------------------- |
-| A Stick Man That Opened a Door in the Sky | **THE SKY OPENED**     |
-| Why Did the Stick Man Follow the Arrow?   | **HE FOLLOWED IT**     |
-| A Stick Man That Outran His Own Shadow    | **FASTER THAN SHADOW** |
-| Why Did the Shadow Move First?            | **IT MOVED FIRST**     |
-| A Stick Man That Walked Off the Page      | **HE LEFT THE PAGE**   |
-| The Stick Man Who Waited at the Edge      | **HE STAYED THERE**    |
-| A Stick Man That Climbed a Falling Line   | **UP WHILE IT FELL**   |
-| Why Was the Circle Following Him?         | **IT KEPT FOLLOWING**  |
-
----
-
-# 我再給你一個統一風格建議
-
-如果你要讓 8 支看起來更像同一系列，我建議：
-
-## 首幀大字風格統一成這種調性
-
-* 1–2 個單字優先
-* 偏概念詞
-* 不做完整句
-* 不做太敘事化
-
-### 最穩的一組會是：
-
-* ABOVE
-* FOLLOW
-* TOO FAST
-* FIRST
-* NO EDGE
-* STILL THERE
-* WRONG WAY
-* FOLLOWING
-
-這組整體看起來會很像同系列。
-
----
-
-# 如果你想讓系列更有層次
-
-你也可以把 8 支分成 3 種語氣：
-
-## Impossible 組
-
-字比較直接：
-
-* ABOVE
-* TOO FAST
-* NO EDGE
-* WRONG WAY
-
-## Mystery 組
-
-字比較問題導向：
-
-* FOLLOW
-* FIRST
-* FOLLOWING
-
-## Emotional 組
-
-字比較停留：
-
-* STILL THERE
-
-這樣整體也很合理。
-
----
-
-# 我的直接建議
-
-如果你要先快速執行，最穩做法是：
-
-## 直接用這組
-
-1. ABOVE
-2. FOLLOW
-3. TOO FAST
-4. FIRST
-5. NO EDGE
-6. STILL THERE
-7. WRONG WAY
-8. FOLLOWING
-
-這 8 個字很乾淨，也很符合 Stick Man 的極簡氣質。
-
-如果你要，我下一步可以直接幫你做
-**「這 8 支 Stick Man 的 clip-by-clip 結構表（每支 8–15 秒）」**。
-
 ```
 
 ### Ref
