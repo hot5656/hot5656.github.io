@@ -331,6 +331,8 @@ Reality glitch
 
 ### Skeleton
 + [Tiger skeleton moves with impossible smoothness - my ChatGPT](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69af9cfb-92ec-83a3-8a07-084e89730114)
++ [A Rhino Skeleton That Refuses to Stop](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3ccfb-2cac-83ab-8128-53aaeca707b2)
++ [A Snake Skeleton That Moves Like Liquid](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3cde6-31d0-83a9-ba3b-ed24e7304f29)
 
 ``` bash
 🦊 This Fox Has No Fur… But Wait!
@@ -1737,6 +1739,8 @@ Why Did the River Start Glowing?
 
 #### Animal Village 系列 IP 規則 v2
 + [Why Was There Light in the Abandoned House - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69afbee2-40f4-83a2-9514-1a6c1ba3e327)
++ [Why Did the Statue Move Every Night - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69b3c98a-c4d4-83a7-a747-fcd23cadea73)
++ [Why Did the Lanterns Turn On One by One - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69b3cb52-5c80-83a7-be60-679af0b35356)
 
 
 ``` bash

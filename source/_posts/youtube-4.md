@@ -1401,6 +1401,45 @@ Explore GPT(探索 GPT)
     Description : Generate cinematic YouTube Shorts stories for the Animal Village mystery series.
 ```
 
+### Google Flow
++ [  Midnight Static: The Yellow Raincoat  - gemini 5656](https://gemini.google.com/share/268c11856323)
+
+``` bash
+# Nano Banana 2 free now
+Image 4 是基石
+Nano Banana Pro 追求極致畫質與細節的 創意引擎
+Nano Banana 2 目前 全能速度之王
+# limit
+max input 10 image
+# output 
+8s
+可生成中文語音但文字會亂碼
+download 720p video(付費 1080p)
+# gemini 產生腳本
+我要用 veo 的首尾禎功能製作一個80s影片(約10段影片組合而成),請提供幾則勵志故事供我選擇
+我要用 veo 的首尾禎功能製作一個80s影片(約10段影片組合而成),請提供幾則懸疑故事供我選擇
+選項一
+請提供上面段落1~10 的中英文prompt 注意腳色的一致性
+請提供上面段落10 結尾禎 的中英文prompt 注意腳色的一致性
+
+我已經畫好上面場景的圖片 我要利用flow首尾禎完成每一段影片 請提供這10段影片的中英文提示詞 包含對話旁白(要註明音色)
+
+請給我 英文文字的 對話或旁白(要註明音色)
+
+將每一段 把 Veo 英文指令 (Prompt), Voice Character, 英文旁白 (Voiceover Text), 音色指示 (Tone Cues) 順序列在一起 因為我要一起使用
+
+幫我提供 中英文 建議片名
+
+需要我幫您根據這 10 段內容，撰寫一段適合放在影片結尾或開頭的 80s 合成器音樂（Synthwave）風格描述嗎？
+需要
+
+幫我以 Midnight Static: The Yellow Raincoat 產生一張 16:9 的 封面 image prompt(不要直接產生 image)
+幫我以 Midnight Static: The Yellow Raincoat 產生一張 16:9 的 封底 image prompt(不要直接產生 image)
+```
+
+### MOTHER HIVE
++ [The Ash of the Mining Town - Gemini](https://gemini.google.com/share/95c91276b196)
+
 ### Ref
 #### YouTube channel
 + [NextGen Process](https://www.youtube.com/@NextGenprocess)
