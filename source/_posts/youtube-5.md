@@ -329,10 +329,401 @@ Reality glitch
 ---
 ```
 
+#### short 如下
+``` bash
+目前 short 如下
+# Animal Village
+## 已做
+	Why Did the Lights Turn On at Midnight?
+	Why Did the Clock Tower Stop at 3:17? 
+	Who Was Ringing the Bell in an Empty Village?
+	Why Were There Footprints on the Rooftops?
+	Why Did the River Start Glowing? 
+	Why Was There Light in the Abandoned House?
+	Why Did the Statue Move Every Night?
+## 做好待發
+	3/18 Why Did the Lanterns Turn On One by One?
+
+
+# Skeleton
+## 已做:
+	This Fox Has No Fur… But Wait!
+	Tiny Skeleton Elephant Moves Like Magic! 
+	Realistic Skeleton Dolphin Short Film
+	This Wolf Has No Skin… But It’s Perfectly Designed ????
+	This Cheetah Skeleton Is Built for Speed ????
+	This Rabbit Skeleton Jumps Higher Than Trees! 
+	This Skeleton Shouldn’t Be Moving 
+	A Dinosaur Skeleton That Comes Back to Life
+	A Shark Skeleton That Swims in the Dark
+	An Eagle Skeleton That Takes Flight
+	A Tiger Skeleton That Moves Too Smoothly
+## 做好待發:
+	3/17 A Rhino Skeleton That Refuses to Stop
+	3/19 A Snake Skeleton That Moves Like Liquid
+
+# Impossible Worlds
+## 已做:
+	A River in the Sky
+	A Bridge Across the Sky River
+## 做好待發:
+	A Waterfall Into the Sky River
+```
+
+#### Robert Hut 4 週發片表
+``` bash
+* **週一：Animal Village**
+* **週二：Skeleton**
+* **週三：Animal Village**
+* **週四：Skeleton**
+* **週五：Skeleton**
+* **週六：Skeleton**
+* **週日：休息**
+
+我會用這個原則幫你排：
+
+* **先發已做好待發**，不要讓成品壓太久
+* **週五放最有主力感的 Skeleton**
+* **週六放變化球 Skeleton**
+* **Animal Village 週一偏柔和入口，週三偏核心懸疑**
+* **Impossible Worlds 先不插進主排程**，先當備用或加塞，不搶主線訊號
+
+---
+# Robert Hut 4 週發片表（更新版）
+## Week 1（本週）
+### 週一 — Animal Village
+**已發：Why Did the Statue Move Every Night?**
+
+### 週二 — Skeleton
+**A Rhino Skeleton That Refuses to Stop**
+定位：力量感強、穩定抓眼
+
+### 週三 — Animal Village
+**Why Did the Lanterns Turn On One by One?**
+定位：核心懸疑、你已做好待發，優先上
+
+### 週四 — Skeleton
+**A Snake Skeleton That Moves Like Liquid**
+定位：異常動作感強、很適合停留
+
+### 週五 — Skeleton
+**A Lion Skeleton That Roars Without Flesh**
+定位：週五主力款、招牌型題目
+
+### 週六 — Skeleton
+**A Giraffe Skeleton That Moves in Slow Motion**
+定位：變化球、輪廓清楚、節奏反差
+
+### 週日
+休息 / 看數據
+
+---
+## Week 2
+### 週一 — Animal Village
+**Why Did the Windmill Start Turning at Midnight?**
+定位：很標準的村莊異常題，適合開週
+
+### 週二 — Skeleton
+**A Bison Skeleton That Shakes the Ground**
+定位：重量感強、很直接
+
+### 週三 — Animal Village
+**Who Kept Lighting the Window Every Night?**
+定位：角色感較強、懸疑清楚
+
+### 週四 — Skeleton
+**A Kangaroo Skeleton That Jumps Too High**
+定位：動作型、節奏快
+
+### 週五 — Skeleton
+**An Octopus Skeleton That Moves Like Smoke**
+定位：高記憶點、視覺怪異感強
+
+### 週六 — Skeleton
+**A Sloth Skeleton That Hangs Without Flesh**
+定位：特殊物種變化球
+
+### 週日
+休息 / 看數據
+
+---
+## Week 3
+### 週一 — Animal Village
+
+**Why Was There Music in the Empty Square?**
+定位：柔和懸疑、情緒入口
+
+### 週二 — Skeleton
+**A Horse Skeleton That Runs Without Sound**
+定位：輪廓清楚、動作明確
+
+### 週三 — Animal Village
+**Why Did the Empty Cart Move by Itself?**
+定位：異常事件簡單、好懂
+
+### 週四 — Skeleton
+**A Gorilla Skeleton That Walks Too Calmly**
+定位：壓迫感、反差感
+
+### 週五 — Skeleton
+**A Crocodile Skeleton That Crawls Like a Machine**
+定位：週五主力、異常感強
+
+### 週六 — Skeleton
+**A Deer Skeleton That Turned Its Head Too Slowly**
+定位：偏詭異的變化球
+
+### 週日
+休息 / 看數據
+
+---
+## Week 4
+
+### 週一 — Animal Village
+**Why Did the Fountain Start Glowing at Night?**
+定位：漂亮畫面型、適合週一
+
+### 週二 — Skeleton
+**A Bear Skeleton That Stood Up Too Fast**
+定位：直接抓眼、容易理解
+
+### 週三 — Animal Village
+**Who Left Flowers Beneath the Clock Tower?**
+定位：懸疑中帶情感翻轉
+
+### 週四 — Skeleton
+**A Spider Skeleton That Climbs Like Water**
+定位：視覺異常感強
+
+### 週五 — Skeleton
+**A Bull Skeleton That Charges Through the Dust**
+定位：週五主力、爆發感明確
+
+### 週六 — Skeleton
+**A Flamingo Skeleton That Balances in the Wind**
+定位：新鮮輪廓、節奏變化球
+
+### 週日
+休息 / 看數據
+```
+
+#### 同一個創作者宇宙（Creator Universe）
+``` bash
+# Robert Hut Universe 設計
+
+核心概念只要一句：
+
+**“A world where the impossible quietly happens.”**
+（在一個不可能的事情悄悄發生的世界。）
+
+這一句就能包住：
+
+* Skeleton（不可能的生命）
+* Animal Village（不尋常事件）
+* Impossible Worlds（不可能的自然）
+
+---
+# 三條系列在宇宙中的定位
+## 1️⃣ Skeleton Series
+
+定位：
+
+**Impossible Creatures**
+概念：
+> Ancient skeletons move again in strange ways.
+特性：
+* 強視覺
+* 強異常
+* 拉新流量
+
+---
+## 2️⃣ Animal Village Mystery
+定位：
+**Quiet Mysteries**
+概念：
+> Strange events quietly happen in a peaceful village.
+特性：
+* 故事
+* 情緒
+* 建立世界感
+
+---
+## 3️⃣ Impossible Worlds
+定位：
+**Impossible Landscapes**
+概念：
+> Some places in the world simply should not exist.
+特性：
+* 視覺奇觀
+* 擴大世界觀
+
+---
+# 如何讓觀眾覺得是同一宇宙
+# 1️⃣ 每支影片描述最後一句固定
+所有影片最後都加：
+**Part of the Robert Hut Cinematic Micro-World.**
+例如：
+Skeleton
+> A glowing tiger skeleton moves too smoothly through the night forest.
+> Part of the Robert Hut Cinematic Micro-World.
+
+Animal Village
+> Something strange is happening in the village again tonight.
+> Part of the Robert Hut Cinematic Micro-World.
+
+Impossible Worlds
+> A waterfall falls upward into a river in the sky.
+> Part of the Robert Hut Cinematic Micro-World.
+
+---
+# 2️⃣ Shorts 結尾 0.5 秒
+畫面淡出時出現：
+**ROBERT HUT**
+下面小字：
+**Cinematic Micro-World**
+不用太花。
+
+---
+# 3️⃣ 頻道 About 改成宇宙敘述
+建議版本：
+Robert Hut
+Cinematic AI Micro-Stories.
+
+Strange creatures move.
+Quiet mysteries unfold.
+Impossible places exist.
+
+Welcome to a world where the impossible quietly happens.
+
+Skeleton Series
+Animal Village Mystery
+Impossible Worlds
+
+---
+# 4️⃣ 播放清單像「宇宙章節」
+頻道首頁排成：
+**Impossible Creatures**
+(Skeleton Series)
+**Quiet Mysteries**
+(Animal Village)
+**Impossible Landscapes**
+(Impossible Worlds)
+
+---
+# 5️⃣ 偶爾做輕微連結
+不用太明顯。
+例如：
+Animal Village 某集：
+河流發光。
+
+幾集後 Skeleton：
+**A Skeleton Fish That Swims in the Glowing River**
+
+觀眾會覺得：
+
+> 哦…是同一個世界。
+
+---
+# 為什麼這很重要
+當觀眾感覺是同一宇宙：
+* 更容易**連看**
+* 更容易**訂閱**
+* 更容易**期待下一集**
+
+而不是：
+Skeleton → AI clip
+Village → 小故事
+Sky River → AI art
+
+---
+# 你現在其實已經有 IP 雛形
+你的三條線：
+* Skeleton
+* Animal Village
+* Impossible Worlds
+其實剛好是：
+**Creature / Story / World**
+
+很多成功頻道就是這三種組合。
+
+---
+# 最重要的一句話
+你不是在做：
+**AI Shorts**
+你在做：
+**A cinematic micro-world.**
+```
+
+#### PlayList
+``` bash
+Skeleton Series
+Animal Village Mystery
+Impossible Worlds
+Cinematic AI Shorts (Archive)
+Feature / Long Stories (Archive)
+```
+
+#### play information
+``` bash
+# Retention（觀眾留存率 / Audience Retention）
+YouTube Studio → Content → 點進某支 Shorts → Analytics → 參與度
+1️⃣ Average Percentage Viewed
+平均觀看百分比
+
+2️⃣ Average View Duration
+平均觀看時間
+
+3️⃣ Audience Retention Graph
+觀眾留存曲線
+曲線現象    代表
+一開始大掉	Hook 不夠強
+中間掉	   內容節奏問題
+後段上升	   有 replay
+全程平穩	   很好
+
+# Shorts 的健康留存標準
+Shorts 留存比長影片高很多。
+平均觀看率	   表現
+<70%	      普通
+70–90%	   不錯
+90–110%	   很好
+110–130%	   很可能爆
+>130%	超強 replay
+
+你的 Skeleton 系列 24s 理想是：
+95% – 120%
+
+# Viewed vs Swiped Away
+位置：
+Analytics
+→ Reach
+→ Viewed vs Swiped Away
+
+Viewed	表現
+<40%	   不好
+40–55%	普通
+55–70%	不錯
+>70%	   很強
+
+# Shorts 爆款公式
+如果一支 Shorts 同時達到：
+Viewed rate > 60%
+Retention > 95%
+Average viewed > 100%
+
+通常會發生：
+第一波 500
+→ 第二波 5k
+→ 第三波 50k+
+```
+
 ### Skeleton
++ [Skeleton 系列 IP 規則 v3.1](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1)
 + [Tiger skeleton moves with impossible smoothness - my ChatGPT](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69af9cfb-92ec-83a3-8a07-084e89730114)
 + [A Rhino Skeleton That Refuses to Stop](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3ccfb-2cac-83ab-8128-53aaeca707b2)
 + [A Snake Skeleton That Moves Like Liquid](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3cde6-31d0-83a9-ba3b-ed24e7304f29)
+
++ [A Lion Skeleton That Roars Without Flesh](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bba66e-ceb4-83a8-b109-03e0eed77787)
 
 ``` bash
 🦊 This Fox Has No Fur… But Wait!
@@ -362,6 +753,1039 @@ An Eagle Skeleton That Takes Flight
 14. A Whale Skeleton That Sings Underwater
 ```
 
+#### Skeleton 系列 IP 規則 v3.1(final)
+``` bash
+You are the official creative assistant for the Robert Hut Skeleton Series.
+
+Your job is to help create cinematic AI micro-films for the Skeleton Series following the Skeleton Series IP rules.
+
+The Skeleton Series is not comedy, horror, educational content, or animal explanation.
+It is a cinematic AI short-form series focused on animal skeletons performing one impossible motion.
+
+Core philosophy:
+The Skeleton Series presents a single impossible motion in a dark, mysterious, poetic, and slightly sci-fi cinematic style.
+
+Tone requirements:
+- dark
+- mysterious
+- poetic
+- cinematic
+- slightly sci-fi
+
+Never generate:
+- comedy
+- meme style
+- cartoon tone
+- gore
+- body horror
+- jump scares
+- educational explanation
+- animal fact narration
+
+The assistant must always preserve the Robert Hut Skeleton Series identity.
+
+--------------------------------
+SKELETON SERIES CORE RULES
+--------------------------------
+
+1. Each video must focus on one impossible motion only.
+2. The skeleton must always remain the clear central subject.
+3. The tone must remain cinematic, mysterious, poetic, and clean.
+4. The motion must feel impossible or unnatural.
+5. Videos are designed for Shorts rhythm and must follow Event-First Hook.
+6. The first visual event must occur within 0–0.8 seconds.
+7. The opening frame must never be a static skeleton pose.
+8. Every 6–8 seconds, include a visual change or pattern interrupt.
+9. The camera must serve motion clarity, not distract from it.
+10. The final result should feel like a cinematic micro-film, not random AI footage.
+
+--------------------------------
+TITLE RULE
+--------------------------------
+
+Use the default title structure for most videos:
+
+A/An [Animal] Skeleton That [Impossible Motion]
+
+Examples:
+A Tiger Skeleton That Moves Too Smoothly
+A Shark Skeleton That Swims in the Dark
+An Eagle Skeleton That Takes Flight
+A Snake Skeleton That Moves Like Liquid
+
+Only rarely change the title format, and only if the title becomes more natural while still preserving:
+- Animal
+- Skeleton
+- Impossible Motion
+
+--------------------------------
+EVENT-FIRST HOOK RULE
+--------------------------------
+
+The first 0–0.8 seconds must include a clear visual event.
+
+Acceptable hook types include:
+- sudden movement
+- impact
+- entering frame
+- impossible motion reveal
+- environmental reveal
+- cinematic presence with immediate motion
+
+Hooks must work visually, even without sound.
+
+Avoid:
+- static skeleton openings
+- slow empty openings
+- text-only hook without motion
+
+--------------------------------
+IMPOSSIBLE MOTION RULE
+--------------------------------
+
+Normal movement is not enough.
+
+Even simple actions like running, walking, flying, or swimming must contain an unnatural or impossible quality, such as:
+- too smooth
+- too fast
+- gliding
+- floating
+- moving like liquid
+- moving without sound
+- refusing to stop
+- bending in an uncanny way
+
+The viewer should feel:
+“This should not move like that.”
+
+--------------------------------
+CLIP ENGINE RULE
+--------------------------------
+
+The Skeleton Series is built from generated 6-second clips.
+
+These clips are raw material, not final rhythm.
+
+They may be edited into:
+- 2s + 4s
+- 3s + 3s
+- 4s + 2s
+
+Clips may also be:
+- trimmed
+- frozen at the end
+- slowed down
+- slightly sped up
+
+The assistant must generate prompts that work well as 6-second AI clips.
+
+Each 6-second clip should ideally contain:
+- 0–1s motion begins
+- 1–4s main motion
+- 4–6s motion residue or visual tail
+
+--------------------------------
+VIDEO LENGTH RULE
+--------------------------------
+
+Target Skeleton Shorts length:
+18–24 seconds
+
+Preferred structure:
+- 21–24 seconds for standard cinematic skeleton videos
+- 18–21 seconds for faster, sharper concepts
+
+Static moments are allowed mainly at the final 1–2 seconds for presence, residue, or brand feeling.
+
+--------------------------------
+PATTERN INTERRUPT RULE
+--------------------------------
+
+Every 6–8 seconds, the video should introduce a visual refresh.
+
+This can include:
+- a new camera angle
+- a proof shot
+- a detail shot
+- a stronger phase of the same motion
+- a wider or lower angle revealing scale
+
+Do not introduce a second gimmick.
+Only reinforce the same impossible motion.
+
+--------------------------------
+VISUAL IDENTITY RULE
+--------------------------------
+
+All skeletons belong to the Robert Hut Skeleton Universe.
+
+Visual characteristics:
+- anatomically coherent
+- pale ivory bones
+- subtle cold rim glow
+- cinematic shadows
+- mist and floating particles
+- dark, clean, poetic atmosphere
+- no decay, no gore, no broken horror anatomy
+
+The skeleton must always remain the visual priority.
+
+The environment supports the skeleton, but does not overpower it.
+
+--------------------------------
+CAMERA RULE
+--------------------------------
+
+Camera movement must be:
+- cinematic
+- stable
+- readable
+- motion-serving
+
+Recommended camera styles:
+- slow push-in
+- smooth side tracking
+- gentle orbit
+- low-angle cinematic framing
+- wide atmospheric framing
+- proof shots from a second angle
+- brief anatomical close-up
+
+Avoid:
+- shaky handheld
+- chaotic zooms
+- rapid spinning
+- whip-pan overload
+- confusing multi-move camera paths
+
+Each clip should usually have one primary camera idea only.
+
+--------------------------------
+ENVIRONMENT RULE
+--------------------------------
+
+Use cinematic environments that support impossible motion and preserve Skeleton Series atmosphere.
+
+Environment mood should be:
+- dark
+- mysterious
+- atmospheric
+- timeless
+- slightly surreal
+
+Good environment families include:
+- moonlit forest
+- mountain cliffs
+- desert wasteland
+- dark water
+- ancient ruins
+- minimal fog landscapes
+
+Avoid:
+- crowded scenes
+- overly colorful fantasy
+- cartoon worlds
+- bright cheerful lighting
+
+--------------------------------
+WHEN GENERATING SKELETON IDEAS
+--------------------------------
+
+The assistant should use the knowledge files in this order:
+
+1. Select a suitable hook from Skeleton_Hook_Database
+2. Select an impossible motion from Skeleton_Motion_Library
+3. Match the motion to the best animal using Skeleton_Motion_Animal_Matrix
+4. Apply Skeleton_Shared_Prompt_v3 visual identity
+5. Choose a fitting environment from Skeleton_Environment_Library
+6. Choose a fitting camera style from Skeleton_Camera_Language_Library
+7. Check against Skeleton_Title_Library to avoid weak repetition and maintain naming consistency
+
+--------------------------------
+WHEN GENERATING VIDEO PROMPTS
+--------------------------------
+
+For each request, the assistant should generate prompts that are production-ready for 6-second AI clip generation.
+
+Each clip prompt should include:
+- Shared Skeleton Prompt style
+- Animal type
+- Impossible motion
+- Environment
+- Camera movement
+- Lighting / atmosphere
+- Optional sound or narration if requested
+
+The assistant should prefer clean, strong, readable motion over visual clutter.
+
+--------------------------------
+WHEN GENERATING A FULL SHORT
+--------------------------------
+
+A full Skeleton short should usually include:
+- opening hook clip
+- motion reveal clip
+- motion development clip
+- proof or second-angle clip
+- final presence / residue clip
+
+The full short must feel like a single cinematic idea, not disconnected shots.
+
+--------------------------------
+FINAL CREATIVE GOAL
+--------------------------------
+
+The Skeleton Series is not just moving skeleton content.
+
+It is a cinematic short-form series where one impossible motion becomes a visual poem.
+
+Every output should feel like it belongs to the same Robert Hut Skeleton Universe.
+```
+
+#### Skeleton 系列 IP v3.1 input example
+``` bash
+Generate a Robert Hut Skeleton Series short for "A Lion Skeleton That Roars Without Flesh".
+
+Use 6-second clip logic and create a full production-ready video prompt package.
+
+Output:
+- title
+- impossible motion
+- total duration
+- clip-by-clip breakdown
+- each clip with:
+  - duration
+  - video prompt
+  - camera movement
+  - environment
+  - lighting / atmosphere
+  - sound design
+  - subtitle or hook text if needed
+```
+
+#### Skeleton 系列 IP 規則 v3
+``` bash
+很好。
+你的 **v2 已經非常成熟**，v3 不應該推翻，而是 **加入 Shorts 行為學 + 6s Clip Engine**，讓它真正適合 Shorts 演算法與 AI 生成流程。
+
+我會做三件事：
+
+1️⃣ 保留 v2 的核心精神
+2️⃣ 新增 **Event-First Hook Rule**
+3️⃣ 新增 **6s Clip Engine Rule**
+
+這樣就會變成 **可實戰的 Skeleton 系列 v3**。
+
+---
+
+# 🦴 Skeleton 系列 IP 規則 v3（Shorts Engine 版）
+
+## 🎯 核心定位
+
+**AI Cinematic Micro-Film**
+
+不是搞笑短片
+不是恐怖短片
+不是知識解說
+不是動物介紹
+
+只做一件事：
+
+> **用詩意、神秘、科幻的方式，呈現骨架做出「不可能動作」的一瞬間。**
+
+Skeleton 系列不是骨架動畫，而是：
+
+> **Impossible Motion 的 cinematic 視覺詩。**
+
+---
+
+# 1️⃣ 系列核心原則
+
+Skeleton 系列必須固定的 6 件事：
+
+1️⃣ 固定標題語法
+2️⃣ 一支影片只呈現 **一個 impossible action**
+3️⃣ 固定世界觀氣質：**神秘 × 詩意 × 科幻**
+4️⃣ 固定節奏：**短、快、乾淨、無解說**
+5️⃣ 固定品牌識別：一眼知道是 Robert Hut
+6️⃣ **Event-First Hook：第一秒必須發生事件**
+
+---
+
+# 2️⃣ Event-First Hook Rule（Shorts 核心規則）
+
+Shorts 成功的關鍵是：
+0–0.8 秒
+觀眾決定是否滑走
+
+因此 Skeleton 系列規定：
+
+> **第一畫面不能是靜止骨架。**
+
+第一秒必須包含：
+
+* 動作
+* 異常
+* 衝擊
+
+例如：
+
+骨架突然轉頭
+骨架從畫面外衝入
+骨架落地
+骨架張開翅膀
+骨架高速滑行
+
+避免：
+
+靜止站立骨架。
+
+---
+
+# 3️⃣ 標題規則（主規則）
+
+Skeleton 系列固定句型：
+
+> **A/An [Animal] Skeleton That [Impossible Action]**
+
+這是 Skeleton 系列最重要識別。
+
+原則：
+80–90% 影片使用此句型
+
+### 正確範例
+
+A Tiger Skeleton That Moves Too Smoothly
+A Shark Skeleton That Swims in the Dark
+A Lion Skeleton That Roars Without Flesh
+An Eagle Skeleton That Takes Flight
+A Snake Skeleton That Moves Like Liquid
+
+---
+
+### 不可使用
+
+The Craziest Skeleton Ever
+You Won't Believe This Skeleton
+
+這會破壞系列識別。
+
+---
+
+# 4️⃣ 單片核心規則
+
+每支影片只允許 **一個 impossible action**。
+
+例如：
+
+Runs Too Fast
+Moves Like Liquid
+Jumps Too High
+Comes Back to Life
+Swims in the Dark
+
+原因：
+
+Shorts 觀眾只能在幾秒內理解 **一個重點**。
+
+---
+
+# 5️⃣ Impossible Motion Rule
+
+Skeleton 的動作 **不能只是正常動作**。
+
+例如：
+
+普通：
+
+老虎骨架跑步
+
+不夠強。
+
+必須變成：
+
+老虎骨架 **過度平滑奔跑**
+老虎骨架 **瞬間停下**
+老虎骨架 **滑行**
+
+原則：
+
+> **觀眾應該覺得「這動作不太對」。**
+
+---
+
+# 6️⃣ 長度規則（Shorts Engine）
+
+Skeleton Shorts 主區間：
+18–24 秒
+
+標準長度：
+21–24 秒
+
+快節奏：
+18–21 秒
+
+---
+
+# 7️⃣ 6s Clip Engine Rule（AI 生成核心）
+
+Skeleton 影片由 **6 秒 AI clip** 組成。
+
+每個 clip 是素材，
+最終節奏由 **剪輯決定**。
+
+可拆為：
+2s + 4s
+3s + 3s
+4s + 2s
+
+必要時可：
+
+* 裁切
+* 凍結幀
+* 加速
+* 減速
+
+原則：
+
+> **AI clip 是素材，不是節奏。**
+
+---
+
+# 8️⃣ 6s Clip 內部結構
+
+每個 clip 建議節奏：
+0–1s  動作開始
+1–4s  動作主體
+4–6s  動作餘韻
+
+這樣可以方便剪成：
+
+2s hook
+3s hook
+4s action
+
+---
+
+# 9️⃣ Skeleton Shorts 組裝模板
+
+## 模板 A（標準）
+2s Hook
+4s Action
+6s Action
+6s Action
+4s Final
+
+總長：
+22–24 秒
+
+---
+
+## 模板 B（快節奏）
+2s Hook
+4s Action
+4s Action
+4s Action
+4s Action
+
+總長：
+18–20 秒
+
+---
+
+# 🔟 靜止畫面規則
+
+Skeleton 系列允許靜止畫面，但只用於：
+最後 1–2 秒
+
+用途：
+
+* 餘韻
+* 品牌露出
+
+禁止：
+
+影片前半段靜止。
+
+---
+
+# 1️⃣1️⃣ 視覺規則
+
+Skeleton 系列固定氣質：
+
+深色背景
+神秘氛圍
+主體集中
+科幻光感
+不血腥
+不搞笑
+
+---
+
+# 1️⃣2️⃣ 縮圖 / 首幀規則
+
+首幀必須包含：
+
+* 動作
+* 張力
+* 非靜止姿態
+
+避免：
+
+站立骨架。
+
+---
+
+# 1️⃣3️⃣ 聲音規則
+
+Skeleton 系列聲音風格：
+
+dark ambient
+cinematic tension
+sci-fi texture
+
+不可使用：
+
+搞笑音效
+卡通音效
+jump scare
+
+---
+
+# 1️⃣4️⃣ 動物分類
+
+Skeleton 動物必須屬於以下張力之一：
+
+速度型
+重量型
+飛行型
+水中型
+比例怪異型
+
+---
+
+# 1️⃣5️⃣ 發佈節奏
+
+建議：
+每 24–48 小時一支
+
+避免：
+
+連續三支同類型動物。
+
+---
+
+# 1️⃣6️⃣ 品牌識別
+
+Skeleton 系列的品牌識別來自：
+
+* 固定標題
+* 固定美學
+* 固定節奏
+* 固定聲音
+
+不是靠 logo。
+
+---
+
+# 1️⃣7️⃣ Skeleton 系列禁區
+
+禁止方向：
+
+搞笑
+血腥
+恐怖驚嚇
+教育解說
+動物百科
+
+---
+
+# 1️⃣8️⃣ Skeleton Shared Prompt
+
+為使骨架外觀一致，
+
+需建立 **Skeleton Base Prompt**，
+並加入各 clip prompt。
+
+---
+
+# 1️⃣9️⃣ 一句話總結
+
+> Skeleton 系列不是「會動的骨架影片」。
+
+它是：
+
+> **用固定美學與節奏，持續呈現單一 impossible motion 的 AI cinematic micro-film 系列。**
+
+---
+
+# ⭐ v3 的關鍵升級
+
+v2 → v3 新增：
+
+✔ Event-First Hook
+✔ 6s Clip Engine
+✔ Impossible Motion Rule
+✔ Shorts 節奏模板
+
+這四件事會直接改善：
+Viewed ratio
+滑走率
+Retention
+
+---
+
+如果你願意，我可以再幫你做一個 **v3.1（爆款版補丁）**：
+
+我會加入：
+
+**🦴 Skeleton 系列 30 個 Hook 開頭設計庫**
+
+這會讓你的 Skeleton Shorts
+**更容易衝到 40%+ Viewed ratio。**
+```
+
+#### Skeleton 系列 IP 規則 v3.1（爆款補丁）
+``` bash 
+很好，**v3 已經是完整系統**。
+v3.1 不應該再改整個 rule，而是加入一個 **爆款補丁模組**，專門解決 Shorts 的三件事：
+
+1️⃣ 第一秒停住觀眾
+2️⃣ 提升 Viewed ratio
+3️⃣ 避免 Skeleton 內容疲勞
+
+所以 v3.1 只新增 **三個模組**：
+
+* Hook Library
+* Pattern Interrupt
+* Motion Amplifier
+
+你可以直接 **附加在 v3 後面**。
+
+---
+
+# 🦴 Skeleton 系列 IP 規則 v3.1（爆款補丁）
+
+v3.1 不是新版本，而是 **爆款優化模組**。
+
+目標：
+提高 Shorts Viewed ratio
+提高停留率
+避免 Skeleton 系列視覺疲勞
+
+---
+
+# 1️⃣ Skeleton Hook Opening Library（30 個）
+
+每支 Skeleton short 必須使用 **以下 Hook 之一**。
+
+Hook 必須在：
+0–0.8 秒
+
+發生。
+
+---
+
+# A. 突然動作型（最穩）
+
+骨架突然轉頭
+骨架突然跳起
+骨架突然落地
+骨架突然衝向鏡頭
+骨架突然張開翅膀
+
+---
+
+# B. 視覺衝擊型
+
+骨架高速掠過鏡頭
+骨架從畫面外衝入
+骨架突然出現在畫面中
+骨架瞬間停止
+骨架骨節突然旋轉
+
+---
+
+# C. 空間錯位型
+
+骨架從高處落下
+骨架從水中衝出
+骨架從霧中出現
+骨架從黑暗中走出
+骨架從天空落下
+
+---
+
+# D. 重量衝擊型
+
+骨架重踏地面
+骨架落地震動
+骨架撞擊石頭
+骨架衝破水面
+骨架高速滑行
+
+---
+
+# E. 不合理運動型
+
+骨架突然慢動作
+骨架突然反重力
+骨架突然滑行
+骨架突然液體般移動
+骨架突然空中停住
+
+---
+
+# 2️⃣ Pattern Interrupt Rule
+
+Shorts 演算法非常重視 **節奏變化**。
+
+Skeleton 系列規定：
+
+> **每 6–8 秒必須有一次視覺變化。**
+
+可使用：
+
+* 新鏡頭角度
+* 新動作
+* 新速度
+* 新空間位置
+
+例如：
+0–2s Hook
+2–6s Motion
+6–10s 新視角
+10–16s Motion強化
+
+目的：
+
+避免觀眾覺得畫面停滯。
+
+---
+
+# 3️⃣ Motion Amplifier Rule
+
+Skeleton 動作必須 **放大不合理感**。
+
+普通：
+骨架跑
+
+Skeleton Series 必須：
+骨架過度平滑奔跑
+骨架速度異常
+骨架滑行
+
+---
+
+# Motion Amplifier 方法
+
+可加入以下之一：
+
+### Speed distortion
+
+突然加速
+突然減速
+
+---
+
+### Gravity distortion
+
+短暫懸浮
+異常落地
+
+---
+
+### Motion smoothness
+
+動作過度平滑
+
+---
+
+### Bone articulation
+
+骨節異常旋轉
+
+---
+
+# 4️⃣ Double Proof Rule
+
+如果 impossible action 很強，
+
+建議：
+
+**用第二視角證明一次。**
+
+例如：
+骨架高跳
+
+先：
+
+遠景
+
+再：
+
+側視角
+
+觀眾會更相信畫面。
+
+---
+
+# 5️⃣ Visual Reset Rule
+
+連續 Skeleton 影片容易疲勞。
+
+每 3–4 支 Skeleton 需改變：
+
+* 場景
+* 光線
+* 空間
+
+例如：
+森林
+沙漠
+雪地
+海洋
+城市
+
+保持 Skeleton 宇宙新鮮感。
+
+---
+
+# 6️⃣ Hook 字幕庫（Shorts 專用）
+
+Skeleton 系列推薦字幕：
+IMPOSSIBLE
+HOW
+NOT REAL
+NO FLESH
+TOO FAST
+TOO HIGH
+TOO SMOOTH
+NOT POSSIBLE
+
+字數：
+2–4 words
+
+避免長句。
+
+---
+
+# 7️⃣ 爆款追擊規則
+
+當某支 Skeleton 表現好時：
+
+不要複製動物。
+
+應複製：
+motion
+
+例如：
+Moves Like Liquid
+
+成功。
+
+下一支可做：
+
+Octopus Skeleton Moves Like Liquid
+Snake Skeleton Moves Like Liquid
+
+---
+
+# 8️⃣ Skeleton 爆款信號
+
+如果出現以下數據：
+Viewed ratio > 40%
+Retention > 70%
+
+代表：
+
+**該 motion 有潛力。**
+
+可以：
+
+做 2–3 支同 motion 變體。
+
+---
+
+# 9️⃣ Skeleton 系列終極公式
+
+每支 Skeleton short 應滿足：
+Event
++
+Impossible Motion
++
+Pattern Interrupt
++
+Cinematic Mood
+---
+
+# 🔟 v3.1 一句話總結
+
+Skeleton Shorts 的核心不是：
+骨架會動
+
+而是：
+觀眾在第一秒看到「不可能」。
+
+---
+
+# ⭐ v3 → v3.1 最大升級
+
+新增三件最重要的東西：
+Hook Library
+Pattern Interrupt
+Motion Amplifier
+
+這三個會直接提升：
+
+* Viewed ratio
+* Retention
+* Shorts 推薦
+
+---
+
+如果你願意，我可以再幫你做一個 **非常關鍵的東西**（很多人沒想到）：
+
+我可以幫你設計：
+
+# 🦴 Skeleton 系列
+
+**「Shared Skeleton Prompt（全系列骨架統一外觀）」**
+
+這會讓你整個 Skeleton 系列
+**看起來像同一宇宙的作品。**
+
+# Shared Skeleton Prompt
+Robert Hut Skeleton Series visual style.
+
+A cinematic animal skeleton from the mysterious universe of the Robert Hut Skeleton Series.
+
+The skeleton must be anatomically coherent and clearly recognizable as the correct animal species. Bone proportions must be realistic, with proper skeletal structure and correct joint articulation.
+
+All bones are intact, clean, and elegant, with smooth pale ivory bone surfaces and a subtle cold rim glow outlining the skeleton in darkness.
+
+The skeleton appears pristine and preserved, not decayed, not broken, and not distorted. No extra bones, no monster anatomy, and no exaggerated deformities.
+
+Bone articulation must follow natural joint movement appropriate to the animal species. Limbs and spine should move with believable skeletal mechanics.
+
+The skeleton must remain the clear central subject of the frame at all times.
+
+Lighting is cinematic and atmospheric, using soft rim lighting to reveal bone structure, gentle shadows, subtle mist, and small floating particles.
+
+Visual tone: dark, mysterious, poetic, and slightly sci-fi.
+
+Camera style should be cinematic and stable, with smooth tracking, slow push, or gentle orbit movements. Avoid chaotic camera motion.
+
+The environment should support the mood but remain secondary to the skeleton.
+
+No flesh, no gore, no horror elements, no cartoon style.
+
+This skeleton belongs to a consistent visual universe shared across all Skeleton Series films.
+
+# Skeleton Motion Library
+
+# Skeleton Motion × Animal Matrix
+```
 
 #### Skeleton 系列 IP 規則 v2
 ``` bash
@@ -4512,3 +5936,4 @@ YouTube 在 Shorts feed 會優先抓：
 ### Ref
 #### ideal 
   + [YouTube short IP 建立 #1 - my ChatGPT](https://chatgpt.com/c/69ae63b8-7828-83a6-a07f-ac1a14d76ba2)
+  + [YouTube channel 分析建議](https://chatgpt.com/c/69b7c273-44a4-83a5-90ea-d79f35400c48)
