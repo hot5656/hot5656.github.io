@@ -37,6 +37,51 @@ prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , �
 2️. 9:16 Shorts 縮圖 Prompt（爆款版本）
 3️. CapCut 疊字時間表
 4. BGM 建議(含 CapCut 搜尋 keyword)
+
+# Shorts 結尾 0.5 秒
+畫面淡出時出現：
+**ROBERT HUT**
+下面小字：
+**Cinematic Micro-World**
+不用太花。
+
+# Skeletion V3.1
+Generate a Robert Hut Skeleton Series short for "A Lion Skeleton That Roars Without Flesh".
+
+Use 6-second clip logic and create a full production-ready video prompt package.
+
+Output:
+- title
+- impossible motion
+- total duration
+- clip-by-clip breakdown
+- each clip with:
+  - duration
+  - video prompt
+  - camera movement
+  - environment
+  - lighting / atmosphere
+  - sound design
+  - subtitle or hook text if needed
+
+# 結尾靜止
+影片 22.6s–24.0s 畫面接近靜止 , 到時要放疊字 ROBERT HUT, 幫我修 clip 4
+
+# SEO & tags
+幫我產生 title and description(for short) 考慮最佳 SEO
+tags 大於  350 characters(小於 400 characters)
+description for short 不要太長,
+最後加: Part of the Robert Hut Cinematic Micro-World.
+
+# 縮圖
+A Lion Skeleton That Roars Without Flesh 產生 youtube 9:16 Shorts 含文字 縮圖 Prompt(不直接產生 image)
+
+# CapCut 疊字時間表 + BGM
+幫我產生 
+1. CapCut 疊字時間表 
+2. BGM 建議(含 CapCut 搜尋 keyword)
+# next
+clip 4 需要前面加一段 疊字 後面再加 ROBERT HUT?
 ```
 
 <!--more-->
@@ -724,6 +769,7 @@ Average viewed > 100%
 + [A Snake Skeleton That Moves Like Liquid](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3cde6-31d0-83a9-ba3b-ed24e7304f29)
 
 + [A Lion Skeleton That Roars Without Flesh](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bba66e-ceb4-83a8-b109-03e0eed77787)
++ [A Giraffe Skeleton That Moves in Slow Motion]()
 
 ``` bash
 🦊 This Fox Has No Fur… But Wait!
@@ -5937,3 +5983,5 @@ YouTube 在 Shorts feed 會優先抓：
 #### ideal 
   + [YouTube short IP 建立 #1 - my ChatGPT](https://chatgpt.com/c/69ae63b8-7828-83a6-a07f-ac1a14d76ba2)
   + [YouTube channel 分析建議](https://chatgpt.com/c/69b7c273-44a4-83a5-90ea-d79f35400c48)
+
+  + [StockTune](https://stocktune.com/) : Free Stock Music
