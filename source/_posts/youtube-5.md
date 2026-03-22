@@ -32,6 +32,11 @@ prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , �
   Fox (male, about 30, soft curious voice):
   “Those footprints… across every rooftop.”
 
+# image prompt
+幫我產生各 clip 第一個 frame image prompt(不要直接產生 image)
+image prompt 應該要含 必要的動物在裡面
+
+# 後面資料
 幫我補齊
 1️. YouTube Shorts SEO Title + Description + Tags (350–400 chars)
 2️. 9:16 Shorts 縮圖 Prompt（爆款版本）
@@ -433,6 +438,9 @@ Reality glitch
 * **Animal Village 週一偏柔和入口，週三偏核心懸疑**
 * **Impossible Worlds 先不插進主排程**，先當備用或加塞，不搶主線訊號
 
+# 後續 idea
+不要只展示「動物骨架動得很順暢」，試著加入情感元素。例如：製作一支《The Skeleton Dog Still Waits For Its Owner (這隻骷髏狗仍在等待牠的主人)》，這樣就結合了「Skeleton 視覺」+「情感共鳴」，大幅提高觀眾訂閱的衝動。
+
 ---
 # Robert Hut 4 週發片表（更新版）
 ## Week 1（本週）
@@ -769,7 +777,7 @@ Average viewed > 100%
 + [A Snake Skeleton That Moves Like Liquid](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3cde6-31d0-83a9-ba3b-ed24e7304f29)
 
 + [A Lion Skeleton That Roars Without Flesh](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bba66e-ceb4-83a8-b109-03e0eed77787)
-+ [A Giraffe Skeleton That Moves in Slow Motion]()
++ [A Giraffe Skeleton That Moves in Slow Motion](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bceff5-4fec-83a7-9a43-fe7a082143d5)
 
 ``` bash
 🦊 This Fox Has No Fur… But Wait!
@@ -3212,6 +3220,8 @@ Why Did the River Start Glowing?
 + [Why Did the Statue Move Every Night - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69b3c98a-c4d4-83a7-a747-fcd23cadea73)
 + [Why Did the Lanterns Turn On One by One - my ChatGPT](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69b3cb52-5c80-83a7-be60-679af0b35356)
 
++ [Why Did the Windmill Start Turning at Midnight?](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69be18b1-3170-83a3-8369-058e542b5d29)
++ [Who Kept Lighting the Window Every Night?](https://chatgpt.com/g/g-69afbdb20ca881919a55cb24fc344ef3-animal-village-xi-lie-ip-gui-ze-v2/c/69be5c46-3158-83ab-8119-060a762a93ff)
 
 ``` bash
 Always prioritize Knowledge libraries when available.
@@ -5978,6 +5988,10 @@ YouTube 在 Shorts feed 會優先抓：
 
 ---
 ```
+
+#### ASMR
++ [Ghibli-Style ASMR 分析 - perplexity](https://www.perplexity.ai/search/bang-wo-fen-xi-zhe-ge-channel-vb0yDxdETRK.ggSMH53x7A#cf84477b-7a0c-4580-a3b9-1234f26322a4)
++ [多頻道 ASMR - ChatGPT](https://chatgpt.com/c/69bfbcf8-8ec0-83a2-bbee-a6e68e9f8296)
 
 ### Ref
 #### ideal 
