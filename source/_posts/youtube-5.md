@@ -778,6 +778,9 @@ Average viewed > 100%
 
 + [A Lion Skeleton That Roars Without Flesh](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bba66e-ceb4-83a8-b109-03e0eed77787)
 + [A Giraffe Skeleton That Moves in Slow Motion](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69bceff5-4fec-83a7-9a43-fe7a082143d5)
++ [A Bison Skeleton That Shakes the Ground](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69c0b824-603c-83aa-b58c-dc683d413c73)
++ [A Kangaroo Skeleton That Jumps Too High](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1/c/69c0d731-0d28-83a7-8a30-dfe60394d8fb)
+
 
 ``` bash
 🦊 This Fox Has No Fur… But Wait!
@@ -5989,9 +5992,57 @@ YouTube 在 Shorts feed 會優先抓：
 ---
 ```
 
-#### ASMR
+### ASMR
 + [Ghibli-Style ASMR 分析 - perplexity](https://www.perplexity.ai/search/bang-wo-fen-xi-zhe-ge-channel-vb0yDxdETRK.ggSMH53x7A#cf84477b-7a0c-4580-a3b9-1234f26322a4)
 + [多頻道 ASMR - ChatGPT](https://chatgpt.com/c/69bfbcf8-8ec0-83a2-bbee-a6e68e9f8296)
+
+``` bash
+# 前 10 支影片規劃
+Phase 1：找到主力主題
+1. Rainy Kitchen at Midnight | Cozy Cooking Ambience
+雨夜廚房，鍋裡慢燉，窗外細雨，木桌上暖燈。
+
+2. Candlelit Study Room with Rain | Deep Focus Ambience
+深夜書桌、翻頁、紙張、窗邊雨聲，偏專注。
+
+3. Cozy Café Window on a Stormy Night | Relaxing Ambience
+雨打窗、輕杯盤聲、遠處模糊人聲、室內暖色。
+
+4. Forest Cabin Fireplace and Rain | Sleep Ambience
+木屋、火爐、風雨、偶爾木頭爆裂聲，偏睡前。
+
+Phase 2：擴出系列感
+5. Warm Soup Kitchen in Heavy Rain | Cozy Night Sounds
+加強湯鍋、木勺、蒸氣聲。
+
+6. Late Night Tea Room | Soft Rain and Kettle Ambience
+茶壺、水聲、瓷杯、榻榻米或溫暖木質空間。
+
+7. Quiet Bakery Before Dawn | Oven and Rain Sounds
+清晨前的麵包店，環境比較安靜溫柔。
+
+8. Small Apartment in the Rain | Study and Rest Ambience
+城市公寓、窗邊雨、桌燈、柔和生活聲。
+
+Phase 3：測試觀眾偏好
+9. Midnight Ramen Kitchen | Cozy Cooking Background Ambience
+更有食物感，但不要變成吃播。
+
+10. Lantern Café in Summer Rain | Calm Night Ambience
+比較有辨識度的主題變體，測試封面吸引力。
+
+# Rainy Kitchen at Midnight 
+# Segment A
+- 生成的 6 張固定角色圖
+- 產生場景 base images
+  幫我做 8 張場景 base image prompts(不要直接產生 image)
+  註明參照 固定角色圖(可多張參照)
+- 產生 video prompt(若有需要 幫我註明 6s or 10s)
+
+# Segment B
+- 產生場景 base images
+  Segment B（以碗中攪拌 / 更細節料理感為核心）的 8 張 16:9 base image prompts，並註明各張要參照哪張固定角色圖。
+```
 
 ### Ref
 #### ideal 
