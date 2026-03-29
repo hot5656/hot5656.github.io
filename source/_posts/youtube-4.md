@@ -876,6 +876,7 @@ please give me full video prompts
 + [Who Was Ringing the Bell in an Empty Village?](https://chatgpt.com/share/69aa54ac-2d48-8001-ad68-8250ae2bf257)
 + [Why Were There Footprints on the Rooftops? - My ChatGPT Serial](https://chatgpt.com/c/69aad3ac-1dcc-8323-ba60-39d23bc9e880)
 + [Why Did the River Start Glowing](https://chatgpt.com/c/69ad0f08-207c-83a9-8da6-5154c01a48ce)
++ [母巢：新生之雨｜第一章：礦鎮的灰燼](https://gemini.google.com/app/093d5ba245a2e66a)
 
 ### 更改 channel
 + [new channel description(jump rabbit) - ChatGPT](https://chatgpt.com/share/69a53bf7-3158-8001-9712-7c047a611ded)

@@ -72,11 +72,15 @@ Output:
 # 結尾靜止
 影片 22.6s–24.0s 畫面接近靜止 , 到時要放疊字 ROBERT HUT, 幫我修 clip 4
 
+影片 23s–24.0s 畫面請接近靜止，主動作已完成，骨架停在最有記憶點的 pose，只保留微弱環境動態，方便我後製疊字。請幫我修 clip 4。
+
 # SEO & tags
 幫我產生 title and description(for short) 考慮最佳 SEO
 tags 大於  350 characters(小於 400 characters)
 description for short 不要太長,
-最後加: Part of the Robert Hut Cinematic Micro-World.
+最後加: 
+This video is created with AI for creative storytelling purposes.
+Part of the Robert Hut Cinematic Micro-World.
 
 # 縮圖
 A Lion Skeleton That Roars Without Flesh 產生 youtube 9:16 Shorts 含文字 縮圖 Prompt(不直接產生 image)
@@ -770,7 +774,47 @@ Average viewed > 100%
 → 第三波 50k+
 ```
 
+#### pattach 3.2 video 2026/03/28
++ [A Wolf Skeleton That Runs Too Fast](https://chatgpt.com/g/g-69c75f50ae408191ae19c5fa9c9bd3c9-skeleton-xi-lie-ip-gui-ze-v3-2/c/69c76314-cbf0-83a6-ae41-af2b83f5b89a)
+
+``` bash
+第 1 支：A Wolf Skeleton That Runs Too Fast
+第 2 支：A Horse Skeleton That Glides Across the Ground
+第 3 支：A Bison Skeleton That Slams the Ground（重做版）
+
+Generate a Robert Hut Skeleton Series short for "A Wolf Skeleton That Runs Too Fast".
+
+Follow the Skeleton Series GPT rules and use the knowledge files.
+
+Requirements:
+- use 6-second clip logic
+- total duration 18–24 seconds
+- one impossible motion only
+- event-first hook
+- testing-phase priority
+- high first-frame readability
+- the wolf skeleton must be instantly recognizable in the opening
+- the opening must stop viewers from scrolling
+
+Output:
+1. title
+2. impossible motion
+3. total duration
+4. clip-by-clip breakdown
+5. for each clip include:
+   - duration
+   - video prompt
+   - camera movement
+   - environment
+   - lighting / atmosphere
+   - sound design
+   - subtitle / hook text if needed
+```
+
 ### Skeleton
++ [Skeleton 系列 IP 規則 v3.2 plane](https://chatgpt.com/c/69b7c273-44a4-83a5-90ea-d79f35400c48)
++ [Skeleton 系列 IP 規則 v3.3 plane](https://chatgpt.com/c/69c69b12-db10-83a5-8936-de51b8d914cf) 
+
 + [Skeleton 系列 IP 規則 v3.1](https://chatgpt.com/g/g-69bba0ab0ad08191b9fc8383d234611d-skeleton-xi-lie-ip-gui-ze-v3-1)
 + [Tiger skeleton moves with impossible smoothness - my ChatGPT](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69af9cfb-92ec-83a3-8a07-084e89730114)
 + [A Rhino Skeleton That Refuses to Stop](https://chatgpt.com/g/g-69af97896d2c8191a47830245bfb2e73-skeleton-xi-lie-ip-gui-ze-v2/c/69b3ccfb-2cac-83ab-8128-53aaeca707b2)
