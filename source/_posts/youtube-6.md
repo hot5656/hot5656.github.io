@@ -6,6 +6,16 @@ categories:
 tags:
 ---
 
+### fb publish
+``` bash
+1. Lucy 966
+2. Lucy Tokyo
+3. 礦鎮的灰燼
+4. 深夜雨中的廚房
+5. 草莓屋的小郵差
+
+```
+
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
 + [草莓屋的小郵差](https://chatgpt.com/c/69c7c12f-bb50-83a4-a186-66de68886f53)
