@@ -6,6 +6,53 @@ categories:
 tags:
 ---
 
+### Google Tools
++ [Google AI 資源 - perplexity](https://www.perplexity.ai/search/wo-xiang-shen-ru-xue-xi-google-nEKF8RsmTHqb8CiaZN27HQ)
++ [Google AI 資源 - gemini](https://gemini.google.com/u/1/app/21007379bdcb9b4b?pageId=none)
++ [Google AI 資源 - ChatGPT](https://chatgpt.com/c/69d8552f-5f9c-8323-922b-68795c710f90)
+
+#### ??
+``` bash
+我想學習 google Vids
+幫我建一個表格 列出每個資源 發布日期和 有多少其他 資源 link 到他
+can you make a table of each source , the publication date and how many other sources link to it 
+
+# 設定對話
+Pretend to be a RPG game host where I will learn about google vids but in a fun way
+預設 較長 較短
+
+google vids 說明
+google vids term 來源
+
+# 語音摘要
+可以用 google vids 做甚麼東西
+
+# video
+可以用 google vids 做甚麼東西
+
+# 語音摘要 ask
+google vids 推出的具體時間
+
+# 心智圖
+```
+
+#### 
+``` bash
+# Gemini
+
+# Canvas
+Create a landing page based on AGI and include all the key detail
+[Create a landing page based on google vids and include all the key detail](https://gemini.google.com/share/f0de0d57da4d)
+
+# Google studio
+remove the fluff and provide a bullet point summary
+
+
+# gemini to notebookLLM
+retell the story as a graphic novel, mkar the art style Moden Middle-Grade(Clean ink line, flat pastel colors, Raina Telgemeier style) for my audience Middle Grade(Ages 8-12)
+```
+
+
 ### fb publish
 ``` bash
 1. Lucy 966
@@ -14,7 +61,9 @@ tags:
 4. 深夜雨中的廚房
 5. 草莓屋的小郵差
 
+#RobertHut #AIvideo #AICreator #AIVideoArt
 ```
+
 
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
@@ -73,3 +122,6 @@ Lucy, the same East Asian female character, identical face as the reference imag
 ```
 
 <!--more-->
+
+### Ref
++ [FRANKLIN AI](https://franklineh.com/)
