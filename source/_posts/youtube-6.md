@@ -10,6 +10,12 @@ tags:
 + [Google AI 資源 - perplexity](https://www.perplexity.ai/search/wo-xiang-shen-ru-xue-xi-google-nEKF8RsmTHqb8CiaZN27HQ)
 + [Google AI 資源 - gemini](https://gemini.google.com/u/1/app/21007379bdcb9b4b?pageId=none)
 + [Google AI 資源 - ChatGPT](https://chatgpt.com/c/69d8552f-5f9c-8323-922b-68795c710f90)
++ [除了 youtube 有沒有其他平台,ai 影片貨幣化比較](https://www.perplexity.ai/search/ai-ying-pian-huo-bi-hua-chu-li-_nzYkR5pTQqubWAo7PNPdQ)
++ [利用 AI video 達成貨幣化](https://www.perplexity.ai/search/wo-xiang-zai-6-months-shi-xian-xJwfDYqaSUSCc.BnZqVGBw)
++ [AI 動畫如何 賺錢 - perplexity](https://www.perplexity.ai/search/ai-dong-hua-ru-he-zhuan-qian-i2g8kquqSY.9XnCpHnw1yA)
++ [AI 動畫如何 賺錢 - gemini](https://gemini.google.com/u/1/app/a3153cf345b56779)
++ [AI 動畫如何 賺錢 - ChatGPT](https://chatgpt.com/c/69df4061-2444-8324-9ae8-a6e6bc943f4a)
++ [骨與餘燼 - gemini](https://gemini.google.com/u/1/app/4fd6168a2ab9dbfc)
 
 #### ??
 ``` bash
@@ -52,6 +58,13 @@ remove the fluff and provide a bullet point summary
 retell the story as a graphic novel, mkar the art style Moden Middle-Grade(Clean ink line, flat pastel colors, Raina Telgemeier style) for my audience Middle Grade(Ages 8-12)
 ```
 
+
+#### AI studio
+``` bash
+# live 
+https://aistudio.google.com/live
+
+```
 
 ### fb publish
 ``` bash
