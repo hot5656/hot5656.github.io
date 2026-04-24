@@ -77,6 +77,114 @@ https://aistudio.google.com/live
 #RobertHut #AIvideo #AICreator #AIVideoArt
 ```
 
+### 
++ [Mr Tabby Tales](https://www.youtube.com/@MrTabbyTales)
++ [TrapCat Chronicles - AI 老爸](https://www.youtube.com/channel/UCaLv8kVm9_olpvg6QFdjozg)
++ [Chonky Mochi Diaries](https://www.youtube.com/@ChonkyMochi)
++ [OpenArt AI - google 001](https://openart.ai/) : image to prompt
+
++ [ezgif - video to 1st shot](https://ezgif.com/video-to-jpg)
++ [Magic Eraser - video watermark remove](https://magiceraser.org/remove-watermark-from-video/)
++ [指紋瀏覽器 - Gemini](https://gemini.google.com/u/1/app/b0adb2bb1614c344)
+
+
++ [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
++ [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
++ [對峙 #3 - Grok](https://grok.com/c/bc0e2fa4-93ed-4847-8168-6cc30d916d89?rid=9516f84e-0b09-47f2-a131-50dbff5b9854)
++ [對峙 #4 - Perplexity](https://www.perplexity.ai/search/wo-xiang-yao-zuo-short-mao-shu-..qMwjUjRKmdLSsk48Bwqg)
++ [對峙 #5 - Gemini](https://gemini.google.com/u/1/app/7cb1d580d3ad4137?pageId=none)
+
+
+``` bash
+# Open art AI
+# FlexClip
+
+# Vidu
+# DeeVid AI
+# Runway
+# 可靈 AI/Kling AI
+
+# 4 video
+# 0:00 6:00 12:00 18:00
+# VPN 長效靜態 ISP: Cliproxy, ipfly, lycheeIP
+# 指紋瀏覽器 DICloak, AdsPower  
+# IP 偽裝度測試: Whoer.net (100%)
+# 何謂風控值測試: https://ping0.cc/ (高)
+
+# AI ASMR
+# AI ASMR 水晶蘋果Prompt:
+A close -up of a hand holding a knife slicing an apple that looks like transparent glass on a wooden board. An apple made of glass that is extremely realistic and beautiful resembling a translucent red crystal is placed on a clean wooden cutting board. the knife smoothly slices through the fruit creating thin transparent slices. the sound of the knife cutting through the glass -like fruit is amplified, creating a refreshing ASMR sound. this ASMR video exudes a sence of luxury and elegance
+
+# AI Vlog
+https://www.youtube.com/watch?v=TSQDVF1lMn4 請描述一下該影片畫面 並產生 prompt 我要用 veo3 去製作影片
+
+# AI 穿越 Vlog
+請幫我規劃一些有可能成為“AI時間旅行vlog”類型影片流行的主題:
+ 1。需要強烈的視覺衝擊力,如爆炸、災難、近戰、幻象等
+ 2。有強烈的情緒共鳴,如恐懼、悲劇、震驚、驚奇等
+ 3。適合第一人稱視角的視訊部落格廣播風格,例如記者、主播、倖存者等
+ 4。使用人工智慧產生圖像很容易。請列出不少於十個主題,並簡要解釋每個主題的亮點和視訊影像的核心。
+# 2nd
+ 請為 “我在海嘯來襲前30秒直播”  影片產生一組 video prompt 要求如下: 
+ 1。每個故事板長度約6秒,產生不少於4個故事板；這裡的影片時長是根據鬥寶產生的時長決定的。
+ 2。每個故事板包含兩部分:
+ 螢幕提示詞:適合鬥寶生成視頻,包括背景描述、攝影機操作方法、特效資訊等
+ 旁白:主角的口頭內容控制在5秒內,風格為“緊張+新聞廣播風格”;
+ 3。每個場景都需要強調主角在每個鏡頭中出現和說話；
+ 4。主角 一名現代女性裝扮的主角，背著專業登山背包,第一人稱Vlog廣播風格”； 
+ 5。整體風格需要有視覺衝擊力、情感張力和第一人稱視角。
+# 對口型
+
+# video duplicate
+影片轉成圖片 --> ChatGPT --> prompt
+OpenArt AI:Imagr to prompt
+gemini 原始網址
+# other
+首尾幀相同
+不超過10S
+跨國 VPN: 原生家庭 VPN
+1. GPT 寫咒語
+2. Sola 改圖片
+3. 可靈 做影片
+# 標題
+英文 印度文 日文 為主
+留言一定要回復
+# 對標頻道
+MKM166M-JS
+TrapCat Chronicle
+The pet Escape
+Mellow Pet House
+# 爆紅公式: 題材 規律 批量
+題材: 跨越語言文化(爆點要第一秒出現)
+規律: 
+批量: 不同角度 不同光線 不同背景環境 不同時間發出
+# 標題 標籤 生成
+# 心理機制
+好奇心: 貓能抓到老鼠嗎?老鼠會反擊嗎?
+情緒張力: 動物衝突場景
+重播衝動: 影片短又快
+```
+
+``` bash
+# Gemini(思考) 圖卡:製作系列知識圖卡,建立知識 IP
+請根據心理學中的『達克效應』，創作一套四格連環漫畫圖卡。漫畫風格必須是簡約的日系上班族漫畫風，線稿清晰，色彩柔和。請先為我寫出四格的分鏡腳本，內容必須包含：第一格，初學者過度自信（愚昧山峰）；第二格，受挫後的低谷期（絕望之谷）；第三格，持續學習的爬升期；第四格，達到務實的專業認知。最後，將每個分鏡繪製成圖，並在圖中以繁體中文對話框形式嵌入簡短的解說文字。
+
+以漫畫形式為我製作一個『如何使用youtube進行直播』的5步驟手冊漫畫。風格必須是藍色調的科技感清晰線稿，注重介面和流程的邏輯性。請將流程分成五個獨立的分鏡圖，並明確標示步驟數字1到5。要求每個分鏡中，都必須用簡潔的繁體中文解釋該步驟的操作重點，並用紅色箭頭指示滑鼠的點擊動作。
+
+請創作一套介紹『香港太平山夜景』的連環漫畫。風格必須精準模擬香港漫畫教父黃玉郎的武俠風格：要求人物體格健壯、肌肉線條明顯、背景色彩鮮豔飽滿且光影對比強烈。在分鏡中，繪製一位身穿古裝的武俠人物站在太平山頂，俯瞰壯闊的維多利亞港夜景。請在畫面中融入氣勢磅礡的中文旁白，描寫夜景的壯麗。
+
+請為我創作一套『冥想的四大益處』的四格連環圖卡。風格必須採用溫暖、柔和的水彩手繪插畫風，色彩選用莫蘭迪色系，具有治癒感。請將益處分為四個分鏡，內容必須包含：專注力提升、壓力釋放、情緒穩定、改善睡眠。每個分鏡都要有溫馨的人物進行冥想的場景，並用柔和的繁體中文簡述該益處。
+
+# prompt
+1. 內容邏輯層: 明確的步驟知識點分鏡數量
+2. 風格設定層: 具體的畫家風格色彩要求光影細節
+3. 輸出風格層: 包含排版文字位置對話框格式
+```
+
+``` bash
+# AI 短劇
+
+```
 
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
