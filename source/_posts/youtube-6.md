@@ -84,8 +84,14 @@ https://aistudio.google.com/live
 + [OpenArt AI - google 001](https://openart.ai/) : image to prompt
 
 + [ezgif - video to 1st shot](https://ezgif.com/video-to-jpg)
++ [Pollio - Remove Gemini Watermark](https://pilio.ai/gemini-watermark-remover)
 + [Magic Eraser - video watermark remove](https://magiceraser.org/remove-watermark-from-video/)
 + [指紋瀏覽器 - Gemini](https://gemini.google.com/u/1/app/b0adb2bb1614c344)
++ [Google Authenticator 兩步驟驗證指南](https://gemini.google.com/u/1/app/631775231a91c052?pageId=none)
++ [Gmail 更改電話號碼教學](https://gemini.google.com/u/1/app/a51988cc5e674341?pageId=none)
++ [美國原生住宅IP平台推薦](https://gemini.google.com/u/1/app/3f239fc64e3cc6e9?pageId=none)
+
+
 
 
 + [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
@@ -185,6 +191,218 @@ Mellow Pet House
 # AI 短劇
 
 ```
+
+### Youtube information
+#### google 
+##### gmail 申請
+``` bash
+# ===== 申請 email ====
+# 1. 首選： 用 DICloak 連上美國 ISP，先試試看用 台灣電話 註冊。
+# 直接使用台灣電話註冊（最省錢，但需靠運氣）
+其實 Google 並不絕對禁止跨國驗證，但它會判斷你的「環境純淨度」。
+- 操作技巧： 
+  1.  在 DICloak 中，確保你的 Profile 指紋（字體、時區、語言）全部模擬為美國。
+  2.  不要一開瀏覽器就註冊。先去 Google 搜尋「New York Weather」或去 YouTube 看幾個美國當地的熱門影片，累積一些「真實行為 Cookie」。
+  3.  註冊時，電話選 +886 (台灣) 並輸入你的號碼。
+- 風險： 有機率出現「此電話號碼無法用於驗證」。如果失敗了，不要一直重複嘗試，否則你的 IP 和電話都會被標記。
+- 後續： 註冊成功後，進到帳號安全設定，綁定一個救援信箱（Recovery Email），然後等幾天後嘗試把台灣手機號碼從帳號中「移除」。
+- 註冊完成後，設定 「二步驗證 App (Google Authenticator)」 並下載 「備用驗證碼 (Backup Codes)」
+# 2. 如果失敗： 去接碼平台花點小錢買個 美國實體號碼（+1 號碼）完成註冊。
+# 使用美國接碼平台（最推薦，成本約 $1-3 美元）
+既然你無法拿到實體卡，可以使用專業的「實體 SIM 卡轉接碼」服務。這類服務提供真正的美國電信商號碼，不是 VoIP 虛擬號（Google 經常封鎖虛擬號）。
+- 推薦平台：
+  1. SMS-Activate / Grizzly SMS：這類平台有專門的「Google/Gmail」類別。
+- 操作流程：
+  1. 在平台購買一個「美國 Google 驗證碼」服務。
+  2. 平台會給你一個 +1 開頭的美國號碼。
+  3. 在 DICloak 註冊頁面填入該號碼，回到平台收簡訊，填入驗證碼。
+- 關鍵點： 註冊完成後，一定要立刻設定 「二步驗證 App (Google Authenticator)」 並下載 「備用驗證碼 (Backup Codes)」，因為那個簡訊號碼是拋棄式的，你之後收不到第二次。
+# 3. 註冊成功後：
+- 立刻 設定救援信箱（可以用你原本的常用信箱）。
+- 立刻 開啟 Google Authenticator，這樣以後登入就不需要簡訊。
+- 冷卻期： 帳號放 24 小時不要動，之後再開始建立 YouTube 頻道。
+
+# ====「資料一致性」的原則可以拆解如下 ====
+# 1. Gmail 階段（註冊與頻道經營）
+在 DICloak 裡註冊 Gmail 和經營 YouTube 頻道時，你的個人資料（姓名、出生日期）不需要與你的真實身分完全一致。
+- 姓名： 你可以使用藝名或英文名（例如 Robert Hut）。
+- 出生日期： 建議設定一個讓你超過 18 歲的日期，但請務必記下來。萬一帳號被鎖需要恢復時，出生日期是重要的驗證資訊。
+- 重點： 這個階段 Google 主要在防範機器人，只要行為像真人，資料填 Robert Hut 也不會影響後續領錢。
+#2. AdSense 階段（申請收益與領錢）
+當你達到 YPP 門檻，開始申請 AdSense 時，情況就完全不同了。這個階段涉及金流、稅務和反洗錢法，資料必須 「絕對真實」。
+- 真實姓名： 必須與你的身分證及銀行帳戶名稱完全一致（台灣帳號通常填寫英文譯名，需與護照或銀行外匯帳戶一致）。
+- 地址： 必須是能收到實體 PIN 碼信件的台灣真實地址。
+- 稅務資訊： 必須填寫真實的稅務資料（台灣人需填寫 W-8BEN 表單，以享有美台之間的租稅優惠，避免被預扣 30% 的稅）。
+# 3. 「Gmail 個人資料」與「AdSense 真實資料」不符會有問題嗎？
+答案是：不會有問題。
+Google 允許「頻道經營者」與「收款人（AdSense 持有人）」是不同的身分或有不同的顯示名稱。
+- 邏輯是： 你的 YouTube 頻道環境（Gmail）是在美國工作的「虛擬身分」，而你的 AdSense 是負責領錢的「真實實體」。
+- 連結過程： 當你從 YouTube 後台點擊「連結 AdSense」時，系統會引導你登入或建立一個 AdSense。在那台電腦（或那個 DICloak 環境）操作時，只要在 AdSense 內部的收款人資訊 填寫正確的台灣資料即可。
+# 4. 關鍵的操作建議（防翻車指南）
+1. 分開對待： 頻道名稱、Gmail 姓名可以隨意，但 AdSense 內的姓名、地址、電話 必須 100% 真實，否則你過不了身分驗證（Identity Verification），錢會卡在裡面領不出來。
+2. 出生日期建議： 雖然 Gmail 可以亂填，但建議 Gmail 的出生日期與你身分證上的保持一致。雖然不是強制，但這能減少 Google 系統在進行跨產品（YouTube 到 AdSense）審核時觸發「異常活動」的風險。
+3. 設備隔離： * 平時在 DICloak 登入美區 Gmail 經營頻道。
+  - 等到要申請 AdSense 時，同樣在 DICloak 裡操作，但填寫的是台灣資料。這對 Google 來說很正常（就像一個住在美國的人，要把錢匯給在台灣的合作夥伴一樣）。
+
+# ==== 執行步驟 ====
+# 1. 註冊前的環境檢查（DICloak 設定）
+在點擊註冊之前，請先在 DICloak 建立一個專屬的 Profile，並確認以下參數：
+- Proxy（代理）： 已連上你的「美國長效靜態 ISP」。
+- WebRTC： 設定為「替換 (Replace)」，確保不洩漏台灣真實 IP。
+- Language（語言）： 第一順位設為 en-US。
+- Timezone（時區）： 設定為「根據 IP 自動同步」。
+- 測試環境： 先打開 whoer.net 或 browserleaks.com，確認百分比達到 90% - 100%，且地圖顯示在美國。
+# 2. 註冊 Gmail 的「擬人化」步驟
+Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
+1. 行為預熱： 打開瀏覽器後，先去 Google 搜尋一些美國當地的資訊（如：New York news、Best sci-fi movies 2026），點進去逛逛，產生一些真實的 Cookie。
+2. 進入註冊頁面： 建議直接搜尋 Gmail sign up 並點擊連結，而不是直接打網址。
+3. 填寫資料：
+  - 姓名： 建議用英文名（例如你的 Robert Hut 或系列相關名稱）。
+  - 生日： 必須設定超過 18 歲（建議與身分證一致，方便未來萬一需要驗證）。
+  - 電話驗證： * 嘗試 A： 先試試你的台灣手機。如果 Google 讓你過，那就用它。
+  - 嘗試 B (推薦)： 如果台灣手機被拒絕，使用 SMS-Activate 買一個美國實體號碼 (Physical SIM) 完成驗證。
+# 3. 註冊成功後的「帳號保護」 (防翻車關鍵)
+註冊成功進入收件匣後，請立刻執行以下動作，這能讓你未來不再需要美國手機：
+- 立刻設定「救援信箱」： 填寫一個你常用的台灣 Email（這不會影響地區判定）。
+- 開啟「兩步驟驗證」： 
+  1.  進入安全設定，開啟兩步驟驗證。
+  2.  選擇使用 「身分驗證器應用程式 (Google Authenticator)」。
+  3.  下載「備用驗證碼 (Backup Codes)」： 將那 10 組 8 位數代碼存好。萬一以後手機或 IP 有變動，這些代碼是你的救命稻草。
+- 移除手機號碼： 當你設定好 Authenticator 和備用驗證碼後，幾天後可以嘗試把原本註冊用的手機號碼刪除。
+# 4. 建立 YouTube 頻道的「黃金 48 小時」
+不要註冊完 Gmail 就立刻開 YouTube 頻道。 * 第一天： 只是像一般人一樣登入 Gmail，收一封信，或在 Google 搜搜資料。
+- 第二天： 登入 YouTube，看幾個美國大頻道的影片，隨機點幾個讚或訂閱。這會讓系統覺得你是個「真實的觀眾」。
+- 第三天： 正式點擊「建立頻道」，並在 YouTube Studio 的設定中，將 「居住國家」選為美國。
+```
+
+##### gamil 帳戶管理
+``` bash
+# 更改電話號碼
+# 在電腦網頁版操作
+登入 Google 帳戶設定頁面。
+點擊左側選單中的「安全性」。
+找到「確認這是您的本人身分的方式」區塊，點擊「救援電話」。
+系統可能會要求你重新輸入密碼以驗證身分。
+點擊電話號碼旁的鉛筆圖示進行修改，或點擊垃圾桶圖示刪除。
+點擊「更新號碼」，輸入新手機號後點擊「選取」，並完成簡訊驗證。
+# ⚠️ 重要提醒
+生效時間： 更改電話後，Google 為了安全起見，通常需要 7 天 的時間才會完全信任新號碼。這段期間，如果你嘗試重設密碼，系統可能仍會將驗證碼傳送到「舊號碼」。
+兩步驟驗證： 如果你有開啟兩步驟驗證 (2FA)，記得也要去「安全性」分頁下的「兩步驟驗證」確認號碼是否同步更新，以免無法登入。
+預防措施： 如果你的舊門號已經停用且無法收簡訊，建議在更改前先確認你有設定救援信箱或下載過備用碼，否則可能會卡在身分驗證步驟。
+
+# 其他待釐清
+1. gmail 密碼金鑰 是什麼
+```
+
+##### Authenticator App 要如何使用
+``` bash
+# 第一步：準備工作
+在你的手機上下載並安裝驗證器 App：
+1. iOS: Google Authenticator
+2. Android: Google Authenticator
+# 第二步：在 Google 帳戶中設定
+1. 腦或手機瀏覽器進入 Google 帳戶安全性頁面。
+2. 點擊「兩步驟驗證」。
+3. 向下捲動找到「驗證器應用程式」(Authenticator app)，點擊進入。
+4. 點擊「設定驗證器」。
+5. 螢幕上會出現一個 QR Code。
+# 第三步：連結 App 與帳戶
+1. 打開手機上的 Authenticator App。
+2. 點擊右下角的「+」號(or 選擇正確 mail),新增動態密碼,選擇「掃描 QR 圖碼」
+3. 對準電腦螢幕上的 QR Code 進行掃描。
+4. 掃描成功後，App 會立刻出現一組 6 位數動態密碼（每 30 秒更換一次）。
+5. 回到 Google 設定頁面，點擊「下一步」，輸入 App 上顯示的那組 6 位數號碼進行驗證。
+6. 點擊「驗證」完成綁定。
+# ⚠️ 極重要提醒（必看）
+1. 更換手機前： 如果你要換新手機，千萬不要直接格式化舊手機。你需要先在新手機登入驗證器（現在 Google Authenticator 支援雲端同步），或是手動將帳戶轉移過去，否則你會因為拿不到 6 位數代碼而無法登入帳戶。
+2. 搭配備用驗證碼： 即使裝了驗證器，我還是強烈建議你下載 「備用驗證碼」（就是我們之前聊過的 10 組 8 位數號碼）。萬一手機遺失或 App 壞掉，那是你唯一的救命稻草。
+3. 安全性： 驗證器產生的代碼只儲存在本地（或加密同步），比起容易被攔截的簡訊，這是目前最平衡安全與便利的選擇。
+
+# 使用
+登入步驟
+1. 輸入帳密： 在登入畫面輸入你的 Gmail 帳號與密碼。
+2. 要求驗證： 系統會跳出畫面，要求你輸入「兩步驟驗證碼」。
+3. 打開 App： 拿出手機，打開 Google Authenticator。
+4. 查看數字： 找到對應你該 Google 帳號的那一列，你會看到一組 6 位數數字（例如 123 456）。
+5. 輸入代碼： 在登入網頁中輸入這 6 位數字，按確認即可登入。
+```
+
+##### 救援信箱（Recovery Email） 的使用
+``` bash
+# 以下是幾種你會需要使用救援信箱的關鍵時刻：
+# 1. 忘記密碼
+這是最常見的情況。當你選擇「忘記密碼」時，Google 會提供多種驗證身分的方式，若你沒有綁定電話或電話失效，Google 會向你的救援信箱發送一個 6 位數的驗證碼或重設密碼的連結。
+# 2. 帳戶出現異常活動
+當系統偵測到以下情況時，會發送警示郵件到你的救援信箱：
+新裝置登入： 在一台從未使用的電腦或地點登入。
+敏感設定被更換： 例如有人修改了你的密碼、刪除輔助電話或更改了兩步驟驗證設定。
+遭到攻擊： Google 懷疑帳戶被駭客嘗試入侵時。
+# 3. 被鎖在帳戶外（手機遺失或 Authenticator 失效）
+如果你開啟了兩步驟驗證，但手機不見了、App 被刪除，且你也沒備份「備用驗證碼」時，救援信箱是你向 Google 申請「帳戶還原」時的核心憑證。Google 會透過救援信箱與你聯繫，引導你完成身分審核。
+# 4. 儲存空間用盡
+當你的主要 Gmail 空間已滿，導致無法接收郵件時，Google 有時會透過救援信箱通知你空間狀態，以免你錯過重要資訊。
+```
+
+#### knowledge 
+##### 住宅 IP
++ [ PING0 - ip 品質測量 #1](https://ping0.cc/)
++ [ IPQS - ip 品質測量 #1](https://www.ipqualityscore.com/)
++ [Whore - P 偽裝度測試](https://whoer.net/) : 偽裝度測試要 100%
++ [browserleaks - check my ip ingormation](https://browserleaks.com/ip)
+  - ISP： 應該顯示為美國主流電信商（如 AT&T, Comcast, Verizon）。
+  - Type： 必須是 Residential 而非 Hosting/DataCenter。
++ [ipip.la IP检测](https://ipip.la/)
+
++ [ IPFLY(20% 0ff, 可選靜態原生IP) - ip 購買](https://www.ipfl y.net/zh-cn/activity/didushan/)
++ [比特指纹浏览器下载](https://www.bitbrowser.cn/download)
+
+``` bash
+# IP 種類
+廣播 IP
+  + 機房 IP
+  + 商業 IP
+  + 家庭住宅 IP
+原生 IP
+  + 機房 IP
+  + 商業 IP
+  + 家庭住宅 IP
+# 住宅IP
+  + 靜態住宅IP(IP固定,按月計費) 
+  + 動態住宅IP(IP變動,按流量計費)
+# 希望住宅原生 IP
+可能買到 機房廣播 IP or 偽住宅 IP
+
+
+```
+##### IP quality test
+``` bash
+154.18.228.62 : 機房 IP, 廣播 IP - VPN: true or Porxy: true(表為 機房IP)
+154.28.2.228 : 家庭寬帶IP, 原生 IP - VPN: true or Porxy: true(表為 機房IP) - 不是真正的住宅IP(偽住宅 IP)
+38.30.232.175 : 家庭寬帶IP, 原生 IP - VPN: false or Porxy: false(表為 住宅IP)
+
+# IPQS
+VPN: true or Porxy: true(表為 機房IP)
+
+# IP 選擇
+1. 靜態原生IP(若可選)
+2. Socks5
+3. 國家
+--> 取得 代理主機 端口號 帳號 密碼 出口IP
+
+# pc 使用 住宅IP
+1. 指紋瀏覽器
+  + 代理類型 Socks5
+2. 鏈式代理
+
+# 原生住宅IP
+Cliproxy - 加州
+# 指紋瀏覽器
+DICloak
+
+
+```
+
+
 
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
