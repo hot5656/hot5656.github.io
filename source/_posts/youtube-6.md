@@ -17,7 +17,7 @@ tags:
 + [AI 動畫如何 賺錢 - ChatGPT](https://chatgpt.com/c/69df4061-2444-8324-9ae8-a6e6bc943f4a)
 + [骨與餘燼 - gemini](https://gemini.google.com/u/1/app/4fd6168a2ab9dbfc)
 
-#### ??
+#### notebookLM vibs 
 ``` bash
 我想學習 google Vids
 幫我建一個表格 列出每個資源 發布日期和 有多少其他 資源 link 到他
@@ -42,7 +42,7 @@ google vids 推出的具體時間
 # 心智圖
 ```
 
-#### 
+#### Gemini Canvas
 ``` bash
 # Gemini
 
@@ -59,11 +59,10 @@ retell the story as a graphic novel, mkar the art style Moden Middle-Grade(Clean
 ```
 
 
-#### AI studio
+#### AI studio - live
 ``` bash
 # live 
 https://aistudio.google.com/live
-
 ```
 
 ### fb publish
@@ -77,31 +76,53 @@ https://aistudio.google.com/live
 #RobertHut #AIvideo #AICreator #AIVideoArt
 ```
 
-### 
-+ [Mr Tabby Tales](https://www.youtube.com/@MrTabbyTales)
-+ [TrapCat Chronicles - AI 老爸](https://www.youtube.com/channel/UCaLv8kVm9_olpvg6QFdjozg)
-+ [Chonky Mochi Diaries](https://www.youtube.com/@ChonkyMochi)
-+ [OpenArt AI - google 001](https://openart.ai/) : image to prompt
+### Youtube information
 
-+ [ezgif - video to 1st shot](https://ezgif.com/video-to-jpg)
-+ [Pollio - Remove Gemini Watermark](https://pilio.ai/gemini-watermark-remover)
-+ [Magic Eraser - video watermark remove](https://magiceraser.org/remove-watermark-from-video/)
-+ [指紋瀏覽器 - Gemini](https://gemini.google.com/u/1/app/b0adb2bb1614c344)
-+ [Google Authenticator 兩步驟驗證指南](https://gemini.google.com/u/1/app/631775231a91c052?pageId=none)
-+ [Gmail 更改電話號碼教學](https://gemini.google.com/u/1/app/a51988cc5e674341?pageId=none)
-+ [美國原生住宅IP平台推薦](https://gemini.google.com/u/1/app/3f239fc64e3cc6e9?pageId=none)
+#### short animal
++ channel
+  + [Mr Tabby Tales](https://www.youtube.com/@MrTabbyTales)
+  + [TrapCat Chronicles - AI 老爸](https://www.youtube.com/channel/UCaLv8kVm9_olpvg6QFdjozg)
+  + [Chonky Mochi Diaries](https://www.youtube.com/@ChonkyMochi)
++ online tool
+  + [OpenArt AI - google 001](https://openart.ai/) : image to prompt
+  + [ezgif - video to 1st shot](https://ezgif.com/video-to-jpg)
+  + [Pollio - Remove Gemini Watermark](https://pilio.ai/gemini-watermark-remover)
+  + [Magic Eraser - video watermark remove](https://magiceraser.org/remove-watermark-from-video/)
++ ask AI
+  + [指紋瀏覽器 - Gemini](https://gemini.google.com/u/1/app/b0adb2bb1614c344)
+  + [Google Authenticator 兩步驟驗證指南](https://gemini.google.com/u/1/app/631775231a91c052?pageId=none)
+  + [Gmail 更改電話號碼教學](https://gemini.google.com/u/1/app/a51988cc5e674341?pageId=none)
+  + [美國原生住宅IP平台推薦](https://gemini.google.com/u/1/app/3f239fc64e3cc6e9?pageId=none)
+  + [IPFLY(20% 0ff, 可選靜態原生IP) - ip 購買](https://www.ipfly.net/zh-cn/activity/didushan/)
+  + [DICloak 帳號綁定與使用說明-Gemini](https://gemini.google.com/u/1/app/ec2a788b5e011a97?pageId=none)
++ AI suggest video
+  + [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
+  + [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
+  + [對峙 #3 - Grok](https://grok.com/c/bc0e2fa4-93ed-4847-8168-6cc30d916d89?rid=9516f84e-0b09-47f2-a131-50dbff5b9854)
+  + [對峙 #4 - Perplexity](https://www.perplexity.ai/search/wo-xiang-yao-zuo-short-mao-shu-..qMwjUjRKmdLSsk48Bwqg)
+  + [對峙 #5 - Gemini](https://gemini.google.com/u/1/app/7cb1d580d3ad4137?pageId=none)
 
-
-
-
-+ [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
-+ [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
-+ [對峙 #3 - Grok](https://grok.com/c/bc0e2fa4-93ed-4847-8168-6cc30d916d89?rid=9516f84e-0b09-47f2-a131-50dbff5b9854)
-+ [對峙 #4 - Perplexity](https://www.perplexity.ai/search/wo-xiang-yao-zuo-short-mao-shu-..qMwjUjRKmdLSsk48Bwqg)
-+ [對峙 #5 - Gemini](https://gemini.google.com/u/1/app/7cb1d580d3ad4137?pageId=none)
-
-
+##### prompt ask for AI 
 ``` bash
+# 
+動物對峙 loop video , 白鷺鷥水中的 魚
+白鷺鷥 vs 螃蟹 loop video prompt
+animal 對峙 loop video 構想
+柯基 vs 掃地機器人 loop video prompt(不直接產生 video)
+鳥媽媽鳥巢喂小鳥loop video ptompt(產生 3 組 不同鳥, 不直接產生 video)
+我要做 loop short, 主題是蚱蜢與公雞對峙 給出 video prompt 不要直接產生 video
+我要做 loop short, 貓逗老鼠 產生 3 個 video prompt(不同種類貓 及 場景) 不要直接產生 video
+做 小貓與蠍子 對峙的 6s loop video prompt(不直接產生 video) 
+獅子趴著睡覺 老鼠在樹上但靠近獅子 戲弄獅子  6s loop video prompt(不要直接產生 image or video)
+我要做 loop short, 主題是蛇偷蛋與母鳥對峙 給出 4 個 video prompt(不同種類的鳥) 不要直接產生 video
+
+產生 1st frame image prompt(不要直接產生 image)
+幫我產生對應第一個 frame image prompt(不要直接產生 image)
+希望做出來是擬真而不是卡通
+
+產生 title , descript and tags(english)
+產生 title , description and tags(English) , tags 以 , 分開 - geminie
+
 # Open art AI
 # FlexClip
 
@@ -171,6 +192,7 @@ Mellow Pet House
 重播衝動: 影片短又快
 ```
 
+##### 圖卡製作
 ``` bash
 # Gemini(思考) 圖卡:製作系列知識圖卡,建立知識 IP
 請根據心理學中的『達克效應』，創作一套四格連環漫畫圖卡。漫畫風格必須是簡約的日系上班族漫畫風，線稿清晰，色彩柔和。請先為我寫出四格的分鏡腳本，內容必須包含：第一格，初學者過度自信（愚昧山峰）；第二格，受挫後的低谷期（絕望之谷）；第三格，持續學習的爬升期；第四格，達到務實的專業認知。最後，將每個分鏡繪製成圖，並在圖中以繁體中文對話框形式嵌入簡短的解說文字。
@@ -187,12 +209,7 @@ Mellow Pet House
 3. 輸出風格層: 包含排版文字位置對話框格式
 ```
 
-``` bash
-# AI 短劇
 
-```
-
-### Youtube information
 #### google 
 ##### gmail 申請
 ``` bash
@@ -344,18 +361,16 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
 ```
 
 #### knowledge 
++ check IP
+  + [ PING0 - ip 品質測量 #1](https://ping0.cc/)
+  + [ IPQS - ip 品質測量 #1](https://www.ipqualityscore.com/)
+  + [Whore - iP 偽裝度測試](https://whoer.net/) : 偽裝度測試要 100%
+  + [browserleaks - check my ip ingormation](https://browserleaks.com/ip)
+    - ISP： 應該顯示為美國主流電信商（如 AT&T, Comcast, Verizon）。
+    - Type： 必須是 Residential 而非 Hosting/DataCenter。
+  + [ipip.la IP检测](https://ipip.la/)
+
 ##### 住宅 IP
-+ [ PING0 - ip 品質測量 #1](https://ping0.cc/)
-+ [ IPQS - ip 品質測量 #1](https://www.ipqualityscore.com/)
-+ [Whore - P 偽裝度測試](https://whoer.net/) : 偽裝度測試要 100%
-+ [browserleaks - check my ip ingormation](https://browserleaks.com/ip)
-  - ISP： 應該顯示為美國主流電信商（如 AT&T, Comcast, Verizon）。
-  - Type： 必須是 Residential 而非 Hosting/DataCenter。
-+ [ipip.la IP检测](https://ipip.la/)
-
-+ [ IPFLY(20% 0ff, 可選靜態原生IP) - ip 購買](https://www.ipfl y.net/zh-cn/activity/didushan/)
-+ [比特指纹浏览器下载](https://www.bitbrowser.cn/download)
-
 ``` bash
 # IP 種類
 廣播 IP
@@ -371,11 +386,14 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
   + 動態住宅IP(IP變動,按流量計費)
 # 希望住宅原生 IP
 可能買到 機房廣播 IP or 偽住宅 IP
-
-
 ```
-##### IP quality test
+
+##### IP quality test and setup
 ``` bash
+# ask
+我要美國固定 IP，ASN 必須是家用 ISP（Comcast/Spectrum/Verizon），不是 datacenter，可否先測試？
+
+
 154.18.228.62 : 機房 IP, 廣播 IP - VPN: true or Porxy: true(表為 機房IP)
 154.28.2.228 : 家庭寬帶IP, 原生 IP - VPN: true or Porxy: true(表為 機房IP) - 不是真正的住宅IP(偽住宅 IP)
 38.30.232.175 : 家庭寬帶IP, 原生 IP - VPN: false or Porxy: false(表為 住宅IP)
@@ -395,14 +413,48 @@ VPN: true or Porxy: true(表為 機房IP)
 2. 鏈式代理
 
 # 原生住宅IP
-Cliproxy - 加州
-# 指紋瀏覽器
+# buy 住宅IP
+Cliproxy - 加州_洛杉磯
+  --> 帳密模式
+  --> 提取 IP
+  --> Los Angeles -> 選擇 -> 提取 --> 確認 
+  --> 點擊 操作下面的使用按鈕 -> 複製按鈕 (copy IP information)
+
+
+# 指紋瀏覽器 設定
 DICloak
-
-
+  --> download DICloak -> install
+  --> 存取網路類型:私人網路,網域網路(windows) 
+  --> 登入
+  --> 創建環境 名稱:youtube-...
+  --> 環境備註: ...
+  --> 自訂代理: 代理類型 SOCKS
+  --> 貼上 IP information
+  --> 檢測代理 -> 連接測試成功
+  --> 指紋設置
+  --> 操作系統 -> Windows
+  --> User Agent --> 生成新 UA(也可選 版本)
+  --> 語言 -> 基於IP匹配
+  --> 更多指紋
+    界面語言:基於語言匹配
+    時區:基於IP匹配
+    地理位置:詢問
+    窗口大小:自定義-1920x1080(非 default, 防止平台偵測螢幕大小)
+    字體列表:自定義(每個檔案可以不同)
+    WebRTC:disable(防止真實IP洩漏)
+    Canvas:噪音(使其獨特且不易察覺)
+    ClientRects:噪音
+    AudioContext:噪音
+    WebGL图像:噪音
+    媒体设备:噪音
+    WebGL數據:自定義(可選隨機更動)
+    WebGPU:基於WebGL
+    SpeechVoices:噪音
+    中間...使用 default 即可
+    浏览器内核: ChromeBrowser 142(default)
+  --> 高級設置 (default ok) 
+  --> 確定
 ```
-
-
 
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
