@@ -7,6 +7,9 @@ tags:
 ---
 
 ### Other
+
+<!--more-->
+
 #### suggest note
 ``` bash
 # short 縮圖

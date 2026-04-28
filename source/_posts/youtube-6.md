@@ -17,6 +17,8 @@ tags:
 + [AI 動畫如何 賺錢 - ChatGPT](https://chatgpt.com/c/69df4061-2444-8324-9ae8-a6e6bc943f4a)
 + [骨與餘燼 - gemini](https://gemini.google.com/u/1/app/4fd6168a2ab9dbfc)
 
+<!--more-->
+
 #### notebookLM vibs 
 ``` bash
 我想學習 google Vids
@@ -94,7 +96,7 @@ https://aistudio.google.com/live
   + [Gmail 更改電話號碼教學](https://gemini.google.com/u/1/app/a51988cc5e674341?pageId=none)
   + [美國原生住宅IP平台推薦](https://gemini.google.com/u/1/app/3f239fc64e3cc6e9?pageId=none)
   + [IPFLY(20% 0ff, 可選靜態原生IP) - ip 購買](https://www.ipfly.net/zh-cn/activity/didushan/)
-  + [DICloak 帳號綁定與使用說明-Gemini](https://gemini.google.com/u/1/app/ec2a788b5e011a97?pageId=none)
+  + [DICloak 帳號綁定與使用說明 + Cliproxy 退款 -Gemini](https://gemini.google.com/u/1/app/ec2a788b5e011a97?pageId=none)
 + AI suggest video
   + [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
   + [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
@@ -363,11 +365,15 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
 #### knowledge 
 + check IP
   + [ PING0 - ip 品質測量 #1](https://ping0.cc/)
-  + [ IPQS - ip 品質測量 #1](https://www.ipqualityscore.com/)
+  + [ IPQS - ip 品質測量 #2](https://www.ipqualityscore.com/)
+  + [SCAMALYTICS - ip 品質測量 #3](https://scamalytics.com/)
+  + [Ipdata - ip 品質測量 #4](https://ipdata.co/)
   + [Whore - iP 偽裝度測試](https://whoer.net/) : 偽裝度測試要 100%
   + [browserleaks - check my ip ingormation](https://browserleaks.com/ip)
     - ISP： 應該顯示為美國主流電信商（如 AT&T, Comcast, Verizon）。
     - Type： 必須是 Residential 而非 Hosting/DataCenter。
+  + [BrowsetScan](https://www.browserscan.net/):90% or 100% good
+  + [Pixelscan](https://pixelscan.net/):右邊3個都為綠色 
   + [ipip.la IP检测](https://ipip.la/)
 
 ##### 住宅 IP
@@ -412,13 +418,23 @@ VPN: true or Porxy: true(表為 機房IP)
   + 代理類型 Socks5
 2. 鏈式代理
 
-# 原生住宅IP
-# buy 住宅IP
+# buy 住宅IP(非 原生住宅IP)
+# 有時特定的「重災區」IP（如洛杉磯、紐約某些便宜的機房網段）欺詐分特別高。如果更換，可以試試看較冷門一點的州（例如我之前推薦的 俄勒岡州 Oregon）。
 Cliproxy - 加州_洛杉磯
   --> 帳密模式
   --> 提取 IP
   --> Los Angeles -> 選擇 -> 提取 --> 確認 
   --> 點擊 操作下面的使用按鈕 -> 複製按鈕 (copy IP information)
+
+# IPRoayal
+# buy 
+主頁
+  --> 靜態住宅代理 -> 現在購買
+  --> 30 days -> 美國 -> 獲取欺詐風險為0的IP地址(Scamalytics)
+# 提取
+代理 --> 靜態住宅代理
+  --> 協議 -> socks5 (重置憑證 可產生新的用戶名及密碼)
+  --> 複製
 
 
 # 指紋瀏覽器 設定
@@ -432,7 +448,7 @@ DICloak
   --> 貼上 IP information
   --> 檢測代理 -> 連接測試成功
   --> 指紋設置
-  --> 操作系統 -> Windows
+  --> 操作系統 -> Windows --> 選 Win10 or Win11
   --> User Agent --> 生成新 UA(也可選 版本)
   --> 語言 -> 基於IP匹配
   --> 更多指紋
