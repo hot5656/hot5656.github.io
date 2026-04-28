@@ -470,6 +470,18 @@ DICloak
     浏览器内核: ChromeBrowser 142(default)
   --> 高級設置 (default ok) 
   --> 確定
+
+  [時區差異](https://chatgpt.com/c/69f0baee-9dfc-8322-8593-bf20d4737847)
+  我用靜態IP DIClock 進入 show 时区：America/New_York 
+  但 browserleaks show city Phoenix 
+  google show time 9:40 AM Tuesday, April 28, 2026 (EDT) Time in Washington, DC
+
+  PS: 
+  IP位置	Phoenix Arizona
+  IP時區	MST (UTC-7)
+  Browser 時區	EDT (UTC-4)
+  這等於：人在 Arizona，電腦時間卻像人在 New York
+  --> DICloak 裡把 timezone 改成： America/Phoenix
 ```
 
 ### tiny people
