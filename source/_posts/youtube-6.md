@@ -426,7 +426,7 @@ Cliproxy - 加州_洛杉磯
   --> Los Angeles -> 選擇 -> 提取 --> 確認 
   --> 點擊 操作下面的使用按鈕 -> 複製按鈕 (copy IP information)
 
-# IPRoayal
+# IPRoyal
 # buy 
 主頁
   --> 靜態住宅代理 -> 現在購買
@@ -450,7 +450,7 @@ DICloak
   --> 指紋設置
   --> 操作系統 -> Windows --> 選 Win10 or Win11
   --> User Agent --> 生成新 UA(也可選 版本)
-  --> 語言 -> 基於IP匹配
+  --> 語言 -> America/Phoenix for my IPRoyal //(基於IP匹配)
   --> 更多指紋
     界面語言:基於語言匹配
     時區:基於IP匹配
@@ -465,6 +465,8 @@ DICloak
     媒体设备:噪音
     WebGL數據:自定義(可選隨機更動)
     WebGPU:基於WebGL
+    **** Hardware Boncurrency: 4 core(6)
+         device memory :4G(6)
     SpeechVoices:噪音
     中間...使用 default 即可
     浏览器内核: ChromeBrowser 142(default)
@@ -482,6 +484,12 @@ DICloak
   Browser 時區	EDT (UTC-4)
   這等於：人在 Arizona，電腦時間卻像人在 New York
   --> DICloak 裡把 timezone 改成： America/Phoenix
+
+  ***** verify time 
+  DIClock and google seek time 不正確就不要管它
+  check below ok:(timeZone	America/Phoenix)
+    https://browserleaks.com/javascript    
+    https://browserleaks.com/ip
 ```
 
 ### tiny people
