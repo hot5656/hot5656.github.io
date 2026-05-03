@@ -466,7 +466,7 @@ DICloak
     WebGL數據:自定義(可選隨機更動)
     WebGPU:基於WebGL
     **** Hardware Boncurrency: 4 core(6)
-         device memory :4G(6)
+         device memory :4G(6 or 4)
     SpeechVoices:噪音
     中間...使用 default 即可
     浏览器内核: ChromeBrowser 142(default)
@@ -491,6 +491,168 @@ DICloak
     https://browserleaks.com/javascript    
     https://browserleaks.com/ip
 ```
+
+##### set back phone
+``` bash
+# android set to default
+--> language United State
+--> location setting
+  項目	                    建議設定	        原因
+  Location (定位)	          DISABLE (關閉)	  最關鍵！ 如果開啟，Google 會透過 GPS 發現你在台灣，這會直接讓你的美國 ISP 代理失效。
+  Allow scanning (掃描)	    DISABLE (關閉)	  必須關閉。 包含 Wi-Fi 與藍牙掃描。Google 會透過周邊的台灣 Wi-Fi 熱點名稱反向定位你的精確位置。
+  Usage & diagnostic (診斷)	DISABLE (關閉)	  減少手機向伺服器回傳不必要的環境數據，降低被關聯的風險。
+  Install update & app	    ENABLE (開啟)	  系統更新與 App 更新通常與安全性有關，開啟無妨，但建議在掛好代理（Proxy）時再進行更新。
+--> date time: America/Phoenix
+--> set screen lock set PIN
+--> no link wifi
+
+# link to local wifi
+  + make sure: language, date&time,location disable, bluetooth disable 
+# Sony XA2 (H4133) android version 9
+  + [v2rayng.2dust.link](ttps://v2rayng.2dust.link/) select v2rayNG_2.0.18_arm64-v8a.apk(不帶 fdroid 字樣的版本) - 1不需要 開啟「Debug Mode」(USB 偵錯模式)
+    1. 穩定性與完整性： 一般版本（非 fdroid）通常是針對 Google Play 或官方發布環境編譯的，對於 SOCKS5（你的長效 ISP 協議）的相容性與系統整合最為穩定。
+    2. 避免權限限制： fdroid 版本是為了符合 F-Droid 商店的「完全開源」規範而特別調整的版本，有時會移除一些非開源的相依元件（例如某些 Google 相關的 API），雖然在你的 Sony Android 9 上可能沒差，但為了避免註冊 Gmail 時出現未知的元件缺失，選一般版最保險。
+    3. 效能一致： 兩者在傳輸數據的效能上沒有差異，但一般版在處理系統層級的 VPN 連線時，對 Android 舊系統的適應力通常較好。
+  + 若不小心更新一些 app 可執行以下程序
+    - 路徑： Settings (設定) > Apps & notifications (應用程式與通知) > See all apps。
+    - 針對以下三個應用程式 or 其他 分別操作：
+      1. Google (Google App)
+      2. Google Play Store (Play 商店)
+      3. Google Play Services (Google 服務)
+      4. chrome
+    - 操作動作： 點進去後，依序點擊 Force Stop (強制停止) -> Storage (儲存空間) -> Clear Cache (清除快取) -> Clear Data / Manage Space (清除所有資料)。
+  + Emergency Alerts（緊急警報）- 為了徹底隱藏你的台灣蹤跡，建議將「所有」緊急警報選項關閉 (Disable)。
+  + v2rayNG 設定
+    1. 獲取你的 ISP 資訊
+      請準備好你的供應商提供的資料，通常格式如下：
+        - IP 地址 (Address / Host)
+        - 連接埠 (Port)
+        - 用戶名 (Username / ID)
+        - 密碼 (Password)
+    2. 手動新增伺服器 (SOP)
+      1. 打開手機上的 v2rayNG。
+      2. 點擊右上角的 「+」 號。
+      3. 選擇 「Type (類型)」：
+        - 如果你的供應商給的是 SOCKS5（長效 ISP 常見格式），請選 「Type: SOCKS」。
+        - 如果是 HTTP，則選 「Type: HTTP」。
+      4. 填寫欄位：
+        - Remarks (備註)： 隨便寫，例如 US-Static-ISP。
+        - Address (地址)： 輸入美國 IP。
+        - Port (連接埠)： 輸入端口號。
+        - User (用戶名)： 填入帳號。
+        - Password (密碼)： 填入密碼。
+      5. 點擊右上角的 「勾勾」 儲存。
+    3. 核心安全設定 (防止洩漏)
+    在連線之前，請點擊左側三橫線選單 -> Settings，確保以下兩項：
+      - Per-app proxy (分應用代理)： 開啟，並進入勾選 Chrome 和 Google Play 服務（確保只有這幾個關鍵 App 走代理）。
+      - Remote DNS： 填入 8.8.8.8 (這是 Google 的 DNS，最像美國本地使用者)。
+    4. 啟動與驗證 (最後衝刺)
+      1. 回到主畫面，點擊你剛剛新增的那條伺服器（側邊會變色）。
+      2. 點擊右下角的 「V」字圓形按鈕 啟動連線。
+      3. 測試： 點擊連線後，畫面下方會出現一條灰色的數據測試（例如：Connected 或 Testing...）。你可以點擊它，如果出現 Success: HTTP 200 或具體的延遲數值（ms），代表連線成功。
+      4. 終極檢查： 打開手機 Chrome，輸入 whoer.net。
+    5. 掃描前的「最後確認」
+    在 whoer.net 頁面中，請確認：
+      - IP 地址： 是否顯示為你的美國 ISP？
+      - DNS： 是否顯示美國？
+      - Timezone (時區)： 是否與 IP 一致？（如果不一致，請去手機系統設定手動修改時區，直到 whoer.net 的時區部分變成綠色）。
+  + 如何在 v2rayNG 設定「全局模式」？
+  請依照以下步驟調整：
+    1. 關閉分應用代理： 進入 Settings > 找到 Per-app proxy > 點擊 關閉 (Disable/變回黑色)。
+    2. 設定路由模式： 在 Settings 裡找到 Routing mode（路由模式），確保選擇 Global (全局)。
+    3. 開啟 Kill Switch（關鍵）： * 去手機系統的 Settings > Network & internet > Advanced > VPN。
+      - 點擊 v2rayNG 旁邊的 齒輪。
+      - 開啟 Always-on VPN (始終開啟) 和 Block connections without VPN (斷網保護)。
+      - 這能確保萬一代理斷掉，手機會立刻斷網，絕對不會讓台灣 IP 跑出來。
+  + 註冊前的最後「跑分」驗證
+  設定好全局模式並啟動連線後，請用 Chrome 做最後的確認：
+    - 訪問 whoer.net： 確保匿名度達到 100%。
+    - 訪問 browserleaks.com/ip： 檢查 WebRTC 是否也顯示美國 IP。
+    - 手動檢查時區： 如果 whoer.net 說時區不符，請手動去系統設定將時區改為美國（例如 New York）。
+  + 在 Android 9 的環境下，為了達成「全局模式 (Global)」，請按照以下步驟手動調整：
+    1. 關閉「分應用代理」
+    這是第一優先順序，因為分應用代理的層級高於路由規則。
+      - 進入左側選單（三橫線） > Settings。
+      - 將 Per-app proxy 設為 OFF (關閉)。
+    2. 調整 Domain strategy (域名解析策略)
+    這個選項決定了系統如何處理網址請求。
+      - 點擊 Domain strategy。
+      - 選擇 Asis 或 IPIfNonMatch。
+        - 建議選 Asis： 這代表直接交給代理伺服器處理，不讓手機本地進行過多的域名解析，最能隱藏台灣蹤跡。
+    3. 設定 Routing Rule Settings (路由規則)
+    這就是決定「哪些流量走美國」的核心。
+      - 點擊 Routing Rule Settings。
+      - 你會看到幾個預設選項（例如 bypass mainland china）。
+      - 請選擇「Global (全局)」或將所有現有的規則「刪除/清空」。
+      - 終極目標： 確保主畫面的伺服器下方顯示的是 「Global」 或沒有任何分流提示。
+  + Domain strategy set Asis, Routing Rule Settings item 全部清掉
+  在 v2rayNG 中，當你清空了所有的路由規則（Routing Rules），且關閉了分應用代理（Per-app proxy），軟體就會進入預設的「全局代理」模式。這意味著手機產生的所有網路請求，都會毫無例外地通過你的美國長效靜態 ISP 隧道。
+  以下是最後的確認與執行步驟：
+    1. 路由規則清空 (Routing Rules)
+      動作： 將所有內建的預設規則（如 direct 或 bypass 相關的項目）全部刪除或停用。
+      結果： 你的 v2rayNG 主畫面應該不會再顯示「繞過中國」或「分流」等字樣。
+    2. 域名策略設定 (Domain Strategy: Asis)
+      動作： 確認已選 Asis。
+      意義： 這能確保手機不會先在本地解析 DNS，而是直接把網址丟給美國伺服器去解析。這對於防止 DNS 洩漏（讓 Google 發現你在台灣）非常有幫助。
+  + 掃描前最後的「結界」檢查
+  在拿出這台 Sony 手機掃描 DICloak 的 QR Code 之前，請完成這最後三項「職業級」確認：
+    1. 測試連線： 點擊 v2rayNG 畫面下方的 "Tap to test connection"。
+      - 只要出現數字（例如 250ms），代表美國隧道已打通。
+    2. 開啟 Chrome 進行「跑分」：
+      - 訪問 whoer.net。
+      - 檢查： IP 是否為美國？匿名度是否為 100%？
+      - 時區警告： 如果匿名度不到 100% 且顯示時區（Timezone）錯誤，請立刻去系統設定，將時區手動改為與 IP 所在地一致（例如 New York）。
+    3. 確認「斷網保護」已啟動：
+      - 認 Settings > VPN 裡的 "Block connections without VPN" 已開啟。
+  + 在 Global (全局模式) 的設定下，為了確保環境完全模擬美國使用者，建議將 Domestic DNS 也進行調整。
+    1. 設定路徑 (SOP)
+      - 打開 v2rayNG 主介面。
+      - 點擊左上角的 「三橫線」選單 (Menu)。
+      - 點擊 「Settings」(設定)。
+      - 向下滑動找到 「DNS Settings」 這一區塊。
+      - 點擊 「Remote DNS」。
+      - 在彈出的視窗中，刪除原本的內容，手動輸入：8.8.8.8。
+      - 點擊 「OK」。
+    2. 建議調整方案
+      項目      建議設定        原因
+      Remote    DNS8.8.8.8    確保發往美國伺服器的解析請求完全使用 Google DNS。
+      Domestic  DNS1.1.1.1    將原本的 223.5.5.5（阿里雲 DNS）改掉。在美國環境下出現阿里雲 DNS 會顯得很突兀。
+  + whoer.net IP 為美國 匿名度為 90%
+  請下滑查看 whoer.net 頁面中的 "Your Disguise" (你的偽裝) 欄位，看看是哪一項被扣分了：
+    1. 最常見的扣分原因：時區不符 (Timezone Difference)
+    如果你的 IP 在紐約（GMT-4），但 Sony 手機的系統時間還在台北（GMT+8），這會直接扣掉 10%。
+      - 修正方法： 去手機 Settings > System > Date & time。
+        - 關閉 Automatic date & time（自動對齊網路時間）。
+        - 關閉 Automatic time zone（自動對齊時區）。
+        - 手動選擇一個與你 IP 所在地一致的時區（例如 New York, Eastern Daylight Time）。
+      - 檢查： 改完後刷新 whoer.net，看 Timezone 是否變成綠色。
+    2. 第二常見：語言不符 (Language)
+    如果你沒把手機語言完全切換為 English (United States)，或者在 Chrome 的設定裡留有中文作為優先語言，也會扣分。
+      - 檢查： Settings > System > Languages，確保 English (US) 是唯一的或第一順位的語言。
+    3. 第三常見：DNS 洩漏
+    如果 IP 顯示美國，但下方 DNS 欄位出現了非美國的 IP。
+      - 修正方法： 確認 v2rayNG 的 Remote DNS 是 8.8.8.8 且 Domain Strategy 是 Asis。
+  + 手機最後檢查
+  既然你的偽裝程度（Disguise）已經達到 100%，環境已經非常穩固。在正式掃碼註冊 Mother Nest 頻道的 Gmail 之前，請做最後這 3 個「物理級」的最終檢查，確保萬無一失：
+    1. 斷網保護檢查 (Kill Switch)
+    這是為了防止註冊到一半，萬一 Wi-Fi 不穩或 v2rayNG 斷線，手機會立刻噴出「台灣 IP」。
+      - 檢查路徑： Settings > Network & internet > Advanced > VPN。
+      - 動作： 點擊 v2rayNG 旁邊的 齒輪圖標。
+      - 確認： "Always-on VPN" (始終開啟) 與 "Block connections without VPN" (斷網保護) 必須都是 ON。
+      - 註：如果沒這功能，請務必確保 Wi-Fi 訊號極其穩定。
+    2. 定位權限的「最後巡檢」
+    雖然你已經關閉了 Location 總開關，但有些底層掃描會繞過它。
+      - 檢查路徑： Settings > Security & location > Location > Advanced > Scanning。
+      - 確認： Wi-Fi scanning 與 Bluetooth scanning 務必都是 OFF（這能防止 Google 透過周邊 Wi-Fi 分佈推算你在台灣）。
+    3. 系統通知與 Google 帳號狀態
+      - 檢查： 下拉狀態列，確認沒有任何「Account action required」或舊帳號的錯誤通知。
+      - 確認： 進入 Settings > Users & accounts，確認這台手機目前是 「沒有登入任何帳號」 的空機狀態（No accounts added）。
+        - 這能確保你掃碼後，這台手機會以「純淨設備」身分綁定新帳號。
+  + Chrome 設定： 點擊右上角三點 > Settings > Languages
+    - 如果你看到 Chinese (Traditional) 或 Chinese (Taiwan)，請點擊旁邊的三點並選擇 Remove (移除)。
+    - Offer to translate pages in other languages: disable
+```
+
 
 ### tiny people
 + [Start](https://chatgpt.com/c/69c7bb0d-a160-83a6-a5a7-eb8222e3c591)
