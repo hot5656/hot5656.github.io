@@ -97,6 +97,8 @@ https://aistudio.google.com/live
   + [美國原生住宅IP平台推薦](https://gemini.google.com/u/1/app/3f239fc64e3cc6e9?pageId=none)
   + [IPFLY(20% 0ff, 可選靜態原生IP) - ip 購買](https://www.ipfly.net/zh-cn/activity/didushan/)
   + [DICloak 帳號綁定與使用說明 + Cliproxy 退款 -Gemini](https://gemini.google.com/u/1/app/ec2a788b5e011a97?pageId=none)
+  + [美國搜尋字串+new account - ChatGPT ](https://chatgpt.com/c/69f1f6b0-be50-8321-8be4-4ab653ce00c5)
+  + [YouTube 頻道美國 IP 設定建議 - Gemini](https://gemini.google.com/u/1/app/5ca88824acd00ca6?hl=zh-TW&pageId=none)
 + AI suggest video
   + [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
   + [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
@@ -362,6 +364,51 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
 當你的主要 Gmail 空間已滿，導致無法接收郵件時，Google 有時會透過救援信箱通知你空間狀態，以免你錯過重要資訊。
 ```
 
+##### 帳戶處理
+``` bash
+# Day 1(不要立刻去電腦登入，也不要立刻開頻道)
+1. 隨機瀏覽： 打開手機內建的 YouTube App（確保 v2rayNG 持續開啟），搜尋並觀看 3-5 個美國本土影片（例如美國新聞、脫口秀、或是跟你未來領域相關的影片，如 Animal clips 或 80s aesthetics）。
+2. 互動： 隨機給 1-2 個影片點讚，或者訂閱一個大頻道。
+3. 其他 App 登入： 打開 Google Maps，搜尋一下你 IP 所在地點附近的餐廳或超市。
+4. 放置： 讓帳號在手機裡安靜地待幾個小時，維持登入狀態。
+
+# Day 1-2(電腦端-DICloak 同步登入)
+1. 啟動 DICloak： 開啟對應那個美國靜態 IP 的瀏覽器環境。
+2. 登入 Gmail： 輸入帳號密碼。
+3. 關鍵驗證：
+  - 這時電腦可能會說「為了安全，請在你的 Sony XA2 點擊數字」或「確認是本人」。
+  - 這就是為什麼要在手機註冊的原因！你只需在 XA2 上點擊 「是的，是我」，就能輕鬆繞過任何 QR Code 或簡訊驗證。
+4. 同步成功： 此時，Google 會記錄到「該用戶從手機擴展到了桌面設備」，這是一個非常正向的真人行為訊號。
+
+# Day 2-3(正式建立 YouTube 頻道)
+建議在電腦端的 DICloak 進行，因為設定細節較多。
+1. 進入 YouTube： 點擊右上角頭像 > 「建立頻道」。
+2. 頻道資訊： 輸入你預想好的頻道名稱（如 Nature Rewired）。
+3. 關鍵設定（YouTube Studio）：
+  - 進入 YouTube Studio > 設定 (Settings) > 頻道 (Channel)。
+  - 居住國家 (Country of Residence)： 務必選擇 United States（這步非常重要，決定了 Shorts 的初始推流方向）。
+  - 功能資格 (Feature eligibility)： 檢查手機驗證是否已完成。
+
+# 內容上傳策略（Day 4 之後）
+1. 前三支影片： 建議先發佈 15-30 秒的 Shorts，觀察流量來源。
+2. 檢查流量分佈： 影片發布 24 小時後，查看 Analytics（數據分析）> Reach（觸及）。
+  - 目標： 看到 Geography（地理位置） 出現 United States。只要美國佔比是第一，就代表你的環境偽裝徹底成功。
+3. 保持一致性：
+  - 電腦 DICloak 永遠不更換 IP。
+  - 手機 XA2 只有在連上 v2rayNG 美國 IP 時才打開 YouTube 相關 App。
+
+# 第一階段：暖身期（Day 4–6）
+數量： 一天 1 支。 (美東早上 08:00 - 10:00)
+目的： 讓演算法確認你的「推流標籤」。
+觀察： 檢查後台數據的「地理位置」，確認流量確實來自 United States。
+# 第二階段：測試期（Day 7–10）
+數量： 一天 2 支（間隔 8–12 小時）。 (對應美東：09:00, 對應美東：18:00 - 20:00)
+目的： 測試不同時段的流量表現（例如美東與美西的黃金時段）。
+# 第三階段：衝刺期（Day 11 之後）
+數量： 一天 3–4 支。(凌晨 03:00, 早上 07:00, 晚上 20:00, 晚上 23:00)
+前提： 當你發現某個風格（例如你之前提到的「Gothic Cartoon Noir」）流量明顯較好時，再開始批量上傳。
+```
+
 #### knowledge 
 + check IP
   + [ PING0 - ip 品質測量 #1](https://ping0.cc/)
@@ -495,19 +542,24 @@ DICloak
 ##### set back phone
 ``` bash
 # android set to default
---> language United State
+# system --> Reset option --> Erase all data(factory reset)
+--> language : English --> United State
+--> Connect to mobile network --> skip
+--> Date&Time : Chicago(or Central Daylight Time)
 --> location setting
   項目	                    建議設定	        原因
   Location (定位)	          DISABLE (關閉)	  最關鍵！ 如果開啟，Google 會透過 GPS 發現你在台灣，這會直接讓你的美國 ISP 代理失效。
   Allow scanning (掃描)	    DISABLE (關閉)	  必須關閉。 包含 Wi-Fi 與藍牙掃描。Google 會透過周邊的台灣 Wi-Fi 熱點名稱反向定位你的精確位置。
   Usage & diagnostic (診斷)	DISABLE (關閉)	  減少手機向伺服器回傳不必要的環境數據，降低被關聯的風險。
-  Install update & app	    ENABLE (開啟)	  系統更新與 App 更新通常與安全性有關，開啟無妨，但建議在掛好代理（Proxy）時再進行更新。
---> date time: America/Phoenix
+  Install update & app	    DISABLE (關閉)	  系統更新與 App 更新通常與安全性有關，開啟無妨，但建議在掛好代理（Proxy）時再進行更新。
 --> set screen lock set PIN
 --> no link wifi
 
 # link to local wifi
   + make sure: language, date&time,location disable, bluetooth disable 
+  + setting --> system --> Date & Time 
+    Automatic date & time : disable
+    Automatic time zone : disable
 # Sony XA2 (H4133) android version 9
   + [v2rayng.2dust.link](ttps://v2rayng.2dust.link/) select v2rayNG_2.0.18_arm64-v8a.apk(不帶 fdroid 字樣的版本) - 1不需要 開啟「Debug Mode」(USB 偵錯模式)
     1. 穩定性與完整性： 一般版本（非 fdroid）通常是針對 Google Play 或官方發布環境編譯的，對於 SOCKS5（你的長效 ISP 協議）的相容性與系統整合最為穩定。
@@ -521,7 +573,7 @@ DICloak
       3. Google Play Services (Google 服務)
       4. chrome
     - 操作動作： 點進去後，依序點擊 Force Stop (強制停止) -> Storage (儲存空間) -> Clear Cache (清除快取) -> Clear Data / Manage Space (清除所有資料)。
-  + Emergency Alerts（緊急警報）- 為了徹底隱藏你的台灣蹤跡，建議將「所有」緊急警報選項關閉 (Disable)。
+  + App Emergency Alerts（緊急警報）- 為了徹底隱藏你的台灣蹤跡，建議將「所有」緊急警報選項關閉 (Disable)。 + app disable
   + v2rayNG 設定
     1. 獲取你的 ISP 資訊
       請準備好你的供應商提供的資料，通常格式如下：
@@ -542,6 +594,43 @@ DICloak
         - User (用戶名)： 填入帳號。
         - Password (密碼)： 填入密碼。
       5. 點擊右上角的 「勾勾」 儲存。
+  + v2rayNG 設定 2
+    1. Per-app settings: Enable Per-app(disable)
+    2. Routing Settings
+      Domain Strategy: Asis
+        動作： 確認已選 Asis。
+        意義： 這能確保手機不會先在本地解析 DNS，而是直接把網址丟給美國伺服器去解析。這對於防止 DNS 洩漏（讓 Google 發現你在台灣）非常有幫助。
+      Routing Rules Aettings
+        動作： 將所有內建的預設規則（如 direct 或 bypass 相關的項目）全部刪除或停用。(disable)
+        結果： 你的 v2rayNG 主畫面應該不會再顯示「繞過中國」或「分流」等字樣。
+    3.  Settings
+      項目          建議設定    原因
+      Remote DNS    8.8.8.8    確保發往美國伺服器的解析請求完全使用 Google DNS。
+      Domestic DNS  1.1.1.1    將原本的 223.5.5.5（阿里雲 DNS）改掉。在美國環境下出現阿里雲 DNS 會顯得很突兀。
+    4. press 三角形 run --> press 底下 看到 success Connectiont took 2xxms and see link ip
+  + andorid
+    1. 斷網保護檢查 (Kill Switch)
+      這是為了防止註冊到一半，萬一 Wi-Fi 不穩或 v2rayNG 斷線，手機會立刻噴出「台灣 IP」。
+      - 檢查路徑： Settings > Network & internet > Advanced > VPN。
+      - 動作： 點擊 v2rayNG 旁邊的 齒輪圖標。
+      - 確認： "Always-on VPN" (始終開啟) 與 "Block connections without VPN" (斷網保護) 必須都是 ON。
+      - 註：如果沒這功能，請務必確保 Wi-Fi 訊號極其穩定。
+    2. Settings ... Scanning : Lock screen&security > Location > Scanning
+      - 確認： Wi-Fi scanning 與 Bluetooth scanning 務必都是 OFF（這能防止 Google 透過周邊 Wi-Fi 分佈推算你在台灣）。 
+  + clear chrome cache 
+    Chnome --> force stop --> Storage --> clear cache --> manage space --> clear all data
+  + 檢查
+    1. 打開手機 Chrome，輸入 whoer.net
+      - IP 地址： 是否顯示為你的美國 ISP？
+      - DNS： 是否顯示美國？
+      - Timezone (時區)： 是否與 IP 一致？（如果不一致，請去手機系統設定手動修改時區，直到 whoer.net 的時區部分變成綠色）。
+      - 確保匿名度達到 100%
+      - Language： English
+      - Blacklist： No（確保你的靜態 IP 沒被列入黑名單）
+    2. browserleaks.com/ip： 檢查 WebRTC 是否也顯示美國 IP
+
+
+  --------- 以下只是備份紀錄 -------------------
     3. 核心安全設定 (防止洩漏)
     在連線之前，請點擊左側三橫線選單 -> Settings，確保以下兩項：
       - Per-app proxy (分應用代理)： 開啟，並進入勾選 Chrome 和 Google Play 服務（確保只有這幾個關鍵 App 走代理）。
