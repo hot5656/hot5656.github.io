@@ -108,7 +108,8 @@ https://aistudio.google.com/live
 
 ##### prompt ask for AI 
 ``` bash
-# 
+幫我將 image 轉成 image prompt(不包含文字及符號,不要產生 image)
+
 動物對峙 loop video , 白鷺鷥水中的 魚
 白鷺鷥 vs 螃蟹 loop video prompt
 animal 對峙 loop video 構想
@@ -119,8 +120,10 @@ animal 對峙 loop video 構想
 做 小貓與蠍子 對峙的 6s loop video prompt(不直接產生 video) 
 獅子趴著睡覺 老鼠在樹上但靠近獅子 戲弄獅子  6s loop video prompt(不要直接產生 image or video)
 我要做 loop short, 主題是蛇偷蛋與母鳥對峙 給出 4 個 video prompt(不同種類的鳥) 不要直接產生 video
+我要做 6s loop short, 貓逗睡著的狗 產生 5 個 video prompt(不同種類貓,狗 及 場景) 不要直接產生 video
+我有如下的圖形 幫我產生 video prompt(不要直接產生 video), 幫我做成 可愛 6s loop video ,搭配合適音樂
 
-產生 1st frame image prompt(不要直接產生 image)
+各產生對應第一個 frame image prompt(不要直接產生 image)
 幫我產生對應第一個 frame image prompt(不要直接產生 image)
 希望做出來是擬真而不是卡通
 
@@ -398,14 +401,14 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
   - 手機 XA2 只有在連上 v2rayNG 美國 IP 時才打開 YouTube 相關 App。
 
 # 第一階段：暖身期（Day 4–6）
-數量： 一天 1 支。 (美東早上 08:00 - 10:00)
+數量： 一天 1 支。 (Chicago 07:30 AM/星期六日 09:00 AM)
 目的： 讓演算法確認你的「推流標籤」。
 觀察： 檢查後台數據的「地理位置」，確認流量確實來自 United States。
 # 第二階段：測試期（Day 7–10）
-數量： 一天 2 支（間隔 8–12 小時）。 (對應美東：09:00, 對應美東：18:00 - 20:00)
+數量： 一天 2 支（間隔 8–12 小時）。 (hicago 07:30 AM/星期六日 09:00 AM, 06:30 PM)
 目的： 測試不同時段的流量表現（例如美東與美西的黃金時段）。
 # 第三階段：衝刺期（Day 11 之後）
-數量： 一天 3–4 支。(凌晨 03:00, 早上 07:00, 晚上 20:00, 晚上 23:00)
+數量： 一天 3–4 支。(Chicago 07:30 AM//星期六日 09:00 AM ,12:30 PM , 05:30 PM, 09:30 PM)
 前提： 當你發現某個風格（例如你之前提到的「Gothic Cartoon Noir」）流量明顯較好時，再開始批量上傳。
 ```
 
