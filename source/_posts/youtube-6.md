@@ -99,6 +99,7 @@ https://aistudio.google.com/live
   + [DICloak 帳號綁定與使用說明 + Cliproxy 退款 -Gemini](https://gemini.google.com/u/1/app/ec2a788b5e011a97?pageId=none)
   + [美國搜尋字串+new account - ChatGPT ](https://chatgpt.com/c/69f1f6b0-be50-8321-8be4-4ab653ce00c5)
   + [YouTube 頻道美國 IP 設定建議 - Gemini](https://gemini.google.com/u/1/app/5ca88824acd00ca6?hl=zh-TW&pageId=none)
+  + [AI 創作動物對峙 YT 頻道建議 - Gemini](https://gemini.google.com/u/1/app/286f483ad3c4b6e3?pageId=none)
 + AI suggest video
   + [對峙 #1 - ChatGPT](https://chatgpt.com/c/69e9cbe9-eb0c-8324-bbb7-aa738053c5b3)
   + [對峙 #2 - Gemini](https://gemini.google.com/u/1/app/96e3613aa14ab2a9?pageId=none)
@@ -129,6 +130,8 @@ animal 對峙 loop video 構想
 
 產生 title , descript and tags(english)
 產生 title , description and tags(English) , tags 以 , 分開 - geminie
+
+幫我各產生合適的置頂留言(english)
 
 # Open art AI
 # FlexClip
@@ -391,7 +394,22 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
   - 進入 YouTube Studio > 設定 (Settings) > 頻道 (Channel)。
   - 居住國家 (Country of Residence)： 務必選擇 United States（這步非常重要，決定了 Shorts 的初始推流方向）。
   - 功能資格 (Feature eligibility)： 檢查手機驗證是否已完成。
-
+# add account 
+1. create new channel 
+2. add image, name, banner, description
+3. ouTube Studio > 設定 (Settings) > 頻道 (Channel) > 
+  - Basic Info > Country of residence > United States 
+  - Keywords > AI Animation, Short film, Cinematic AI, AI Artist
+4. add video
+  - Title
+  - Description
+  - enable : No, it's not made for kids
+  - enable : No, don't restrict my video to viewer over 18 only
+  - Altered content > Yes
+  - Tags
+  - video language : English(United States)
+  - category : Film & Animation
+   
 # 內容上傳策略（Day 4 之後）
 1. 前三支影片： 建議先發佈 15-30 秒的 Shorts，觀察流量來源。
 2. 檢查流量分佈： 影片發布 24 小時後，查看 Analytics（數據分析）> Reach（觸及）。
