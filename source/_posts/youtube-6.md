@@ -109,6 +109,7 @@ https://aistudio.google.com/live
 
 ##### prompt ask for AI 
 ``` bash
+
 幫我將 image 轉成 image prompt(不包含文字及符號,不要產生 image)
 
 動物對峙 loop video , 白鷺鷥水中的 魚
@@ -132,6 +133,23 @@ animal 對峙 loop video 構想
 產生 title , description and tags(English) , tags 以 , 分開 - geminie
 
 幫我各產生合適的置頂留言(english)
+
+
+# short 
+我要做 YT short, 以動物為主題 擬人化 寫實趣味 30s 以內, 給我一些提案
+
+幫我做分鏡的 video prompt(不要直接產生 video)
+以 6s 為單位設計每個 clip (若需要也可以 2s+4s, 3s+3s) 產生各 clip 的 video prompt , 
+prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , 旁白或角色說話 要註明其音色,
+旁白,角色說話 or 顯示文字都要為英文
+我使用 Grok for video generate, support 聲音輸出 (每一段都要加)
+音色 exampe : 
+  Fox (male, about 30, soft curious voice):
+  “Those footprints… across every rooftop.”
+
+幫我產生 Squirrel  image prompt(不要產生 image, 也不要加背景)
+幫我產生 每一個 clip 第一個 frame image prompt(不要直接產生 image)
+
 
 # Open art AI
 # FlexClip
