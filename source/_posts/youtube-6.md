@@ -150,6 +150,25 @@ prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , �
 幫我產生 Squirrel  image prompt(不要產生 image, 也不要加背景)
 幫我產生 每一個 clip 第一個 frame image prompt(不要直接產生 image)
 
+# example 1
+如圖 一隻母獰貓為了保護自己的小貓而攻擊一隻英國短毛貓
+幫我用不同種類的貓做類似 video prompt(不要直接產生 video)
+幫我做分鏡的 video prompt(不要直接產生 video)
+以 6s 為單位設計每個 clip (若需要也可以 2s+4s, 3s+3s) 產生各 clip 的 video prompt ,
+prompt 含畫面 運鏡或動作 旁白或角色說話 音效或環境聲音 , 旁白或角色說話 要註明其音色,
+旁白,角色說話 or 顯示文字都要為英文
+我使用 Grok for video generate, support 聲音輸出 (每一段都要加)
+音色 exampe :
+  Fox (male, about 30, soft curious voice):
+  “Those footprints… across every rooftop.”
+
+# example 2
+如圖 為 天鵝助跑姿態優雅的過程
+幫我用不同種類鳥類做助跑起飛 的 video prompt(不要直接產生 video)
+以 6s 為單位設計每個 clip (若需要也可以 2s+4s, 3s+3s) 產生各 clip 的 video prompt ,
+prompt 含畫面 運鏡或動作 音效或環境聲音 ,
+我使用 Grok for video generate, support 聲音輸出
+
 
 # Open art AI
 # FlexClip
@@ -842,3 +861,9 @@ Lucy, the same East Asian female character, identical face as the reference imag
 
 ### Ref
 + [FRANKLIN AI](https://franklineh.com/)
++ [小森平免費音效](https://taira-komori.net/animals01tw.html)
++ [Pixabay Sound Effects](https://pixabay.com/sound-effects/)
++ [Freesound 音效](https://freesound.org/):下載音效通常需要註冊 Freesound 帳號
+  - CC0 (Public Domain)：完全免費，可商業使用，無需標註來源。
+  - CC-BY (Attribution)：可自由使用和商業使用，但必須在作品中註明作者和音效名稱。
+  - 非商業用途 (Non-commercial)：僅能用於個人或非營利項目。
