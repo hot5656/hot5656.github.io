@@ -239,6 +239,32 @@ Mellow Pet House
 重播衝動: 影片短又快
 ```
 
+
+##### prompt ask for AI (紀錄片)
+``` bash
+# 1
+我想利用 AI 生成 蜂鳥築巢 的紀錄片 為求一致 請幫我生成一個 蜂鳥無背景 16:9 image 多視圖 prompt(不要直接產生 image)
+
+# 2
+幫我產生 蜂鳥築巢紀錄片 的 分鏡 video prompt(不要直接產生 video) , size 9:16
+我要用 Grok 產生 每一個 clip 依需要為標示 6s or 10s , 要包含 audio prompt
+因各 clip 分別產生 所以含必要聲音但不含音樂是不是比較恰當?
+
+旁白要註明其音色(每一段都要加),都要為英文
+音色 exampe : 
+  narrator (male, about 30, soft curious voice):
+  “Those footprints… across every rooftop.”
+Grok 只 support 6s and 10s 
+所以 chip2 改為 6s or 10s, clip8 改為 10s or 兩個 6s clip?
+
+# 3
+幫我每一個 clip 產生 1st frame image prompt(不要直接產生 image),產生時我會參考之前已產生的 多視圖 image
+
+# 4
+產生 title , description and tags(English) , tags 以 , 分開
+幫我產生合適的置頂留言(english)
+```
+
 ##### 圖卡製作
 ``` bash
 # Gemini(思考) 圖卡:製作系列知識圖卡,建立知識 IP
@@ -255,6 +281,7 @@ Mellow Pet House
 2. 風格設定層: 具體的畫家風格色彩要求光影細節
 3. 輸出風格層: 包含排版文字位置對話框格式
 ```
+
 
 
 #### google 
@@ -465,6 +492,16 @@ Google 2026 年的風控非常討厭「一開瀏覽器就註冊」的行為。
 # 第三階段：衝刺期（Day 11 之後）
 數量： 一天 3–4 支。(Chicago 07:30 AM//星期六日 09:00 AM ,12:30 PM , 05:30 PM, 09:30 PM)
 前提： 當你發現某個風格（例如你之前提到的「Gothic Cartoon Noir」）流量明顯較好時，再開始批量上傳。
+```
+
+##### new channel
+``` bash
+# create new channel 
+https://www.youtube.com/account --> create a new channel
+
+# name 
+AI Bird Wonders
+
 ```
 
 #### knowledge 
@@ -867,3 +904,5 @@ Lucy, the same East Asian female character, identical face as the reference imag
   - CC0 (Public Domain)：完全免費，可商業使用，無需標註來源。
   - CC-BY (Attribution)：可自由使用和商業使用，但必須在作品中註明作者和音效名稱。
   - 非商業用途 (Non-commercial)：僅能用於個人或非營利項目。
++ [Grok 官方 TTS Playground](https://console.x.ai/playground/voice/text-to-speech)
++ [免費文字轉語音線上轉換工具](https://www.text-to-speech.online/)
