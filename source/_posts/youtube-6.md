@@ -926,3 +926,6 @@ Lucy, the same East Asian female character, identical face as the reference imag
   - 非商業用途 (Non-commercial)：僅能用於個人或非營利項目。
 + [Grok 官方 TTS Playground](https://console.x.ai/playground/voice/text-to-speech)
 + [免費文字轉語音線上轉換工具](https://www.text-to-speech.online/)
++ [TTSMaker-最推薦 無需註冊、支援中文很好、600+聲音、免費下載MP3](https://ttsmaker.com/zh-hk)
++ [Luvvoice-無字數限制感 200+聲音、70+語言、介面乾淨](https://luvvoice.com/)
++ [NaturalReaders Online-聲音很自然用 Gemini / ChatGPT 聲音，免費版夠用](https://www.naturalreaders.com/online/)
