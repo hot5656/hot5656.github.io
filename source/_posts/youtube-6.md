@@ -269,6 +269,7 @@ Grok 只 support 6s and 10s
 給我 short #3 築巢過程 40–60秒 編織、黏合、杯狀巢成形 的完整 Video Prompt + 背景音 Prompt + 對應的英文旁白（一樣用同樣格式）
 
 產生 Short #6 ⾶⾏訓練 & 離巢 35–50秒 ⼩蜂⿃第⼀次⾶⾏ 的完整 Prompt
+幫我產生Short #3: The Wild Bird That Collects Spider Silk  video prompt + 背景音 Prompt(含鳥叫聲,不含音樂)
 "
 # next 2
 "
@@ -282,6 +283,12 @@ short #2 產生 title , description and tags(English) , tags 以 , 分開
 "
 short #2 幫我產生合適的置頂留言(english)
 "
+
+# new
+幫我產生Short #1 video prompt + 背景音 Prompt(含鳥叫聲,不含音樂)
+產生 short #1 必要的 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
+幫我產生 Short #1  適合的旁白 並標示位置
+...
 
 ```
 
