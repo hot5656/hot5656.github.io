@@ -286,10 +286,135 @@ short #2 幫我產生合適的置頂留言(english)
 
 # new
 幫我產生Short #1 video prompt + 背景音 Prompt(含鳥叫聲,不含音樂)
+幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含鳥叫聲,不含音樂) - 每一單位為 6s or 10s 
 產生 short #1 必要的 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
 幫我產生 Short #1  適合的旁白 並標示位置
+每個 clip 旁白 改為不加間隔
 ...
 
+```
+
+``` bash
+Short #4  Secret Camouflage: The Finished Leaf Nest , 參照 以下 SHORTS 導演輸入模板, 幫我產生合適的模板
+
+TOPIC:
+（例如：Common Tailorbird collects spider silk）
+
+GOAL:
+（例如：40–45 秒 YouTube Shorts，紀錄片風格）
+
+STYLE:
+（例如：National Geographic macro wildlife documentary）
+
+CORE STORY:
+（簡單一句話描述流程，例如：
+Bird collects spider silk → builds nest material）
+
+MUST INCLUDE:
+- ACTION (movement rules)
+- SOUND (bird + environment + object sounds)
+- RESULT (final payoff shot)
+
+ACTION REQUIREMENTS:
+（例如）
+- no static shots
+- continuous motion
+- hopping / pulling / flying must appear
+
+SOUND REQUIREMENTS:
+（例如）
+- bird chirps must be foreground
+- silk interaction sounds required
+- jungle ambience background only
+
+ENDING REQUIREMENT:
+（例如）
+- bird must remain visible in final frame
+- show result clearly (no disappearance)
+
+OUTPUT FORMAT:
+- 7 clips (6–10s each)
+- each clip includes video + audio prompt
+- continuity must be maintained
+```
+
+``` bash
+# AI WILDLIFE SHORT FILM TEMPLATE (v2)
+
+TOPIC:
+(e.g. Common Kingfisher performs high-speed dive hunt)
+
+GOAL:
+40–45s cinematic YouTube Shorts wildlife documentary
+
+STYLE:
+National Geographic macro wildlife documentary + cinematic slow motion realism
+
+CORE STORY:
+Single sentence describing full sequence from observation → action → payoff
+
+---
+
+STRUCTURE:
+7 clips (6–10 seconds each)
+Each clip must include: VIDEO + AUDIO + CAMERA + PURPOSE
+
+---
+
+CLIP RULES:
+Each clip must include:
+
+1. CAMERA LANGUAGE:
+(e.g. macro close-up / wide establishing shot / tracking shot / underwater POV / slow zoom)
+
+2. ACTION:
+(clear physical movement, never static)
+
+3. SOUND DESIGN:
+- foreground sound (bird / water / wind)
+- background ambience
+- impact sounds if action occurs
+
+4. NARRATIVE FUNCTION:
+(hook / tension / trigger / escalation / climax / resolution / loop hook)
+
+---
+
+GLOBAL ACTION REQUIREMENTS:
+- continuous motion across all clips
+- no scene reset unless intentional transition
+- natural physics only (no teleport / instant cuts inside clip)
+- bird must remain physically grounded in environment logic
+
+---
+
+GLOBAL SOUND REQUIREMENTS:
+- bird vocalization must be present at least 40% of clips
+- environmental ambience always present
+- action moments must include sync sound (wing, water, impact, wind)
+
+---
+
+ENDING REQUIREMENT:
+- final clip must visually reference clip 1 (loop structure)
+- subject remains visible in final frame
+- clear outcome (success or failure must be readable)
+
+---
+
+OUTPUT FORMAT:
+For each clip:
+
+CLIP X:
+VIDEO:
+AUDIO:
+CAMERA:
+PURPOSE:
+
+---
+
+CONTINUITY RULE:
+Objects, lighting direction, and weather conditions must remain consistent unless explicitly changed.
 ```
 
 ##### 圖卡製作
