@@ -285,8 +285,8 @@ short #2 幫我產生合適的置頂留言(english)
 "
 
 # new
-幫我產生Short #1 video prompt + 背景音 Prompt(含鳥叫聲,不含音樂)
-幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含鳥叫聲,不含音樂) - 每一單位為 6s or 10s 
+幫我產生Short #1 video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂)
+幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂) - 每一單位為 6s or 10s 
 產生 short #1 必要的 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
 幫我產生 Short #1  適合的旁白 並標示位置
 每個 clip 旁白 改為不加間隔
