@@ -277,17 +277,45 @@ Grok 只 support 6s and 10s
 "
 # next 3
 "
-short #2 產生 title , description and tags(English) , tags 以 , 分開
+short #2 產生 title , description(50–80 words) and tags(English) , tags 以 , 分開
 "
+-------------------------
+🪺 Nesting 系列: 50–70 字
+  + One句主題說明
+  + 一句情緒收尾
+  + 3 個 Hashtags
+-------------------------
+⚡ Extreme 系列: 30–50 字
+  + Hook + Hashtags
+A falcon's strike happens in the blink of an eye. Nature's ultimate aerial hunter. 🦅🔥
+
+#Falcon #Wildlife #NatureShorts
+-------------------------
+🐦 Bird Song Mystery: 20–40 字
+Can you identify this bird before the reveal?
+
+#BirdSongMystery #Birding #NatureShorts
+-------------------------
+🌿 A Day in the Life: 40–60 字
+Follow a day in the life of one remarkable bird, from sunrise to sunset.
+
+#BirdLife #Wildlife #NatureShorts
+-------------------------
+
 # next 4
 "
-short #2 幫我產生合適的置頂留言(english)
+short #2 幫我產生合適的置頂留言(english, 20~50 words)
 "
+
+# nest 5
+幫我產生 適合的 旁白 字幕
+有建議的背景音樂?
+
 
 # new
 幫我產生Short #1 video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂)
-幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂) - 每一單位為 6s or 10s 
-產生 short #1 必要的 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
+幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂) - 每一單位為 6s or 10s(無中間值) 
+產生 short #1 必要的 9:16 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
 幫我產生 Short #1  適合的旁白 並標示位置
 每個 clip 旁白 改為不加間隔
 ...
