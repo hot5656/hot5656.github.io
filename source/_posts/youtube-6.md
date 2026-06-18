@@ -314,10 +314,12 @@ short #2 幫我產生合適的置頂留言(english, 20~50 words)
 
 # new
 幫我產生Short #1 video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂)
-幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂) - 每一單位為 6s or 10s(無中間值) 
+幫我產生Short #2 "The Wild Bird That Collects Spider Silk"  video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂,不含旁白) - 每一單位為 6s or 10s(無中間值) 
 產生 short #1 必要的 9:16 1st frame prompt and 場景 Reference 圖 (不要直接產生 image) 
 幫我產生 Short #1  適合的旁白 並標示位置
 每個 clip 旁白 改為不加間隔
+配合 "二、視覺一致性指南" 九宮格 image 幫我產生 EP1 video prompt + 背景音 Prompt(含清晰鳥叫聲,不含音樂,不含旁白) - 每一單位為 6s or 10s(無中間值) 
+
 ...
 
 ```
@@ -1089,3 +1091,4 @@ Lucy, the same East Asian female character, identical face as the reference imag
 + [TTSMaker-最推薦 無需註冊、支援中文很好、600+聲音、免費下載MP3](https://ttsmaker.com/zh-hk)
 + [Luvvoice-無字數限制感 200+聲音、70+語言、介面乾淨](https://luvvoice.com/)
 + [NaturalReaders Online-聲音很自然用 Gemini / ChatGPT 聲音，免費版夠用](https://www.naturalreaders.com/online/)
++ [pixabay](https://pixabay.com/sound-effects/search/): free 音效(含鳥叫聲)
