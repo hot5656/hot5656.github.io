@@ -137,3 +137,10 @@ add a supper food, when snake touch increase
 add feature for the snake can pass through the walls
 
 ```
+
+### other
+#### mac 錄影
+``` bash
+start : Cmd+Shift+5  --> select 錄製
+stop  : Ｃmd+Ctrl+Esc or Cmd+Shift+5 --> stop
+```
