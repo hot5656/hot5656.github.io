@@ -224,7 +224,10 @@ esc : cancel the current operation
 esc+ecs : rewind(轉回) the prompt history
 @file : reference a file in the prompt
 [image] : simple copy+paste image
-?? /memory : auto-learned knowledge(跨session 但只載入 200 行)
+/memory : auto-learned knowledge(跨session 但只載入 200 行)
+# force save to auto memory
+Remember that I prefer Git commit messages to follow the Conventional Commits format. Save this to auto memory.
+
 /compact : reduce context size
 /clear : clear all context
 
@@ -395,6 +398,13 @@ what database options I have to implement sign up and sign in flow?
 ``` bash
 start : Cmd+Shift+5  --> select 錄製
 stop  : Ｃmd+Ctrl+Esc or Cmd+Shift+5 --> stop
+```
+
+#### vim
+``` bash
+# quit file
+:q!
+
 ```
 
 ### Ref
