@@ -427,7 +427,7 @@ check my project with AngularJS to see if any taxy error.
 # esc+esc --> rewind the command
 
 # resume test
-❯ I plan to do sign up and sing in plan. Do a quick brief research, what option do I have?
+❯ I plan to do sign up and sign in plan. Do a quick brief research, what option do I have?
 ...
 # save session
 /rename sign-up-implementation
@@ -450,7 +450,7 @@ what database options I have to implement sign up and sign in flow?
 
 can I use SQLite ?
 
-use SQLite to build a simple sign up and sing in flow and store the game score for each signed in user.
+use SQLite to build a simple sign up and sign in flow and store the game score for each signed in user.
   In additionallow to play the game as guest without storing any data.
 ------------------------------
 
@@ -458,7 +458,9 @@ use SQLite to build a simple sign up and sing in flow and store the game score f
 what database options I have to implement sign up and sign in flow?
 
 # add sigin up/sign in
-use SQLite to build a simple sign up and sing in flow and store the game score for each signed in user. In additionallow to play the game as guest without storing any data.
+use SQLite to build a simple sign up and sign in flow and store the game score for each signed in user. In additionallow to play the game as guest without storing any data.
+# Ultrathink to add sigin up/sign in
+Ultrathink to use SQLite to build a simple sign up and sign in flow and store the game score for each signed in user. In additionallow to play the game as guest without storing any data.
 ```
 
 ### other
@@ -498,7 +500,7 @@ P:\>python -c "import sys; print(sys.executable)"
 ```
 
 #### graphifyy - claude code(use Claude Pro)
-##### setup
+##### setup - windows
 ``` bash
 # claude login(already)
 D:\work\run\claude\claude_code_treasure_game-initial>pip --version
@@ -704,6 +706,112 @@ PS D:\work\run\claude\claude_code_treasure_game-initial\graphify-out> graphify c
   - graph.json (434 KB), graph.html (405 KB), GRAPH_Rphify_labels.json, cache/, transcripts/ (empty — nosuccessful transcriptions)
 
   Something unexpected worth flagging: graphify-out/.claude/settings.json and graphify-out/CLAUDE.md exist but weren't created by     anything I ran this session — no --wiki/hooks step e installs PreToolUse hooks that intercept everyBash and Read|Glob call through graphify hook-guard. That's a real behavioral change (it'll run on your next tool calls) sitting in a nested, non-standard location. I haven't touched hook-guard actually does, or remove it?
+"
+# 2. Claude Code 輸入： 這個專案的主要功能是什麼？核心檔案有哪些？
+# other example 
+/graphify query "你的問題"
+/graphify path "從某功能到另一功能的呼叫路徑"
+/graphify explain "某函式或類別"
+# 更新圖譜：之後修改大量程式碼時，執行：
+/graphify --update
+```
+
+##### setup - mac
+``` bash
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % python --version
+  Python 3.10.12
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % pip --version
+  pip 23.0.1 from /Users/gaoyiping/.pyenv/versions/3.10.12/lib/python3.10/site-packages/pip (python 3.10)
+
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % pip install graphifyy
+  ...
+  [notice] A new release of pip is available: 23.0.1 -> 26.1.2
+  [notice] To update, run: pip install --upgrade pip  
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % pip install --upgrade pip
+  ...
+  Successfully installed pip-26.1.2
+
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % graphify install
+    ╭──◉──╮     ╭──◉──╮
+  ╱  ◉   ◉ ╲ ╱ ◉   ◉  ╲
+  │   ◉─◉─◉  ◉  ◉─◉─◉   │
+  │    ◉   ◉ │ ◉   ◉    │
+  │   ◉─◉─◉  ◉  ◉─◉─◉   │
+  ╲  ◉   ◉ ╱ ╲ ◉   ◉  ╱
+    ╰──◉──╯     ╰──◉──╯
+            ◉
+    █▀▀ █▀█ ▄▀█ █▀█ █ █ █ █▀▀ █▄█
+    █▄█ █▀▄ █▀█ █▀▀ █▀█ █ █▀   █  0.9.10
+    references       ->  /Users/gaoyiping/.claude/skills/graphify/references
+    skill installed  ->  /Users/gaoyiping/.claude/skills/graphify/SKILL.md
+    CLAUDE.md        ->  skill registered in /Users/gaoyiping/.claude/CLAUDE.md
+  Done. Open your AI coding assistant and type:
+    /graphify .
+gaoyiping@gaoyipingdeMacBook-Pro claude_code_treasure_game-initial % graphify claude install
+  graphify section written to /Users/gaoyiping/work/claude/claude_code_treasure_game-initial/CLAUDE.md
+    .claude/settings.json  ->  PreToolUse hooks registered (Bash search + Read/Glob)
+  Claude Code will now check the knowledge graph before answering
+  codebase questions and rebuild it after code changes.
+
+# Graphify 建圖
+# Claude Code 裡執行：
+"
+/graphify .
+--------------------> 
+  The knowledge graph is built. Summary:
+  - graphify-out/graph.json — 456 nodes, 827 edges, 25 communities
+  - graphify-out/GRAPH_REPORT.md — architecture overview with named communities
+  - graphify-out/graph.html — interactive visualization
+  I can now use graphify query, graphify path, and graphify explain for codebase questions per the project's CLAUDE.md rules, and graphify update . after future code changes to keep it current.
+"
+# check useage
+"
+/useage
+Settings  Status   Config   Usage   Stats
+Session
+Total cost:            $0.60
+Total duration (API):  1m 41s
+Total duration (wall): 8m 11s
+Total code changes:    0 lines added, 0 lines removed
+Usage by model:
+     claude-sonnet-5:  5.7k input, 5.5k output, 1.1m cache read, 30.0k cache write ($0.60)
+Current session
+███████████▌                                       23% used
+Resets 3:20am (Asia/Taipei)
+Current week (all models)
+██▌                                                5% used
+Resets Jul 15 at 5am (Asia/Taipei)
+Current week (Fable)
+                                                   0% used
+What's contributing to your limits usage?
+Approximate, based on local sessions on this machine — does not include other devices or claude.ai
+Last 24h · these are independent characteristics of your usage, not a breakdown
+Skills                  % of usage
+/graphify                       9%
+d to day · w to week
+Usage credits
+Usage credits are off · /usage-credits to turn them on
+"
+# ask 
+/graphify query "the project main function"
+  Entry point: src/main.tsx — it imports and renders App() from src/App.tsx, which is the app's single entry component (matches CLAUDE.md: "App.tsx is the entire game").
+  From the graph, App():
+  - Calls initializeGame to set up the three treasure boxes
+  - Imports AuthScreen() and auth session helpers (getStoredSession, storeSession, clearSession, signOut) plus score APIs (fetchMyScores, submitScore) from src/lib/api.ts
+  - Renders Button() from the shadcn ui/button.tsx
+  - References the three chest image assets (closed, opened-treasure, opened-skeleton)
+  Note: this reveals src/lib/api.ts and an AuthScreen.tsx/auth flow that CLAUDE.md doesn't mention — CLAUDE.md may be stale relative to the current codebase (it only describes a stateless single-file game with no auth/API layer).
+# run by browser
+用瀏覽器打開 graph.html 檔案，可以點擊探索整個知識圖譜。
+# 測試是否生效
+# 1. Claude Code 輸入： /graphify status
+"
+  Graph status:
+  - Graph exists at graphify-out/graph.json — 456 nodes, 827 edges, 25 communities, built 2026-07-08 23:00
+  - graphify check-update . returned clean — no pending re-extraction needed, graph is current with the working tree
+  - GRAPH_REPORT.md present
+  - Git hooks (auto-update on commit/checkout) are not installed — this project isn't a git repository, so graphify hook install isn't available here
+  Nothing needs updating right now. If you make code changes, run graphify update . afterward to keep it in sync (per the project's CLAUDE.md rule).
 "
 # 2. Claude Code 輸入： 這個專案的主要功能是什麼？核心檔案有哪些？
 # other example 
