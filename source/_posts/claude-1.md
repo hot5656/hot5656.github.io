@@ -261,6 +261,11 @@ esc+ecs : rewind(轉回) the prompt history
 2. Remember that this project always uses CMake instead of Make, and save this in auto memory.
 # memory path
 windows - "C:\Users\RobertKao\.claude\projects\D--work-run-claude-claude-code-treasure-game-initial\memory"
+# 定期總結指令 - 請每週或重大變更後
+幫我重新總結 Auto Memory，並產生更新後的 CLAUDE.md 建議內容。只輸出需要新增或修改的部分，並標註變更日期。
+# 讓 Claude 自己維護(在 CLAUDE.md 開頭加入以下指示)
+你會定期把 Auto Memory 的重要學習總結到這個 CLAUDE.md 檔案中，保持內容精煉且最新。
+
 
 /compact : reduce context size
 /clear : clear all context
@@ -823,7 +828,42 @@ Usage credits are off · /usage-credits to turn them on
 ```
 
 ##### graphifyy 使用
-###### 1. **最常用指令（直接在 Claude Code 輸入）**
+###### 基本應用
+``` bash
+# every project run
+graphify claude install
+
+# Graphify 建圖 - every project run (產生 GRAPH_REPORT.md )
+# Claude Code 裡執行：
+/graphify .
+# copy .\graphify-out\GRAPH_REPORT.md to ..\Claude-Graphify\claude_code_treasure_game-initial\
+
+# 更新圖譜：之後修改大量程式碼時，執行：(更新 GRAPH_REPORT.md )
+/graphify --update
+
+# set memory for graphify
+when I enter any command refernce graphify is the first pripority
+
+# upgrade memory to CLAUDE.md
+# 定期總結指令 - 請每週或重大變更後
+幫我重新總結 Auto Memory，並產生更新後的 CLAUDE.md 建議內容。只輸出需要新增或修改的部分，並標註變更日期。
+```
+
+###### [Graphify + Obsidian + Claude Code = CHEAT CODE](https://www.youtube.com/watch?v=mWLDn49_8HA)
+``` bash
+mkdir the_vault
+cd .\the_vault\
+PS D:\work\run\claude\the_vault> claude
+
+# spent 100% for 5 hours(not complete)
+download the official claude code documentation, point graphify at it, then use the graphify obsidian command to turn it into a vault
+
+# 13:14(not run)
+pull the source code in and wire every node to its origin in the claude-code-docs folder
+```
+
+
+###### (1) **最常用指令（直接在 Claude Code 輸入）**
 
 | 指令 | 用途 | 範例 |
 |------|------|------|
@@ -832,7 +872,7 @@ Usage credits are off · /usage-credits to turn them on
 | `/graphify path` | 顯示呼叫路徑 | `/graphify path "從主選單到遊戲開始"` |
 | `/graphify status` | 查看圖譜狀態 | `/graphify status` |
 
-###### 2. **日常最佳工作流**
+###### (2) **日常最佳工作流**
 
 - **自動模式（推薦）**：  
   你已經安裝 hook 了，之後直接正常問 Claude Code 問題即可，例如：  
@@ -847,10 +887,107 @@ Usage credits are off · /usage-credits to turn them on
   - 用瀏覽器打開 `graphify-out/graph.html`（可點擊探索整個專案結構）
   - 或用 Obsidian 開啟專案，把 graph.html 當儀表板
 
-###### 3. **進階用法**
+###### (3) **進階用法**
 - 看報告：直接打開 `graphify-out/GRAPH_REPORT.md`
 - 找核心：看裡面的 **God Nodes**（最重要的類別/檔案）
 - 發現問題：看 **Surprising Connections**（意外的關聯）
+
+###### (4) windows trigger graphify error
+``` bash
+# set memory for graphify
+when I enter any command refernce graphify is the first pripority
+"
+    Read 1 file, recalled 1 memory, wrote 3 memories
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1: C:UsersRobertKaoAppDataLocalProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  Got it, saved. From now on I'll run graphify query directly on any codebase-related request in this project instead of pausing to ask which subcommand.
+  What would you like to know about the treasure game codebase?
+"
+
+# run command (found error)
+explan the sign up and sign in function in the porject
+    Read 1 file, listed 1 directory, ran 1 shell command
+  PreToolUse:Bash hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1: C:UsersRobertKaoAppDataLocalProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Bash hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1: C:UsersRobertKaoAppDataLocalProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  Now let me look at the actual key files to give a precise explanation.
+    Read 6 files
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1: C:UsersRobertKaoAppDataLocalProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1:ProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1:ProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1:ProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1:ProgramsPythonPython313Scriptsgraphify.EXE: command not found
+  PreToolUse:Read hook error
+  Failed with non-blocking status code: /usr/bin/bash: line 1:ProgramsPythonPython313Scriptsgraphify.EXE: command not found
+
+  Sign Up / Sign In flow
+    ....
+
+# change project .claude/settings.json
+# .claude/settings.json 雖然有 hook，但 command 路徑用了 Windows 格式（C:\\Users\\...\\graphify.EXE + 反斜線），Claude Code 內部的 Bash shell 無法正確執行，導致每次都失敗（command not found）。
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\RobertKao\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\graphify.EXE hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\RobertKao\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\graphify.EXE hook-guard read"
+          }
+        ]
+      }
+    ]
+  }
+}
+# to 
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "graphify",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "graphify",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+------------------
+
+# ask again(ok)
+explan the sign up and sign in function in the porject
+  ...
+```
 
 #### OBsidian
 ``` bash
@@ -866,20 +1003,62 @@ example : D:\work\run\claude\Claude-Graphify\claude_code_treasure_game-initial
 
 # xx - claude code 產生 project 分析檔案
 /graphify . --obsidian --obsidian-dir "..\Claude-Graphify\claude_code_treasure_game-initial"
-# xx - 在 Claude Code 裡輸入以下指令（讓它認識這個 Vault）
-/graphify "..\Claude-Graphify\claude_code_treasure_game-initial" --obsidian
-
-# 使用絕對路徑
+# 使用絕對路徑 產生 Obsidian 模式 fie
 /graphify . --obsidian --obsidian-dir "D:\work\run\claude\Claude-Graphify\claude_code_treasure_game-initial"
-# 於 .\graphify-out 產生 GRAPH_REPORT.md
+# 於 .\graphify-out 產生 GRAPH_REPORT.md --> copy to ..\Claude-Graphify\claude_code_treasure_game-initial\
 /graphify .
 
 # 在 Claude Code 輸入以下指令測試
 1. Read the GRAPH_REPORT.md from graphify-out in my claude_code_treasure_game-initial project and give me a high-level summary of the project architecture.
 2. From now on, when working on claude_code_treasure_game-initial, always reference the GRAPH_REPORT.md and the Obsidian vault at D:\work\run\claude\Claude-Graphify\claude_code_treasure_game-initial
 
+# Obsidian 模式
+產生很多 .md 筆記 → 適合你在 Obsidian 裡視覺化瀏覽和長期管理
+# 傳統 GRAPH_REPORT.md
+適合給 Claude Code 快速參考整體架構
 
-/graphify "D:\work\run\claude\Claude-Graphify\claude_code_treasure_game-initial" --obsidian
+# 建立 CLAUDE.md 讓 Claude Code 認識這個 Vault
+# 在 Vault 根目錄（Claude-Graphify）新增一個新筆記，檔名為 CLAUDE.md
+# 1st
+"
+# Claude 使用指引 - Treasure Game 專案
+
+- 主 Vault：Claude-Graphify
+- 目前專案：claude_code_treasure_game-initial
+- 重要檔案：GRAPH_REPORT.md
+- 請優先參考知識圖譜來理解專案結構
+"
+# 2nd
+"
+# Claude 使用指引 - Claude-Graphify Vault
+
+## 基本資訊
+- 這是我的主要 AI 第二大腦 Vault
+- 目前主要專案：claude_code_treasure_game-initial（Treasure Game）
+
+## 使用規則
+- 每次回答前，請先閱讀對應專案資料夾內的 GRAPH_REPORT.md
+- 優先使用 Obsidian 裡的知識圖譜和筆記作為上下文
+- 專案類型：React + Express 全端遊戲開發
+- 我的風格偏好：清晰、結構化、注重可維護性
+
+## 專案目標
+開發一個有趣的 Treasure Game（尋寶遊戲），包含登入、計分、視覺效果等功能。
+"
+
+# 如何確認 Claude Code 有沒有真的參考到 GRAPH_REPORT.md
+"
+Read GRAPH_REPORT.md and give me a high-level overview of this project's structure and main technologies used.
+"
+# 所以可以不 copy GRAPH_REPORT.md to Obsidian 對應資料夾
+tell me the Read GRAPH_REPORT.md folder
+  GRAPH_REPORT.md is located at:
+  D:\work\run\claude\claude_code_treasure_game-initial\graphify-out\GRAPH_REPORT.md
+  So the folder is graphify-out\ inside your project root (D:\work\run\claude\claude_code_treasure_game-initial\).
+
+# 後續維護 - 專案有較大修改時，重新執行 來更新 GRAPH_REPORT.md
+/graphify .
+
 ```
 
 
