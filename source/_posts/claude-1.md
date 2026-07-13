@@ -513,7 +513,7 @@ Enter message page, reponse latest message "Sure, hpaay give you a discount.
 Then take a screenshot, use prefix name 'message-' store in the current folder.
 colse the browser in the end.
 ```
-##### Playwright
+##### Context7
 ``` bash
 # login context7 get API key
 
@@ -896,6 +896,7 @@ Ultrathink to use SQLite to build a simple sign up and sign in flow and store th
 ```
 
 #### toy marketplace
+##### run at mac
 ``` bash
 # allow all permissions 
 claude --dangerously-skip-permissions
@@ -1043,7 +1044,7 @@ supabase status
   Studio, pgMeta (/pg/*), and analytics have no authentication
 
 # check supabase 
---> 開 Ｓtudio url : http://127.0.0.1:54323 
+http://127.0.0.1:54323 
   --> database (看基本資料)
 
 # run app http://localhost:8080/ at browser
@@ -1080,7 +1081,7 @@ I add sell then publish failed , can you check the reason?
   Fix: re-apply migrations to the local DB with:
   supabase db reset
   This is the standard workflow documented in CLAUDE.md/README_Supabase.md. Since it wipes and rebuilds the local dev database from the migrations + seed.sql, want me to go ahead and run it?`
-
+"
 
 # reset database
 gaoyiping@gaoyipingdeMacBook-Pro claude_code_toy_marketplace-initial % supabase db reset
@@ -1144,6 +1145,345 @@ it work well now, please expain the all reason about the previous 2 issue.
 supabase start
 supabase db reset
 2. 原本程式就有權限問題
+```
+
+##### run at windows
+``` bash
+# run claude
+
+# generate CLAUDE.md
+/init
+
+# git init
+run git init in this project
+
+# commit the repository
+Vs code 
+  --> Source control
+  --> Change
+  --> +
+  --> Staged Changed
+  --> first commit
+  --> Commit
+
+# install && run server
+check the @CLAUDE.md install the dependency and start the web server in the background.
+"
+❯ check the @CLAUDE.md install the dependency and start the web server in the background.
+Read CLAUDE.md (60 lines)
+
+● Installing dependencies, then starting the dev server in the background.
+
+  Ran 1 shell command
+
+● npm install is running in the background — I'll start the dev server once it finishes.
+
+✻ Sautéed for 2m 4s · 1 shell still running
+
+● Background command "Install npm dependencies" completed (exit code 0)
+
+● npm install finished successfully. Now starting the dev server in the background as requested.
+
+  Read 1 file, ran 1 shell command
+
+Dependencies installed and the Vite dev server is running in the background at http://localhost:8080/.
+
+✻ Cogitated for 9s · 1 shell still running
+
+✘ Auto-update failed: claude.exe in use (close other Claude Code sessions, including VS Code) · Run claude doctor
+"
+
+# run doctor check, see next item ..
+
+
+# run app
+run http://localhost:8080/ at browser
+"
+  --> check message
+  --> check user
+  --> Sign Up --> Magic 
+    First name:user001, password :11111111A
+  --> Sign Up
+    Sign up Failed
+    Failed to fetch 
+    *** some module not install ***
+"
+
+# install docker (install already)
+
+# run docker desktop
+
+# install supabase
+# search supabase CLI
+# install 
+npm install supabase --save-dev
+  ...
+# if need remove
+# npm uninstall supabase --save-dev
+# check version
+npx supabase --version
+  ◇  Telemetry ────────────────────────────────────────────────────────────────────────────────────╮
+  │                                                                                                │
+  │  Supabase collects anonymous usage data to improve the CLI.                                    │
+  │  You can opt out at any time:                                                                  │
+  │                                                                                                │
+  │    supabase telemetry disable                                                                  │
+  │                                                                                                │
+  │  Learn more: https://supabase.com/docs/guides/local-development/cli/getting-started#telemetry  │
+  │                                                                                                │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────╯
+  2.109.1
+# run supabase server
+npx supabase start
+# run 1st time
+npx supabase db reset
+# reset debug 
+npx supabase db reset --debug
+# if need stop
+npx supabase stop
+# check status
+npx supabase status
+
+# found error
+npx supabase start
+  ...
+  WARNING: Analytics on Windows requires Docker daemon exposed on tcp://localhost:2375.
+  supabase_analytics_aonhrhzuntjkskglqdwv container is not ready: unhealthy
+  ...
+# docker desktop add option 
+1. 打開 Docker Desktop
+2. 點 Settings（設定）
+3. 左側選 General（一般）
+4. 勾選：Expose daemon on tcp://localhost:2375 without TLS
+5. stop and run Docker desktop
+
+# check supabase 
+http://127.0.0.1:54323 
+  --> database (看基本資料)
+
+# set sell
+I want to sell 
+  --> Create Listing
+  --> Magic Icon
+  --> Publish
+  Error: Failed to fetch products
+
+# publish error 
+I add sell then publish failed , can you check the reason?
+  ...
+
+# kill server
+D:\work\run\claude\claude_code_toy_marketplace-initial>netstat -ano | findstr :8080
+  TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       24536
+  TCP    [::]:8080              [::]:0                 LISTENING       24536
+  TCP    [::1]:8080             [::1]:52384            ESTABLISHED     24536
+  TCP    [::1]:52384            [::1]:8080             ESTABLISHED     12656
+D:\work\run\claude\claude_code_toy_marketplace-initial>taskkill /PID 24536 /F
+成功: 處理程序 PID 24536 已經終止了。
+
+# see docker image
+  docker images -a
+  IMAGE                                                   ID             DISK USAGE   CONTENT SIZE   EXTRA
+  public.ecr.aws/supabase/edge-runtime:v1.69.28           29d8fbebb409        1.1GB          387MB
+  public.ecr.aws/supabase/edge-runtime:v1.74.2            a82676277615       1.12GB          391MB
+  ...
+
+# 總是出現 Analytics unhealthy issue, 先 ignore
+# stop force (if need)
+# npx supabase stop --no-backup
+npx supabase start --ignore-health-check
+# 1st time
+npx supabase db reset --local
+
+# error 
+I enter I want to sell see error : "Error: Failed to fetch products"
+  ...
+  
+```
+
+##### found issue, run doctor at windows
+``` bash
+# check no claude rinning(無輸出表示無 claude run)
+D:\work\run\claude\claude_code_toy_marketplace-initial>tasklist | findstr /i claude
+D:\work\run\claude\claude_code_toy_marketplace-initial>
+# docker check
+D:\work\run\claude\claude_code_toy_marketplace-initial>claude doctor
+Claude Code doctor
+
+Running: npm-global (2.1.207)
+Commit: bc512d563325
+Platform: win32-x64
+Path: C:\Users\RobertKao\AppData\Local\nvm\v22.21.0\node_modules\@anthropic-ai\claude-code\bin\claude.exe
+Config install method: global
+Search: OK (bundled)
+Auto-updates: enabled
+Auto-update channel: latest
+Last update attempt: failed (install_failed) — 2026-07-13
+
+Remote Control
+Control this session from claude.ai/code or the Claude mobile app
+
+No installation issues found.
+
+For a full setup checkup that can also fix issues, run /doctor in a Claude Code session.
+
+# run doctor at claude 
+❯ /doctor
+
+● Skill(verify)
+Successfully loaded skill
+
+My mistake — I invoked the wrong skill. The /doctor instructions are already loaded in this turn; let me proceed directly with those checks instead.
+
+Let me start gathering data across the checks in parallel.
+
+  Made 2 scratchpad edits +150, searched for 3 patterns, read 3 files, listed 1 directory, ran 25 shell commands
+
+Doctor report
+
+Summary: Your setup is clean — one healthy npm-global install, up to date (2.1.207), no broken/colliding config, and only one user-installed extension (the graphify skill), which you use regularly. The only real opportunities: move a rarely-needed Supabase workflow block out of your always-loaded CLAUDE.md into a skill (~170 tokens/session saved), and turn on auto mode as your default permission mode. Everything pro
+
+Component: graphify
+Type: skill
+Scope: user (~/.claude/skills)
+Uses (total since install): 13
+Used in window?: yes (2026-07-09)
+Est. resident tokens: ~15 (listing line)
+Verdict: keep — active use
+────────────────────────────────────────
+Component: init, run, debug, doctor, verify (+
+Type: bundled skills
+Scope: built-in
+Uses (total since install): n/a
+Used in window?: yes
+Est. resident tokens: shared in listing total (~1000 est.)
+Verdict: not touching — bundled
+────────────────────────────────────────
+Component: (no MCP servers configured)
+Type: —
+Scope: —
+Uses (total since install): n/a (no counter)
+Used in window?: n/a
+Est. resident tokens: n/a
+Verdict: nothing to report
+────────────────────────────────────────
+Component: (no plugins enabled)
+Type: —
+Scope: —
+Uses (total since install): n/a
+Used in window?: n/a
+Est. resident tokens: n/a
+Verdict: nothing to report
+────────────────────────────────────────
+Component: CLAUDE.md (project root)
+Type: checked-in memory                                                                               Scope: project
+Uses (total since install): —                                                                         Used in window?: always loaded
+Est. resident tokens: ~1095 (4381 chars)                                                              Verdict: mostly keep; one section worth migrati
+────────────────────────────────────────                                                              Component: ~/.claude/CLAUDE.md
+Type: local memory                                                                                    Scope: user (all projects)
+Uses (total since install): —                                                                         Used in window?: always loaded
+Est. resident tokens: ~58 (233 chars)                                                                 Verdict: keep — just the graphify trigger point
+                                                                                                      Scan window: 45 transcript files (this project  2026-07-07 to 2026-07-13 (~6 days).
+                                                                                                      Check-by-check
+                                                                                                      0 — Setup health: Healthy. Single install (npm esolves correctly, installMethod matches. Noleftover ~/.claude/local, no native-launcher PATH issue. All settings files (~/.claude/settings.json, .claude/settings.local.json, ~/.claude.json) pas in this project or ~/.claude/agents globally,so nothing to check there. Nothing to fix.
+
+1 — Unused skills/MCP/plugins: Only one user-installed extension exists: the graphify skill (13 uses lifetime, last used days ago) — clearly active, keep. No MCP servered anywhere (user, project, or .mcp.json), sothere's nothing unused to remove.                                                                                        
+2 — Local CLAUDE.md dedup: ~/.claude/CLAUDE.md (233 chars, just the graphify trigger) and the project's checked-in CLAUDEcover entirely different topics — no duplicatioE.local.md exists in this project or any ancestor directory.                                                                                                               
+3 — Trim derivable content: Project CLAUDE.md is 4,381 chars — far under the ~40,000-char warning floor. The "Commands" b(npm run dev/build/lint/preview, 289 chars) tecson's scripts section, but it also carries twodetails not in the manifest (dev server runs on port 8080, not Vite's default 5173; no test suite exists) that would be lby cutting it. Savings would be under 300 chars Verdict: already lean, no proposal.
+                                                                                                                         4 — Migrate to lazy loading: The "### Supabase ines 21–33, 839 chars) is a task-specificworkflow — local dev commands, new-migration steps, deploy steps — not needed in most sessions. This is a good fit for a skill that loads on demand instead of every ses
+- Proposed: create .claude/skills/supabase-workflow/SKILL.md containing that block (frontmatter name: supabase-workflow, description covering local dev/migrations/deplo CLAUDE.md.
+- Net savings: ~839 chars removed from every session (~210 est. tokens) minus a new one-line skill-listing entry (~40 est. tokens) ≈ ~170 est. tokens/session.
+
+7 — Version: Installed 2.1.207, latest on the l.207. Up to date, nothing to do.
+
+Warnings (no action taken)
+
+5 — Slow hooks: No hooks fired in this project', I noticed a PreToolUse hook namedPreToolUse:Bash/PreToolUse:Read/PreToolUse:Glob — belonging to graphify — firing constantly in your other two projects
+(the_vault, claude_code_treasure_game), and errr) on the vast majority of calls (e.g. 42/45 forBash) while printing the graphify CLI's usage/help text instead of doing its job. It's fast (under 300ms avg, not a speed
+problem) but looks broken — worth a look in tho.local.json if you want it fixed. Not touchedhere since it's outside this project and check 5 is report-only.
+
+6 — Context-heavy extensions: Skill/command listing is an est. ~1,000 tokens against the ~2,000-token (1%) budget —
+comfortably under. CLAUDE.md ~1,095 est. tokens. tokens. No non-deferred MCP tools, no plugins.Nothing here needs trimming beyond the check 4 proposal above. Run /context for exact live numbers.
+
+● User answered Claude's questions:
+· One cleanup item found: move the Supabase rkflow (839 chars) out of your always-loadedCLAUDE.md into an on-demand skill, saving about 170 tokens of context every session. Everything else checked out healthy
+already. Apply it? → Apply it (recommended)
+
+  Ran 1 shell command
+
+● Update(CLAUDE.md)
+Added 1 line, removed 13 lines
+
+There is no test suite configured in this repo.
+
+### Supabase local development
+For Supabase local dev setup, migration`supabase-workflow` skill.
+
+```
+supabase logout
+supabase login
+supabase db reset      # re-apply all migrations in supabase/migrations
+supabase start          # http://localh
+```
+
+- New migration: `supabase migration new xxxxx_table`, edit the generated SQL, then `supabase db reset`.
+- Deploy to remote: `supabase login`, `ct-ref $SUPABASE_PROJECT_REF`, `supabase d
+b push`.
+- The app auto-switches between local S321`) and the production project based on
+`window.location.hostname` — see `src/integrations/supabase/client.ts`.
+- Credentials/config locations: `src/in` (URL + publishable key), `.mcp.json` (pr
+oject ref + access token, copy from `.mcp.json.example.windows`/`.mac`), `supabase/config.toml` (project ID).
+
+## Architecture
+
+### Routing & app shell
+
+● Write(.claude\skills\supabase-workflow\SKILL.md)
+Wrote 18 lines to .claude\skills\supabase-wo
+---
+name: supabase-workflow
+description: Supabase local dev setup, creating new migrations, and deploying to the remote Supabase project fo
+anges to production.
+---
+
+### Supabase local development
+
+supabase logout
+supabase login
+… +13 lines
+
+Now the separate permission question for check 8 (check 9 had no viable candidates — all denials were low-count, mostly
+deliberate user-rejected, or clearly excluded cecrets).
+
+● User answered Claude's questions:
+· Separately from the cleanup: your permission mode isn't set anywhere, so you get prompted for every non-trivial action.
+I recommend setting auto mode as your defaulves routine actions instead of prompting you each time — by adding "permissions": {"defaultMode": "auto"} to ~/.claude/settings.json. This applies to every project, and if
+it's ever unavailable Claude Code falls back(No read-only commands qualified forpre-approval — the ones you denied recently were either low-count deliberate rejections or things like `python -c` and
+echoing an API key that should never be auto it (recommended)
+
+  Read 1 file
+
+● Update(C:\Users\RobertKao\.claude\settings.json
+Added 4 lines, removed 1 line
+{
+  "theme": "dark"
+  "theme": "dark",
+  "permissions": {
+    "defaultMode": "auto"
+  }
+}
+
+Applied:
+
+1. CLAUDE.md (D:\work\run\claude\claude_code_tomd) — removed the "Supabase local development"section (839 chars), replaced with a one-line pointer to the new skill.
+  - Undo: delete the pointer line and paste the in the report above).
+2. New skill created at .claude/skills/supabase-workflow/SKILL.md — holds the Supabase local dev/migration/deploy workflow,
+loads only when relevant instead of every sessi
+  - Undo: delete the file (and fold its content back into CLAUDE.md if desired).
+3. ~/.claude/settings.json — added "permissions
+  - Undo: remove that block, restoring the file to just {"theme": "dark"}.
+
+Everything else checked out healthy — no duplicate installs, no broken config, no unused MCP servers/plugins, version is current, and no read-only commands qualified fo
 ```
 
 
