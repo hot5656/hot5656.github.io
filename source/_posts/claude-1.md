@@ -662,6 +662,243 @@ claude
   ...
 ```
 
+##### Playwright - windows
+``` bash
+# file .mcp.json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "msedge"
+      ]
+    }
+  }
+}
+
+
+# bash-install and run server
+npm install playwright
+  added 2 packages, and audited 403 packages in 1m
+  82 packages are looking for funding
+    run `npm fund` for details
+  17 vulnerabilities (6 moderate, 11 high)
+  To address all issues, run:
+    npm audit fix
+  Run `npm audit` for details.
+  npm warn allow-scripts 3 packages have install scripts not yet covered by allowScripts:
+  npm warn allow-scripts   @swc/core@1.13.2 (postinstall: node postinstall.js)
+  npm warn allow-scripts   esbuild@0.21.5 (postinstall: node install.js)
+  npm warn allow-scripts   esbuild@0.25.0 (postinstall: node install.js)
+  npm warn allow-scripts
+  npm warn allow-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+npx playwright install
+  ...
+
+# powe shell - see run node
+Get-WmiObject Win32_Process | Where-Object { $_.Name -like "*node*" } | Select-Object ProcessId, Name, CommandLine, CreationDate | Format-List
+  ProcessId    : 14256
+  Name         : node.exe
+  CommandLine  : "C:\nvm4w\nodejs\\node.exe"   "C:\nvm4w\nodejs\\node_modules\hexo-cli\bin\hexo" s
+  CreationDate : 20260713094649.656198+480
+
+  ProcessId    : 33764
+  Name         : node.exe
+  CommandLine  : "C:\nvm4w\nodejs\\node.exe"   "C:\nvm4w\nodejs\\node_modules\npm\bin\npx-cli.js" "-y" "@playwright/mcp@late
+                st" "--browser" "msedge"
+  CreationDate : 20260714094112.295478+480
+
+  ProcessId    : 31524
+  Name         : node.exe
+  CommandLine  : "node"   "C:\Users\RobertKao\AppData\Local\npm-cache\_npx\9833c18b2d85bc59\node_modules\.bin\\..\@playwrigh
+                t\mcp\cli.js" --browser msedge
+  CreationDate : 20260714094137.399799+480
+
+  ProcessId    : 28824
+  Name         : node.exe
+  CommandLine  : C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs/node_modules/npm/bin/npm-cli.js run dev
+  CreationDate : 20260714094640.919631+480
+
+  ProcessId    : 35532
+  Name         : node.exe
+  CommandLine  : "node"   "D:\work\run\claude\No_2_claude_code_toy_marketplace-initial\node_modules\.bin\\..\vite\bin\vite.j
+                s"
+  CreationDate : 20260714094646.101785+480
+
+# take a home page screenshot
+# http://localhost:8080/
+restart the webserver. use the dimentions:iPhone 12 Pro(390 x 844).
+go to the homepage, take a screenshot named homepage-001.png in the current folder. close the browser in the end.
+```
+
+##### Context7 - windows
+``` bash
+# login context7 get API key
+
+# file .mcp.json
+{
+  "mcpServers": {
+    ...,
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "args": [
+        "--header",
+        "CONTEXT7_API_KEY: YOUR_CONTEXT7_API_KEY"
+      ]
+    }
+  }
+}
+
+# login context7 get API key
+
+# file .mcp.json
+{
+  "mcpServers": {
+    ...,
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "args": [
+        "--header",
+        "CONTEXT7_API_KEY: YOUR_CONTEXT7_API_KEY"
+      ]
+    }
+  }
+}
+
+# re-open cloude code
+exit
+claude
+# check mcp connect
+/mcp
+
+# check doc for my project use contect7
+use contecxt7 and examine my code to see what documentions are availabe for my project
+  ...
+
+# change API key at .env
+# .env
+CONTEXT7_API_KEY=ctx7sk-...
+
+#.mcp.json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "msedge"
+      ]
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers" : {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    }
+  }
+}
+
+# install dotenv-cli for load env
+npm install dotenv-cli -g                   
+# run dotenv enter claude(so load .env correct)
+dotenv -e .env -- claude
+# check Context API key 
+can you use the current Context7 setting, re try connect ?
+  + Context7 is configured in .mcp.json as an HTTP MCP server requiring a CONTEXT7_API_KEY env var. Its tools are already showing up in my available deferred tools, so let me test the connection directly.
+    Called context7
+  + Context7 is connected and working — it just returned results for a live query against the real API. No retry needed; the CONTEXT7_API_KEY env var is resolving correctly and the server responded normally.
+
+# 可使用 cmd 以下comamnd load .env
+# 但設定完 vscode load claude 抓不到
+# can you read environment CONTEXT7_API_KEY ?
+for /f "usebackq tokens=*" %a in (".env") do set "%a"
+# verify 
+echo CONTEXT7_API_KEY loaded: %CONTEXT7_API_KEY%
+  CONTEXT7_API_KEY loaded: ctx7sk-
+```
+
+##### Sentry
+``` bash
+# file .mcp.json
+    "sentry": {
+      "type": "http",
+      "url": "https://mcp.sentry.dev/mcp"
+    }
+
+# test 
+exit
+claude
+/mcp
+  --> Sentry authority 
+  --> Approve
+  --> open browser(google login)
+  --> connect
+# check View tools
+ ❯ 1. find_organizations       read-only, open-world
+     2. find_projects            read-only, open-world
+     3. update_issue             destructive, open-world
+     4. search_events            read-only, open-world
+     5. analyze_issue_with_seer  open-world
+     ...
+
+# create a centry project
+create 1 new sentry project by using the current code base.
+use the About.tsx page to test the functionality.
+# check it
+is the project include a sentry project?
+    Searched for 2 patterns, read 1 file
+  Yes — the project has Sentry wired in, though it's currently uncommitted work.
+  src/instrument.ts (new, untracked file) initializes @sentry/react:
+  - DSN points to org o4511731608649728, project ingest 4511731680084048 (region: de.sentry.io)
+  - Uses browserTracingIntegration() and replayIntegration()
+  - tracesSampleRate: 1.0, replaysSessionSampleRate: 0.1, replaysOnErrorSampleRate: 1.0
+
+  It's imported at the top of src/main.tsx (which is also modified but uncommitted), so it's active in the currently running dev server. @sentry/react was likely added to package.json/package-lock.json (both also show as modified) as part of this.
+
+  This isn't committed yet — it's part of your working-tree changes alongside the useUserProducts.tsx and About.tsx edits. Want me to check the diff on main.tsx/package.json to confirm the setup, or help finish/commit this Sentry integration?
+# next
+how I next to do?
+    A good next step: verify the Sentry integration actually works end-to-end before committing anything — trigger the test error from the About page in the running dev server, then check the Sentry MCP tools to confirm it landed in the project. That way you know the DSN/config is correct before it goes into a commit alongside the unrelated useUserProducts.tsx and migration changes (which look like separate work and maybe shouldn't be bundled with the Sentry commit).
+
+    Want me to go ahead and do that verification (click the test button via browser, then query Sentry for the event)?
+  # ask step
+  how do I do for sentry test?
+    Selected 1 lines from .env in Visual Studio Code
+
+    Searched for 1 pattern, read 1 file
+
+  Here's how to test it, since the dev server is already running on http://localhost:8080/:
+
+  1. Open http://localhost:8080/about in a browser (that's where the "Trigger test error" button lives — src/pages/About.tsx:21-28).
+  2. Click the "Trigger test error" button. It runs Sentry.captureException(new Error("Sentry test error from About page")).
+  3. Confirm it landed in Sentry — I can query the project via the Sentry MCP tools once you've clicked it, and check for that error message.
+
+  Want me to do this for you now — open it with Playwright/browser automation, click the button, then look it up in Sentry to confirm the event arrived?
+# test 
+1. http://localhost:8080/about
+2. press "Trigger test error"
+3. see Sentry's project --> Issues 
+# monitor sell message
+let's detect if the information of the product create in @src/pages/CreateListingForm.tsx  include
+  any cursing words link 'fuck', 'merder', use Sentry.captureMessage to send those out
+  Added profanity detection to src/pages/CreateListingForm.tsx:
+
+  - A CURSE_WORDS list ("fuck", "merder") and a findCurseWords helper that does a case-insensitive substring check.
+  - In handleSubmit, right after the payload is built, it scans product_name, color, leather, stamp, location, and description for matches.
+  - If anything's found, it calls Sentry.captureMessage("Profanity detected in product listing: <words>", "warning") — this only reports to Sentry, it doesn't block the listing from being published.
+
+  Type-check passes clean. Since the dev server is already running, you can verify it live: fill in "Product name" with something containing "fuck", hit Publish, and I can check Sentry for the captured message. Want me to drive that test now?
+# see Sentry's project --> Issues  find detect it
+```
+
 #### issue
 ``` bash
 # /memory 
@@ -1293,12 +1530,13 @@ D:\work\run\claude\claude_code_toy_marketplace-initial>taskkill /PID 24536 /F
 # npx supabase stop --no-backup
 npx supabase start --ignore-health-check
 # 1st time
+# --local 強制只操作本地資料庫, 否則自動偵測
 npx supabase db reset --local
 
 # error 
 I enter I want to sell see error : "Error: Failed to fetch products"
   ...
-  
+
 ```
 
 ##### found issue, run doctor at windows
@@ -1486,6 +1724,71 @@ loads only when relevant instead of every sessi
 Everything else checked out healthy — no duplicate installs, no broken config, no unused MCP servers/plugins, version is current, and no read-only commands qualified fo
 ```
 
+#### Custom MCP
+``` bash
+# rebuild the image tools serve
+/rebuild_restart_image_tools_server
+
+# check MCP running
+# run new claude session
+/mcp
+  ❯ image-tools-server-docker · ✔ connected · 2 tools
+  tools                                                                  
+   ❯ 1. fetch_toy_image
+   ❯ 2. resize_image
+# download and resize
+download 3 different random picture of single castle. resize below 150px
+  either the width or the length
+
+# finder 2 container
+I diaable and enable then have 2 container at docker, how to stop it?
+  + Found 2 running containers of mcp-toy-image-tools-server — likely from the disable/enable cycle spawning a new one without killing the old (since .mcp.json uses --rm but no --name, each reconnect starts a fresh container and the previous one doesn't auto-terminate on disconnect).
+
+  f3348e21355f   competent_borg   Up About a minute (healthy)
+  17b748319172   boring_almeida   Up 5 minutes (healthy)
+
+  The newer one (f3348e21355f, ~1 min) is almost certainly the one backing your current active MCP connection. I'll stop the older, orphaned one (17b748319172, ~5 min) — since it was run with --rm, stopping it will also remove it automatically.
+
+    Ran 2 shell commands
+
+  + Stopped and removed the orphaned container. Only f3348e21355f (competent_borg) is left running, which should be the one backing your current MCP connection — confirm the image tools still work; if /mcp shows it disconnected, just reconnect and it'll spin up fresh.
+
+  To avoid this piling up in the future: each disable/enable in Claude Code spawns a new docker run --rm -i ... container per .mcp.json, and the old one can linger if the disconnect doesn't cleanly terminate its stdio process. If you want, I can add a --name flag to .mcp.json so future runs fail fast (or auto-replace) instead of silently multiplying — let me know.
+
+# fix by add --name flag
+add a --name flag to .mcp.json so future runs fail fast (or auto-replace) instead of silently multiplying
+
+# ask for disabel
+it will remove container when I disable the MCP now?
+    Searched for 1 pattern, read 1 file, ran 1 shell command
+  Yes. Looking at .mcp.json, the server is launched via docker run --rm -i --name mcp-toy-image-tools ... as a direct subprocess of Claude Code (stdio transport, no daemon/compose in between).
+  - Disabling the MCP server makes Claude Code kill that subprocess → docker run stops → container mcp-toy-image-tools stops.
+  - The --rm flag means Docker auto-deletes the container as soon as it stops — so it won't just be stopped, it'll be gone from docker ps -a entirely.
+
+  The image mcp-toy-image-tools-server itself is untouched (not removed), so re-enabling the MCP will just docker run a fresh container from the existing image — fast, no rebuild needed. Your bind-mounted images/, input/, output/ folders on disk are also unaffected since they live outside the container.
+
+# get error
+why I run another project have the error?
+The "castle" search also 403s the same way — this confirms DuckDuckGo is blocking the fetch_toy_image tool's backend entirely right now, not something specific to "bear". How would you like to proceed?
+
+  ? 1. Wait ~5 min, retry once more
+       One longer wait, then a single retry with keyword "castle"; stop after that regardless of outcome.
+  403 錯誤跟「換了另一個 project」本身沒有關係，根源在 DuckDuckGo 這一端，不是你的 project 設定或路徑問題。
+
+  原因：fetch_toy_image 是透過 duckduckgo-search（requirements.txt 裡 duckduckgo-search>=6.1.0）這個非官方套件去爬 DuckDuckGo 的圖片搜尋結果。DuckDuckGo 近期對這類非官方爬蟲/scraping 請求加強了反爬措施，常見狀況是針對來源 IP 直接回 403，而不是針對特定關鍵字（這也是為什麼你換了「castle」關鍵字還是一樣 403 —— 你自己那邊的診斷也證實了這點）。
+
+  為什麼換 project 沒用：
+  - Docker container 用的是同一台 host 的對外網路，不管你在哪個 project 目錄下啟動，出去打 DuckDuckGo 的都是同一個公網 IP。
+  - 一旦這個 IP 被 DDG 暫時封鎖/限流，所有 project、所有 container instance 都會一起中招，跟 .mcp.json 路徑、project 名稱完全無關。
+
+  等 5 分鐘重試通常沒用，因為這類封鎖常常是幾十分鐘到數小時的區間，且 duckduckgo_search（近期改名為 ddgs）這個套件本身也在跟 DDG 的反爬機制打游擊戰，版本落後就更容易被擋。
+
+  比較根本的解法：
+
+  1. 升級套件：pip install -U ddgs（新名稱），並在 server.py 裡把 from duckduckgo_search import DDGS 改成新的 import 路徑，因為舊版對抗新的反爬機制成功率較低。
+  2. 換一個穩定的圖片來源 API（長期建議）：例如 Unsplash API、Pexels API 這類有官方 API key、有明確 rate limit 規則的服務，取代非官方爬蟲，避免這種不可預期的封鎖。
+  3. 如果只是偶發測試需求，先確認不是短期內大量重試造成的（多個 project 短時間內連續呼叫也會加速觸發封鎖）。
+```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
 #### create nww project
@@ -2489,10 +2792,14 @@ path : /Users/gaoyiping/work/claude
 + MCP
   - [Playwright github](https://github.com/microsoft/playwright)
   - [Playwright Docs](https://playwright.dev/mcp/introduction)
-  - [Playwright github](https://github.com/upstash/context7)
+  - [Context7 github](https://github.com/upstash/context7)
   - [Context7 Site](https://context7.com/tasklist?tab=website): need login
+  - [Sentry github](https://github.com/getsentry/sentry-mcp)
+  - [Sentry Site](https://sentry.io/welcome/)
+  - [MCP Python SDK - github](https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file)
 + Document
   - [Claude Code Docs](https://code.claude.com/docs/zh-TW/)
 + Source
   - [Unit 2-1 treasure game](https://github.com/uopsdod/claude_code_treasure_game/tree/initial)
   - [Unit 3-4 toy marketplace](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial)
+  - [Unit 3-10 Custom MCP Server](https://github.com/uopsdod/claude_code_custom_mcp_server/tree/initial)
