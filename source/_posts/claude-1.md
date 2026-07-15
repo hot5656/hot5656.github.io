@@ -420,6 +420,89 @@ the project put to github already, 同時完整source code 也放上去了？
 ```
 
 #### MCP
+##### MCP information
+``` bash
+# MCP : message format
+JSON RPC
+
+MCP Client(use TypeScript MCP SDK)
+prompt  
+  --> Typescript obj 
+  --> JSON RPC 
+  --> serialize
+  --> + newline framing
+  --> encode(byte format - level 4)-raw bytes
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> decode
+  --> remove newline framing  
+  --> de-serialize  
+  --> JSON RPC
+  --> python dict/Typescript obj
+  --> MCP tool
+MCP server(use Python/TypeScript MCP SDK)
+  --> string result
+  --> python dict/Typescript obj
+  --> serialize
+  --> + newline framing
+  --> encode(byte format - level 4)-raw bytes
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> decode
+  --> remove newline framing  
+  --> de-serialize  
+  --> JSON RPC
+  --> Typescript obj
+  --> unpacked result
+MCP Client(use Typscript MCP SDK)
+
+
+MCP Client(use TypeScript MCP SDK)
+prompt  
+  --> Typescript obj 
+  --> JSON RPC 
+  --> serialize
+  --> encode(byte format - level 4)
+  --> HTTP envelope
+  --> HTTP req(raw bytes)
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> decode
+  --> remove HTTP envelope 
+  --> de-serialize  
+  --> JSON RPC
+  --> python dict/Typescript obj
+  --> MCP tool
+MCP server(use Python/TypeScript MCP SDK)
+  --> string result
+  --> python dict/TypeScript obj
+  --> serialize
+  --> SSE(Sever Side Event) event framing - 28:53
+  --> encode(byte format - level 4)-raw bytes
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> decode
+  --> remove newline framing  
+  --> de-serialize  
+  --> JSON RPC
+  --> Typescript obj
+  --> unpacked result
+MCP Client(use Typscript MCP SDK)
+
+```
+
 ##### Playwright
 ``` bash
 # file .mcp.json
@@ -897,6 +980,43 @@ let's detect if the information of the product create in @src/pages/CreateListin
 
   Type-check passes clean. Since the dev server is already running, you can verify it live: fill in "Product name" with something containing "fuck", hit Publish, and I can check Sentry for the captured message. Want me to drive that test now?
 # see Sentry's project --> Issues  find detect it
+```
+
+##### Custom MCP - image tools
+``` bash
+# image tools server
+# add tool remove_background_as_png
+at @server.py please add a tool name as remove_background_as_png support image background remove
+
+# rebuils
+/rebuild_restart_image_tools_server
+
+# check support new tool
+/mcp
+
+# check new tool
+download 3 different random picture of single squid. resize below 150px either the width or 
+length. remove the background and store as png name with suffix "_rembg".
+
+# change to other image source(not DuckDuckGo) 
+can you change image search source not DuckDuckGo.
+  I'll switch the search backend from DuckDuckGo scraping to Openverse's public API (free, no API key required, 
+  aggregates openly-licensed images from Flickr/Wikimedia/etc., not IP-limited the way DDG scraping is). 
+  Let me verify the API shape first.
+
+# another image source
+I thik the image source not very good, can I change a image source ?
+  1. Use a different search API
+    Modify the fetch_toy_image tool in server.py to pull from a different image provider (e.g. Pexels, Pixabay, Unsplash) instead of Openverse, since Openverse keeps returning irrelevant/poor results for these keywords
+  Which image search API should replace Openverse?
+  ❯ 1. Wikimedia Commons (Recommended)
+      Keyless, no API key needed — same setup simplicity as Openverse today, but broader/better-tagged real-world photo corpus (not toy-focused), likely much better relevance for terms like 'squid' or 'dog'
+    2. Pixabay
+      Free tier, but requires signing up for an API key and storing it (e.g. in .env or docker env var) — large stock-photo/illustration library
+    3. Pexels
+      Free tier, also requires an API key — curated stock-photo library, generally high visual quality
+    4. Unsplash
+      Requires an API key (and app approval for production use) — high-quality curated stock photos, but stricter rate limits on free tier
 ```
 
 #### issue
@@ -1758,6 +1878,30 @@ I diaable and enable then have 2 container at docker, how to stop it?
 # fix by add --name flag
 add a --name flag to .mcp.json so future runs fail fast (or auto-replace) instead of silently multiplying
 
+# file .mcp.json
+# 若有兩個 project 要有不同的 name , "--name", "mcp-toy-image-tools_mcp",
+# mac/linux 用 "-v", "${PWD}/images:/app/images" 但 windows 要用實際目錄
+#    - Claude Code 讀取 .mcp.json 時會用「當下的環境變數」去展開 ${PWD}。
+#    - 在 Linux/macOS 上，bash/zsh 這類 shell 會自動把 PWD 匯出成環境變數，所以 ${PWD} 能正確展開成當前工作目錄。
+#    - 在 Windows 上，無論是 cmd.exe 還是原生 PowerShell，都不會把 PWD 設成環境變數（PowerShell 雖有 $PWD 這個自動變數，但那是 PowerShell 語言層級的變數，不是進程環境變數，${PWD} 讀不到它）。結果就是 ${PWD} 展開成空字串，Docker 收到的掛載路徑變成 /images:/app/images（少了前面的絕對路徑），導致 volume mount 失敗或掛載到錯誤位置。
+#    所以在 Windows 上才改用寫死的絕對路徑（D:/work/...）繞過這個問題。
+#    比較穩的做法是用 Git Bash（它會模擬 POSIX 環境並匯出 PWD）來啟動 Claude Code，或改用 Claude Code 支援的其他路徑變數/工作目錄推斷方式，而不是依賴系統原生的 PWD 環境變數。
+    "image-tools-server-docker": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--name", "mcp-toy-image-tools",
+        "-v", "D:/work/run/claude/No_2_claude_code_toy_marketplace-initial/images:/app/images",
+        "-v", "D:/work/run/claude/No_2_claude_code_toy_marketplace-initial/input:/app/input",
+        "-v", "D:/work/run/claude/No_2_claude_code_toy_marketplace-initial/output:/app/output",
+        "mcp-toy-image-tools-server"
+      ]
+    }
+
+
+
 # ask for disabel
 it will remove container when I disable the MCP now?
     Searched for 1 pattern, read 1 file, ran 1 shell command
@@ -1769,10 +1913,12 @@ it will remove container when I disable the MCP now?
 
 # get error
 why I run another project have the error?
+"
 The "castle" search also 403s the same way — this confirms DuckDuckGo is blocking the fetch_toy_image tool's backend entirely right now, not something specific to "bear". How would you like to proceed?
 
   ? 1. Wait ~5 min, retry once more
        One longer wait, then a single retry with keyword "castle"; stop after that regardless of outcome.
+"
   403 錯誤跟「換了另一個 project」本身沒有關係，根源在 DuckDuckGo 這一端，不是你的 project 設定或路徑問題。
 
   原因：fetch_toy_image 是透過 duckduckgo-search（requirements.txt 裡 duckduckgo-search>=6.1.0）這個非官方套件去爬 DuckDuckGo 的圖片搜尋結果。DuckDuckGo 近期對這類非官方爬蟲/scraping 請求加強了反爬措施，常見狀況是針對來源 IP 直接回 403，而不是針對特定關鍵字（這也是為什麼你換了「castle」關鍵字還是一樣 403 —— 你自己那邊的診斷也證實了這點）。
@@ -1788,6 +1934,14 @@ The "castle" search also 403s the same way — this confirms DuckDuckGo is block
   1. 升級套件：pip install -U ddgs（新名稱），並在 server.py 裡把 from duckduckgo_search import DDGS 改成新的 import 路徑，因為舊版對抗新的反爬機制成功率較低。
   2. 換一個穩定的圖片來源 API（長期建議）：例如 Unsplash API、Pexels API 這類有官方 API key、有明確 rate limit 規則的服務，取代非官方爬蟲，避免這種不可預期的封鎖。
   3. 如果只是偶發測試需求，先確認不是短期內大量重試造成的（多個 project 短時間內連續呼叫也會加速觸發封鎖）。
+
+# change image search
+#   DuckDuckGo image search hit a rate limit. Let me retry.
+#   DuckDuckGo is still rate-limiting the search (403). I'll wait longer before retrying.
+# Use a different image source
+#   Skip DuckDuckGo entirely — I fetch a bear photo via WebFetch from a known direct image URL instead, then resize it locally.
+It doesn't decide by mcp. It decide by claude.
+
 ```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
@@ -2156,15 +2310,14 @@ stop  : Ｃmd+Ctrl+Esc or Cmd+Shift+5 --> stop
 Cmd+shift+.
 ```
 
-#### where(windows)
+#### windows command
 ``` bash
+# where
 D:\work\run\claude\claude_code_treasure_game-initial>where claude
 C:\nvm4w\nodejs\claude
 C:\nvm4w\nodejs\claude.cmd
-
 D:\work\run\claude\claude_code_treasure_game-initial>where node
 C:\nvm4w\nodejs\node.exe
-
 D:\work\run\claude\claude_code_treasure_game-initial>where npm
 C:\nvm4w\nodejs\npm
 C:\nvm4w\nodejs\npm.cmd
@@ -2176,6 +2329,32 @@ P:\>where python
 # show which 1
 P:\>python -c "import sys; print(sys.executable)"
   C:\Users\RobertKao\AppData\Local\Programs\Python\Python313\python.exe
+
+# show node process and kill(PowerShell)
+PS C:\WINDOWS\system32> Get-Process | Where-Object { $_.ProcessName -like "*node*" }
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    230      29    84024      77940       4.80  15356   1 node
+   1888      86   198964     187280      33.45  25124   1 node
+    207      30    58408      85724       1.45  30056   1 node
+
+PS C:\WINDOWS\system32> Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Select-Object ProcessId, CommandLine
+ProcessId CommandLine
+--------- -----------
+    25124 "C:\nvm4w\nodejs\\node.exe"   "C:\nvm4w\nodejs\\node_modules\hexo-cli\bin\hexo" s
+    15356 "C:\nvm4w\nodejs\\node.exe"   "C:\nvm4w\nodejs\\node_modules\npm\bin\npx-cli.js" "-y" "@playwright/mcp@latest...
+    30056 "node"   "C:\Users\RobertKao\AppData\Local\npm-cache\_npx\9833c18b2d85bc59\node_modules\.bin\\..\@playwright\...
+# stop process
+Stop-Process -Id 15356 -Force
+Stop-Process -Id 30056 -Force
+
+# download image and sell
+download 1 random picture of single whale. realize below 150px either the width or the length.
+then restrat webserver.
+Sign out the current user.
+Sign in as user "user001" with email "user001@gmail.com" with password as "11111111A".
+Then create a new listing product to sell; use the download picture as the only image; take a screen.
+Then publish the product to sell.
 ```
 
 #### graphifyy - claude code(use Claude Pro)
