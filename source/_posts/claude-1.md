@@ -425,10 +425,10 @@ the project put to github already, 同時完整source code 也放上去了？
 # MCP : message format
 JSON RPC
 
-MCP Client(use TypeScript MCP SDK)
+# Stdio - local
+* MCP Client(use TypeScript MCP SDK)
 prompt  
-  --> Typescript obj 
-  --> JSON RPC 
+  --> JSON RPC(Typescript obj)
   --> serialize
   --> + newline framing
   --> encode(byte format - level 4)-raw bytes
@@ -440,12 +440,11 @@ prompt
   --> decode
   --> remove newline framing  
   --> de-serialize  
-  --> JSON RPC
-  --> python dict/Typescript obj
+  --> JSON RPC(python dict/Typescript obj)
   --> MCP tool
-MCP server(use Python/TypeScript MCP SDK)
+* MCP server(use Python/TypeScript MCP SDK)
   --> string result
-  --> python dict/Typescript obj
+  --> JSON RPC(python dict/Typescript obj)
   --> serialize
   --> + newline framing
   --> encode(byte format - level 4)-raw bytes
@@ -457,16 +456,14 @@ MCP server(use Python/TypeScript MCP SDK)
   --> decode
   --> remove newline framing  
   --> de-serialize  
-  --> JSON RPC
-  --> Typescript obj
+  --> JSON RPC(Typescript obj)
   --> unpacked result
-MCP Client(use Typscript MCP SDK)
+* MCP Client(use Typscript MCP SDK)
 
-
-MCP Client(use TypeScript MCP SDK)
+# SSE over HTTP - remote
+* MCP Client(use TypeScript MCP SDK)
 prompt  
-  --> Typescript obj 
-  --> JSON RPC 
+  --> JSON RPC(Typescript obj)
   --> serialize
   --> encode(byte format - level 4)
   --> HTTP envelope
@@ -479,28 +476,80 @@ prompt
   --> decode
   --> remove HTTP envelope 
   --> de-serialize  
-  --> JSON RPC
-  --> python dict/Typescript obj
+  --> JSON RPC(python dict/Typescript obj)
   --> MCP tool
-MCP server(use Python/TypeScript MCP SDK)
+* MCP server(use Python/TypeScript MCP SDK)
   --> string result
-  --> python dict/TypeScript obj
+  --> JSON RPC(python dict/TypeScript obj)
   --> serialize
-  --> SSE(Sever Side Event) event framing - 28:53
-  --> encode(byte format - level 4)-raw bytes
+  --> SSE(Sever-Side Event) event framing - MCP over HTTP
+  --> encode(byte format - level 4)
+  --> SSE event(raw bytes)
   --> write to write stream
 -----------------------------
   --> Network
 -----------------------------
   --> read from read stream
   --> decode
-  --> remove newline framing  
+  --> remove SSE event framing  
   --> de-serialize  
-  --> JSON RPC
-  --> Typescript obj
+  --> JSON RPC(ypescript obj)
   --> unpacked result
-MCP Client(use Typscript MCP SDK)
+* MCP Client(use Typscript MCP SDK)
 
+# WebSocket
+* MCP Client(use TypeScript MCP SDK)
+prompt  
+  --> JSON RPC(Typescript obj)
+  --> serialize
+  --> encode(byte format - level 4)
+  --> + WebSocker framing
+  --> WebSocket msg(raw bytes)
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> remove WebSocker framing
+  --> decode
+  --> de-serialize  
+  --> JSON RPC(python dict/Typescript obj)
+  --> MCP tool
+* MCP server(use Python/TypeScript MCP SDK)
+  --> string result
+  --> JSON RPC(python dict/TypeScript obj)
+  --> serialize
+  --> encode(byte format - level 4)
+  --> + WebSocker framing
+  --> WebSocket msg(raw bytes)
+  --> write to write stream
+-----------------------------
+  --> Network
+-----------------------------
+  --> read from read stream
+  --> remove WebSocker framing
+  --> decode
+  --> de-serialize  
+  --> JSON RPC(ypescript obj)
+  --> unpacked result
+* MCP Client(use Typscript MCP SDK)
+
+# API level
+High level API(normal) - fastMCP(python)/McpServer(typescript) package
+Low level API         - studio_server/websocket_server/sse_server(python)/StdioServerTransport/WebSocketServerTransport/SSEServerTransport(typeScript)
+
+# project direct : 
+mcp_ask
+# .mcp.json file
+{
+  "mcpServers": {
+    "icon-generator": {
+      "url": "https://icon-generate-mcp.vercel.app/sse"
+    }
+  }
+}
+# create icon
+Generate 3 icons of little Red Riding Hood
 ```
 
 ##### Playwright
@@ -2308,6 +2357,15 @@ stop  : Ｃmd+Ctrl+Esc or Cmd+Shift+5 --> stop
 
 # show . 目錄 - toggle 
 Cmd+shift+.
+
+# show playwright and kill(mac)
+ps aux | grep playwright
+  gaoyiping         8226   0.0  0.0 435299984   1360 s004  S+    8:13PM   0:00.00 grep playwright
+  gaoyiping         6580   0.0  0.4 446358368  89360 s005  S+    8:07PM   0:00.31 node /Users/gaoyiping/.npm/_npx/9833c18b2d85bc59/node_modules/.bin/playwright-mcp --browser chrome
+  gaoyiping         6509   0.0  0.3 435927856  85904 s005  S+    8:07PM   0:00.62 npm exec @playwright/mcp@latest --browser chrome     
+kill -9 6509 6580
+ps aux | grep playwright
+  gaoyiping         9809   0.0  0.0 435299792   1360 s004  S+    8:18PM   0:00.00 grep playwright
 ```
 
 #### windows command
