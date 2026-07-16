@@ -537,19 +537,6 @@ prompt
 # API level
 High level API(normal) - fastMCP(python)/McpServer(typescript) package
 Low level API         - studio_server/websocket_server/sse_server(python)/StdioServerTransport/WebSocketServerTransport/SSEServerTransport(typeScript)
-
-# project direct : 
-mcp_ask
-# .mcp.json file
-{
-  "mcpServers": {
-    "icon-generator": {
-      "url": "https://icon-generate-mcp.vercel.app/sse"
-    }
-  }
-}
-# create icon
-Generate 3 icons of little Red Riding Hood
 ```
 
 ##### Playwright
@@ -1993,6 +1980,141 @@ It doesn't decide by mcp. It decide by claude.
 
 ```
 
+#### Sam's icon-generator
+``` bash
+# new folder mcp_ask
+# .mcp.json file
+{
+  "mcpServers": {
+    "icon-generator": {
+      "type": "sse",
+      "url": "https://icon-generator-mcp-pi.vercel.app/sse"
+    }
+  }
+}
+
+# connect or enable
+
+# create icon
+Generate 3 icons of little Red Riding Hood
+
+# if error - reconnect and try
+```
+
+### Claude Hook
+#### Information
+``` bash
+# Hook Event
+PreToolUse
+PostToolUse
+Notication: claude 做完 
+UserPromptSubmit: prompt submit
+Stop: claude complete prompt
+SubagentStop: Subagent complete
+PreCompact: contexr full, claude wiil auto trigger compact
+SessionStart/SessionEnd
+
+# Claude Tool
+WebFetch/WebSearch
+Read/Edit/MultiEdit/Write
+Grep/Glob
+Task[Sub-Agent]
+Bash --> local command
+
+# local Command
+ls,mkdir,rm ..
+python
+npx
+git
+docker
+```
+
+#### toy marketplace hook 
+``` bash
+# .claude add settings.json
+{
+    "hooks": {
+        "Notification": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/notification_hook.ts --sound_effect_file .claude/hooks/default-notification-hook-reminder.mp3"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+# notification_hook.ts
+logDebug : get hook information
+main(): entry
+  --> inputData from process.stdin
+  --> logDebug(`Notification type: ${notificationType}`);
+  --> play by const soundPlayed = playNotificationSound(soundFile);
+
+# check hook
+/hook
+    1. PreToolUse           Before tool execution
+    2. PostToolUse          After tool execution
+    3. PostToolUseFailure   After tool execution fails
+    4. PostToolBatch        After a batch of tool calls resolves
+    5. PermissionDenied     After auto mode classifier denies a tool call
+  ❯ 6.  Notification (1)     When notifications are sent  
+      ❯ 1. [Project] (all)  1 hook
+        ❯ 1. [command] node .claude/hooks/notification_hook.ts --sound_effect_file .claude/hooks/default-notification-ho…  Project Settings    
+
+# try hook
+"
+help me remove 'Price' feature in 'Sort by' in FilterSheet.tsx. Just keep 'Date Added' feature in the 'Sort by.
+Do not modify the unit tests. If there are error, do not try to fix it.
+
+please try to re-add the 'Price' to 'Sort by' and wait my confirm.
+
+please try to remove  the 'Price' to 'Sort by' and wait my confirm. And ask me do it or not.
+"
+# no hear the sound - the org code for mac/linux but not for windows
+# do ask do some change
+
+# check log : notification_hook_debug.log
+[2026-07-16T04:28:02.711Z] === NOTIFICATION HOOK STARTED ===
+[2026-07-16T04:28:02.714Z] Notification hook input received: {
+  "session_id": "4c4093be-4587-4ad8-883c-0b79340d84b2",
+  "transcript_path": "C:\\Users\\RobertKao\\.claude\\projects\\D--work-run-claude-claude-code-toy-marketplace-initial-hook\\4c4093be-4587-4ad8-883c-0b79340d84b2.jsonl",
+  "cwd": "D:\\work\\run\\claude\\claude_code_toy_marketplace-initial_hook",
+  "prompt_id": "5109b59a-759b-491b-a315-018f38c652e2",
+  "hook_event_name": "Notification",
+  "message": "Claude is waiting for your input",
+  "notification_type": "idle_prompt"
+}
+[2026-07-16T04:28:02.714Z] Notification type: idle_prompt
+[2026-07-16T04:28:02.714Z] Message: Claude is waiting for your input
+[2026-07-16T04:28:02.714Z] Playing notification sound: .claude/hooks/default-notification-hook-reminder.mp3
+[2026-07-16T04:28:05.216Z] Notification sound played successfully
+[2026-07-16T04:28:05.217Z] === NOTIFICATION HOOK COMPLETED ===
+
+# do test
+restart the webserver. use the dimentions:iPhone 12 Pro(390 x 844).
+the current themme color blue,change it to purple.
+go to the homepage, take a screenshot named homepage-purple.png to verify your change until you implement it correctly. close the browser in the end.
+# my test no notification - because it no ask anything to me.
+
+# re-test notification
+the project support  the 'Price' to 'Sort by'?
+please try to add  the 'Price' to 'Sort by' and wait my confirm. And ask me do it or not.
+
+# check log
+check @.claude\hooks\notification_hook_debug.log tel me how many Notification event are there? and what types?
+
+# question 
+I use claude code in windows.
+I set a hook trigger notification sound
+I ask claude code sent test nitification can hear it , but auto generate notification cannot hear.
+why?
+```
+
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
 #### create nww project
 ``` bash
@@ -3040,3 +3162,4 @@ path : /Users/gaoyiping/work/claude
   - [Unit 2-1 treasure game](https://github.com/uopsdod/claude_code_treasure_game/tree/initial)
   - [Unit 3-4 toy marketplace](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial)
   - [Unit 3-10 Custom MCP Server](https://github.com/uopsdod/claude_code_custom_mcp_server/tree/initial)
+  - [Unit 4-2 toy marketplace hook](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial_hook)
