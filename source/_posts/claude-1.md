@@ -2114,6 +2114,111 @@ I set a hook trigger notification sound
 I ask claude code sent test nitification can hear it , but auto generate notification cannot hear.
 why?
 ```
+``` bash
+Restart the webserver. use the Dimensions: iPhone 12 Pro (390 x 844)
+
+Sign up as a new user with random name, random email, password as '11111111A'. Then, go to Profile page and take a screenshot.
+
+Then, create a new listing product to sell; use the src/assets/toy_bulldozer.png as the only image; use the product name "Toy BullDozer"; take a screenshot. Then, publish the product to sell.
+
+For each screenshot, use prefix naming 'end-to-end-'; store in the current project folder.
+
+Close the browser in the end.
+
+# 停止所有 playwright-mcp
+pkill -f playwright-mcp
+
+# rebuild project
+# 先清除舊依賴（避免舊 Node 快取問題）
+rm -rf node_modules package-lock.json
+# 2. 清除 npm cache
+npm cache clean --force
+npm install
+# 更新 Node 後需要做的「重新 Build」
+npm run build
+# 繼續開發
+npm run dev
+
+# check run "pm install playwright" or not ? 
+cat package.json | grep -i playwright
+    "playwright": "^1.55.0",
+# search install
+npm list playwright
+vite_react_shadcn_ts@0.0.0 /Users/gaoyiping/work/claude/claude_code_toy_marketplace-initial_hook
+└── playwright@1.61.1
+# start playwright
+npx playwright install
+
+# action prompt
+Restart the webserver. use the Dimensions: iPhone 12 Pro (390 x 844)
+Sign up as a new user with random name, random email, password as '11111111A'. Then, go to Profile page and take a screenshot.
+Then, create a new listing product to sell; use the src/assets/toy_bulldozer.png as the only image; use the product name "Toy BullDozer"; take a screenshot. Then, publish the product to sell.
+For each screenshot, use prefix naming 'end-to-end-'; store in the current project folder.
+Close the browser in the end.
+# Notification Type + Message 
+check @.claude/hooks/notification_hook_debug.log Tell me how many Notification events are there? and what types and what messages?
+# response
+"
+This appears to be a fresh read of the log — this file must have grown since I last checked it (accumulating many permission-prompt events during our end-to-end testing session, since I had to request approval for lots of browser actions). Here's the breakdown:
+Total: 30 notification events
+┌───────────────────┬───────┬────────────────────────────────────┐
+│       Type        │ Count │              Message               │
+├───────────────────┼───────┼────────────────────────────────────┤
+│ idle_prompt       │ 1     │ "Claude is waiting for your input" │
+├───────────────────┼───────┼────────────────────────────────────┤
+│ permission_prompt │ 29    │ "Claude needs your permission"     │
+└───────────────────┴───────┴────────────────────────────────────┘
+Details:
+- The single idle_prompt fired at 21:34:20 GMT+8.
+- All 29 permission_prompt events fired between 21:36:10 and 21:42:18 GMT+8, roughly every 10–20 seconds — consistent with the many tool-permission requests during the sign-up/create-listing/publish browser automation flow.
+- Every event successfully played the notification sound and logged both a start and completion marker.
+- All events belong to the same session (b4da7f89-0310-4b92-a36d-27e6d3e4be1e); the 29 permission prompts share one prompt_id (99980c49-...), while the idle prompt has a different one (e577e599-...).
+So yes — every notification is being logged correctly, and the hook is firing reliably.
+"
+# more detail
+I mean permission_prompt maybe for Bash, update or Playwright(also have differnt action)
+# response
+"
+The debug log itself doesn't record which tool triggered each prompt — the Notification hook only receives {message, notification_type}, generic across all tools. But I cross-referenced each prompt's timestamp against the session transcript (matching each prompt to the tool call that ran right after it was approved) to reconstruct a likely breakdown:
+Approximate breakdown of the 29 permission_prompt events by tool:
+
+┌──────────────────────────────────────────┬───────┐
+│                   Tool                   │ Count │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_snapshot        │ 9     │
+├──────────────────────────────────────────┼───────┤
+│ TaskUpdate                               │ 7     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_click           │ 4     │
+├──────────────────────────────────────────┼───────┤
+│ Bash                                     │ 3     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_take_screenshot │ 2     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_navigate        │ 1     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_fill_form       │ 1     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_file_upload     │ 1     │
+├──────────────────────────────────────────┼───────┤
+│ mcp__playwright__browser_type            │ 1     │
+├──────────────────────────────────────────┼───────┤
+│ Total                                    │ 29    │
+└──────────────────────────────────────────┴───────┘
+
+Caveat on accuracy: this is inferred, not directly logged. I matched each prompt to the
+nearest following tool call in th landed 3–6 seconds after theprompt (high confidence), but three had unusually large gaps — 21:36:23→+27.6s,
+21:36:32→+18.6s, 21:39:20→+61.9s kCreate call likely executedsilently in between without needing its own approval (those are often auto-allowed), so the
+"next tool" isn't necessarily thepecific prompt. Those three entries should be treated as low-confidence.
+If you want a reliable per-tool count going forward, the fix is to have the hook script also log input.tool_name — but the Not't carry that field at all; you'dneed to correlate via a PreToolUse hook instead, which does receive the tool name and input
+directly.
+"
+# ask Sound Played 
+The sound was played 30 times, and every single one succeeded ("Notification sound played successfully" appears 30 times, matching the 30 "Playing notification sound" lines).
+Sound file used (same one every time):
+.claude/hooks/luly56-mario-bros-hmm-461736.mp3
+This matches the file configured in .claude/settings.json via the --sound_effect_file argument to the notification hook.
+```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
 #### create nww project
@@ -2488,6 +2593,32 @@ ps aux | grep playwright
 kill -9 6509 6580
 ps aux | grep playwright
   gaoyiping         9809   0.0  0.0 435299792   1360 s004  S+    8:18PM   0:00.00 grep playwright
+
+
+# 移除舊 node 執行檔
+brew unlink node 2>/dev/null || true
+sudo rm -f /usr/local/bin/node
+sudo rm -f /usr/local/bin/npm
+sudo rm -f /usr/local/bin/npx
+
+#  安裝最新 Node
+brew update
+brew install node
+# 驗證
+node -v
+npm -v
+which node
+# check result
+brew doctor
+
+# 安全刪除舊 Node header files
+sudo rm -rf /usr/local/include/node
+# set path
+echo 'export PATH="/opt/homebrew/sbin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# brew doctor fix 
+brew link ruby
 ```
 
 #### windows command
