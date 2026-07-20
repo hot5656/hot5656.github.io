@@ -2182,6 +2182,116 @@ Sound file used (same one every time):
 This matches the file configured in .claude/settings.json via the --sound_effect_file argument to the notification hook.
 ```
 
+#### PreToolUse
+``` bash
+settings.json
+# file .claude/settings.json
+# add PreToolUse
+{
+    "hooks": {
+        "Notification": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/notification_hook.ts --sound_effect_file .claude/hooks/luly56-mario-bros-hmm-461736.mp3"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks":[
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/lint_hook.ts"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+# check .claude/hooks/lint_hook.ts
+main()
+  --> 'git commit'
+  --> runLinters()
+  --> if (!lintResult.success)
+
+# git init 
+git init 
+# commit the repository
+Vs code 
+  --> Source control
+  --> Change
+  --> +
+  --> Staged Changed
+  --> first commit
+  --> Commit
+
+# add file .claude/hooks/lint_hook_test.ts
+// This file has intentional linting issues to test our hook
+
+import { readFileSync } from 'fs'; // valid import but unused (will trigger linting warning)
+
+function badFunction11( x:number,y:number ):number{  // bad spacing around parameters and return type
+    if(x>0){ // missing spaces around operators and braces
+        return x+y // missing spaces around operator
+    }else{
+        return 0
+    }
+}
+// missing blank line before function
+function anotherFunction():void{
+    const unusedVariable = "this will trigger a linting error" // unused variable
+    console.log( "bad spacing in console.log" ) // bad spacing
+}
+
+// trailing whitespace on next line
+const x=1+2 // bad spacing around operators
+
+// Missing semicolons and bad formatting
+const result=badFunction11(1,2) // bad spacing
+console.log(result)
+
+// Unused imports and variables
+const unusedConst = "unused"
+
+// Any type usage (should trigger @typescript-eslint/no-explicit-any)
+function badAnyFunction3(param: any): any {
+    return param
+}
+
+# enter claude
+/hooks
+   ❯ 1.  PreToolUse (1)       Before tool execution
+     2.  PostToolUse          After tool execution
+     3.  PostToolUseFailure   After tool execution fails
+   ↓ 4.  PostToolBatch        After a batch of tool calls 
+      ❯ 1. [Project] Bash  1 hook
+         ❯ 1. [command] node .claude/hooks/l…  Project Settings
+          Hook details
+
+          Event:    PreToolUse
+          Matcher:  Bash
+          Type:     command
+          Source:   Project settings (.claude/settings.json)
+
+          Command:
+          ╭─────────────────────────────────────────────────────────╮
+          │ node .claude/hooks/lint_hook.ts                         │   
+          ╰─────────────────────────────────────────────────────────╯         
+# ask commit
+Help me add current change to git staging and attempt to git commit them.
+Execute the git command one by one. Don't combine them with with && in one line of command.
+If there are error, do not rtry to fix it.
+  + Both files look fine to stage. Now staging them.
+  + Now attempting the commit.
+  + The commit was blocked by a pre-commit lint hook — lint_hook_test.ts intentionally contains linting issues (unused vars/imports, any types) that failed ESLint. As instructed, I won't try to fix it. The changes remain staged; let me know how you'd like to proceed.
+```
+
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
 #### create nww project
 ``` bash
