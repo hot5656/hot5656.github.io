@@ -2107,48 +2107,10 @@ please try to add  the 'Price' to 'Sort by' and wait my confirm. And ask me do i
 
 # check log
 check @.claude\hooks\notification_hook_debug.log tel me how many Notification event are there? and what types?
-
-# question 
-I use claude code in windows.
-I set a hook trigger notification sound
-I ask claude code sent test nitification can hear it , but auto generate notification cannot hear.
-why?
 ```
+
+#### try notication Hook
 ``` bash
-Restart the webserver. use the Dimensions: iPhone 12 Pro (390 x 844)
-
-Sign up as a new user with random name, random email, password as '11111111A'. Then, go to Profile page and take a screenshot.
-
-Then, create a new listing product to sell; use the src/assets/toy_bulldozer.png as the only image; use the product name "Toy BullDozer"; take a screenshot. Then, publish the product to sell.
-
-For each screenshot, use prefix naming 'end-to-end-'; store in the current project folder.
-
-Close the browser in the end.
-
-# 停止所有 playwright-mcp
-pkill -f playwright-mcp
-
-# rebuild project
-# 先清除舊依賴（避免舊 Node 快取問題）
-rm -rf node_modules package-lock.json
-# 2. 清除 npm cache
-npm cache clean --force
-npm install
-# 更新 Node 後需要做的「重新 Build」
-npm run build
-# 繼續開發
-npm run dev
-
-# check run "pm install playwright" or not ? 
-cat package.json | grep -i playwright
-    "playwright": "^1.55.0",
-# search install
-npm list playwright
-vite_react_shadcn_ts@0.0.0 /Users/gaoyiping/work/claude/claude_code_toy_marketplace-initial_hook
-└── playwright@1.61.1
-# start playwright
-npx playwright install
-
 # action prompt
 Restart the webserver. use the Dimensions: iPhone 12 Pro (390 x 844)
 Sign up as a new user with random name, random email, password as '11111111A'. Then, go to Profile page and take a screenshot.
@@ -2594,6 +2556,15 @@ kill -9 6509 6580
 ps aux | grep playwright
   gaoyiping         9809   0.0  0.0 435299792   1360 s004  S+    8:18PM   0:00.00 grep playwright
 
+# check run "pm install playwright" or not ? 
+cat package.json | grep -i playwright
+    "playwright": "^1.55.0",
+# search install
+npm list playwright
+vite_react_shadcn_ts@0.0.0 /Users/gaoyiping/work/claude/claude_code_toy_marketplace-initial_hook
+└── playwright@1.61.1
+# start playwright
+npx playwright install
 
 # 移除舊 node 執行檔
 brew unlink node 2>/dev/null || true
@@ -2611,14 +2582,28 @@ which node
 # check result
 brew doctor
 
+# rebuild project
+# 先清除舊依賴（避免舊 Node 快取問題）
+rm -rf node_modules package-lock.json
+# 2. 清除 npm cache
+npm cache clean --force
+npm install
+# 更新 Node 後需要做的「重新 Build」
+npm run build
+# 繼續開發
+npm run dev
+
+# fix some brew doctor suggest
 # 安全刪除舊 Node header files
 sudo rm -rf /usr/local/include/node
 # set path
 echo 'export PATH="/opt/homebrew/sbin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
-
 # brew doctor fix 
 brew link ruby
+
+# 停止所有 playwright-mcp
+pkill -f playwright-mcp
 ```
 
 #### windows command
@@ -3277,6 +3262,8 @@ path : /Users/gaoyiping/work/claude
 
 
 ### Ref
++ Brainstorm 
+  - [ 做賣麵包的人 - Grok google 001](https://grok.com/c/fb23ab0b-86f0-455c-9459-d8c7df0ef828?rid=e2abd51c-80cc-4f6c-ad37-ccf97fef09de)
 + Tool
   - ShareX : 螢幕擷圖軟體
 + MCP
