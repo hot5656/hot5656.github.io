@@ -2001,8 +2001,8 @@ Generate 3 icons of little Red Riding Hood
 # if error - reconnect and try
 ```
 
-### Claude Hook
-#### Information
+### Claude Code 進階工作流程
+#### Hook Information
 ``` bash
 # Hook Event
 PreToolUse
@@ -2290,6 +2290,177 @@ If there are error, do not rtry to fix it.
   + Both files look fine to stage. Now staging them.
   + Now attempting the commit.
   + The commit was blocked by a pre-commit lint hook — lint_hook_test.ts intentionally contains linting issues (unused vars/imports, any types) that failed ESLint. As instructed, I won't try to fix it. The changes remain staged; let me know how you'd like to proceed.
+```
+
+#### PostToolUse 
+``` bash
+# file .claude/settings.json
+# add PostToolUse
+{
+    "hooks": {
+        "Notification": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/notification_hook.ts --sound_effect_file .claude/hooks/luly56-mario-bros-hmm-461736.mp3"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks":[
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/lint_hook.ts"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "Edit|MultiEdit|Write",
+                "hooks":[
+                    {
+                        "type": "command",
+                        "command": "node .claude/hooks/test_runner_hook.ts"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+# .claude/hooks/test_runner_hook.ts
+main()
+  --> if (!sourceModified) ...return
+  --> runTests(testSetup.testCommand!);
+
+# enter claude
+/hooks
+     1.  PreToolUse (1)       Before tool execution
+   ❯ 2.  PostToolUse (1)      After tool execution
+     3.  PostToolUseFailure   After tool execution fails
+   ↓ 4.  PostToolBatch        After a batch of tool calls 
+      ❯ 1. [Project] Edit|MultiEdit|Write  1 hook
+           ❯ 1. [command] node .claude/hooks/trest_runner_hook.ts  Project Settings
+              Hook details
+              Event:    PostToolUse
+              Matcher:  Edit|MultiEdit|Write
+              Type:     command
+              Source:   Project settings (.claude/settings.json)
+              Command:
+              ╭───────────────────────────────────────────────────────────────────────────────────────────╮
+              │ node .claude/hooks/trest_runner_hook.ts                                                   │
+              ╰───────────────────────────────────────────────────────────────────────────────────────────╯
+
+# action
+help create unit tests for files in @src/components/@src/components/FilterSheet.tsx
+This project has no test framework installed yet. Which setup should I add to write and run the FilterSheet tests?
+"
+  ❯ 1. Vitest + React Testing Library (Recommended)
+      Standard for Vite projects; fast, jsdom environment, easy `npm run test` script. I'll add devDependencies and a vitest config.
+    2. Jest + React Testing Library
+      More common industry-wide but needs extra config to work well with Vite/SWC and ESM.
+  ❯ 3. Type something.
+      ...
+      Set up Vitest + React Testing Library for the project since none existed:
+
+      - vitest.config.ts — jsdom environment, @ path alias matching vite.config.ts
+      - src/test/setup.ts — loads @testing-library/jest-dom matchers
+      - package.json — added test (vitest run) and test:watch scripts
+      - src/components/FilterSheet.test.tsx — 6 passing tests covering: trigger renders without exposing sheet content, sheet opens with correct default selections, currentSortBy/currentSortOrder props initialize state, Apply calls onApplyFilter with defaults, Apply reflects a changed sort-order selection, and the sheet closes after applying.
+"
+
+# check src/components/FilterSheet.test.tsx
+- price
+
+# test it
+help me remove 'Price' frature in 'Sort by' in the FilterSheet.tsx. Just keep 'Date Added' feature in the 'Sort by'. Do not modify the unit tests.
+If there are error, do not try to fix it.
+  PostToolUse:Edit says: ❌ Tests failed after code modification:
+  > vite_react_shadcn_ts@0.0.0 test
+  > vitest run
+
+  RUN  v4.1.10 /Users/gaoyiping/w_marketplace-initial_hook
+  ❯ src/components/FilterSheet.te) 181ms
+      × opens the sheet and shows default sort selections 46ms
+      × initializes selections fr23ms
+      × calls onApplyFilter with price_desc after selecting Price: High to Low 18ms
+  Test Files  1 failed (1)
+        Tests  3 failed | 3 passed
+    Start at  21:54:34
+
+# see log - .claude/hooks/test_hook_debug.log
+  see tool_name, tool_input
+  search fail
+``` 
+
+#### Ｃlaude Code Sub-Agent
+``` bash
+Session - context
+Prompt : "run integration test"
+      + Sub-Agent01 - context
+      + Sub-Agent02 - context
+      + Sub-Agent03 - context
+  --> Claude Code: "Done!"
+```
+
+#### Sub-Agent 多線程模式 : 啟用多 Agent 並行處腐
+``` bash
+# check .claude/settings.json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
+
+# check supabase
+supabase status
+
+# create agent
+/agents
+  ⎿  The /agents wizard has been removed.
+
+     Ask Claude to create or update subagents for you (e.g. "create a code-reviewer subagent that ..."),
+     or edit the files directly:
+       • .claude/agents/       (this project)
+       • ~/.claude/agents/     (all projects)
+# create agent ui-end2end-tester
+create a sug-agent called 'ui-end2end-tester'. use the playwright mcp server to test the flows
+some flow include 
+1.example flow 1 :
+restart the webserve. use the Dimention: iPhone 12 Pro(390x844)
+go to the homepage, take a screenshot name homepage-001.png in the current folder.
+close the browser in the end.
+
+2.example flow 2 :
+restart the webserve. use the Dimention: iPhone 12 Pro(390x844)
+sing up as a new user with random name, random email, password as '11111111A'.
+Then, go to Profile page and take a screenshot.
+For each screenshot, use prefix name 'user-'; store in the current project folder. 
+    ------------------
+    Created .claude/agents/ui-end2end-tester.md. It's scoped to the Playwright MCP tools plus Bash (for restarting the dev server) and Read/Glob, and it encodes both example flows as general patterns: restart-dev-server → set viewport → navigate/act → screenshot with the requested naming convention → close browser.
+
+    You can now invoke it via the Agent tool with subagent_type: "ui-end2end-tester", or just describe a flow and I'll dispatch it. Want me to run one of your two example flows now to confirm it works end-to-end?
+
+# check agent
+can you see my agents?
+  Yes — you have one project-level subagent defined in .claude/agents/ui-end2end-tester.md: ui-end2end-tester, for running Playwright-driven end-to-end UI flows (screenshots, click-throughs, form fills) against the local dev server.
+# run agent
+run ui-end2end-tester , use the Dimentions: iPhone 12 Pro, got to the home page take a screenshot save in the current folder. Then colose the borwser.
+  + Agent "Screenshot home page on iPhone 12 Pro" finished · 2m 35s
+  + Done. Screenshot saved to home-iphone12pro.png in the project root (viewport 390×844, iPhone 12 Pro), and the browser was closed afterward.
+
+  Note: it ran against http://localhost:8081 — port 8080 (the app's configured default) was already in use, so Vite auto-picked 8081. Console showed only a pre-existing placeholder Sentry DSN warning and React Router v7 future-flag notices, nothing related to the page itself.
 ```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
