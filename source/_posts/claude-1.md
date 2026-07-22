@@ -2435,6 +2435,7 @@ supabase status
        • .claude/agents/       (this project)
        • ~/.claude/agents/     (all projects)
 # create agent ui-end2end-tester
+# .claude/agents/ui-end2end-tester.md
 create a sug-agent called 'ui-end2end-tester'. use the playwright mcp server to test the flows
 some flow include 
 1.example flow 1 :
@@ -2457,13 +2458,80 @@ can you see my agents?
   Yes — you have one project-level subagent defined in .claude/agents/ui-end2end-tester.md: ui-end2end-tester, for running Playwright-driven end-to-end UI flows (screenshots, click-throughs, form fills) against the local dev server.
 # run agent
 run ui-end2end-tester , use the Dimentions: iPhone 12 Pro, got to the home page take a screenshot save in the current folder. Then colose the borwser.
+"
   + Agent "Screenshot home page on iPhone 12 Pro" finished · 2m 35s
   + Done. Screenshot saved to home-iphone12pro.png in the project root (viewport 390×844, iPhone 12 Pro), and the browser was closed afterward.
 
   Note: it ran against http://localhost:8081 — port 8080 (the app's configured default) was already in use, so Vite auto-picked 8081. Console showed only a pre-existing placeholder Sentry DSN warning and React Router v7 future-flag notices, nothing related to the page itself.
+"
+# multi subagent test
+restart the webserver. use the Dimentions: iPhone 12 Pro(390 x 844).
+use multiple subagents to run in parallel to test the following flows:
+1. flow 1:
+got to the home page, take a screenshot named homepage-001.png in the current folder.
+close the browser in the end.
+
+2. flow 2:
+sign up as a new user with random name, random email, password as '11111111A'.
+Then,go to profile page and take a screenshot.
+For each screenshot, use prefix 'user-'; store in the current project folder.
+
+3. flow 3:
+sign up as a new user with random name, random email, password as '11111111A'.
+Then,go to profile page and take a screenshot.
+Then, create a new listing to sell; use the src/assets/toy_bulldozer.png as the only image;
+use the product name "Toy Bulldozer"; take a screenshot. Then, publish the product to sell.
+
+For each screenshot, use prefix naming "end-to-end-"; store in the current project.
+close the browser in the end.
+"
+    -----------------
+    ⏺ Agent "Flow 3: signup, profile, create listing" finished · 4m 52s
+
+    + All three flows completed successfully:
+
+    1. Flow 1: home
+    2. Flow 2: signed up TestUser39281 Auto, user-profile.png
+    ✓
+    3. Flow 3: signed up a separate new user (same generated
+    name/email pattreated &published "Toy Bulldozer" listing ($25), 3 screenshots:
+    end-to-end-profg-form.png,end-to-end-published.png ✓
+
+    Note: flow 3's image upload didn't use the actual
+    Playwright fileavailable);instead the agent injected the file into the input via a
+    DataTransfer/che dev server.Visually equivalent, but if you want a stricter test of
+    the real file-cath wasn'texercised here.
+
+    + Confirmed — all 5 expected screenshots are present in theproject root: hile.png,end-to-end-profile.png, end-to-end-listing-form.png, and end-to-end-publ
+"
+
+# 若對單一flow 有沒有建 agent 有何差別？
+針對單一 flow 來說，用不用 subagent 主要差在這幾點：
++ 用 subagent（如 ui-end2end-tester）
+  - 獨立的上下文視窗：那些 Playwright 工具呼叫、截圖傳回的 base64、console log 等細節都留在 subagent 自己的 transcript 裡，不會塞進主對話的 context。主對話只看到它最後報告的摘要。
+  - 權限/工具集受限：subagent 定義裡指定了它能用哪些工具（例如只給它 Playwright 相關工具 + Bash/Read),不會誤用到 Edit/Write 等不該碰的工具。
+  - 可以背景運作、並行執行：像剛才三條 flow 一樣同時跑,互不阻塞主對話。
+  - 缺點：每次呼叫都是"冷啟動"，不知道之前對話的上下文,需要在 prompt 裡把背景交代清楚;也有額外的 overhead（起一個新 agent、返回匯總)
++ 不用 subagent，
+  - 我會直接呼叫 Playwright 工具,所有截圖、DOM snapshot、日誌 —如果 flow複雜（很多步驟、大量返回內容），容易讓主對話 context 迅速膨脹。
+  - 無法並行：單一執行緒執行，多個 flow 只能依序跑，不能同時進行。
+  - 但對話連續性更強，因為不需要把背景重新交代給一個"失憶"的新 agent。
+
+簡單說：單一、簡單的 flow，直接跑沒 flow數量多、需要並行、或步驟繁瑣會產生大量中間內容時，用專門的 subagent 能保護並支持並行執行——這也是剛才三條 flow 要分別起三個 agent 的原因。
 ```
 
-### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
+#### skill 是什麼 : 以免所有的都東西都放於 CLAUDE.md 造成 context 佔用太大
+``` bash
+# start claude session - context
+  1. skill api_design
+  2. skill debug_tip
+  3. skill db_best_practice
+  4. skill frontend_design
+
+  prompt: cteate payment api --> search skill(name, description 相關 --> put to context)
+```
+
+### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a) and end-to-end-published.png.
 #### create nww project
 ``` bash
 mkdir dance-video-agent
