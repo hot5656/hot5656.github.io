@@ -2542,15 +2542,17 @@ supabase status
 # run claude 
 start the web server in the background
 
-http://localhos:8081
---> profile
---> sign out
+http://localhost:8080
 --> profile
 --> sign up
 --> auto put infomation --> sign up
 --> I want to sell
 --> create Listing
 --> auto put infomation --> publich
+
+# publish error
+I add sell then publish failed , can you check the reason?
+
 --> homepage
 
 # supabase - how to access data
