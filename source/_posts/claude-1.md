@@ -2531,6 +2531,108 @@ close the browser in the end.
   prompt: cteate payment api --> search skill(name, description 相關 --> put to context)
 ```
 
+#### Skill 測試
+``` bash
+# clear db for test
+# clear db
+supabase db reset
+supabase start
+supabase status
+
+# run claude 
+start the web server in the background
+
+http://localhos:8081
+--> profile
+--> sign out
+--> profile
+--> sign up
+--> auto put infomation --> sign up
+--> I want to sell
+--> create Listing
+--> auto put infomation --> publich
+--> homepage
+
+# supabase - how to access data
+1. direct sql execute
+2. RPC (Remote Procedure Call) - preferred 
+  --> put some code at supabase
+
+# case - implement RPC by access supabase
+# put at CLAUDE.md
+1. (X) to many to control
+2. (X) context 容易塞滿
+# put skill
+1. (O) condex - index / look up
+
+# add skill file for supabase
+# .claude\skills\supabase\SKILL.md
+1. name and description for refernce
+2. If no suitable RPC exists, create a new RPC function instead of direct table queries
+# re-enter claude check the skill exist
+/skills
+  ❯ ✔ on         supabase · project · ~50 tok
+
+9:30
+```
+
+### Claude Code 工程化
+#### Claude Code 架構地圖
+``` bash
+# Tools
+- Claude Built-in Tools: Read/Write file, Website Fetch, Create ToDoList, ash Shell Script ...
+- local CLI(trigger by "Bash Shell Script"): ls, python, npx, git docker ...
+- MCP Server: Github, Playwright, AWS IAM, Context7 ...
+
+# Task 
+- Custom Command
+  + user trigger
+    .claude/commands/setup.md
+    .claude/commands/commit.md
+    .claude/commands/deploy.md
+    .claude/commands/tell_joke.md
+    ...
+- Hook
+  + Event trigger
+    PreToolUse
+    PostToolUse
+    Notication: claude 做完 
+    UserPromptSubmit: prompt submit
+    Stop: claude complete prompt
+    SubagentStop: Subagent complete
+    PreCompact: contexr full, claude wiil auto trigger compact
+    SessionStart/SessionEnd
+    ...
+
+# Context Mgt(management)
+CLAUDE.md
+  + default context
+Sub-Agent
+  + separate context
+Skill
+  + on-demand context
+
+# Distribution
+Plugin: Tools, Task, Context Mgt 打包
+  + 為了多個專案重複用、或想分享給別
+  + plug 是 Claude Code 的核心擴充單位
+    一個 Plugin 本質上就是一個資料夾（通常有 .claude-plugin/plugin.json 這個 manifest），可以打包以下多種元件：
+    + Skills（技能，最常用）
+    + Agents（自訂 agent）
+    + Hooks（事件觸發器）
+    + MCP Servers
+    + LSP Servers
+    + Monitors、bin 執行檔、預設 settings 等
+
+    簡單說：Plugin = 可分享、可安裝的擴充包。
+    你可以把一組相關的 skills + MCP + hooks 包成一個 plugin，別人只要一行指令就能安裝。  
+```  
+
+#### Claude Code 工程落地(local tools to remote server)
+``` bash
+```
+
+
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a) and end-to-end-published.png.
 #### create nww project
 ``` bash
@@ -3630,3 +3732,6 @@ path : /Users/gaoyiping/work/claude
   - [Unit 3-4 toy marketplace](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial)
   - [Unit 3-10 Custom MCP Server](https://github.com/uopsdod/claude_code_custom_mcp_server/tree/initial)
   - [Unit 4-2 toy marketplace hook](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial_hook)
+  - [Unit 4-8 CLAUDE.md](https://github.com/uopsdod/claude_code_toy_marketplace/blob/complete_skill/CLAUDE.md)
+  - [Unit 4-8 CLAUDE.md .claude/settings.json](https://github.com/uopsdod/claude_code_toy_marketplace/blob/complete_skill/.claude/settings.json)
+  - [Unit 4-8 CLAUDE.md .claude/skills/supabase/SKILL.md](https://github.com/uopsdod/claude_code_toy_marketplace/blob/complete_skill/.claude/skills/supabase/SKILL.md)
