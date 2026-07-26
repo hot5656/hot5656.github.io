@@ -2569,13 +2569,79 @@ I add sell then publish failed , can you check the reason?
 
 # add skill file for supabase
 # .claude\skills\supabase\SKILL.md
-1. name and description for refernce
-2. If no suitable RPC exists, create a new RPC function instead of direct table queries
+# put the skill content
+note :
+  1. name and description for refernce
+  2. If no suitable RPC exists, create a new RPC function instead of direct table queries
 # re-enter claude check the skill exist
 /skills
-  ❯ ✔ on         supabase · project · ~50 tok
+  project 
+  ❯ 🔒 on       vercel:microfront · plugin · ~200 tok · locked by plugin
+      🔒 on       vercel:next-for · plugin · ~80 tok · locked by plugin
+      🔒 on       vercel:vercel-c · plugin · ~80 tok · locked by plugin                                  ✔ on         supabase · project · ~50 tok   
 
-9:30
+# add nickname feature
+"
+help me implemen the nickname feature. Authenticated users could configure the 
+nickname which will be the displayed name other users would see. such as 
+seller or buyler. The default nickname is the user's Name. Authenticated users can
+update the nickname in the profilre page. In terms or updateing nickname, simply
+add an Edit button next to the nickname field in the frofile page so user could
+just update the nickname field.
+"
+# my claude code is find teh skill by add bdlow is good setting
+
+# if need add hook for check skill
+# .claude/settings.json
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'MUST check whether there are relevant skills to use first.'"
+          }
+        ]
+      }
+    ],
+
+# /hooks checkthe hook exist
+"
+/hooks
+   UserPromptSubmit
+   ❯ 1. [command] echo 'MUST check whether there are relevant sk…  Project Settings
+"
+
+# check the hook trigger by prompt 
+check whether the UserPromptSubmit hook is triggerred in every user's prompt?
+  Yes — the UserPromptSubmit hook is firing on every prompt. You can see its output as the <system-reminder> at the bottom of my context: UserPromptSubmit hook success: MUST check whether there are relevant skill to use first. That's the literal stdout of the echo command in .claude/settings.json:5-11, confirming it runs on this prompt.
+
+# CLAUDE.md add Skills Usage Priority
+# CLAUDE.md
+  ## Skills Usage Priority
+
+  **CRITICAL**: Before starting ANY task, check if a skill is relevant and invoke it IMMEDIATELY as the first action.
+
+  ### Workflow
+  User request → Identify skills needed → Invoke skill(s) FIRST → Follow skill instructions
+
+  NOT:
+  User request → Start planning/exploring → Mention skill later ❌
+
+
+  If unsure whether a skill applies, invoke it anyway - the skill will provide specialized guidance.
+
+# add nickname feature - 2nd times
+help me implemen the nickname feature. Authenticated users could configure the 
+nickname which will be the displayed name other users would see. such as 
+seller or buyler. The default nickname is the user's Name. Authenticated users can
+update the nickname in the profilre page. In terms or updateing nickname, simply
+add an Edit button next to the nickname field in the frofile page so user could
+just update the nickname field.
+
+ Do you want to overwrite 20260725113709_add_nickname_to_profiles.sql?
+ ❯ 1. Yes
+   2. Yes, allow all edits during this session (shift+tab)
+   3. No
 ```
 
 ### Claude Code 工程化
