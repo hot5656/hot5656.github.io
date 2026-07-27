@@ -15,6 +15,15 @@ tags:
   - Claude Built-in Tools: Read/Write file, Website Fetch, Create ToDoList, ash Shell Script ...
   - local CLI(trigger by "Bash Shell Script"): ls, python, npx, git docker ...
   - MCP: Github, Playwright, AWS IAM, Context7 ...
++ JWT（JSON Web Token）說明 (control by cookie)
+  JWT 是一種開放標準（RFC 7519），用來在各方之間安全地傳遞資訊。它以 JSON 物件的形式存在，並經過數位簽章，因此可以被驗證且內容不易被竄改。
+  主要用途
+  - 身份驗證（Authentication）：最常見用途。使用者登入後，伺服器簽發一個 JWT 給客戶端，之後客戶端每次請求都帶上這個 Token，伺服器即可驗證身份，無需再查詢 Session。
+  - 資訊交換（Information Exchange）：安全地在不同系統間傳遞聲明（Claims）。
+  - 無狀態（Stateless）：伺服器不需要儲存 Session，適合分散式系統與微服務架構。
+  - check coocie by devtools
+  1. document.cookie (put to claude session the it can access the web site)
+  2. use chrome devtools MCP
 
 <!--more-->
 ### Information
@@ -2631,17 +2640,32 @@ check whether the UserPromptSubmit hook is triggerred in every user's prompt?
   If unsure whether a skill applies, invoke it anyway - the skill will provide specialized guidance.
 
 # add nickname feature - 2nd times
+"
 help me implemen the nickname feature. Authenticated users could configure the 
 nickname which will be the displayed name other users would see. such as 
 seller or buyler. The default nickname is the user's Name. Authenticated users can
 update the nickname in the profilre page. In terms or updateing nickname, simply
 add an Edit button next to the nickname field in the frofile page so user could
 just update the nickname field.
+  Do you want to overwrite 20260725113709_add_nickname_to_profiles.sql?
+  ❯ 1. Yes
+    2. Yes, allow all edits during this session (shift+tab)
+    3. No
+  ....
+"
 
- Do you want to overwrite 20260725113709_add_nickname_to_profiles.sql?
- ❯ 1. Yes
-   2. Yes, allow all edits during this session (shift+tab)
-   3. No
+# do test 
+Sing up
+  --> publich
+  --> change nick name(Bear King)
+  --> add Listing
+  --> home page
+  --> select product --> check nickname
+  --> sing out
+  --> sing up 
+  --> select product --> send Hi --> select save  --> check seller nickname
+  --> my save item --> check seller nickname
+  --> enter --> see coversation --> check seller nickname
 ```
 
 ### Claude Code 工程化
@@ -2698,8 +2722,53 @@ Plugin: Tools, Task, Context Mgt 打包
 
 #### Claude Code 工程落地(local tools to remote server)
 ``` bash
+# cloude code reach ..
+
+# local host 
++ claude built-in tools
++ bash shell script--> local cli
+
+# Browser (Auth)
++ MCP server : 
+  - playwright
+  - Chrome devtools
+  - Firefox devtools
+
+# cloud platform : AWS/GCP - Auth(put the redential infomation at local folder)
++ local cli
+
+# API server - HTTP req(Auth)
++ curl 
++ python
++ java
++ javascript
+
+# Every thing
++ Custom MCP server
+  - ChatGPT
+  - Internal API
+  - Icon maker
 ```
 
+#### Claude Code Cost coptimization
+``` bash
+# Subscription
++ Indivisual
+  - Free
+  - Pro $20/month
+  - Max $100/month
++ Team
+  - Standard $25/seat
+  - premium $150/seat
++ Enterprise
+  - Contact Sales
+
+# API
++ On Demand
+
+
+
+```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a) and end-to-end-published.png.
 #### create nww project
@@ -3785,6 +3854,7 @@ path : /Users/gaoyiping/work/claude
   - [ 做賣麵包的人 - Grok google 001](https://grok.com/c/fb23ab0b-86f0-455c-9459-d8c7df0ef828?rid=e2abd51c-80cc-4f6c-ad37-ccf97fef09de)
 + Tool
   - ShareX : 螢幕擷圖軟體
+  - [Token Counter](https://tokencounter.org/claude_counter)
 + MCP
   - [Playwright github](https://github.com/microsoft/playwright)
   - [Playwright Docs](https://playwright.dev/mcp/introduction)
