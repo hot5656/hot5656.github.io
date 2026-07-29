@@ -2766,8 +2766,47 @@ Plugin: Tools, Task, Context Mgt 打包
 # API
 + On Demand
 
+# use limit token
+token rolling windows: 56 hours
+Average usage: ~ 45msg/mindow
+# model
+Opus
+Sonnet
+Haikau
+# input & Output Token
+# Cache & Cache Hit Token(API or Team)
 
+# 5 Tips to reduce cost
+1. reduce input & output promp
+2. choose a lower-cost model(ex. Haiku)
+3. use English over Chinese characters
+4. build token monitoring system(team him)
+5. use Batch Processing API(API)
+```
 
+#### Claude Code Team Coordination
+``` bash
+# CLAUDE.md priority
+1st Repo folder(project)
+2nd Parent folder
+3rd child folder
+4th user folsdr
+
+# share Convensions
+1. CLAUDE.md
+2. Remote MCP server(accross repo)
+
+# 1-Click Development Workflow
++ Custom Command
+  - ex. /raise_cr
+  - ex. /deploy_githut_page
+
+# Coding Style Checker
++ Hook (monitor "git commit")
+
+# Cost Reporting
++ Check Claude API usage
++ Check Claude Code subscriptions
 ```
 
 ### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a) and end-to-end-published.png.
