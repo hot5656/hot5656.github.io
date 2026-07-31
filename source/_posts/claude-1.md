@@ -1,5 +1,5 @@
 ---
-title: claude-1
+title: HiSKIO - Claude Code 深度應用
 abbrlink: 2abc
 date: 2026-07-05 11:29:08
 categories:
@@ -55,7 +55,7 @@ AWS IAM
   - delete_user
   - get_group
   - add_user_to_group
-* Context7: give document search
+Context7: give document search
   - resolve-library-id
   - get-library-docs
 ```
@@ -2809,7 +2809,184 @@ Haikau
 + Check Claude Code subscriptions
 ```
 
-### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a) and end-to-end-published.png.
+#### Claude Code 資安與權限控管實務
+``` bash
+# 1. 沙盒隔離（Sandboxing）
+# 有 local 檔案 ≠ 完全不看 settings.json
+# 真正的行為是：兩者聯集，衝突時以 local 為準
+.claude/settings.json（團隊共享，可 commit）
+或
+.claude/settings.local.json
+隔離敏感檔案
+# example .claude/settings.json
+# Edit 含 Write 所以 Write 不用加
+# sandbox 可擋 bash access
+{
+  "sandbox": {
+    "enabled": true
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Read(./.ssh/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/credentials*)",
+
+      "Edit(./.env)",
+      "Edit(./.env*)",
+      "Edit(./secrets/**)",
+      "Edit(./config/credentials.json)",
+      "Edit(./.ssh/**)",
+      "Edit(./**/*.pem)",
+      "Edit(./**/credentials*)"
+    ]
+  }
+}
+
+# 2. 最小權限（Least Privilege）- MCP
+# 原則：先限制 AI「可以到哪裡」，再限制「可以做什麼」。
+問題：提供遠端主機存取工具（如 access_files_in_remote_desktop）後，AI 可能連線到 Beta 或 Production 環境，而非預期的開發主機。
+解法：
+在 MCP Server 中加入 Host Allowlist：
+ALLOWED_HOSTS = [
+    "dev-server-01",
+    "dev-server-02"
+]
+
+# 3. 工具輸入驗證（Tool Input Validation）
+# 如果有增加 power command 才需要考量
+if tool == "access_files_in_remote_desktop" and "prod" in target:    deny
+
+# 4. 敏感資料隔離（Secrets Isolation）
+# 把 API key 放於 .env 並隔離 .env 於 claude code 也是一種簡單的解法
+Claude Code > MCP Tool > Backend Service (持有 API Key)
+
+# 5. 操作審計（Audit Logging）
+# AI workflow log
+# .claude\settings.json
+#
+# matcher 設為空字串，表示記錄所有工具的呼叫。
+# 如果你只想記錄特定工具，可改成 "Bash|Edit|Write|Read" 等。
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx tsx .claude/hooks/audit-log.ts",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
+
+# .claude\hooks\audit-log.ts
+#!/usr/bin/env npx tsx
+/**
+ * Claude Code Audit Logging Hook (PostToolUse)
+ * 以較易閱讀的文字格式記錄工具呼叫
+ */
+
+import * as fs from "fs";
+import * as path from "path";
+
+interface HookPayload {
+  hook_event_name?: string;
+  tool_name?: string;
+  tool_input?: Record<string, unknown>;
+  tool_response?: unknown;
+  tool_use_id?: string;
+  duration_ms?: number;
+  skill_loaded?: string | string[] | null;
+  [key: string]: unknown;
+}
+
+function getLogPath(): string {
+  const projectLogDir = path.join(process.cwd(), ".claude", "audit");
+  if (!fs.existsSync(projectLogDir)) {
+    fs.mkdirSync(projectLogDir, { recursive: true });
+  }
+  return path.join(projectLogDir, "audit.log");
+}
+
+function formatArgs(args: Record<string, unknown> | undefined): string {
+  if (!args || Object.keys(args).length === 0) {
+    return "  (no args)";
+  }
+
+  try {
+    // 美化輸出，並做簡單縮排
+    const json = JSON.stringify(args, null, 2);
+    return json
+      .split("\n")
+      .map((line) => `  ${line}`)
+      .join("\n");
+  } catch {
+    return `  ${String(args)}`;
+  }
+}
+
+function main() {
+  let input = "";
+  process.stdin.setEncoding("utf8");
+
+  process.stdin.on("data", (chunk) => {
+    input += chunk;
+  });
+
+  process.stdin.on("end", () => {
+    try {
+      if (!input.trim()) {
+        process.exit(0);
+      }
+
+      const payload: HookPayload = JSON.parse(input);
+      const ts = getTaipeiTimestamp(new Date());
+      const toolName = payload.tool_name ?? "unknown";
+      const duration = payload.duration_ms != null ? `${payload.duration_ms}ms` : "N/A";
+      const toolUseId = payload.tool_use_id ?? "N/A";
+      const skill = payload.skill_loaded
+        ? Array.isArray(payload.skill_loaded)
+          ? payload.skill_loaded.join(", ")
+          : String(payload.skill_loaded)
+        : "none";
+
+      const lines: string[] = [
+        `[${ts}] === TOOL CALL ===`,
+        `[${ts}] Tool        : ${toolName}`,
+        `[${ts}] Tool Use ID : ${toolUseId}`,
+        `[${ts}] Duration    : ${duration}`,
+        `[${ts}] Skill Loaded: ${skill}`,
+        `[${ts}] Success     : ${payload.tool_response != null}`,
+        `[${ts}] Args        :`,
+        formatArgs(payload.tool_input),
+        `[${ts}] === END TOOL CALL ===`,
+        "", // 空行分隔每筆紀錄
+      ];
+
+      const logPath = getLogPath();
+      fs.appendFileSync(logPath, lines.join("\n"), "utf8");
+
+      process.exit(0);
+    } catch (err) {
+      console.error("[audit-log] Failed to write audit log:", err);
+      process.exit(0);
+    }
+  });
+}
+
+main();
+
+```
+
+### Fable 5 example - [Grok-1](https://grok.com/c/b4a94bb9-dee4-4468-ab2b-fa8b4e9e15b2?rid=5e51a0f0-673d-47b2-87e7-646c3d15b952),[Grok-2](https://grok.com/c/bcbd52bb-e540-414e-ab0e-899fa27b5668?rid=cc8d6595-e6fa-4807-945a-a36404a5bb6a)
 #### create nww project
 ``` bash
 mkdir dance-video-agent
@@ -3891,7 +4068,9 @@ path : /Users/gaoyiping/work/claude
 ### Ref
 + Brainstorm 
   - [ 做賣麵包的人 - Grok google 001](https://grok.com/c/fb23ab0b-86f0-455c-9459-d8c7df0ef828?rid=e2abd51c-80cc-4f6c-ad37-ccf97fef09de)
-+ Tool
+  - [Do Not Waste the Next 12 Months Building an Audience - Grok google 001](https://grok.com/c/ce7275a2-045f-4584-bff5-cf7d6d2344e4?rid=33dc849a-d0b0-42ea-b04c-64a1571ed5ec) - from [Do Not Waste the Next 12 Months Building an Audience](https://capitalofone.substack.com/p/do-not-waste-the-next-12-months-building?utm_source=multiple-personal-recommendations-email&utm_medium=email&triedRedirect=true)
+  - [從 0 到 300 萬粉絲的 30 天系統整理 - Grok google 001](https://grok.com/c/a4b9714a-2a37-483c-8277-6bf4f6887489?rid=ab99e542-0747-4e76-a1be-dedc54a31027) - from [How I'd Start a 1-Person Business + Personal Brand with AI in 30 Days](https://www.sabrina.dev/p/how-id-start-a-business-personal-brand-30-days-with-ai?utm_source=multiple-personal-recommendations-email&utm_medium=email&triedRedirect=true)
++ Tools
   - ShareX : 螢幕擷圖軟體
   - [Token Counter](https://tokencounter.org/claude_counter)
 + MCP
@@ -3902,8 +4081,12 @@ path : /Users/gaoyiping/work/claude
   - [Sentry github](https://github.com/getsentry/sentry-mcp)
   - [Sentry Site](https://sentry.io/welcome/)
   - [MCP Python SDK - github](https://github.com/modelcontextprotocol/python-sdk?tab=readme-ov-file)
+  - [Firecrawl - github](https://github.com/firecrawl/firecrawl): [Grok kyp001](https://grok.com/c/b08d18c3-e084-4e81-8783-4704e359a1d1?rid=a5b21945-12b8-4aed-94d9-ff11b939b4c8)
 + Document
   - [Claude Code Docs](https://code.claude.com/docs/zh-TW/)
++ notes
+  - [Claude Code 資安與權限控管實務 - Grok google 001](https://grok.com/c/7172ac7b-9f20-4f61-a7c8-5f06268f86c8?rid=e31c1fcb-5881-4363-811c-3b3d00b3cd43)
+  - [AI Workflow - Grok google 001](https://grok.com/c/c5f1f3a9-ac57-4f69-bd97-88a61c56195d?rid=014345c8-274f-44c6-accc-1808ebaa96a9)
 + Source
   - [Unit 2-1 treasure game](https://github.com/uopsdod/claude_code_treasure_game/tree/initial)
   - [Unit 3-4 toy marketplace](https://github.com/uopsdod/claude_code_toy_marketplace/tree/initial)
