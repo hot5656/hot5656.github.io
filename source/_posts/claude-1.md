@@ -4144,6 +4144,10 @@ path : /Users/gaoyiping/work/claude
   - [ 做賣麵包的人 - Grok google 001](https://grok.com/c/fb23ab0b-86f0-455c-9459-d8c7df0ef828?rid=e2abd51c-80cc-4f6c-ad37-ccf97fef09de)
   - [Do Not Waste the Next 12 Months Building an Audience - Grok google 001](https://grok.com/c/ce7275a2-045f-4584-bff5-cf7d6d2344e4?rid=33dc849a-d0b0-42ea-b04c-64a1571ed5ec) - from [Do Not Waste the Next 12 Months Building an Audience](https://capitalofone.substack.com/p/do-not-waste-the-next-12-months-building?utm_source=multiple-personal-recommendations-email&utm_medium=email&triedRedirect=true)
   - [從 0 到 300 萬粉絲的 30 天系統整理 - Grok google 001](https://grok.com/c/a4b9714a-2a37-483c-8277-6bf4f6887489?rid=ab99e542-0747-4e76-a1be-dedc54a31027) - from [How I'd Start a 1-Person Business + Personal Brand with AI in 30 Days](https://www.sabrina.dev/p/how-id-start-a-business-personal-brand-30-days-with-ai?utm_source=multiple-personal-recommendations-email&utm_medium=email&triedRedirect=true)
+  - [45 個真正能週末搞定的 AI 自動化 - Grok google 001](https://grok.com/c/59a2dcd3-9d69-497c-8825-c7a48cd33ab9?rid=3c31be96-4d79-4ae8-930d-f1f1e1f4b441)
+  - [Substack 寫手如何真正賺錢 - Grok google 001](https://grok.com/c/c9bde3d4-3e81-42d8-91c8-614eef2f116c?rid=4c1c21f6-31e4-4d71-b5db-308492b5095e)
+  + [10 個微收入來源 - Grok google 001](https://grok.com/c/351b0646-ca68-4e1d-8537-1a7049467497?rid=dbe8cedd-1dcf-4c50-b96b-89125e577c96)
+  + [用蝦皮分潤當創業練兵場 - Grok google 001](https://grok.com/c/6bd202dd-49a9-44b4-be5e-59779d15b9ae?rid=8a259edb-a0c8-48aa-a532-486d3f506d63)
 + Tools
   - ShareX : 螢幕擷圖軟體
   - [Token Counter](https://tokencounter.org/claude_counter)

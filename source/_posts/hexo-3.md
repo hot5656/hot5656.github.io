@@ -196,6 +196,12 @@ layout:false
 ### 設定 Hexo 本地連結
 `{% post_link filename [title] [escape] %}`
 
+#### link to special tag
+``` md
+<a href="{% post_path claude-3 %}#full-stack-fastapi-template-重構">full-stack-fastapi-template-重構</a>
+``` 
+<a href="{% post_path claude-3 %}#full-stack-fastapi-template-重構">full-stack-fastapi-template-重構</a>
+
 #### show hexo's post title
 ``` md
 {% post_link hexo-1 %}
