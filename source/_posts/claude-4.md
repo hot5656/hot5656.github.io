@@ -26,6 +26,8 @@ tags:
 4. ElevenLabs : The best AI voice generation tool for realistic text-to-speech and voiceovers.
 ```
 
+<!--more-->
+
 #### install Cowork + Apify
 ``` bash
 # Claude Desktop app install - windows
@@ -38,6 +40,14 @@ tags:
 3. 在清單中找到 「Windows Hypervisor Platform」(Windows Hypervisor 平台),打勾
 4. 在清單中找到 Hyper-V,打勾 - Home 版沒有 
 5. 打開後用「重新啟動」而不是關機再開機(Windows 的快速啟動 Fast Startup 有時會讓虛擬化服務沒有真正重新初始化)
+
+# Claude Desktop app install - mac
+1. 前往官方下載頁 claude.ai/download(務必從官方網址下載,不要用第三方連結)
+2. 選擇 macOS 版本,下載 .dmg 安裝檔
+3. 打開下載好的 .dmg 檔案,會跳出一個視窗,裡面有 Claude 圖示和 Applications 資料夾捷徑
+4. 把 Claude 圖示拖曳到 Applications 資料夾裡,即完成安裝
+5. 從「應用程式」(Applications)資料夾啟動 Claude
+6. 用你的 Anthropic 帳號登入即可開始使用
 
 # add Apify to claude
 Cowork
@@ -85,7 +95,23 @@ Please create a 10 second time lapse video from this material, showing the most 
 I have many receipts in the folder I gave you access to. Please create an expense spreasdsheet in the .csv format with appreciate columns, and fullfill the data from screenshots. 
 ```
 
+``` bash
+# claude chrome extension install
+Open for me "x" in the browser and search for news about Claude Cowork 
+# next 
+alright now cluld you change the search to claude plugins and skills, and then fetch for me information from 5 the latest posts.
+# Desktop run Cowork
+Please now use browser to move on to notion, then inside my private space create a page called "claude test", and inside please create a short summary of the book "atomic habits" and the most crucial insights.
+# next
+Now please copy all of this information from notion page you created, open for me google drive, create a new folder called "atomic habits summary", open the folder, inside create a google docs file and paste all the content here
+# claude chrome extension - continue
+please go to youtube and type  inside "ai agent in 2026" 
+# next
+press enter to search
+```
+
 # Ref
 + tool link
   + [200+ Claude Prompts](https://special-tamarind-9e9.notion.site/200-Claude-Prompts-846ccdb23d99835095c3011d10a89e01)
   + [Claude Masterclass (+20 Skills Templates)](https://special-tamarind-9e9.notion.site/Claude-Masterclass-20-Skills-Templates-312ccdb23d9980e59d95eb1f9ab9695b)
+  + [Claude Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn)
