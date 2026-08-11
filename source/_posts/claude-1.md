@@ -4148,6 +4148,13 @@ path : /Users/gaoyiping/work/claude
   - [Substack 寫手如何真正賺錢 - Grok google 001](https://grok.com/c/c9bde3d4-3e81-42d8-91c8-614eef2f116c?rid=4c1c21f6-31e4-4d71-b5db-308492b5095e)
   + [10 個微收入來源 - Grok google 001](https://grok.com/c/351b0646-ca68-4e1d-8537-1a7049467497?rid=dbe8cedd-1dcf-4c50-b96b-89125e577c96)
   + [用蝦皮分潤當創業練兵場 - Grok google 001](https://grok.com/c/6bd202dd-49a9-44b4-be5e-59779d15b9ae?rid=8a259edb-a0c8-48aa-a532-486d3f506d63)
+  + [skill ai-short-drama + ai-media-generator - Grok google 001](https://grok.com/c/6a9bbd20-42a8-4836-a5b9-0f56ce6564cc?rid=7aa47e74-43f2-4a90-b681-bbaa42ad9b08)
+  + [Base44 一人 AI 創業- Grok google 001](https://grok.com/c/69d60f1e-d668-447e-bd5b-7da9eed8e7cf?rid=7b3e4d45-fac4-41e2-b000-57327b135795)
+  + [電商營運作業系統（Ecommerce Ops OS）提案 - Grok google 001](https://grok.com/c/d8ad4416-2190-4d4e-900b-03bc28e0048a?rid=779bcd23-4b9c-4c8c-84c6-a043ea32cd86)
++ Course
+  + [MacBook Pro 錄製 - Grok google 001](https://grok.com/c/d918314e-d404-47bf-b312-3f1175dc94a2?rid=0b9b4cc4-893d-495b-be18-cd5d6b157e3a)
+  + [ Claude 課程 - Grok google 001](https://grok.com/c/087278cd-8b4e-4e15-bb9e-1e5ff65d1f0b?rid=20782c1e-0a3b-4f61-a35c-7360987b6e3b)
+  + [ n8n 課程 - Grok google 001](https://grok.com/c/087278cd-8b4e-4e15-bb9e-1e5ff65d1f0b?rid=20782c1e-0a3b-4f61-a35c-7360987b6e3b)
 + Tools
   - ShareX : 螢幕擷圖軟體
   - [Token Counter](https://tokencounter.org/claude_counter)

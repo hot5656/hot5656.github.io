@@ -1,5 +1,5 @@
 ---
-title: claude-4
+title: Claude - Master Claude Cowork, Claude Code, Skills & Plugins
 abbrlink: 297c
 date: 2026-08-07 09:48:27
 categories:
@@ -65,49 +65,75 @@ Setting
   --> API & Integration
   --> Personal API tokens
   --> copy
-```
-
-### Learn Claude Cowork
-#### ch1
-``` bash
-# change invoice file name in a folder
-Please rename all the file in my invoice  folder by add the invoice data at the beginning of each file name,. Files can be either invoice  and relation document.
-
-# 
-Please help me to organize these files. Create two sub folder called "Jly invoices" and "August invoices" and put the relevant files. Before it please create  a plan and let me approve it first. 
-
-# 
-please remove the files that contain in their name a word test
-
-# 
-# select folder
-please could you create a report in pdf format about my invoice that contain "KappaSolutions" in their names
-
 
 # Claude Desktop 目前不支援真正的多視窗
 Mac:終端機輸入 open -n -a "Claude",會強制開一個全新的獨立視窗
 Windows:Claude Desktop 是 MSIX 封裝,原生不支援多實例,需要額外工具
-
-#
-Please create a 10 second time lapse video from this material, showing the most import parts.
-
-# 
-I have many receipts in the folder I gave you access to. Please create an expense spreasdsheet in the .csv format with appreciate columns, and fullfill the data from screenshots. 
 ```
 
+### Learn Claude Cowork
+#### 1st try
 ``` bash
-# claude chrome extension install
+# change invoice file name in a folder
+Please rename all the file in my invoice  folder by add the invoice data at the beginning of each file name,. Files can be either invoice  and relation document.
+
+# move to different su folder
+Please help me to organize these files. Create two sub folder called "July invoices" and "August invoices" and put the relevant files. Before it please create  a plan and let me approve it first. 
+
+# remove some files
+please remove the files that contain in their name a word test
+
+# exercise #1 U2-13
+The files in the folder have a meaningless string as the file name prefix. Please rename all of them so that the meaningless string is removed from the prefix.
+
+
+# generate report from files
+please could you create a report in pdf format about my invoice that contain "KappaSolutions" in their names
+
+# create lapse video
+#   --> select a mp4 file
+Please create a 10 second time lapse video from this material, showing the most import parts.
+
+# generate data from some files
+#    --> .csv
+I have many receipts in the folder I gave you access to. Please create an expense spreadsheet in the .csv format with appreciate columns, and fulfill the data from screenshots.
+
+# generate some presentation (Logo + color palette)
+I'm giving you access folder with brand assets.
+Create a Powerpoint presentation fully styled win my brand visuals.
+The presentation topic is: AI Agents and Automation-What's Happening Now.
+Cover these sections:
+1. What are AI Agents & why they matter in 2026
+2. Latest trends & news in the AI Automation space
+3. New tools worth knowing
+4. Real statistics on productivity gains from using AI Agents
+5. Futuure outlook - where this is all heading
+  + Use real data where possible. Keep Slides clean, visual and corporate.
+  + Add a strong opening hook slide and a closing insight slide.
+  + Output as a downloadable .pptx file
+  + language please use 繁中
+```
+
+#### control browser
+``` bash
+# claude chrome extension install(need login)
+# run from claude chrome extension
 Open for me "x" in the browser and search for news about Claude Cowork 
 # next 
 alright now cluld you change the search to claude plugins and skills, and then fetch for me information from 5 the latest posts.
+
 # Desktop run Cowork
 Please now use browser to move on to notion, then inside my private space create a page called "claude test", and inside please create a short summary of the book "atomic habits" and the most crucial insights.
 # next
 Now please copy all of this information from notion page you created, open for me google drive, create a new folder called "atomic habits summary", open the folder, inside create a google docs file and paste all the content here
+
 # claude chrome extension - continue
 please go to youtube and type  inside "ai agent in 2026" 
 # next
 press enter to search
+
+
+# exercise #2 U2-16
 ```
 
 # Ref
