@@ -134,6 +134,29 @@ press enter to search
 
 
 # exercise #2 U2-16
+幫我將 Grok 的參考 link 加入我的檔案 並說明各 link 的內容
+```
+
+``` bash
+# You have 3 Cowork invites Send a friend a free week of Cowork. If they love it and subscribe, you’ll get $10 in usage credits. Terms apply
+https://claude.ai/referral/xREQi0jG6g?s=cowork&v=apps
+https://support.claude.com/en/articles/13456702-claude-code-and-cowork-guest-passes
+```
+
+``` bash
+# Claude extension - Teach claude
+oprn "Claude extension"
+  --> Teach claude 
+  --> start recording
+  --> copy "Imager Generation" one line "Image Prompt" 
+  --> open chatgpt.com
+  --> paste 
+  --> wait image generate
+  --> click image 
+  --> press save bottom
+  --> go back "Imager Generation"
+  --> set Status to done
+  --> set Claude extension "Done"
 ```
 
 # Ref
