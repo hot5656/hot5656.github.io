@@ -146,7 +146,7 @@ https://support.claude.com/en/articles/13456702-claude-code-and-cowork-guest-pas
 ``` bash
 # Claude extension - Teach claude
 oprn "Claude extension"
-  --> Teach claude 
+  --> Teach claude(sometime not need) 
   --> start recording
   --> copy "Imager Generation" one line "Image Prompt" 
   --> open chatgpt.com
@@ -158,9 +158,27 @@ oprn "Claude extension"
   --> set Status to done
   --> set Claude extension "Done"
 ```
+#### use connector
+``` bash
+# gamil
+Please got to gmail, extract for me last 10 messages I send to someone , and base on it create a pdf file that exactly explains my profile voice and tone, so exactly how I write
+
+# excalidraw 
+please use excalidraw to create for me a diagram explaining  how LLM works
+
+
+# Canva
+Use Canva to create a thumnail for Claude Cowork for me, with black text for "Calude" and yellow text for "Cowork." This text shpuld be in the middle of design. Add other elements that you think for this project.
+
+```
 
 # Ref
 + tool link
   + [200+ Claude Prompts](https://special-tamarind-9e9.notion.site/200-Claude-Prompts-846ccdb23d99835095c3011d10a89e01)
   + [Claude Masterclass (+20 Skills Templates)](https://special-tamarind-9e9.notion.site/Claude-Masterclass-20-Skills-Templates-312ccdb23d9980e59d95eb1f9ab9695b)
   + [Claude Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn)
++ Docs
+  + [Claude use computer](https://claude.com/blog/dispatch-and-computer-use)
++ Simple Browser(for claude computer use 較流暢)
+  + [Pale Moon](https://www.palemoon.org/download.shtml)
+  + [ Met Min - Mac only](https://minbrowser.org/)
