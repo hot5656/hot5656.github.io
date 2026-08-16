@@ -4151,6 +4151,10 @@ path : /Users/gaoyiping/work/claude
   + [skill ai-short-drama + ai-media-generator - Grok google 001](https://grok.com/c/6a9bbd20-42a8-4836-a5b9-0f56ce6564cc?rid=7aa47e74-43f2-4a90-b681-bbaa42ad9b08)
   + [Base44 一人 AI 創業- Grok google 001](https://grok.com/c/69d60f1e-d668-447e-bd5b-7da9eed8e7cf?rid=7b3e4d45-fac4-41e2-b000-57327b135795)
   + [電商營運作業系統（Ecommerce Ops OS）提案 - Grok google 001](https://grok.com/c/d8ad4416-2190-4d4e-900b-03bc28e0048a?rid=779bcd23-4b9c-4c8c-84c6-a043ea32cd86)
+  + [Hello Nora - Gemini Pretty](https://gemini.google.com/u/1/app/65ddc91f7ff7d549?pageId=none)
+  + [AI 代理接管 app 維護 - Gemini Pretty](https://gemini.google.com/u/1/app/71261a41fc2f9d64?pageId=none)
+  + [AI 開發流程：定義、繪製、規格、施工 - Gemini Pretty](https://gemini.google.com/u/1/app/c198bcf8093d6ef6?pageId=none)
+  + [ChatGPT Work 功能與 Claude 支援度 - Gemini Pretty](https://gemini.google.com/u/1/app/b58e679f25aabf45?pageId=none)
 + Course
   + [MacBook Pro 錄製 - Grok google 001](https://grok.com/c/d918314e-d404-47bf-b312-3f1175dc94a2?rid=0b9b4cc4-893d-495b-be18-cd5d6b157e3a)
   + [ Claude 課程 - Grok google 001](https://grok.com/c/087278cd-8b4e-4e15-bb9e-1e5ff65d1f0b?rid=20782c1e-0a3b-4f61-a35c-7360987b6e3b)
@@ -4158,6 +4162,9 @@ path : /Users/gaoyiping/work/claude
 + Tools
   - ShareX : 螢幕擷圖軟體
   - [Token Counter](https://tokencounter.org/claude_counter)
++ Skill
+  - [PPT Master - Grok google 001](https://grok.com/c/d6a87283-706c-438c-9fd8-c2d24e941778?rid=cd967f56-579a-427a-8998-22112b9fbb3c)
+  - [Addy Osmani 的 agent-skill vs Matt Pocock 的 skills - Grok google 001](https://grok.com/c/0e60c269-757c-49f1-9438-8fb2f91ab338?rid=d011734f-79a6-45e8-8742-0cca7e426a24)
 + MCP
   - [Playwright github](https://github.com/microsoft/playwright)
   - [Playwright Docs](https://playwright.dev/mcp/introduction)

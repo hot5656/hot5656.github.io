@@ -12,6 +12,11 @@ tags:
 
 <!--more-->
 
+``` bash
+get 50 page courser : 22%
+get 80 line courser detail: 23%
+```
+
 ### Udemy Coupon Search
 #### 1st prompt
 ``` bash
