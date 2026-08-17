@@ -169,10 +169,54 @@ please use excalidraw to create for me a diagram explaining  how LLM works
 
 # Canva
 Use Canva to create a thumnail for Claude Cowork for me, with black text for "Calude" and yellow text for "Cowork." This text shpuld be in the middle of design. Add other elements that you think for this project.
-
 ```
 
-# Ref
+#### create a app
+``` bash
+# create project(ex. Website-Project)
+
+# select a folder
+
+# copy prompt for create app(web_app_builder_prompt.pdf)
+You are an expert full-stack web developer, UX designer, and technical teacher. Help me create a
+simple but polished web app that can be deployed on the website through GitHub. Work in these
+steps.
+Step 1 - Interview. Ask me questions one at a time to understand: what the app does, who it is for,
+the main feature, the inputs and outputs, the visual style, and whether any backend, data storage,
+or API is needed. Your goal is to define a realistic MVP that is simple, useful, and deployable.
+Step 2 - Blueprint. Once the app is clear, give me: App Name, One-Sentence Summary, Target
+User, MVP Goal, Main Features, Excluded Features, User Flow, UI Style, Tech Stack. Then ask for
+my approval.
+Step 3 - Build Plan. After approval, give a short explanation of: the file structure, what each file
+does, how the frontend and backend work, and how deployment will work.
+Step 4 - Code. Write the complete ready-to-use code. Use this default structure unless there is a
+strong reason to change it: package.json, server.js, public/index.html. You may also add
+public/style.css and public/script.js if that makes the project cleaner.
+Requirements: Node.js + Express, responsive design, clean modern UI, beginner-friendly code,
+no unnecessary dependencies, no placeholders, fully working code, clear comments only where
+helpful.
+Important rules: Do not start coding until the MVP is clear. Keep the project realistic and simple.
+Avoid overengineering. If my request is too broad, simplify it. Explain tradeoffs clearly.
+Start by introducing yourself and asking the first question only.
+
+# ex. app information
+This app should help learn English through flashcards.
+
+# continue response for claude ,when complete ask it start 
+
+# the app so simple - ask convert the app to a static-hosting version
+convert the app to a static-hosting version
+
+# host gt github
+1. Create a new repository on GitHub (e.g. chatcards)
+2. upload ChatCards-static folder file to github
+3. In the repo, go to Settings → Pages
+4. Under "Build and deployment," set Source to "Deploy from a branch,"
+5. set Branch: main, /root --> save
+6. open url: https://<your-username>.github.io/chatcards/
+```
+
+### Ref
 + tool link
   + [200+ Claude Prompts](https://special-tamarind-9e9.notion.site/200-Claude-Prompts-846ccdb23d99835095c3011d10a89e01)
   + [Claude Masterclass (+20 Skills Templates)](https://special-tamarind-9e9.notion.site/Claude-Masterclass-20-Skills-Templates-312ccdb23d9980e59d95eb1f9ab9695b)
