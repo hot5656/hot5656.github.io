@@ -171,7 +171,7 @@ please use excalidraw to create for me a diagram explaining  how LLM works
 Use Canva to create a thumnail for Claude Cowork for me, with black text for "Calude" and yellow text for "Cowork." This text shpuld be in the middle of design. Add other elements that you think for this project.
 ```
 
-#### create a app
+#### create a web app - project
 ``` bash
 # create project(ex. Website-Project)
 
@@ -215,6 +215,7 @@ convert the app to a static-hosting version
 5. set Branch: main, /root --> save
 6. open url: https://<your-username>.github.io/chatcards/
 ```
+
 
 ### Ref
 + tool link
