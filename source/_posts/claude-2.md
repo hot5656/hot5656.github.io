@@ -12,6 +12,35 @@ tags:
 
 <!--more-->
 
+### Tools
+#### google 試算表
+##### 加入 固定 index(A2 ) 
+```` bash
+A2 以下的所有資料（保留 A1 標題不動）：
+
+1. 複製： 以下(參考欄位B)
+  + Windows：Ctrl + C
+  + Mac：Cmd + C
+```
+=ARRAYFORMULA(IF(B2:B<>"", ROW(B2:B)-1, ""))
+```
+
+2. 點擊 A2 儲存格, Enter
+
+3. 點擊 A2 儲存格
+
+4. 快速選取 A2 以下到底：
+  + Windows：按下 Ctrl + Shift + ↓（向下鍵）
+  + Mac：按下 Cmd + Shift + ↓（向下鍵）
+5. 複製：
+  + Windows：Ctrl + C
+  + Mac：Cmd + C
+6. 原地僅貼上值：
+  + Windows：Ctrl + Shift + V
+  + Mac：Cmd + Shift + V
+````
+
+
 ### Udemy Coupon Search
 #### 1st prompt
 ``` bash
@@ -337,6 +366,7 @@ get course
     271       100
     371       100(27%)
     471       67 (40%)
+    1         2 - 2026/08/19
 get course detail 
   start line  length
     101       70
@@ -344,6 +374,9 @@ get course detail
     251      100(41%)
     351      100(21%)
     451      100(17%)
+    551      100
+    651      100
+    751      10
 ```
 
 #### 抓取 Udemy 購買紀錄
@@ -365,10 +398,14 @@ get course detail
 Google 試算表:udemy_course_2026_0815
 工作表分頁:Udemy課程
 現有欄位順序(第一列為標題):
-課程名稱、課程連結、第一語言、類別、主要主題、相關主題、最近更新日期、購買日期、付款方式、交易金額
+◆ 索引、課程名稱、課程連結、第一語言、類別、主要主題、相關主題、最近更新日期、購買日期、付款方式、交易金額
 
 (第一語言、類別、主要主題、相關主題、最近更新日期 這五欄目前留空,由另一個任務補上,
 這次不用處理這五欄)
+
+◆ 【關於索引欄位】
+索引欄位不需要你自己編號,Apps Script 會在寫入時依照該列在試算表中的實際列號自動計算
+(索引 = 列號 - 1),確保不會重複或跳號,你只需要照常組出其餘欄位的資料即可。
 
 【資料來源】
 依序請求以下 API(帶著我目前登入 Udemy 的瀏覽器 session),從第 START_PAGE 頁抓到第
@@ -398,25 +435,34 @@ https://www.udemy.com/api-2.0/purchase-history/purchase-history-data/?page_numbe
 【寫入規則:務必使用 Apps Script,禁止使用瀏覽器名稱框/座標定位方式手動貼上】
 
 抓完全部頁面並完成去重複比對後,把待寫入清單組成陣列,填入下方腳本的 NEW_DATA 並執行。
-此腳本只會「附加新列到目前資料範圍的最後面」,不會覆蓋任何既有儲存格:
+此腳本只會「附加新列到目前資料範圍的最後面」,不會覆蓋任何既有儲存格,並會◆自動為每一列
+計算索引欄位:
 
 ```javascript
 function appendCourseData() {
   var NEW_DATA = [
     // 依序放入本次去重複後、待新增的課程資料
-    // 格式:[課程名稱, 課程連結, "", "", "", "", "", 購買日期, 付款方式, 交易金額]
-    // (第一語言、類別、主要主題、相關主題、最近更新日期 五欄留空字串)
+    ◆ // 格式:[課程名稱, 課程連結, "", "", "", "", "", 購買日期, 付款方式, 交易金額]
+    ◆ // 注意:這裡「不用」放索引欄位,索引由下方程式自動計算並插入最前面
   ];
 
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Udemy課程");
   var lastRow = sheet.getLastRow();
 
-  if (NEW_DATA.length > 0) {
-    sheet.getRange(lastRow + 1, 1, NEW_DATA.length, NEW_DATA[0].length).setValues(NEW_DATA);
+  ◆ // 自動在每筆資料最前面加上索引欄位(索引 = 該列的列號 - 1)
+  ◆ var dataWithIndex = NEW_DATA.map(function(row, i) {
+  ◆   var rowNumber = lastRow + 1 + i;
+  ◆   var index = rowNumber - 1;
+  ◆   return [index].concat(row);
+  ◆ });
+
+  if (dataWithIndex.length > 0) {
+    sheet.getRange(lastRow + 1, 1, dataWithIndex.length, dataWithIndex[0].length).setValues(dataWithIndex);
   }
 
-  Logger.log("新增列數: " + NEW_DATA.length);
+  Logger.log("新增列數: " + dataWithIndex.length);
   Logger.log("寫入前最後一列: " + lastRow + ", 寫入後最後一列: " + sheet.getLastRow());
+  ◆ Logger.log("本次索引範圍: " + (lastRow) + " 到 " + (sheet.getLastRow() - 1));
 }
 ```
 
@@ -437,7 +483,7 @@ function appendCourseData() {
    total_pages 而調整,請說明實際結束頁)
 2. 開始時間、結束時間、總執行時間、平均每頁耗時,有無異常耗時頁面
 3. 新增了幾筆課程(去重複後)、跳過重複筆數
-4. Apps Script 執行後 Logger 顯示的新增列數,以及寫入前後試算表的總列數
+4. Apps Script 執行後 Logger 顯示的新增列數、◆本次索引範圍,以及寫入前後試算表的總列數
 5. 過程中有沒有遇到異常回應(非 200 狀態碼、需要重新登入等),若有請立即停止並回報
 6. 完成後,請用課程連結欄位做一次全表唯一性檢查,確認沒有重複值,回報檢查結果
 ````
@@ -708,6 +754,157 @@ function updateCourseDetails() {
 5. 抽查 3 列的核對結果
 6. 若有連續失敗停止的情況,說明停在第幾筆與觀察到的現象
 ````
+
+#### 抓取課程頁面詳情 - add stop condition
+```` bash
+任務:抓取課程頁面詳情(分類/語言/主題),用「頁面內 fetch 批次抓取」方式,並用 Apps Script 寫回試算表
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【★ 只需要修改這一行 ★】
+起始列(START_ROW)= 651
+本次筆數(COUNT)= 100
+（結束列請自行計算:結束列 = 起始列 + 本次筆數 - 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+【背景說明,供你了解這是接續進行的工作】
+這是一份持續進行的任務。試算表「udemy_course_2026_0815」的「Udemy課程」分頁中,
+第 2 列到「START_ROW - 1」列的「第一語言」「類別」「主要主題」「相關主題」「最近更新日期」
+欄位應該已經補齊,這次接續處理第 START_ROW 列到「START_ROW + COUNT - 1」列。
+
+【讀取來源】
+Google 試算表:udemy_course_2026_0815
+工作表分頁:Udemy課程
+請讀取第 START_ROW 列到第(START_ROW + COUNT - 1)列(共 COUNT 筆,不含標題列)的
+「課程連結」欄位,作為這次的目標網址清單。
+
+【重要:抓取方式改用「頁面內 fetch 批次處理」,不要逐頁用瀏覽器載入】
+
+為了大幅減少 token 消耗與執行時間,這次不要一個一個網址用瀏覽器開啟頁面。
+改用以下方式:
+
+1. 用瀏覽器開啟任意一個 www.udemy.com 頁面(例如 https://www.udemy.com/ 首頁即可),
+   只需要開這一個頁面,之後全程停留在這個頁面上。
+
+2. 在該頁面的 JS 環境中執行一段批次抓取腳本,腳本邏輯如下:
+   - 用 fetch() 依序請求全部 COUNT 個課程網址(同源請求,可直接取得 HTML)
+   - 每次 fetch 之間用 await 搭配隨機延遲 5-10 秒
+   - 對每個回傳的 HTML 用 DOMParser 解析,套用下方固定的 CSS 選擇器規則抓取五個欄位
+   - 全部處理完後,把結果整理成一份 JSON 輸出(格式直接對應後面 Apps Script 的
+     SCRAPED_DATA 結構,方便直接複製使用)
+
+3. 執行過程不要逐筆回報進度,只需要:
+   - 開始時記錄開始時間
+   - 每完成 20 筆印一次簡短進度(例如「20/100 完成」)
+   - 結束時印出結束時間、總耗時、以及完整的結果 JSON
+
+【欄位解析規則(供腳本內 DOMParser 使用)】
+
+1. 課程分類(類別):
+   `nav[aria-label="課程主題"]` 底下的 `<ol>` 清單,取前兩層連結文字,用「>」串接。
+
+2. 主要主題:
+   同一個 `<ol>` 清單中,取最後一層(第三層)的連結文字。若 breadcrumb 只有兩層,
+   此欄位留空(這是正常情況,不是解析失敗)。
+
+3. 相關主題:
+   找到文字包含「探索相關主題」的 `<h2>` 標題,取其後方 `<ul>` 清單內所有連結文字,
+   逗號分隔合併。
+
+4. 第一語言:
+   找 `data-purpose="course-language"` 區塊內的文字。
+
+5. 最近更新日期:
+   找 class 名稱包含 `last-updated` 的區塊內文字,只取日期部分(例如「2026/7」)。
+
+異常處理:
+- 若某網址 fetch 後的內容不是正常課程頁(例如被重新導向、回傳內容找不到任何目標結構,
+  常見於 /draft/ 開頭的草稿或已下架課程連結),該筆五個欄位全部留空,在結果 JSON 中
+  加上 "error": "非正常課程頁" 標記,不要中斷,繼續處理下一筆。
+- 若 fetch 回傳非 200 狀態碼,同樣標記該筆並繼續;但若連續 5 筆以上都失敗,
+  請停止執行並回報,可能是被限速或需要處理其他異常。
+
+【澄清:「連續失敗即停止」規則的適用範圍(新增,避免誤判)】
+上述「連續 5 筆以上失敗即停止」的規則,只適用於以下兩種情況:
+  (a) fetch 回傳的 HTTP 狀態碼非 200
+  (b) fetch 過程本身拋出例外(例如連線逾時、網路錯誤)
+「非正常課程頁」(例如 /draft/ 開頭的草稿或已下架課程,內容中找不到目標結構)**不算
+失敗**,不應計入連續失敗次數。草稿課程有可能連續出現在清單中(這是正常情況),
+遇到這種情況只需標記 "error": "非正常課程頁" 並繼續處理下一筆,不可因此觸發中止機制。
+換句話說,程式中應該用兩個獨立的判斷:內容解析結果(是否為正常課程頁)與網路請求結果
+(HTTP 狀態碼/是否拋出例外),只有後者才能累加「連續失敗次數」。
+
+【寫回試算表的方式:務必使用 Apps Script,禁止使用瀏覽器名稱框/座標定位方式手動貼上】
+
+抓取腳本輸出的 JSON 結果,直接填入下方腳本的 SCRAPED_DATA 並執行:
+
+```javascript
+function updateCourseDetails() {
+  var SCRAPED_DATA = [
+    // 直接貼上抓取腳本輸出的 JSON 結果,格式:
+    // {
+    //   courseLink: "https://www.udemy.com/course/xxx/",
+    //   language: "英文",
+    //   category: "開發 > 資料科學",
+    //   mainTopic: "Claude AI",
+    //   relatedTopics: "Claude AI, 資料科學, 開發",
+    //   lastUpdated: "2026/7"
+    // }
+  ];
+
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Udemy課程");
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+
+  var colIndex = {
+    courseLink: headers.indexOf("課程連結"),
+    language: headers.indexOf("第一語言"),
+    category: headers.indexOf("類別"),
+    mainTopic: headers.indexOf("主要主題"),
+    relatedTopics: headers.indexOf("相關主題"),
+    lastUpdated: headers.indexOf("最近更新日期")
+  };
+
+  var updatedCount = 0;
+  var notFound = [];
+
+  SCRAPED_DATA.forEach(function(item) {
+    var found = false;
+    for (var i = 1; i < data.length; i++) {
+      if (data[i][colIndex.courseLink] === item.courseLink) {
+        var row = i + 1;
+        sheet.getRange(row, colIndex.language + 1).setValue(item.language);
+        sheet.getRange(row, colIndex.category + 1).setValue(item.category);
+        sheet.getRange(row, colIndex.mainTopic + 1).setValue(item.mainTopic);
+        sheet.getRange(row, colIndex.relatedTopics + 1).setValue(item.relatedTopics);
+        sheet.getRange(row, colIndex.lastUpdated + 1).setValue(item.lastUpdated);
+        updatedCount++;
+        found = true;
+        break;
+      }
+    }
+    if (!found) notFound.push(item.courseLink);
+  });
+
+  Logger.log("已更新: " + updatedCount + " 筆");
+  Logger.log("找不到對應列: " + JSON.stringify(notFound));
+}
+```
+
+執行前請先手動用「檔案 → 建立副本」為試算表存一份備份。
+執行後打開「執行紀錄」,以 Logger 顯示的「已更新筆數」和「找不到對應列」作為主要核對依據。
+畫面核對只需抽查:第 START_ROW 列、範圍中間任一列、最後一列,共 3 列即可,
+不要整批逐列截圖比對(節省 token)。
+
+【完成後回報(保持精簡,不要逐筆列出)】
+1. 這次處理的範圍:第 START_ROW 列到第(START_ROW + COUNT - 1)列
+2. 開始時間、結束時間、總耗時
+3. COUNT 筆中:完整抓到的筆數、「主要主題」因 breadcrumb 僅兩層而留空的筆數(只列列號)、
+   異常連結筆數(列出列號與網址)
+4. Apps Script Logger 顯示:已更新筆數、找不到對應列清單
+5. 抽查 3 列的核對結果
+6. 若有連續失敗停止的情況,說明停在第幾筆與觀察到的現象
+````
+
 
 ### 課程成筆記整理
 #### 課程整理
