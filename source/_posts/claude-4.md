@@ -216,8 +216,16 @@ convert the app to a static-hosting version
 6. open url: https://<your-username>.github.io/chatcards/
 ```
 
-#### porject
+#### porject - example
 ``` bash
+# create a project 
+
+# select a folder
+
+# put file to the folder 
+
+# ask something
+tell me some thing about the "How to Build Custom Skills in Google Antigravity_ 5 Practical Examples _ Google Cloud - Community" pdf
 ```
 
 ### Ref

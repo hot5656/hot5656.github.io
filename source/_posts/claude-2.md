@@ -40,6 +40,169 @@ A2 以下的所有資料（保留 A1 標題不動）：
   + Mac：Cmd + Shift + V
 ````
 
+#### 推廣
+``` bash
+# 1. Landing Page 測需求
+```
+
+#### key prompt
+##### example
+``` bash
+# ELI10
+ELI10 以下提案
+機會點 A:職等評估精靈(Job Grading Wizard)
+對應章節:第 9 堂〈AI in Rewards: Policy, Bonus Schemes, Recognition and Grading〉
+HR 流程環節:薪酬(Rewards/Compensation)
+痛點:筆記明確指出「搜尋『AI-based reward management software』找不到成熟系統,多半只是行銷文案或未來承諾,尚無真正落地的功能」——這是課程中**唯一被講師親口點名「市場空白」**的領域。職等評估(因子設定→權重分配→等級定義→計分公式→職等區間劃分)傳統上需要總獎酬顧問經驗,中小企業 HR 通常無力負擔。
+產品形式:引導式問答工具,依產業/公司規模自動產生職等因子(技術專業、管理責任、業務影響力等)、權重、7 級定義,並以幾何級距(而非線性)分配 1000 分滿分,最後輸出職等對照表與試算 Excel/PDF。筆記中特別提醒「AI 生成結果常需人工反覆修正提示詞」,暗示產品價值在於把這套 prompt chain 包裝成結構化引導式介面。 
+# MVP spec
+轉成一個 MVP spec
+
+
+
+```
+
+##### list
+``` bash
+# 1. 「ELI10」（Explain Like I'm 10 / 當作我 10 歲來解釋）
+# 當遇到複雜專業術語（合約條款、法規、商業術語）時，強制 AI 用最通俗易懂的語言解釋。
+ELI10 how do I start a business?
+
+# 2.「問我 5 個釐清問題」（Ask clarifying questions）
+# AI 雖懂知識，但不懂提問者的個人背景。讓 AI 先提問，主動挖掘你的目標、客群與限制，避免輸出空泛通用、不切實際的建議。
+Before you answer, ask me 5 clarifying questions.
+
+# 3. 「提供優秀範例」（Give examples / Few-shot Prompting）
+# 告訴 AI 具體的標竿（Benchmark）。讓 AI 掌握預期的語調與標準。
+這是過去成功的 Pitch Email / 簡報範本，請比照此風格與結構撰寫
+
+# 4. 「建立記憶／專業技能庫」（Memory & Skills / Context setting）
+# 將長期背景、個人技能特質或工作流程存入系統設定（Projects / Custom Instructions / Memory），讓 AI 每次產出時自動套用你的專業角色與個人特質，減少重複說明的時間。
+
+# 5. 「找出盲點與脆弱假設」（Find blind spots & weak assumptions）
+# 把 AI 當作「陪練夥伴」（Sparring Partner）。不再只是讓 AI 迎合或讚美你的想法，而是要求它主動挑刺、檢查策略漏洞與潛在風險。
+Find my blind spots and weak assumptions.
+
+# 6. 「在符合標準前不要停止」自主迴圈（The "Don't Stop Until" Loop）
+# 賦予 AI 自我迭代與檢驗的責任。要求模型產出後自行對照檢查清單（Checklist），若未達到標準就自動重寫與修正，直到完全符合要求為止。
+# 影片腳本與分鏡（Cinematic Scripting）
+「寫一段 60 秒的暗黑懸疑短片分鏡腳本。在滿足以下條件前不要停止：
+1. 全程『零對白』，僅能透過視覺、光影與環境音效推進情緒。
+2. 包含至少 3 次明確的鏡頭景別切換（特寫、全景、主觀視角）。
+3. 結尾 5 秒必須留下一個未解的視覺懸念。
+請在草稿產出後逐項核對，未達成則自動修正重寫。」
+```
+
+#### Steal My Claude Learning Stack — 50 個免費資源
+> 原文作者：Aniket Chhetri (Grow With AI)
+> 原文連結：https://growwithaiguide.substack.com/p/steal-my-claude-learning-stack-50
+
+共 5 大模組、50 個資源。若想先體驗精華，作者建議第一週先看 **#2、#17、#22、#26、#41**。
+
+建議學習順序（從零開始）：**模組3 → 模組2 → 模組4 → 模組1 → 模組5**（先學 Prompting，因為能提升後續所有模組的學習效果）。
+
+---
+
+##### 模組一：Claude Code (Module 1: Claude Code)
+從聊天機器人升級成能實際動手做事的工具，共 9 個資源。
+
+| # | 中文標題 / English Title | 連結 | 簡單說明 |
+|---|---|---|---|
+| 1 | Claude Code 完整課程：打造與變現 / Claude Code Full Course: Build & Sell | https://www.youtube.com/watch?v=QoQBzR1NIqI | Nick Saraev 的免費完整課程，把 Claude Code 當作商業技能而非單純開發工具來教。 |
+| 2 | 36分鐘掌握95%的 Claude Code / Master 95% of Claude Code in 36 Min | https://www.youtube.com/watch?v=saggDHHnmtQ | Nate Herk 出品，作者認為是最快且誠實的入門影片，**建議第一個看**。 |
+| 3 | Claude Code 實戰 / Claude Code in Action | https://anthropic.skilljar.com/claude-code-in-action | Anthropic 官方免費課程，節奏較慢但內容更完整。 |
+| 4 | Claude Code 總覽 / Claude Code Overview | https://code.claude.com/docs/en/overview | 官方文件首頁，值得收藏常回來查閱。 |
+| 5 | Claude Code 最佳實踐 / Best Practices for Claude Code | https://code.claude.com/docs/en/best-practices | 大部分「Claude Code 用不順」的問題答案都在這裡。 |
+| 6 | 建立自訂 Subagents / Create Custom Subagents | https://code.claude.com/docs/en/sub-agents | 教你打造一整組由自己設計的 agent 團隊。 |
+| 7 | CLAUDE.md 與記憶機制 / CLAUDE.md & Memory | https://code.claude.com/docs/en/memory | 如何讓 Claude 記住專案脈絡，不用每次重新解釋。 |
+| 8 | awesome-claude-code 資源清單 | https://github.com/hesreallyhim/awesome-claude-code | 社群整理的 Claude Code 大全清單。 |
+| 9 | Claude Code Hooks 精通 / Claude Code Hooks Mastery | https://github.com/disler/claude-code-hooks-mastery | 教你用 Hooks 讓 Claude Code 從「使用」升級到「運行自動化系統」。 |
+
+> ⚠️ 提醒：awesome 系列清單（#8、#36、#37、#43）容易讓人迷失方向，建議挑一項深入使用一週後再回來看其他清單。
+
+---
+
+##### 模組二：Cowork 與設計 (Module 2: Cowork & Design)
+免寫程式的一側，直接描述目標讓 Claude 在你的電腦上完成工作，共 8 個資源。
+
+| # | 中文標題 / English Title | 連結 | 簡單說明 |
+|---|---|---|---|
+| 10 | 用 Cowork 自動化了99%的生活 / I Automated 99% of My Life With Cowork | https://growwithaiguide.substack.com/p/i-automated-99-of-my-life-in-15-minutes | 作者實測文章，讀者迴響最熱烈的一篇。 |
+| 11 | Claude Design 10分鐘做出網站 / Claude Design Did This in 10 Minutes | https://growwithaiguide.substack.com/p/i-built-a-professional-website-in | 作者親自用 Claude Design 一次做出專業網站的完整紀錄。 |
+| 12 | Claude Cowork 新手完整課程 / Claude Cowork: Full Course for Beginners | https://www.youtube.com/watch?v=tf_KmDNZXzI | Tech With Tim 出品，目前 YouTube 上最完整的免費 Cowork 教學。 |
+| 13 | Claude Design = 簡易建站 / Claude Design = Easy Websites | https://www.youtube.com/watch?v=rJtF32LTX8U | Kyle Skelly 出品，簡短實用不廢話。 |
+| 14 | Claude 又獲得新超能力 / Claude Just Got Another Superpower | https://www.youtube.com/watch?v=jeA-KBv0b68 | Fireship 風格的 5 分鐘快速說明為何此功能重要。 |
+| 15 | Claude Design 官方公告 / Introducing Claude Design | https://anthropic.com/news/claude-design-anthropic-labs | Anthropic 官方發布公告。 |
+| 16 | Claude Design 入門指南 / Get Started With Claude Design | https://support.claude.com/en/articles/14604416-get-started-with-claude-design | 官方設定文件，建議搭配 #13 一起看。 |
+| 17 | Claude Cowork 入門 / Introduction to Claude Cowork | https://anthropic.skilljar.com/introduction-to-claude-cowork | Anthropic 官方結構化課程，**推薦作為第一步**。 |
+
+---
+
+##### 模組三：Prompting 與工作流程 (Module 3: Prompting & Workflows)
+更好的 prompt 只幫你一次，更好的工作流程能永久改變工作方式，共 8 個資源。
+
+| # | 中文標題 / English Title | 連結 | 簡單說明 |
+|---|---|---|---|
+| 18 | 你把 Claude Fable 5 用錯了 / You're Prompting Claude Fable 5 Wrong | https://growwithaiguide.substack.com/p/youre-prompting-claude-fable-5-wrong | 作者整理模型更新後常犯的 prompting 錯誤。 |
+| 19 | 正確設定 Claude Projects 的方法 / The Right Way to Set Up Claude Projects | https://growwithaiguide.substack.com/p/the-right-way-to-set-up-claude-projects | Projects 是被低估的功能，多數人設定方式其實不對。 |
+| 20 | 把 Karpathy 的迴圈改造成 Skill / I Rebuilt Karpathy's Loop Into a Skill | https://growwithaiguide.substack.com/p/i-rebuilt-karpathys-loop-into-a-skill | 從單純 prompting 進化到系統化 Skill 的實例。 |
+| 21 | Prompt Engineering 總覽 / Prompt Engineering Overview | https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview | Anthropic 官方參考文件，內容較密集但是所有人參考的源頭。 |
+| 22 | Prompt Engineering 互動式教學 / Prompt Engineering Interactive Tutorial | https://github.com/anthropics/prompt-eng-interactive-tutorial | 官方出品的動手練習教材，作者認為是最好的免費 prompting 資源。 |
+| 23 | 打造高效 AI Agent / Building Effective AI Agents | https://anthropic.com/research/building-effective-agents | Anthropic 研究團隊的經典文章，agent 討論常被引用的原始出處。 |
+| 24 | 高效上下文工程 / Effective Context Engineering | https://anthropic.com/engineering/effective-context-engineering-for-ai-agents | 「Context 是新的 Prompting」這個概念的源頭文章。 |
+| 25 | Anthropic Academy | https://anthropic.skilljar.com | 官方所有免費課程的總入口，本清單多堂課程都來自這裡。 |
+
+---
+
+##### 模組四：Skills (Module 4: Skills)
+內容最深的模組，作者認為 Skills 是與 Claude 協作方式最大的轉變，共 13 個資源。
+
+| # | 中文標題 / English Title | 連結 | 簡單說明 |
+|---|---|---|---|
+| 26 | Claude Skills 完整指南 + 40個模板 / Complete Claude Skills Guide + 40 Templates | https://growwithaiguide.substack.com/p/complete-claude-skills-guide-40-templates | 作者最完整的 Skills 指南，附贈 40 個模板，**本模組最推薦先讀**。 |
+| 27 | 離不開的12個 Claude Skills / 12 Claude Skills I Cannot Live Without | https://growwithaiguide.substack.com/p/12-claude-skills-i-cannot-live-without | 作者長期使用後留下來的12個核心 Skills。 |
+| 28 | 這3個 Skills 讓我效率提升10倍 / I Work 10x Better With These 3 Skills | https://growwithaiguide.substack.com/p/i-work-10x-better-since-i-added-these | 若覺得12個太多，這篇精簡到3個必備 Skills。 |
+| 29 | Superpowers（社群 Skills 集合） | https://github.com/obra/superpowers | 由 obra 維護，社群中最受推崇的 Skills 收藏之一。 |
+| 30 | Agent Skills 官方倉庫 / Agent Skills (official repo) | https://github.com/anthropics/skills | Anthropic 官方公開的 Skills，可研究其架構寫法。 |
+| 31 | Agent Skills 官方公告 / Introducing Agent Skills | https://claude.com/blog/skills | Skills 功能發布的原始公告文章。 |
+| 32 | 用 Agent Skills 武裝 Agent（工程文章）/ Equipping Agents With Agent Skills | https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills | 深入探討 Skills 底層運作原理的工程文章。 |
+| 33 | 用 Skills 擴充 Claude / Extend Claude With Skills | https://code.claude.com/docs/en/skills | 官方文件，教你如何自己動手建立 Skill。 |
+| 34 | Agent Skills 入門課程 / Introduction to Agent Skills | https://anthropic.skilljar.com/introduction-to-agent-skills | 官方結構化免費課程版本。 |
+| 36 | awesome-claude-skills（travisvn 版）| https://github.com/travisvn/awesome-claude-skills | 社群整理、持續更新的 Skills 清單。 |
+| 37 | awesome-claude-skills（karanb192 版）| https://github.com/karanb192/awesome-claude-skills | 另一份策展角度不同的 Skills 清單，值得兩份都看。 |
+| 38 | skills.sh | https://skills.sh | 可瀏覽、可安裝 Skills 的社群目錄網站。 |
+
+> 註：原文編號跳過 #35，原文中無此項目。
+
+---
+
+##### 模組五：MCP 與整合 (Module 5: MCP & Integrations)
+MCP 讓 Claude 能連接外部工具、資料與各種服務，共 12 個資源。
+
+| # | 中文標題 / English Title | 連結 | 簡單說明 |
+|---|---|---|---|
+| 39 | Claude + NotebookLM = 神級組合 / Claude + NotebookLM = God Mode | https://growwithaiguide.substack.com/p/claude-notebooklm-god-mode | 作者最多人分享的整合教學文章。 |
+| 40 | MCP Servers 官方倉庫 / MCP Servers (official repo) | https://github.com/modelcontextprotocol/servers | Model Context Protocol 官方伺服器收藏庫。 |
+| 41 | 什麼是 MCP？/ What Is MCP? | https://modelcontextprotocol.io/introduction | 十分鐘搞懂 MCP 這個名詞，**建議從這裡開始**。 |
+| 42 | 透過 MCP 連接 Claude Code / Connect Claude Code via MCP | https://code.claude.com/docs/en/mcp | 實際操作連接的官方指南。 |
+| 43 | awesome-mcp-servers（社群清單）| https://github.com/punkpeye/awesome-mcp-servers | 社群最大規模的 MCP 伺服器清單。 |
+| 44 | MCP Registry 官方登記處 | https://github.com/modelcontextprotocol/registry | 官方維護的 MCP 存在清單。 |
+| 45 | MCP.so | https://mcp.so | 可搜尋的社群目錄網站，適合不想爬 GitHub 的人。 |
+| 46 | Smithery | https://smithery.ai | 另一個目錄網站，介面更清爽，適合瀏覽探索。 |
+| 47 | Glama MCP Servers | https://glama.ai/mcp/servers | 第三個目錄選擇，可依個人習慣挑一個常用。 |
+| 48 | 自建並部署 Skills 與 MCP Servers / Build & Deploy Skills and MCP Servers | https://www.youtube.com/watch?v=YKIUt9ytxIE | Code With Antonio 出品的免費自建深度教學影片。 |
+| 49 | MCP 入門課程 / Introduction to MCP | https://anthropic.skilljar.com/introduction-to-model-context-protocol | #41 的官方結構化課程版本。 |
+| 50 | 用 Claude API 開發 / Building With the Claude API | https://anthropic.skilljar.com/claude-with-the-anthropic-api | 學習路線的最後一關，學完就是「用 Claude 開發」而非「學 Claude」。 |
+
+---
+
+##### 使用建議
+不要一次全部學完，這是作者特別強調的重點：
+1. 挑選最貼近你這週在做的事的模組
+2. 完成該模組前兩個資源
+3. 用學到的東西實際完成一件小事
+4. 再回來繼續下一個模組
+
 
 ### Udemy Coupon Search
 #### 1st prompt
@@ -377,6 +540,13 @@ get course detail
     551      100
     651      100
     751      10
+    760      100(12%)
+    860      101
+    961      100
+    1061     100
+    1161     100
+    1261     100
+    1361     100
 ```
 
 #### 抓取 Udemy 購買紀錄
@@ -905,6 +1075,27 @@ function updateCourseDetails() {
 6. 若有連續失敗停止的情況,說明停在第幾筆與觀察到的現象
 ````
 
+####
+``` bash
+# 抓取課程頁面詳情 - 要求確認
+1.Allow Claude to use the browser on www.udemy.com?
+2. Allow Claude to use the browser on script.google.com?
+3. Allow Claude to use the browser on docs.google.com?
+4. Claude wants to use Copy file from Google Drive?
+5. Multiple Chrome browsers are connected. Which one should I continue using for the Udemy scraping/Apps Script task?
+I select Browser 2 (Windows)
+
+# 1~3 add (但好像無效)
+Settings
+  --> Claude Chrome
+  --> Site permissions
+  --> Default for all sites
+  --> Block all sites
+  --> Add Websites
+    add : www.udemy.com、script.google.com、docs.google.com
+# 4 權限暫時不開
+# 5 無解
+```
 
 ### 課程成筆記整理
 #### 課程整理
@@ -1145,6 +1336,7 @@ https://www.udemy.com/course/claude-fable-masterclass-ai-storytelling-characters
 ````
 
 #### [MCP for Leaders: Architecting Context-Driven AI](https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai)
+##### 筆記整理 prompt #1
 ```` bash
 請幫我開啟 Chrome,前往這門 Udemy 課程:
 https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/
@@ -1164,6 +1356,105 @@ https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/
 執行時如果遇到需要我確認登入或權限的畫面,請暫停等我處理。
 ````
 
+##### 筆記整理 prompt #2
+``` bash
+請幫我開啟 Chrome,前往這門 Udemy 課程:
+{課程連結}
+
+任務:
+
+以登入狀態進入課程播放頁面,先列出完整章節(Section)與堂數清單
+依序點開每一堂,立即暫停影片,開啟 Transcript(逐字稿)面板擷取全文;不要靠 CC 字幕或截圖逐句擷取
+每一堂整理成以下格式:
+課程標題
+3-5 個重點摘要(條列式)
+提到的關鍵框架/名詞定義(如有明確提及)
+對「領導者/決策者」的具體行動建議或應用場景(如有提到)
+純案例分享而非概念講解的堂數,註明「本堂偏案例研討」
+每完成一個章節(Section)就先將該章節整理結果暫存一次,避免中斷後前功盡棄
+全部完成後,依課程順序彙整成一份 Markdown 筆記檔案輸出給我,內容開頭依序包含:
+標題與日期時間
+課程原文名稱與課程連結(連結需為完整網址,確保可點擊開啟)
+「全課程重點大綱」:用一段話總結整門課的核心脈絡
+
+輸出語言:全部使用繁體中文(台灣用語習慣)。
+逐字稿不存在或抓不到的堂數,直接跳過並在筆記中標註「無法取得字幕」,禁止用你自己的知識補內容或臆測課程內容。
+執行時遇到需要登入或權限確認的畫面,請暫停等我處理。
+```
+
+##### 提取 ideas #1
+``` bash
+我有 MCP for Leaders: Architecting Context-Driven AI 課程筆記, 幫我分析一下 我能把它如何轉成實際應用
+```
+
+##### 提取 ideas #2
+``` bash
+我附上「{課程名稱}」的課程筆記(附檔),請基於筆記內容分析,不要依賴你自己對這門課的猜測。
+
+背景:我是獨立開發者,正在尋找可行的 SaaS 產品題目,希望從這門課的內容中挖掘靈感。
+
+請依序輸出:
+
+可轉化的 SaaS 機會點:從筆記中找出 3-5 個可以做成 SaaS 產品的切入點。每個機會點說明:對應筆記中哪個章節/概念、目標客群是誰、解決什麼痛點、簡述產品形式
+每個機會點的評估:市場上是否已有類似產品(如known)、差異化空間、以獨立開發者的資源做 MVP 的難度(高/中/低)與理由
+推薦優先順序:從上述機會點中選出你認為最值得先做的 1-2 個,說明理由
+下一步驗證建議:針對推薦的題目,列出在寫程式之前應該先做的市場驗證動作
+
+注意:分析要基於筆記實際內容,如果某個機會點是你自己延伸推論而非筆記直接提到的,請標註「延伸推論」。輸出使用繁體中文(台灣用語)。
+```
+
+##### 提取 ideas #2 addition
+``` bash
+# output file
+輸出幫我轉成 md 檔
+
+# add internet information
+查網路上相關資訊 看能不激盪出更好的 ideas
+
+# output v2
+輸出 v2 版 並列出 source(含 link 英文 title)  同時列中文 Title  and 加入各 source  的 重點摘要(中文)
+```
+
+#### [AI Adoption & Change Management: From Pilot to Scale](https://www.udemy.com/course/ai-hr-ru)
+##### 筆記整理 prompt
+``` bash
+請幫我開啟 Chrome,前往這門 Udemy 課程:
+https://www.udemy.com/course/ai-hr-ru/
+任務:
+1. 以登入狀態進入課程播放頁面,先列出完整章節(Section)與堂數清單
+2. 依序點開每一堂,立即暫停影片,開啟 Transcript(逐字稿)面板擷取全文;不要靠 CC 字幕或截圖逐句擷取
+3. 本課程原文語言可能非英文(可能為俄文):若逐字稿有英文版本請優先使用英文版;若只有原文版本,擷取後照常整理,摘要一律輸出繁體中文
+4. 每一堂整理成以下格式:
+   - 課程標題
+   - 3-5 個重點摘要(條列式)
+   - 提到的關鍵框架/名詞定義(例如 HR 流程、AI 工具名稱、評估模型等,如有明確提及)
+   - 提到的 HR 實務痛點與 AI 解決方式(如有提到):這部分請具體描述,是我挖掘 SaaS 靈感的重點
+   - 純案例分享而非概念講解的堂數,註明「本堂偏案例研討」
+5. 每完成一個章節(Section)就先將該章節整理結果暫存一次,避免中斷後前功盡棄
+6. 全部完成後,依課程順序彙整成一份 Markdown 筆記檔案輸出給我,內容開頭依序包含:
+   - 標題與日期時間
+   - 課程原文名稱與課程連結(連結需為完整網址,確保可點擊開啟)
+   - 「全課程重點大綱」:用一段話總結整門課的核心脈絡
+輸出語言:全部使用繁體中文(台灣用語習慣)。
+逐字稿不存在或抓不到的堂數,直接跳過並在筆記中標註「無法取得字幕」,禁止用你自己的知識補內容或臆測課程內容。
+執行時遇到需要登入或權限確認的畫面,請暫停等我處理。
+```
+
+##### 提取 ideas
+``` bash
+我附上「AI for HR」課程(https://www.udemy.com/course/ai-hr-ru/)的課程筆記(附檔 md),請基於筆記內容分析,不要依賴你自己對這門課的猜測。
+背景:我是獨立開發者,正在尋找可行的 SaaS 產品題目,想從這門課挖掘 **HR 領域的 AI SaaS** 靈感。
+請依序輸出:
+1. **可轉化的 HR SaaS 機會點**:從筆記中找出 3-5 個切入點。每個機會點說明:對應筆記中哪個章節/概念、對應的 HR 流程環節(招募、入職、績效、學習發展、薪酬、離職等)、解決什麼痛點、簡述產品形式
+2. **每個機會點的 HR 市場特性評估**:
+   - 目標買家是誰(HR 主管?中小企業老闆?招募顧問?)以及買單意願
+   - 資料敏感度與隱私/法規風險(員工個資、勞動法規、AI 招募相關規範)高低
+   - 市場上是否已有類似產品(如known)、差異化空間
+   - 以獨立開發者的資源做 MVP 的難度(高/中/低)與理由
+3. **推薦優先順序**:選出最值得先做的 1-2 個,說明理由;優先考量「痛點明確、資料敏感度低、單一功能就能成立」的題目,避開需要深度整合企業 HR 系統才能運作的方向
+4. **下一步驗證建議**:針對推薦的題目,列出在寫程式之前應該先做的市場驗證動作(例如去哪些社群找 HR 從業者訪談、如何用 landing page 測需求)
+注意:分析要基於筆記實際內容,如果某個機會點是你自己延伸推論而非筆記直接提到的,請標註「延伸推論」。課程若以特定地區(如俄語市場)為背景,評估時請以台灣/國際市場的適用性重新檢視,並註明差異。輸出使用繁體中文(台灣用語)。
+```
 
 ### Ref
 + 課程整理
@@ -1178,3 +1469,7 @@ https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/
   + [Claude Fable MasterclassUdemy - Narrative structure design](https://claude.ai/cowork/cse_01FgqhRCjPVuQ14WQDTXCNZD)
   + [Claude Fable MasterclassUdemy - Narrative structure 執行 ](https://claude.ai/cowork/project/019ffe6c-92e8-7726-a98e-082a16681498)
   + [MCP課程筆記轉實際應用](https://claude.ai/chat/1ebf9e0b-28f3-48e4-84a5-99d6ad04990c)
++ 提案筆記
+  + [AI 變革願景溝通平台解析 - gemini pretty](https://gemini.google.com/u/1/app/21acaf3b5b91687e?pageId=none)
+  + [如何用 Landing Page 測需求 - gemini pretty](https://gemini.google.com/u/1/app/ede2a6666d66f138?pageId=none)
+  + [*** 智慧佔比趨勢雷達 - gemini pretty](https://gemini.google.com/u/1/app/2d8769fb6313cdfb?pageId=none)
