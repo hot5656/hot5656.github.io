@@ -40,6 +40,21 @@ A2 以下的所有資料（保留 A1 標題不動）：
   + Mac：Cmd + Shift + V
 ````
 
+#### setup playwright
+``` bash
+# check install or not
+# Bash
+claude mcp list
+or 
+npx playwright --version
+
+# install
+claude mcp add playwright npx @playwright/mcp@latest
+
+# check again
+claude mcp list
+```
+
 #### 推廣
 ``` bash
 # 1. Landing Page 測需求
@@ -516,6 +531,500 @@ pip list | grep beautifulsoup4
 # terminal 自動選擇 虛擬環境, 要安裝 plugin : Python(Microsoft)
 # 選擇 python (if need)
 按 Ctrl + Shift + P → 輸入 Python: Select Interpreter
+```
+
+### Web 專案管理
+#### 1st prompt
+``` bash
+# 專案背景
+
+你要協助我建立一套「Web 案件與裝修工程管理系統 (V3)」。這是一間室內設計／裝修統包公司的內部管理系統，業務涵蓋室內設計、裝修統包、水電/木作工程、軟裝設計及室內裝修許可申請。使用者約 10 位設計師，加上工務主管、財務、文管與系統管理員等角色，目前案件資料散落在 Excel、LINE 與個人紀錄中，需要集中雲端化。
+
+正式上線日為 2026 年 9 月 30 日，之後有 10/1～10/14 的 Hypercare 穩定期。整個系統會分成多個階段開發，這次只做「Phase 1」，請不要提前實作後續階段的功能（案件管理、工作台、報表等），但架構要為它們預留空間。
+
+# 技術與環境規格（必須遵守，不可自行更換）
+
+- 前端框架與語言：Next.js（App Router）+ TypeScript + Tailwind CSS
+- 後端與資料庫（BaaS）：Supabase（PostgreSQL、Auth、Storage、Database Triggers）
+- 本機開發：使用 Supabase CLI + Docker 的 Local Supabase，之後用 `supabase db diff` 產生 migration，用 `supabase db push` 同步到雲端
+- 部署與維運：Vercel，正式站（Production／main 分支）與測試站（Staging／Preview 分支）分離
+- 版本控制：Git，commit 訊息需清楚、可讀（不需要遵循特定 convention，但每個功能區塊應獨立 commit）
+- 程式碼、資料庫皆不可混淆或加密，未來要能完整交接給非本人團隊維護
+
+# Phase 1 範圍：系統架構建立、資料庫建置、測試站部署、登入權限功能
+
+請完成以下項目：
+
+## 1. 專案初始化
+- 使用 `create-next-app` 建立 TypeScript + Tailwind 的 Next.js 專案（App Router）。
+- 建立清楚的資料夾結構，例如：`app/`、`components/`、`lib/`（含 supabase client 初始化）、`supabase/`（migrations、seed）、`types/`。
+- 設定 ESLint / Prettier 基本規則。
+- 建立 `.env.example`，列出所需環境變數（Supabase URL、anon key、service role key 等），並在 README 說明如何設定 `.env.local`，切勿把任何金鑰寫死進程式碼或提交進版控。
+
+## 2. Supabase 資料庫與角色設計
+- 用 `supabase init` 建立本機 Supabase 專案，用 migration 檔案（不要用 Studio 手動改）定義以下最小資料表：
+  - `profiles`：對應 `auth.users`，欄位至少包含姓名、員工編號、Email、所屬部門/職稱、系統角色、帳號啟用狀態。
+  - 角色 enum／查照表：`設計師 (designer)`、`工務主管 / 專案主管 (project_manager)`、`財務 (finance)`、`文管 (doc_control)`、`系統管理員 (admin)`。
+- 撰寫 RLS（Row Level Security）政策的基礎版本：
+  - 一般使用者只能讀取/更新自己的 `profiles` 資料。
+  - `admin` 角色可以讀取與管理所有使用者資料。
+  - 其餘角色的資料存取權限先預留 policy 骨架與註解，實際案件資料表要等 Phase 2 才建立。
+- 提供一支 seed script，建立 5 個測試帳號（每個角色各一個），方便之後 Demo 與驗收使用。
+- 資料庫的所有結構異動都必須以 migration 檔案呈現在 `supabase/migrations/`，確保未來可用 `supabase db push` 完整重現。
+
+## 3. 登入與權限（IAM）
+- 使用 Supabase Auth 實作 Email + 密碼登入頁面（不需要註冊頁，帳號一律由管理員建立）。
+- 登入後依照角色導向對應介面；若尚未開發對應功能頁面，先顯示「功能開發中」的佔位頁即可，但選單必須依照下列 6 大模組先建好（Sidebar 導覽，非登入角色看不到不屬於自己的項目）：
+  1. 工作台 (My Workspace)
+  2. 案件管理 (Cases)
+  3. 派案中心 (Dispatch)（僅 project_manager / admin 可見）
+  4. 財務概況 (Finance)（僅 finance / admin 可見）
+  5. ISO 文管 (Documents)
+  6. 統計報表 (Reports)
+- 實作路由層級的權限保護（middleware 或 layout 內檢查），未登入使用者導向登入頁；已登入但角色不符者不可硬用網址直接進入受限頁面。
+- 右上角顯示目前登入使用者姓名與角色，並提供登出功能。
+
+## 4. 部署與環境分離
+- 建立 GitHub repository（若尚未初始化，請先 `git init` 並建立初始 commit）。
+- 說明並設定 Vercel 專案，讓 `main` 分支對應正式站、其他分支（例如 `staging`）對應測試站 Preview，並在 README 記錄設定步驟（因為實際串接 GitHub/Vercel 帳號需要我本人操作，你可以先把設定步驟、需要哪些環境變數、Build Command 等寫清楚，讓我照著做）。
+- 列出正式站與測試站分別需要哪些 Supabase 專案／環境變數（是否共用一個 Supabase 專案用不同 schema，或是建立兩個 Supabase 專案，請你先給我建議並說明理由，再依你的建議實作，若不確定就先問我）。
+
+## 5. 文件產出
+- 撰寫 `README.md`，涵蓋：專案簡介、技術棧、本機啟動步驟（含 Supabase Local 啟動指令）、環境變數說明、Migration 使用方式、測試帳號清單。
+- 完成後，輸出一份 `PHASE1_SUMMARY.md`，列出：已完成項目、對照下方「驗收標準」逐項確認結果、任何與規格不符或需要我確認的地方、已知限制或技術債。
+
+# 開發原則
+
+- 如果規格書內容有模糊、矛盾或需要我做決定的地方（例如：Supabase 專案要用單一專案分 schema 還是分兩個專案），請先列出問題清單問我，不要自行假設後直接動工。
+- 保持架構乾淨、前後端分離、不要寫死商業邏輯在 UI 元件裡，方便後續 Phase 擴充案件管理、工作台、報表等模組。
+- 不需要現在就做 RWD 精雕細琢，但至少要在桌機瀏覽器（1280px 以上）正常可用。
+- 每完成一個子項目就進行一次 commit，方便我追蹤進度。
+
+# Phase 1 驗收標準（Gate）
+
+完成後系統應該要能做到：
+
+1. 本機可用 `supabase start` 啟動資料庫，`npm run dev` 啟動網站，兩者串接正常。
+2. 5 個測試角色帳號都能登入，且登入後只看得到自己角色該有的選單項目。
+3. 未登入或角色不符時，直接輸入受限頁面網址會被擋下並導向適當頁面（登入頁或無權限提示）。
+4. 資料庫結構完全由 migration 檔案定義，可在乾淨環境重新 `supabase db reset` 後仍能正確重建並跑通 seed。
+5. README 與 PHASE1_SUMMARY 清楚到位，讓非本人也能照著文件把系統跑起來。
+
+完成後請先停在這裡，等我驗收通過，我會再提供 Phase 2（案件管理模組）的 prompt。
+```
+
+#### 簡單調色
+``` bash
+請針對目前已完成的畫面（登入頁、Sidebar、Layout）做一次輕量視覺調整，不要改動任何功能邏輯或元件結構：
+- 統一配色：選一組中性、專業的色票（例如深藍/靛色作主色，搭配灰階背景與白色卡片），套用在 Sidebar、按鈕、狀態標籤上
+- 確保 focus 狀態、hover 狀態有基本回饋
+- 統一字體大小與間距的層級（標題/內文/說明文字要有清楚區分）
+完成後告訴我具體改了哪些檔案，不要動到 RLS、路由保護或資料庫相關程式碼。
+```
+
+#### 修正左下方一片黑
+```
+請針對目前已完成的畫面（登入頁、Sidebar、Layout）做一次輕量視覺調整，不要改動任何功能邏輯或元件結構：
+- 修正 Sidebar 版面 bug：目前 Sidebar 外層容器背景是深色，但選單項目子容器是白底且高度沒有撐滿，導致選單下方露出一大塊突兀的深色/黑色空白。請讓 Sidebar 整體背景色與選單樣式一致、並撐滿整個側邊欄高度。
+- 統一配色：選一組中性、專業的色票（例如深藍/靛色作主色，搭配灰階背景與白色卡片），套用在 Sidebar、按鈕、狀態標籤上
+- 確保 focus 狀態、hover 狀態有基本回饋
+- 統一字體大小與間距的層級（標題/內文/說明文字要有清楚區分）
+完成後告訴我具體改了哪些檔案，不要動到 RLS、路由保護或資料庫相關程式碼。
+```
+
+#### phase 2 prompt
+``` bash
+# 專案背景
+
+延續 Phase 1 已完成的「Web 案件與裝修工程管理系統 (V3)」。Phase 1 已完成：Next.js + Supabase 專案骨架、profiles/角色資料表與 RLS 基礎、登入與角色導向選單（工作台/案件管理/派案中心/財務概況/ISO 文管/統計報表 6 大模組佔位）、測試站部署。
+
+這次要做「Phase 2」：把「案件管理」與「派案中心」兩個模組的核心功能實作出來，取代目前的「功能開發中」佔位頁。開始動工前，請先自己讀一次目前專案的 README、資料夾結構與現有 migration，確認接續得上 Phase 1 的成果，不要重新設計已經定案的角色/選單架構。
+
+請不要提前實作：三日期里程碑細節管理、進度回報、附件上傳、Audit Trail、財務期款、ISO 文管、報表 Dashboard——這些都是 Phase 3、4 的範圍，Phase 2 只做「案件資料本身」與「派案流程」。
+
+# 技術與環境規格（沿用 Phase 1，不可更換）
+
+- Next.js（App Router）+ TypeScript + Tailwind CSS
+- Supabase（PostgreSQL、Auth、RLS），本機用 Local Supabase (CLI/Docker)，用 `supabase db diff` 產生新的 migration 檔案，不要用 Studio 手動改 schema
+- 所有資料庫異動一律以新的 migration 檔案呈現，銜接在 Phase 1 既有 migration 之後
+- Git：每完成一個子項目獨立 commit
+
+# Phase 2 範圍：案件主檔、建案、待派、派案及核心輸入功能
+
+## 1. 案件主檔資料表設計（`cases`）
+
+請設計並用 migration 建立案件主檔資料表，至少包含以下欄位（可依你的專業判斷補充必要欄位，但請在 PHASE2_SUMMARY 中列出你額外加的欄位與原因）：
+
+- `case_id`：系統自動產生的唯一案件編號，格式為 `DX` + 西元年後兩碼 + 月份（2碼）+ `-` + 該月流水號（3碼），例如 `DX2608-001`；請用資料庫層（sequence/trigger 或等效機制）確保產生方式穩定且不會重複，不要單純用前端亂數。
+- `case_name`：案件名稱（必填）
+- `client_name`：客戶名稱（必填）
+- `project_type`：專案類型，enum：室內設計案 / 景觀規劃案 / 建築全案設計 / 裝修工程統包
+- `case_mode`：案件模式，enum：純設計案 / 純工程案 / 設計+工程統包（這個欄位會決定 Phase 3 要套用哪一組里程碑範本，這裡先只存值，不用實作里程碑邏輯）
+- `source`：案件來源，enum：舊客回流 / 官方網站諮詢 / 同行轉介 / 公開競標案
+- `planned_start_date`：預計啟動日期
+- `planned_delivery_date`：預計交付日期（必須晚於啟動日期，請做欄位層級或表單層級的驗證）
+- `description`：案件概述與需求備註（多行文字）
+- `status`：案件狀態，enum：草稿 / 待派 / 已派案 / 進行中 / 已完成 / 取消
+- `primary_designer_id`：主責設計師（FK 至 profiles，派案後才會有值）
+- `priority`：派案優先級，enum：一般 / 優先 / 緊急（派案後才會有值）
+- `milestone_template`：里程碑範本選擇，enum：標準住宅範本 / 商辦設計範本 / 快速變更範本（派案後才會有值，Phase 3 才會用到實際邏輯）
+- `assignment_notes`：指派說明與交辦事項
+- `created_by` / `created_at` / `updated_at` / `assigned_by` / `assigned_at`
+
+另外請建立一張 `case_collaborators`（或你認為更合適的命名）多對多關聯表，記錄協同設計師/助理，一個案件可以有 0～多位協同人員。
+
+## 2. RLS 權限規則
+
+- `admin`、`project_manager`：可以讀取、新增、修改所有案件。
+- `designer`：只能讀取自己是 `primary_designer_id` 或在 `case_collaborators` 內的案件，不能新增案件、不能修改案件主檔欄位（Phase 3 才開放他們更新自己案件的進度相關欄位）。
+- `finance`、`doc_control`：這個階段先不開放存取 `cases` 表（維持 Phase 1 選單看不到「案件管理」「派案中心」的邏輯），除非你覺得有正當理由需要唯讀權限，若有請先問我再做。
+
+## 3. 新增案件頁面（Create Case Form）
+
+- 路徑掛在「案件管理」模組下。
+- 欄位對應上面 `cases` 表可在建案階段填寫的部分（`case_id` 顯示為系統自動產生、唯讀）。
+- 提供「存為草稿」（狀態＝草稿）與「建立案件並送至待派池」（狀態＝待派）兩個動作。
+- 表單驗證：必填欄位、交付日期必須晚於啟動日期。
+- 僅 `project_manager` 與 `admin` 可以看到並使用此頁面。
+
+## 4. 待派案件清單與派案流程（Dispatch）
+
+在「派案中心」模組下（僅 `project_manager` / `admin` 可見）：
+
+- 待派案件清單（Unassigned Cases Table）：列出所有狀態為「待派」的案件，至少顯示 Case ID、案件名稱、客戶名稱、案件類型、建立時間。
+- 設計師即時負載顯示：在派案時，顯示 10 位設計師目前「進行中」案件數量（可用簡單的顏色分級，例如 0 件、1-2 件、3 件、4 件以上，門檻你可以自行合理設定，並在 PHASE2_SUMMARY 說明）。
+- 派案表單（Modal 或獨立頁面均可）：選擇主責設計師（必填）、協同設計師（可複選、非必填）、派案優先級、里程碑範本、指派說明，送出後將案件狀態改為「已派案」，並記錄 `assigned_by`、`assigned_at`。
+- 派案動作完成後，該案件應該從待派清單消失，並可在案件列表中查到目前狀態。
+
+## 5. 案件列表／案件管理主頁（輕量版）
+
+- 在「案件管理」模組首頁，提供一個簡易的案件列表：顯示所有案件（依角色權限過濾），至少可依「狀態」篩選、依 Case ID 或案件名稱做關鍵字搜尋。
+- 這裡先做「堪用」的列表即可，不需要規格書中「進階綜合查詢」的完整欄位篩選與 Excel 匯出，那是 Phase 4 的範圍。
+- 設計師登入後，「案件管理」列表應該只看得到自己被指派或協同的案件；`project_manager`/`admin` 看得到全部。
+
+## 6. 工作台（輕量版，僅供銜接）
+
+- 目前「工作台」頁面先只顯示登入者自己名下（`primary_designer_id` 或協同）的案件清單卡片（Case ID、案名、客戶、狀態），不需要進度回報、卡關、里程碑等互動功能，那些留給 Phase 3。
+
+# 開發原則
+
+- 若規格有模糊或需要我決定的地方（例如：里程碑範本的實際內容、優先級的顏色門檻、`case_mode` 是否要在建案階段就選還是派案階段才選），請先列出問題清單問我，不要自行假設後直接動工——`case_mode` 這點尤其重要，請務必先跟我確認要放在「新增案件」還是「派案」表單。
+- Case ID 產生邏輯務必在資料庫層保證不重複，並考慮月份切換時流水號重置的情境，寫一個簡單的測試或說明文件證明這件事有處理好。
+- 沿用 Phase 1 的元件與樣式風格（Sidebar、卡片、按鈕等），不要另外發明一套新的視覺語言。
+- 不要改動 Phase 1 已經驗收過的登入、RBAC、Sidebar 選單顯示邏輯，除非是因為這次新增模組需要的最小必要調整（例如把佔位頁換成真正頁面），若需要調整既有程式碼請在 commit message 或 PHASE2_SUMMARY 說明原因。
+- 每完成一個子項目就進行一次 commit。
+
+# Phase 2 驗收標準（Gate）
+
+完成後系統應該要能做到：
+
+1. `project_manager`/`admin` 登入後可以成功新增一筆案件（存草稿與直接送待派兩種路徑都要能跑），系統會自動產生格式正確且不重複的 Case ID。
+2. 待派案件清單正確顯示所有「待派」狀態案件，派案後案件會從清單消失、狀態變成「已派案」，且能在案件列表查到正確的主責設計師。
+3. 派案時能看到設計師目前的負載數字，數字要能反映「進行中」案件的實際數量（可用手動調整測試資料驗證）。
+4. 設計師帳號登入後，「工作台」與「案件管理」都只看得到自己被指派/協同的案件，看不到別人的案件，也無法透過網址直接存取不屬於自己的案件詳情（用瀏覽器直接打 URL 測試要被擋下）。
+5. `finance`、`doc_control` 帳號登入後，仍然看不到「案件管理」「派案中心」選單與頁面。
+6. 資料庫結構全部由 migration 檔案定義，`supabase db reset` 後可完整重建。
+7. 輸出 `PHASE2_SUMMARY.md`：列出已完成項目、對照上述驗收標準逐項確認結果、你額外新增的欄位與理由、任何與規格不符或需要我確認的地方。
+
+完成後請先停在這裡，等我驗收通過，我會再提供 Phase 3（設計師工作台、三日期里程碑、Audit Trail）的 prompt。
+```
+
+#### phase 3 prompt
+``` bash
+# 專案背景
+
+延續 Phase 1、Phase 2 已完成的「Web 案件與裝修工程管理系統 (V3)」。目前狀況：
+
+- Phase 1：Next.js + Supabase 專案骨架、profiles/角色資料表與 RLS、登入與角色導向 Sidebar。
+- Phase 2：`cases` 案件主檔（含 `case_mode`、`milestone_template` 欄位）、`case_collaborators`、新增案件、待派清單與派案流程、輕量版案件列表與工作台（工作台目前只列出案件卡片，沒有互動功能）。
+
+開始動工前，請先自己讀一次目前專案的 README、資料夾結構、既有 migration 與 `cases`/`case_collaborators` 的欄位設計，確認接續得上，不要重新設計已經定案的資料表。
+
+這次要做「Phase 3」：把「設計師/工務工作台」做成完整可用的版本，並實作三日期里程碑控管、進度回報、附件上傳、Audit Trail。這是整個系統裡最核心、最常被日常操作的部分，請特別注意易用性。
+
+請不要提前實作：財務期款與現金流、ISO 文管收發文、進階查詢與 Dashboard、全域稽核軌跡查詢頁面——這些是 Phase 4 的範圍。Phase 3 的 Audit Trail 只需要做好「資料被完整記錄」與「單一案件的歷程時間軸」，不需要做跨案件的全域查詢/篩選介面。
+
+# 技術與環境規格（沿用 Phase 1/2，不可更換）
+
+- Next.js（App Router）+ TypeScript + Tailwind CSS
+- Supabase（PostgreSQL、Auth、RLS、Storage、Database Triggers），本機用 Local Supabase (CLI/Docker)，用 `supabase db diff` 產生新的 migration 檔案，銜接在既有 migration 之後，不要用 Studio 手動改 schema
+- Git：每完成一個子項目獨立 commit
+
+# Phase 3 範圍
+
+## 1. 里程碑範本與資料表（`milestones`）
+
+- 建立 `milestones` 資料表：`case_id`（FK）、`milestone_name`、`stage`（enum：設計段 / 工程段）、`sequence_order`、`planned_date`（計畫完成日期）、`latest_estimated_date`（最新完成日期）、`actual_date`（實際完成日期）、`created_at`、`updated_at`。
+- 定義兩組固定里程碑範本內容（可用 seed 資料或程式碼常數表示，不一定要另建資料表，但要讓「標準住宅範本／商辦設計範本／快速變更範本」都能對應出一組里程碑清單，若你認為三個範本內容應該不同，請先列出你規劃的三組內容問我確認，不要自行憑空決定）：
+  - 設計段：現場丈量 → 概念提案 → 平面配置 → 3D 渲染 → 施工圖交付
+  - 工程段：室裝審查許可 → 開工進場 → 水電泥作 → 木作油漆 → 完工驗收
+  - `case_mode = 純設計案` 只產生設計段里程碑；`純工程案` 只產生工程段；`設計+工程統包` 兩段都要。
+- 派案完成（Phase 2 的派案動作）時，系統應自動依 `case_mode` 與 `milestone_template` 產生對應的 `milestones` 列，`planned_date` 初始可先留空或帶入合理預設值（例如依案件的 `planned_delivery_date` 反推，若不確定怎麼給初始值，請先問我）。
+- 里程碑一旦產生，`planned_date` 預設鎖定（只有 `admin` 可以重置初始值），`latest_estimated_date` 與 `actual_date` 由設計師或主管在使用過程中維護。
+
+## 2. 里程碑日期調整（Milestone Date Edit）
+
+- 提供調整單一里程碑 `latest_estimated_date` / `actual_date` 的介面（Modal 或獨立頁面）。
+- 欄位：里程碑名稱（唯讀）、計畫完成日期（唯讀，僅 admin 可見「重置」選項）、最新完成日期（必填）、實際完成日期（完工時才填）、時程異動原因分類（enum：客戶需求變更 / 追加預算修改 / 審查延誤 / 內部資源調度）、詳細異動說明（必填多行文字）。
+- **關鍵要求**：這個動作必須用一個資料庫函式（RPC，例如 `update_milestone_date(...)`）在同一個交易內完成「更新 milestones 資料」與「寫入 Audit Log」，不要只靠前端分兩次呼叫，避免只改到日期卻漏寫稽核紀錄。
+- 權限：主責設計師與協同設計師可以調整自己案件的里程碑；`project_manager`/`admin` 可以調整所有案件。
+
+## 3. 進度回報（Progress Update）
+
+- 建立 `case_progress_updates` 歷史紀錄表：`case_id`、`reported_by`、`report_date`、`current_stage`（對應目前所在里程碑階段）、`progress_percent`（0～100）、`summary`（本週進度摘要，必填）、`has_blocker`（布林）、`blocker_type`、`blocker_reason`。
+- `blocker_type` enum 請使用以下裝修實務選項：管委會施工許可審查延誤 / 室裝審查（審查機構/建築師）補件 / 現場結構與原圖不符需變更設計 / 業主追加或減工項確認中 / 缺料或特定工種工班調度衝突 / 其他。
+- 每次送出進度回報時，除了寫入歷史表，也請同步更新 `cases` 上的「目前快照」欄位（例如 `current_progress_percent`、`current_stage`、`has_active_blocker`），方便工作台與之後 Phase 4 的報表用簡單查詢就能拿到最新狀態，不用每次都算歷史表的最新一筆。
+- 表單：案件選取（唯讀帶入）、當前階段狀態（單選）、總體完成進度（滑桿或數字框）、本週進度摘要（必填）、是否遭遇卡關（切換開關，開啟後卡關類型與卡關原因必填）。
+- 權限：主責設計師與協同設計師可對自己的案件送出進度回報；`project_manager`/`admin` 可檢視所有案件的進度回報，不需要能代替設計師送出（若你認為主管也該能代填，請先問我）。
+
+## 4. 附件上傳（Attachments）
+
+- 使用 Supabase Storage 建立一個 bucket（例如 `case-attachments`），搭配 `case_attachments` 資料表：`case_id`、`uploaded_by`、`file_path`、`display_name`、`category`（enum：合約協議 / CAD 圖資 / 3D 效果圖 / 會議紀錄 / 變更設計單 / 驗收文件）、`file_size`、`uploaded_at`。
+- 上傳介面：支援拖曳上傳，限制副檔名（PDF, DWG, PNG, JPG, ZIP）與單檔大小（50MB），上傳後顯示於案件詳情頁的附件清單，可下載。
+- 用 Storage 的 RLS / signed URL 機制確保只有該案件的主責設計師、協同設計師、`project_manager`、`admin` 能下載附件，不要做成公開連結。
+
+## 5. Audit Trail 基礎建設
+
+- 建立通用的 `audit_logs` 資料表：`table_name`、`record_id`、`field_name`、`old_value`、`new_value`、`changed_by`、`changed_at`、`reason`（可為空，里程碑日期變更時一定要有值）。
+- 對 `cases` 與 `milestones` 的重要欄位（狀態、三個日期、主責設計師）建立 Trigger，任何 UPDATE 都自動寫入 `audit_logs`（記錄修改前後數值、修改人、修改時間），不要仰賴應用層自己記得寫，避免漏記。
+- 在案件詳情頁面新增一個「異動歷程」時間軸區塊，依時間排序顯示該案件（含其里程碑）的所有稽核紀錄，這是給單一案件看的簡易版，不需要跨案件篩選查詢（那是 Phase 4 全域稽核頁面的範圍）。
+
+## 6. 設計師 / 工務工作台完整版
+
+把 Phase 2 的輕量版工作台，升級為規格書要求的完整介面：
+
+- 進行中案件列表（含卡關警示標籤、逾期提醒標籤——逾期可先用「最新完成日期 < 今天且尚無實際完成日期」判斷）。
+- 每張案件卡片可展開看到該案件目前的里程碑清單與三個日期。
+- 提供「更新進度」與「調整里程碑日期」的快速入口（開啟對應的 Modal）。
+- 附件上傳入口整合在案件詳情頁或工作台內。
+
+# 開發原則
+
+- 里程碑範本的實際內容、初始 `planned_date` 給值邏輯、主管是否可代填進度——這幾點規格沒有寫死，請先列出問題清單問我確認，不要自行假設後直接動工。
+- 稽核紀錄的正確性優先於其他一切，寧可多記錄也不要漏記；請特別針對「里程碑日期變更一定要有 Audit Log」這件事寫測試或至少手動驗證流程並記錄在 PHASE3_SUMMARY。
+- 沿用既有的元件與視覺風格，不要另外發明新的設計語言。
+- 不要改動 Phase 1、Phase 2 已驗收的登入、RBAC、派案流程邏輯，除非是這次新增功能需要的最小必要調整，若需調整請在 commit message 或 PHASE3_SUMMARY 說明原因。
+- 每完成一個子項目就進行一次 commit。
+
+# Phase 3 驗收標準（Gate）
+
+完成後系統應該要能做到：
+
+1. 案件派案完成後，會依 `case_mode` 自動產生對應的里程碑列表（純設計案/純工程案/統包案各測一筆驗證）。
+2. 設計師可以在工作台對自己的案件送出進度回報，包含開啟卡關並填寫卡關類型與原因，送出後工作台與案件詳情頁都能看到最新狀態。
+3. 調整里程碑的最新完成日期或實際完成日期時，若未填寫異動原因無法送出；送出後可在該案件的異動歷程時間軸看到這筆變更（含修改前後數值、修改人、修改時間）。
+4. 附件可以成功上傳並下載，非該案件相關人員（用另一個設計師帳號測試）無法取得附件下載連結。
+5. 直接對 `cases`/`milestones` 資料表做一次日期異動（例如透過 SQL 或另一支測試 API），確認 Trigger 有自動寫入 `audit_logs`，不依賴應用層程式碼是否記得呼叫。
+6. 資料庫結構全部由 migration 檔案定義，`supabase db reset` 後可完整重建。
+7. 輸出 `PHASE3_SUMMARY.md`：列出已完成項目、對照上述驗收標準逐項確認結果、里程碑範本與初始值的實際規劃內容、任何與規格不符或需要我確認的地方。
+
+完成後請先停在這裡，等我驗收通過，我會再提供 Phase 4（查詢報表、Dashboard、20 件真實資料 UAT）的 prompt。
+```
+
+#### phase 3.5
+``` bash
+# 專案背景
+
+延續 Phase 1～3 已完成的「Web 案件與裝修工程管理系統 (V3)」。目前狀況：
+
+- Phase 1：專案骨架、profiles/角色資料表與 RLS、登入與角色導向 Sidebar。
+- Phase 2：`cases` 案件主檔、`case_collaborators`、新增案件、待派清單與派案流程、案件列表與工作台。
+- Phase 3：`milestones` 里程碑資料表與自動產生邏輯、里程碑日期調整（含強制填寫理由）、`case_progress_updates` 進度回報、`case_attachments` 案件附件上傳（Supabase Storage + 權限控管，非公開連結）、通用 `audit_logs` 稽核紀錄與案件異動歷程時間軸、完整版工作台。
+
+開始動工前，請先自己讀一次目前專案的 README、資料夾結構與既有 migration，尤其是 `cases`、`audit_logs`、`case_attachments` 的欄位設計，確認接續得上，不要重新設計已經定案的資料表或稽核機制。
+
+這次要做「Phase 3.5」（這是規格書原本六階段付款表沒有排入、但屬於規格書「核心功能規格」第 5 項的模組，補在這裡做，以便銜接之後 Phase 4 的財務/文管相關報表）：把「財務、追加減與文管模組」的 4 個輸入頁面做出來，取代目前「財務概況」「ISO 文管」選單的「功能開發中」佔位頁。
+
+請不要提前實作：財務/文管相關的查詢報表、Dashboard、Excel 匯出、全域稽核軌跡查詢頁面——這些是 Phase 4 的範圍，Phase 3.5 只做「資料輸入」與最基本的「這裡有什麼」列表，不做進階篩選統計。
+
+# 技術與環境規格（沿用 Phase 1~3，不可更換）
+
+- Next.js（App Router）+ TypeScript + Tailwind CSS
+- Supabase（PostgreSQL、Auth、RLS、Storage），本機用 Local Supabase (CLI/Docker)，用 `supabase db diff` 產生新的 migration 檔案，銜接在既有 migration 之後
+- 沿用 Phase 3 已經建立的 `audit_logs` 通用稽核機制與 Trigger 寫法：這次新增的合約金額、期款狀態、收款狀態等重要欄位異動，也要比照辦理自動寫入 `audit_logs`，不要漏掉
+- Git：每完成一個子項目獨立 commit
+
+# Phase 3.5 範圍
+
+## 1. 合約與期款設定（Contract & Payment Terms）
+
+- `contracts` 資料表：`case_id`（FK，一個案件目前先假設對應一份合約，若你認為應該允許一案多約，請先問我）、`contract_no`、`amount_pretax`（未稅合約總額）、`tax_amount`（稅額 5%，可用 generated column 或應用層計算，兩者擇一並說明原因）、`amount_total`（含稅總額）、`signed_date`、`created_by`、`created_at`。
+- `contract_payment_terms` 資料表（一份合約可有多期）：`contract_id`（FK）、`term_name`（例如「第一期 簽約款」）、`percentage`、`expected_amount`（依比例換算）、`trigger_condition`（請款觸發條件文字說明）、`sequence_order`。前端需檢查所有期別的 `percentage` 加總等於 100%，不等於時要擋下不給送出。
+- `contract_addons` 資料表（因應 v2 規格書要求的「工程追加減」，避免完工時帳目對不上原合約金額）：`contract_id`（FK）、`addon_name`、`amount`（可正可負）、`reason`、`addon_date`、`created_by`。
+- 表單：新增/編輯合約（含動態增刪期款列）、獨立的「新增追加減款項」表單。
+- 權限：`finance`、`admin` 可以完整讀寫；`project_manager` 對自己負責案件的合約僅唯讀（若你認為主管不需要看到金額，請先問我，不要自行假設要不要開放）；`designer`、`doc_control` 這階段不開放存取。
+
+## 2. 請款／收款紀錄登打（Invoice & Cash Flow Entry）
+
+- `invoice_records` 資料表：`contract_payment_term_id`（FK，關聯到請款是哪一期）、`invoice_amount`（含稅，預設帶入該期 `expected_amount`，可微調）、`invoice_date`、`invoice_no`、`payment_status`（enum：待開票 / 已請款待入帳 / 已全額收款 / 逾期未付）、`actual_received_date`（狀態為已收款時必填）、`actual_received_amount`、`bank_fee`（匯款手續費/折讓，預設 0）、`notes`（收款備註/水單編號）。
+- 表單：選擇案件與期別後（連動下拉，選了案件才能選該案件底下的期款），帶入預設請款金額，其餘欄位手動填寫。
+- 權限：同上，`finance`/`admin` 可讀寫，`project_manager` 唯讀（比照合約模組），其餘角色不開放。
+
+## 3. ISO 收發文登記（ISO In/Out Dispatch Form）
+
+- `iso_documents` 資料表：`dispatch_type`（enum：外部來文 / 內部發文）、`iso_doc_no`（系統自動跳號，格式 `ISO-{西元年}-{三碼流水號}`，例如 `ISO-2026-088`，請用資料庫層機制確保不重複，比照 Phase 2 Case ID 的做法）、`original_doc_no`（原文字號/對方文號）、`subject`（公文主旨，必填）、`counterpart_unit`（來文/受文單位，必填）、`dispatch_date`、`related_case_id`（FK，可為空，非必須關聯案件）、`urgency`（enum：普通 / 速件 / 最速件）、`confidentiality`（enum：普通 / 機密）、`created_by`、`created_at`。
+- `iso_document_handlers`：多對多關聯表，記錄承辦/會簽人員（多選）。
+- 表單：登記表單（含關聯案件的下拉搜尋選單，可選「無關聯」）。
+- 權限：`doc_control`、`admin` 可完整讀寫；其餘角色這階段不開放（若某案件的 `project_manager` 應該要能看到跟自己案件相關的收發文，請先問我要不要開放唯讀，不要自行假設）。
+
+## 4. 文管附件與圖資上傳（含版本控管）
+
+- 這裡指的是「一般文件版本管理」，跟 Phase 3 的 `case_attachments`（案件日常附件，例如設計圖稿）用途不同，這裡著重在合約掃描檔、ISO 附件、正式文件的**版本追蹤**。請先判斷：要新增一張獨立的 `documents` 資料表（建議欄位：`related_case_id` 可為空、`related_iso_document_id` 可為空、`category`、`display_name`、`version_number`、`version_note`、`storage_path`、`confidentiality_level`、`is_current_version`、`supersedes_document_id` 自我關聯指向前一版、`uploaded_by`、`uploaded_at`），還是擴充 Phase 3 的 `case_attachments` 加上版本欄位就好。這兩種做法你各有取捨，**請先列出你的建議與理由問我**，確認後再動工，不要自己選一個就直接刻資料庫。
+- 上傳時可選擇「這是新文件」或「這是既有文件的新版本」，選新版本時要延續前一版的顯示名稱與分類，`version_number` 依你規劃的規則遞增（例如 v1.0 → v1.1），並把前一版的 `is_current_version` 改為 false。
+- 分類（`category`）：合約協議 / CAD 圖資 / 3D 效果圖 / 會議紀錄 / 變更設計單 / 驗收文件。
+- 沿用 Phase 3 已經做好的 Storage 權限機制（private bucket + 依權限核發 signed URL，不做公開連結），機密等級（`confidentiality_level`：公開 / 僅專案成員 / 僅主管與財務）需要真的影響下載權限判斷，不能只是顯示用的標籤。
+
+## 5. 最基本的列表頁（先求堪用，不做進階查詢）
+
+在「財務概況」與「ISO 文管」兩個模組首頁，各提供一個簡單列表：
+
+- 財務概況：合約清單（可依案件搜尋）、請款/收款清單（可依狀態粗略篩選：待開票/待入帳/已收款/逾期）。
+- ISO 文管：收發文清單（可依收發類別、關聯案件粗略篩選）、文件版本庫（列出目前版本，點開可看歷史版本）。
+- 這些列表只需要堪用即可，完整的進階篩選、統計圖表、Excel 匯出留給 Phase 4。
+
+# 開發原則
+
+- 有幾個地方規格沒寫死，請務必先問我再動工，不要自行假設：一案是否只能對一份合約、`project_manager` 對財務資料/ISO 收發文是否該有唯讀權限、`documents` 版本控管要獨立建表還是擴充 `case_attachments`。
+- 合約金額、期款狀態、收款狀態的異動，比照 Phase 3 的做法自動寫入 `audit_logs`，這塊涉及金錢，稽核紀錄不能漏。
+- 沿用既有的元件與視覺風格，不要另外發明新的設計語言。
+- 不要改動 Phase 1～3 已驗收的功能與資料表，除非是這次新增功能需要的最小必要調整，若需調整請在 commit message 或 PHASE3.5_SUMMARY 說明原因。
+- 每完成一個子項目就進行一次 commit。
+
+# Phase 3.5 驗收標準（Gate）
+
+完成後系統應該要能做到：
+
+1. `finance`/`admin` 可以成功建立一份合約與其期款拆分（期款比例加總須為 100% 才能送出），並能新增一筆追加減款項。
+2. `finance`/`admin` 可以針對某一期期款登打請款/收款紀錄，狀態變化（待開票 → 已請款待入帳 → 已全額收款/逾期未付）與相關金額欄位的異動能在 `audit_logs` 查到紀錄。
+3. `doc_control`/`admin` 可以成功登記一筆 ISO 收發文，`iso_doc_no` 自動產生且格式正確、不重複（比照 Phase 2 Case ID 的驗證方式測試）。
+4. 可以上傳一份文件、再針對同一份文件上傳「新版本」，系統正確遞增版號並把舊版標記為非目前版本，兩個版本都還能個別下載。
+5. 用 `designer` 帳號登入，確認看不到「財務概況」「ISO 文管」選單與頁面（除非你們討論後決定要給 `project_manager` 開唯讀，這點依討論結果驗收）。
+6. 資料庫結構全部由 migration 檔案定義，`supabase db reset` 後可完整重建。
+7. 輸出 `PHASE3.5_SUMMARY.md`：列出已完成項目、對照上述驗收標準逐項確認結果、`documents` 資料表的設計決策與理由、任何與規格不符或需要我確認的地方。
+
+完成後請先停在這裡，等我驗收通過，我會再提供 Phase 4（查詢報表、Dashboard、20 件真實資料 UAT）的 prompt。
+```
+
+#### session 交接檔
+``` bash
+# Phase 3.5 尾聲的總結
+# 在準備結束 Phase 3.5 的 Session 時，直接請 Claude 產出一份專案現況與交接檔。
+指令範例： 我們已經完成 Phase 3.5。請幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 Phase 4 的待辦事項，並將其整理儲存為 docs/phase3_5_handover.md。
+
+# Phase 4 的啟動
+# 開啟全新的 Session，並將這份交接檔與新的目標餵給它。
+指令範例： read docs/phase3_5_handover.md。請先閱讀這份架構文件，我們現在基於這個基礎，開始進行 Phase 4 的開發：[描述 Phase 4 的具體功能]
+
+# Phase 4  執行中斷 整理
+目前正執行 Phase 4 幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 Phase 4 的待辦事項，並將其整理儲存為 docs/phase4_1_handover.md。
+
+# Phase 4_1 繼續開發
+read docs/phase4_1_handover.md 幫我列出目前還待處理的項目
+
+# Phase 4_2 斷點
+我們已經完成 Phase 4。請幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 Phase 5 的待辦事項，並將其整理儲存為 docs/phase4_2_handover.md。
+
+# Phase 4_3 繼續開發(未做)
+read docs/phase4_2_handover.md 以作為後續開發之參考
+
+# Phase 4_3_1 斷點
+請幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 所有待辦事項，並將其整理儲存為 docs/phase4_3＿1_handover.md。
+```
+
+#### phase 4 prompt
+
+``` bash
+# 專案背景
+
+延續 Phase 1～3.5 已完成的「Web 案件與裝修工程管理系統 (V3)」。目前狀況：
+
+- Phase 1：專案骨架、profiles/角色與 RLS、登入與角色導向 Sidebar。
+- Phase 2：`cases` 案件主檔、`case_collaborators`、新增案件、待派清單與派案流程、輕量版案件列表與工作台。
+- Phase 3：`milestones` 里程碑（三日期）、里程碑日期調整（強制填理由）、`case_progress_updates` 進度回報、`case_attachments` 案件附件（Storage 權限控管）、通用 `audit_logs` 稽核紀錄與案件異動歷程時間軸、完整版工作台。
+- Phase 3.5：`contracts`／`contract_payment_terms`／`contract_addons`（合約與期款）、`invoice_records`（請款/收款）、`iso_documents`／`iso_document_handlers`（ISO 收發文）、`documents`（文件版本控管），以及財務/文管的輕量列表頁。
+
+開始動工前，請先自己讀一次目前專案的 README、資料夾結構、既有 migration，尤其是上面提到的每一張表目前實際的欄位名稱（因為 Phase 3.5 有幾個設計決策是問過我才定案的，欄位命名可能跟這份 prompt裡寫的不完全一樣），確認接續得上，不要重新設計已經定案的資料表。
+
+這次要做「Phase 4」：把散落在各模組的「輕量版列表」升級成規格書要求的完整查詢/報表/Dashboard 頁面，並用 20 件真實（或高擬真度）案件資料跑一次完整 UAT，作為這個階段的驗收交付標的。
+
+請不要提前實作：Production 正式站部署、正式帳號建立、教育訓練、Hypercare 相關工作——這些是 Phase 5、6 的範圍。
+
+# 技術與環境規格（沿用 Phase 1~3.5，不可更換）
+
+- Next.js（App Router）+ TypeScript + Tailwind CSS
+- Supabase（PostgreSQL、Auth、RLS），本機用 Local Supabase (CLI/Docker)，用 `supabase db diff` 產生新的 migration 檔案（這個 Phase 主要是查詢/檢視功能，如果新增欄位或索引才需要 migration，不要為了做報表就大改既有資料表結構）
+- Git：每完成一個子項目獨立 commit
+
+# Phase 4 範圍
+
+## 1. 案件全覽與進階查詢頁面（Case Directory & Advanced Filter）
+
+把 Phase 2 的輕量版案件列表升級為完整版：
+
+- 支援跨欄位組合查詢：Case ID、客戶名稱、案件狀態、案件類型、案件模式、負責設計師、日期區間（可選擇是查建立日期、預計交付日期還是任一里程碑日期）。
+- 支援 Excel（`.xlsx`）匯出目前篩選結果，欄位至少涵蓋 Case ID、案名、客戶、類型、狀態、主責設計師、三個關鍵日期、目前進度百分比。
+- 權限比照 Phase 2：`designer` 只能查詢/匯出自己相關的案件；`project_manager`/`admin` 可查詢/匯出全部。
+
+## 2. 專案進度與逾期監控看板（WIP & Delay Monitor）
+
+- 用清楚的視覺化方式（狀態分組、色彩標籤即可，不需要複雜圖表）呈現：在建工程（WIP，狀態為進行中）、即將到期（例如最新完成日期在未來 7 天內且尚無實際完成日期，天數門檻請合理設定並在 SUMMARY 說明）、已逾期（Overdue，最新完成日期已過但無實際完成日期）、卡關中（`has_active_blocker = true`）。
+- 每個分類要能點進去看到對應案件清單。
+- 這頁沿用 Phase 3 建立的里程碑與進度回報資料，不需要新增資料表。
+
+## 3. 人員工作負荷與產能統計（Workload & Capacity Dashboard）
+
+- 統計 10 位設計師：目前進行中案件數、各狀態案件分佈、近期完成案件數，作為派案參考。
+- 可用簡單的長條圖或表格呈現（若要畫圖表，請遵循專案既有的 UI 風格，不需要另外引入笨重的圖表套件，能用簡單的 CSS/SVG 做出清楚的長條/儀表即可）。
+- 這頁資料應該跟 Phase 2 派案中心「設計師即時負載顯示」用同一套查詢邏輯，避免兩處數字對不起來——若你發現兩處算法不一致，請抽成共用的查詢/函式，不要各寫一份。
+
+## 4. 派案中心 Dashboard 補強
+
+把 Phase 2 的派案中心，補上規格書要求的頂部 KPI 卡片：待指派案件數、進行中案件數、設計師平均負載、本週到期里程碑數。這些卡片的數字要能連動到本 Phase 做的查詢頁面（點卡片可以跳轉到對應的篩選結果）。
+
+## 5. 財務期款與現金流追蹤表（Financial & Cash Flow Overview）
+
+- 統計各案件／各合約：合約總額（含追加減後的實際總額）、已請款金額、已收款金額、未收款金額、預期入帳時程。
+- 可依案件、依收款狀態篩選。
+- 權限比照 Phase 3.5：`finance`/`admin` 可完整查看；`project_manager` 依 Phase 3.5 討論結果決定是否唯讀。
+
+## 6. ISO 文管與歷史版本庫（ISO Document Library）
+
+- 依案件或依文件分類瀏覽 `documents`／`iso_documents`，可查看每份文件的歷史版本列表與下載，並記錄「調閱紀錄」（誰在什麼時候看過/下載過這份文件——可以簡單記在 `audit_logs` 或另建一張輕量的 `document_access_logs`，你評估後選一種做法並說明原因）。
+- 權限比照 Phase 3.5 的 `documents`/`iso_documents` 存取規則。
+
+## 7. 全域稽核軌跡查詢頁面（Audit Trail Log Viewer）
+
+- 把 Phase 3 只在單一案件詳情頁看得到的「異動歷程時間軸」，做成一個跨案件、可篩選的全域查詢頁：可依資料表（案件/里程碑/合約/期款等）、案件、操作人員、時間區間篩選 `audit_logs`。
+- 顯示欄位：異動時間、操作人員、資料表與欄位、修改前後數值、異動原因（若有）。
+- 僅 `admin`（以及你認為合理需要稽核能力的角色，如 `project_manager`，若不確定請先問我）可以存取這個頁面。
+
+## 8. 20 件真實案件資料 UAT
+
+- 請我提供（或引導我提供）20 件真實或高擬真度的案件資料，涵蓋不同案件模式（純設計/純工程/統包）、不同狀態（草稿、待派、已派案、進行中、已完成、卡關中、逾期）、不同財務狀態（未請款、已請款待入帳、已收款、逾期未付）。如果我還沒準備好真實資料，請先問我要不要用貼近真實情境的假資料 seed 20 筆，讓你可以先把 UAT 流程跑過一次。
+- 針對這 20 筆資料，實際操作一輪完整流程：建案 → 派案 → 進度回報/卡關 → 里程碑日期調整 → 合約與期款設定 → 請款/收款登打 → 各查詢報表頁面驗證數字正確（例如逾期案件數、設計師負載數字要跟這 20 筆資料手動核對得上）。
+- 輸出一份 UAT 報告（`PHASE4_UAT_REPORT.md`），列出：測試案例、預期結果、實際結果、發現的問題與修正紀錄。
+
+# 開發原則
+
+- 這個 Phase 主要是「把資料組織成看得懂的畫面」，請優先確保數字正確、篩選邏輯正確，視覺呈現堪用即可，不要為了畫面好看犧牲查詢效能或正確性。
+- 有共用的統計邏輯（例如設計師負載計算）要抽成共用函式，不要在派案中心、Workload Dashboard、KPI 卡片各寫一份而導致數字兜不起來。
+- 全域稽核頁面的權限開放範圍、文件調閱紀錄要不要另建表——這兩點請先問我確認再動工。
+- 每完成一個子項目就進行一次 commit。
+
+# Phase 4 驗收標準（Gate）
+
+完成後系統應該要能做到：
+
+1. 案件全覽頁面可用組合條件正確篩選出預期結果，並能成功匯出 Excel。
+2. WIP/逾期/卡關監控看板的分類數字，跟手動檢查資料庫的結果一致。
+3. 人員工作負荷統計、派案中心 KPI 卡片、Workload Dashboard 三處的設計師負載數字一致（同一套邏輯算出來的）。
+4. 財務期款與現金流追蹤表的已請款/已收款/未收款金額，跟 Phase 3.5 輸入的原始資料手動核算一致。
+5. ISO 文管與歷史版本庫可以正確瀏覽並下載指定版本的文件。
+6. 全域稽核軌跡查詢頁面可依表格/案件/人員/時間篩選，且非授權角色無法存取。
+7. 完成 20 件真實案件資料的 UAT，`PHASE4_UAT_REPORT.md` 交付，且報告中列出的問題都已修正或明確標註為已知限制。
+8. 輸出 `PHASE4_SUMMARY.md`：列出已完成項目、對照上述驗收標準逐項確認結果、任何與規格不符或需要我確認的地方。
+
+完成後請先停在這裡，等我驗收通過，我會再提供 Phase 5（Production 正式站部署、正式帳號建立與教育訓練，系統正式上線）的 prompt。
 ```
 
 ### 整理 Udemy 課程
