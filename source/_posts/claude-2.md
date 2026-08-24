@@ -13,6 +13,78 @@ tags:
 <!--more-->
 
 ### Tools
+#### supabase put to schema web_app2
+##### 原來
+``` bash
+#2. Supabase 資料庫與角色設計
+  - 用 supabase init 建立本機 Supabase 專案，用 migration 檔案（不要用 Studio 手動改）定義以下最小資料表：
+    - profiles：對應 auth.users，欄位至少包含姓名、員工編號、Email、所屬部門/職稱、系統角色、帳號啟用狀態。
+    - 角色 enum／查照表：設計師 (designer)、工務主管 / 專案主管 (project_manager)、財務 (finance)、文管 (doc_control)、系統管理員 (admin)。
+  - 撰寫 RLS（Row Level Security）政策的基礎版本：
+    - 一般使用者只能讀取/更新自己的 profiles 資料。
+    - admin 角色可以讀取與管理所有使用者資料。
+    - 其餘角色的資料存取權限先預留 policy 骨架與註解，實際案件資料表要等 Phase 2 才建立。
+  - 提供一支 seed script，建立 5 個測試帳號（每個角色各一個），方便之後 Demo 與驗收使用。
+  - 資料庫的所有結構異動都必須以 migration 檔案呈現在 supabase/migrations/，確保未來可用 supabase db push 完整重現。
+```
+
+##### schema web_app2
+``` bash
+2. Supabase 資料庫與角色設計（schema web_app2 版）
+
+- 用 supabase init 建立本機 Supabase 專案，第一支 migration 先
+  CREATE SCHEMA IF NOT EXISTS web_app2;，之後用 migration 檔案（不要用
+  Studio 手動改）定義以下最小資料表——所有物件名稱都要加上
+  web_app2. 前綴，不能再依賴「不寫 schema 就自動落在 public」這件事：
+  - web_app2.profiles：對應 auth.users（auth 這個 schema 是 Supabase
+    全域共用的，不用也不能加前綴，user_id 的外鍵一樣寫
+    references auth.users(id)，這點跟單獨一個 project 時完全一樣）。
+    欄位維持原本規劃：姓名、員工編號、Email、所屬部門/職稱、系統角色、
+    帳號啟用狀態。
+  - 角色 enum／查照表：改成 web_app2.role（或你的查照表叫
+    web_app2.roles），enum 裡的值本身（designer／
+    project_manager／finance／doc_control／admin）不用加前綴，
+    純粹是資料值，不是物件名稱。
+- RLS 政策：
+  - 政策一樣寫在 web_app2.profiles 上（create policy ... on web_app2.profiles ...），邏輯完全不變——auth.uid() = id 這種寫法
+    不受影響，因為 auth.uid() 本來
+  - 「admin 可以讀取管理所有使用者資料」這條如果需要一個判斷角色的
+    helper function（像現在 web_pro
+    is_admin()／is_pm_or_admin() 那種寫法），這個 function 也要落在
+    web_app2 底下（web_app2.is_admi
+    security definer + set search_path = ''（這個專案現有的安全寫法，
+    強制函式內部所有物件都要寫完整
+    web_app2.profiles 時也一定要帶 schema 前綴，不能省略。
+  - 其餘角色的 policy 骨架同理，都
+- Seed script：
+  - 如果是走「插入 auth.users → tri 式
+    （這個專案的 handle_new_user() 就是這樣），trigger function 要叫
+    web_app2.handle_new_user()，取
+    project 的其他 app 撞名的名字——因為 auth.users 是全 project
+    共用的表，如果 app1 也在它上面
+    trigger，同名會出問題。
+  - Seed script 如果有任何直接查/寫 立
+    Supabase client 時要帶 db: { schema: "web_app2" }（跟現在
+    lib/supabase/admin.ts 那個選項
+  - 5 個測試帳號的 email，建議一開始就帶 app 前綴（例如
+    designer.webapp2.demo@example.c樣的
+    *.demo@example.com，避免以後真的共用同一個 project 時 email 撞名
+    （auth.users.email 全 project
+- 「所有結構異動都必須是 migration 檔案」這條完全不變，差別只在檔案裡的
+  SQL 內容要帶 schema 前綴。
+- 這條原本 spec 沒寫、但要記得補的：完成第一支 migration（建好
+  web_app2.profiles 等表）之後，要 t
+  Settings → API → Exposed schemas 把 web_app2 加進去，本機
+  supabase/config.toml 的 api.schem
+  查不到這個 schema 底下的任何表。
+
+要點總結：唯一的行為改動就是每個物件名稱都要多帶 web_app2. 前綴，RLS 邏輯、trigger 概念、seed 手法都跟單獨一個 project 時一模一樣，只是命名空間從隱含的 public 換成你自己指定的 schema。
+
+# 簡單敘述
+自建 schema web_app2 
+```
+
+
 #### google 試算表
 ##### 加入 固定 index(A2 ) 
 ```` bash
@@ -49,6 +121,7 @@ or
 npx playwright --version
 
 # install
+# 安裝未註冊 mcp 看不到,執行下面命令
 claude mcp add playwright npx @playwright/mcp@latest
 
 # check again
@@ -534,6 +607,34 @@ pip list | grep beautifulsoup4
 ```
 
 ### Web 專案管理
+#### setup issue
+##### windows supabase start issue
+``` bash
+# claude code : 透過 scoop 將 Supabase CLI 從 2.67.1 升級到 2.115.0
+舊版 CLI 無法識別新的 config.toml 鍵——db.health_timeout、experimental.pgdelta、local_smtp
+
+```
+
+##### npm run seed issue
+``` bash
+# run supabase status show key
+
+# 填 .env.local
+NEXT_PUBLIC_SUPABASE_ANON_KEY --> Authentication Keys : Publishable
+SUPABASE_SERVICE_ROLE_KEY --> Authentication Keys :  Secret
+NEXT_PUBLIC_DEMO_MODE= --> true (可顯示測試帳號清單)
+```
+
+#### deploy ro vercel
+``` bash
+# generate command
+help me create my custom command in @.claude/commands/deploy_vercel.md . I want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
+
+# vercel login
+! vercel login
+
+```
+
 #### 1st prompt
 ``` bash
 # 專案背景
@@ -929,6 +1030,9 @@ read docs/phase4_2_handover.md 以作為後續開發之參考
 
 # Phase 4_3_1 斷點
 請幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 所有待辦事項，並將其整理儲存為 docs/phase4_3＿1_handover.md。
+
+# Phase 4_3_2 斷點
+請幫我總結目前的專案架構、已建立的資料庫結構 (schema)、核心邏輯，以及 所有待辦事項，並將其整理儲存為 docs/phase4_3_2_handover.md。
 ```
 
 #### phase 4 prompt
