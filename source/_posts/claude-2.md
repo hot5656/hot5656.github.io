@@ -84,6 +84,192 @@ tags:
 自建 schema web_app2 
 ```
 
+#### vercel 部署
+##### 
+```` bash 
+# supabase Edge function
+Supabase Edge Functions 是運行在靠近使用者的全球邊緣節點（Edge Network）上的 無伺服器函式（Serverless Functions），基於 Deno / TypeScript 執行環境構建。
+核心作用是讓你在前端與資料庫之間，安全地執行自訂後端邏輯，而不需要自己維護一台專門的後端伺服器。
+#主要作用與常見應用場景
++ 保護敏感的金鑰與憑證（Secure Secrets）：
+  前端網頁（瀏覽器）不能存放第三方 API 的 Secret Key（如 OpenAI、Stripe 金流、LINE Notify、Resend 寄信）。透過呼叫 Edge Function，由後端攜帶金鑰請求第三方服務再回傳結果。
++ 繞過 RLS 的管理員操作（Admin Actions）：
+  某些業務邏輯需要使用最高權限的 SUPABASE_SERVICE_ROLE_KEY（例如批次更新多位使用者的帳號狀態、管理員刪除帳號）。這類操作絕不能寫在前端，適合放在 Edge Function 內執行。
++ 處理 Webhooks（事件回呼）：
+  接收外部服務的通知回呼，例如 Stripe 扣款成功、GitHub 觸發通知、或是 Supabase Database Webhooks（當某個 Table 有新資料新增時自動觸發 Function）。
++ 複雜資料聚合與重度計算：
+  在回傳給前端前，先在邊緣節點進行資料過濾、簽章驗證、計算或格式轉換，降低前端負擔與網路傳輸量。
++ 超低延遲（Low Latency / No Cold Starts）：
+  因為運行在 Deno 邊緣網路上，相較於傳統 Node.js 容器，冷啟動（Cold Start）極短（通常在毫秒級），且程式碼會自動部署在全球最靠近用戶的節點執行。
+# 開發小結:
+如果你已經使用 Next.js + Vercel，一般的後端 API 寫在 Next.js 的 Server Actions 或 API Route 即可；但如果是獨立的 Webhook 接收端、或需要由 Supabase 資料庫事件自動觸發的邏輯，使用 Supabase Edge Functions 是最乾淨的架構。
+
+````
+
+##### a
+```` bash
+# 更新 miggation
+# 先改好資料庫結構（Supabase），再部署讀取該結構的新版程式碼（Vercel
+用 Supabase CLI 執行 supabase db push 把最新 Migration 推到雲端。
+
+# supabse project 暫停
++ 前往 Supabase Dashboard。
++ 點進你的專案 → 左下角 Settings (齒輪) → General。
++ 向下滾動找到 Pause Project（部分方案/介面會放在 Danger Zone 區塊）。
+
+# automatic RLS - 需要 enable 
+# 防止資料被公開裸露：
+Supabase 的前端是直接透過 anon key（公開金鑰）存取 PostgREST API 的。
+  + 如果 RLS 是 Disable（關閉）：任何拿到你前端網址和 Anon Key 的人，都可以直接對你的資料表進行讀取、修改、甚至整張表清空（DELETE）。
+  +如果 RLS 是 Enable（開啟）：預設會阻擋所有來自前端 API 的存取，只有符合你寫的 Policy（政策）的請求（例如：使用者只能看自己的資料、管理員才能編輯）才能放行。
+
+# Database password 用途
+# 1. 使用 Supabase CLI 連結遠端專案（最常見）
+當你在本機終端機要把結構推送到線上專案時：
+```
+supabase link --project-ref <your-project-ref>
+supabase db push
+```
+執行 supabase link 時，CLI 會要求你輸入 Database Password 以驗證管理員身份並建立安全連線。
+# 2. 使用外部 GUI 資料庫軟體直連
+如果你想用獨立的資料庫視覺化工具（例如 DBeaver、TablePlus、Navicat、DataGrip 或 pgAdmin）連進 Supabase 資料庫：
+  + Host: db.<project-ref>.supabase.co
+  + Port: 5432 (Direct) 或 6543 (Pooler)
+  + User: postgres
+  + Password: 你的 Database Password
+# 3. 使用原生 ORM 或 Direct Connection String
+如果你的後端專案使用的是傳統 ORM（例如 Prisma、Drizzle、TypeORM、Sequelize）或原生的 pg 連線池：
+```
+# Connection Pooling / Direct Connection
+DATABASE_URL="postgresql://postgres.[project-ref]:[YOUR-PASSWORD]@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres"
+```
+連線字串裡的 [YOUR-PASSWORD] 就是這組資料庫密碼。
+# 4. 執行原生備份或資料遷移（pg_dump / psql）
+當你需要直接用命令列工具備份資料庫或匯入大型 .sql 檔時：
+```
+# 備份資料庫
+pg_dump -h db.<project-ref>.supabase.co -U postgres -d postgres > backup.sql
+```
+執行時終端機會提示輸入密碼。
+# 重點摘要與提醒
+  + 日常前端開發：只用 NEXT_PUBLIC_SUPABASE_URL 與 NEXT_PUBLIC_SUPABASE_ANON_KEY，完全不需要 Database Password。
+  + 忘記密碼：隨時可以到 Supabase Dashboard → Project Settings → Database → Reset Database Password 重新設定，重設後記得重新 supabase link 即可。
+
+````
+
+##### a
+``` bash
+# generate deploy command
+help me create my custom command in @.claude/commands/deploy_vercel.md . I want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
+# vercel login
+! vercel login
+
+
+# 佈署至 vercel
+vercel link
+"
+  Vercel CLI 50.1.3
+  ? Set up “D:\work\run\claude\web_project_management”? yes
+  ? Which scope should contain your project? Robert's projects
+  ? Link to existing project? no
+  ? What’s your project’s name? web-project-management
+  ? In which directory is your code located? ./
+  Auto-detected Project Settings (Next.js):
+  - Build Command: next build
+  - Development Command: next dev --port $PORT
+  - Install Command: `yarn install`, `pnpm install`, `npm install`, or `bun install`
+  - Output Directory: Next.js default
+  ? Want to modify these settings? no
+  ? Do you want to change additional project settings? no
+  ✅  Linked to roberts-projects-2b1cd09b/web-project-management (created .vercel)
+  ? Detected a repository. Connect it to this project? yes
+  > Connecting GitHub repository: https://github.com/hot5656/web_project_management
+  Error: Failed to connect hot5656/web_project_management to project. Make sure there aren't any 
+  typos and that you have access to the repository if it's private.
+"
+# 到時候透過 claude 佈署所以 Error 應該也無所謂
+
+# Vercel set env
+Production Deployment
+  --> Setting
+  --> Environments
+  --> Production
+  --> Add Environment Variable
+    + NEXT_PUBLIC_SUPABASE_URL:https://supabase_id.supabase.co
+      supabase_id:開 supabase project url 最後的字串
+# find some error 
+Remove the public framework prefix to keep this value private. Public prefixes expose values to the browser.
+# 說明
+# 在 Vercel 後台新增變數時，依變數性質分開設定：
+# 1. 對於前端公開變數（URL、Anon Key、Schema）
++ 變數名稱：
+  + NEXT_PUBLIC_SUPABASE_URL
+  + NEXT_PUBLIC_SUPABASE_ANON_KEY
+  + NEXT_PUBLIC_SUPABASE_SCHEMA
++ 設定方式：取消勾選 Sensitive / Hide Value 選項（維持一般的 Plain Text 變數即可儲存）。
+# 2. 對於後端保密變數（Service Role Key）
++ 變數名稱：SUPABASE_SERVICE_ROLE_KEY (注意：千萬不要加 NEXT_PUBLIC_)
++ 設定方式：可以正常勾選 Sensitive / Hide Value，因為它只會在伺服器後端執行，絕不能暴露給瀏覽器。
+# select below
+Config: Readable after saving for members with access. Use for non-sensitive values.
+  + NEXT_PUBLIC_SUPABASE_ANON_KEY: supabase Publishable key
+  + SUPABASE_SERVICE_ROLE_KEY: supabase Secret keys
+  + NEXT_PUBLIC_DEMO_MODE:true (for demo version)
+# set .env.profile.shared to create value
+# update env for remote supabase(check .env.local heav correct data)
+npm run env:use shared
+# link to supabase 
+supabase login
+# link to supabase db project (enter supabase project find some string)
+# supabase link --project-ref supabase_project_id
+supabase link --project-ref supabase_project_id --debug
+  NotFound: FileSystem.readFile (C:\Users\RobertKao\.supabase\profile)
+  Using access token for profile: supabase
+  Supabase CLI 2.115.0
+  Using profile: supabase (supabase.co)
+  Using access token for profile: supabase
+  2026/08/25 11:45:18 HTTP GET: https://api.supabase.com/v1/projects/luugfvsrawnuzwpjvddt
+  2026/08/25 11:45:18 HTTP GET: https://api.supabase.com/v1/projects/luugfvsrawnuzwpjvddt/api-keys
+  2026/08/25 11:45:19 HTTP GET: https://api.supabase.com/v1/projects/luugfvsrawnuzwpjvddt/config/storage
+  2026/08/25 11:45:19 HTTP GET: https://api.supabase.com/v1/projects/luugfvsrawnuzwpjvddt/config/database/pooler
+  2026/08/25 11:45:19 HTTP GET: https://luugfvsrawnuzwpjvddt.supabase.co/rest/v1/
+  2026/08/25 11:45:21 HTTP GET: https://luugfvsrawnuzwpjvddt.supabase.co/auth/v1/health
+  2026/08/25 11:45:21 HTTP GET: https://luugfvsrawnuzwpjvddt.supabase.co/storage/v1/version
+  Finished supabase link.
+# 先把 migrations 套上去，建好 profiles 表跟 handle_new_user trigger
+supabase db push
+# 寫入預設測試帳號
+npm run seed
+  > web_project_management@0.1.0 seed
+  > tsx supabase/seed/seed.ts
+  ◇ injected env (6) from .env.local // tip: ⌘ suppress logs { quiet: true }
+  開始 seed 7 個測試帳號...
+  ✓ 已建立帳號：designer.demo@example.com (designer)
+  ✓ 已建立帳號：pm.demo@example.com (project_manager)
+  ✓ 已建立帳號：designer2.demo@example.com (designer)
+  ✓ 已建立帳號：pm2.demo@example.com (project_manager)
+  ✓ 已建立帳號：finance.demo@example.com (finance)
+  ✓ 已建立帳號：doc.demo@example.com (doc_control)
+  ✓ 已建立帳號：admin.demo@example.com (admin)
+  完成。測試帳號清單請參考 README.md。
+# deploy vercel
+/deploy_vercel prod
+
+# 更新 migration 把最新 Migration 推到雲端。
+supabase db push
+# 查目前 supabase 指到哪裡
+supabase/.temp/project-ref
+  luugfvsrawnuzwpjvddt
+# 本機（local Docker Supabase） reset
+supabase db reset
+# 遠端 Supabase reset
+supabase db reset --linked
+# 建立 7 個基礎測試帳號（2 位設計師、2 位工務主管、finance/doc_control/admin 各一位，清單見下方「測試帳號」）。此 script 可重複執行：若帳號已存在會更新其 密碼與角色資訊，不會重複建立。
+npm run seed
+# 建立 10 位設計師 + 20 筆涵蓋各種狀態/財務情境的案件
+npm run seed:cases
+```
+
 
 #### google 試算表
 ##### 加入 固定 index(A2 ) 
@@ -2086,3 +2272,5 @@ https://www.udemy.com/course/ai-hr-ru/
   + [AI 變革願景溝通平台解析 - gemini pretty](https://gemini.google.com/u/1/app/21acaf3b5b91687e?pageId=none)
   + [如何用 Landing Page 測需求 - gemini pretty](https://gemini.google.com/u/1/app/ede2a6666d66f138?pageId=none)
   + [*** 智慧佔比趨勢雷達 - gemini pretty](https://gemini.google.com/u/1/app/2d8769fb6313cdfb?pageId=none)
++ 系統討論
+  [設工專案管理系統 - gemini pretty](https://gemini.google.com/u/1/app/24bb0e47cb17b6ef?pageId=none)
