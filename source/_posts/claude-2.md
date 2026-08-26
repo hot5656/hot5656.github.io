@@ -280,6 +280,26 @@ npm run seed
 npm run seed:cases
 ```
 
+##### new vercel project 
+``` bash
+gaoyiping@gaoyipingdeMacBook-Pro web_project_management % link vercel
+usage: link source_file target_file
+gaoyiping@gaoyipingdeMacBook-Pro web_project_management % vercel link
+Vercel CLI 55.0.0 (Node.js 26.5.0)
+  Directory       ~/work/claude/web_project_management
+  Team            roberts-projects-2b1cd09b
+? Which project? Create a new project
+? Name? Press ↑ to return to project options hot5656_project_management
+  Detected Next.js (Build Command: next build, Output Directory: Next.js default)
+# no : 使用 Vercel 自動偵測到的 Next.js 最佳預設值：
+? Customize settings? no
+? Customize advanced settings? no
+✓ Created         roberts-projects-2b1cd09b/hot5656_project_management
+? Connect detected Git repository? no
+> Downloading a fresh `VERCEL_OIDC_TOKEN` for roberts-projects-2b1cd09b/hot5656_project_management
+✓ Updated         .env.local file
+```
+
 
 #### google 試算表
 ##### 加入 固定 index(A2 ) 
