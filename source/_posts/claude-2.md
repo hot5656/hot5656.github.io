@@ -281,7 +281,7 @@ npm run seed:cases
 ```
 
 ##### new vercel project 
-``` bash
+```` bash
 gaoyiping@gaoyipingdeMacBook-Pro web_project_management % link vercel
 usage: link source_file target_file
 gaoyiping@gaoyipingdeMacBook-Pro web_project_management % vercel link
@@ -298,7 +298,169 @@ Vercel CLI 55.0.0 (Node.js 26.5.0)
 ? Connect detected Git repository? no
 > Downloading a fresh `VERCEL_OIDC_TOKEN` for roberts-projects-2b1cd09b/hot5656_project_management
 ✓ Updated         .env.local file
+
+# set domain name
+# hot5656-project-management.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host                         | Value                 | TTL.     | 
+    | CNAME Record| hot5656-project-management   |  cname.vercel-dns.com.| Automatic| 
+    | CNAME Record| demo-project-management      |  cname.vercel-dns.com.| Automatic| 
+      ps: cname.vercel-dns.com. 後面的點是自動加上去
+
+# Vercel setting - hot5656_project_management
+Vercel 專案 hot5656_project_management
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "hot5656-project-management.roberthut.com"
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+# Vercel setting - web-project-management
+Vercel 專案 web-project-management
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "demo-project-management.roberthut.com"
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+
+# login/logout supabase
+supabase login
+supabase logout
+
+# resend
+Domains
+  --> Add doamin "roberthut.com"
+  --> verify 
+API keys
+  --> Create API key
+    supabase email verify
+    Sending access
+    All domain
+
+
+
+# supabase
+# create edge function - name:send-email-hook
 ```
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { Resend } from "npm:resend";
+
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+
+interface EmailHookPayload {
+  user: {
+    email: string;
+    id: string;
+  };
+  email_data: {
+    token: string;
+    token_hash: string;
+    redirect_to: string;
+    email_action_type: "signup" | "recovery" | "magiclink" | "invite";
+    site_url: string;
+    token_new?: string;
+    token_hash_new?: string;
+  };
+}
+
+serve(async (req) => {
+  if (req.method !== "POST") {
+    return new Response("Method not allowed", { status: 405 });
+  }
+
+  try {
+    const payload: EmailHookPayload = await req.json();
+    const { user, email_data } = payload;
+    const { email } = user;
+    const { token_hash, email_action_type, site_url, redirect_to } = email_data;
+
+    // 組合驗證跳轉 URL
+    const confirmUrl = `${site_url}/auth/confirm?token_hash=${token_hash}&type=${email_action_type}&next=${redirect_to || "/"}`;
+
+    let subject = "系統通知信";
+    let htmlContent = `<p>請點擊以下連結完成操作：</p><a href="${confirmUrl}">${confirmUrl}</a>`;
+
+    // 依據發信類型自訂信件內容
+    if (email_action_type === "signup") {
+      subject = "歡迎加入！請驗證您的電子郵件信箱";
+      htmlContent = `
+        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
+          <h2>歡迎加入！</h2>
+          <p>請點擊下方按鈕以完成電子信箱驗證：</p>
+          <a href="${confirmUrl}" style="display:inline-block; background-color:#2563eb; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold;">驗證電子郵件</a>
+          <p style="color:#6b7280; font-size:12px; margin-top:24px;">若您未曾註冊帳號，請忽略此郵件。</p>
+        </div>
+      `;
+    } else if (email_action_type === "recovery") {
+      subject = "重設密碼請求";
+      htmlContent = `
+        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
+          <h2>重設密碼</h2>
+          <p>我們收到了重設密碼的請求。請點擊下方按鈕以設定新密碼：</p>
+          <a href="${confirmUrl}" style="display:inline-block; background-color:#dc2626; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold;">重設密碼</a>
+          <p style="color:#6b7280; font-size:12px; margin-top:24px;">若非本人操作，請儘速檢查帳戶安全。</p>
+        </div>
+      `;
+    }
+
+    // 透過 Resend 發送信件
+    const data = await resend.emails.send({
+      from: "auth@roberthut.com", // 必須使用在 Resend 已 Verified 的網域
+      to: email,
+      subject: subject,
+      html: htmlContent,
+    });
+
+    return new Response(JSON.stringify({ success: true, data }), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
+      headers: { "Content-Type": "application/json" },
+      status: 500,
+    });
+  }
+});
+```
+
+# Supabase 網頁後台手動新增 Secret(resend)
+Edge Functions
+  --> Secrets
+    Name: RESEND_API_KEY
+    Value: resend_api_key
+  --> Save
+
+# ww
+robert5656_project_management    
+  --> Authentication
+  --> Emails
+  --> Set up SMTP
+  --> Configure Send Email hook
+    Hook type: HTTPS
+    URL: https://supabase.com/dashboard/project/amniwteziuabvurjiyfn/functions
+
+
+# 
+Edge Functions
+  --> send-email-hook。
+  --> Settings
+  --> Verify JWT with legacy secret
+  --> off
+
+# test 
+
+
+# 
+Authentication 
+  ➔ 點選 Rate Limits
+  Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
+````
 
 
 #### google 試算表
@@ -2303,4 +2465,7 @@ https://www.udemy.com/course/ai-hr-ru/
   + [如何用 Landing Page 測需求 - gemini pretty](https://gemini.google.com/u/1/app/ede2a6666d66f138?pageId=none)
   + [*** 智慧佔比趨勢雷達 - gemini pretty](https://gemini.google.com/u/1/app/2d8769fb6313cdfb?pageId=none)
 + 系統討論
-  [設工專案管理系統 - gemini pretty](https://gemini.google.com/u/1/app/24bb0e47cb17b6ef?pageId=none)
+  + [設工專案管理系統 - gemini pretty](https://gemini.google.com/u/1/app/24bb0e47cb17b6ef?pageId=none)
+  + [正式站升級評估](https://claude.ai/code/artifact/fac3f2a1-9a1e-43ff-b77f-70338e79b009)
+  + [Email 驗證設定手冊](https://claude.ai/code/artifact/dc429730-a5e2-4847-8ebd-13f98f834721)
+  + [通用 Email 驗證設定指南](https://claude.ai/code/artifact/a286ff9f-8c16-496f-960b-705852efae19)
