@@ -4155,6 +4155,9 @@ path : /Users/gaoyiping/work/claude
   + [AI 代理接管 app 維護 - Gemini Pretty](https://gemini.google.com/u/1/app/71261a41fc2f9d64?pageId=none)
   + [AI 開發流程：定義、繪製、規格、施工 - Gemini Pretty](https://gemini.google.com/u/1/app/c198bcf8093d6ef6?pageId=none)
   + [ChatGPT Work 功能與 Claude 支援度 - Gemini Pretty](https://gemini.google.com/u/1/app/b58e679f25aabf45?pageId=none)
+  + [低客單轉高客單策略分析 - Gemini Pretty](https://gemini.google.com/u/1/app/e0a2059c59b12253?pageId=none)
+  + [AI時代的審美競爭力解析 - Gemini Pretty](https://gemini.google.com/u/1/app/3863e720dedd9d1b?pageId=none)
+  + [房仲保險經紀 AI Agent 團隊解析 - Gemini Pretty](https://gemini.google.com/u/1/app/a23056f65b7e9391?pageId=none)
 + Course
   + [MacBook Pro 錄製 - Grok google 001](https://grok.com/c/d918314e-d404-47bf-b312-3f1175dc94a2?rid=0b9b4cc4-893d-495b-be18-cd5d6b157e3a)
   + [ Claude 課程 - Grok google 001](https://grok.com/c/087278cd-8b4e-4e15-bb9e-1e5ff65d1f0b?rid=20782c1e-0a3b-4f61-a35c-7360987b6e3b)

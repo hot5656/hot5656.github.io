@@ -10,6 +10,7 @@ tags:
 + FastAPI 作為 web server - FastAPI 是一個用 Python 寫的現代、高效能 Web 框架，專門用來快速建立 API（特別是 RESTful API 與 OpenAPI 相容的介面）
 + SQLAlchemy 作為 ORM - SQLAlchemy 是 Python 生態系中最成熟、功能最完整的 ORM（Object-Relational Mapping） 框架，同時也是一個強大的 SQL 工具包。
 + UAT 是 User Acceptance Testing 的縮寫，中文通常翻譯為 「使用者驗收測試」 或 「用戶驗收測試」。
++ PAT 是 Personal Access Token（個人存取權杖） 的縮寫
 + RBAC (Role-Based Access Control，基於角色的存取控制)
   + 定義：一種權限管理機制，透過「角色（Role）」來決定使用者能看見或操作哪些功能，而不是單獨為每個人設定權限。
   + 專案情境：在系統中設定「管理員」、「設計師」、「工務」等角色。管理者可以派案與查看全部報表；設計師只能查看和更新自己負責的案件，系統會根據身分自動限制操作範圍。
@@ -460,6 +461,26 @@ Edge Functions
 Authentication 
   ➔ 點選 Rate Limits
   Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
+
+# supabase 常見指令比較
+supabase migration up : 本地(Local)-僅執行「新增加、未套用」的 migration 檔案，保留現有資料。
+supabase db reset : 本地(Local)-徹底清空本地資料庫，重新從第一支 migration 跑到最新，並自動執行 supabase/seed.sql 假資料。
+upabase db push : 遠端雲端(Remote/Production)-將本地所有的 migration 檔案同步並套用到已連結的 Supabase 雲端專案資料庫。
+  # 確認已連結專案
+  supabase link --project-ref <your-project-ref>
+  # 執行同步推送
+  supabase db push
+  # 乾跑預覽（Dry Run）： 確認會推送哪些 migration，不實際修改資料庫：
+  supabase db push --dry-run
+  # 跳過本機差異檢查 / 強制推送:若在 CI/CD 或確定無衝突的情況下推送
+  # Supabase 預設要求 Migration 必須依照嚴格的時間順序（Chronological Order）執行。
+  # 1. 遠端資料庫已經套用了時間戳較新的遷移檔案
+  # 2. 你本地的分支上有一支時間戳較舊、但遠端從未執行過的檔案
+  # 它會掃描本地 supabase/migrations/ 目錄下的所有檔案，只要該檔案的時間戳記不存在於遠端資料庫的遷移歷史
+  # 表（supabase_migrations.schema_migrations）中，就會強制將其補推到遠端執行。
+  supabase db push --include-all
+  # --include-all 乾跑預覽（Dry Run）
+  supabase db push --include-all --dry-run
 ````
 
 
