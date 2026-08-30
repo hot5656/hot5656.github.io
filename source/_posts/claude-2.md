@@ -20,6 +20,25 @@ tags:
 + Hypercare (上線後加強維護期 / 密集照護期)
   + 定義：系統剛部署到正式環境（Production）後的初期高強度支援階段（通常為上線後 1 至 4 週）。
   + 專案情境：此期間開發團隊會保持高度警戒，快速修復使用者剛開始操作時發現的 Bug、處理效能瓶頸、解答操作疑問，並確保資料庫備份與系統運行完全穩定後，才正式進入日常維運或結案交接。
++ 啟用資料列安全政策（RLS）：「讓資料庫直接幫你過濾資料，每個人只能看到或修改自己被允許的那幾『列（Row）』。」
+  - 一般員工只能查詢、修改自己的 profiles
+  - 若 role = 'admin'，則允許讀取並修改全公司的 profiles
+  - 若 role = 'project_manager'，只能查看同專案成員的資料
++ GRANT（授權指令）：PostgreSQL 中的 SQL 指令，用來賦予特定角色「讀取（SELECT）」、「新增（INSERT）」、「修改（UPDATE）」或「刪除（DELETE）」這張資料表的權利。
++ authenticated（已登入的使用者角色）：Supabase / PostgREST 環境中預設的身分群組，代表「只要有成功登入系統、持有有效 Token 的使用者」。
++ Next.js 是一個以 React 為核心的全端網頁應用框架（Framework）。
+  Package 與 Framework 的核心差異
+  + 一般 React Package（如 React Router, Axios）：
+  單一功能的小工具，由你主導程式架構，按需求引入使用（Library / 工具庫概念）。
+  + Next.js（Framework / 框架）：
+  提供了完整的應用程式骨架與執行環境，規定了檔案目錄結構、路由方式與渲染生命週期。
+  Next.js 核心能力
+  + 多元渲染模式： 支援伺服器端渲染（SSR）、靜態網站生成（SSG）與客戶端渲染（CSR），大幅提升載入效能與 SEO。
+  + 內建檔案型路由（File-system Routing）： 透過資料夾結構（如 App Router 的 app/page.tsx）直接定義網頁路由，無需手動配置路由表。
+  + React Server Components (RSC)： 組件預設在伺服器端執行與渲染，減少傳送給瀏覽器的 JavaScript 體積。
+  + 前後端整合： 內建 API Routes / Route Handlers 與 Server Actions，可直接在同一個專案內撰寫後端邏輯與資料庫操作。
+  + 自動化效能最佳化： 內建針對圖片（`<Image/>`）、字型（next/font）與程式碼分割（Code Splitting）的最佳化處理。
+  簡而言之，React 負責解決 「如何建構 UI 介面」，而 Next.js 則是補足了 React 在伺服器端渲染、路由、建置工具與後端功能上的完整方案。
 
 <!--more-->
 
@@ -93,6 +112,18 @@ tags:
 
 # 簡單敘述
 自建 schema web_app2 
+```
+
+#### VsCode
+##### Markdown Prevbiew Enhanced
+``` bash
+# install Markdown Prevbiew Enhanced
+
+# F1 support function
+
+# 在側邊開啟同步預覽（Side by Side）：
++ Windows / Linux: Ctrl + K 接著按 V
++ macOS: Cmd + K 接著按 V
 ```
 
 #### vercel 部署
@@ -483,6 +514,21 @@ upabase db push : 遠端雲端(Remote/Production)-將本地所有的 migration �
   supabase db push --include-all --dry-run
 ````
 
+##### next 
+``` bash
+! SUPABASE_DB_PASSWORD='你的正式站資料庫密碼' supabase db push --linked --yes
+# Full access DB
+
+# 清除歷史命令
+
+20260829000002_document_source_split.sql 需要修改嗎
+
+
+SUPABASE_DB_PASSWORD='wbdpY8GbEvgtNNuN' supabase db push --linked --yes
+
+# 查看 auto mode 設定
+claude auto-mode config
+```
 
 #### google 試算表
 ##### 加入 固定 index(A2 ) 
@@ -1006,6 +1052,61 @@ pip list | grep beautifulsoup4
 ```
 
 ### Web 專案管理
+#### 前後端安排
+
+{% note info %}
+在這種 **Next.js 16 (App Router) + Supabase** 的全端架構下，「後端」主要由 **Next.js 伺服器端（應用層後端 / BFF）** 與 **Supabase（資料與基礎設施後端）** 兩大部分組成：
+
+---
+
+***1. Next.js 伺服器層（應用層後端 / BFF）***
+這部分程式碼完全在 Node.js / Edge Runtime 伺服器端執行，不會被打包傳送到使用者的瀏覽器：
+
+* **proxy.ts**：Next.js 16 的全域路由攔截層，負責在請求到達頁面前處理身分驗證檢查、重新導向、Header 注入與安全性過濾。
+* **Server Actions**(`'use server'`)：在伺服器端執行的非同步函式，通常用於處理表單提交、呼叫 Supabase 進行增刪查改（CRUD）、資料驗證等業務邏輯。
+* **Route Handlers**(app/api/**/route.ts)：提供標準 HTTP API 端點（GET/POST/PUT/DELETE），處理 Webhook、第三方整合或特定 REST 需求。
+* **React Server Components**(RSC)：雖然它負責渲染 UI，但其組件內部執行（如直接讀取 DB、呼叫後端 API、存取伺服器環境變數）的運算邏輯全在伺服器端完成，客戶端只接收編譯後的虛擬 DOM 串流。
+* **伺服器端 Supabase Client**：使用 `cookies()` 管理 Session 或使用 `SUPABASE_SERVICE_ROLE_KEY` 進行特權操作（例如產生 Storage private bucket 的 signed URL、系統級排程管理）。
+
+---
+
+***2. Supabase 層（資料庫與 BaaS 後端）***
+這是資料持久化、權限控管與身分驗證的核心後端引擎：
+
+* **PostgreSQL 資料庫**：包含資料表（Tables）、關聯、索引，以及在資料庫內執行的 SQL Functions / Triggers。
+* **Row Level Security**(RLS)：實質的後端存取控制層。即使前端直接透過 Supabase Client 查詢，資料安全性完全依賴資料庫內的 RLS 策略判定。
+* **Supabase Auth**：使用者帳號管理、密碼雜湊、OAuth 整合以及 JWT Token 的簽署與驗證。
+* **Supabase Storage**：負責實體檔案儲存、Private Bucket 權限隔離與 Signed URL 的產生與驗證。
+
+---
+
+***3. 架構劃分對照***
+
+| 層級 | 歸屬 | 包含項目 |
+| --- | --- | --- |
+| **前端 / 客戶端** | 瀏覽器端 | Client Components ('use client')、React Hooks (`useState`, `useEffect`)、DOM 事件、瀏覽器端執行的 UI 互動。 |
+| **應用層後端** | Next.js Server | `proxy.ts`、Server Actions、Route Handlers (`route.ts`)、RSC 伺服器邏輯、私鑰與敏感環境變數操作。 |
+| **資料與服務後端** | Supabase Engine | PostgreSQL、RLS 策略、SQL Triggers、Auth 服務、Storage Private Buckets。 |
+
+{% endnote %}
+
+#### addition AGENTS.md 
+``` bash
++ AGENTS.md 是這個專案裡給 AI 編碼代理（像我）看的說明文件,不是給一般開發者的文件。它的作用:
+
+  1. 警告訓練資料可能過時:內容提示這個專案用的 Next.js 版本(App Router、Next 16)行為可能跟我訓練資料裡認知的不一樣,叫我動工前先去看 node_modules/next/dist/docs/ 裡實際安裝版本的官方文件,不要憑記憶亂寫。
+  2. 強調要讀 deprecation notices,避免用到已棄用的 API 或慣例。
+  3. 它是自動產生的:檔案本身寫明「這個區塊是 next dev 自動寫入/重新加回的,來源是 node_modules/next/dist/server/lib/generate-agent-files.js」——也就是說 Next.js 開發伺服器每次啟動時會自動確保這個檔案存在。如果你手動把它從 diff 移除,下次跑 next dev 又會被加回來,所以它建議乾脆把它跟其他變更一起 commit,保持工作區乾淨。
+
+  在這個專案裡,CLAUDE.md 第一行用 @AGENTS.md 把它引入,所以每次我讀取 CLAUDE.md 時都會連帶讀到這份「先看新版 Next.js 文件再動工」的提醒。
+
+# 說明
+是 next dev 這個開發伺服器啟動時自動寫入/更新這個檔案的(node_modules/next/dist/server/lib/generate-agent-files.js 負責產生)。所以:
+  - 你不用手動維護內容——它是工具自動生成的。
+  - 你只需要在意一件事:如果 git status 顯示 AGENTS.md 有異動(因為你跑過 next dev,它被重新產生了),直接跟著這次的其他改動一起 commit 掉就好,不要刻意把它從 diff 裡刪掉或還原——因為下次再跑 next dev 它還是會被加回來,刪了也沒用,只會讓工作區一直顯示髒污。
+  換句話說:內容不用你管,但它造成的 git diff 要處理(commit 掉),不能無視或反覆還原。
+```
+
 #### setup issue
 ##### windows supabase start issue
 ``` bash

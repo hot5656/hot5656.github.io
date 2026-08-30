@@ -175,6 +175,25 @@ index_generator:
 
 ## md檔 設定
 
+### 有邊框/外框區塊，但內部依然能正常渲染 Markdown
+```` bash
+# example 
+```
+{% note info %}
+在這種 **Next.js 16 (App Router) 
+  ...
+
+{% endnote %}
+***3. 架構劃分對照***
+```
+# 粗體字處理 - 不要將反引號包在 ** 裡面，改為分別標註，這樣所有 Markdown 解析器都能 100% 正確識別
+* **Server Actions (`'use server'`)**：在伺服器端執行
+  change to 
+* **Server Actions** (`'use server'`)：在伺服器端執行的非同步函式
+
+# 不用 # ## ... 使用如下
+
+````
 
 ###  加入 繼續閱讀 截斷文章
 ``` html
