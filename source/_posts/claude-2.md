@@ -528,6 +528,51 @@ SUPABASE_DB_PASSWORD='wbdpY8GbEvgtNNuN' supabase db push --linked --yes
 
 # 查看 auto mode 設定
 claude auto-mode config
+
+# ================================
+# update remote supabase migration
+# ================================
+# migration supabase - relogin
+supabase logout
+supabase login 
+# link to supabase
+supabase link --project-ref  <supabase_id>
+# see project
+supabase projects list 
+   LINKED | ORG ID               | REFERENCE ID         | NAME                          | REGION                 | CREATED AT (UTC)    
+  --------|----------------------|----------------------|-------------------------------|------------------------|---------------------
+     ●    | zubtctreygdclcrhkcty | amniwt               | robert5656_project_management | Northeast Asia (Seoul) | 2026-08-26 09:20:54 
+# show migration 
+supabase migration list  
+	Initialising login role...
+	Connecting to remote database...
+  
+   Local            | Remote           | Time (UTC)            
+  ------------------|------------------|-----------------------
+   `20260821000001` | `20260821000001` | `2026-08-21 00:00:01` 
+   `20260821000002` | `20260821000002` | `2026-08-21 00:00:02` 
+   `20260821000003` | `20260821000003` | `2026-08-21 00:00:03` 
+   ....
+# back db   
+# - db dump：對資料庫執行 pg_dump，把整個資料庫的內容輸出成一份 SQL 檔（schema 結構 + 資料，或只有其中一種，看你加的選項）。
+# - --linked：指定「從目前 CLI 已經 link 的那個遠端專案」抓資料，不是從本機 Docker 裡的 Supabase（那個是 --local）——也就是說，一旦你 link 到 amniwteziuabvurjiyfn，這個指令 dump 出來的就是正式站現在的完整資料庫內容。
+# 用途，對照你現在情境：正式站是 Supabase Free 方案，沒有自動備份、沒有 PITR（時間點還原），如果 migration 或任何操作把資料庫搞壞了，唯一救回來的方法就是靠這種手動 dump 出來的檔案。所以慣例是：推任何會動 schema 的 migration 之前，先手動 dump 一份當備份，出事才有得復原。
+# 需要執行 docker desktop
+supabase db dump --linked 
+# upsh migartion 
+supabase db push --linked 
+# recheck migration result
+PS D:\work\run\claude\web_project_management> supabase migration list  
+	Initialising login role...
+	Connecting to remote database...
+   Local            | Remote           | Time (UTC)            
+  ------------------|------------------|-----------------------
+   `20260821000001` | `20260821000001` | `2026-08-21 00:00:01` 
+   `20260821000002` | `20260821000002` | `2026-08-21 00:00:02` 
+   ...
+   `20260830000003` | `20260830000003` | `2026-08-30 00:00:03` 
+   `20260831000001` | `20260831000001` | `2026-08-31 00:00:01` 
+
 ```
 
 #### google 試算表
