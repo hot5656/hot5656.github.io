@@ -15,6 +15,9 @@ tags:
   - Claude Built-in Tools: Read/Write file, Website Fetch, Create ToDoList, ash Shell Script ...
   - local CLI(trigger by "Bash Shell Script"): ls, python, npx, git docker ...
   - MCP: Github, Playwright, AWS IAM, Context7 ...
+
+<!--more-->
+
 + JWT（JSON Web Token）說明 (control by cookie)
   JWT 是一種開放標準（RFC 7519），用來在各方之間安全地傳遞資訊。它以 JSON 物件的形式存在，並經過數位簽章，因此可以被驗證且內容不易被竄改。
   主要用途
@@ -25,7 +28,7 @@ tags:
   1. document.cookie (put to claude session the it can access the web site)
   2. use chrome devtools MCP
 
-<!--more-->
+
 ### Information
 #### MCP
 ``` bash

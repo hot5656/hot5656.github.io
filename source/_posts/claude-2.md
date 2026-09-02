@@ -14,6 +14,9 @@ tags:
 + RBAC (Role-Based Access Control，基於角色的存取控制)
   + 定義：一種權限管理機制，透過「角色（Role）」來決定使用者能看見或操作哪些功能，而不是單獨為每個人設定權限。
   + 專案情境：在系統中設定「管理員」、「設計師」、「工務」等角色。管理者可以派案與查看全部報表；設計師只能查看和更新自己負責的案件，系統會根據身分自動限制操作範圍。
+
+<!--more-->
+
 + Overdue (逾期 / 超時)
   + 定義：指某個任務、工期、里程碑或待辦事項已經超過原定截止日期（Due Date）卻尚未完成。
   + 專案情境：在 Dashboard 或案件清單中標示紅字警示，例如「施工階段已 Overdue 3 天」，提醒主管或負責人員案件進度延誤需要介入處理。
@@ -40,13 +43,12 @@ tags:
   + 自動化效能最佳化： 內建針對圖片（`<Image/>`）、字型（next/font）與程式碼分割（Code Splitting）的最佳化處理。
   簡而言之，React 負責解決 「如何建構 UI 介面」，而 Next.js 則是補足了 React 在伺服器端渲染、路由、建置工具與後端功能上的完整方案。
 
-<!--more-->
 
 ### Tools
 #### supabase put to schema web_app2
-##### 原來
+##### 原來設定
 ``` bash
-#2. Supabase 資料庫與角色設計
+# Supabase 資料庫與角色設計
   - 用 supabase init 建立本機 Supabase 專案，用 migration 檔案（不要用 Studio 手動改）定義以下最小資料表：
     - profiles：對應 auth.users，欄位至少包含姓名、員工編號、Email、所屬部門/職稱、系統角色、帳號啟用狀態。
     - 角色 enum／查照表：設計師 (designer)、工務主管 / 專案主管 (project_manager)、財務 (finance)、文管 (doc_control)、系統管理員 (admin)。
@@ -58,61 +60,74 @@ tags:
   - 資料庫的所有結構異動都必須以 migration 檔案呈現在 supabase/migrations/，確保未來可用 supabase db push 完整重現。
 ```
 
-##### schema web_app2
-``` bash
-2. Supabase 資料庫與角色設計（schema web_app2 版）
+##### set schema to web_app2(僅記錄)
+{% note info %}
+這份規範的核心概念只有一個：**將原本預設放在 `public` 的所有資料表與邏輯，完整隔離並搬移到自建的命名空間 `web_app2**`，以便未來在同一個 Supabase 專案中共存多個應用（多租戶/多 App 共用同一資料庫）。
 
-- 用 supabase init 建立本機 Supabase 專案，第一支 migration 先
-  CREATE SCHEMA IF NOT EXISTS web_app2;，之後用 migration 檔案（不要用
-  Studio 手動改）定義以下最小資料表——所有物件名稱都要加上
-  web_app2. 前綴，不能再依賴「不寫 schema 就自動落在 public」這件事：
-  - web_app2.profiles：對應 auth.users（auth 這個 schema 是 Supabase
-    全域共用的，不用也不能加前綴，user_id 的外鍵一樣寫
-    references auth.users(id)，這點跟單獨一個 project 時完全一樣）。
-    欄位維持原本規劃：姓名、員工編號、Email、所屬部門/職稱、系統角色、
-    帳號啟用狀態。
-  - 角色 enum／查照表：改成 web_app2.role（或你的查照表叫
-    web_app2.roles），enum 裡的值本身（designer／
-    project_manager／finance／doc_control／admin）不用加前綴，
-    純粹是資料值，不是物件名稱。
-- RLS 政策：
-  - 政策一樣寫在 web_app2.profiles 上（create policy ... on web_app2.profiles ...），邏輯完全不變——auth.uid() = id 這種寫法
-    不受影響，因為 auth.uid() 本來
-  - 「admin 可以讀取管理所有使用者資料」這條如果需要一個判斷角色的
-    helper function（像現在 web_pro
-    is_admin()／is_pm_or_admin() 那種寫法），這個 function 也要落在
-    web_app2 底下（web_app2.is_admi
-    security definer + set search_path = ''（這個專案現有的安全寫法，
-    強制函式內部所有物件都要寫完整
-    web_app2.profiles 時也一定要帶 schema 前綴，不能省略。
-  - 其餘角色的 policy 骨架同理，都
-- Seed script：
-  - 如果是走「插入 auth.users → tri 式
-    （這個專案的 handle_new_user() 就是這樣），trigger function 要叫
-    web_app2.handle_new_user()，取
-    project 的其他 app 撞名的名字——因為 auth.users 是全 project
-    共用的表，如果 app1 也在它上面
-    trigger，同名會出問題。
-  - Seed script 如果有任何直接查/寫 立
-    Supabase client 時要帶 db: { schema: "web_app2" }（跟現在
-    lib/supabase/admin.ts 那個選項
-  - 5 個測試帳號的 email，建議一開始就帶 app 前綴（例如
-    designer.webapp2.demo@example.c樣的
-    *.demo@example.com，避免以後真的共用同一個 project 時 email 撞名
-    （auth.users.email 全 project
-- 「所有結構異動都必須是 migration 檔案」這條完全不變，差別只在檔案裡的
-  SQL 內容要帶 schema 前綴。
-- 這條原本 spec 沒寫、但要記得補的：完成第一支 migration（建好
-  web_app2.profiles 等表）之後，要 t
-  Settings → API → Exposed schemas 把 web_app2 加進去，本機
-  supabase/config.toml 的 api.schem
-  查不到這個 schema 底下的任何表。
+以下為結構化整理與實作重點：
 
-要點總結：唯一的行為改動就是每個物件名稱都要多帶 web_app2. 前綴，RLS 邏輯、trigger 概念、seed 手法都跟單獨一個 project 時一模一樣，只是命名空間從隱含的 public 換成你自己指定的 schema。
+---
 
-# 簡單敘述
-自建 schema web_app2 
+一、 核心變更與物件歸屬
+
+| 類別 | 物件名稱 / 寫法 | 說明 |
+| --- | --- | --- |
+| **Schema 建立** | `CREATE SCHEMA IF NOT EXISTS web_app2;` | 第一支 migration 必須優先執行的語法。 |
+| **資料表** | `web_app2.profiles` | 包含姓名、員工編號、Email、部門/職稱、系統角色、啟用狀態。 |
+| **外鍵關聯** | `REFERENCES auth.users(id)` | **維持不變**。`auth` 為 Supabase 全域共用，不可加前綴。 |
+| **角色型態** | `web_app2.role` (ENUM) | ENUM 命名需帶前綴；內部值（如 `'designer'`, `'admin'` 等）為資料字串，維持原樣。 |
+| **Helper 函數** | `web_app2.is_admin()` 等 | 需設定 `SECURITY DEFINER` 與 `SET search_path = ''`，內部查表必須寫完整 `web_app2.profiles`。 |
+| **Trigger 函數** | `web_app2.handle_new_user()` | 綁定在共用表 `auth.users` 上的觸發函式，必須有明確命名空間以防與其他 App 衝突。 |
+
+---
+
+二、 RLS（Row-Level Security）政策重點
+
+* **政策目標**：套用於 `web_app2.profiles`。
+* **邏輯沿用**：`auth.uid() = id` 等內建函式判斷方式完全不變。
+* **安全性規範**：呼叫角色判斷函數時一律使用 `web_app2.is_admin()`。在函式內部強制清空搜尋路徑（`SET search_path = ''`），所有表名一律寫死全名（Fully Qualified Name）。
+
+---
+
+三、 種子資料（Seed Script）與測試帳號規範
+
+* **客戶端配置**：前端或 Seed 腳本建立 Supabase Client 時，需指定目標 schema：
+```typescript
+createClient(url, key, { db: { schema: 'web_app2' } })
+
 ```
+
+
+* **避免共用衝撞**：因為 `auth.users` 是全專案唯一表，測試 Email 需加上專屬標識：
+* 範例：`designer.webapp2.demo@example.com`（避免與 App1 的 demo 帳號衝突）。
+
+
+
+---
+
+四、 關鍵環境設定（不可漏掉）
+
+建立完 Schema 與資料表後，PostgREST API 預設只公開 `public`，因此必須**將 `web_app2` 加入暴露名單**，否則前端與 API 會完全查不到資料：
+
+* **本機開發 (`supabase/config.toml`)**：
+```toml
+[api]
+schemas = ["public", "web_app2"]
+
+```
+
+
+* **線上後台 (Dashboard)**：
+至 `Project Settings` → `API` → `Exposed schemas` 新增 `web_app2`。
+
+---
+
+五、 總結
+
+1. **定義一律帶前綴**：除 `auth` 外，所有自訂的 Table、Type、Function、Trigger 均冠上 `web_app2.`。
+2. **邏輯維持原樣**：RLS 邏輯與原有寫法完全相同。
+3. **記得暴露 API**：修改 `config.toml` 開放 `web_app2`，否則客戶端無法存取。
+{% endnote %}
 
 #### VsCode
 ##### Markdown Prevbiew Enhanced
@@ -127,7 +142,7 @@ tags:
 ```
 
 #### vercel 部署
-##### 
+##### Edge function
 ```` bash 
 # supabase Edge function
 Supabase Edge Functions 是運行在靠近使用者的全球邊緣節點（Edge Network）上的 無伺服器函式（Serverless Functions），基於 Deno / TypeScript 執行環境構建。
@@ -143,21 +158,23 @@ Supabase Edge Functions 是運行在靠近使用者的全球邊緣節點（Edge 
   在回傳給前端前，先在邊緣節點進行資料過濾、簽章驗證、計算或格式轉換，降低前端負擔與網路傳輸量。
 + 超低延遲（Low Latency / No Cold Starts）：
   因為運行在 Deno 邊緣網路上，相較於傳統 Node.js 容器，冷啟動（Cold Start）極短（通常在毫秒級），且程式碼會自動部署在全球最靠近用戶的節點執行。
-# 開發小結:
-如果你已經使用 Next.js + Vercel，一般的後端 API 寫在 Next.js 的 Server Actions 或 API Route 即可；但如果是獨立的 Webhook 接收端、或需要由 Supabase 資料庫事件自動觸發的邏輯，使用 Supabase Edge Functions 是最乾淨的架構。
 
+# 開發小結:
+如果你已經使用 Next.js + Vercel，一般的後端 API 寫在 Next.js 的 Server Actions 或 API Route 即可；
+但如果是獨立的 Webhook 接收端、或需要由 Supabase 資料庫事件自動觸發的邏輯，使用 Supabase Edge Functions 是最乾淨的架構。
 ````
 
-##### a
+##### some supabase 用法
 ```` bash
 # 更新 miggation
-# 先改好資料庫結構（Supabase），再部署讀取該結構的新版程式碼（Vercel
-用 Supabase CLI 執行 supabase db push 把最新 Migration 推到雲端。
+# 先改好資料庫結構（Supabase），再部署讀取該結構的新版程式碼（Vercel)
+# 用 Supabase CLI 執行 supabase db push 把最新 Migration 推到雲端。
+supabase db push
 
-# supabse project 暫停
-+ 前往 Supabase Dashboard。
-+ 點進你的專案 → 左下角 Settings (齒輪) → General。
-+ 向下滾動找到 Pause Project（部分方案/介面會放在 Danger Zone 區塊）。
+# 暫停 supabse project
+前往 Supabase Dashboard。
+  --> 點進你的專案 → 左下角 Settings (齒輪) → General。
+  --> 向下滾動找到 Pause Project（部分方案/介面會放在 Danger Zone 區塊）。
 
 # automatic RLS - 需要 enable 
 # 防止資料被公開裸露：
@@ -196,18 +213,16 @@ pg_dump -h db.<project-ref>.supabase.co -U postgres -d postgres > backup.sql
 # 重點摘要與提醒
   + 日常前端開發：只用 NEXT_PUBLIC_SUPABASE_URL 與 NEXT_PUBLIC_SUPABASE_ANON_KEY，完全不需要 Database Password。
   + 忘記密碼：隨時可以到 Supabase Dashboard → Project Settings → Database → Reset Database Password 重新設定，重設後記得重新 supabase link 即可。
-
 ````
 
-##### a
+##### deploy to vercel
 ``` bash
-# generate deploy command
+# claude code :generate deploy command
 help me create my custom command in @.claude/commands/deploy_vercel.md . I want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
 # vercel login
 ! vercel login
 
-
-# 佈署至 vercel
+# termernal 執行 : 建立 佈署至vercel 需要檔案
 vercel link
 "
   Vercel CLI 50.1.3
@@ -257,6 +272,7 @@ Config: Readable after saving for members with access. Use for non-sensitive val
   + NEXT_PUBLIC_SUPABASE_ANON_KEY: supabase Publishable key
   + SUPABASE_SERVICE_ROLE_KEY: supabase Secret keys
   + NEXT_PUBLIC_DEMO_MODE:true (for demo version)
+
 # set .env.profile.shared to create value
 # update env for remote supabase(check .env.local heav correct data)
 npm run env:use shared
@@ -312,10 +328,9 @@ npm run seed
 npm run seed:cases
 ```
 
-##### new vercel project 
+##### create new vercel project 
 ```` bash
-gaoyiping@gaoyipingdeMacBook-Pro web_project_management % link vercel
-usage: link source_file target_file
+# termernal 執行 : 建立 佈署至vercel 需要檔案
 gaoyiping@gaoyipingdeMacBook-Pro web_project_management % vercel link
 Vercel CLI 55.0.0 (Node.js 26.5.0)
   Directory       ~/work/claude/web_project_management
@@ -345,6 +360,7 @@ Dashboard
     | CNAME Record| demo-project-management      |  cname.vercel-dns.com.| Automatic| 
       ps: cname.vercel-dns.com. 後面的點是自動加上去
 
+# set domain name to hot5656_project_management
 # Vercel setting - hot5656_project_management
 Vercel 專案 hot5656_project_management
   --> Domains  (左方)
@@ -352,6 +368,7 @@ Vercel 專案 hot5656_project_management
   --> change Domain as "hot5656-project-management.roberthut.com"
   --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
   --> Save
+# set domain name to web-project-management
 # Vercel setting - web-project-management
 Vercel 專案 web-project-management
   --> Domains  (左方)
@@ -364,7 +381,7 @@ Vercel 專案 web-project-management
 supabase login
 supabase logout
 
-# resend
+# resend setting for email verify
 Domains
   --> Add doamin "roberthut.com"
   --> verify 
@@ -374,92 +391,11 @@ API keys
     Sending access
     All domain
 
+# other supaset ask claude do it
 
 
-# supabase
-# create edge function - name:send-email-hook
-```
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { Resend } from "npm:resend";
+########## ????? wait check
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-
-interface EmailHookPayload {
-  user: {
-    email: string;
-    id: string;
-  };
-  email_data: {
-    token: string;
-    token_hash: string;
-    redirect_to: string;
-    email_action_type: "signup" | "recovery" | "magiclink" | "invite";
-    site_url: string;
-    token_new?: string;
-    token_hash_new?: string;
-  };
-}
-
-serve(async (req) => {
-  if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
-  }
-
-  try {
-    const payload: EmailHookPayload = await req.json();
-    const { user, email_data } = payload;
-    const { email } = user;
-    const { token_hash, email_action_type, site_url, redirect_to } = email_data;
-
-    // 組合驗證跳轉 URL
-    const confirmUrl = `${site_url}/auth/confirm?token_hash=${token_hash}&type=${email_action_type}&next=${redirect_to || "/"}`;
-
-    let subject = "系統通知信";
-    let htmlContent = `<p>請點擊以下連結完成操作：</p><a href="${confirmUrl}">${confirmUrl}</a>`;
-
-    // 依據發信類型自訂信件內容
-    if (email_action_type === "signup") {
-      subject = "歡迎加入！請驗證您的電子郵件信箱";
-      htmlContent = `
-        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-          <h2>歡迎加入！</h2>
-          <p>請點擊下方按鈕以完成電子信箱驗證：</p>
-          <a href="${confirmUrl}" style="display:inline-block; background-color:#2563eb; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold;">驗證電子郵件</a>
-          <p style="color:#6b7280; font-size:12px; margin-top:24px;">若您未曾註冊帳號，請忽略此郵件。</p>
-        </div>
-      `;
-    } else if (email_action_type === "recovery") {
-      subject = "重設密碼請求";
-      htmlContent = `
-        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-          <h2>重設密碼</h2>
-          <p>我們收到了重設密碼的請求。請點擊下方按鈕以設定新密碼：</p>
-          <a href="${confirmUrl}" style="display:inline-block; background-color:#dc2626; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold;">重設密碼</a>
-          <p style="color:#6b7280; font-size:12px; margin-top:24px;">若非本人操作，請儘速檢查帳戶安全。</p>
-        </div>
-      `;
-    }
-
-    // 透過 Resend 發送信件
-    const data = await resend.emails.send({
-      from: "auth@roberthut.com", // 必須使用在 Resend 已 Verified 的網域
-      to: email,
-      subject: subject,
-      html: htmlContent,
-    });
-
-    return new Response(JSON.stringify({ success: true, data }), {
-      headers: { "Content-Type": "application/json" },
-      status: 200,
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: (error as Error).message }), {
-      headers: { "Content-Type": "application/json" },
-      status: 500,
-    });
-  }
-});
-```
 
 # Supabase 網頁後台手動新增 Secret(resend)
 Edge Functions
@@ -488,7 +424,7 @@ Edge Functions
 # test 
 
 
-# 
+# # 使 verify 不會太快用完
 Authentication 
   ➔ 點選 Rate Limits
   Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
@@ -558,7 +494,9 @@ supabase migration list
 # - --linked：指定「從目前 CLI 已經 link 的那個遠端專案」抓資料，不是從本機 Docker 裡的 Supabase（那個是 --local）——也就是說，一旦你 link 到 amniwteziuabvurjiyfn，這個指令 dump 出來的就是正式站現在的完整資料庫內容。
 # 用途，對照你現在情境：正式站是 Supabase Free 方案，沒有自動備份、沒有 PITR（時間點還原），如果 migration 或任何操作把資料庫搞壞了，唯一救回來的方法就是靠這種手動 dump 出來的檔案。所以慣例是：推任何會動 schema 的 migration 之前，先手動 dump 一份當備份，出事才有得復原。
 # 需要執行 docker desktop
-supabase db dump --linked 
+# supabase db dump --linked 
+# 以下才會存成檔案
+supabase db dump --linked -f backup.sql
 # upsh migartion 
 supabase db push --linked 
 # recheck migration result
@@ -573,6 +511,29 @@ PS D:\work\run\claude\web_project_management> supabase migration list
    `20260830000003` | `20260830000003` | `2026-08-30 00:00:03` 
    `20260831000001` | `20260831000001` | `2026-08-31 00:00:01` 
 
+# dump data 放回
+# 1. supabase db query（CLI 內建，不需要 Docker）
+# 這是透過 Supabase 的 Management API 執行整份 SQL 檔案，好處是不用裝 psql、不用碰資料庫密碼；但這條路是通用查詢端點，對超大檔案或某些 pg_dump 產生的批次語法（例如 COPY ... FROM stdin 這種串流語法）支援度不一定完整，比較適合中小型的 dump。
+#     supabase db query --linked -f backup.sql
+# 2. psql 直連（傳統做法，最可靠）
+# 連線字串要去 Supabase Dashboard → Project Settings → Database 抓（含密碼）。你機器上已經有 psql.exe（跟你之前那個 pg_dump.exe 同一個 scoop 裝的 PostgreSQL 套件同一個資料夾），這條路是 pg_dump/psql 本來設計互相搭配的標準流程，處理大型/完整 dump 最不會出狀況。
+psql "<資料庫連線字串>" -f backup.sql
+# <資料庫連線字串> 位置
+進入 supabase db project
+  --> search "connect string"
+  --> Direct Connect string
+  --> Connection string : 內容大約如下
+    postgresql://postgres:[YOUR-PASSWORD]@db.amniwteziuabvurjiyfn.supabase.co:5432/postgres
+# psql 安裝: scoop(windows tool) 裝的 postgresql 套件本來就是完整的 client 工具組，psql.exe 跟 pg_dump.exe
+psql --version                                  
+  psql (PostgreSQL) 18.1
+# 清空資料庫怎麼清
+# 資料庫層面「清空」通常是整個砍掉 public schema 再重建，用 psql 連進去下：
+drop schema public cascade;
+create schema public;
+# 這會把 public 底下所有 table、function、trigger、view 全部清光（auth/storage 等 Supabase 自己管理的 schema 不受影響）。這是不可逆的動作，砍下去沒有回頭路，只能靠你手上的 dump 檔案救回來。
+# 如果你的 dump 是如前完整 dump: 內容本身就包含了完整 schema（所有 table/function/trigger 的 CREATE 語句，等於是全部 47 支 migration 疊加後的最終結果）+ 全部資料。這種狀況下，清空後直接把 dump 灌回去就好，不用也不應該再另外跑 migration——因為 dump 裡已經有這些物件的 CREATE 語句了
+#  如果你的 dump 是只有資料（--data-only）：這種 dump 假設 schema 已經存在，本身不包含任何 CREATE TABLE/FUNCTION。這種情況下清空資料庫後，要先跑 migration 把 schema 建回來（supabase db push --linked 會依 migration 歷史把 47 支全部重跑一次），再把 data-only 的 dump 灌進去。
 ```
 
 #### google 試算表
@@ -1096,7 +1057,7 @@ pip list | grep beautifulsoup4
 按 Ctrl + Shift + P → 輸入 Python: Select Interpreter
 ```
 
-### Web 專案管理
+### Web 專案管理 - PSA 系統（Professional Services Automation，專業服務自動化系統）
 #### 前後端安排
 
 {% note info %}
@@ -2632,7 +2593,15 @@ https://www.udemy.com/course/ai-hr-ru/
   + [如何用 Landing Page 測需求 - gemini pretty](https://gemini.google.com/u/1/app/ede2a6666d66f138?pageId=none)
   + [*** 智慧佔比趨勢雷達 - gemini pretty](https://gemini.google.com/u/1/app/2d8769fb6313cdfb?pageId=none)
 + 系統討論
-  + [設工專案管理系統 - gemini pretty](https://gemini.google.com/u/1/app/24bb0e47cb17b6ef?pageId=none)
+  + [設工專案管理系統_規格書討論 - gemini pretty](https://gemini.google.com/u/1/app/24bb0e47cb17b6ef?pageId=none)
+  + [設工專案管理系統_discuss_code](https://claude.ai/cowork/cse_01DCep2yqSRb3spFWkBGw7q3)
+  + [設工專案管理系統_price_discuss - gemini pretty](https://gemini.google.com/u/1/app/fea010ad4504b56f?pageId=none)
+  + [設工專案管理系統_discuss - gemini pretty](https://gemini.google.com/u/1/app/106bf945314d7ada?pageId=none)
+  + [設工專案管理系統_PSA2.0_discauu - gemini pretty](https://gemini.google.com/u/1/app/19379ef6f2cafa30?pageId=none)
+  + [設工專案管理系統_discuss_post](https://claude.ai/cowork/cse_01EEnnvFaSTKuTFGKYwgvTbh)
+  + [設工專案管理系統_規格整理](https://claude.ai/code/artifact/3a175fe2-a78f-4fc7-8201-fa0172d1b4e3?org=f3e1de8a-9b40-4e33-b45c-70baf63160e5)
   + [正式站升級評估](https://claude.ai/code/artifact/fac3f2a1-9a1e-43ff-b77f-70338e79b009)
   + [Email 驗證設定手冊](https://claude.ai/code/artifact/dc429730-a5e2-4847-8ebd-13f98f834721)
   + [通用 Email 驗證設定指南](https://claude.ai/code/artifact/a286ff9f-8c16-496f-960b-705852efae19)
++ share 
+  + [Project Management education_training V1.0.pdf](https://drive.google.com/file/d/1J0zt-DfGsvPM9gv-dVDruvspOkRk3DPG/view?usp=sharing)
