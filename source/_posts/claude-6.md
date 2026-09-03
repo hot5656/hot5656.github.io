@@ -120,7 +120,58 @@ later milestones. Stick to landing page + auth + placeholder dashboard.
 
 #### github 
 ```` bash
+# clone from github
 git clone https://github.com/hot5656/fare-finder-pro.git
+
+# set supabase for resend SMTP
+# resend verify domain key and get API key
+
+# email verify(Configure Send Email hook ) 
+# 1. if supabase not install - install
+# npm install -g supabase
+# 2. link supabase
+# Personal Access Tokens (PAT) 已經達到上限（最多 20 個），導致 CLI 在嘗試建立新的登入 session 時被拒絕。
+# a. 打開瀏覽器並登入 Supabase Dashboard Account Tokens（路徑：點擊右上角個人頭像 → Account settings → 側邊欄 Access Tokens）。
+# b. 在 Personal access tokens 列表中，找到名稱類似 Supabase CLI 或不再使用的舊 Token。
+# c. 點擊右側的 Revoke（撤銷 / 刪除）按鈕，刪除數個過期的 Token，保留額度。
+supabase login
+supabase link --project-ref <supabase_id>
+# 3. 設定 Edge Function 用到的環境變數
+supabase secrets set RESEND_API_KEY=<你的 Resend API key>
+# 4. set send-email/index.ts 裡的 SENDER 常數換成你在 Resend 驗證過的真實網域
+SENDER = "Flight Price Notifier <noreply@roberthut.com>"
+# 5. 部署 Edge Function
+supabase functions deploy send-email --no-verify-jwt
+# 6. 在 Dashboard 註冊 Send Email Hook
+Authentication 
+  --→ Emails 
+  --> Upgration to Pro/Configure Send Email hook(select Configure Send Email hook) 
+  --> HTTPS
+  -->  URL: https://<supabase_id>.supabase.co/functions/v1/send-email
+  --> generate secret
+  --> create hook
+# 7. set secrets to cli
+supabase secrets set SEND_EMAIL_HOOK_SECRET=<剛顯示的 secret> 
+# 8. test by run : No account yet? create by one
+
+# deploy to vercel
+# 1. generate skill
+help me create my custom command in @.claude/commands/deploy_vercel.md . I want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
+# vercel login
+! vercel login
+# reopen new session do deploy
+/deploy_vercel
+
+# set vercel Environments
+Setting
+  --> Environments
+  --> Production
+  --> Add Environment Variable
+    set 4 variable 
+    SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_URL
+    VITE_SUPABASE_PUBLISHABLE_KEY (select config)
+    VITE_SUPABASE_URL (select config)
 ````
 
 ### Ref
