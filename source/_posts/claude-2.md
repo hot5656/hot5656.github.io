@@ -424,7 +424,7 @@ Edge Functions
 # test 
 
 
-# # 使 verify 不會太快用完
+# 使 verify 不會太快用完
 Authentication 
   ➔ 點選 Rate Limits
   Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
@@ -450,17 +450,11 @@ upabase db push : 遠端雲端(Remote/Production)-將本地所有的 migration �
   supabase db push --include-all --dry-run
 ````
 
-##### next 
+##### other 
 ``` bash
-! SUPABASE_DB_PASSWORD='你的正式站資料庫密碼' supabase db push --linked --yes
+# link for control remote supabase
 # Full access DB
-
-# 清除歷史命令
-
-20260829000002_document_source_split.sql 需要修改嗎
-
-
-SUPABASE_DB_PASSWORD='wbdpY8GbEvgtNNuN' supabase db push --linked --yes
+SUPABASE_DB_PASSWORD='你的正式站資料庫密碼' supabase db push --linked --yes
 
 # 查看 auto mode 設定
 claude auto-mode config
@@ -497,7 +491,7 @@ supabase migration list
 # supabase db dump --linked 
 # 以下才會存成檔案
 supabase db dump --linked -f backup.sql
-# upsh migartion 
+# only dump to screen 
 supabase db push --linked 
 # recheck migration result
 PS D:\work\run\claude\web_project_management> supabase migration list  
@@ -2597,11 +2591,14 @@ https://www.udemy.com/course/ai-hr-ru/
   + [設工專案管理系統_discuss_code](https://claude.ai/cowork/cse_01DCep2yqSRb3spFWkBGw7q3)
   + [設工專案管理系統_price_discuss - gemini pretty](https://gemini.google.com/u/1/app/fea010ad4504b56f?pageId=none)
   + [設工專案管理系統_discuss - gemini pretty](https://gemini.google.com/u/1/app/106bf945314d7ada?pageId=none)
-  + [設工專案管理系統_PSA2.0_discauu - gemini pretty](https://gemini.google.com/u/1/app/19379ef6f2cafa30?pageId=none)
+  + [設工專案管理系統_PSA2.0_discuss - gemini pretty](https://gemini.google.com/u/1/app/19379ef6f2cafa30?pageId=none)
+  + [設工專案管理系統_PSA2.0_discuss_spec](https://claude.ai/cowork/cse_01TouyEacvLAbfFuu8J5K5M9)
   + [設工專案管理系統_discuss_post](https://claude.ai/cowork/cse_01EEnnvFaSTKuTFGKYwgvTbh)
   + [設工專案管理系統_規格整理](https://claude.ai/code/artifact/3a175fe2-a78f-4fc7-8201-fa0172d1b4e3?org=f3e1de8a-9b40-4e33-b45c-70baf63160e5)
   + [正式站升級評估](https://claude.ai/code/artifact/fac3f2a1-9a1e-43ff-b77f-70338e79b009)
   + [Email 驗證設定手冊](https://claude.ai/code/artifact/dc429730-a5e2-4847-8ebd-13f98f834721)
   + [通用 Email 驗證設定指南](https://claude.ai/code/artifact/a286ff9f-8c16-496f-960b-705852efae19)
++ V1.0 後續討論
+  + [系統內容討論 - gemini pretty](https://gemini.google.com/u/1/app/830351880eb79b24?pageId=none)
 + share 
   + [Project Management education_training V1.0.pdf](https://drive.google.com/file/d/1J0zt-DfGsvPM9gv-dVDruvspOkRk3DPG/view?usp=sharing)
