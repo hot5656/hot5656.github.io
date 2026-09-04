@@ -118,7 +118,7 @@ later milestones. Stick to landing page + auth + placeholder dashboard.
 
 {% endnote %}
 
-#### github 
+#### github --> delopy vVercel+Supabase
 ```` bash
 # clone from github
 git clone https://github.com/hot5656/fare-finder-pro.git
@@ -152,7 +152,11 @@ Authentication
   --> create hook
 # 7. set secrets to cli
 supabase secrets set SEND_EMAIL_HOOK_SECRET=<剛顯示的 secret> 
-# 8. test by run : No account yet? create by one
+# 8. set supabase rate limit per hour
+Authentication 
+  ➔ 點選 Rate Limits: 2 --> 30
+  Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
+# 9. run web site --> No account yet? create by one
 
 # deploy to vercel
 # 1. generate skill
@@ -172,6 +176,134 @@ Setting
     SUPABASE_URL
     VITE_SUPABASE_PUBLISHABLE_KEY (select config)
     VITE_SUPABASE_URL (select config)
+
+# fix confirm link 不能跳回登入畫面
+Authentication
+  --> URL Configuration
+  --> Site URL: https://fare-finder-pro.vercel.app
+  --> Redirect URLs:
+    https://fare-finder-pro.vercel.app/**
+    https://fare-finder-pro-*-roberts-projects-2b1cd09b.vercel.app/**
+    http://localhost:8080/** 
+
+# 刪除 user
+點擊左側最外層側邊欄的 Authentication（人員/鑰匙圖示，不是 Table Editor）。
+  --> 點選子分頁 Users。
+  --> 找到該使用者勾選
+  --> 上方列 Delete 1 users
+````
+
+```` bash
+# add schema
+supabase
+  --> SQL Editor
+    CREATE SCHEMA flight; 
+  --> run
+  # add to Exposed schemas
+  --> Project Setting
+  --> Data API
+  --> Settings
+  --> Exposed schemas
+  --> select flight
+  --> save
+
+# check 是否依有衝突
+# 1. 查 auth.users 上有沒有現有的 trigger：
+```
+SELECT
+  tgname AS trigger_name,
+  tgrelid::regclass AS table_name,
+  proname AS function_name,
+  pg_get_functiondef(tgfoid) AS function_body
+FROM pg_trigger
+JOIN pg_proc ON pg_proc.oid = pg_trigger.tgfoid
+WHERE tgrelid = 'auth.users'::regclass
+  AND NOT tgisinternal;
+```
+--> ...內容略
+--> 這個 Supabase 專案的 auth.users 已經有一個現成的 trigger on_auth_user_created，會呼叫 
+  handle_new_user()，每次任何 app 的使用者註冊，都會自動在 public.profiles 建一筆對應資料
+  （欄位是 employee_no、full_name、department、title、role，role 預設 'designer'，看起來是另一個
+  內部員工管理系統用的表）。
+# 這對我們有兩個重要含意：
+1. 這代表你們這個 Flight Price Notifier app 的使用者，現在只要透過 /auth 註冊，也會被這個既有 trigger 自動塞一筆進 public.profiles（role 會是預設值 'designer'）——這是原本就存在、跟我們現在要做的功能無關的既有行為，只是我沒有事先讓你知道會有這個副作用，先跟你確認一下：這樣可以嗎？還是你希望我們的 trigger 順便讓 Flight app 的使用者跳過這個 public.profiles 建立？
+2. 沒看到任何地方用到 app_metadata / raw_app_meta_data——所以目前完全沒有「哪個帳號屬於哪個 app」這種標記慣例，我們是第一個要做這件事的 app，可以自己定義 key 名稱（例如 app_metadata.app = 'fare-finder-pro'），不會跟誰打架。我們新加的 trigger 只要用 BEFORE INSERT（在 row 真正寫入前直接改 NEW.raw_app_meta_data），跟這個既有的 AFTER INSERT trigger 時機不同、動的也是不同欄位/不同表，兩者不會互相干擾。
+
+# 2. 查有沒有任何函式已經在動 app_metadata / raw_app_meta_data（看看其他 app 有沒有自己的標記慣例）：
+``` 
+SELECT n.nspname AS schema, p.proname AS function_name
+FROM pg_proc p
+JOIN pg_namespace n ON n.oid = p.pronamespace
+WHERE p.prosrc ILIKE '%raw_app_meta_data%'
+   OR p.prosrc ILIKE '%app_metadata%';
+```
+--> Success. No rows returned
+--> 結果很乾淨：完全沒有任何函式用到 app_metadata / raw_app_meta_data，代表我們是第一個訂這個標記規則的 app，可以自己定，不會跟任何人衝突。
+
+
+# 執行
+# 1. 第 0 步預檢（阻塞操作－在遷移之前執行）
+# run
+```
+SELECT column_name, is_nullable, column_default
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = 'profiles'
+ORDER BY ordinal_position;
+``` 
+
+# response
+```
+| column_name | is_nullable | column_default        |
+| ----------- | ----------- | --------------------- |
+| id          | NO          | null                  |
+| employee_no | NO          | null                  |
+| full_name   | NO          | null                  |
+| email       | NO          | null                  |
+| department  | YES         | null                  |
+| title       | YES         | null                  |
+| role        | NO          | 'designer'::user_role |
+| is_active   | NO          | true                  |
+| created_at  | NO          | now()                 |
+| updated_at  | NO          | now()                 |
+```
+
+# 分析
+```
+Yes, that's exactly what we needed — department and title are both is_nullable = 'YES', so they'll happily accept NULL from Flight-app signups. Every other NOT NULL column (id, employee_no, full_name, email, role) is already covered by handle_new_user()'s coalesce(...) fallbacks, and is_active/created_at/updated_at have their own defaults (true, now(), now()). No blocker — Step 0 passes.
+```
+
+# 2. run migrationat SQL Editors
+```
+# 20260904120000_flight_app_scoped_auth.sql
+
+# update status(手動更新狀態)
+supabase migration repair --status applied 20260904120000
+# show migration status
+supabase migration list
+```
+
+# check account 是否被限制
+```
+select email, raw_user_meta_data, raw_app_meta_data
+from auth.users
+where email = 'pm.demo@example.com';
+```
+
+# response
+```
+| email               | raw_user_meta_data                                                                                                                                | raw_app_meta_data                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| pm.demo@example.com | {"app":"fare-finder-pro","role":"project_manager","title":"工務主管","full_name":"陳工務","department":"工務部","employee_no":"E002","email_verified":true} | {"apps":["fare-finder-pro"],"provider":"email","providers":["email"]} |
+```
+
+# 2nd app
+```
+```
+
+# public app
+```
+```
+
 ````
 
 ### Ref

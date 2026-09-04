@@ -391,38 +391,8 @@ API keys
     Sending access
     All domain
 
-# other supaset ask claude do it
-
-
-########## ????? wait check
-
-
-# Supabase 網頁後台手動新增 Secret(resend)
-Edge Functions
-  --> Secrets
-    Name: RESEND_API_KEY
-    Value: resend_api_key
-  --> Save
-
-# ww
-robert5656_project_management    
-  --> Authentication
-  --> Emails
-  --> Set up SMTP
-  --> Configure Send Email hook
-    Hook type: HTTPS
-    URL: https://supabase.com/dashboard/project/amniwteziuabvurjiyfn/functions
-
-
-# 
-Edge Functions
-  --> send-email-hook。
-  --> Settings
-  --> Verify JWT with legacy secret
-  --> off
-
-# test 
-
+# supaset setting ask claude to do it
+...set have "Claude Code 實戰" other example
 
 # 使 verify 不會太快用完
 Authentication 
