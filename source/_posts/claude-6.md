@@ -301,7 +301,45 @@ where email = 'pm.demo@example.com';
 ```
 
 # public app
+# 1. check public.handel_new_user() 定義, employee_no 如何計算
+``` 
+SELECT pg_get_functiondef(oid)
+FROM pg_proc
+WHERE proname = 'handle_new_user' AND pronamespace = 'public'::regnamespace;
 ```
+
+# 1. project-manage management modify code
+
+# 2. 對現有帳號一次性補上該 app 自己的名稱，SQL
+```
+update auth.users
+set raw_app_meta_data =
+  coalesce(raw_app_meta_data, '{}'::jsonb)
+  || jsonb_build_object(
+    'apps',
+    case
+      when jsonb_typeof(raw_app_meta_data -> 'apps') = 'array' then (
+        select coalesce(jsonb_agg(distinct v), '[]'::jsonb)
+        from jsonb_array_elements_text(
+          (raw_app_meta_data -> 'apps') || '["project-management"]'::jsonb
+        ) v
+      )
+      else '["project-management"]'::jsonb
+    end
+  )
+where id in (select id from public.profiles);
+```
+
+
+```
+update auth.users
+set raw_app_meta_data =
+  coalesce(raw_app_meta_data, '{}'::jsonb)
+  || jsonb_build_object(
+    'apps',
+    coalesce(raw_app_meta_data -> 'apps', '[]'::jsonb) || to_jsonb('<你的-app-名稱>'::text)
+  )
+where id in (/* 這個系統現有帳號的 id 清單 */);
 ```
 
 ````
