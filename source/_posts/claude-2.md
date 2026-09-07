@@ -1021,6 +1021,60 @@ pip list | grep beautifulsoup4
 按 Ctrl + Shift + P → 輸入 Python: Select Interpreter
 ```
 
+#### Migration to Vercel + Supabase
+##### .env
+``` bash
+# 連接至 Supabase 資料庫的連線字串
+DATABASE_URL=postgresql://postgres.[supabase_project_id]:[YOUR-PASSWORD]@aws-0-ap-south-1.pooler.supabase.com:6543/postgres
+
+# Supabase 專案的 API URL（瀏覽器與伺服器端皆會用到，需以 NEXT_PUBLIC_ 前綴曝露給前端）
+NEXT_PUBLIC_SUPABASE_URL=https://<supabase_project_id>.supabase.co
+
+# Supabase anon (public) key：可安全曝露給前端，實際權限完全由 RLS 政策控管
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+# Supabase service role key：擁有繞過 RLS 的完整權限，
+# 僅能在伺服器端（seed script、未來的後台 API/Server Action）使用，
+# 絕對不可加上 NEXT_PUBLIC_ 前綴、絕對不可曝露給瀏覽器或提交進版控。
+SUPABASE_SERVICE_ROLE_KEY=
+
+# 專案的 Legacy JWT Secret（對稱式密鑰）
+SUPABASE_JWT_SECRET=
+
+# Demo 模式：設為 "true" 時，登入頁會顯示測試帳號清單，方便試用。
+NEXT_PUBLIC_DEMO_MODE=true
+```
+
+##### find DATABASE_URL and SUPABASE_JWT_SECRET
+``` bash
+# DATABASE_URL - <資料庫連線字串> 位置
+進入 supabase db project
+  --> search "connect string"
+  --> 使用 Transaction Pooler
+  --> Connection string : 內容大約如下  
+      postgresql://postgres.luugfvsrawnuzwpjvddt:[YOUR-PASSWORD]@aws-0-ap-south-1.pooler.supabase.com:6543/postgres  
+
+# SUPABASE_JWT_SECRET 位置
+進入 supabase db project
+  --> Project Settings
+  --> JWT Keys
+  --> Legacy JWT Secret
+```
+
+##### 為什麼其他的 App 從未要求過這兩個變數
+{% note info %}
+**為什麼你其他的 App 從未要求過這兩個變數？**
+
++ **其他 App（如 Next.js 專案）**：
+  + **不需要 DATABASE_URL**：因為它們完全透過 `supabase-js` 與 PostgREST 溝通，不直接連線資料庫。
+  + **不需要 SUPABASE_JWT_SECRET**：因為它們的 Token 驗證與 Session 管理是由 `supabase-js` 內部自動向 Supabase Auth API 驗證處理，前端或 Next.js 伺服器不需要手動去解碼 JWT。
+
++ **本專案（`udemy-coupon` / Python FastAPI）**：
+  + **需要 DATABASE_URL**：因為這是 Python 後端，透過 **SQLAlchemy** 直接建立連線操作 Postgres 資料庫。
+  + **需要 SUPABASE_JWT_SECRET**：因為後端在收到 API 請求時，是在本地端用 `jwt.decode(...)` 直接驗證使用者傳來的 JWT 簽章，藉此進行身分識別與 `user_id` 過濾，所以需要這把密鑰來解碼。
+{% endnote %}
+
+
 ### Web 專案管理 - PSA 系統（Professional Services Automation，專業服務自動化系統）
 #### 前後端安排
 
