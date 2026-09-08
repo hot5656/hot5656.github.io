@@ -420,6 +420,73 @@ upabase db push : 遠端雲端(Remote/Production)-將本地所有的 migration �
   supabase db push --include-all --dry-run
 ````
 
+#### a brand new vercel project(multi app)
+````bash
+# create a new vercel project
+PS D:\work\run\claude\web_project_management> vercel link
+Vercel CLI 50.1.3
+? Set up “D:\work\run\claude\web_project_management”? yes
+? Which scope should contain your project? Robert's projects
+? Found project “roberts-projects-2b1cd09b/web-project-management”. Link to it? no
+? Link to different existing project? no
+? What’s your project’s name? multi-app_project_management
+? In which directory is your code located? ./
+Auto-detected Project Settings (Next.js):
+- Build Command: next build
+- Development Command: next dev --port $PORT
+- Install Command: `yarn install`, `pnpm install`, `npm install`, or `bun install`
+- Output Directory: Next.js default
+? Want to modify these settings? no
+? Do you want to change additional project settings? no
+✅  Linked to roberts-projects-2b1cd09b/multi-app_project_management (created .vercel)
+? Detected a repository. Connect it to this project? yes
+> Connecting GitHub repository: https://github.com/hot5656/web_project_management
+
+# add new supabase
+upabase login
+# link to supabase project
+supabase link --project-ref ptxgvgelgisiwdjeiypi
+# update migtraion 
+# remove 20260904120000_flight_app_scoped_auth.sql
+supabase db push
+# check migration
+supabase migration list  
+# change env 
+npm run env:use hot5656_multi_app
+# 建立 7 個基礎測試帳號（2 位設計師、2 位工務主管、finance/doc_control/admin 各一位，清單見下方「測試帳號」）。此 script 可重複執行：若帳號已存在會更新其 密碼與角色資訊，不會重複建立。
+npm run seed
+
+# 範例檔：`supabase/seed/accounts-template.csv`
+```
+email,full_name,department,title,role
+designer3@company.com,王小明,設計部,室內設計師,designer
+designer4@company.com,李小華,設計部,室內設計師,designer
+```
+# 執行 npm run create-accounts -- <CSV路徑>
+# 修正增加 20260908000001_self_correcting_employee_no_sequence
+npm run create-accounts -- supabase/seed/accounts-designers.csv
+# setup supabase environment
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# deploy_vercel
+/deploy_vercel
+# 回應告知執行 vercel --prod --yes(terminal)
+Build is a plain next build — the migration/CSV file changes won't affect the app build or runtime. Before I deploy:
+
+Uncommitted changes on multi-app branch (Vercel deploys what's on disk, not what's committed):
+- deleted: supabase/migrations/20260904120000_flight_app_scoped_auth.sql
+- untracked: supabase/migrations/20260908000001_self_correcting_employee_no_sequence.sql, supabase/seed/accounts-designers.csv
+
+None of these touch app code (they're SQL/CSV, and next build doesn't run migrations), so they won't change what gets deployed functionally — but you'd be deploying this uncommitted state as-is.
+Target confirmed safe: .vercel/project.json is linked to multi-app_project_management (not the real   production project hot5656_project_on env vars(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) were already set 2 minutes ago — presumably pointingypi project. Logged in as
+kyp001-7668.                                                                                        
+Since mode is unspecified, this will run vercel --prod --yes against multi-app_project_management — not your live customer-facing site.
+# run at terminal 
+vercel --prod --yes
+```` 
+
 ##### other 
 ``` bash
 # link for control remote supabase
@@ -1073,6 +1140,29 @@ NEXT_PUBLIC_DEMO_MODE=true
   + **需要 DATABASE_URL**：因為這是 Python 後端，透過 **SQLAlchemy** 直接建立連線操作 Postgres 資料庫。
   + **需要 SUPABASE_JWT_SECRET**：因為後端在收到 API 請求時，是在本地端用 `jwt.decode(...)` 直接驗證使用者傳來的 JWT 簽章，藉此進行身分識別與 `user_id` 過濾，所以需要這把密鑰來解碼。
 {% endnote %}
+
+##### set domain name
+``` bash
+# udemy-coupon.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host          | Value                 | TTL.     | 
+    | CNAME Record| udemy-coupon  |  cname.vercel-dns.com.| Automatic| 
+      ps: cname.vercel-dns.com. 後面的點是自動加上去
+
+# Vercel setting - udemy-coupon
+Vercel 專案 web-project-management
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "udemy-coupon.roberthut.com"
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+```
 
 
 ### Web 專案管理 - PSA 系統（Professional Services Automation，專業服務自動化系統）
@@ -2626,3 +2716,5 @@ https://www.udemy.com/course/ai-hr-ru/
   + [系統內容討論 - gemini pretty](https://gemini.google.com/u/1/app/830351880eb79b24?pageId=none)
 + share 
   + [Project Management education_training V1.0.pdf](https://drive.google.com/file/d/1J0zt-DfGsvPM9gv-dVDruvspOkRk3DPG/view?usp=sharing)
+  + [udemy-coupon Chiness Guide](https://drive.google.com/file/d/14atFmDmLFKU8OgE-S7FmjwrKUKh1eTST/view?usp=sharing)
+  + [udemy-coupon English Guide](https://drive.google.com/file/d/1_ik6OpwNd_HTnSDP7W2hV8NYKVeu1qUH/view?usp=sharing)

@@ -32,6 +32,9 @@ tags:
 user:name flight
 ```
 
+
+<!--more-->
+
 ### AI 機票價格追蹤功能
 
 #### Lovable generate home page
