@@ -121,7 +121,7 @@ later milestones. Stick to landing page + auth + placeholder dashboard.
 
 {% endnote %}
 
-#### github --> delopy vVercel+Supabase
+#### github --> delopy Vercel+Supabase
 ```` bash
 # clone from github
 git clone https://github.com/hot5656/fare-finder-pro.git
@@ -196,156 +196,108 @@ Authentication
   --> 上方列 Delete 1 users
 ````
 
-```` bash
-# add schema
-supabase
-  --> SQL Editor
-    CREATE SCHEMA flight; 
-  --> run
-  # add to Exposed schemas
-  --> Project Setting
-  --> Data API
-  --> Settings
-  --> Exposed schemas
-  --> select flight
-  --> save
+#### set dupabase for multi app
+{% note info %}
+這份紀錄整理由原本的內部管理系統（`public`）共用同一個 Supabase 實體，擴充給新專案 `Flight Price Notifier`（`flight` schema）時的隔離架構與執行步驟。
 
-# check 是否依有衝突
-# 1. 查 auth.users 上有沒有現有的 trigger：
-```
-SELECT
-  tgname AS trigger_name,
-  tgrelid::regclass AS table_name,
-  proname AS function_name,
-  pg_get_functiondef(tgfoid) AS function_body
-FROM pg_trigger
-JOIN pg_proc ON pg_proc.oid = pg_trigger.tgfoid
-WHERE tgrelid = 'auth.users'::regclass
-  AND NOT tgisinternal;
-```
---> ...內容略
---> 這個 Supabase 專案的 auth.users 已經有一個現成的 trigger on_auth_user_created，會呼叫 
-  handle_new_user()，每次任何 app 的使用者註冊，都會自動在 public.profiles 建一筆對應資料
-  （欄位是 employee_no、full_name、department、title、role，role 預設 'designer'，看起來是另一個
-  內部員工管理系統用的表）。
-# 這對我們有兩個重要含意：
-1. 這代表你們這個 Flight Price Notifier app 的使用者，現在只要透過 /auth 註冊，也會被這個既有 trigger 自動塞一筆進 public.profiles（role 會是預設值 'designer'）——這是原本就存在、跟我們現在要做的功能無關的既有行為，只是我沒有事先讓你知道會有這個副作用，先跟你確認一下：這樣可以嗎？還是你希望我們的 trigger 順便讓 Flight app 的使用者跳過這個 public.profiles 建立？
-2. 沒看到任何地方用到 app_metadata / raw_app_meta_data——所以目前完全沒有「哪個帳號屬於哪個 app」這種標記慣例，我們是第一個要做這件事的 app，可以自己定義 key 名稱（例如 app_metadata.app = 'fare-finder-pro'），不會跟誰打架。我們新加的 trigger 只要用 BEFORE INSERT（在 row 真正寫入前直接改 NEW.raw_app_meta_data），跟這個既有的 AFTER INSERT trigger 時機不同、動的也是不同欄位/不同表，兩者不會互相干擾。
+---
 
-# 2. 查有沒有任何函式已經在動 app_metadata / raw_app_meta_data（看看其他 app 有沒有自己的標記慣例）：
-``` 
-SELECT n.nspname AS schema, p.proname AS function_name
-FROM pg_proc p
-JOIN pg_namespace n ON n.oid = p.pronamespace
-WHERE p.prosrc ILIKE '%raw_app_meta_data%'
-   OR p.prosrc ILIKE '%app_metadata%';
+### 架構與隔離策略
+
+| 隔離維度 | 現有應用程式（Project Management） | 新應用程式（Fare Finder Pro） |
+| --- | --- | --- |
+| **資料庫 Schema** | `public` | `flight` |
+| **Data API 暴露** | 預設 `public` | 需額外加入 `flight` |
+| **Auth 區隔機制** | `auth.users.raw_app_meta_data -> 'apps'` 包含 `"project-management"` | `auth.users.raw_app_meta_data -> 'apps'` 包含 `"fare-finder-pro"` |
+| **Trigger 觸發時機** | `AFTER INSERT` 寫入 `public.profiles`（預設角色 `designer`） | `BEFORE INSERT` 寫入 `raw_app_meta_data`，兩者時機互不干擾 |
+
+---
+
+### 執行步驟
+
+**步驟 1：建立 Schema 並暴露 Data API**
+
+1. 進入 Supabase **SQL Editor** 建立專用 Schema：
+```sql
+CREATE SCHEMA flight;
+
 ```
---> Success. No rows returned
---> 結果很乾淨：完全沒有任何函式用到 app_metadata / raw_app_meta_data，代表我們是第一個訂這個標記規則的 app，可以自己定，不會跟任何人衝突。
 
 
-# 執行
-# 1. 第 0 步預檢（阻塞操作－在遷移之前執行）
-# run
-```
+2. 前往 **Project Settings** > **Data API** > **Settings** > **Exposed schemas**。
+3. 勾選 `flight` 並儲存。
+
+**步驟 2：事前衝突與相容性檢查（Pre-flight Checks）**
+
+* **檢查現有 Trigger：** 確認 `auth.users` 上已存在 `on_auth_user_created`（`handle_new_user()`），新註冊帳號會自動在 `public.profiles` 建立一筆預設值資料。
+* **檢查 metadata 依賴：** 查驗 `pg_proc` 確認現有函數皆未寫入 `raw_app_meta_data`，可自訂 `apps` 陣列標籤。
+* **驗證 `public.profiles` 欄位約束：**
+```sql
 SELECT column_name, is_nullable, column_default
 FROM information_schema.columns
 WHERE table_schema = 'public' AND table_name = 'profiles'
 ORDER BY ordinal_position;
-``` 
 
-# response
-```
-| column_name | is_nullable | column_default        |
-| ----------- | ----------- | --------------------- |
-| id          | NO          | null                  |
-| employee_no | NO          | null                  |
-| full_name   | NO          | null                  |
-| email       | NO          | null                  |
-| department  | YES         | null                  |
-| title       | YES         | null                  |
-| role        | NO          | 'designer'::user_role |
-| is_active   | NO          | true                  |
-| created_at  | NO          | now()                 |
-| updated_at  | NO          | now()                 |
 ```
 
-# 分析
-```
-Yes, that's exactly what we needed — department and title are both is_nullable = 'YES', so they'll happily accept NULL from Flight-app signups. Every other NOT NULL column (id, employee_no, full_name, email, role) is already covered by handle_new_user()'s coalesce(...) fallbacks, and is_active/created_at/updated_at have their own defaults (true, now(), now()). No blocker — Step 0 passes.
-```
 
-# 2. run migrationat SQL Editors
-```
-# 20260904120000_flight_app_scoped_auth.sql
+*結果：* `department` 與 `title` 為 Nullable，其餘非空欄位均有預設值或由 `coalesce` 處理，不會阻擋 Flight 使用者註冊。
 
-# update status(手動更新狀態)
+**步驟 3：套用 Migration 與校準 CLI 狀態**
+
+1. 在 **SQL Editor** 執行 migration 腳本：
+* `20260904120000_flight_app_scoped_auth.sql`
+
+
+2. 透過 Supabase CLI 同步本機 migration 追蹤狀態：
+```bash
 supabase migration repair --status applied 20260904120000
-# show migration status
 supabase migration list
+
 ```
 
-# check account 是否被限制
-```
-select email, raw_user_meta_data, raw_app_meta_data
-from auth.users
-where email = 'pm.demo@example.com';
-```
 
-# response
-```
-| email               | raw_user_meta_data                                                                                                                                | raw_app_meta_data                                                     |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| pm.demo@example.com | {"app":"fare-finder-pro","role":"project_manager","title":"工務主管","full_name":"陳工務","department":"工務部","employee_no":"E002","email_verified":true} | {"apps":["fare-finder-pro"],"provider":"email","providers":["email"]} |
-```
 
-# 2nd app
-```
-```
+**步驟 4：回溯標記現有帳號（Backfill）**
+對已存在 `public.profiles` 的舊帳號，一次性補上原本所屬的 `project-management` 標籤，並保留陣列去重特性：
 
-# public app
-# 1. check public.handel_new_user() 定義, employee_no 如何計算
-``` 
-SELECT pg_get_functiondef(oid)
-FROM pg_proc
-WHERE proname = 'handle_new_user' AND pronamespace = 'public'::regnamespace;
-```
-
-# 1. project-manage management modify code
-
-# 2. 對現有帳號一次性補上該 app 自己的名稱，SQL
-```
-update auth.users
-set raw_app_meta_data =
+```sql
+UPDATE auth.users
+SET raw_app_meta_data =
   coalesce(raw_app_meta_data, '{}'::jsonb)
   || jsonb_build_object(
     'apps',
-    case
-      when jsonb_typeof(raw_app_meta_data -> 'apps') = 'array' then (
-        select coalesce(jsonb_agg(distinct v), '[]'::jsonb)
-        from jsonb_array_elements_text(
+    CASE
+      WHEN jsonb_typeof(raw_app_meta_data -> 'apps') = 'array' THEN (
+        SELECT coalesce(jsonb_agg(DISTINCT v), '[]'::jsonb)
+        FROM jsonb_array_elements_text(
           (raw_app_meta_data -> 'apps') || '["project-management"]'::jsonb
         ) v
       )
-      else '["project-management"]'::jsonb
-    end
+      ELSE '["project-management"]'::jsonb
+    END
   )
-where id in (select id from public.profiles);
-```
-
+WHERE id IN (SELECT id FROM public.profiles);
 
 ```
-update auth.users
-set raw_app_meta_data =
-  coalesce(raw_app_meta_data, '{}'::jsonb)
-  || jsonb_build_object(
-    'apps',
-    coalesce(raw_app_meta_data -> 'apps', '[]'::jsonb) || to_jsonb('<你的-app-名稱>'::text)
-  )
-where id in (/* 這個系統現有帳號的 id 清單 */);
+
+**步驟 5：驗證結果**
+確認使用者帳號包含專屬的 app 權限清單：
+
+```sql
+SELECT email, raw_user_meta_data, raw_app_meta_data
+FROM auth.users
+WHERE email = 'pm.demo@example.com';
+
 ```
 
-````
+---
+
+### 注意事項與後續待辦
+
+* **`public.profiles` 副作用：** Flight 使用者註冊時仍會自動在 `public.profiles` 產生一筆 `role = 'designer'` 的紀錄。若未來需完全乾淨隔離，需調整 `handle_new_user()` 函式，依據 `raw_app_meta_data` 或註冊來源跳過非 PM 系統的帳號。
+* **RLS 策略綁定：** `flight` schema 內的資料表應在 RLS Policy 中透過 `(auth.jwt() -> 'app_metadata' -> 'apps')::jsonb ? 'fare-finder-pro'` 限制只有該 App 標籤的使用者才可存取。
+{% endnote %}
 
 ### Ref
 + AI 機票價格追蹤功能

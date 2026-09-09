@@ -424,6 +424,7 @@ upabase db push : 遠端雲端(Remote/Production)-將本地所有的 migration �
 ````bash
 # create a new vercel project
 PS D:\work\run\claude\web_project_management> vercel link
+"
 Vercel CLI 50.1.3
 ? Set up “D:\work\run\claude\web_project_management”? yes
 ? Which scope should contain your project? Robert's projects
@@ -441,6 +442,7 @@ Auto-detected Project Settings (Next.js):
 ✅  Linked to roberts-projects-2b1cd09b/multi-app_project_management (created .vercel)
 ? Detected a repository. Connect it to this project? yes
 > Connecting GitHub repository: https://github.com/hot5656/web_project_management
+"
 
 # add new supabase
 upabase login
@@ -472,7 +474,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 # deploy_vercel
 /deploy_vercel
-# 回應告知執行 vercel --prod --yes(terminal)
+"
 Build is a plain next build — the migration/CSV file changes won't affect the app build or runtime. Before I deploy:
 
 Uncommitted changes on multi-app branch (Vercel deploys what's on disk, not what's committed):
@@ -483,8 +485,70 @@ None of these touch app code (they're SQL/CSV, and next build doesn't run migrat
 Target confirmed safe: .vercel/project.json is linked to multi-app_project_management (not the real   production project hot5656_project_on env vars(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) were already set 2 minutes ago — presumably pointingypi project. Logged in as
 kyp001-7668.                                                                                        
 Since mode is unspecified, this will run vercel --prod --yes against multi-app_project_management — not your live customer-facing site.
+"
+# 回應告知執行 vercel --prod --yes(terminal)
 # run at terminal 
 vercel --prod --yes
+
+# 設定 Edge Function 用到的環境變數
+supabase secrets set RESEND_API_KEY=<你的 Resend API key>
+# 部署 Edge Function 
+# --no-verify-jwt：關閉 API 閘道的 JWT 簽章驗證。
+#   預設行為（不加此參數）：
+#     Supabase 閘道會強制檢查請求標頭中的 Authorization: Bearer <token>。若沒有攜帶有效的 Supabase JWT 或匿名金鑰（Anon Key），閘道會直接阻擋並回傳 401 Unauthorized，根本不會執行函式內部的程式碼。
+#   加上 --no-verify-jwt：
+#     解除閘道層的存取限制，代表任何知道該 URL 的人都可以直接發送 HTTP 請求觸發此函式。
+#   何時適合使用 --no-verify-jwt？
+#     接收外部 Webhook：例如 Stripe 付款通知、Resend / SendGrid 事件回呼、GitHub Webhook 等第三方服務呼叫（第三方服務無法提供 Supabase 的 JWT）。
+#     在函式內部自行驗證：你在 index.ts 內有自訂專用金鑰驗證機制（例如檢查自訂標頭 x-custom-api-key 或 Webhook Signature）。
+#   安全風險提醒
+#     若 send-email 是用來寄送電子郵件，且在函式內部沒有撰寫任何身分或金鑰驗證邏輯，加上 --no-verify-jwt 會讓該端點暴露於公網，可能遭他人惡意濫用導致寄件配額耗盡或被列入垃圾郵件黑名單。
+#     以下使用 SEND_EMAIL_HOOK_SECRET 已解決此問題
+supabase functions deploy send-email --no-verify-jwt
+
+
+# 在 Dashboard 註冊 Send Email Hook
+Authentication 
+  --→ Emails 
+  --> Upgration to Pro/Configure Send Email hook(select Configure Send Email hook) 
+  --> HTTPS
+  -->  URL: https://<supabase_id>.supabase.co/functions/v1/send-email
+  --> generate secret
+  --> create hook
+# set secrets to cli
+supabase secrets set SEND_EMAIL_HOOK_SECRET=<剛顯示的 secret> 
+# 8. set supabase rate limit per hour
+Authentication 
+  ➔ 點選 Rate Limits: 2 --> 30
+  Email rate limit per hour（每小時發信總量上限）：預設通常為 30，可調大（例如改為 100 或 300）。
+
+# fix confirm link 不能跳回登入畫面(supabase)
+Authentication
+  --> URL Configuration
+  --> Site URL: https://multi-appprojectmanagement.vercel.app
+  --> Redirect URLs:
+    https://multi-appprojectmanagement.vercel.app/**
+    https://multi-appprojectmanagement.vercel.app-*-roberts-projects-2b1cd09b.vercel.app/**
+    http://localhost:8080/**
+    http://localhost:3000/**
+
+# 後記 - 將 https://hot5656-project-management.roberthut.com/ 指定到新的 vercel and supabase
+# supabase: hot5656_multi_app_projrct_management
+# URL Configuration
+Site URL: hot5656-project-management.roberthut.com
+# Redirect URLs
+https://hot5656-project-management.roberthut.com/**
+http://localhost:3000/**
+http://localhost:8080/**
+# vercel : multi-app-project-management
+# Domains:
+vercel comain Redirect to Another Domain --> hot5656-project-management.vercel.app
+Domain --> hot5656-project-management.roberthut.com
+# connect to github
+Settings
+  --> Git
+  --> Manage Locin Connection
+  --> github
 ```` 
 
 ##### other 
