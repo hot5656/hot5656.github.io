@@ -141,6 +141,19 @@ schemas = ["public", "web_app2"]
 + macOS: Cmd + K 接著按 V
 ```
 
+##### remove hexo see .deploy_git
+``` bash
+# set ignore .deploy_git
+F1
+  --> Preferences: Open Settings (UI)
+  --> 搜尋欄輸入 "git.ignoredRepositories"
+  --> 點擊 新增項目（Add Item），填入 ".deploy_git"
+
+# refresh windows
+F1
+  --> Reload Window
+```
+
 #### vercel 部署
 ##### Edge function
 ```` bash 
@@ -657,6 +670,119 @@ A2 以下的所有資料（保留 A1 標題不動）：
   + Windows：Ctrl + Shift + V
   + Mac：Cmd + Shift + V
 ````
+
+#### playwright vs Chrome-DevTools
+{% note info %}
+**Playwright** 與 **Chrome DevTools (CDP)** 的主要差別在於**抽象層級**與**控制維度**：Playwright 是一套專注於跨瀏覽器端對端測試與使用者行為模擬的高階自動化框架，而 Chrome DevTools 則是直接操作 Chromium 核心底層診斷與除錯協定的介面。
+
+| 比較維度 | Playwright (Playwright MCP) | Chrome DevTools (chrome-devtools-mcp) |
+| :---- | :---- | :---- |
+| **技術層級** | **高階自動化框架**：封裝了使用者互動語義（點擊、填表、等待） | **底層通訊協定 (CDP)**：直接向 Chromium 核心發送低階除錯指令 |
+| **主要定位** | E2E 測試、網頁爬蟲、模擬真實人類操作流程 | 深度效能分析、Console/Network 監控、DOM 狀態即時診斷 |
+| **連線與環境** | 預設以 Headless/獨立乾淨的沙盒實例啟動，環境隔離性高 | 支援透過 \--remote-debugging-port 直接掛載你**當前日常使用的 Chrome 視窗** |
+| **狀態繼承** | 每次啟動預設為全新無狀態 Context（需額外保存 storage state） | 能直接繼承你已登入的 Cookie、Session、Vercel/Google 權限與本機狀態 |
+| **操作體驗** | 具備智慧自動等待機制（Auto-wait），元素載入完成前不易報錯 | 指令較為底層，需精確指定節點或執行評估腳本（evaluate script） |
+| **瀏覽器支援** | Chromium、Firefox、WebKit（Safari 核心）全跨平台 | **僅限 Chromium 核心**（Chrome, Edge, Brave 等） |
+
+<br>
+
+**在 AI 協作（如 Claude Code / MCP）中的適用情境**
+
+* **選擇 Chrome DevTools MCP 的時機：**  
+  * 需要讀取已登入後台（如 Vercel、AWS Console、Supabase 儀表板）的即時狀態。  
+  * 檢查現有分頁的 Console 報錯、網路封包失敗原因或記憶體效能。  
+  * 配合 \--remote-debugging-port=9222，讓 AI 直接幫你觀察你「正看著的那個螢幕畫面」。  
+* **選擇 Playwright MCP 的時機：**  
+  * 執行端對端自動化測試（例如：註冊流程測試、表單填寫提交驗證）。  
+  * 需要自動化截圖、產生測試報告或跨瀏覽器相容性測試。  
+  * 建立可重現、無副作用的隔離爬蟲與背景排程作業。
+
+**一句話總結搭配策略**
+  + **「寫功能、測流程、跑自動化驗證」**用 Playwright；
+  + **「查 Console、抓 Network 錯誤、請 AI 幫你看線上雲端後台」**用 Chrome DevTools。
+{% endnote %}
+
+#### setup Chrome DevTools MCP
+{% note info %}
+这是 Google 官方维护的 `chrome-devtools-mcp`，配置比想象中简单。分两种情况：**简单模式**（自动开一个全新 Chrome，无登入状态）跟**连接你现有 Chrome**（保留登入状态，比较适合你要看 Vercel dashboard 这种场景）。
+
+**==== 前置需求（Windows / Mac 通用）====**
+
+先确认已安装 Node.js（`node -v` 能跑出版本号即可），以及 Claude Code CLI。
+
+**==== 方式一：最简单（自动启动独立 Chrome，无痕、无登入）====**
+
+Windows 和 Mac 完全一样，直接在终端机执行：
+
+```bash
+claude mcp add chrome-devtools -- npx chrome-devtools-mcp@latest
+```
+
+重启 Claude Code 后就能用，Claude 会自己开一个新的、干净的 Chrome 实例。**缺点：不带你原本的登入状态**，如果要看 Vercel dashboard 这种需要登入的页面就不适用。
+
+**==== 方式二：连接你现有的 Chrome（保留登入状态）====**
+
++ **步骤 1：用 remote debugging 启动 Chrome**
+
+Mac：
+```bash
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir="$HOME/chrome-debug-profile"
+```
+
+Windows（用 PowerShell 或 cmd）：
+```powershell
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="$env:TEMP\chrome-debug-profile"
+```
+
+> 注意：`--user-data-dir` 指向一个新的资料夹，代表这是一个**独立的 Chrome 用户资料**，不是你平常用的那个 profile，所以第一次用的时候要在这个新开的 Chrome 窗口里手动登入一次 Vercel（之后这个 profile 会记住登入状态）。
+
++ **步骤 2：把 MCP 加进 Claude Code，指定连去这个端口**
+
+Mac：
+```bash
+claude mcp add --scope user chrome-devtools -- npx chrome-devtools-mcp@latest
+```
+
+Windows（用 PowerShell 或 cmd）：
+```powershell
+claude mcp add --scope user chrome-devtools -- cmd /c npx chrome-devtools-mcp@latest
+```
+
++ **步骤 3：验证连接**
+
+浏览器打开 `http://localhost:9222/json/version`，如果看到一段 JSON（里面有 `Browser`、`webSocketDebuggerUrl` 等字段），代表调试端口正常运作。
+
+``` bash
+# example
+{
+   "Browser": "Chrome/152.0.7977.83",
+   "Protocol-Version": "1.3",
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+   "V8-Version": "15.2.124.21",
+   "WebKit-Version": "537.36 (@79460ebecaa5625e57a5fb679a735659e73dc687)",
+   "webSocketDebuggerUrl": "ws://localhost:9222/devtools/browser/6ab4fdee-9cb2-4ca6-b13f-9185ba6e6ed3"
+}
+```
+
++ **步骤 4：重启 Claude Code，测试**
+
+```bash
+claude mcp list
+```
+确认 `chrome-devtools` 出现在清单里，然后直接跟 Claude 说：
+```
+打开 vercel.com 看看首页
+```
+
+**==== 之后每次要用 ====**
+
+因为 Chrome 是你手动带参数开的，**不能直接双击图标打开**——每次都要用步骤 1 的指令启动（可以把它存成一个 `.sh`（Mac）或 `.bat`（Windows）脚本，双击执行比较方便）。
+
+需要的话我可以帮你把 Mac 版和 Windows 版各自写成一个可以直接双击执行的启动脚本。
+{% endnote %}
+
 
 #### setup playwright
 ``` bash

@@ -202,7 +202,7 @@ Authentication
 
 ---
 
-### 架構與隔離策略
+***1.架構與隔離策略***
 
 | 隔離維度 | 現有應用程式（Project Management） | 新應用程式（Fare Finder Pro） |
 | --- | --- | --- |
@@ -213,7 +213,7 @@ Authentication
 
 ---
 
-### 執行步驟
+***2.執行步驟***
 
 **步驟 1：建立 Schema 並暴露 Data API**
 
@@ -293,11 +293,95 @@ WHERE email = 'pm.demo@example.com';
 
 ---
 
-### 注意事項與後續待辦
+***3.注意事項與後續待辦***
 
 * **`public.profiles` 副作用：** Flight 使用者註冊時仍會自動在 `public.profiles` 產生一筆 `role = 'designer'` 的紀錄。若未來需完全乾淨隔離，需調整 `handle_new_user()` 函式，依據 `raw_app_meta_data` 或註冊來源跳過非 PM 系統的帳號。
 * **RLS 策略綁定：** `flight` schema 內的資料表應在 RLS Policy 中透過 `(auth.jwt() -> 'app_metadata' -> 'apps')::jsonb ? 'fare-finder-pro'` 限制只有該 App 標籤的使用者才可存取。
 {% endnote %}
+
+### Cowork
+```` bash
+# create project
+Claude
+  --> projects
+  --> New project
+  --> flight-price-notifier
+
+# memory
+Settings
+  --> Memory
+    Search and reference chats:enable
+    Generate memory from chats:enable
+  --> Capabilities
+    Connector search
+    Switch models when a message is flagged
+
+# set AWS
+AWS
+  --> search IAM
+  --> IAM user
+  --> 建立人員
+  --> admin-for-project-flight-price-notifier-001
+  --> 直接連接政策
+  --> search administrator
+  --> select "administratorAccess"
+  --> 建立人員
+  --> select admin-for-project-flight-price-notifier-001
+  --> 安全憑證
+  --> 建立存取金鑰
+  --> select 命令列界面 (CLI)
+      我了解上述建議，並希望繼續建立存取金鑰
+  --> 建立存取金匙
+
+
+# install AWS CLI
+[AWS CLI](https://awscli.amazonaws.com/AWSCLIV2.msi)
+
+# Claude
+--> Code
+``` bash
+I have new AWS credentials I want to configure. Please write them to my AWS credentials file. Here are the values:
+Access key ID: XXXXX
+Secret access key: XXXXX
+First, detect whether I'm on Mac/Linux or Windows to determine the correct credentials file path 
+(~/.aws/credentials on Mac/Linux, %USERPROFILE%\.aws\credentials on Windows), 
+then write the [default] profile with the new values — preserving any other existing profiles in the file. 
+Once done, test the connection using aws sts get-caller-identity.
+```
+
+response
+``` bash
+Summary
+  + Platform detected: Windows
+  + Credentials file: C:\Users\RobertKao\.aws\credentials — no file existed previously, so I created the .aws directory and file with just the [default] profile (no other profiles to preserve).
+  + Connection test: aws sts get-caller-identity failed — the AWS CLI isn't installed or isn't on your PATH in this environment.
+
+Success. The credentials are valid and working:
+  + UserId: AIDA22QZ4DNKPHL5JRESL
+  + Account: 744157354836
+  + ARN: arn:aws:iam::744157354836:user/admin-for-project-flight-price-notifier-001
+```
+
+powershell connect test
+``` bash
+aws sts get-caller-identity
+{
+    "UserId": "AIDA22QZ4DNKPHL5JRESL",
+    "Account": "744157354836",
+    "Arn": "arn:aws:iam::744157354836:user/admin-for-project-flight-price-notifier-001"
+}
+```
+
+# add connector AWS API MCP Server
+# 使 Claude 可使用 AWS 的 resource
+Customize
+  --> Connector
+  --> Add
+  --> Browser connectors
+  --> search AWS
+  --> AWS API MCP Server
+  --> Install 
+````
 
 ### Ref
 + AI 機票價格追蹤功能
