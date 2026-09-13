@@ -85,6 +85,18 @@ uvx awslabs.aws-api-mcp-server
 | 手動下載 Python 安裝檔 | `uv python install 3.12` | 自動下載並設定指定 Python 版本 |
 {% endnote %}
 
+#### git push error - inlude key
+``` bash
+# 1. 移除 Token or key
+
+# 2. 修正該 Commit - Git amend / rebase
+git add source/_posts/claude-6.md
+git commit --amend --no-edit
+
+# 3. push - 可 source tree push
+git push -v origin refs/heads/backup:refs/heads/backup
+``` 
+
 ### AI 機票價格追蹤功能
 
 #### Lovable generate home page
