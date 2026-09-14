@@ -85,7 +85,7 @@ uvx awslabs.aws-api-mcp-server
 | 手動下載 Python 安裝檔 | `uv python install 3.12` | 自動下載並設定指定 Python 版本 |
 {% endnote %}
 
-### AI 機票價格追蹤功能
+### AI 機票價格追蹤功能 #1(Basic)
 
 #### Lovable generate home page
 {% note info %}
@@ -349,7 +349,7 @@ WHERE email = 'pm.demo@example.com';
 * **RLS 策略綁定：** `flight` schema 內的資料表應在 RLS Policy 中透過 `(auth.jwt() -> 'app_metadata' -> 'apps')::jsonb ? 'fare-finder-pro'` 限制只有該 App 標籤的使用者才可存取。
 {% endnote %}
 
-### Cowork
+###  AI 機票價格追蹤功能 #2
 #### setup AWS API MCP Server - Windows
 ##### create project + install AWS API MCP Server
 ```` bash
@@ -592,7 +592,7 @@ C:\Users\RobertKao\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roamin
 Remove-Item -Recurse -Force "C:\Users\RobertKao\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\uv\cache\archive-v0\sFPQ3RN0q39AFd3D" -ErrorAction SilentlyContinue
 ````
 
-#### mac
+#### setup AWS API MCP Server - mac
 ##### set AWS credential
 {% note info %}
 **A. mac install AWS CLI**
@@ -1370,9 +1370,166 @@ One thing worth flagging: since the token was pasted directly into this chat, it
 #Override the main branch to apply the new Vercel-Compatible structure.
 #```
 
-
 ````
 
+#### change to claude code(Continue)
+{% note info %}
+**1. access skill**
+Use Git clone tool. What files do you see on https://github.com/uopsdod/claude-2-flight-price-notifier/blob/m0-landing-page/.claude/skills/
+
+
+**response**
+```
+I cloned the m0-landing-page branch and inspected .claude/skills/. Here's what's there:
+.claude/skills/
+├── lovable-best-practice/
+│   └── SKILL.md
+├── m0-landing-and-signin/
+│   ├── SKILL.md
+│   └── assets/
+│       └── flight-notification-architecture-m0.png
+├── m0-landing-and-signin-checklist/
+│   ├── SKILL.md
+│   └── assets/
+│       └── flight-notification-architecture-m0.png
+└── supabase-best-practice/
+    └── SKILL.md
+Four skills: lovable-best-practice, m0-landing-and-signin (with an architecture diagram asset), m0-landing-and-signin-checklist (same diagram asset, likely a companion checklist), and supabase-best-practice.
+Want me to read any of these SKILL.md files in detail?
+```
+
+**2. read all skill**
+read all these SKILL.md files
+
+**response**
+```
+I've read all four SKILL.md files. This is a course project ("Flight Price Notifier") built with Lovable + GitHub + Vercel + Supabase (auth-only) + AWS (DynamoDB/Lambdas for real app data). Summary:
+
+lovable-best-practice — Hard rules for using Lovable in this course:
+1. Don't connect Supabase/GitHub on the first Lovable prompt — connect them later (Steps 3/5) so the swap is clean.
+2. Supabase is auth-only — block any custom table/RPC Lovable proposes; all app data lives in DynamoDB.
+3. Never commit PII (real emails/names) — use user@example.com placeholders.
+4. React component files must be PascalCase.tsx.
+   Plus workflow tips: Vercel sometimes mis-detects the framework preset (set to Vite manually), free-tier Lovable generations are limited (don't burn them on re-rolls), and always confirm each Lovable iteration synced to GitHub before continuing.
+
+m0-landing-and-signin — The step-by-step for Milestone 0: build the v1 landing page + auth in Lovable (full prompt included, verbatim), push to GitHub, make the repo public, set up a Cowork project with AWS/Vercel/Supabase connectors, cache the GitHub PAT in AWS Secrets Manager (flight/github), convert Lovable's output to a plain Vite SPA (avoiding an SSR trap that causes silent 404s on deep links), deploy to Vercel, swap auth from Lovable Cloud to the student's own Supabase project, and finally bootstrap the skills folder into the new project + run the checklist skill. 10 steps total, ~45–75 min.
+
+m0-landing-and-signin-checklist — Verification skill: actively runs checks (not just asks) across GitHub repo existence/sy, deep-link /app not 404 — theSSR/SPA trap), landing page content, and Supabase auth (email enabled, a real sign-up
+appears in the student's own pr). Emits a pass/fail table and a READY for M1.1 verdict.
+
+supabase-best-practice — Same "auth-only" philosophy as above, formalized:
+1. No custom tables/RPCs/data q owns all app data (avoids RLSsilently filtering rows).
+2. Only the publishable/anon ke the service-role key must never appear in client code, prompts, or commits.
+3. M0 must end with auth pointese (not Lovable's default),email provider enabled, and sign-up/sign-in/sign-out all verified live.
+
+All four cross-reference each other ([[lovable-best-practice]], [[supabase-best-practice]],
+[[aws-best-practice]] — the laso it must live elsewhere in therepo or hasn't been written yet).
+
+Want me to do anything with these — e.g., adapt any of these conventions into fare-finder-pro, or check if ants elsewhere in that repo?
+```
+
+**3. do check list skill**
+run m0-landing-and-signin-checklist skill
+
+**response**
+``` bash
+Ran the checklist directly against fare-finder-pro (which turns out to be your own build of this exact "Flight Price Notifier" course project — GitHub repo, Vercel deploy, and Supabase project all resolved without needing you to paste anything):
+
+Check: A1 repo exists
+Status: ✅
+Notes: hot5656/fare-finder-pro, public, main default branch, has .lovable/ marker
+────────────────────────────────────────
+Check: A2 Lovable sync commit
+Status: ✅
+Notes: Recent commit history present (latest is your own auth-docs commit, not a stale
+Lovable-only history — repo is actively maintained past M0)
+────────────────────────────────────────
+Check: B1 Vercel 200
+Status: ✅
+Notes: https://fare-finder-pro.
+────────────────────────────────────────
+Check: B2 auto-deploy wired
+Status: ✅
+Notes: .vercel/project.json lincel project
+────────────────────────────────────────
+Check: B3 deep-link not 404
+Status: ✅
+Notes: /dashboard, /auth, /auth routes are /dashboard + /auth,
+not the course template's /app — this is a TanStack Start SSR deploy, not a converted
+static SPA, and it's working corap doesn't apply here)
+────────────────────────────────────────
+Check: C1/C2 landing contents
+Status: ✅
+Notes: Hero, all 3 feature card入" all render server-sideexactly
+per the M0 spec
+────────────────────────────────────────
+Check: D1 email auth enabled
+Status: ✅
+Notes: auth/v1/settings confirm
+────────────────────────────────────────
+Check: D2 new user in student's
+Status: ⚠️ not run
+Notes: Requires signing up a relive site — a state-changing
+action on what looks like a real project (your git history references real incidents/other
+apps sharing this Supabase instithout asking
+────────────────────────────────────────
+Check: D3 sign-in/out loop
+Status: ⚠️ not run
+Notes: Same reason — needs an idrive
+
+One flag: mailer_autoconfirm ismation is ON. If there's no SMTPprovider configured, a fresh test signup won't be able to complete without clicking a
+confirmation email — that's the8.
+
+Verdict: 7/9 automated checks p D2/D3 (I can sign up a throwaway example.com-style test email and verify it lands in your Supabase Auth → Users, then sign out) — or would you rather do t
+```
+
+**4.I create account and verify ok**
+
+**5.change the app theme - give a image to reference**
+``` bash
+Change the application's visual theme to match the @pic_style.jpeg.  This is a pure UI/artistic redesign only — preserve all existing features, functionality, logic, and behavior exactly as-is.
+```
+
+**response**
+``` bash
+● The redesign is done and verified. Summary:
+
+  What changed — only the design tokens in src/styles.css (colors + --radius)
+  and the display font in src/routes/__root.tsx (Google Fonts link +
+  font-family). Nothing else touched — every page/component in this app
+  (landing, header, auth, dashboard, 404/error states) already consumed these
+  tokens exclusively (no hardcoded colors anywhere in src), so retheming here
+  cascades consistently everywhere with zero risk to logic or behavior.
+
+  Palette, translated from pic_style.jpeg's folk-art koi/lotus poster (teal
+  ground, bold red/gold/royal-blue blocks, cream linework):
+  - Background/card/popover → deep teal (oklch hue ~205)
+  - Primary (buttons, links, CTAs) → bold red-orange
+  - Secondary → royal blue
+  - Accent (hover highlights, focus ring) → warm gold
+  - Destructive → a distinct deep crimson (kept separate from primary red so
+    error states still read clearly)
+  - Foreground/card text → warm cream white
+  - Chart palette → red/gold/blue/green/teal for variety
+  - --radius bumped 0.625rem → 0.75rem for a friendlier, more badge-like shape
+    matching the poster's rounded forms
+
+  Font: Inter → Manrope (bolder display weights), closer to the poster's chunky,
+  confident type energy while staying fully legible.
+
+  Verification: I couldn't get a live browser screenshot — the Chrome extension
+  has localhost blocked in its site permissions — so instead I started the dev
+  server (http://localhost:5195/) and fetched its compiled stylesheet directly,
+  confirming the new tokens (--background: oklch(32% .055 205), --primary: 
+  oklch(60% .21 27), --accent: oklch(76% .15 80), etc.) compiled through
+  correctly with no build errors. The dev server is still running in the
+  background if you'd like to eyeball it yourself, or grant the extension
+  permission for localhost and I can screenshot it.
+
+  No functional code (auth logic, routing, Supabase calls) was touched.
+```
+
+{% endnote %}
 
 
 ### Ref
