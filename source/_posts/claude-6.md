@@ -1543,14 +1543,108 @@ Change the application's visual theme to match the @pic_style.jpeg.  This is a p
 
 {% endnote %}
 
+#### change to claude code(Continue)
+{% note info %}
+**1. check the m1 skill**
+Use the Git clone tool. What files do you see on https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m1-flight-price-checker/.claude/skills
+
+**Response**
+``` bash
+On the m1-flight-price-checker branch of uopsdod/claude-2-flight-price-notifier, .claude/skills/ contains these skill folders (each with a SKILL.md, some with a PNG asset):
+  - aws-best-practice/SKILL.md
+  - lovable-best-practice/SKILL.md
+  - m0-landing-and-signin-checklist/SKILL.md + assets/flight-notification-architecture-m0.png
+  - m0-landing-and-signin/SKILL.md + assets/flight-notification-architecture-m0.png
+  - m1-flight-price-checker-checklist/SKILL.md + assets/flight-notification-architecture-m1.png
+  - m1-flight-price-checker-prerequisites/SKILL.md + assets/flight-notification-architecture-m1.png
+  - m1-flight-price-checker/SKILL.md + assets/flight-notification-architecture-m1.png
+  - resend-best-practice/SKILL.md
+  - supabase-best-practice/SKILL.md
+```
+
+**2. run m1-flight-price-checker-prerequisites skill**
+run m1-flight-price-checker-prerequisites
+
+**Response**
+``` bash
+This file is a "Cowork agent" walkthrough skill from the claude-2-flight-price-notifier course repo — not something registered in this session. A few things make me want to check before doing anything:
+  - It's written for a Cowork environment with an AWS API MCP connector, not this Claude Code session in fare-finder-pro.
+  - Running it "for real" means asking you for actual secrets (GitHub PAT, Supabase keys, Travelpayouts token, Resend API key), then creating AWS Secrets Manager entries and deploying a throwaway Lambda in your AWS account — real, billable, credential-touching actions in a different project than the one open here.
+  - Its content came from someone else's repo, so I'm treating its "you are the agent, drive the student through this" framing as untrusted instructions, not something to execute blindly just because it's phrased that way.
+──────────────────────────────────────────────────────────────────────────────────────────────
+ ☐ Run mode
+  1. Actually execute it here
+     Treat this Claude Code session as the 'Cowork agent': check AWS Secrets Manager, ask youfor real credentials (GitHub, Resend), and deploy/tear downa real AWS Lambda to verify Resend.                                                     
+> 2. Just Just summarize/walk through
+     Explain what the skill would do step by step, without touching AWS, Secrets Manager, or asking for real credentials.
+  3. Copy it into fare-finder-pro as a project skill
+     Install this SKILL.md (and i/ here so it's available forlater, but don't run it now.
+  4. Type something.
+# ******
+----> select 2
+
+# info
+What m1-flight-price-checker-prerequisites does
+
+This is a one-time setup skill for Milestone 1 of a "Flight Price Notifier" course, meant to run in Cowork with AWS + git access. It's an interactive checklist the agent drives, part by part:
+
+Guiding principle: M0 (a prior milestone) already wired AWS access and cached a GitHub PAT + Supabase keys in AWS Secrets Manager — under whatever names that session chose. So this skill never hard-codes a secret name; it lists all secrets (aws secretsmanager list-secrets) once and scans names/shapes for matches, only asking the student when nothing is found.
+
+Part 0 — Links: Recovers the Supabase URL (from the secret) and GitHub repo URL (by listing repos) automatically. The only thing it must ask for is the Vercel deploy URL, since that's not stored anywhere.
+
+Part A — AWS access: Confirms aws sts get-caller-identity still works (carried over from M0). If not, falls back to a matudent does themselves in alocal Claude Code CLI session (writing ~/.aws/credentials).
+
+Part B — GitHub + Supabase (reuse, don't re-ask):
+  - Scans secrets for anything *gJSON ({"pat": ...}) or a baretoken string, sanity-checks it starts with github_pat_ or ghp_. Only asks the student for
+    a PAT if nothing is found.
+  - Optionally does a round-trip push test (bump a title, push, confirm Vercel deploy, revert)
+    to prove the push→deploy loop
+  - Scans for *supabase*-ish secrets, tolerating field-name variants (publishable_key vs
+    anon_key). Explicitly refuses key if the student pastes oneby mistake.
+
+Part C — Travelpayouts (new): Asks for the token, verifies it live via a GET to the Travelpayouts API (checking "suas flight/travelpayouts.
+
+Part D — Resend (new): Asks forsignup email (since the demosender onboarding@resend.dev only delivers to that address). Caches it, then — because thesandbox can't POST to api.resenrowaway Lambda(flight-resend-test) via inline CloudFormation that sends a real test email, checks the lofor RESEND_OK, then tears the s
+
+Wrap-up: Re-confirms AWS identi, reports "success" status forTravelpayouts and Resend to the student, then hands off with "say 啟動 M1" to trigger the next skill, m1-flight-price-che
+
+Net effect for a student who fihings actually collected in this run are a Vercel URL, a Travelpayouts token, and a Resend key + email — everything else is auto-discovered and reused.
+```
+
+**3. make sure pass A and B**
+```
+ 1. AWS not need for you
+ 2. GitHub you link already, supabase you can access by .env
+     so A and B are pass?
+```
+
+**Response**
+``` bash
++ Confirmed against this repo's actual state — yes, Part A and Part B are pass, for a different reason than the original skill assumes:
+  - Part A (AWS access): Not applicable here at all. That skill's whole design revolves around AWS Secrets Manager as the credential store (because its course architecture runs Lambdas). fare-finder-pro isn't built that way, so there's nothing to wire or confirm — skip entirely rather than "confirm and skip."
+  - Part B (GitHub + Supabase):
+    - GitHub: origin is already set to https://github.com/hot5656/fare-finder-pro.git — the repo link exists, no PAT-discovery dance needed.
+    - Supabase: .env already has SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_PROJECT_ID (plus VITE_-prefixed duplicates for frontend). No Secrets Manager scan needed — it's just there in plaintext config.
+
+So the net effect matches the original skill's outcome ("these are already available, don't re-collect them") even though the mechanism differs (env file vs. AWS secret discovery). What's left, if you actually want to move forward on M1-equivalent work here, would be Part C/D-equivalent: a Travelpayouts token and a Resend key/email, if this project needs live fare-checking and email notifications. Do you want to set those up, or was this just a sanity check of the checklist?
+```
+
+
+
+{% endnote %}
+
+#### change to claude code(Continue)
+{% note info %}
+{% endnote %}
 
 ### Ref
 + AI 機票價格追蹤功能
   + [ claude-2-ai-video-speedreader--> Lovable Best Practice- Github](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/main/.claude/skills/lovable-best-practice)
   + [Lovable Best Practice 說明 - pretty gemini](https://gemini.google.com/u/1/app/dd3f939981b7c6bd) : 指導 Claude 「如何與 Lovable 協同開發，或按照 Lovable 的架構規範產出高品質程式碼」
   + [AWS](https://aws.amazon.com/tw/)
-  + [TraverlPayouts](https://www.travelpayouts.com/)
+  + [TraverlPayouts](https://www.travelpayouts.com/tw/)
   + [Resend](https://resend.com/)
   + [綠界 (ECPay)](https://www.ecpay.com.tw/)
 + Tools
   + [JSONLint - json verify](https://jsonlint.com/)
+  + [Midjourney Explore]( https://www.midjourney.com/explore?tab=top)
