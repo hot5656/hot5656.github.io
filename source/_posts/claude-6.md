@@ -1543,7 +1543,7 @@ Change the application's visual theme to match the @pic_style.jpeg.  This is a p
 
 {% endnote %}
 
-#### change to claude code(Continue)
+#### run m1 process
 {% note info %}
 **1. check the m1 skill**
 Use the Git clone tool. What files do you see on https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m1-flight-price-checker/.claude/skills
@@ -1629,13 +1629,149 @@ Net effect for a student who fihings actually collected in this run are a Vercel
 So the net effect matches the original skill's outcome ("these are already available, don't re-collect them") even though the mechanism differs (env file vs. AWS secret discovery). What's left, if you actually want to move forward on M1-equivalent work here, would be Part C/D-equivalent: a Travelpayouts token and a Resend key/email, if this project needs live fare-checking and email notifications. Do you want to set those up, or was this just a sanity check of the checklist?
 ```
 
+**4. travelpayouts get API token**
+travelpayouts
+  --> Create a project
+  --> Paste a link to traffic source: [fare-finder-pro.vercel.app](https://fare-finder-pro.vercel.app/)
+  --> account --> profile
+  --> API token 
+  --> cpoy
 
+**5. set travelpayouts API token**
+I set traverlPlayouts API tokey to .env already
 
+**Response**
+``` bash
++ Confirmed — TRAVEL_PLAYOUTS_API_TOKEN is now set in .env.
+That covers Part C of the checklist conceptually (token collected + cached, this time in .env instead of AWS Secrets Manager). Two things worth checking before calling it done:
+  1. Does the app actually read this variable name anywhere? Let me check if there's existing fare-checking code expecting a specific env var name (could differ, e.g. TRAVELPAYOUTS_TOKEN).
+  2. The original skill verifies the token live with a test API call before trusting it. Want me to do that now?
+
++ No app code references this variable yet — only .env.example mentions it, so nothing is wired up to actually call Travelpayouts. That's expected if fare-checking hasn't been built here yet.
+Want me to:
+  1. Verify the token works with a live test call (like the skill's Part C does), and/or
+  2. Start building the actual fare-checking integration that reads TRAVEL_PLAYOUTS_API_TOKEN?
+```
+
+**6. set resend API key**
+ I update resend API key to .env RESEND_API_KEY
+
+**Response - RESEND_API_KEY edge function 才要用到**
+``` bash
++ Confirmed — RESEND_API_KEY is set in .env.
+
++ Good — RESEND_API_KEY is exactly the name this project's existing edge function (supabase/functions/send-email/index.ts) already expects. But one important catch: this env var lives in the wrong place.
+
+That's a Supabase Edge Function — it reads secrets from Supabase's own runtime, not from your local .env/Vercel env. Local .env values never reach it. To actually make it work, you need:
+
+supabase secrets set RESEND_API_KEY=<your key>
+
+(as the file's own header comment says: "set via supabase secrets set"). It also needs SEND_EMAIL_HOOK_SECRET set the same way, plus the sender domain on line 28 (noreply@roberthut.com) verified in Resend, or Auth emails will fail to send.
+
+Want me to run supabase secrets set for you (I'd need the CLI logged into the right project), or is putting it in .env intentional for a different, not-yet-built piece (e.g. a fare-alert notifier separate from the auth-email hook)?
+```
 {% endnote %}
 
-#### change to claude code(Continue)
+#### generate m1-code-flight-price-checker for claude code
 {% note info %}
+
+**3. put the skill to project**
+``` bash
+# position
+.claude/skills/m1-code-flight-price-checker/SKILL.md
+
+# change SKILL.md for name
+---
+name: m1-code-flight-price-checker
+description: Flight Price Notifier Milestone 1 — ...(內容不用改)
+---
+```
+
+**4. check the new skill exist**
+can you see my skill m1-code-flight-price-checker ?
+
+**Response**
+``` bash
++ Yes — it exists in this project at .claude/skills/m1-code-flight-price-checker/SKILL.md. But it's not in the loaded skills list I have access to (the /context output above lists 19 skills, and this isn't one of them).
++ This is actually the Claude Code-native version of the M1 build skill — a different (and more relevant) skill than the Cowork one we looked at earlier. It's already sitting in your project at .claude/skills/m1-code-flight-price-checker/SKILL.md, but it isn't showing up in my loaded skills list.
+Why I can't see it as a usable skill: Claude Code discovers project skills at session start. This one was likely added to the repo after the current session began, so it wasn't picked up. A fresh session (or restart) should register it — I'd expect it to then trigger on "啟動 M1" per its own description.
+  Want me to:
+  1. Just read the rest of it and summarize what it would build (I can do that now, file-by-file), or
+  2. You restart the session so it loads as a real invocable skill?
+```
+**5. new session**
+new sesseion
+  --> check the skill m1-code-flight-price-checker can run?
+
+**Response**
+``` bash
+```
+
+**5. run  m1-code-flight-price-checker**
+
+**Response**
+``` bash
+I checked the skill's prerequisites against the actual repo/project state. Short answer: not yet — one blocker.
+
+What's already in place (ahead of the skill, even):
+- Supabase CLI installed (v2.115.0) and the project is linked locally (supabase/config.toml → luugfvsrawnuzwpjvddt, matches .env).
+- Auth (M0) is real and wired up — this is the shared multi-app Supabase project documented in docs/shared-supabase-auth.md, with actual users and the flight schema already created (via 20260904120000_flight_app_scoped_auth.sql).
+- The flight schema is already exposed in the Data API (config.toml → schemas = ["public", "flight", "graphql_public"]) — skill's Step 3 is done.
+- Resend is already integrated for auth emails (supabase/functions/send-email), so a RESEND_API_KEY secret almost certainly already exists remotely.
+- A Travelpayouts token is present in local .env (TRAVEL_PLAYOUTS_API_TOKEN).
+
+Blocker: the Supabase CLI is logged into an account that only has access to org hot5656 (projects ptxgvgelgisiwdjeiypi, amniwteziuabvurjiyfn). The linked project this repo actually needs — luugfvsrawnuzwpjvddt ("demo_app", org jpeobbygqqrulizmotaf) — isn't in that account's org list at all. Every remote call against it fails with 403:
+- supabase secrets list → 403 "does not have the necessary privileges"
+- supabase migration list → 403 on the same grounds
+
+That means supabase db push, functions deploy, and secrets set (the commands the skill runs throughout) will all fail the same way with the current login.
+
+To unblock: run supabase login with the Supabase account that actually has collaborator/owner access to project luugfvsrawnuzwpjvddt, then re-check with supabase secrets list (should return 200, not 403). Once that resolves, the skill is otherwise ready to run — no conflicting tables, and the flight schema/exposure groundwork is already done.
+
+Want me to walk you through re-authenticating (supabase login), or do you already know which account owns that project?
+```
+**6. connect supabase by terminal**
+supabase logout
+supabase login
+supabase link --project-ref luugfvsrawnuzwpjvddt
+
+**7. check slill can run**
+I connect to the supabase is it ok?
+
+**Response**
+``` bash
+Yes, that fixed it — the CLI now has full access to the linked project.
+
+- supabase secrets list works now (previously 403): RESEND_API_KEY and all core SUPABASE_* secrets are already set.
+- supabase migration list also works, showing the full remote history (this project has other apps' migrations too, as expected for the shared project), including your 20260904120000 flight auth migration already applied locally and remotely.
+- One gap: no TRAVELPAYOUTS_TOKEN secret exists remotely yet — only a local .env value (TRAVEL_PLAYOUTS_API_TOKEN, different name). You'll want to run supabase secrets set TRAVELPAYOUTS_TOKEN=<value> before deploying flight-parser, since the skill's Edge Function code reads that exact env var name.
+
+Everything else checks out — auth is wired, flight schema exists and is exposed, Resend is ready. The skill can run now. Want me to kick off Part 1.1 (schema + RLS + subscribe UI)?
+```
+
+
+**7. set TRAVELPAYOUTS_TOKEN to supabase**
+please check TRAVEL_PLAYOUTS_API_TOKEN is ready at supabase?
+I set to TRAVELPAYOUTS_TOKEN already and .env not need, is it correct?
+
+**Response**
+``` bash #1
+# response 
++ It's set — TRAVEL_PLAYOUTS_API_TOKEN was added as a secret just now (updated 2026-09-17T06:56:45Z).
+  One thing to flag: the skill's flight-parser code expects the env var named TRAVELPAYOUTS_TOKEN (supabase secrets set TRAVELPAYOUTS_TOKEN=... and Deno.env.get("TRAVELPAYOUTS_TOKEN")), but what's actually set remotely is TRAVEL_PLAYOUTS_API_TOKEN — different name. Two ways to resolve:
+  1. Add the same value under the name the skill expects: supabase secrets set TRAVELPAYOUTS_TOKEN=<value>, or
+  2. Write the Edge Function to read TRAVEL_PLAYOUTS_API_TOKEN instead, matching what's already set.
+  I'd go with option 2 when I write flight-parser (reuse the existing secret name, no need for a duplicate) — let me know if you'd rather I add a second secret under the skill's exact name instead.
+
+# response #2
+Yes, that's correct on both counts.
+  - Secret is set correctly: TRAVELPAYOUTS_TOKEN now shows in supabase secrets list (updated 2026-09-17T07:05:20Z), and the old TRAVEL_PLAYOUTS_API_TOKEN entry is gone — looks like you renamed it in place rather than leaving a duplicate. Good, matches exactly what the skill's flight-parser code reads via Deno.env.get("TRAVELPAYOUTS_TOKEN").
+  - .env not needing it is also correct: Edge Functions run on Supabase's servers and only ever read from supabase secrets (i.e. Deno.env.get(...) inside the function), never from your local .env. .env only matters for the Vite front-end (VITE_* vars) and any local scripts you run yourself — the parser/notification functions have no path to it at all.
+```
+
 {% endnote %}
+
+
 
 ### Ref
 + AI 機票價格追蹤功能
