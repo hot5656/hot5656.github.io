@@ -97,6 +97,69 @@ git commit --amend --no-edit
 git push -v origin refs/heads/backup:refs/heads/backup
 ``` 
 
+#### mac low memory
+``` bash
+# 列出佔用記憶體最多的前 10 個行程
+ps aux -m | head -n 11
+
+# 特別檢查是否有殘留的 Claude Code 或 Node 行程未正常結束
+ps aux | grep -E "claude|node"
+
+# 這份輸出精準還原了系統被卡死的原因。問題由三個主要元兇疊加所致：
+核心問題診斷
+1. Xcode Instruments 正瘋狂吃資源（CPU 佔用 46.8%）
+  + 行程 PID 28530（/Applications/Xcode.app/.../Instruments）不僅吃掉 540MB+ 實體記憶體，CPU 也飆到將近 50%。如果有在做效能 Profile，它正在即時採樣並大量寫入記憶體/快取。
+2. 同時掛著 4 個不同的 claude CLI 行程
+  + 從終端機可以看到有 4 個獨立的 Claude CLI：
+    - PID 80753 (145MB)
+    - PID 50921 (190MB)
+    - PID 37484 (164MB，從 9/9 運行至今)
+    - PID 41262 (68MB，從週日運行至今)
+  + 加上它們各自掛載的 playwright-mcp (PID 80846, 37553) 與桌面版 Claude App（PID 7071 等），背景累積的常駐 context 與連線相當可觀。
+3. 瀏覽器渲染與 VS Code 長期未重啟（從 9/7 至今已跑 11 天）
+  + 單個 Brave Renderer（PID 40575）就佔了近 600MB，加上 Chrome 與 WebKit，瀏覽器分頁群是記憶體主要消耗者。
+  + VS Code 的多個 Code Helper 與 Language Server 累積了大量未釋放的記憶體。
+
+# 1. 關閉舊的、閒置的 claude CLI 與其附帶的 playwright-mcp（保留你當前正在用的那一個）
+# 如果目前這四個都不重要，可直接強制重置所有 CLI：
+killall claude 2>/dev/null
+killall playwright-mcp 2>/dev/null
+# 2. 我好像沒有特別執行 xcode
+這非常常見。在 macOS 開發環境中，許多人並沒有主動點開 Xcode，但 Instruments.app 卻在背景偷跑且佔據大量資源，通常是由以下三種「幕後觸發者」喚起的：
+常見的自動觸發原因
++ MCP（如 Playwright / Chrome DevTools）或自動化測試
+  - 剛才你的行程中掛載了 playwright-mcp 與 chrome-devtools-mcp。某些自動化測試或無頭瀏覽器工具在 macOS 上呼叫底層效能分析、畫面擷取或 CoreGraphics API 時，可能會連帶喚醒 Xcode 底層的效能監控服務。
++ 模擬器殘留（iOS Simulator / CoreSimulator）
+  - 若先前曾開啟過 iOS 模擬器，或某些套件在背景偵測本機環境，系統的 com.apple.CoreSimulator 服務可能會帶起 Instruments 進行診斷監控。
++ 系統崩潰/診斷報告工具自動收集
+  - 當系統中某個 WebKit 或底層圖形行程不正常重啟時，macOS 的診斷追蹤機制有時會拉起 Instruments 收集 stack trace。
+# 3. Xcode 確認它是被誰帶起來的？
+ps -ef | grep 28530
+# (第三欄即為 PPID，再用 ps -ef | grep <PPID> 即可查出喚醒它的源頭應用。)
+# 既然不是你主動開啟的，直接在終端機強制終止它即可，不會影響正常的網頁開發或 Claude Code：
+kill -9 28530
+# check 
+ps -ef | grep 28530
+  501 28530     1   0  5:07PM ??         3:44.10 /Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/MacOS/Instruments
+  501 28544 28530   0  5:07PM ??         0:30.08 /Applications/Xcode.app/Contents/SharedFrameworks/DVTInstrumentsFoundation.framework/Resources/DTServiceHub
+  501 30229 98103   0  5:13PM ttys007    0:00.00 grep 28530
+# 從輸出可以看到關鍵細節：
+  + PPID 是 1（launchd）：這代表啟動它的原始父行程已經結束退出，它變成了系統孤兒行程（Orphan Process），掛在背景無人管轄卻持續運行。
+  + 它還帶起了一個子行程 DTServiceHub (PID 28544)：這是 Xcode 用來做效能採樣、記憶體與 CPU profiling 的核心常駐服務（短短幾分鐘已吃掉 3 分多鐘的 CPU 時間）。
+  這更加證實它是先前某個開發工具或測試腳本中斷後遺留下來的「殭屍/孤兒服務」。
+  # 一併清除這組行程
+  直接將 Instruments 及其帶起來的採樣服務一起強制終止：
+  kill -9 28530 28544
+  # 執行後可再次驗證：
+  ps aux | grep Instruments
+    gaoyiping        30738   0.0  0.0 435300144   1424 s007  S+    5:14PM   0:00.00 grep Instruments
+  # 已成功清除，輸出只剩下你剛剛執行的 grep Instruments 本身，那將近 50% CPU 與 500MB+ 的記憶體已經完全釋放回系統。
+  # 若要徹底解決 Claude Code 背景啟動 dev server 遇到的 low memory 問題，建議進行以下最後一步：
+  # 清理背景多餘的舊 Claude 終端行程
+  # 目前系統上還有週五、週日累積下來的舊 Claude CLI 與 Playwright 監控行程：
+  killall claude 2>/dev/null
+  killall playwright-mcp 2>/dev/null
+```
 
 ### AI 機票價格追蹤功能 #1(Basic)
 #### Lovable generate home page
@@ -1675,7 +1738,27 @@ Want me to run supabase secrets set for you (I'd need the CLI logged into the ri
 #### generate m1-code-flight-price-checker for claude code
 {% note info %}
 
-**3. put the skill to project**
+**1. change m1 for claude code**
+``` bash
+# discuss #1
+幫我說明這個 skill
+
+# discuss #2
+我想要把這個 skill 改為 在 claude code 執行, 資料完全不用AWS 改用 supabase 並使用 schema flight, 通知 email 也是透過 supabase edge function 送出. 有沒有甚麼需要跟我確認?
+
+# discuss #3
+這份規劃整體架構非常清晰且完全切中 Supabase 的核心優勢，轉換方向 **完全 OK**！
+但在開始用 `skill-creator` 改寫 `SKILL.md` 之前，有 **4 個具體實作細節建議直接補強進規劃中**，可避免後續開發踩坑：
+...
+
+# discuss #4
+我有看到 saveds as 但按下好像沒用
+
+# discuss #5
+我是想把這個 skill 下載 拿到 claude code 執行
+```
+
+**2. put the skill to project**
 ``` bash
 # position
 .claude/skills/m1-code-flight-price-checker/SKILL.md
@@ -1687,7 +1770,7 @@ description: Flight Price Notifier Milestone 1 — ...(內容不用改)
 ---
 ```
 
-**4. check the new skill exist**
+**3. check the new skill exist**
 can you see my skill m1-code-flight-price-checker ?
 
 **Response**
@@ -1699,13 +1782,10 @@ Why I can't see it as a usable skill: Claude Code discovers project skills at se
   1. Just read the rest of it and summarize what it would build (I can do that now, file-by-file), or
   2. You restart the session so it loads as a real invocable skill?
 ```
-**5. new session**
+**4. new session**
 new sesseion
   --> check the skill m1-code-flight-price-checker can run?
 
-**Response**
-``` bash
-```
 
 **5. run  m1-code-flight-price-checker**
 
@@ -1750,7 +1830,7 @@ Everything else checks out — auth is wired, flight schema exists and is expose
 ```
 
 
-**7. set TRAVELPAYOUTS_TOKEN to supabase**
+**8. set TRAVELPAYOUTS_TOKEN to supabase**
 please check TRAVEL_PLAYOUTS_API_TOKEN is ready at supabase?
 I set to TRAVELPAYOUTS_TOKEN already and .env not need, is it correct?
 
@@ -1769,9 +1849,187 @@ Yes, that's correct on both counts.
   - .env not needing it is also correct: Edge Functions run on Supabase's servers and only ever read from supabase secrets (i.e. Deno.env.get(...) inside the function), never from your local .env. .env only matters for the Vite front-end (VITE_* vars) and any local scripts you run yourself — the parser/notification functions have no path to it at all.
 ```
 
+
+**9. ask service-role key**
+service-role key 由何處取得 是何作用？
+``` bash
+Supabase Dashboard → 你的專案 (luugfvsrawnuzwpjvddt / demo_app) → Project Settings → API → 在 "Project API keys" 區塊找 service_role / secret key，點 "Reveal" 顯示。
+
+或用 CLI（你自己跑，我這邊被 sandbox 擋掉了）：
+supabase projects api-keys --project-ref luugfvsrawnuzwpjvddt --reveal
+```
 {% endnote %}
 
+#### m1-code-flight-price-checker verify 紀錄
+{% note info %}
 
+**1.免費機票降價通知器（無付費閘門，訂閱=有資格收通知）：**
+  + 訂閱 — 登入使用者在 /dashboard 選「台北✈東京」或「台北✈首爾」，輸入 TWD 目標價，寫入 flight.subscriptions（可更新目標價，UI 顯示「已訂閱」+ 目前目標）。
+  + 排程抓價 — pg_cron 每 30 分鐘觸發 flight-parser：讀 flight.routes、呼叫 Travelpayouts 查即時票價（TWD 為主，USD 輔助），比對所有訂閱者的目標價，找到符合的就丟給 flight-notification。
+  + 防重複通知 — flight-notification 對照 flight.notification_history：同一使用者同一航線 24 小時內只通知一次，除非價格又明顯降更多（20% 或 NT$2000 門檻）才重新提醒；確認發信成功（2xx）才寫入歷史記錄。
+  + Email 通知 — 透過 Resend 寄信，內容含 NT$ 和約 US$ 價格。
+
+**2. 手動測試方式**
+
+A. 訂閱流程（瀏覽器）
+  + npm run dev（會跑在 8080，之前背景任務因記憶體不足被系統砍掉了，要測的話跟我說一聲我重開）
+  + 登入 → 進 /dashboard → 選方案、輸入目標價、按「開始追蹤」
+  + 應該看到「已訂閱」badge + 目前目標價；reload 後應該還在
+
+B. 手動觸發抓價 + 通知（不用等 30 分鐘）
+curl -X POST "https://luugfvsrawnuzwpjvddt.supabase.co/functions/v1/flight-parser" \
+  -H "Authorization: Bearer service_role key"
+- 回傳 {"routes":2,"matches":n}
+- 若 matches > 0 且是第一次匹配，應該會收到 email
+``` bash
+- 同一個使用者、同一條航線，24 小時內已經寄過信的話 → 跳過，不會重複寄
+- 除非新價格比上次通知的價格再降更多（20% 或 NT$2000 的門檻，取較嚴格者）→ 才會視為「新的降價」重新寄一次
+- 只有真的寄信成功（Resend 回傳 2xx）才會寫入 notification_history 那筆記錄
+```
+
+C. 驗證資料庫狀態
+supabase db query --linked "select * from flight.subscriptions;"
+supabase db query --linked "select * from fligder by sent_at desc;"
+``` bash
+select * from flight.subscriptions;
+驗證「訂閱」這個動作真的寫進資料庫了 —— 你在 /dashboard 按「開始追蹤」之後，前端送出的 upsert 有沒有成功建立/更新那一筆訂閱紀錄：user_id、route、target_price、currency 是否正確。等於是驗證 M1 Part 1（訂閱 UI）的資料層結果，而不是只看畫面上顯示「已訂閱」就信任它。
+
+select * from flight.notification_history order by sent_at desc;
+驗證「通知信」有沒有真的寄出、以及 dedup 邏輯有沒有正確運作：
+- 有沒有新增一筆記錄 → 代表 flight-notification 判定該寄信且 Resend 回傳成功（2xx）才會寫入，等於間接證明信真的寄出去了
+- price／route／sent_at 是否符合預期 → 驗證抓到的是對的航線、對的價格
+- 連續觸發兩次 flight-parser 後，這張表筆數有沒有變多 → 沒有變多就證明 dedup 生效，24 小時內同一組合不會重複發信
+```
+
+D. 驗證 dedup
+連續跑兩次 B 的 curl，notification_history 應該還是同一筆（sent_at 不變），不會多一筆、也不會多收一封信。
+
+E. 驗證 cron 真的自動跑（不用手動 curl）
+等 30 分鐘後查：
+supabase db query --linked "select * from cron.job_run_details where jobid = 1 order by start_time desc limit 5;"
+應該看到自動執行紀錄。
+
+**3. 其他說明**
+``` bash
+# cron 是什麼意思？
+# 本 app 由 supabase 執行
+cron 是源自 Unix/Linux 系統的「自動定時排程工具」，名字來自希臘神話的時間之神 Chronos。
+你可以把它理解成系統裡的智慧鬧鐘：只要先約定好「什麼時間」做「什麼事情」，到了指定時刻，系統就會在背景自動執行該任務，完全不需要人工點擊或守在電腦前操作。
+常見的應用情境
+  + 定時爬蟲或更新：例如每 30 分鐘自動抓取一次最新票價或匯率。
+  + 資料庫備份：每天凌晨 3:00 自動備份資料庫並壓縮存檔。
+  + 發送報表與通知：每週一早上 9:00 自動產生週報並寄給團隊。
+  + 系統清理：每個月底自動清空過期的暫存檔與日
+
+# Vault 在這裡指的是 Supabase 資料庫內建的「機密密碼保險箱」（基於 PostgreSQL 的 supabase_vault 延伸套件）
+```
+**4. 外加修正**
+  + 我有看到畫面 可不可以加入顯示最後查詢票價
+  + 通知email 加列目標價格
+
+{% endnote %}
+
+#### m1-code-flight-price-checker verify 紀錄
+{% note info %}
+此 skill [m1-flight-price-checker-checklist](https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m1-flight-price-checker/.claude/skills/m1-flight-price-checker-checklist) for 我們修改後的 skill 需要修改嗎？
+
+.claude/skills/m1-code-flight-price-checker-checklist/SKILL.md
+
+ can you see my skill m1-code-flight-price-checker-checklist?
+
+``` bash
+Yes, I can see it in two places:
+
+- Skill list: m1-code-flight-price-checker-checklist is registered and available to me. Its description says it's the Supabase-version verification for Milestone 1. It covers the flight.subscriptions table with RLS and the subscribe form, flight.routes and the flight-parser Edge Function, and flight-notification with dedup and Resend email. It triggers on "驗收 M1" or "check M1".
+- On disk: .claude/skills/m1-code-flight-price-checker-checklist/SKILL.md (13.7 KB). Git shows the directory as untracked, so it hasn't been committed yet.
+
+The builder skill m1-code-flight-price-checker is also registered. Do you want me to run the checklist against the current project?
+```
+
+run m1-code-flight-price-checker
+
+``` bash
+⏺ Skill(m1-code-flight-price-checker)
+Successfully loaded skill
+
+The skill is loaded. Recent commits (pg_cron wiring, fare-drop email) suggest much of M1 may already exist, so I'll check the current state before building anything.
+
+  Ran 2 shell commands
+
+M1 was already built in commit c4d9553. I'll read the handoff doc and compare the remote Supabase state against the repo, using read-only calls only.
+
+  Read 1 file, called Supabase 3 times, ran 1 shell command
+
+The handoff doc is out of date—the schema, both functions, and all migrations are already in the repo and applied remotely. I'll run some read-only checks on the cron job, extensions, and history to confirm the runtime state before reporting. · summarized
+
+  Called Supabase 5 times
+
+I didn't run the M1 builuilt and running on yourSupabase project (luugfvsrawnuzwpjvddt). Re-running it would mean    re-creating things that ls you to use supabase dbpush, which the repo's own handoff doc says is unsafe on this shared project.
+
+The checks below were al
+
+Part: 1.1 Subscribe
+State: flight.routes, flight.subscriptions and flight.notification_history
+exist with RLS on. Therecolumn, as M1 requires.
+The dashboard has the subscribe UI, and 1 subscription row exists.
+────────────────────────
+Part: 1.2 Fetch on schedule
+State: flight-parser is _net and Vault areenabled.
+Job flight-price-check (he last 5 runs
+(12:30–14:30 UTC today) all succeeded. routes.last_price is refreshing:     kyo NT$7,682 and Seoul 14:30.
+────────────────────────────────────────                                    rt: 1.3 Email
+State: flight-notification is deployed (v2). notification_history has 2 rows
+for TPE-TYO at NT$7,682, sent 09-17 12:47 and 09-18 14:14.                  
+- Stale handoff doc: docs/m1-session-handoff.md still says pg_cron isn't    wired and nothing is c57c243, 205a73e, a4b67bb)fixed that, so the doc is out of date.                                    Not confirmed yet: I h the email actuallyarrives in an inbox, or the subscribe flow in a browser. The history rows show emails were sent, (deduped)" path works.
+                                                                            The verification skill, er-checklist, is the right one to run next. It checks exactly those remaining items. Do you want me to run it? It's still untraso want to commit it.
+```
+
+continue run it
+
+
+{% endnote %}
+
+#### Unit 8-2 新增 台北 ✈ 倫敦 航線方案
+{% note info %}
+{% endnote %}
+
+{% note info %}
+do you can see https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m2-ecpay-subscription/.claude/skills for skill files?
+
+``` bash
+可以,我剛剛把該分支 clone 下來看了,`.claude/skills/` 底下目前有這些 skill 資料夾:
+
+**M0(登入/首頁)**
+- `m0-landing-and-signin`
+- `m0-landing-and-signin-checklist`
+- `m0-landing-and-signin-prerequisites`
+
+**M1(機票降價通知器)**
+- `m1-flight-price-checker` —— 這是原本 **AWS 版**的內容,還沒套用我們改的 Supabase 版本
+- `m1-flight-price-checker-checklist` —— 同樣是 AWS 版驗收清單
+- `m1-flight-price-checker-prerequisites`
+
+**M2(金流)**
+- `m2-ecpay-subscription`
+- `m2-ecpay-subscription-checklist`
+- `m2-ecpay-subscription-prerequisites`
+
+**共用 best-practice / 第三方參考**
+- `aws-best-practice`
+- `resend-best-practice`
+- `lovable-best-practice`
+- **`supabase-best-practice`** —— 這個已經存在了,值得注意
+- `ecpay`(一個完整的協力廠商 ECPay 技能包,含 guides/scripts/references 等一堆檔案)
+- `ecpay-best-practice`
+- `ecpay-go-live`
+
+有幾點想跟你確認:
+
+1. 這個 repo 分支上的 `m1-flight-price-checker` 和 `m1-flight-price-checker-checklist` 目前還是 **AWS 版舊內容**,跟我們這次改寫的 Supabase 版(你打算另外存成 `m1-code-flight-price-checker` / `m1-code-flight-price-checker-checklist`)是分開命名、並存的狀態 —— 這是你原本的規劃嗎?還是你其實想直接**覆蓋替換**掉 repo 裡原本這兩個 AWS 版檔案?
+2. 已經有現成的 `supabase-best-practice` skill —— 要不要我讀一下它的內容,看看跟我們新寫的 M1/checklist 有沒有重複或該互相引用的地方?
+3. `m2-ecpay-subscription` 系列應該也還是假設 DynamoDB/Lambda 架構,如果你之後要往 Supabase 走,這幾個也需要一併改寫。
+```
+{% endnote %}
 
 ### Ref
 + AI 機票價格追蹤功能
@@ -1781,6 +2039,8 @@ Yes, that's correct on both counts.
   + [TraverlPayouts](https://www.travelpayouts.com/tw/)
   + [Resend](https://resend.com/)
   + [綠界 (ECPay)](https://www.ecpay.com.tw/)
++ Discuss
+  +[ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
 + Tools
   + [JSONLint - json verify](https://jsonlint.com/)
   + [Midjourney Explore]( https://www.midjourney.com/explore?tab=top)

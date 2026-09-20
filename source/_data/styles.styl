@@ -76,3 +76,25 @@ code {
 	background-color: transparent;
 }
 
+/* 讓程式碼區塊自動跳行 */
+/* pre, code, .highlight table td.code pre {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  overflow-x: hidden !important;
+} */
+
+/* 只讓代碼內容文字跳行，保護行號與表格佈局不崩潰 */
+.highlight table td.code,
+.highlight table td.code pre,
+.highlight table td.code pre .line {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
+
+/* 確保左側行號欄位維持原樣、絕對不換行 */
+.highlight table td.gutter,
+.highlight table td.gutter pre,
+.highlight table td.gutter pre .line {
+  white-space: pre !important;
+  word-break: normal !important;
+}

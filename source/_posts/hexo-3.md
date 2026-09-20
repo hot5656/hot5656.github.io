@@ -321,6 +321,45 @@ You are an experienced email classification assistant who accurately categorized
 </code>
 ```
 
+### 自訂 css( code 文字過長自動換行)
+``` bash
+# search css 位置
+find themes source -name "*.css" -o -name "*.styl"
+  source/_data/styles.styl
+  source/_data/variables.styl
+# 這代表你的主題是 NexT（或是具備相同機制的主題），它專門提供 source/_data/styles.styl 讓使用者覆寫並加入自訂樣式
+
+# 打開 source/_data/styles.styl
+# 在檔案最底端加入自動換行 CSS
+/* 讓程式碼區塊自動跳行 */
+pre, code, .highlight table td.code pre {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  overflow-x: hidden !important;
+}
+
+# 修正
+/* 只讓代碼內容文字跳行，保護行號與表格佈局不崩潰 */
+.highlight table td.code,
+.highlight table td.code pre,
+.highlight table td.code pre .line {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
+
+/* 確保左側行號欄位維持原樣、絕對不換行 */
+.highlight table td.gutter,
+.highlight table td.gutter pre,
+.highlight table td.gutter pre .line {
+  white-space: pre !important;
+  word-break: normal !important;
+}
+
+# run 
+hexo clean
+hexo s
+```
+
 
 
 
