@@ -161,6 +161,39 @@ ps -ef | grep 28530
   killall playwright-mcp 2>/dev/null
 ```
 
+#### update supabase
+``` bash
+# ask for update
+supabase db query --linked --file supabase/migrations/20260922100000_flight_admin_dashboard.sql
+  Initialising login role...
+  A new version of Supabase CLI is available: v2.117.0 (currently installed v2.115.0)
+  We recommend updating regularly for new features and bug fixes: https://supabase.com/docs/guides/cli/getting-started#updating-the-supabase-cli
+
+# check original istall 
+Get-Command supabase | Select-Object -Property Name, Source, CommandType
+  Name         Source                                      CommandType
+  ----         ------                                      -----------
+  supabase.exe C:\Users\RobertKao\scoop\shims\supabase.exe Application
+
+# update
+scoop update supabase
+  ....
+# version
+supabase --version
+  2.117.0
+```
+
+#### supabase Personal Access Tokens (PAT) 已經達到上限
+``` bash
+#  Personal Access Tokens (PAT) 已經達到上限（最多 20 個），導致 CLI 在嘗試建立新的登入 session 時被拒絕。
+1. 打開瀏覽器並登入 Supabase Dashboard Account Tokens
+  點擊右上角個人頭像
+    --> Account
+    --> 側邊欄 Access Tokens
+2. 在 Personal access tokens 列表中，找到名稱類似 Supabase CLI 或不再使用的舊 Token。
+3.  點擊右側的 Revoke（撤銷 / 刪除）按鈕，刪除數個過期的 Token
+```
+
 ### AI 機票價格追蹤功能 #1(Basic)
 #### Lovable generate home page
 {% note info %}
