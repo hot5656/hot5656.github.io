@@ -194,6 +194,76 @@ supabase --version
 3.  點擊右側的 Revoke（撤銷 / 刪除）按鈕，刪除數個過期的 Token
 ```
 
+#### 切換 vercel and supabase region - udemy search
+``` bash
+# get API key
+在 Supabase Dashboard 裡這樣找：
+1. 進入你的 project。
+2. 左下角點 Project Settings（齒輪圖示）。
+3. 選 API Keys。
+  Publishable and secret API keys
+    Publishable key
+    Secret keys
+# SUPABASE_JWT_SECRET 位置
+進入 supabase db project
+  --> Project Settings
+  --> JWT Keys
+  --> Legacy JWT Secret
+# DATABASE_URL 要從哪裡抓到?
+在 Supabase Dashboard 的新 project 裡這樣找：
+  1. 點 project 頁面最上方的 Connect 按鈕。
+  2. 選 Direct Connection String 分頁，Type 選 URI。
+  3. 找 Transaction pooler 那一段，複製連線字串。格式大約是：
+  postgresql://postgres.<project_ref>:[YOUR-PASSWORD]@aws-0-<region>.pooler.supabase.com:6543/postgres
+"
+要注意的地方：
+  - 一定要用 Transaction pooler，port 是 6543。不要用 Direct connection（5432）或 Session pooler。這個 app 在 Vercel 上每個請求都開新連線，程式也已經為 transaction pooler 調整過（prepare_threshold: None）。
+  - [YOUR-PASSWORD] 要換成資料庫密碼，連同方括號一起換掉。這是建立 project 時設定的密碼，不是你的 Supabase 帳號密碼。忘記的話，可以在 Project Settings → Database → Reset database password 重設。
+  - 密碼裡有特殊字元（@、#、/、:、% 等）要先做 URL 編碼，例如 @ 要寫成 %40，否則連線字串會被解析錯。最簡單的做法是重設成只有英數字的密碼。
+"
+
+# 更改 ./vercel.json
+{
+  "regions": ["hkg1"],
+  "functions": {
+    "app/main.py": {
+      "maxDuration": 60
+    }
+  }
+}
+
+
+# 查 vercel 位置
+# 1. 瀏覽器 DevTools（最直接）
+  1. 打開 https://udemy-coupon.roberthut.com，按 F12，切到 Network 分頁。
+  2. 重新整理頁面，點選 public-config 這個請求。
+  3. 在 Response Headers 找 x-vercel-id：
+  x-vercel-id: hkg1::hkg1::xxxxx-...
+   第一段是你連進的邊緣節點，第二段是 function 實際執行的 region。第二段是 hkg1 就代表已經切到香港。之前這裡是 iad1。
+```
+
+
+#### 機票掃描紀錄
+``` bash
+# 票價掃描不是由前端 app 觸發，而是由 Postgres 端的 pg_cron 排程直接呼叫 Edge Function，跟使用者操作完全無關。
+觸發鏈路：
+  1. supabase/migrations/20260917150000_flight_pg_cron.sql 用 cron.schedule() 註冊了一個叫 flight-price-check 的排程，cron 表達式 */30 * * * *（每 30 分鐘一次）。
+  2. 排程內容是用 pg_net 的 net.http_post() 直接對 Edge Function URL 發 POST：
+  https://luugfvsrawnuzwpjvddt.supabase.co/functions/v1/flight-parser
+    Authorization header 帶的是存在 Vault（vault.decrypted_secrets，密鑰名 flight_service_role_key）裡的 service role key，body 是空物件 {}。
+  3. flight-parser（supabase/functions/flight-parser/index.ts）本身部署時 verify_jwt = true，但因為 gateway 對任何合法 project JWT（包括 anon key）都會放行，真正擋掉亂呼叫的是函式內部再檢查一次 Authorization === Bearer ${SERVICE_ROLE_KEY}。
+  4. flight-parser 執行流程：先把過期的訂閱（cancelled 超過 current_period_end、active 超過 grace period 7 天）標記過期並寄信，接著呼叫 Travelpayouts API 抓每條航線最便宜票價（TWD 為主、USD 補充），更新 routes.last_price，最後把符合條件（有在付費期內）的訂閱以 25 筆一批的方式交給 flight-notification 去寄通知信。
+
+前端 app 完全不參與這條路徑——dashboard 只會呼叫 flight-subscribe / flight-cancel-subscription 這兩個 Edge Function 來處理訂閱寫入，票價掃描的觸發源頭純粹是資料庫層的 cron job。
+
+如果要手動測試（不等 30 分鐘），CLAUDE.md 裡建議用 SQL 直接呼叫：
+select net.http_post(
+  url := 'https://luugfvsrawnuzwpjvddt.supabase.co/functions/v1/flight-parser',
+  headers := jsonb_build_object('Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'flight_service_role_key')),
+  timeout_milliseconds := 60000  -- 預設 5 秒逾時會讓你看不到真正的回應
+);
+```
+
 ### AI 機票價格追蹤功能 #1(Basic)
 #### Lovable generate home page
 {% note info %}
