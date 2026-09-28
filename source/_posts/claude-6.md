@@ -2088,14 +2088,9 @@ for TPE-TYO at NT$7,682, sent 09-17 12:47 and 09-18 14:14.
 ```
 
 continue run it
-
-
 {% endnote %}
 
-#### Unit 8-2 新增 台北 ✈ 倫敦 航線方案
-{% note info %}
-{% endnote %}
-
+#### conitine m2-ecpay-subscription
 {% note info %}
 do you can see https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m2-ecpay-subscription/.claude/skills for skill files?
 
@@ -2134,6 +2129,31 @@ do you can see https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m2
 ```
 {% endnote %}
 
+#### set domain name
+``` bash
+# udemy-coupon.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host     | Value                 | TTL.     | 
+    | CNAME Record| flights  |  d881be2a22e5a3de.vercel-dns-017.com.| Automatic| 
+      ps: 1. cd881be2a22e5a3de.vercel-dns-017.com. 後面的點是自動加上去
+          2. 本來有問題,使用 vercel 建議 value
+
+# Vercel setting - flights
+Vercel 專案 fare-finder-pro
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "flights.roberthut.com"
+  --> Save
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+```
+
 ### Ref
 + AI 機票價格追蹤功能
   + [ claude-2-ai-video-speedreader--> Lovable Best Practice- Github](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/main/.claude/skills/lovable-best-practice)
@@ -2143,7 +2163,10 @@ do you can see https://github.com/uopsdod/claude-2-flight-price-notifier/tree/m2
   + [Resend](https://resend.com/)
   + [綠界 (ECPay)](https://www.ecpay.com.tw/)
 + Discuss
-  +[ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
+  + [ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
+  + [AI 機票價格追蹤 discuss Blog](https://claude.ai/cowork/cse_014DxgXT2gBy8CyfX7u9CMr7?artifact=cfaf5c03-debf-491d-9cde-ba11596b4fd8)
 + Tools
   + [JSONLint - json verify](https://jsonlint.com/)
   + [Midjourney Explore]( https://www.midjourney.com/explore?tab=top)
++ Share
+  + [flight-price-notifier v1.1 User Guide 2026/09/26](https://drive.google.com/file/d/1nMdPsQIQ07kc236m0SAJrVftNfLnYb72/view?usp=sharing)

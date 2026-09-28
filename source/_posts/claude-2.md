@@ -45,6 +45,21 @@ tags:
 
 
 ### Tools
+#### download env load vercel 
+```bash
+vercel env pull .env --environment=production
+```
+
+#### add skill
+``` bash
+# add supabase-grants-audit
+.claude/skills/supabase-grants-audit/SKILL.md
+# ask 
+can you see skill supabase-grants-audit?
+
+/supabase-grants-audit 唯讀檢查 demo_app_asia，告訴我結果，不要更新 DB
+``` 
+
 #### supabase put to schema web_app2
 ##### 原來設定
 ``` bash
@@ -2897,7 +2912,7 @@ https://www.udemy.com/course/ai-hr-ru/
   + [設工專案管理系統_discuss - gemini pretty](https://gemini.google.com/u/1/app/106bf945314d7ada?pageId=none)
   + [設工專案管理系統_PSA2.0_discuss - gemini pretty](https://gemini.google.com/u/1/app/19379ef6f2cafa30?pageId=none)
   + [設工專案管理系統_PSA2.0_discuss_spec](https://claude.ai/cowork/cse_01TouyEacvLAbfFuu8J5K5M9)
-  + [設工專案管理系統_discuss_post](https://claude.ai/cowork/cse_01EEnnvFaSTKuTFGKYwgvTbh)
+  + [設工專案管理系統_discuss_Blog](https://claude.ai/cowork/cse_01EEnnvFaSTKuTFGKYwgvTbh)
   + [設工專案管理系統_規格整理](https://claude.ai/code/artifact/3a175fe2-a78f-4fc7-8201-fa0172d1b4e3?org=f3e1de8a-9b40-4e33-b45c-70baf63160e5)
   + [正式站升級評估](https://claude.ai/code/artifact/fac3f2a1-9a1e-43ff-b77f-70338e79b009)
   + [Email 驗證設定手冊](https://claude.ai/code/artifact/dc429730-a5e2-4847-8ebd-13f98f834721)
