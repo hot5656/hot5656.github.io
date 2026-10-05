@@ -1,9 +1,10 @@
 ---
-title: claude-3
+title: claude 重構
 abbrlink: eb3d
 date: 2026-08-06 11:58:19
-categories:
+categories: AI
 tags:
+  - claude
 ---
 
 

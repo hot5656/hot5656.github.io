@@ -2,8 +2,9 @@
 title: HiSKIO - Claude Code 深度應用
 abbrlink: 2abc
 date: 2026-07-05 11:29:08
-categories:
+categories: AI
 tags:
+  - claude
 ---
 
 ### 名詞解釋 

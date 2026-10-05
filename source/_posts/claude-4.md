@@ -2,8 +2,9 @@
 title: Claude - Master Claude Cowork, Claude Code, Skills & Plugins
 abbrlink: 297c
 date: 2026-08-07 09:48:27
-categories:
+categories: AI
 tags:
+  - claude
 ---
 
 ### Course Introduction
@@ -226,6 +227,22 @@ convert the app to a static-hosting version
 
 # ask something
 tell me some thing about the "How to Build Custom Skills in Google Antigravity_ 5 Practical Examples _ Google Cloud - Community" pdf
+```
+
+### Claude Skills Basics
+``` bash
+customize
+  --> Skills
+
+example :
+  web-artifacts-builder
+  canvas-design
+
+# simple tell to use skill
+Hey Claude - can you make something amazing with my"canvas-design" skill?
+
+# cowork - Skills found : canvas-design
+I would like you to create a beautiful visual art in pdf format containing basic information about claude plugings
 ```
 
 ### Ref

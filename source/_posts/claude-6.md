@@ -2,8 +2,9 @@
 title: Claude Code 實戰：12 小時打造會自己賺錢的 AI SaaS
 abbrlink: 7d83
 date: 2026-09-03 12:17:24
-categories:
+categories: AI
 tags:
+  - claude
 ---
 
 ### top
@@ -2154,6 +2155,112 @@ Vercel 專案 fare-finder-pro
   --> Save
 ```
 
+### SaaS 入口網站
+#### Lovable generate home page
+{% note info %}
+1. load lovable-rules.md (claude 整理)
+``` md
+# Engineering rules (apply to every change)
+
+## Scope
+- Build only what the current prompt asks for. Do not create tables, database functions, edge functions or pages that were not requested. If you think one is needed, ask first.
+
+## Database (Supabase)
+- All schema changes go through migration files in supabase/migrations/. Never tell me to run schema SQL manually in the dashboard.
+- Before creating a new database function (RPC), check the existing functions and reuse one if it fits. Give new ones descriptive names (get_user_videos, not get_data_v2).
+- Any read that combines two or more tables must be an RPC, not a client-side nested select. If the function is SECURITY DEFINER, filter by auth.uid() inside it and set search_path = ''.
+- Every new table: enable RLS, add explicit policies, and add explicit GRANTs for the roles that need Data API access.
+- Never put the service_role or secret key in frontend code. Only the publishable (anon) key may be used client-side.
+
+## Data and privacy
+- Demo, seed and mock data must use obvious fakes: user@example.com, Test User, 555-0100. Never reuse the signed-in user's email or any real-looking personal data.
+
+## Code conventions
+- React component files: PascalCase.tsx (e.g. VideoUploader.tsx). Hooks and utilities: camelCase.ts.
+- Keep the Vite + React stack; do not switch frameworks.
+```
+
+2. Lovable genetate home page
+  + login Lovable
+  + upload previous skill
+  + write prompt
+
+  ``` 
+  Follow the engineering rules in the attached lovable-rules.md.
+
+  Build a SaaS landing page + authenticated app shell for Video Speed Reader, a product that turns any video into an accurate transcript in three minutes, targeted at content creators, educators, and engineers who record long-form video and need a fast, clean transcript to repurpose into blog posts, course notes, or searchable archives.
+
+  The site must include:
+
+  1. A public landing page (`/`) with:
+    - Hero section: product name "Video Speed Reader" prominently displayed, value prop "上傳影片，三分鐘內拿到逐字稿。" (English subtitle: "Upload your video, get a clean transcript in three minutes."), and a primary CTA button labeled "Sign in / 登入" in the top-right header
+    - Features section with exactly 3 feature cards:
+      * Card 1: "高準確度逐字稿 (High-accuracy transcripts)" — powered by OpenAI Whisper, supports Chinese and English
+      * Card 2: "三分鐘交付 (Three-minute turnaround)" — processed in the background, you get an email when it's ready
+      * Card 3: "可商用授權 (Commercial-use ready)" — you own the output, use it however you like
+    - Footer with copyright "© 2026 Video Speed Reader"
+
+  2. Authentication using Lovable's built-in Supabase-style auth (use whatever auth backend Lovable provides by default — Lovable Cloud is fine for this v1; we'll swap to a user-owned Supabase project in a later step):
+    - Sign Up page with email + password
+    - Sign In page with email + password
+    - Sign Out functionality
+    - Email confirmation can be disabled for simplicity in this v1
+
+  3. An authenticated app shell at `/app` that the user lands on after signing in:
+    - Greets the signed-in user by email: "Hi {user.email}"
+    - A placeholder message: "Your dashboard is coming soon. Upload functionality will be added in the next milestone."
+    - A Sign Out button in the header
+
+  Design requirements:
+  - Modern, professional dark theme (purple/violet accent on a near-black background)
+  - Use Inter or a similar sans-serif font
+  - Mobile responsive
+  - Tasteful subtle animations (fade-in on scroll is fine; don't overdo it)
+
+  Out of scope for this v1: video upload widget, transcript display, payment, custom database tables (do NOT create a `profiles` or `videos` table — only use Supabase's default `auth.users`). Those come in later milestones. Stick to landing page + auth + placeholder dashboard.
+  ```
+
+3. try it
+  + open another screen by icon
+  + sign Up 
+    + email
+    + password : ex. Test@1514
+
+4. connect to github
+  + press project name v
+  + wheel (setting)  
+  + Git
+  + GitHub
+  + connect
+  + make sure gihub have the respository
+
+{% endnote %}
+
+#### github –> delopy Vercel+Supabase
+``` bash
+# clone from github
+git clone https://github.com/hot5656/ai-video-speedreader.git
+
+# run in local
+nmp i
+npm run dev
+
+# copy command deploy_vercel.md
+.claude\commands\deploy_vercel.md
+
+# deploy_vercel
+help me create my custom command in @.claude/commands/deploy_vercel.md . I want to deploy my local project to vercel. Once done, give me the url to see my project on the internet.
+
+#deploy to vercel
+/deploy_vercel prod
+# if vercel not install
+! npm i -g vercel
+# if vercel not login
+! vercel login
+
+```
+
+
 ### Ref
 + AI 機票價格追蹤功能
   + [ claude-2-ai-video-speedreader--> Lovable Best Practice- Github](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/main/.claude/skills/lovable-best-practice)
@@ -2162,6 +2269,8 @@ Vercel 專案 fare-finder-pro
   + [TraverlPayouts](https://www.travelpayouts.com/tw/)
   + [Resend](https://resend.com/)
   + [綠界 (ECPay)](https://www.ecpay.com.tw/)
++ SaaS 入口網站
+  + [claude-2-ai-video-speedreade m0-landing-page skills](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m0-landing-page/.claude/skills)
 + Discuss
   + [ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
   + [AI 機票價格追蹤 discuss Blog](https://claude.ai/cowork/cse_014DxgXT2gBy8CyfX7u9CMr7?artifact=cfaf5c03-debf-491d-9cde-ba11596b4fd8)

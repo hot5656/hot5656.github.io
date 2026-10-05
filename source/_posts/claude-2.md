@@ -2,8 +2,9 @@
 title: Side Project
 abbrlink: 2bfc
 date: 2026-08-04 10:07:40
-categories:
+categories: AI
 tags:
+  - claude
 ---
 
 ### 名詞解釋 
