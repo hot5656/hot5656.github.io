@@ -36,6 +36,80 @@ user:name flight
 <!--more-->
 
 ### Tools
+
+#### Vite SPA vs TanStack Start 差別
+{% note info %}
+兩者最大的差別是**畫面在哪裡產生**。
+
+**Vite SPA（單頁應用）**
+- 伺服器只送出一個幾乎空白的 `index.html` 加上 JS，畫面全部在使用者的瀏覽器裡產生。
+- 打包出來是靜態檔案，任何空間都能放（Vercel、Netlify、S3，甚至 cPanel）。
+- 換頁由瀏覽器裡的 JS 處理，不會重新跟伺服器要頁面。
+- 後端邏輯要放在別的地方，例如 Supabase（資料庫、Auth、Edge Functions）。
+
+**TanStack Start（全端框架）**
+- 第一次載入時，伺服器先把 HTML 產生好再送出（SSR），之後在瀏覽器裡繼續運作。
+- 需要伺服器執行環境（Node、Cloudflare Workers、Vercel Functions 等），不是單純的靜態檔案。
+- 可以在同一個專案裡寫 server functions，在伺服器端藏 API key、呼叫外部服務。
+- 每一頁都能有自己的 meta 標籤，對 SEO 和社群分享比較有利。
+
+| | Vite SPA | TanStack Start |
+|---|---|---|
+| 部署 | 靜態檔案，最簡單 | 需要伺服器環境，設定要跟平台對上 |
+| 首次載入 / SEO | 較弱（內容靠 JS 產生） | 較好（HTML 已經產生好） |
+| 後端邏輯 | 靠 Supabase / Edge Functions | 可以寫在專案內 |
+| 複雜度 | 低，除錯單純 | 高，要分清楚程式跑在伺服器還是瀏覽器 |
+| 成熟度 | 非常成熟 | 比較新，還在快速變動 |
+
+**以你的專案來說，Vite SPA 比較理想**，原因有三個：
+
+1. **架構本來就這樣設計：** 登入用 Supabase Auth，M1 的影片轉逐字稿流程也是放在 Supabase。前端只負責畫面，用不到 SSR 的伺服器功能。
+2. **SEO 需求很小：** 真正需要被搜尋到的只有首頁一頁，`/app` 是登入後的頁面，本來就不需要 SEO。首頁的 title 和 og 標籤寫在 `index.html` 裡就夠了。
+3. **跟課程一致：** 後面的 milestone 都假設是 SPA，維持一樣的架構可以少很多麻煩。
+
+**補充兩點**
+
+- TanStack Start 本身不差，也能部署到 Vercel。問題在於 Lovable 產生的設定是針對 Cloudflare（`wrangler`），直接放到 Vercel 就對不上。如果以後要做內容很多、很需要 SEO 的網站（例如部落格型的頁面），TanStack Start 或 Next.js 才比較值得用。
+- 轉成 SPA 之後，Vercel 上也要設定把所有路徑都導回 `index.html`（在 `vercel.json` 加 rewrites），不然直接打 `/app` 一樣會 404。這也是 B3 要檢查的地方。
+{% endnote %}
+
+#### vercel find error - CVE-2026-102989
+``` bash
+# issue 
+@tanstack/react-start@1.168.32 contains a known cross-site scripting vulnerability (CVE-2026-102989)
+Update to 1.168.60 or later and redeploy. To deploy at your own risk, 
+set DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1 and redeploy.
+
+
+```
+#### Claude - add site access
+``` bash
+Claude
+  --> Settings
+  --> Claude in Chrome
+  --> Add Websites
+      www.starterstory.com	
+```
+
+#### supabase 如何設定 email confirm
+``` bash
+在 Dashboard 設定
+1. 打開 https://supabase.com/dashboard/project/project_id
+2. 左側選 Authentication
+3. 進入 Sign In / Providers，展開 Email
+4. 切換 Confirm email，然後按 Save
+```
+
+#### supabase/config.toml
+``` bash
+# config.toml 是 Supabase CLI 的設定檔
+什麼時候會用到（都要你自己執行 Supabase CLI 指令）
+supabase start : 在本機用 Docker 跑一套 Supabase，用的是檔案裡的 auth、db 等設定
+supabase db push / supabase migration ... : 把資料庫變更推到 project_id 指定的專案
+supabase functions deploy : 部署 Edge Functions，也會讀函式相關設定
+supabase config push : 把檔案裡的 auth 等設定推到雲端專案，例如 enable_confirmations
+```
+
 #### uv
 {% note info %}
 **uv** 是一個由知名 Python 工具團隊 Astral（也是開發程式碼檢查工具 Ruff 的團隊）使用 **Rust** 語言編寫的**超高速 Python 套件管理器與專案管理工具**。
@@ -2156,6 +2230,113 @@ Vercel 專案 fare-finder-pro
 ```
 
 ### SaaS 入口網站
+#### 說明
+##### .env 有兩組 variable SUPABASE_xx and VITE_SUPABASE_xx 其實是一樣 為何要兩組
+``` bash
+● 兩組名稱看起來重複，但其實分別給兩個不同的地方用，所以建議不要合併成一組。
+
+  為什麼要兩組
+
+  ┌────────────────┬──────────────────────────────────┬─────────────────────┐
+  │      變數      │               誰讀                │     什麼時候讀       │
+  ├────────────────┼──────────────────────────────────┼─────────────────────┤
+  │ VITE_SUPABASE_*│ 瀏覽器端程式碼（import.meta.env)  │ 建置時，Vite 把值直   │
+  │                │                                  │ 接寫進前端打包        │
+  ├────────────────┼──────────────────────────────────┼─────────────────────┤
+  │ SUPABASE_*     │ 伺服器端程式碼（process.env）      │ 伺服器執行時才讀     │
+  └────────────────┴──────────────────────────────────┴─────────────────────┘
+
+  - Vite 只會把 VITE_ 開頭的變數放進前端程式碼。這是安全機制，避免伺服器的機密值
+    不小心跑到瀏覽器。所以前端只能用 VITE_SUPABASE_*。
+  - 伺服器端的 auth-middleware.ts:37-38 和 client.server.ts:33 只讀
+    process.env['SUPABASE_URL'] 這類沒有前綴的名稱。
+  - client.ts:34-35 兩種都會讀，先找 VITE_，找不到再用 SUPABASE_。
+
+  URL 和 publishable key 是公開的，兩組的值剛好一樣。伺服器端另外還有
+  SUPABASE_SERVICE_ROLE_KEY 這種機密值，絕對不能加 VITE_ 前綴。所以 Lovable
+  才把「前端用」和「伺服器用」分開命名。
+
+  為什麼不建議改成一組
+  1. 檔案是自動產生的：這幾個檔案開頭都寫著「This file is automatically
+     generated. Do not edit it directly.」，是 Lovable
+     產生和管理的。你改了，Lovable 下次同步時很可能又改回去。
+  2. .env 也由 Lovable 管理：如果刪掉 SUPABASE_*
+     那組，之後一旦用到伺服器端的驗證（requireSupabaseAuth），就會出現「Missing
+     Supabase environment variable(s)」錯誤。
+  3. 只省幾行：合併只少四行設定，卻要改動自動產生的程式碼，不划算。
+```
+
+##### 本 app 如何分前端及伺服器程式
+``` bash
+● 這個 App 用的是 TanStack Start。它不是把前端和後端寫成兩個專案，而是放在同一個
+  專案、同一套程式碼裡，再靠檔名、API 和設定決定哪段程式在哪裡跑。
+
+  三種程式碼
+
+  ┌──────────────┬────────────────────┬─────────────────────────────────────┐
+  │     類型     │      在哪裡跑       │            本專案的例子             │
+  ├──────────────┼────────────────────┼─────────────────────────────────────┤
+  │ 兩邊都跑（大  │ 伺服器先產生        │ src/routes/index.tsx、signin.tsx、s │
+  │ 部分程式碼）  │ HTML（SSR），瀏覽   │ ignup.tsx、__root.tsx、components/  │
+  │              │ 器載入後再接手互動  │                                     │
+  ├──────────────┼────────────────────┼─────────────────────────────────────┤
+  │ 只在瀏覽器跑  │ 瀏覽器              │ _authenticated/                     │
+  │              │                    │ 底下的頁面，因為設了 ssr: false       │
+  ├──────────────┼────────────────────┼─────────────────────────────────────┤
+  │              │ Vercel             │ src/server.ts、start.ts 裡的         │
+  │ 只在伺服器跑  │ 上的伺服器函式（__  │ middleware、client.server.ts、auth-  │
+  │              │ server.func）      │ middleware.ts                       │
+  └──────────────┴────────────────────┴─────────────────────────────────────┘
+
+  怎麼區分
+
+  1. 頁面設定 ssr: false
+
+  src/routes/_authenticated/route.tsx:6 設了 ssr: false，所以 /app
+  只在瀏覽器執行。原因是登入資訊存在瀏覽器的
+  localStorage，伺服器讀不到，只能在瀏覽器檢查有沒有登入。
+
+  2. .server() 和 .client()
+
+  start.ts 裡的 middleware 用 .server(...) 宣告只在伺服器跑，例如錯誤處理和 CSRF
+  防護。auth-attacher.ts 用 .client(...)
+  宣告只在瀏覽器跑，它會在呼叫伺服器時自動帶上登入憑證。
+
+  3. 檔名 .server.ts
+
+  client.server.ts 裡有 service role key，檔名加上 .server
+  是在標示它只能給伺服器用，不能被前端引用。
+
+  4. 環境變數
+
+  就是上一題說的：VITE_* 會寫進前端程式碼，process.env.* 只有伺服器讀得到。
+
+  5. 建置輸出
+
+  vite build 會把同一份原始碼打包成兩份。從剛才 Vercel 的建置紀錄看得到：
+  - 前端：靜態檔案（JS 和 CSS），由 Vercel CDN 直接提供。
+  - 伺服器：.vercel/output/functions/__server.func/，負責 SSR 和伺服器端邏輯。
+
+  本 App 實際的分工
+
+  瀏覽器                                   Vercel 伺服器              Supabase
+  ─────────────────────────────            ───────────────            ────────
+  首頁、登入、註冊頁 (SSR 後接手)    ◀──     產生首頁 HTML
+  AuthForm → supabase.auth.signIn   ─────────────────────────────▶   Auth
+  /app 速讀功能 (ssr:false，純前端)
+  登入憑證存在 localStorage
+
+  - 伺服器目前只負責兩件事：產生頁面 HTML，以及錯誤處理。
+  - 程式碼裡沒有任何 createServerFn（自訂的伺服器
+    API），所以沒有自己寫的後端邏輯。
+  - 登入是瀏覽器直接連 Supabase，不經過 Vercel 伺服器。
+  - 影片速讀功能也全部在瀏覽器執行。
+
+  如果之後要加後端功能（例如存資料、呼叫要保密金鑰的 API），就用 createServerFn
+  寫伺服器函式。這時 auth-attacher 和 auth-middleware 會自動幫忙驗證使用者身分。
+```
+
+
 #### Lovable generate home page
 {% note info %}
 1. load lovable-rules.md (claude 整理)
@@ -2258,8 +2439,120 @@ help me create my custom command in @.claude/commands/deploy_vercel.md . I want 
 # if vercel not login
 ! vercel login
 
+# vercel connect github
+Connect Git
+  --> Github
+  --> add github scope
+  --> Config
+  --> select repositories(select it) 
+  --> save
 ```
 
+#### set for multi app for supabase 
+``` bash
+# design for multi app
+please ref @docs/shared-supabase-auth.md for supabase multi app, app name and schema is video-read
+
+# send-email add video-read(flight)
+現在加入一個 app video-read send-email 需要修改嗎?
+
+# Redirect URLs，加上：
+- http://localhost:8080/auth/confirm**
+- https://ai-video-speedreader.vercel.app/auth/confirm**
+
+# add supabase env
+1. SUPABASE_PROJECT_ID and VITE_SUPABASE_PROJECT_ID do not need
+# set vercel Environments
+Setting
+  --> Environments
+  --> Production
+  --> Add Environment Variable
+    set 4 variable 
+    SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_URL
+    VITE_SUPABASE_PUBLISHABLE_KEY (select config)
+    VITE_SUPABASE_URL (select config)
+
+
+# +ppt@gmail.com 被丟到 圾圾信箱 : https://ai-video-speedreader.vercel.app/signup
+# Namecheap roberthut.com  設 DMARC 記錄
+domains
+  --> MANAGE
+  --> Advanced DNS
+  --> Host Records
+  --> Add New Record
+    Type  : TXT Record
+    Host  : _dmarc（只填這段，Namecheap 會自動加上 .roberthut.com）
+    Value : v=DMARC1; p=none; rua=mailto:dmarc@roberthut.com
+    TTL   : Automatic
+
+# ImprovMX 怎麼設定 dmarc 轉寄 (for dmarc@roberthut.com 收到報告)
+# 若 Aliases 裡已經有一筆 *（catch-all，所有沒指定的地址都轉寄），那 dmarc@roberthut.com 本來就會被轉寄，不用另外加
+登入 https://app.improvmx.com 
+  --> 在網域清單點 roberthut.com
+  --> 在 Aliases 區塊新增一筆：
+    + Alias : dmarc（只填這段，畫面上會顯示成 dmarc@roberthut.com
+    + Forwards to : 你想收報告的信箱，例如 xxx@gmail.com
+
+# check 收信 使否 SPF、DKIM、DMARC 是不是都顯示 PASS
+在 Gmail 打開收到的信 → 「⋮」→「顯示原始郵件」，看 SPF、DKIM、DMARC 是不是都顯示 PASS。三項都過，網域設定就沒問題。
+```
+
+#### TanStack Start（SSR）轉成純 Vite + React SPA(Vite SPA)
+``` bash
+目標：把這個專案從 TanStack Start（SSR）轉成純 Vite + React SPA，部署在 Vercel 上當靜態網站。
+
+要求：
+1. 移除 TanStack Start / SSR 相關的所有東西：@tanstack/react-start、@lovable.dev/vite-tanstack-config、
+   wrangler、@cloudflare/*、nitro、server functions、server entry 等。
+   （@tanstack/react-query 如果有用到可以保留，它跟 SSR 無關）
+2. 改用 React Router 做前端路由，保留現有的所有頁面路徑（/、/app、登入、註冊等），
+   /app 要維持登入保護，未登入就導回登入頁。
+3. 建立標準的 Vite 入口：index.html + src/main.tsx，build script 用 "vite build"，輸出到 dist/。
+4. 原本在 SSR head() 裡設定的 title、description、og:*、twitter:* meta，搬到 index.html。
+5. 新增 vercel.json：framework 設為 "vite"，並加 rewrites 把所有路徑導回 /index.html，
+   讓 /app 這類網址直接打開也不會 404。
+6. 檢查環境變數：前端用到的 Supabase 設定必須是 VITE_ 開頭（VITE_SUPABASE_URL、
+   VITE_SUPABASE_PUBLISHABLE_KEY 或 ANON_KEY），並列出 Vercel 上需要設定哪些變數。
+   如果原本有只在伺服器端執行的程式（例如用到 secret key），不要放進前端，先列出來問我。
+7. UI、樣式、文案、Supabase 登入流程全部維持不變。
+
+驗證（全部通過才算完成）：
+- npm install && npm run build 成功，dist/ 裡有 index.html
+- npm run preview 後，/、/app、一個不存在的網址都能正常開啟（交給前端路由處理）
+- package.json、vite.config.ts 裡已經沒有 tanstack-start、vite-tanstack-config、wrangler、cloudflare
+- 專案裡沒有 wrangler.toml / wrangler.jsonc
+
+完成後：
+- 開一個新分支 convert-to-vite-spa，commit 並 push，不要直接改 main
+- 給我一份變更摘要：刪了哪些套件和檔案、新增了哪些檔案、Vercel 上要改什麼設定
+```
+
+#### run checklist m0
+``` bash
+# run checklist
+can you see my skill m0-landing-and-signin-checklist? the vercel url:https://ai-video-speedreader.vercel.app/ also ok
+
+# change the theme
+"
+Change the application's visual theme to match the @theme_video.png  This is a pure UI/artistic redesign only — preserve all existing features, functionality, logic, and behavior exactly as-is.
+"
+
+# change tab icon
+ask only:the tab icon is lovable , can you change it?
+
+# ref image to change theme
+"
+Change the application's visual theme to match the @theme_video.png  This is a pure UI/artistic redesign only — preserve all existing features, functionality, logic, and behavior exactly as-is.
+"
+
+# generate icon
+I change the theme , please generate a few versions icon for me to choice(reference the theme)
+
+# select icon
+I select A
+Header logo also change
+```
 
 ### Ref
 + AI 機票價格追蹤功能
