@@ -2528,7 +2528,7 @@ domains
 - 給我一份變更摘要：刪了哪些套件和檔案、新增了哪些檔案、Vercel 上要改什麼設定
 ```
 
-#### run checklist m0
+#### run checklist m0 - [org m0-landing-and-signin-checklist](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m0-landing-page/.claude/skills/m0-landing-and-signin-checklist)
 ``` bash
 # run checklist
 can you see my skill m0-landing-and-signin-checklist? the vercel url:https://ai-video-speedreader.vercel.app/ also ok
@@ -2554,6 +2554,1118 @@ I select A
 Header logo also change
 ```
 
+#### run m1
+``` bash
+# open AI Whisper - 一套自動語音辨識 (ASR) 系統
+OpenAI
+  --> API Keys
+  --> Create new secret key
+  --> Service account
+    name : whisper-ec2-worker
+    project : default project
+    有效期限 : 永不
+  --> Create secret key
+
+# set variabel 
+# set at .env and vercel 
+  + VITE_SUPABASE_PUBLISHABLE_KEY 
+  + VITE_SUPABASE_URL
+# set to Edge Function
+VIDEO_READ_OPENAI_API_KEY
+# seceret key supabase will auto get it
+SUPABASE_SECRET_KEY
+
+# m1-ai-video-transcript-prerequisites
+please run skill m1-ai-video-transcript-prerequisites
+# response 
+● M1 環境準備完成（本機 worker，不需要 AWS）。所有檢查都通過，你可以開始 M1
+  主流程了。
+
+  ┌──────────────────────────┬───────────────────────────────────────────────┐
+  │         檢查項目          │                     結果                      │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ Python                   │ 3.13.9 ✅                                     │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ ffmpeg / ffprobe         │ 原本沒裝，我用 winget 裝好了 9.0.2              │
+  │                          │ ✅（你目前開著的終端機要重開才找得到）           │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ worker/venv              │ 已建立，requirements 安裝成功 ✅               │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ .env 不會進 git          │ 有被 .gitignore 排除，也沒有被追蹤 ✅           │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ OpenAI key               │ 實際呼叫 OpenAI，回傳 OpenAI key OK ✅         │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ Supabase secret key      │ 有成功連上 Supabase ✅。public.jobs            │
+  │                          │ 表格還不存在，這在 M1 Step 2 之前是正常的        │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ 測試網址（MLKDream.mp3） │ yt-dlp 可以讀到 ✅                             │
+  └──────────────────────────┴───────────────────────────────────────────────┘
+
+# m1-ai-video-transcript 
+run m1-ai-video-transcript
+# response -  Supabase Dashboard 的 Data API → Exposed schemas 加入 video-read
+手動設定步驟：
+1. 打開 https://supabase.com/dashboard/project/luugfvsrawnuzwpjvddt/settings/api
+   （如果找不到，路徑是左側 Project Settings → Integrations → Data API → Settings）
+2. 找到 Exposed schemas，目前應該是 public、graphql_public、flight
+3. 從下拉選單加入 video-read，原本那三個不要動
+4. 按 Save
+
+# do as request
+I add video-read, and I want to run at local 1st for test
+# response 
+Please test it:
+1. Open http://localhost:8081/signin and sign in with your video-read account.
+2. Click Upload / 上傳 at the top.
+3. Fill in the form:
+   - URL: https://ia801501.us.archive.org/29/items/MLKDream/MLKDream.mp3
+   - Language: English (en)
+4. Press Transcribe. The status should go pending → downloading → transcribe → done within about 1–3 minutes, and the list refreshes itself every 5 seconds.
+5. When it shows done, click .txt to download the transcript.
+
+# have some issue
+console show the message
+# response 
+The console error was harmless—just an expired session token. The real issue is that ffmpeg isn't in the distributor's PATH since it was installed after the shell started, causing the download to succeed but the ffmpeg call to fail; I'll restart the distributor with the correct PATH and reset the job to pending.
+# respone - result
+The full local end-to-end test passes 🎉. I tested it by checking the distributor output and the transcript in Supabase.
+  - Job flow: the job went pending → downloading → transcribe → done.
+  - Transcription: the file was split into 2 chunks and transcribed into 8,799 characters, starting "I have the pleasure to present to you Dr. Martin Luther King, Jr. I am happy to join with you today…".
+  - Supabase: the job is done and the transcript is saved in job_sessions.
+What went wrong on the first run: the console message was only an expired login session on the page being cleared, not a problem. The real failure was in the worker: I started its background shell before ffmpeg was installed, so the shell couldn't find ffmpeg. I restarted the distributor with ffmpeg on its PATH and reset the job to pending. A terminal you open yourself already has ffmpeg, so this won't happen there.
+Please check two more things:
+  1. On http://localhost:8081/upload the status shows a green done. Click .txt and check that transcript-a442b010.txt downloads as readable English text. This is the one step I couldn't verify myself.
+  2. Optional: submit a short YouTube link to confirm that works locally too.
+The distributor and the dev server are still running in the background and stop when this Claude Code session ends.
+Once the download looks right, the next step is pushing to main so the Vercel production site gets /upload. Your three local commits plus the uncommitted SKILL.md and checklist skill are waiting for your go-ahead on whether to commit and push them.
+
+# aligmenet outout
+我下載之轉譯檔 每一段翻成一行不利閱讀 請幫我調整
+# response 
+轉譯檔現在每句一行了，你的測試 job 也已用新格式重跑完成。
+原本 Whisper 的 text 格式會把每 10 分鐘的音訊整段回成一行，所以 MLKDream 只有 2 行。我在 worker/worker.py 改了兩處：
+- 改用 verbose_json 格式：每個語句片段（大約一句）各自一行。中文轉錄常常沒有標點，按片段斷行比按句號斷行可靠。
+- 10 分鐘分段的接縫只換行：之前接縫處會多一個空行，但接縫多半落在句子中間，所以拿掉了。
+
+# m1-ai-video-transcript-checklist
+run m1-ai-video-transcript-checklist
+# response 
+....
+
+# vercel add environment variable
+VIDEO_READ_OPENAI_API_KEY
+SUPABASE_SECRET_KEY
+
+# m1-ai-video-transcript-checklist after uodate to vercel
+I update to vercel already https://ai-video-speedreader.vercel.app/ , please update  m1-ai-video-transcript-checklist
+
+# worker put vercel
+worker 放於 vercel 會有問題? 
+# response 
+● 可以放，但會遇到好幾個問題，而且現在的程式不能直接搬上去。Vercel Functions
+  設計給「收到請求、幾秒到幾分鐘內回應」的工作，轉錄影片是長時間、吃 CPU、要用
+  ffmpeg 的背景工作，兩者不太合。
+
+  1. 執行時間有上限（最大的問題）
+  - Vercel Function 每次執行有時間上限。大約是 Hobby 方案 5 分鐘、Pro
+    方案十幾分鐘，實際數字以 Vercel 文件為準。
+  - 一個 job 要下載影片、跑 ffmpeg 轉檔切段，再把每 10 分鐘的音訊依序送
+    Whisper。短影片沒問題，一小時的影片就很可能超時。
+  - 超時的 job 會卡在 downloading 或 transcribe。目前的 schema
+    沒有失敗狀態，也沒有自動重試，所以要另外設計恢復機制。
+
+  2. 沒辦法常駐輪詢
+  - distributor.py 是一個無限迴圈，每 10 秒查一次。Vercel Function
+    執行完就結束，不能常駐。
+  - 要改成由別的東西觸發：例如 Supabase Database Webhook 在新增 job 時呼叫
+    function，或用 Vercel Cron 定時呼叫。Hobby 方案的 Cron
+    頻率限制很嚴，不適合每 10 秒。
+  - worker.py 也要改寫成 HTTP handler。
+
+  3. ffmpeg 要自己打包
+  - Vercel 的執行環境沒有 ffmpeg，要把靜態編譯的 ffmpeg 一起打包進
+    function（例如 imageio-ffmpeg）。
+  - function 有打包大小上限，ffmpeg 就佔掉一大塊。/tmp
+    空間和記憶體也有限，大影片會有風險。
+
+  4. YouTube 會失效
+  - YouTube 會擋雲端機房的 IP，Vercel 也在名單內。現在能抓 YouTube 只是因為
+    worker 跑在你家的網路上，搬上去後只剩直接的影音檔網址能用。
+
+  5. secret 要放上 Vercel
+  - SUPABASE_SECRET_KEY 和 OpenAI key 要放進 Vercel 的環境變數（不加 VITE_
+    前綴，只在伺服器端可讀）。這樣可行，但就失去了現在「Vercel 完全不碰
+    secret」的優點。
+
+  6. 方案限制
+  - Vercel Hobby 方案只能用於非商業用途。M2 開始向使用者收費後，本來就要升級
+    Pro。
+
+  比較適合的選擇：
+
+  做法: 維持本機 worker（現在）
+  改動量: 不用改
+  適合度: M1、M2 開發階段最省事，缺點是電腦要開著
+  ────────────────────────────────────────
+  做法: 容器型平台（Railway、Fly.io、Render 的 background worker）
+  改動量: 很小，distributor.py 幾乎原封不動，用 Dockerfile 裝 ffmpeg
+  適合度: ✅ 最適合這種長時間背景工作，沒有執行時間上限
+  ────────────────────────────────────────
+  做法: Modal 這類 serverless GPU/批次平台
+  改動量: 中等
+  適合度: 適合，能按用量計費，也能自己跑 Whisper 模型
+  ────────────────────────────────────────
+  做法: Vercel Functions
+  改動量: 大（改觸發方式、打包 ffmpeg、處理超時）
+  適合度: ⚠️ 可行但最彆扭
+  ────────────────────────────────────────
+  做法: Supabase Edge Functions
+  改動量: 大
+  適合度: ❌ 執行時間更短，也不能跑 ffmpeg
+
+  建議： 現階段維持本機 worker。等要上線、需要 24 小時處理 job 時（課程的
+  M4），優先考慮容器型平台，因為現有的 worker
+  程式幾乎可以直接用。前端和資料庫維持在 Vercel 和 Supabase 不變。
+
+# vercel 動態驅動 worker
+可不可能由 vercel 動態驅動 , 執行時間限制 將 影片或語音檔分段執行 是否可行? 
+# response 
+● 可行。這其實就是把 worker 改成 serverless 的標準做法：把一個長工作拆成很多個短
+  工作，每段都在時間限制內完成。不過除了「分段」本身，還有幾個環節要一起設計。
+
+  架構
+
+  瀏覽器 insert job
+        │
+        ▼
+  Supabase Database Webhook（新增 job 時自動呼叫）
+        │
+        ▼
+  ① Vercel: /api/plan     用 ffprobe 讀影片長度 → 切成 N 段 → 寫 N 列 job_chunks
+        │                  → 對每段呼叫 ②（可平行）
+        ▼
+  ② Vercel: /api/chunk    只處理第 i 段：ffmpeg 擷取這 10 分鐘音訊 → Whisper → 
+  寫回 job_chunks[i]
+        │                  → 如果所有段都完成，呼叫 ③
+        ▼
+  ③ Vercel: /api/finalize 依序合併各段文字 → 寫進 job_sessions → status = done
+
+  關鍵技巧：不用整支下載影片
+
+  ffmpeg 可以直接從網址讀取指定的時間區段（靠 HTTP Range 請求），例如：
+
+  ffmpeg -ss 1200 -t 600 -i https://.../video.mp4 -vn -ac 1 -ar 16000 chunk.mp3
+
+  這樣第 3 段的 function 只會下載第 20～30
+  分鐘需要的資料，不必先把一小時的影片整個抓下來。每段的工作量大約是「擷取 10
+  分鐘音訊（幾秒到幾十秒）＋ Whisper（約 20～60 秒）」，遠低於 5 分鐘的限制。各
+  段還能平行處理，一小時的影片可能一兩分鐘就轉完，比現在逐段處理還快。
+
+  要一起處理的問題
+
+  ┌─────────────┬───────────────────────────────────────────────────────────┐
+  │    問題     │                           做法                             │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │             │ 用 Supabase Database Webhook 在新增 job 時呼叫             │
+  │ 觸發        │ Vercel，或由前端 insert 後直接呼叫 /api/plan。webhook       │
+  │             │ 要帶共用密鑰，function 驗證後才執行                         │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ 某段失敗或   │ 每段記錄 status 和 attempts，失敗就重試。最穩的做法是用       │
+  │ 超時        │ Upstash QStash 這類訊息佇列串起                             │
+  │             │ ①②③，它內建重試和排程，不用自己寫                            │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ 怎麼知道全   │ 每段完成時用一條 SQL                                       │
+  │ 部完成       │ 原子地檢查「還有沒有未完成的段」，只有最後一段會觸發          │
+  │             │ ③，避免重複合併                                            │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ ffmpeg      │ Python function 裡用 imageio-ffmpeg 打包靜態               │
+  │             │ ffmpeg，要注意打包大小上限                                  │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │             │ 10 分鐘切點常落在句子中間。可以讓相鄰段重疊幾秒，或改成依      │
+  │ 段落交界     │ 序處理，並把前一段結尾當作 Whisper 的 prompt                │
+  │             │ 參數（但就不能平行了）                                      │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ 網址限制     │ 來源必須支援 Range 請求的直接檔案網址（mp4/mp3）。YouTube    │
+  │             │  還是不行，因為 Vercel 的 IP 會被擋                         │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ secret      │ SUPABASE_SECRET_KEY、OpenAI key 要放進 Vercel              │
+  │             │ 的伺服器端環境變數                                          │
+  ├─────────────┼───────────────────────────────────────────────────────────┤
+  │ 方案        │ Hobby 方案只能非商業使用，M2 開始收費就要升級 Pro             │
+  └─────────────┴───────────────────────────────────────────────────────────┘
+
+  要改的東西
+
+  - 資料庫： 新增 job_chunks
+    表（job_id、序號、起訖秒數、文字、狀態、重試次數）。jobs 加上 failed
+    狀態和錯誤訊息欄位。
+  - Vercel： 新增 api/ 目錄的 Python
+    functions（plan、chunk、finalize），vercel.json 設定執行時間上限。
+  - 觸發： 設定 Supabase Webhook 或 QStash。
+  - 本機 worker： 可以保留作為備援（處理 YouTube），兩邊用同一套狀態欄位就不會搶
+    job。
+
+  我的評估
+
+  - 技術上完全可行，分段平行處理反而比現在快。
+  - 代價是複雜度： 從「一個迴圈」變成「三個 function ＋ 佇列 ＋ 重試 ＋
+    完成判斷」。最容易出錯的是失敗重試和「最後一段觸發合併」。
+  - 跟容器型平台比： Railway、Fly.io
+    這類平台幾乎不用改程式，但要多管一個平台。Vercel
+    分段的好處是全部集中在現有的 Vercel，按用量計費，沒有工作時不花錢。
+
+  這比較像是課程 M4（serverless
+  worker）的範圍。要我先寫一份詳細的設計（資料表、function
+  介面、重試流程），還是先做一個最小的 prototype，驗證「ffmpeg 從網址擷取片段＋
+  Whisper」能在 Vercel 的時間限制內跑完？
+```
+
+####  vercel run worker
+``` bash
+# vercel-chunked-worker
+讀 docs/vercel-chunked-worker-plan.md，照「Suggested order」從第 1 步 prototype 開始。在 vercel-chunked-worker 分支上做，不要動 main
+# response
+# .env add VIDEO_READ_WORKER_SECRET 
+# generate command
+openssl rand -hex 32
+# (terminal) add both secrets to Vercel, Preview environment, this branch only
+# ser secret
+vercel env add VIDEO_READ_WORKER_SECRET preview vercel-chunked-worker
+vercel env add VIDEO_READ_OPENAI_API_KEY preview vercel-chunked-worker
+
+# setting
+做兩件事都不用點進任何一個部署：
+  1. .env 加一行：在你電腦上的 D:\work\run\claude\ai-video-speedreader\.env 加上 VIDEO_READ_WORKER_SECRET=<跟 Vercel 同一個值>，這是本機檔案，跟 Vercel 頁面無關。
+  2. 換 Protection Bypass secret：在專案層級的設定，不在部署裡。點上方的 Settings，左側選 Deployment Protection，往下找 Protection Bypass for Automation，把現有的 secret 重新產生或刪掉。
+# 跑測試
+> .env 加好了，跑測試吧 
+# response
+所以第 1 步全部結束，沒有待辦事項。要我接著寫第 2 步的設計稿嗎？
+
+# 2 步設計稿
+好，開始寫第 2 步設計稿
+# response
+第 2 步的設計稿寫好了：docs/vercel-chunked-worker-design.md，
+
+需要你決定的 5 件事（文件最後一節）
+
+┌─────┬────────────────────────────────────┬─────────────────────────────────────────────────────────────┐
+│  #  │                問題                │                            我的建議                          │
+├─────┼────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│     │ YouTube 這類 Vercel                │ 交回本機 worker（狀態回 pending，標記                         │
+│ 1   │ 抓不到的網址怎麼處理                 │ runner='local'，頁面顯示「等待本機                           │
+│     │                                    │ worker」），而不是直接判失敗                                 │
+├─────┼────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+│ 2   │ 影片長度上限                        │ 3 小時（18 段，Whisper 費用約 US$1.08）                      │
+├─────┼────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+│ 3   │ 每位使用者同時進行中的工作上   限     │ 3 個                                                       │
+├─────┼────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+│ 4   │ Vercel 方案                        │ 開發和測試用 Hobby 就夠。M2 開始收費後要升 Pro，因為 Hobby     │
+│     │                                    │ 只能非商業使用                                              │
+├─────┼────────────────────────────────────┼────────────────────────────────────────────────────────────┤
+│ 5   │ 能不能接受依賴還在 beta 的 Vercel    │ 可以。佇列相關程式碼集中在 queues/，之後要換成 QStash          │
+│     │ Queues                             │ 只需要改那裡                                                 │
+└─────┴────────────────────────────────────┴─────────────────────────────────────────────────────────────┘
+
+# 步驟
+❯ 總共有幾個步驟? 
+# response
+● 計畫文件 docs/vercel-chunked-worker-plan.md 的「Suggested order」總共 3 步：
+  ┌──────┬──────────────────────────────────────┬───────────────────────────┐
+  │ 步驟 │                 內容                  │           狀態            │
+  ├──────┼──────────────────────────────────────┼───────────────────────────┤
+  │ 1    │ Prototype：一個 Vercel 函式處理一段    │ ✅ 完成（10 分鐘一段約 40 │
+  │      │ chunk，量時間                         │  秒）                     │
+  ├──────┼──────────────────────────────────────┼───────────────────────────┤
+  │      │                                      │ ⏳                        │
+  │ 2    │ 寫設計稿，跟你確認                     │ 設計稿已寫好，等你回覆那    │
+  │      │                                      │ 5 個決定                  │
+  ├──────┼──────────────────────────────────────┼───────────────────────────┤
+  │      │ Migration、函式、觸發機制，在          │                           │
+  │ 3    │ preview 上做端到端測試，通過後才       │ 還沒開始                   │
+  │      │ merge 到 main                        │                           │
+  └──────┴──────────────────────────────────────┴───────────────────────────┘
+  第 3 步最大。設計稿的「Step 3 test plan」把它拆成 6 個小步：
+  1. Spike：先用最小的程式驗證 pyproject.toml、Vercel Queues、preview
+     隔離這三件事可行。
+  2. Migration：在 Supabase 加 job_chunks 表、failed
+     狀態等。都是新增，不影響現在 production 上的 M1。
+  3. 寫完整功能，在 preview 上用 1 段、2 段、6 段以上的影片測試。
+  4. 測失敗情況：404 網址、YouTube 網址、超時重試、超過每人同時 3 個工作的上限。
+  5. 測和本機 worker 共存：兩邊同時跑時，每個工作只能被處理一次。
+  6. Merge 到 main：設定 Production 環境變數，更新 CLAUDE.md 和驗收清單。
+  也就是說，現在在第 2 步的結尾，你確認那 5 個決定之後就進入第 3 步。
+
+# step 3
+照建議，開始第 3 步
+# responsde 
+"
+Step 3.1, the spike, passed. The step 3.2 migration is written but not applied yet, because the database is the Supabase project shared with other apps, so I'll wait for your OK.
+"
+3.1 Spike results
+┌─────────────────────────────────────────────────┬─────────────────────────────────────────────────────────┐
+│                 What I checked                  │                         Result                          │
+├─────────────────────────────────────────────────┼─────────────────────────────────────────────────────────┤
+│ A pyproject.toml at the repo root doesn't break │ ✅ / and /upload still load normally                    │
+│  the Vite build                                 │                                                         │
+├─────────────────────────────────────────────────┼─────────────────────────────────────────────────────────┤
+│ API functions and queue consumers can live in   │ ✅ but a different setup is needed (see below)          │
+│ one deployment                                  │                                                         │
+├─────────────────────────────────────────────────┼─────────────────────────────────────────────────────────┤
+│ Messages sent by a preview are consumed by that │ ✅ sending and consuming happened in the same           │
+│  same preview                                   │ deployment, about 0.5 s apart                           │
+├─────────────────────────────────────────────────┼─────────────────────────────────────────────────────────┤
+│ A consumer can't be called from outside         │ ✅ calling it directly returns 404                      │
+└─────────────────────────────────────────────────┴─────────────────────────────────────────────────────────┘
+What turned out different from the design doc: the Python way of declaring consumers in the docs ([[tool.vercel.subscribers]] in pyproject.toml) generates no consumer function at all in our Vite project. It took three attempts to find the setup that works:
+1. Make each consumer an ordinary api/queue_*.py file and attach a queue trigger to it in vercel.json.
+2. Process the callback in the handler myself with accept_and_handle.
+3. Set consumer_group explicitly to the file path; otherwise you get UnhandledMessageError.
+
+# continue
+❯ 可以，套用 migration
+# response
+The migration is applied to the shared Supabase project luugfvsrawnuzwpjvddt and verified.
+┌───────────────────────┬───────────────────────────────────────────────────────────────────────────────────┐
+│         Check         │                                      Result                                       │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ Migration record      │ 20261013074615 chunked_worker                                                     │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ jobs.status           │ now allows failed                                                                 │
+│ constraint            │                                                                                   │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ New jobs columns      │ error, runner, chunk_count, duration_seconds                                      │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ job_chunks            │ RLS on; authenticated can only read, service_role can read and write, anon has    │
+│                       │ nothing                                                                           │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ complete_chunk()      │ only service_role can execute it                                                  │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ Existing data         │ the 2 M1 jobs are still done and unaffected                                       │
+├───────────────────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ Security advisor      │ no warnings for the video-read schema                                             │
+└───────────────────────┴───────────────────────────────────────────────────────────────────────────────────┘
+
+The advisor does show warnings, but they all belong to other apps on the shared project. Examples: SECURITY DEFINER functions in public that anon can execute, and tables in flight with RLS but no policies. These have nothing to do with this change, and I left them alone. Since they live in other apps, deal with them in the matching repos if you want to.
+
+I renamed the local migration file to 202l so it matches the version recorded inSupabase. The push is 361dbeb.
+"
+What's left in step 3 is to write the real functions, then test on the preview:
+1. vtw/ shared code: the Supabase client, and the SSRF checks), and Whisper.
+2. api/jobs/start.py: verifies the user, claims the job (3 jobs per user at a time), and sends the plan message.
+3. api/queue_plan.py, api/queue_chunk.py,
+4. Frontend: call start after inserting a job, show the failed status and chunk progress, and resend start for
+   jobs stuck in pending.
+5. Local worker: claim only jobs pending over 60 s or marked runner='local', and set failed when it fails.
+6. Remove the spike and prototype files.
+
+Before I start: these functions need SUPAease add it the same way as before, fromyour own PowerShell. Only VIDEO_READ_OPENAI_API_KEY and VIDEO_READ_WORKER_SECRET are set in Vercel so far.
+
+vercel env add SUPABASE_SECRET_KEY preview vercel-chunked-worker                                              
+Answer y to sensitive and paste the sb_secret_... value from your .env. While you do that, I'll start writing the code. Should I go ahead?
+"
+
+# (terminal) set SUPABASE_SECRET_KEY to vercel
+vercel env add SUPABASE_SECRET_KEY preview vercel-chunked-worker
+
+# continue- after set SUPABASE_SECRET_KEY
+I run vercel env add SUPABASE_SECRET_KEY preview vercel-chunked-worker already
+# response
+All four functions are deployed (each bundle about 63 MB, well under the 500 MB limit). Next is the end-to-end test. start needs a real signed-in user's token, and I can't sign in as you, so please submit a job in the browser while I watch the database and logs.
+Steps
+  1. Open this branch's preview: https://ai-video-speedreader-git-verce-c75389-roberts-projects-2b1cd09b.vercel.app/upload. It may ask you to log in to Vercel first; that's the preview protection.
+  2. Sign in with your video-read account.
+  3. Submit these two jobs, with Language set to English (en) for both:
+    - https://archive.org/download/count_monte_cristo_0711_librivox/count_of_monte_cristo_001_dumas_64kb.mp3 (about 20 min, so it splits into 2 chunks)
+    - https://archive.org/download/ElephantsDream/ed_hd.mp4 (about 11 min, 2 chunks)
+What you should see
+  - Status goes pending → downloading → transcribe 0 / 2 → 1 / 2 → done within about 1–2 minutes, and you can download the .txt.
+  - If it stays at pending for more than 30 seconds, the page resends start automatically.
+"
+Before you test, check that the distributor.py on your machine isn't running. This test is meant to confirm that Vercel handles the jobs by itself. The coexistence test comes later.
+Tell me once you've submitted, and I'll check runner, the status of each chunk, timings and logs from the database and Vercel logs.
+"
+
+# find issue
+https://archive.org/download/count_monte_cristo_0…    pending
+  Not a direct media file. Waiting for the local worker.
+# response
+The page didn't resend start. Most likely the tab is in the background: React Query pauses polling for background tabs. Please switch to the /upload tab (or click Refresh there). The job will be started again within a few seconds; tell me when you've done it.
+
+# issue fix - continue
+the 2 files transcribe success
+# response 
+The fix works: example.com is now "uncertain" (it gets retried twice, about 3 minutes, before handing off), while YouTube is "certain" (handed off immediately). Committing and pushing:
+
+While that builds, I'll look for a public recording over 60 minutes for the multi-chunk parallel test:
+
+No single mp3 is long enough. LibriVox items usually also include a whole-book .m4b (an mp4 container, so ffmpeg can read it). I'll look for those:
+
+Chapter 33 is about 69 minutes (7 chunks), and the whole-book "Part 1" m4b is probably over 3 hours, which also covers the length-limit test. Confirming both locally:
+
+  Called MCP, ran 1 shell command
+Both test sources check out, with archive.org's intermittent 500s handled fine by the pipeline's retry logic. The Part 1 m4b is roughly 12 hours (179 MB at 32 kbps), which should trigger the 3-hour limit—now checking if the new build is ready.
+
+  Called Vercel
+Both 2-chunk jobs ran fine, but there's orst time, the mp3 was misjudged as "not amedia file" and handed to the local worker. On retry it went through, so the cause was most likely a temporary
+error page from archive.org (it gave me a hosts like YouTube are now handed backimmediately; other unreadable sources are retried twice first, about 3 minutes in total. That fix (8062de3) is
+still building. Please wait about a minutun the next round.
+
+Results so far (from the database and Ver
+┌─────────────────────┬──────────┬─────────────────────────────────────┐
+│         Job         │  Length  │ plan → done │                       Chunks                       │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ Monte Cristo mp3    │ 19.7 min │ 48 s        │ 2 in parallel, both succeeded on the first attempt │
+├─────────────────────┼──────────┼─────────────────────────────────────┤
+│ Elephants Dream mp4 │ 10.9 min │ 79 s        │ 2, the part 1 chunk took 75 s                      │
+└─────────────────────┴──────────┴─────────────────────────────────────┘
+- Cut point: chunk 1 ends with "'And you tarts with "'Why, it was he who spoke tome, sir,'". Nothing duplicated or missing.
+- Single processing: each job has exactlyce, and runner is vercel.
+
+Next round (leave distributor.py off). Plow:
+#: A
+URL: https://archive.org/download/count_monte_cristo_0711_librivox/count_of_monte_cristo_033_dumas_64kb.mp3
+Language: en
+Expected result: 69 min, 7 chunks in parallel, shows transcribe k / 7, finishes in about 1–2 minutes
+────────────────────────────────────────
+#: B
+URL: https://archive.org/download/count_mntOfMonteCristoPart1-32kb_librivox.m4b
+Language: en
+Expected result: failed: "Video is … h lo.."
+────────────────────────────────────────
+#: C
+URL: https://archive.org/download/ElephantsDream/nope.mp4
+Language: en
+Expected result: failed: "The source returned 404 Not Found"
+────────────────────────────────────────
+#: D
+URL: https://www.youtube.com/watch?v=dQw4
+Language: en                                                                                               pected result: stays pending: "YouTube m the cloud. Waiting for the localworker"                                                                                           
+"
+  - If archive.org has another hiccup, B or C may need an extra minute or two of retrying before their final status appears.
+  - Keep the /upload tab in the foreground.                                                                    
+  Once these four are done, the remaining tests are the per-user "3 at a time" limit and running alongside the local worker. Tell me when you've finishews.
+"
+
+# what test 
+/btw how many do you test?
+目前測過的項目如下（只算實際跑過的測試，不含查 log 或資料庫）：
+第 1 步：prototype 量時間（4 次）
+- 本機跑 LibriVox mp3：44.3 秒
+- Vercel 跑同一段：38.2 秒
+- Vercel 跑 Big Buck Bunny：網址已失效（403），沒量到結果
+- Vercel 跑 Elephants Dream mp4：45.7 秒
+第 3 步：spike 驗證 Vercel Queues（送了 3 次訊息）
+- 第 1 次：Vercel 沒產生 consumer 函式
+- 第 2 次：consumer group 名稱對不上
+- 第 3 次：成功，送出和接收在同一個部署
+本機測試（不用部署）
+- 8 種網址分類：mp3、mp4、YouTube、127.0.0.1、169.254.169.254、ftp、example.com、404
+- 前端：tsc、eslint、14 個單元測試、build，全部通過
+- distributor 新的查詢條件：唯讀查詢跑過 1 次
+Preview 端到端（2 個工作，都成功）
+- Monte Cristo mp3，2 段，48 秒。第一次被誤判成「不是媒體檔」，重送後成功；我已修正這個判斷（8062de3）。
+- Elephants Dream mp4，2 段，79 秒。
+還沒測
+- A–D 四個：69 分鐘切 7 段、超過 3 小時、404、YouTube
+- 每人同時 3 個工作的上限（429）
+- 和本機 worker 共存
+
+
+# what wait 
+/btw what do you wait do?
+我在等你在 preview 上送出 A–D 這四個測試工作。
+- 修好誤判問題的新版本（8062de3）剛 push，在 Vercel 上 build，通常約 1 分鐘。
+- build 完成後，請重新整理 /upload，依序送出 A、B、C、D。
+- 我沒辦法自己送：/api/jobs/start 需要真實登入使用者的 token，我無法用你的帳號登入。
+┌─────┬───────────────────────────────────────┐
+│  #  │               預期結果                 │
+├─────┼───────────────────────────────────────┤
+│ A   │ 69 分鐘，切成 7 段平行處理，最後 done   │
+├─────┼───────────────────────────────────────┤
+│ B   │ 超過 3 小時，failed                    │
+├─────┼───────────────────────────────────────┤
+│ C   │ 404，failed                           │
+├─────┼───────────────────────────────────────┤
+│ D   │ YouTube，停在 pending，等本機 worker   │
+└─────┴───────────────────────────────────────┘
+送出時請注意：
+- /upload 分頁要保持在前景，背景分頁會暫停輪詢。
+- 本機的 distributor.py 不要開。
+你送完告訴我，或把頁面上的狀態貼上來。之後我會到資料庫和 Vercel log 看每個工作的實際結果：分了幾段、花多久、錯誤訊息對不對。
+
+# ask work 
+❯ 是不是做完這四項測試就告一段落?                                               
+# response
+● 不是，這四項做完後，第 3 步還剩下面這些才算告一段落。
+  還要測的（都在 preview 上）
+  ┌────────────┬────────────────────────────────────────┬──────────────────┐
+  │    項目    │                 怎麼測                  │       誰做       │
+  ├────────────┼────────────────────────────────────────┼──────────────────┤
+  │ A–D 四項   │ 長影片 7 段平行、超過 3                  │ 你送出，我查結果  │
+  │            │ 小時、404、YouTube                      │                  │
+  ├────────────┼────────────────────────────────────────┼──────────────────┤
+  │ 每人同時 3 │ 很快連續送 4 個短影片：第 4               │                  │
+  │  個的上限  │ 個應該先停在                             │ 你送出，我查      │
+  │            │ pending，等前面完成後自動開始            │                  │
+  ├────────────┼────────────────────────────────────────┼──────────────────┤
+  │ 和本機     │ 開著 distributor.py，再送 D 那種         │                  │
+  │ worker     │ YouTube 工作：本機 worker               │ 你開 distributor │
+  │ 共存       │ 應該接手並轉錄完成；同時送一般網址，確     │  並送出，我查     │
+  │            │ 認每個工作只被處理一次                   │                  │
+  ├────────────┼────────────────────────────────────────┼──────────────────┤
+  │ 超時重試（  │ 暫時把 chunk 的 maxDuration             │ 我改設定、推送，  │
+  │ 選做）      │ 調很低，確認會重試，最後標成 failed      │ 測完改回來        │
+  └────────────┴────────────────────────────────────────┴──────────────────┘
+  然後 merge 到 main（會上 production，所以每一步都會先問你）
+  1. Production 環境加上 SUPABASE_SECRET_KEY 和
+     VIDEO_READ_OPENAI_API_KEY，由你自己加。
+  2. 刪掉不再使用的 VIDEO_READ_WORKER_SECRET。
+  3. 更新 CLAUDE.md：架構改成「Vercel 函式 + 佇列」，並記下 Vercel 現在持有
+     Supabase secret key 這個改變。
+  4. 在 docs/milestone-checklist.md 加上這次的驗收紀錄。
+  5. Merge 後在 production 再跑一次 smoke test。
+  照目前的進度，測試大概再兩、三輪就能完成。A–D
+  做完後告訴我結果，我們接著測上限和共存。
+
+# continue test
+❯ 我要繼續測試 給我程序   
+# response
+● Preview 已經是最新的
+  build（276c419，READY），可以開始測。每一輪做完告訴我，我會查資料庫和 log
+  確認結果。
+  開始前
+  1. 不要開 distributor.py，第三輪才會用到。
+  2. 打開 https://ai-video-speedreader-git-verce-c75389-roberts-projects-2b1cd09
+     b.vercel.app/upload 。如果要求登入 Vercel 就先登入，再用你的 video-read
+     帳號登入網站。
+  3. 整個測試過程都讓這個分頁停在前景。
+     分頁到背景時頁面會停止輪詢，卡住的工作就不會被重送 start。
+
+  第一輪：四種情況（Language 都選 English）
+  連續送出這四個：
+  #: A
+  網址: https://archive.org/download/count_monte_cristo_0711_librivox/count_of_m
+  onte_cristo_033_dumas_64kb.mp3
+  預期結果: transcribe 0 / 7 → 7 / 7 → done，約 1–3 分鐘
+  ────────────────────────────────────────
+  #: B
+  網址: https://archive.org/download/count_monte_cristo_0711_librivox/CountOfMon
+  teCristoPart1-32kb_librivox.m4b
+  預期結果: failed，訊息說超過 3 小時上限
+  ────────────────────────────────────────
+  #: C
+  網址: https://archive.org/download/ElephantsDream/nope.mp4
+  預期結果: failed，訊息是「The source returned 404 Not Found」
+  ────────────────────────────────────────
+  #: D
+  網址: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  預期結果: 停在 pending，訊息是「Waiting for the local worker.」
+  四個都穩定下來後，回我「第一輪完成」。如果結果跟預期不同，把頁面上看到的貼給我
+  。archive.org 偶爾會暫時出錯，所以 B 或 C 可能要多等一兩分鐘才出結果。
+
+  第二輪：每人同時 3 個的上限
+  第一輪結束後，快速連送 4 次 Elephants Dream。D 繼續停在 pending
+  沒關係，它不算在上限裡。
+  https://archive.org/download/ElephantsDream/ed_hd.mp4
+  - 預期：前 3 個會馬上開始；第 4 個先停在
+    pending，等前面任何一個完成後才自動開始（頁面每 30 秒重試一次）。
+  - 做完回我「第二輪完成」。
+
+  第三輪：和本機 worker 共存
+  1. 開啟 distributor：
+  cd D:\work\run\claude\ai-video-speedreader\worker
+  .\venv\Scripts\python distributor.py
+  2. 預期：第一輪的 D（YouTube）會在 10 秒內被本機 worker 接手，狀態依序是
+     downloading → transcribe → done。本機 worker 不會分段，所以不會出現 k / N
+     進度。
+  3. 在本機 worker 處理 D 的同時，再送一次 Elephants Dream。它應該仍由 Vercel
+     處理，因為本機 worker 只撿 pending 超過 60 秒的工作。
+  4. 做完回我「第三輪完成」，我會確認每個工作的 runner 正確、而且都只有一個
+     session。
+  測完就可以關掉 distributor。
+  ---
+  三輪通過後，必要的測試就完成了。選做的「超時重試」我可以自己改設定來測。接著是
+  merge 前的整理（Production
+  環境變數、CLAUDE.md、驗收清單），每一步我都會先問你。
+
+# 第一輪測試完成
+
+# 第二輪：每人同時 3 個的上限完成
+
+# 第三輪：和本機 worker 共存
+1. 開啟 distributor（另開一個 PowerShell）：
+cd D:\work\run\claude\ai-video-speedreader\worker
+.\venv\Scripts\python distributor.py
+2. 預期：第一輪的 D（YouTube，現在是 pending，runner = local）會在 10 秒內被本機 worker 接手，依序變成 downloading → transcribe → done。本機 worker 不分段，所以不會有 k / N 進度。
+3. D 在本機處理的同時，在 /upload 再送一次 https://archive.org/download/ElephantsDream/ed_hd.mp4（English）。它應該仍由 Vercel 處理，因為本機 worker 只撿 pending 超過 60 秒的工作。
+4. 兩個都 done 之後回我「第三輪完成」。distributor 的終端機如果有錯誤訊息，也一起貼給我。
+
+# 第三輪測試完成
+❯ 第三輪完成 
+共存邏輯正確，但本機轉錄工作 D 失敗，錯誤是 WinError 2，可能是 ffmpeg 不在 PATH 上；新送的 Elephants Dream 則順利由 Vercel 處理完成。我接著檢查這台電腦的 PATH 設定。
+
+原因找到了，是環境問題，不是程式問題。
+
+- ffmpeg 有安裝（winget 的 Gyan.FFmpeg），而且已經寫進使用者的 PATH 設定。
+- 但目前開著的這些終端機讀到的是舊的 PATH。PATH 是在程式啟動時讀取的，ffmpeg 裝好之前就開著的視窗（或從舊的 VS Code、Claude Code 開出來的終端機）都看不到它。我這邊的 shell 也一樣找不到。
+- worker.py 用 yt-dlp 下載完、要呼叫 ffmpeg 時就失敗了。
+
+共存的部分已經驗證成功：
+- YouTube 工作被本機 worker 接手，runner = local。
+- 新送的一般網址仍由 Vercel 處理，本機 worker 沒有去搶。
+- 每個工作都只被一方處理。
+
+剩下只要讓本機 worker 真的把 D 轉錄完：
+
+1. 關掉現在的 distributor（在它的視窗按 Ctrl+C）。
+2. 從開始選單開一個全新的 PowerShell 視窗，不要從 VS Code 或現有的終端機開。先確認找得到 ffmpeg：
+ffmpeg -version
+   第一行出現 ffmpeg version 9.0.2... 就沒問題。
+3. 在同一個新視窗啟動 distributor：
+cd D:\work\run\claude\ai-video-speedreader\worker
+.\venv\Scripts\python distributor.py
+4. 告訴我「distributor 重開了」，我就把 D 重設回 pending（runner = local），讓它重新被接手。
+
+# terminal run - ffmpeg -version
+ffmpeg -version
+ffmpeg : 無法辨識 'ffmpeg' 詞彙是否為 Cmdlet、函數、指令檔或可執行程式的名稱。請檢查名稱拼字是否正確，如果包含路
+徑的話，請確認路徑是否正確，然後再試一次。
+位於 線路:1 字元:1
++ ffmpeg -version
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (ffmpeg:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+# response ffmpeg -version - error
+❯  ffmpeg -version                   
+  ffmpeg : 無法辨識 'ffmpeg' 詞彙是否為 ...
+# response
+連新開的視窗都找不到 ffmpeg，原因多半是新視窗也繼承了舊的環境。例如在 Windows Terminal 裡開新分頁，會沿用 Windows Terminal 啟動時的 PATH；ffmpeg 裝好之後還沒重新登入的話，就會這樣。
+
+不用重開機，在這個視窗裡重新讀一次 PATH 就好：
+
+$env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
+ffmpeg -version
+
+第一行出現 ffmpeg version 9.0.2... 就代表成功，接著在同一個視窗啟動 distributor：
+
+cd D:\work\run\claude\ai-video-speedreader\worker
+.\venv\Scripts\python distributor.py
+
+記得先把舊的 distributor 關掉（在它的視窗按 Ctrl+C），不然它可能搶到 D 又失敗一次。
+
+如果重讀 PATH 後還是找不到，把輸出貼給我。啟動成功的話，告訴我「distributor 重開了」，我就把 D 重設回 pending。
+
+# terminal - add pathe and run
+PS D:\work\run\claude\ai-video-speedreader> $env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
+PS D:\work\run\claude\ai-video-speedreader> ffmpeg -version
+ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+built with gcc 16.2.0 (Rev3, Built by MSYS2 project)
+configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-lcms2 --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq--enable-avisynth --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-sdl2 --enable-libaribb24 --enable-libaribcaption --enable-libdav1d --enable-libdavs2 --enable-libopenjpeg --enable-libquirc --enable-libuavs3d --enable-libxevd --enable-libzvbi --enable-liboapv --enable-libqrencode --enable-librav1e --enable-libsvtav1 --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxeve --enable-libxvid --enable-libaom --enable-libjxl --enable-libsvtjpegxs --enable-libvpx --enable-mediafoundation--enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-liblensfun--enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-openal --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libcodec2 --enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint --enable-whisper
+libavutil      61.  1.102 / 61.  1.102
+libavcodec     63.  1.102 / 63.  1.102
+libavformat    63.  1.102 / 63.  1.102
+libavdevice    63.  1.102 / 63.  1.102
+libavfilter    12.  1.102 / 12.  1.102
+libswscale     10.  1.102 / 10.  1.102
+libswresample   7.  1.102 /  7.  1.102
+Exiting with exit code 0
+PS D:\work\run\claude\ai-video-speedreader> cd .\worker\
+PS D:\work\run\claude\ai-video-speedreader\worker> .\venv\Scripts\python distributor.py
+distributor: polling every 10s. Ctrl+C to stop.
+
+# distributor run 
+> distributor 重開了
+# response
+● 三輪必要測試全部通過。結果已寫進 docs/vercel-chunked-worker-plan.md
+  的「進度」一節（commit 0e29158，已 push），memory 也更新了。
+
+  ┌───────────────────────┬─────────────────────────────────────────────────┐
+  │         測試          │                      結果                        │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ 69 分鐘長影片（7       │ ✅ 修正後重跑完成                                │
+  │ 段平行）               │                                                 │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ 超過 3                │ ✅ 都照預期 failed 或 pending                    │
+  │ 小時、404、YouTube     │                                                 │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ 每人同時 3 個的上限    │ ✅ 第 4 個先被擋下，之後自動開始                  │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ 和本機 worker 共存     │ ✅ 一般網址由 Vercel 處理，YouTube               │
+  │                       │ 由本機處理，每個工作只處理一次                     │
+  └───────────────────────┴─────────────────────────────────────────────────┘
+  測試中修掉的程式問題（都已 push）
+  - 8062de3：不是 YouTube 的網址被判成「不是媒體檔」時，先重試再交回本機，避免
+    archive.org 暫時的錯誤頁造成誤判。
+  - 75378e6：
+    - 下載途中連線被切斷時改成重試，不再直接讓工作失敗。
+    - 工作重設後重跑時，佇列訊息不會被當成重複而丟掉。
+
+  已知、但這次沒處理的（已記在文件裡）
+  - Whisper 幻覺：音樂或靜音的段落偶爾會重複同一句，或憑空出現「Thank you.」。M1
+    的本機 worker 也一樣。之後可以加後處理，把連續重複的行收成一行。
+  - 本機 ffmpeg 的 PATH：終端機開得比 ffmpeg
+    安裝早，就會讀不到。在該視窗重新讀取 PATH 即可，或重新登入 Windows。
+  distributor 現在可以關掉了。
+
+  接下來有兩個選擇
+  1. （選做）超時重試測試：我暫時把 chunk 函式的時間上限調很低，確認重試 3
+     次後工作會標成 failed，測完再改回來。這一項我可以自己測完，不需要你操作網頁
+     ，只要你送一個工作。
+  2. 直接進入 merge 前的整理，每一步都會先問你：
+     a. 你在 Production 加 SUPABASE_SECRET_KEY 和 VIDEO_READ_OPENAI_API_KEY。
+     b. 刪掉 Preview 的 VIDEO_READ_WORKER_SECRET。
+     c. 我更新 CLAUDE.md 和 docs/milestone-checklist.md。
+     d. Merge 到 main，上線後跑一次 smoke test。
+  要先做超時測試，還是直接進入 merge 整理？
+
+# 超時重試測試
+❯ 好，做超時重試測試 
+# all complete - response
+● 第 3 步的測試全部完成了，記錄在 76a17fe。
+  通過的測試
+  - 短影片：2 段
+  - 長影片：7 段平行
+  - 超過 3 小時、404、YouTube
+  - 每人同時 3 個的上限
+  - 和本機 worker 共存
+  - 超時重試
+
+  接下來是 merge 前的整理。因為 merge 到 main 會直接上
+  production，我會一步一步來，每一步先跟你確認：
+  ┌─────┬─────────────────────────────────────────┬──────────────────────────┐
+  │  #  │                  內容                   │           誰做           │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │ 1   │ Production 環境加 SUPABASE_SECRET_KEY、  │ 你（用 vercel env        │
+  │     │ VIDEO_READ_OPENAI_API_KEY               │ add，秘密值不經過我）     │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │ 2   │ 刪掉 Preview 的                         │ 你或我（刪除不用碰到秘密    │
+  │     │ VIDEO_READ_WORKER_SECRET（已經用不到）   │ 值）                     │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │     │ 更新 CLAUDE.md：架構改成 Vercel 函式 +    │                          │
+  │ 3   │ Vercel Queues；Vercel 現在持有 Supabase  │ 我                       │
+  │     │  secret key；worker/ 改當備案            │                          │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │ 4   │ docs/milestone-checklist.md             │ 我                       │
+  │     │ 加這次的驗收紀錄                         │                          │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │     │ Merge vercel-chunked-worker →           │                          │
+  │ 5   │ main（會自動部署 production，Lovable     │ 我，你同意後才做           │
+  │     │ 也會看到）                               │                          │
+  ├─────┼─────────────────────────────────────────┼──────────────────────────┤
+  │ 6   │ 在 production 跑一次 smoke test          │ 你送一個工作，我查結果     │
+  └─────┴─────────────────────────────────────────┴──────────────────────────┘
+  第 1 步要在你自己的 PowerShell 執行。這次是 Production，所以不用指定分支：
+  cd D:\work\run\claude\ai-video-speedreader
+  vercel env add SUPABASE_SECRET_KEY production
+  vercel env add VIDEO_READ_OPENAI_API_KEY production
+  問 sensitive 時都選 y，值和 .env 裡的一樣。
+
+  要現在開始嗎？可以先做第 1 步，我同時寫第 3、4
+  步的文件更新給你看。也可以先停在這裡，之後再接續；進度已經都記在文件裡了。
+```
+
+#### merge to main
+``` bash
+# termainal add SUPABASE_SECRET_KEY、VIDEO_READ_OPENAI_API_KEY(之前已加)
+vercel env add SUPABASE_SECRET_KEY production
+vercel env add VIDEO_READ_OPENAI_API_KEY production
+# 刪掉 Preview 的 VIDEO_READ_WORKER_SECRET（已經用不到）- done
+
+# do step 1 and 2 complete
+❯ I do step 1 and 2 already
+# response 
+下一步是第 5 步：merge 到 main。 main 從開分支後都沒有新 commit，所以會直接 fast-forward（25 個 commit），不用解衝突。推上去之後：
+  - Vercel 會自動部署 production。
+  - Lovable 會看到這些 commit。
+  - 正式站從此由 Vercel 處理轉錄，你的電腦不用再開著。YouTube 還是要靠本機的 distributor。
+要我現在 merge 並推到 main 嗎？你回「好」我就做，部署好之後再給你第 6 步 smoke test 的步驟。
+
+# merge
+❯ 好
+# response
+Merge 沒有做成，main 和 production 都沒動到。
+
+自動權限模式擋下了推到 main 的指令，原因是「Production Deploy」，所以第一個指令完全沒有執行。我接著想查一下目前在哪個分支，那個唯讀指令也被擋了，所以我沒再試。這一步會觸發正式站部署，我不會想辦法繞過這個限制。
+請你在自己的 PowerShell 執行：
+
+cd D:\work\run\claude\ai-video-speedreader
+git checkout main
+git pull --ff-only origin main
+git merge --ff-only vercel-chunked-worker
+git push origin main
+git checkout vercel-chunked-worker
+
+- main 從開分支後沒有新 commit，所以 merge 應該會顯示 Fast-forward，把 25 個 commit 帶進來。如果出現錯誤，貼給我看。
+- .env.example 的修改和那幾個 no_*.txt 不會被 commit，切換分支時會原樣保留。
+另一個做法是你在 Claude Code 裡加一條允許推到 main 的權限規則，之後由我執行。這次手動推比較單純。
+推完後跟我說一聲，我會確認 production 部署變成 READY，再給你第 6 步 smoke test 的步驟。
+# 執行以上 git command - done
+> push complete
+# response
+Production 部署好了，main 現在是 21165c3，5 分鐘前的那個部署狀態是 Ready。
+我先做了兩個不用登入的檢查：
+  - 不帶登入 token 呼叫 /api/jobs/start 回 401，表示 Python 函式有部署上去，而且會擋未登入的請求。
+  - /upload 頁面回 200。
+第 6 步：在 production 跑一次 smoke test
+  1. 打開 https://ai-video-speedreader.vercel.app/upload。這是正式站，不用登入 Vercel，用你平常的帳號登入 app 就好。
+  2. 本機的 distributor.py 先不要開，這樣才能確定工作是 Vercel 做的。
+  3. 送出：
+    - 網址：https://archive.org/download/ElephantsDream/ed_hd.mp4
+    - 語言：en
+  4. 分頁放在前景，等大約 1 分鐘。狀態應該依序變成 pending → transcribe（顯示「1 / 2」「2 / 2」）→ done。
+  5. done 之後點 .txt 下載，確認有內容。
+做完跟我說，或是狀態卡住、變成 failed 時也跟我說。我會去資料庫確認 runner = vercel、兩段都成功、只有一個 session，然後把驗收清單的 M1b 改成 ✅。
+
+# test product
+❯ Elephants Dream 已經 done 了
+# response
+Production 的 smoke test 通過了，Vercel 分段轉錄現在已經在正式站上運作。
+資料庫查到的結果
+  - 狀態 done，runner = vercel，你本機的 distributor 沒開，所以是 Vercel 做的。
+  - 從送出到完成 48 秒。
+  - 2 段都在第一次就成功，沒有錯誤。
+  - 只產生 1 個 session，逐字稿 2,123 字元。
+文件已經更新，commit 是 209282b，推到了 vercel-chunked-worker 分支：
+  - 驗收清單的 M1b 改成 ✅，補上 production smoke test 的結果。
+  - 計畫文件的進度改成「已完成並上線」。
+這個 commit 只改了文件，還沒進 main。要讓 main 也有這份紀錄，在你的 PowerShell 執行下面這段。這會再觸發一次 production 部署，但只是文件改動，不影響功能。
+
+git checkout main
+git merge --ff-only vercel-chunked-worker
+git push origin main
+git checkout vercel-chunked-worker
+之後可以考慮的事（目前都沒有做）
+  - Whisper 幻覺：配樂多或靜音的段落偶爾會重複同一句，可以把連續重複的行收成一行。要不要做由你決定。
+  - M2 之前評估要不要升級到 Vercel Pro：函式上限會從 300 秒變成 800 秒，Vercel Queues 也比較有保障。
+  - 本機 distributor.py 只有在轉錄 YouTube 的時候才需要開。
+
+# do Whisper 幻覺
+> do for Whisper 幻覺
+
+# check run at local
+❯ 現在這個 app 是不是不能在 local 正常執行?
+可以正常執行，只是在本機跑時，轉錄不是由 Vercel 做的。
+npm run dev 時的實際狀況
+- 登入、送出網址、看狀態、下載逐字稿都正常，因為這些是瀏覽器直接連 Supabase。
+- 送出後頁面會呼叫 /api/jobs/start，但 Vite 只提供前端，沒有 Python 函式，所以這個呼叫會失敗。程式本來就會忽略這個錯誤（src/pages/Upload.tsx:63），畫面不會出錯，頁面每 30 秒重送一次也只是一樣失敗而已。
+- 工作會停在 pending，接下來看本機 distributor 有沒有開：
+┌─────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────┐
+│            本機 distributor             │                                    結果                                     │
+├─────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+│ 有開（cd worker; .\venv\Scripts\python  │ 等超過 60 秒後由本機接手，最後 done。走的是 M1                                 │
+│ distributor.py）                        │ 的流程（整個下載後再切段），也會用到新的幻覺清理                                │
+├─────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+│ 沒開                                    │ 一直停在 pending                                                            │
+└─────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────┘
+本機測不到的部分：Vercel 那條路線，包括 start 到 plan、chunk、finalize、分段進度「k / N」、每人 3 個的上限。這些只能在 preview 或正式站測。vercel dev 理論上能跑 Python 函式，但 Vercel Queues 能不能在本機運作，我沒有試過，不能保證。
+另外要注意，本機和正式站連的是同一個 Supabase。本機送出的工作會出現在正式資料庫，用的也是同一個帳號的資料。
+如果你想讓本機開發時不用等那 60 秒，我可以加一個設定：在 npm run dev 時把工作直接標成 runner='local'，distributor 就會馬上接手。要不要加？
+# modify for local run
+❯ 好，加上去
+# response
+● 我加了一個環境變數，讓本機開發時 distributor 不用等 60 秒，但做法和我上次說的不一樣，改在 distributor 上設定。commit 是 383a0fe，已推到 vercel-chunked-worker 分支，還沒進 main。
+  為什麼沒照原本的說法做：原本說在 npm run dev 時把工作標成 runner='local'，但瀏覽器沒有權限寫入 runner 欄位。要讓它能寫，就得改資料庫權限，而且正式站的使用者也能用這個權限，自己把工作導到你的電腦，所以我不這樣做。
+
+  現在的用法：本機開發時，在 PowerShell 這樣啟動 distributor：
+  cd D:\work\run\claude\ai-video-speedreader\worker
+  $env:CLOUD_HEAD_START_SECONDS = '0'
+  .\venv\Scripts\python distributor.py
+
+  - 啟動時會顯示 taking jobs pending for 0s+，表示設定有生效。
+  - 新工作最多等一次輪詢（10 秒）就會被接手，不用再等 60 秒。
+  - 不設這個變數就照舊等 60 秒，平常當備案跑的方式不受影響。
+
+  要注意：這樣跑的時候，它也可能搶到正式站剛送出、Vercel 還沒認領的工作。不會重複處理，但那個工作就改由你的電腦轉錄。本機測完記得 Ctrl+C 停掉，或關掉這個視窗，這個設定只在這個視窗有效。
+  CLAUDE.md 的 Local worker 一節已補上這段說明。
+  現在分支上比 main 多了 3 個 commit：記錄 production 驗收、清理 Whisper 幻覺、這次的 distributor 設定。等你在 preview 測完幻覺清理，再一起把它們 fast-forward 到 main：
+
+  git checkout main
+  git merge --ff-only vercel-chunked-worker
+  git push origin main
+  git checkout vercel-chunked-worker
+# make sure it
+❯ 那如果 vercel 執行 啟動  distributor, 不用下 $env:CLOUD_HEAD_START_SECONDS = '0' 即可?
+# response
+● 對，配合正式站或 preview 時，直接啟動就好，不用設這個變數：
+  cd D:\work\run\claude\ai-video-speedreader\worker
+  .\venv\Scripts\python distributor.py
+
+  這時它會等 60 秒，啟動時會顯示 taking jobs pending for 60s+。
+  ┌───────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────┐
+  │               情況                 │                                   由誰處理                                    │
+  ├───────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+  │ 一般網址                           │ Vercel 幾秒內就認領了，distributor 不會碰到                                     │
+  ├───────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+  │ YouTube                           │ Vercel 交回本機（runner='local'），distributor 下一次輪詢就接手，不用等 60 秒     │
+  ├───────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+  │ Vercel 出問題，超過 60 秒沒人認領   │ distributor 當備案接手                                                         │
+  └───────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────┘
+  要注意：$env: 設的值只在那個 PowerShell 視窗有效。如果你之前在某個視窗設過 '0'，請關掉那個視窗再開一個新的，或先執行 Remove-Item Env:CLOUD_HEAD_START_SECONDS。看啟動訊息是 60s+ 還是 0s+ 就能確認。
+
+# how to run lopcal distributor
+cd D:\work\run\claude\ai-video-speedreader\worker
+.\venv\Scripts\python distributor.py
+```
+
+#### add summary function
+``` bash
+# copy html position
+利用瀏覽器 F12 功能，引導 Cowork 精準抓取想要改的畫面位置 
+  F12 --> 
+  --> 指標一到目標畫面 
+  --> 點擊 
+  --> 右鍵 
+  --> Edit as HTML 
+  --> 全選 
+  --> 複製 
+
+# add summary
+❯ <tr class="border-b"><th class="py-2 pr-4 font-medium">Created</th><th        
+  class="py-2 pr-4 font-medium">URL</th><th class="py-2 pr-4                    
+  font-medium">Status</th><th class="py-2 font-medium">Transcript</th></tr>     
+  在  Transcript 右邊增加一個 Summary 欄位, 按 summarize 產生 summary 並存在    
+  supabase, 若曾經產生過 按 view 直接看內容   
+# response
+"
+● I've added the Summary column to the right of Transcript, but the database
+  migration hasn't been applied yet, so nothing has been tried against the real
+  database or OpenAI. Type-check (tsc), ESLint and npm run build all pass, and
+  both Python files parse. npm run dev doesn't run the api/ functions, so the
+  button can only be tried on a Vercel preview deployment.
+  How it works
+  - A job that isn't done shows "—". A done job with no summary yet shows
+    Summarize. Pressing it shows "Summarizing…", then opens a pop-up with the
+    summary, and the button turns into View.
+  - View reads the saved summary straight from Supabase and makes no new model
+    call.
+  - The summary is written in the job's language (zh means Traditional Chinese).
+    It has one overview paragraph and then 3–10 "Key points".
+
+  Changes
+  - New migration supabase/migrations/20261014060000_session_summary.sql: adds
+    summary and summary_created_at to "video-read".job_sessions. The browser can
+    still only read these, never write them.
+  - New API api/jobs/summarize.py: checks the user's login token, the video-read
+    tag and that the job is theirs, the same way start.py does. It sends the
+    transcript to OpenAI and saves the result to job_sessions.summary. If a
+    summary already exists it returns that one, so pressing twice costs only one
+    model call. Its time limit is 300 s, set in vercel.json.
+  - New vtw/summarize.py: the model call. It uses the existing
+    VIDEO_READ_OPENAI_API_KEY, so no new secret is needed. The default model is
+    gpt-5-mini with reasoning_effort="low", and VIDEO_READ_SUMMARY_MODEL
+    overrides it. Transcripts longer than 200k characters (about 3 hours) are
+    cut at that point.
+  - src/pages/Upload.tsx: the new column, the button states and the pop-up. When
+    loading the job list it also checks which finished jobs already have a
+    summary.
+  - video-read-db.ts: the types now include the two new fields. I also added a
+    short description to CLAUDE.md and docs/README.md.
+
+  Before deploying
+  1. Apply the migration first. The page now asks for the summary column when it
+     loads the job list, so if this code is deployed before the migration, the
+     job list won't load. The change only adds two empty columns. Should I apply
+     it to the shared Supabase project luugfvsrawnuzwpjvddt for you?
+  2. Check the model name. If your OpenAI account doesn't have gpt-5-mini, set
+     VIDEO_READ_SUMMARY_MODEL to a model you do have in Vercel's environment
+     variables.
+"
+
+# migration
+❯ 好，幫我套用 migration
+# response
+"
+● I applied the migration to the shared Supabase project luugfvsrawnuzwpjvddt,
+  and "video-read".job_sessions now has the two columns:
+
+  - summary (text, can be empty, at most 20,000 characters)
+  - summary_created_at (timestamptz, can be empty)
+
+  Existing transcripts and other apps aren't affected. The production site keeps
+  working, because the current code doesn't use the new columns.
+
+  Supabase recorded the migration as version 20261014083721, so I renamed the
+  local file to supabase/migrations/20261014083721_session_summary.sql to match.
+
+  Next steps:
+  1. Commit and push to vercel-chunked-worker. That gives a preview deployment
+     where we can test it. Nothing is committed yet; I'll do it when you say so.
+  2. Test on the branch URL (…-git-vercel-chunked-worker-…): pick a done job,
+     press Summarize, and the button should change to View.
+  3. If you get a model error, set VIDEO_READ_SUMMARY_MODEL to a model your
+     OpenAI account can use.
+"
+
+# commit it
+❯ 好，commit 並 push 到 vercel-chunked-worker  
+# response
+● I've committed and pushed to vercel-chunked-worker (commit de33800), and the
+  preview deployment built successfully. I haven't pressed the button myself
+  yet, so the summary step is still untested.
+
+  The commit has 8 files: the migration, api/jobs/summarize.py,
+  vtw/summarize.py, Upload.tsx, video-read-db.ts, vercel.json, CLAUDE.md and
+  docs/README.md.
+
+  To test, open /upload on the branch URL
+  ai-video-speedreader-git-vercel-chunked-worker-….vercel.app. Don't use the
+  deployment's own URL (…-cz2r7hdj0-…).
+  1. Every done job should show Summarize in the Summary column.
+  2. Press it. After a few seconds to a few tens of seconds, a pop-up should
+     show the summary.
+  3. Close it and refresh the page. The button should now say View, and opening
+     it should show the saved summary right away.
+
+  If it fails:
+  - The page shows "Couldn't create the summary, try again": the model call
+    failed. The real error is in that deployment's Vercel function logs, in a
+    line starting with [summarize]. The most likely cause is that the account
+    can't use gpt-5-mini. In that case, set VIDEO_READ_SUMMARY_MODEL to another
+    model for Preview.
+  - Any other error: paste me the message and I'll look into it.
+
+  Production is unchanged, since I didn't touch main.
+
+# check model
+❯ I test is ok, but can I know what model I use? do I need select 較為經濟的 ?  
+# response
+● You're using gpt-5-mini. I checked Vercel's environment variables:
+  VIDEO_READ_SUMMARY_MODEL isn't set, so vtw/summarize.py uses its default,
+  gpt-5-mini with reasoning_effort="low".
+
+  You don't need to switch to a cheaper model. gpt-5-mini is already one of
+  OpenAI's low-cost models, and summaries are a small cost next to
+  transcription. A rough estimate for a 1-hour video:
+
+  ┌────────────────────────────────────────────────────────┬────────────────┐
+  │                          Item                          │  Approximate   │
+  │                                                        │      cost      │
+  ├────────────────────────────────────────────────────────┼────────────────┤
+  │ Whisper transcription (about $0.006 per minute)        │ about $0.36    │
+  ├────────────────────────────────────────────────────────┼────────────────┤
+  │ One summary with gpt-5-mini (a 1-hour transcript is    │ about $0.01 or │
+  │ roughly 15–25k input tokens, plus about 1k output      │  less          │
+  │ tokens)                                                │                │
+  └────────────────────────────────────────────────────────┴────────────────┘
+
+  These prices are from what I remember, so check the current numbers on
+  OpenAI's pricing page. Either way, a summary costs only a few percent of the
+  transcription. It's also generated once per job: pressing View afterwards
+  makes no new call.
+
+  To make it cheaper, add VIDEO_READ_SUMMARY_MODEL=gpt-5-nano in Vercel and
+  redeploy. No code change is needed. gpt-5-nano is cheaper still, but its
+  summaries of long transcripts that contain recognition errors will be
+  noticeably worse. I'd keep gpt-5-mini, unless usage grows a lot later and
+  summaries become a real share of the bill.
+```
+
+#### 金流串接
+``` bash
+```
+
 ### Ref
 + AI 機票價格追蹤功能
   + [ claude-2-ai-video-speedreader--> Lovable Best Practice- Github](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/main/.claude/skills/lovable-best-practice)
@@ -2564,6 +3676,10 @@ Header logo also change
   + [綠界 (ECPay)](https://www.ecpay.com.tw/)
 + SaaS 入口網站
   + [claude-2-ai-video-speedreade m0-landing-page skills](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m0-landing-page/.claude/skills)
+  + [generate lovable-rules.md - claude](https://claude.ai/chat/191a8649-040b-8229-b316-9f5f015d1d37)
+  + [generate checklist m0 - claude](https://claude.ai/chat/360e752c-79e7-8817-ac0a-8200e746b522)
+  + [claude-2-ai-video-speedreader m1-main-feature](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m1-main-feature/.claude/skills)
+  + [generate m1 skill - claude](https://claude.ai/chat/4ffcda4a-bef5-4455-9389-1823a5fe2c33)
 + Discuss
   + [ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
   + [AI 機票價格追蹤 discuss Blog](https://claude.ai/cowork/cse_014DxgXT2gBy8CyfX7u9CMr7?artifact=cfaf5c03-debf-491d-9cde-ba11596b4fd8)
