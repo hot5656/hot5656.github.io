@@ -36,6 +36,21 @@ user:name flight
 <!--more-->
 
 ### Tools
+#### vercel Deployment Retention
+{% note info %}
+**建議**
+1. Open https://vercel.com/roberts-projects-2b1cd09b/ai-video-speedreader/settings
+2. Find Deployment Retention (under Security or Advanced).
+3. Recommended settings:
+| Type | Recommended | Why |
+| :--- | :--- | :--- |
+| Preview | 30 days | Branch previews pile up fast during development. 30 days still gives enough time to test. |
+| Canceled | 1 week | No use after cancellation. |
+| Errored | 1 week | Long enough for debugging. |
+| Production | Leave as is | Old versions take little space and are useful for reference. |                                           │
+4. Click Save.                                                                                               
+The deployment currently on production is never removed by retention. The latest preview, cz2r7hdj0, is from 10/14, so a 30-day setting won`t delete itested. Once you`ve saved, tell me andI`ll check that the setting took effect, if Vercel shows it to me.
+{% endnote %}
 
 #### Vite SPA vs TanStack Start 差別
 {% note info %}
@@ -3662,8 +3677,826 @@ cd D:\work\run\claude\ai-video-speedreader\worker
   summaries become a real share of the bill.
 ```
 
-#### 金流串接
+#### 金流串接 - m2-stripe-credits-prerequisites
 ``` bash
+# Claude AI
+# stripe 選擇功能 : 在線收款,創建訂閱 --> 權限 --> write --> 審核
+Customize
+  --> serach stripe
+  --> Stripe connector
+  --> Connect to Claude
+
+# verify at cowork(claude also same)
+What stripe Sandbox do I have now?
+You have one sandbox connected right now:
+  Robert Hut 沙盒 (acct_1UQfAm48d1YC985p), in test mode (livemode: false)
+That’s the only account the Stripe connector can see, and it’s a sandbox, so anything Claude does through it (creating products, prices, test customers) won’t touch real money. If you create more sandboxes later in the Stripe Dashboard, they’ll show up here too.
+意思是這個帳戶處於**測試模式**，所有操作都是模擬的，不會動到真的錢。
+# Test mode（`livemode: false`）
+- 不會真的扣款，也不會真的撥款到銀行。
+- 只能用 Stripe 提供的測試卡號，例如 `4242 4242 4242 4242`（到期日隨便填未來的日期，CVC 隨便填）。真實信用卡在這裡會被拒絕。
+- API key 開頭是 `sk_test_` / `pk_test_`。
+- 建立的產品、價格、客戶、訂閱、webhook 事件都只存在測試環境裡，可以隨便建、隨便刪。
+- 不需要驗證身分或公司資料，所以台灣不在支援名單上也能用。
+# Live mode（`livemode: true`）
+- 真的收款、真的入帳。
+- API key 開頭是 `sk_live_` / `pk_live_`。
+- 必須先啟用帳戶，提交公司、身分和銀行資料。
+兩邊的資料完全分開：在 test mode 建的產品，切到 live mode 是看不到的，上線時要在 live 環境重新建立（或用腳本搬過去）。
+你現在的「Robert Hut 沙盒」就是純測試用的環境，拿來開發付費牆、測試訂閱流程和 webhook 剛好，不用擔心誤刷到錢。
+
+# m2-stripe-credits-prerequisites
+❯ run m2-stripe-credits-prerequisites
+# response
+● Almost every check for the M2 prerequisites passes. One question is left for you, plus two things you need to have ready.
+"
+  Stripe (Sections 1–3)
+  - ✅ The Stripe connector is signed in to the sandbox Robert Hut 沙盒 (acct_1UQfAm48d1YC985p), and it reports livemode: false.
+  - ✅ Listing prices worked with no auth error. The sandbox has no prices yet, so M2 starts from a clean slate.
+  - ⏳ You need the sk_test_... key ready. You'll type it into vercel env add in M2 Step 8. Don't paste it here.
+
+  What M1 left in place (Section 4)
+  - ⚠️ Git: you're on vercel-chunked-worker, not main. Several files are untracked: the three new .claude/skills/m2-* folders and the no_5 and no_6 conversation logs. You should commit or stash them before starting M2.
+  - ✅ Vercel: you're logged in as kyp001-7668 and the project is linked. All four expected env vars are there for Production and for the vercel-chunked-worker Preview.
+  - ✅ Pipeline: in the last 14 days, 11 jobs finished on Vercel (latest 2026-10-14) and 4 failed. No job is stuck mid-run.
+  - ✅ Tests: all 14 Vitest tests pass, and so do the 6 Python tests. My first Vitest run stopped with errors after 60 s; when I ran it again, everything passed.
+  - ✅ Local worker: the venv loads distributor and worker without errors, and ffmpeg and ffprobe are on PATH. I didn't start distributor.py itself. Running it with the default settings would pick up any real production job that's been waiting over 60 s. You can start it yourself for a few seconds if you want to see it running.
+  - ✅ M1: docs/milestone-checklist.md has both the M1 and M1b sections.
+  Still needed from you
+  1. Do other apps use this Stripe sandbox too, for example      fare-finder-pro, suggests it might. Either way, M2 names the products Video Read · …, tags each Checkout with mnd sets up its ownwebhook endpoint. If the sandbox is shared, that webhook alsignores events
+  2. Test media: have two direct mp4/mp3 URLs ready, one under 1 minute and one e is for testing the "not enough credits" case.                                   
+  Once you've answered the shared-account question, you can start m2-stripe-credits.
+"
+
+# make sure continue
+❯ 1. the sandbox only for the app
+  2. please give me the 2 mp3 link for test
+  3. pleage give me the suggest .env variable  name for Stripe API
+# resonse
+"
+1. Stripe sandbox used only by this app. Then you don't need anything extra. M2 still names the products Video Read · …, tags each Checkout with metadata.app = "video-read", and gives this app its own webhook endpoint. That costs nothing and keeps things safe if the sandbox is ever shared later.
+
+2. Two test MP3 links. I checked both with ffprobe, and both are public archive.org MP3s with speech:
+
+Use: Under 1 minute (charge = 1 credit)
+URL: https://archi001_librivox/because_I_could_not_stop_for_death_dickinson_64kb.mp3
+Length: 48 s
+────────────────────────────────────────
+Use: Over 3 minute
+URL: https://ia801501.us.archive.org/29/items/MLKDream/MLKDream.mp3
+Length: 16 min 5 s, so 17 credits
+
+The over-3-minute file only fails the credit check if the balance is below 17. With the starting 30 credits it will go through, so for the "not enough credits" test, either spend some credits first or use a longer file. This one is 69 min 22 s (70 credits) and has already transcribed successfully in production: https://archive.org/download/count_monte_cristo_0711_librivox/count_of_monte_cristo_033_dumas_64kb.mp3
+
+3. Env var names for Stripe. These are the names the M2 skill uses:
+STRIPE_SECRET_KEY=sk_test_...       # Developers → API keys
+STRIPE_WEBHOOK_SECRET=whsec_...     # created with the webhook endpoint in M2
+
+- No VIDEO_READ_ prefix is needed, since the sandbox belongs to this app alone.
+- The Python functions api/ (checkout and webhook) are the only code that uses these keys, so set them in Vercel with vercel env add for Production, and for Preview on the branch you test.
+- Put them in the local .env only if you run those functions locally. The local worker doesn't need them.
+- Never give either one a VITE_ prefix. The site doesn't need a publishable key, because Checkout is a redirect.
+- Add both names, without values, to .env.example when M2 adds the code.
+"
+
+# ask for STRIPE_WEBHOOK_SECRET
+> STRIPE_WEBHOOK_SECRET how to create and 作用為何?
+# response
+● STRIPE_WEBHOOK_SECRET 的作用
+  使用者在 Stripe Checkout 付款成功後，Stripe 會從它的伺服器發一個 POST 到我們的 /api/stripe/webhook，告訴我們「這筆付款完成了」。函式收到後才會呼叫 grant_purchase，幫使用者加點數。
+
+  問題是：這個網址是公開的，任何人都能 POST 一個假的「付款成功」過來，騙到免費點數。
+
+  STRIPE_WEBHOOK_SECRET（whsec_...）就是用來防這件事的：
+  1. Stripe 每次送 webhook 時，會用這個 secret 對內容算一個 HMAC-SHA256 簽章，放在 Stripe-Signature header。
+  2. api/stripe/webhook.py 呼叫 stripe.Webhook.construct_event(原始 body, 簽章, STRIPE_WEBHOOK_SECRET) 重新驗算。
+  3. 簽章對得上，才代表事件真的來自 Stripe，而且內容沒被改過，函式才加點數；對不上就回 400，什麼也不做。簽章裡的時間戳也擋掉重送舊事件的攻擊。
+
+  這個 secret 和 STRIPE_SECRET_KEY 是兩回事：
+  ┌──────┬──────────────────────────┬───────────────────────────┐
+  │      │    STRIPE_SECRET_KEY     │  STRIPE_WEBHOOK_SECRET    │
+  │      │        (sk_test_)        │         (whsec_)          │
+  ├──────┼──────────────────────────┼───────────────────────────┤
+  │ 方向 │ 我們 → Stripe             │ Stripe → 我們             │
+  ├──────┼──────────────────────────┼───────────────────────────┤
+  │ 用途 │ 呼叫 Stripe API，例如建立 │ 驗證 Stripe 打來的          │
+  │      │  Checkout真的            │ webhook 是真的             │
+  ├──────┼──────────────────────────┼───────────────────────────┤
+  │ 範圍 │ 整個 sandok endpoint      │ 每個 webhook endpoint     │
+  │      │                          │ 各有一把                   │
+  └──────┴───────────────────────────┴───────────────────────────┘
+● 怎麼建立
+  M2 會在 Step 8 做這件事。要等 api/stripe/webhook.py 部署到 production 之後再建立，否則 Stripe 測試送出去會得到 404。
+
+  1. 在 Stripe Dashboard 確認左上角是 Robert Hut 沙盒，然後到 Developers → Webhooks → Add endpoint（新版介面叫 Add destination）。
+  2. 設定：
+    - Endpoint URL：https://ai-video-speedreader.vercel.app/api/stripe/webhook
+    - Events：只勾 checkout.session.completed
+  3. 建好後，在該 endpoint 頁面的 Signing secret 點 Reveal，複製 whsec_...。
+  4. 在 repo 根目錄執行下面這行，貼上值時是在終端機的提示輸入，不要貼
+    到對話裡：
+    vercel env add STRIPE_WEBHOOK_SECRET production
+  5. 重新部署 produc 署生效。
+
+  為什麼用 productiow 開了 DeploymentProtection，Stripe 的 POST 進不來。要繞過就得把 bypass secret
+  放進網址，CLAUDE.m只會收測試卡（4242…）的款，所以在 production 測購買是安全的。
+
+  之後如果想在本機測： 用 Stripe CLI 執行 stripe listen --forward-to localhost:3000/api一把不同的whsec_...，只給本機用，放進 .env 就好，不要和 production 那把混用。
+# ask more 
+❯ for STRIPE_WEBHOOK_SECRET --> Add endpoint
+  Event destination scope , Evenets 要選甚麼?
+#response
+● 在 Stripe 新版的 Add destination 流程裡，依序這樣選：
+  1. Event destination scope（事件來源）
+  選 Your account，也就是你的帳戶本身。
+  不要選 Connected accounts。那是給 Stripe Connect 平台用的，收的是你名下子帳號的事件，這個 app 沒有子帳號。
+  2. Payload style（如果有這個選項）
+  選 Snapshot。它會把整個 Checkout Session 物件放在事件裡，webhook.py 才讀得到 metadata.app、metadata.user_id 和付款狀態。Thin 只帶 ID，還要再打一次 API 才拿得到這些資料。
+  3. API version
+  用預設值就好，也就是 sandbox 目前的版本。
+  4. Events（要監聽的事件）
+  在搜尋框輸入 checkout.session.completed，只勾這一個。
+    - 不要選 All events。Stripe 會把每種事件都打過來，函式要 。
+    - 不需要 checkout.session.async_payment_succeeded。那是給銀行轉帳這類延遲付款方式用的，M2 的 Checkout 只收信用卡，付款結果在 completed
+      時就確定了。
+    - 不需要 payment_intent.* 或 charge.*。點數依 Checkout Session 發放就夠了。
+  5. Destination type
+  選 Webhook endpoint，然後填：
+    - Endpoint URL：https://ai-video-speedreader.vercel.app/api/stripe/webhook
+    - Description（可選）：Video Read credits
+  建立完成後，到該 destination 頁面右側找 Signing secret， 接著在終端機執行 vercel env add STRIPE_WEBHOOK_SECRETproduction，在提示時貼上這個值。
+  提醒：最好等 M2 把 api/stripe/webhook.py 部署到 production 之後再建立這個 endpoint。提早建也沒關係，只是在那之前 Stripe 送出的事件會得到 404，並自動重試一陣子。
+
+# create STRIPE_WEBHOOK_SECRET
+Stripe Dashboard 確認左上角是 Robert Hut 沙盒
+Developers
+  --> Webhooks
+  --> Add destinatio
+    + Event destination scope : Your account
+    + Payload style : Snapshot
+    + API version : 預設值
+    + Events : 在搜尋框輸入 checkout.session.completed，只勾這一個。
+    +  Destination type :  Webhook endpoint
+      - Endpoint URL：https://ai-video-speedreader.vercel.app/api/stripe/webhook
+      - Description（可選）：Video Read credits (name 可 Video_Read_credits)
+    --> 建立完成後，到該 destination 頁面右側找 Signing secret，點 Reveal 就能看到 whsec_...。接著在終端機執行 vercel env add STRIPE_WEBHOOK_SECRET production，在提示時貼上這個值。
+```
+
+#### m2-stripe-credits + m2-stripe-credits-checklist
+``` bash
+#  m2-stripe-credits
+❯ run m2-stripe-credits skill
+# response
+● 開始 M2 前的檢查結果：
+"
+  - 線上資料庫：jobs_status_check 目前有 5 個狀態（pending、downloading、transcribe、done、failed），和 skill 預期的一樣。insert policy 是 users insert own pending jobs，內容也和 skill 預期的一樣。所以 migration 可以照 skill 的版本寫。
+  - 分支：origin/main 停在 bfb7e3f。vercel-chunked-worker 比 main 多 5 個 commit，包含 Summary 功能（de33800）、no_2～no_6 對話紀錄和 M2 skills；main 沒有任何 vercel-chunked-worker 缺少的 commit。換句話說，production 上還沒有 Summary 欄位，不過它的 migration 已經套用到資料庫了。
+  - 未 commit 的改動：一個是我剛才刪掉 skill 裡圖片的那一行；另一個是你在 .env.example 加的 STRIPE_SECRET_KEY 和 STRIPE_WEBHOOK_SECRET 兩行（都是佔位值，沒有真的 key）。
+
+  Step 1：M2 的設計
+  1. 每個帳號第一次進 /credits 或 /upload 時自動開戶，送 30 點。不用 auth trigger，因為 Supabase 是共用的，trigger 會在每個 app 有人註冊時都觸發。
+  2. 每分鐘 1 點，不足一分鐘算一分鐘。Summary 摘要在 M2 先不收費。
+  3. 兩層檢查：
+    - 送出時由資料庫（RLS）擋住餘額小於 1 的人。
+    - plan 探到影片長度後再精準比對。點數不夠就標成 insufficient_credits，不切段，也不呼叫 Whisper。本機 worker 也做一樣的檢查。
+  4. 只有完成（done）才扣點。扣點用資料庫函式做，同一個 job 重複呼叫也只扣一次，因為 Vercel Queues 可能重送訊息。
+  5. 三種方案：$10 買 10 點、$30 買 45 點（多 50%）、$60 買 90 點（多 50%）。
+  6. 付款走 Stripe sandbox，測試卡號 4242 4242 4242 4242。
+  7. 已知取捨：同時最多可以跑 3 個工作，每個都是先各自通過檢查、完成後才扣點，所以總扣點可能超過餘額。超過的部分不會變成負數，餘額停在 0，等於那部分沒收到錢。v1 先接受這一點。
+
+  在動手之前，有兩件事要你決定：
+● User answered Claude's questions:
+· m2-credits 分支要從哪裡開？ → 從 vercel-chunked-worker (Recommended)
+· M2 migration 什麼時候套用到用後舊網站的使用者會因為還沒有點數帳戶而送不出工作） → (a) 合併前才套用 (Recommended)
+"
+
+# Steps 2 and 3 
+● Steps 2 and 3 are done. Everything is committed on the new m2-credits branch (started from vercel-chunked-worker), and nothing has been pushed yet.
+"
+  Step 2, Stripe prices. I created three one-time USD prices in the sandbox (livemode: false):
+
+  ┌─────────────────────────┬────────────────────────────────┬────────┐
+  │         Product         │            Price ID            │ Amount │
+  ├─────────────────────────┼────────────────────────────────┼────────┤
+  │ Video Read · 10 Credits │ price_1UQjII48d1YC985pwXUTTJKJ │ $10    │
+  ├─────────────────────────┼────────────────────────────────┼────────┤
+  │ Video Read · 45 Credits │ price_1UQjIJ48d1YC985phNmyjfev │ $30    │
+  ├─────────────────────────┼────────────────────────────────┼────────┤
+  │ Video Read · 90 Credits │ price_1UQjIK48d1YC985ps8uyuhIk │ $60    │
+  └─────────────────────────┴────────────────────────────────┴────────┘
+
+  Step 3, migration file. I wrote supabase/migrations/20261015074158_m2_credits.sql and committed it as 5233855.
+  - The three price IDs above are already filled in.
+  - The job status list keeps the five statuses the live database has now and adds insufficient_credits.
+  - As you chose (option a), it is not applied to the database yet. I'll apply it right before the preview test and the merge to main.
+
+  I also committed two smaller changes:
+  - 42783f4 on vercel-chunked-worker removes the missing consent-page image line from the prerequisites skill.
+  - Your two Stripe lines in .env.example (placeholders only, no real keys) went into the same commit as the migration.
+
+  Next is Step 4: the shared Python helpers (vtw/credits.py) and their tests. Should I go ahead?
+"
+
+# step 4
+❯ go ahead
+# response 
+● Step 4 is done and committed as caa65a9.
+
+  - vtw/credits.py has four helpers:
+    - minutes_for charges 1 credit per started minute, with a minimum of 1.
+    - balance reads the user's balance; a user with no account gets 0.
+    - insufficient_message is the error text a job gets when there aren't enough credits.
+    - charge calls the charge_job database function.
+
+    It uses only the Python standard library, so both the Vercel functions and the local worker can import it.
+  - tests/test_credits.py has 7 tests: the minute rounding (1, 59.9, 60, 60.1 and 600 seconds), the message, the balance with and without an account, and the charge calls. The balance and charge tests use a fake database client. The full Python suite (13 tests) passes.
+
+  Next is Step 5: adding the credit check and the charge to queues/plan.py, queues/finalize.py and worker/worker.py. Should I go ahead?
+
+# step 5
+❯ go ahead
+# response 
+● Step 5 is done and committed as ac64912. Every job now has its credits checked before Whisper runs and is charged only when it finishes.
+
+  - queues/plan.py: right after the 3-hour length check, plan compares the job's minutes with the user's balance. If the balance is too low, it sets the job to insufficient_credits with the "needs N, you have M" message. No chunks are written and Whisper is never called. The update only applies while the job is still downloading, so a resent plan message does nothing.
+  - queues/finalize.py: after the transcript is saved and before the job is set to done, finalize calls charge_job. If the charge fails, the job stays in transcribe and the message is retried. A resent finalize message doesn't charge twice.
+  - worker/worker.py (local fallback):
+    - After converting to mp3, it measures the length and does the same balance check. For YouTube the length is only known after the download.
+    - Before setting done, it charges the job and logs charged N cr.
+    - A job that fails is not charged.
+  - Extra, not in the skill: vtw/db.py. fail_job previously overwrote any status except done and failed. It now leaves insufficient_credits alone too, so a late error can't turn that job into failed.
+
+  Checks:
+  - All 13 Python tests pass, and all four edited files parse.
+  - The worker loads in its own venv (minutes_for(61) returns 2).
+  - The queues/* modules can't be loaded on this machine because the vercel package isn't installed here; Vercel installs it on deploy. They will first actually run in the Step 9 preview test.
+
+  Next is Step 6: the payment functions (api/credits/checkout.py, api/stripe/webhook.py), the stripe dependency, the vercel.json entries and webhook tests. Should I continue?
+
+# step 6
+❯ go ahead
+# response 
+● Step 6 is done and committed as 67e790f. While testing it I found and fixed a bug in the skill's own webhook code.
+'
+  api/credits/checkout.py:
+  - It checks the sign-in token and the video-read tag, loads the active product, and creates a Stripe Checkout Session.
+  - The session carries metadata.app = "video-read" plus user_id, product_id and credits.
+  - After payment, Stripe sends the user back only to production, this team's preview URLs (ai-video-speedreader-…-roberts-projects-2b1cd09b.vercel.app) or localhost:8080/8081. Any other origin falls back to the production URL. I made the preview check stricter than the skill's version: a project named ai-video-speedreader-evil on someone else's account is rejected.
+
+  api/stripe/webhook.py:
+  - It verifies the signature over the raw bytes first.
+  - It acts only on checkout.session.completed, ignores other apps' events and unpaid sessions, and credits through grant_purchase.
+  - A database error returns 500, so Stripe retries.
+
+  The bug: the skill's code reads the verified event with .get(). In stripe-python 15 and later, which is what Vercel would install (16.0.0 today), event objects are no longer dicts, so that call raises an error. Every real payment would have returned 500 and never been credited. The webhook now reads the verified payload as plain JSON instead. The tests caught this.
+
+  Config: stripe>=12.0.0 is added to pyproject.toml, and both functions are added to vercel.json with maxDuration 30. A small env_or helper went into vtw/db.py.
+
+  Tests: tests/test_stripe_webhook.py has 10 tests:
+  - bad signature
+  - payload changed after signing
+  - another app's event
+  - an event type other than checkout.session.completed
+  - an unpaid session
+  - a paid session credited once with the right arguments
+  - a duplicate payment
+  - missing metadata
+  - two checks of which return origins are allowed
+
+  With stripe and supabase installed in a temporary venv in my scratchpad, all 23 Python tests pass. Your system Python doesn't have the stripe
+  package installed, so the stripe-dependent tests are skie repo stay unchanged.
+
+  The m2-stripe-credits skill file still has the old .get(list if it compares against it. I can update the skill so a later run doesn't bring the bug back.
+
+  Next is Step 7, the frontend:
+  - the /credits and /credits/success pages
+  - the balance in the header
+  - the "not enough credits" message and the new status on
+  Should I go ahead?
+
+
+# step 7
+❯ go ahead
+# response 
+● Step 7 (frontend) is done and committed as 4c11802. Type-check, the 18 Vitest tests, the build and ESLint on the changed files all pass; ESLint's only complaints are the existing Windows CRLF ones. I haven't looked at the new pages in a browser. They need the M2 migration in the database, which comes right before the preview test.
+  /credits:
+  - The balance, with "1 credit = 1 minute" and a note that you're charged only when a transcript finishes.
+  - Three tiers ($10 / $30 / $60), each with its price per credit. The $30 and $60 tiers get a green +50% badge.
+  - Buy calls /api/credits/checkout and then sends you to Stripe. All Buy buttons are disabled while one request is in flight.
+  - History: the last 50 credit transactions. Purchases are green, the welcome bonus amber, and charges grey as -N.
+  /credits/success:
+  - It adds no credits itself; the webhook does that.
+  - It checks every 2 seconds, for up to 20 seconds, whether a purchase row from the last 15 minutes exists, and shows the new balance.
+  - This differs from the skill, which watches for the balance to go up. The webhook often arrives before Stripe redirects back, so the balance never visibly changes and the page would always end with "will appear shortly".
+
+  Header: a Credits / 點數: 30 link. Loading it opens the account with 30 free credits on the first visit.
+
+  /upload:
+  - Before inserting a job, it checks that the balance is at least 1.
+  - If the database refuses the insert anyway, it shows the same "not enough credits" message with a link to buy.
+  - insufficient_credits appears as an amber status with the "needs N, you have M" message and a Buy credits link. Polling stops for it.
+  - When a job turns done, the balance in the header refreshes.
+
+  Also changed: the credit types and the ensure_credit_account function type in video-read-db.ts, and route tests for /credits and /credits/success.
+
+● Step 8 needs you. Run these in the repo root and type the key when prompted, not in this chat:
+  vercel env add STRIPE_SECRET_KEY production
+  vercel env add STRIPE_SECRET_KEY preview m2-credits
+
+  The webhook endpoint and STRIPE_WEBHOOK_SECRET should wait until api/stripe/webhook.py is live on production, which happens at the merge (Step 10). Tell me when the two commands are done, and I'll push m2-credits, apply the migration and start the preview test (Step 9).
+
+# error
+❯ Error: Branch "m2-credits" not found in the connected Git repository.
+# response
+● Vercel only accepts a Preview env var for a branch that already exists on GitHub. m2-credits hasn't been pushed yet, so I'll push it now.
+    Pushed to m2-credits
+
+  m2-credits is now on GitHub. Run the command again:
+  vercel env add STRIPE_SECRET_KEY preview m2-credits
+  The push started a preview deployment. It doesn't have STRIPE_SECRET_KEY yet, and the M2 migration isn't applied, so /credits won't work on it. That's expected: env vars only reach deployments built after they're added. Once both commands are done, tell me, and I'll apply the migration, redeploy the preview, and start Step 9.
+
+# step 9
+❯ done, go ahead
+# response
+"
+● Both STRIPE_SECRET_KEY entries are present, but SUPABASE_SECRET_KEY and VIDEO_READ_OPENAI_API_KEY are only set for the vercel-chunked-worker preview, so m2-credits preview can't reach the database or Whisper yet — I'll address that after applying the migration.
+    Called Supabase 3 times, ran 1 shell command
+
+● Migration applied. Now verifying it in the database.
+    Called Supabase
+
+● The migration is applied to the shared database and checks out:
+  - Products: all 3 tiers are in place with the real Stripe price IDs.
+  - Job status: insufficient_credits is now allowed.
+  - Functions: ensure_credit_account, grant_purchase and charge_job exist alongside complete_chunk.
+  - Permissions: the browser (authenticated) can call only ensure_credit_account; the other two are for server code (service_role) only.
+  - No double counting: all 3 duplicate-blocking unique indexes exist.
+
+  ⚠️ From now until the merge, a user on the current production site can't submit a job. The database now needs a credit account, and only the new frontend creates one. That's the short window we chose with option (a).
+
+  The m2-credits preview still needs two secrets. Right now SUPABASE_SECRET_KEY and VIDEO_READ_OPENAI_API_KEY exist only for Production and for the vercel-chunked-worker preview. Without them, the preview's Python functions can't reach the database or Whisper. Add them for this branch, typing each value at the prompt:
+
+  vercel env add SUPABASE_SECRET_KEY preview m2-credits
+  vercel env add VIDEO_READ_OPENAI_API_KEY preview m2-credits
+
+  Or, in the Vercel dashboard (Settings → Environment Variables), edit each one and change its Preview branch to m2-credits. That way you don't have to type the values again.
+
+  Tell me when that's done. Then I'll redeploy the preview so it picks up all four env vars, and walk you through the Step 9 tests on the …-git-m2-credits-… URL.
+"
+
+# add env for m2-credits
+vercel env add SUPABASE_SECRET_KEY preview m2-credits
+vercel env add VIDEO_READ_OPENAI_API_KEY preview m2-credits
+# response by done
+❯ done, go ahead
+# response
+"
+● The new preview is ready. Please test on the branch URL, not on a single deployment's own URL:
+  https://ai-video-speedreader-git-m2-credits-roberts-projects-2b1cd09b.vercel.app
+
+  Sign in with your video-read account, then go through these. For the steps that change your balance, tell me when you get there and I'll run the SQL.
+  1. /credits
+    - The header shows Credits / 點數: 30.
+    - The History section has one Welcome bonus +30 row.
+    - The page shows three tiers ($10 / $30 / $60), and the $30 and $60 tiers have a +50% badge.
+    - Click Buy on any tier. You should land on checkout.stripe.com. Don't pay; just close it or press back. Purchases get tested on production in Step 10.
+  2. Short job on /upload:
+    - URL: https://archive.org/download/short_poetry_001_librivox/because_I_could_not_stop_for_death_dickinson_64kb.mp3
+    - Language: English.
+    - Expected: the job goes to done, the header changes to 29, and /credits History shows Transcription -1.
+  3. Not enough credits. Tell me when you're here. I'll set your balance to 2, and then you submit:
+    - https://ia801501.us.archive.org/29/items/MLKDream/MLKDream.mp3
+    - Expected: an amber insufficient_credits status saying "needs 17, you have 2", plus a Buy credits link. No Whisper runs and your balance stays at 2.
+  4. Zero balance. I'll set your balance to 0. When you submit any URL, you should see the "Not enough credits" message, and no job row is created.
+  5. Restore. I'll recompute your balance from the transaction history, so it goes back to 29.
+
+  Start with 1 and 2, then tell me what you see.
+"
+
+# run step 1 and 2
+❯ it is ready
+# response
+"
+● The new preview is ready. Please test on the branch URL, not on a single deployment's own URL:
+
+  https://ai-video-speedreader-git-m2-credits-roberts-projects-2b1cd09b.vercel.app
+
+  Sign in with your video-read account, then go through these. For the steps that change your balance, tell me when you get there and I'll run the SQL.
+
+  1. /credits
+  - The header shows Credits / 點數: 30.
+  - The History section has one Welcome bonus +30 row.
+  - The page shows three tiers ($10 / $30 / $60), and the $30 and $60 tiers have a +50% badge.
+  - Click Buy on any tier. You should land on checkout.stripe.com. Don't pay; just close it or press back. Purchases get tested on production in Step 10.
+
+  2. Short job on /upload:
+  - URL: https://archive.org/download/short_poetry_001_librivox/because_I_could_not_stop_for_death_dickinson_64kb.mp3
+  - Language: English.
+  - Expected: the job goes to done, the header changes to 29, and /credits History shows Transcription -1.
+
+  3. Not enough credits. Tell me when you're here. I'll set your balance to 2, and then you submit:
+  - https://ia801501.us.archive.org/29/items/MLKDream/MLKDream.mp3
+  - Expected: an amber insufficient_credits status saying "needs 17, you have 2", plus a Buy credits link. No Whisper runs and your balance stays at 2.
+
+  4. Zero balance. I'll set your balance to 0. When you submit any URL, you should see the "Not enough credits" message, and no job row is created.
+
+  5. Restore. I'll recompute your balance from the transaction history, so it goes back to 29.
+
+  Start with 1 and 2, then tell me what you see.
+"
+
+# step 3
+❯ 1 and 2 done, ready for step 3
+# response
+● Confirmed the database matches: balance is 29 after the +30 welcome bonus and a −1 charge for the completed job. Now setting your balance to 2 for Step 3.
+
+    Called Supabase
+
+● Steps 1 and 2 passed, and the database confirms them. Your account has the +30 welcome bonus, the 48-second job ran on Vercel and finished done, and it was charged once (−1), leaving 29.
+
+  For Step 3, I've set your balance to 2.
+
+  Reload the preview so the header shows 2, then submit this on /upload (any language):
+
+  https://ia801501.us.archive.org/29/items/MLKDream/MLKDream.mp3
+
+  What you should see:
+  - The status turns amber insufficient_credits within a few seconds.
+  - The message reads "Not enough credits: this video needs 17, you have 2. Buy more on /credits.", followed by a Buy credits link.
+  - The balance stays at 2.
+
+  Tell me what you see, and I'll check the database too: that no chunk rows were written and Whisper never ran.
+
+# step 4
+❯ step 3 done, shows insufficient_credits
+# response
+"
+● Step 3 passed, and the database confirms it:
+  - Job status: the MLK job (965 s, so 17 credits) is insufficient_credits, handled by vercel, with the error "needs 17, you have 2".
+  - No transcription: it has 0 chunk rows, so Whisper never ran.
+  - No charge: there's no credit transaction for it, and your balance is still 2.
+
+  For Step 4, I've set your balance to 0.
+
+  Reload the preview so the header shows 0, then submit any URL on /upload, for example the short Dickinson mp3 again. What you should see:
+  - A red message under the form: "Not enough credits to submit a video. / 點數不足，無法送出。" followed by a Buy credits link.
+  - No new row appears in the table.
+
+  Tell me what you see. I'll then confirm in the database that no job was created and restore your balance to 29 from the history (Step 5).
+"
+
+# step 5
+❯ show Not enough credits to submit a video. / 點數不足，無法送出。 Buy credits / 購買點數
+# response
+"
+● Steps 4 and 5 passed, which completes the preview test (Step 9).
+
+  Step 4: zero balance
+  - The page showed the "Not enough credits" message, and no job was created. The only recent job is the MLK one from Step 3, created before the balance was set to 0.
+  - The page checks the balance itself before inserting, so I also tested the database rule without the page. I tried an insert as your user directly in SQL, inside a transaction that was rolled back. The database refused it with 42501, which means the balance >= 1 rule holds even if someone skips the page's check.
+
+  Step 5: restore
+  - I recomputed your balance from the history: +30 − 1 = 29.
+
+  I skipped the optional local-worker test (6). It needs a YouTube job and the distributor running on your computer.
+
+  Next: Step 10 (merge and test a real purchase on production)
+
+  Production has been affected since I applied the migration: its old frontend doesn't create credit accounts, so new jobs there are refused. Merging soon closes that gap.
+
+  Here's the order:
+
+  1. I merge m2-credits into main and push, with a normal merge and no history rewrite. The main branch is also connected to Lovable, so I need your explicit OK for this push.
+  2. Once production shows Ready, you create the webhook in Stripe. In the sandbox, go to Developers → Webhooks → Add destination:
+    - Scope: Your account
+    - Payload style: Snapshot
+    - Event: only checkout.sessio
+    - URL: https://ai-video-speedreader.vercel.app/api/stripe/webhook
+  3. You add the signing secret wiOOK_SECRET production. Then Iredeploy production so it picks up the secret.
+  4. You buy 10 credits on product4242. I then check the purchaserow, the balance, Stripe's 200 response, and that resending the event doesn't add credits twice.
+
+  Should I merge into main and pus
+"
+
+# terminal 
+vercel env add STRIPE_WEBHOOK_SECRET production
+
+# step 10
+❯ merge to main and push
+# response
+"
+● I merged m2-credits into main and pushed it. The merge commit is 41ac8fb, a normal merge with no history rewritten. Vercel is building production now, and I'm watching it.
+
+  This release is bigger than M2 alone. m2-credits started from vercel-chunked-worker, so these also go to production:
+  - the Summary column on /upload, whose database migration was already applied;
+  - the M2 skills and the no_2–no_6 conversation logs;
+  - the docs updates.
+
+  Once production shows Ready, it serves the new frontend, and users can submit jobs again. While you wait, you can prepare the webhook in the Stripe sandbox under Developers → Webhooks → Add destination:
+
+  ┌──────────────────┬────────────────────────────────────────────────────────────┐
+  │     Setting      │                           Value                            │
+  ├──────────────────┼────────────────────────────────────────────────────────────┤
+  │ Events from      │ Your account                                               │
+  ├──────────────────┼────────────────────────────────────────────────────────────┤
+  │ Payload style    │ Snapshot                                                   │
+  ├──────────────────┼────────────────────────────────────────────────────────────┤
+  │ Events           │ only checkout.session.completed                            │
+  ├──────────────────┼────────────────────────────────────────────────────────────┤
+  │ Destination type │ Webhook endpoint                                           │
+  ├──────────────────┼────────────────────────────────────────────────────────────┤
+  │ Endpoint URL     │ https://ai-video-speedreader.vercel.app/api/stripe/webhook │
+  └──────────────────┴────────────────────────────────────────────────────────────┘
+
+  Then copy the Signing secret (whsec_...) and run this, typing the value at the prompt:
+
+  vercel env add STRIPE_WEBHOOK_SECRET production
+
+  Tell me when that's done. I'll redeploy production so it picks up the secret, and then you can buy the 10-credit tier.
+"
+
+# step 10 - continue
+> done
+# response
+●  Production is ready, and no redeploy is needed.
+
+  - STRIPE_WEBHOOK_SECRET was added 23 minutes ago. The production build (41ac8fb) started 17 minutes ago, so it already includes the secret.
+  - I checked this on the live site. An unsigned POST to /api/stripe/webhook returns 400 "invalid signature". If the secret were missing, it would return 500 instead.
+  - /api/credits/checkout is live too: it returns 401 without a sign-in token.
+
+  Your turn: buy 10 credits on production.
+  1. Open https://ai-video-speedreader.vercel.app/credits. The header should show 29.
+  2. Click Buy on the $10 / 10 credits tier.
+  3. On Stripe Checkout, use:
+    - Card: 4242 4242 4242 4242
+    - Expiry: 12/34
+    - CVC: 123
+    - Any name and email
+  4. After paying you land on /credits/success. Within a few seconds it should say "Your credits have been added" and show 39 credits.
+
+  Tell me when you've paid. I'll then check four things:
+  - a purchase row of +10 with a pi_... ID;
+  - your balance is 39;
+  - Stripe got a 200 from the webhook;
+  - resending the event from the Stripe dashboard returns duplicate: true without adding credits.
+
+# pay
+❯ I pay
+# response
+"
+●  Your purchase went through end to end:
+
+  - Database: there's one purchase row of +10, "Purchased 10 credits", linked to payment pi_3UQkue48d1YC985p27UIlV2J. Your balance went from 29 to 39.
+  - Stripe event: evt_1UQkuf48d1YC985plqaFOQJF is a checkout.session.completed with payment_status: paid.
+    - Its metadata is app: video-read, user_id (yours), credits: 10.
+    - pending_webhooks: 0 means Stripe got a 2xx response from the webhook and has nothing left to retry.
+  - Checkout session: it was created by production, and its success and cancel URLs point back to ai-video-speedreader.vercel.app.
+  - Currency: Stripe's adaptive pricing showed you the price in TWD (NT$336.49). The charge is still the USD price, so nothing needs to change.
+
+  Two last checks for Step 10, both in the Stripe dashboard:
+
+  1. Resend the event to test duplicate protection. Go to Developers → Webhooks → your endpoint, find event evt_1UQkuf48d1YC985plqaFOQJF, and click Resend. The response body should be {"credited": 0, "duplicate": true}. Then tell me, and I'll confirm the balance is still 39 with only one purchase row.
+  2. Declined card (optional). On /credits, click Buy again and pay with 4000 0000 0000 0002. Stripe should show "card declined", no credits should be added, and the app should keep working.
+
+  Once you've done those, I'll finish Step 11. That means adding an M2 section to docs/milestone-checklist.md and a Credits section to CLAUDE.md, and fixing the .get() webhook bug in the m2-stripe-credits skill.
+"
+
+# action
+# 1. resend
+Stripe 
+  Developers 
+  --> Webhooks 
+  --> your endpoint evt_1UQkuf48d1YC985plqaFOQJF
+  --> Resend
+  response:
+    {
+      "credited": 10,
+      "duplicate": false,
+    }
+# 2. Declined card
+
+# tell continue
+❯ I do 1 reseponse :
+      {
+        "credited": 10,
+        "duplicate": false,
+      }
+  do 2 reject
+# response
+●  M2 完成：點數存在 "video-read" schema，付款走 Vercel 的 Python 函式，Vercel Queues 跟本機 worker 都會檢查和扣點，沒有用到 AWS，也沒碰其他 app 的表。
+
+  你貼的回應 "credited": 10, "duplicate": false 是第一次送達時的結果，不是重送的，沒有重複加點。資料庫裡這筆付款仍然只有一筆 purchase，餘額是 39。我也用 webhook 的同一個呼叫重送一次（在 transaction 裡，最後 rollback），grant_purchase 回 false，餘額沒變，所以重送會回 duplicate: true。拒絕的卡也正確：沒有加點。
+
+  驗收結果
+
+  ┌───────────────────────────────────────────────────────────────────────────────────┬──────┐
+  │                                       測試                                        │ 結果 │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 新帳號送 30 點、/credits 三種方案、Buy 導到 Stripe                                  │ ✅   │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 48 秒 mp3：Vercel 處理完成，扣 1 點                                                 │ ✅  │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 點數不足（17 點的影片，餘額 2）：insufficient_credits，沒切段、沒呼叫                 │ ✅   │
+  │ Whisper、沒扣點                                                                    │      │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 餘額 0：頁面擋下；直接用 SQL insert 也被 RLS 擋下                                    │ ✅   │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ Production 買 10 點：+10，餘額 39                                                  │ ✅   │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 重送同一個 event 不重複加點                                                         │ ✅   │
+  ├───────────────────────────────────────────────────────────────────────────────────┼──────┤
+  │ 被拒的卡不加點                                                                     │ ✅   │
+  └───────────────────────────────────────────────────────────────────────────────────┴──────┘
+
+  本機 worker（YouTube）這條路線沒
+
+  Step 11 文件已經 commit 在本機的
+  - docs/milestone-checklist.md：總覽表加 M2 一列，另加完整的 M2 一節。
+  - CLAUDE.md：新增「Credits (M2) 扣點和購買、Stripe設定、怎麼從帳本重設餘額；也更新了 Deploy 的環境變數和 Milestones。
+  - docs/README.md：加入 insuffici 、函式和API，以及限制裡的點數規則。
+  - 修正 m2-stripe-credits skill   .get() bug，以後重跑不會再出現。
+
+  main 會部署 production，也會同步sh。要 push的話跟我說「push」。之後可以說「驗收 M2」跑 m2-stripe-credits-checklist 做完整檢查。
+
+# m2-stripe-credits-checklist
+❯ run m2-stripe-credits-checklist
+# response
+●  M2 驗收通過 🎉 點數、付款、Vercel 路徑的檢查與扣點都正常，也沒有動到共用 Supabase 上其他 app 的東西。40 項裡 38 項通過，本機 worker 路徑（G4，選做）沒有實測。
+
+  ┌──────────┬─────────┬────────────────────────────────────────────────────────────────────┐
+  │   區塊   │  結果    │                                重點                                │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │          │ ✅      │ 3 張表都開了 RLS，3 個防重複的 unique index                          │
+  │ A 資料庫  │ 10/10   │ 都在。瀏覽器對點數表只有讀取權限，anon                                │
+  │          │         │ 沒有權限。加點和扣點的函式只有後端（service_role）能呼叫。              │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │          │         │ 23 個 Python 測試、18 個 Vitest 和型別檢查都通過。npm run lint        │
+  │ B 程式    │ ✅ 9/9 │ 有錯誤，但全是既有的（Windows                                         │
+  │          │         │ 換行、worker/venv、docs/edge-functions-snapshot、shadcn 元件），M2   │
+  │          │         │  的檔案沒有。                                                       │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │ C Stripe │ ✅ 3/3  │ 3 個 sandbox price，1 個 webhook endpoint，只收                     │
+  │          │         │ checkout.session.completed。                                       │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │ D        │ ✅ 3/3  │ auth.users 上的 3 個 trigger 都是其他 app 原本就有的；沒碰           │
+  │ 共用專案  │         │ public；Lovable 產生的檔案沒改。                                    │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │ E        │ ✅ 3/3  │ Stripe 的兩個 secret 都設好了，沒有 VITE_STRIPE_*，production 部署   │
+  │ 環境變數  │         │  Ready。                                                           │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │          │ ✅      │                                                                    │
+  │ F 端對端  │ 5/6，F2 │ 送 30、買 +10、扣 −1，帳本加總等於餘額 39。                           │
+  │          │  部分    │                                                                    │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │ G 檢查點  │ ✅ 3/4 │ 點數不足時沒切段、沒扣點；餘額 0 時頁面和 RLS 都會擋。                 │
+  ├──────────┼─────────┼────────────────────────────────────────────────────────────────────┤
+  │ H 衛生    │ ✅ 2/2 │ git 歷史裡沒有任何真的 key。                                         │
+  └──────────┴─────────┴────────────────────────────────────────────────────────────────────┘
+
+  沒有照 checklist 原本方式做的兩項：
+  - F2： 我沒查 Vercel log。改用 Stripe event 的 pending_webhooks: 0 證明 webhook 回了 2xx。
+  - F3： 你貼的是第一次送達的回應。重送有沒有重複加點，我是用 SQL 驗證的：資料庫裡只有一筆購買紀款回 false。
+
+  一個要你處理的小問題： .env.examCRET=899...。它是 M2之前就在的，看起來像舊 prototype secret 的開頭幾個字。那個 secret
+  已經刪掉了，風險很低，但建議把這
+
+  驗收結果記在 docs/milestone-checn 比 origin/main 多 2 個commit，都只有文件和 skill，還沒 push：
+  - d43ced0：M2 文件和 skill 的修
+  - 1e686db：checklist 結果
+
+  要 push 的話跟我說。
+
+# M3 自訂網域）
+  *** 做 M3（自訂網域）時要改三件事： ***
+  1. Stripe 的 webhook endpoint 改
+  2. 新 endpoint 會有新的 signing secret，要更新 STRIPE_WEBHOOK_SECRET。
+  3. 在 api/credits/checkout.py 的 origin 允許清單加上新網域。
+
+# test lopcal distributor
+❯ lopcal distributor 扣點要不要測試?
+# response
+●  建議測，而且很快。本機 worker 的檢查和扣點是 worker/worker.py 裡另外一段程式，和 Vercel 那條路線無關，這次一次都還沒跑過。現在只有「worker 能載入 vtw.credits」這一項驗證過。沒驗證的有：本機的 Supabase client 呼叫 charge_job 能不能成功、insufficient_credits 會不會正確寫回去。YouTube 只走這條路，出錯的話使用者會免費轉錄，或者工作會卡住。
+
+  測試大約 5 分鐘，兩個 YouTube 網址都已經在 production 跑過，會被交回本機處理：
+
+  ┌──────────┬───────────────────────────────────────────────────┬───────┬──────┬─────────────────────────────────────────┐
+  │   測試   │                       網址                         │ 長度  │ 點數 │                  預期                    │
+  ├──────────┼───────────────────────────────────────────────────┼───────┼──────┼─────────────────────────────────────────┤
+  │ 扣點     │ https://www.youtube.com/watch?v=jNQXAC9IVRw（Me    │ 19 秒 │ 1    │ done，扣 −1，餘額 39 → 38                │
+  │          │ at the zoo）                                       │      │      │                                         │
+  ├──────────┼───────────────────────────────────────────────────┼───────┼──────┼─────────────────────────────────────────┤
+  │          │                                                   │ 3 分  │      │ 我先把餘額設成 2；結果                    │
+  │ 點數不足 │ https://www.youtube.com/watch?v=dQw4w9WgXcQ        │ 33 秒 │ 4    │ insufficient_credits，terminal 印出      │
+  │          │                                                   │       │      │ Whisper skipped，不扣點                  │
+  └──────────┴───────────────────────────────────────────────────┴───────┴──────┴─────────────────────────────────────────┘
+
+  步驟：
+
+  1. 開一個新的 PowerShell 跑 distributor。必須重新啟動，它才會載入新的 worker.py：
+  cd D:\work\run\claude\ai-video-speedreader\worker
+  .\venv\Scripts\python distributor.py
+    不用設 CLOUD_HEAD_START_SECONDS。YouTube 網址會被 Vercel 直接交回 runner = 'local'，distributor 馬上就會接。
+  2. 在 production 的 /upload 送第一個網址，語言選 English，等它變成 done。terminal 應該會出現 charged 1 cr。
+  3. 跟我說一聲。我確認扣點紀錄後，把餘額設成 2。
+  4. 送第二個網址。
+  5. 跟我說一聲。我確認結果後，從帳本把餘額還原。
+
+  注意： distributor 開著的時候，也會接 production 上其他人交回本機的工作。測完記得 Ctrl+C 關掉。
+
+  要測的話，先做第 1、2 步，完成後跟我說。
+
+# test
+❯ 第一個 done 了，charged 1 cr
+# response
+●  第一個測試通過，資料庫結果和預期一致：
+  - 這個工作由 runner = local 處理，狀態 done，長度 19.0 秒，逐字稿 201 字。
+  - 只有一筆扣點 −1，餘額 39 → 38。
+
+  第二個測試要用的餘額已經設成 2。
+
+  請重新整理頁面，確認 header 顯示 2，然後在 /upload 送出：
+
+  https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+  預期結果：
+  - distributor terminal： 下載完成後印出 insufficient credits: needs 4, has 2.0; Whisper skipped
+  - 頁面： 黃色的 insufficient_credits，訊息是 "needs 4, you have 2"，旁邊有 Buy credits 連結
+  - 點數： 餘額還是 2，沒有扣點紀錄
+
+  出現之後跟我說，我會確認結果，再從帳本把餘額還原成 38。
+# test
+❯ 第二個也出現 insufficient_credits 了
+# response
+●  本機 worker 的扣點測試也通過了。
+
+  ┌───────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────┐
+  │           測試            │                                           結果                                             │
+  ├───────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
+  │ 19 秒的 YouTube           │ runner = local，done，扣了一次 −1，餘額 39 → 38                                             │
+  ├───────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
+  │ 3 分 33 秒的              │ insufficient_credits，訊息是「needs 4, you have 2」。沒有逐字稿，表示 Whisper                │
+  │ YouTube，餘額 2           │ 沒有跑，也沒有扣點紀錄                                                                      │
+  └───────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────┘
+
+  我已經從帳本把你的餘額還原成 38。
+
+  distributor 現在可以按 Ctrl+C 關掉。 開著的話，它會繼續接 production 上其他人交回本機的工作。
+
+  checklist 的結果已經更新到 docs/milestone-checklist.md：G4 改成通過，總計 40 項裡 39 項通過。剩下的 F2 是部分完成：我沒有查 Vercel log，而是用 Stripe 的 pending_webhooks: 0 證明 webhook 有回 2xx。
+
+  本機 main 現在比 origin/main 多 3 個 commit，都只有文件和 skill 的修改，還沒 push：
+  - d43ced0：M2 文件，以及修正 skill 裡 webhook 的 .get() bug
+  - 1e686db：checklist 結果
+  - 01804eb：補上 G4
+
+# 加上分頁
+❯ Your transcriptions / 你的逐字稿 and History / 紀錄 都會一直增加 加上每頁比數及翻頁功能
+
+# fix confuse
+❯ 若已登入在主畫面還是會看到 Sign in and Get Started free button 容易誤會
+
+# ask url
+❯ transcription  一定要是 url , local file 不行?
+# response 
+對，目前只能貼網址，不能選電腦上的檔案。
+為什麼只能用網址
+  - 整條流程都假設影片在網路上。jobs 只存 video_source_url；plan 用 ffmpeg 讀網址測長度；每個 chunk 用 HTTP Range 只抓自己那 10 分鐘。
+  - Vercel function 的 request body 上限是 4.5 MB，所以不能把影片直接 POST 給 API。
+要支援本機檔案，最省事的做法
+讓瀏覽器把檔案直接上傳到雲端儲存，拿到網址後交給現有的流程。後端幾乎不用改。
+  1. /upload 多一個選檔欄位。瀏覽器直接上傳到 Supabase Storage，放在 video-read 的私有 bucket，路徑用 <user_id>/...，用 RLS 限制每個人只能存取自己的資料夾。
+  2. Insert job 時，video_source_url 存成這個檔案在 storage 裡的位置。
+  3. plan 和 chunk 處理前，用 secret key 產生一個短效的 signed URL 再交給 ffmpeg。每次重新產生，就不用擔心重試時網址已經過期。SSRF 檢查也會過，因為那是 Supabase 的公開網域。
+  4. Job 完成或失敗後刪掉檔案，避免占空間。
+要先確認的限制
+  - 單檔大小： Supabase Free plan 每個檔案預設上限 50 MB，大概只夠十幾分鐘的 720p 影片；Pro plan 才能調到 GB 等級。另一個選項是 Vercel Blob 的 client upload，可以傳很大的檔案，但要另外計費。
+  - 共用專案： Storage 是幾個 app 共用的，bucket 名稱和 policy 要明確綁 video-read，不能動到其他 app 的 bucket。
+  - 折衷方案： 先在瀏覽器把影片轉成音訊再上傳，例如用 ffmpeg.wasm。一小時的影片轉成音訊約 30 MB，連 50 MB 上限都夠用。缺點是前端比較重，轉檔也比較慢。
+```
+
+#### set domain name
+``` bash
+# udemy-coupon.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host                  | Value                 | TTL.     | 
+    | CNAME Record| ai-video-speedreader  |  94562707f12e39ca.vercel-dns-017.com.| Automatic| 
+      ps: 1. 94562707f12e39ca.vercel-dns-017.com. 後面的點是自動加上去
+          2. 本來有問題,使用 vercel 建議 value
+
+# Vercel setting - ai-video-speedreader
+Vercel 專案 ai-video-speedreader
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "ai-video-speedreader.roberthut.com"
+  --> Save
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
 ```
 
 ### Ref
@@ -3680,6 +4513,8 @@ cd D:\work\run\claude\ai-video-speedreader\worker
   + [generate checklist m0 - claude](https://claude.ai/chat/360e752c-79e7-8817-ac0a-8200e746b522)
   + [claude-2-ai-video-speedreader m1-main-feature](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m1-main-feature/.claude/skills)
   + [generate m1 skill - claude](https://claude.ai/chat/4ffcda4a-bef5-4455-9389-1823a5fe2c33)
+  + [claude-2-ai-video-speedreader m2-credit-payment](https://github.com/uopsdod/claude-2-ai-video-speedreader/tree/m2-credit-payment/.claude/skills)
+  + [generate m2 skill - claude](https://claude.ai/chat/e8100d78-6d34-40a8-9a18-8d619d1457bb)
 + Discuss
   + [ m1-code-flight-price-checker - Claude](https://claude.ai/cowork/cse_01JEvUKxS1zr4GpqeXbDF1G7)
   + [AI 機票價格追蹤 discuss Blog](https://claude.ai/cowork/cse_014DxgXT2gBy8CyfX7u9CMr7?artifact=cfaf5c03-debf-491d-9cde-ba11596b4fd8)
