@@ -4497,6 +4497,22 @@ Vercel 專案 ai-video-speedreader
   --> Save
   --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
   --> Save
+
+# change for domain change
+# stripe 改網域
+Developers
+  --> Webhooks
+  --> my Event destination
+  --> Edit
+    Endpoint URL : https://ai-video-speedreader.roberthut.com/api/stripe/webhook
+# supabase project 加上 Redirect URLs
+URL Configuration
+  --> add url : 
+Redirect URLs 加上 : https://ai-video-speedreader.roberthut.com/auth/confirm** 
+
+```
+
+``` bash
 ```
 
 ### Ref
