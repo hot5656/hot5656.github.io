@@ -8,7 +8,17 @@ import { Save, Eye, Edit3, ArrowLeft, Upload, X, Image as ImageIcon, Link, Penci
 import { supabase } from '../lib/supabase';
 import { ImageGallery } from '../components/ImageGallery';
 import { useLocalePath } from '../hooks/useLocalePath';
+import { MarkdownParagraph } from '../components/MarkdownParagraph';
 import 'highlight.js/styles/github-dark.css';
+
+const SLUG_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+const SLUG_LENGTH = 8;
+
+// 產生 8 碼隨機網址代碼（a-z0-9），例如 k3x9p2qa
+function generateSlug() {
+  const bytes = crypto.getRandomValues(new Uint8Array(SLUG_LENGTH));
+  return Array.from(bytes, (b) => SLUG_CHARS[b % SLUG_CHARS.length]).join('');
+}
 
 export function PostEditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +37,8 @@ export function PostEditorPage() {
 
   const [formData, setFormData] = useState({
     title: '',
-    slug: '',
+    // 新文章建立時產生一次短網址代碼；編輯舊文章時由 loadPost 帶入原本的 slug，不會變動
+    slug: id ? '' : generateSlug(),
     content: '',
     excerpt: '',
     cover_image_url: '',
@@ -81,22 +92,8 @@ export function PostEditorPage() {
     }
   }
 
-  function generateSlug(title: string) {
-    const timestamp = Date.now().toString(36);
-    const baseSlug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .substring(0, 50);
-    return baseSlug ? `${baseSlug}-${timestamp}` : `post-${timestamp}`;
-  }
-
   function handleTitleChange(title: string) {
-    setFormData(prev => ({
-      ...prev,
-      title,
-      slug: generateSlug(title),
-    }));
+    setFormData(prev => ({ ...prev, title }));
   }
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -706,6 +703,7 @@ export function PostEditorPage() {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
                 components={{
+                  p: MarkdownParagraph,
                   img: ({ node, ...props }) => (
                     <img {...props} className="rounded-lg w-full" loading="lazy" />
                   ),

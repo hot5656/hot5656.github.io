@@ -65,7 +65,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       const { data, error } = await supabase
         .from('roberthut_projects')
         .select('*')
-        .order('order_num', { ascending: true });
+        .order('order_num', { ascending: false });
 
       if (error) throw error;
       setAllProjects(data || []);
@@ -135,10 +135,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   async function updateProjectOrder(newProjects: Project[]) {
     try {
+      // 列表由新到舊顯示，最上面的專案 order_num 最大
       const updates = newProjects.map((p, index) =>
         supabase
           .from('roberthut_projects')
-          .update({ order_num: index + 1 })
+          .update({ order_num: newProjects.length - index })
           .eq('id', p.id)
       );
 

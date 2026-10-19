@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import { Calendar, Tag, ArrowLeft } from 'lucide-react';
+import { MarkdownParagraph } from '../components/MarkdownParagraph';
 import { supabase, Post } from '../lib/supabase';
 import { useLocalePath } from '../hooks/useLocalePath';
 import 'highlight.js/styles/github-dark.css';
@@ -123,6 +124,7 @@ export function PostDetailPage() {
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
           components={{
+            p: MarkdownParagraph,
             img: ({ node, className, ...props }) => (
               <img
                 {...props}

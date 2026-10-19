@@ -5,6 +5,10 @@ import ReactMarkdown from 'react-markdown';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
 import ProjectModal from '../components/ProjectModal';
+import { usePageParam } from '../hooks/usePageParam';
+import { Pagination } from '../components/Pagination';
+
+const PROJECTS_PER_PAGE = 6;
 
 interface Project {
   id: string;
@@ -20,30 +24,47 @@ interface Project {
 }
 
 export default function PortfolioPage() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const { isAdmin } = useAuth();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [ogImages, setOgImages] = useState<Record<string, string>>({});
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const { currentPage, goToPage } = usePageParam();
 
   const isZh = i18n.language === 'zh-TW';
+  const totalPages = Math.max(1, Math.ceil(totalCount / PROJECTS_PER_PAGE));
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [currentPage]);
 
   async function fetchProjects() {
+    setLoading(true);
     try {
-      const { data, error } = await supabase
+      const from = (currentPage - 1) * PROJECTS_PER_PAGE;
+      const to = from + PROJECTS_PER_PAGE - 1;
+
+      const { data, error, count } = await supabase
         .from('roberthut_projects')
-        .select('*')
-        .order('order_num', { ascending: true });
+        .select('*', { count: 'exact' })
+        .order('order_num', { ascending: false })
+        .range(from, to);
 
       if (error) throw error;
 
+      const total = count ?? 0;
+      const lastPage = Math.max(1, Math.ceil(total / PROJECTS_PER_PAGE));
+      // 頁碼超出範圍時（例如刪除專案後）導回最後一頁
+      if (currentPage > lastPage) {
+        goToPage(lastPage);
+        return;
+      }
+
       setProjects(data || []);
+      setTotalCount(total);
 
       if (data) {
         data.forEach(project => {
@@ -184,6 +205,12 @@ export default function PortfolioPage() {
           </article>
         ))}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={goToPage}
+      />
 
       {projects.length === 0 && (
         <div className="text-center py-20 bg-white rounded-lg border border-stone-200">

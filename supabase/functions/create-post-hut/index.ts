@@ -7,25 +7,13 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-n8n-api-key",
 };
 
-// 產生 slug：小寫、空白變 -、移除特殊符號，最後加一段隨機碼避免重複
-function makeSlug(title: string): string {
-  if (!title) return crypto.randomUUID(); // 保底
+const SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789";
+const SLUG_LENGTH = 8;
 
-  let slug = title.toLowerCase().trim();
-
-  // 空白 → -
-  slug = slug.replace(/\s+/g, "-");
-
-  // 僅保留英數、-、_（如果你想包含中文，可以改這行）
-  // slug = slug.replace(/[^a-z0-9-_]/g, "");
-
-  // 合併多個 -，去掉頭尾 -
-  slug = slug.replace(/-+/g, "-").replace(/^-+|-+$/g, "");
-
-  // 隨機碼（用 UUID 截一段）
-  const rand = crypto.randomUUID().slice(0, 7); // 例如 mji1v5fp[web:67][web:80]
-
-  return slug ? `${slug}-${rand}` : rand;
+// 產生 8 碼隨機網址代碼（a-z0-9），例如 k3x9p2qa；與前台 PostEditorPage 相同規則
+function makeSlug(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(SLUG_LENGTH));
+  return Array.from(bytes, (b) => SLUG_CHARS[b % SLUG_CHARS.length]).join("");
 }
 
 serve(async (req) => {
@@ -152,9 +140,9 @@ serve(async (req) => {
       ? tagsString.split(",").map((tag) => tag.trim()).filter(Boolean)
       : [];
 
-    // 🔧 自動生成 slug（若 n8n 沒傳或為空字串，就用標題自動產生）
+    // 🔧 自動生成 slug（若 n8n 沒傳或為空字串，就產生 8 碼隨機代碼）
     const finalSlug =
-      slugInput && slugInput.trim() !== "" ? slugInput : makeSlug(title);
+      slugInput && slugInput.trim() !== "" ? slugInput : makeSlug();
 
     console.log("📝 Inserting post:", {
       title: title.substring(0, 30),

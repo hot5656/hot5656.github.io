@@ -153,7 +153,10 @@
     "save": "儲存",
     "delete": "刪除",
     "edit": "編輯",
-    "back": "返回"
+    "back": "返回",
+    "pagination": "分頁",
+    "prevPage": "上一頁",
+    "nextPage": "下一頁"
   },
   "tools": {
     "title": "工具箱",

@@ -4,27 +4,50 @@ import { useTranslation } from 'react-i18next';
 import { Calendar, Tag } from 'lucide-react';
 import { supabase, Post } from '../lib/supabase';
 import { useLocalePath } from '../hooks/useLocalePath';
+import { usePageParam } from '../hooks/usePageParam';
+import { Pagination } from '../components/Pagination';
+
+const POSTS_PER_PAGE = 6;
 
 export function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const { currentPage, goToPage } = usePageParam();
   const { t, i18n } = useTranslation();
   const localePath = useLocalePath();
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const totalPages = Math.max(1, Math.ceil(totalCount / POSTS_PER_PAGE));
 
-  async function loadData() {
+  useEffect(() => {
+    loadData(currentPage);
+  }, [currentPage]);
+
+  async function loadData(page: number) {
+    setLoading(true);
     try {
-      const { data, error } = await supabase
+      const from = (page - 1) * POSTS_PER_PAGE;
+      const to = from + POSTS_PER_PAGE - 1;
+
+      const { data, error, count } = await supabase
         .from('roberthut_posts')
-        .select('*')
+        .select('*', { count: 'exact' })
         .eq('published', true)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range(from, to);
 
       if (error) throw error;
+
+      const total = count ?? 0;
+      const lastPage = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+      // 頁碼超出範圍時導回最後一頁
+      if (page > lastPage) {
+        goToPage(lastPage);
+        return;
+      }
+
       setPosts(data || []);
+      setTotalCount(total);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -134,6 +157,12 @@ export function HomePage() {
           );
         })}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={goToPage}
+      />
     </div>
   );
 }
