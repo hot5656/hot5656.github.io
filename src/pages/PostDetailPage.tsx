@@ -100,7 +100,7 @@ export function PostDetailPage() {
           {displayTitle}
         </h1>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-stone-500">
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-stone-600">
           <time className="flex items-center gap-1.5">
             <Calendar className="w-4 h-4" />
             {new Date(post.created_at).toLocaleDateString(i18n.language === 'zh-TW' ? 'zh-TW' : 'en-US', {
@@ -117,7 +117,7 @@ export function PostDetailPage() {
                 {displayTags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-0.5 bg-stone-100 text-stone-700 rounded-full text-xs"
+                    className="px-3 py-1 bg-stone-200/70 text-stone-800 rounded-full text-[13px]"
                   >
                     {tag}
                   </span>
