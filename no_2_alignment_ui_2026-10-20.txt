@@ -1,0 +1,997 @@
+ ▐▛███▛█   Claude Code v2.1.304
+▝▜██████▀  Opus 5.5 · Claude Pro
+ ▝▝   ▝▝   D:\work\run\claude\robert-hut
+
+
+❯ please check with github, local is the lastes version                         
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+● I couldn't check GitHub from here because the connection to the remote failed:
+
+  remote: Repository not found.
+  fatal: Authentication failed for 'https://github.com/hot5656/robert-hut.git/'
+
+  What I can see locally:
+  - You're on main, the working tree is clean, and the latest commit is 9bd451c 
+    Add pagination, short post slugs, YouTube embeds, and docs.
+  - Local main and origin/main point to the same commit (0 ahead, 0 behind). But
+    that reflects the last successful fetch, not GitHub right now, so I can't
+    confirm what's on GitHub today.
+
+  Likely causes:
+  1. The repo is private and the saved Git Credential Manager login has expired
+     or belongs to a different account. GitHub returns "not found" instead of
+     "forbidden" for private repos you can't access.
+  2. The repo was renamed, moved, or deleted on GitHub, so hot5656/robert-hut no
+     longer exists at that URL.
+
+  What to try:
+  - Run ! git fetch origin here. That runs it in your own terminal, where Git
+    Credential Manager can show a login prompt; this session can't show one.
+  - Or open https://github.com/hot5656/robert-hut in your browser to check that
+    it exists under that name. If it was renamed, point the remote at the new
+    URL with git remote set-url origin <new-url>.
+
+  Once fetching works, I'll compare the two. If local is ahead as you expect, I
+  can push it, but only after you confirm.
+
+✻ Crunched for 2m 37s · done 2:14 PM
+
+❯ can you use claude check remote github?                                       
+
+● Fetch(https://api.github.com/repos/hot5656/robert-hut/commits/main)
+  ⎿  Received 0 bytes (404 Not Found)
+
+● Skill(claude-in-chrome)
+  ⎿  Successfully loaded skill
+
+  Called claude-in-chrome (ctrl+o to expand)
+
+● Opening the repo's commits page in Chrome, where you're logged in to GitHub.
+
+  Called claude-in-chrome 3 times (ctrl+o to expand)
+
+● I tried two ways, and neither got through:
+
+  1. GitHub's public API without a login: it returned 404 Not Found. GitHub
+     gives that response both for private repos and for repos that don't exist,
+     so hot5656/robert-hut is either private or no longer at that URL.
+  2. Your Chrome browser, where you're logged in to GitHub: Chrome refused with
+     "This site is blocked by your site permissions." The Claude in Chrome
+     extension isn't allowed to open github.com.
+
+  Ways to unblock it (pick one):
+  - Allow GitHub for Claude in Chrome: open the extension's settings, add
+    github.com to the allowed sites, and tell me. I'll then open the commits
+    page and compare it with local 9bd451c.
+  - Log in again in this terminal: run ! git fetch origin, which may show a
+    login prompt. Then I can compare with git directly.
+  - Install the GitHub CLI: run ! winget install GitHub.cli, then ! gh auth 
+    login, and I can query the repo with gh.
+
+  If the repo turns out to be private and your local copy is ahead, I'll push
+  only after you confirm.
+
+✻ Crunched for 57s · done 2:15 PM
+
+❯ stop                                                                          
+
+● I've stopped and didn't change anything. Your local repo is untouched, nothing
+  was pushed, and I closed the Chrome tab I opened.
+
+✻ Brewed for 5s · done 2:15 PM
+
+❯ I mean it is git respo so use it can check remote , not through vscode or     
+  claude ?                                                                      
+
+● Yes, git can check the remote directly, and that's what I tried first. I ran
+  git fetch origin and git ls-remote origin, and both failed with:
+
+  remote: Repository not found.
+  fatal: Authentication failed for 'https://github.com/hot5656/robert-hut.git/'
+
+  Git has to log in to GitHub to read the remote, and it's failing at that step.
+  Your saved credential has probably expired or belongs to another account, and
+  GitHub hides private repos behind "Repository not found." When git needs a
+  login it opens a sign-in window, but my session can't show one, so git gives
+  up.
+
+  Run the check yourself in a normal terminal (or type it here with ! in front)
+  so the login window can appear:
+
+  git fetch origin
+  git status -sb
+  git rev-list --left-right --count main...origin/main
+
+  Read the last line's output as "local ahead / remote ahead":
+  - 0 0: GitHub matches your local.
+  - 1 0 (or any number then 0): local is newer, and git push will update GitHub.
+  - A non-zero second number: GitHub has commits you don't have locally.
+
+  If the login window doesn't appear or fails again, open
+  https://github.com/hot5656/robert-hut while logged in. That shows whether the
+  repo still exists under that name.
+
+✻ Crunched for 8s · done 2:16 PM
+
+※ recap: You want to confirm GitHub matches your local robert-hut repo, but git's GitHub login fails from my session. Next, run `git fetch origin` in your own terminal so the login window can appear. (disable recaps in /config)
+
+❯ fetch is ok, so you can check it                                              
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● GitHub and your local copy are the same. Local main and origin/main both point
+  to 9bd451c Add pagination, short post slugs, YouTube embeds, and docs, with 0
+  commits ahead and 0 behind, and your working tree is clean.
+
+  So there's nothing to push. That commit is already on GitHub.
+
+  This comparison uses the data from the fetch you just ran. My own fetch from
+  this session still can't log in to GitHub, but that doesn't affect the result.
+
+✻ Sautéed for 18s · done 3:17 PM
+
+※ recap: You wanted to know if your local robert-hut repo matches GitHub. After your fetch, both are on the same commit (9bd451c) with nothing to push, so no next action is needed. (disable recaps in /config)
+
+❯ please run the app server at local                                            
+
+  Read 1 file, ran 3 shell commands (ctrl+o to expand)
+
+● The dev server is running at http://localhost:5173/ and the page loads (it
+  returned HTTP 200). Opening that address takes you to /blog, the English blog.
+
+  The Chinese version of the site is at http://localhost:5173/zh-tw/blog. The
+  server keeps running in the background; tell me when you want me to stop it.
+
+✻ Churned for 1m 51s · done 3:31 PM
+
+※ recap: You wanted to confirm GitHub matches your local repo, and it does, with nothing to push. The dev server is now running at http://localhost:5173/, so the next step is opening it in your browser. (disable recaps in /config)
+
+❯ ask only: 單一 blog post                                                      
+  分享到 LinkedIn 或 FB 時，預覽不會顯示這篇文章                                
+                                                                                
+  頁面的分享資訊用的都是整個網站的預設值：                                      
+                                                                                
+  標題是「Robert Hut」                                                          
+  og:url 指向首頁                                                               
+  圖片是網站的 banner                                                           
+  沒有文章描述                                                                  
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+● 為什麼分享單篇文章時預覽不對
+
+  原因：這個網站是 SPA，但 LinkedIn 和 Facebook 的爬蟲不會執行 JavaScript。
+
+  1. vercel.json 把所有路徑（包括 /post/:slug）都導向同一份 index.html。
+  2. index.html 裡的 OG 標籤是寫死的：og:title 是「Robert Hut」，og:url
+     是首頁，og:image 是網站 banner，也沒有 og:description。
+  3. 文章內容要等 React 在瀏覽器執行後才去 Supabase 讀取。爬蟲只看第一次收到的
+     HTML，所以只看得到上面那組預設值。
+  4. 另外，PostDetailPage 也完全沒有設定 title 或 meta。不過就算在前端用
+     react-helmet 之類的方式補上，爬蟲還是看不到，因為它們同樣不執行 JS。
+
+  解法：讓 Vercel 在伺服器端回傳 /post/:slug 時，就把這篇文章的 OG 標籤放進 HTML
+  裡。
+
+  - 新增一個 Vercel Function，例如 api/post-og.ts，並在 vercel.json 把
+    /post/:slug 和 /zh-tw/post/:slug 改導到這個函式。
+  - 函式用 slug 向 Supabase 查詢文章（只查 published = true 的），然後把
+    index.html 裡的標籤換成文章的資料：
+    - og:title 和 <title>：文章標題（英文路徑用 eng_title，沒有的話用 title）
+    - og:description：excerpt 或 eng_excerpt
+    - og:image：cover_image_url，沒有封面圖就用原本的 banner
+    - og:url：這篇文章的完整網址
+    - og:type：article
+  - 一般使用者拿到的還是同一個 SPA，畫面不會有任何變化，只是 HTML 開頭的 meta
+    換成了這篇文章的資料。
+  - 部署後，用 Facebook Sharing Debugger
+    (https://developers.facebook.com/tools/debug/) 和 LinkedIn Post Inspector
+    (https://www.linkedin.com/post-inspector/)
+    重新抓取網址，舊的預覽快取才會更新。
+
+  需要你先決定的兩件事：
+  - 沒有封面圖的文章，要用網站 banner，還是改用文章內的第一張圖片？
+  - 前端是否也要一起設定
+    document.title？這樣瀏覽器分頁會顯示文章標題，但跟分享預覽無關。
+
+  你說只是問問題，所以我還沒改任何程式。要我開始實作的話跟我說。
+
+✻ Cooked for 32s · done 3:40 PM
+
+※ recap: You want LinkedIn and Facebook to show each blog post's own title, description and image when it's shared. I've explained why they don't and proposed a server-side fix, but haven't changed any code; tell me if I should implement it.
+
+❯ 本 app 有 banner ?                                                            
+  Ran 1 shell command (ctrl+o to expand)
+
+● 有，但只用在社群分享上。
+
+  public/roberthut-og-banner.png（1138×765）是專門做給分享預覽用的圖片。它只在
+  index.html 的 og:image 和 twitter:image
+  被引用，網站畫面上的任何元件都沒有用到它。
+
+  所以前面我說「沒有封面圖時用網站 banner」，指的就是這張圖，也就是現在 LinkedIn
+  和 FB 每篇文章都顯示的那張。
+
+✻ Churned for 26s · done 3:48 PM
+
+❯  前端一起設定 document.tille, 沒有封面圖的文章，改用文章內的第一張圖片        
+  開始實做                                                                      
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Plan: a self-contained Vercel Function, api/post-og.ts, that puts each post's
+  OG tags into the HTML, plus document.title on the post page.
+
+● Write(api\post-og.ts)
+  ⎿  Wrote 123 lines to api\post-og.ts
+       1 // Vercel Function: serves index.html for /post/:slug and /zh-tw
+         /post/:slug with
+          run the SPA's JS.
+       3 
+       4 declare const process: { env: Record<string, string | undefined>
+       5 
+       6 interface PostRow {
+       7   title: string;
+       9   content: string;
+      10   cover_image_url: string | null;
+     … +128 lines (ctrl+o to expand)
+
+● Write(vercel.json)
+  ⎿  Added 5 lines, removed 1 line
+      1  {
+      2 -  "rewrites": [{ "source": "/:path*", "destination": "/index.htm
+        -l" }]                                                           
+      2 +  "rewrites": [                                                 
+      3 +    { "source": "/post/:slug", "destination": "/api/post-og?slug
+        +=:slug" },                                                      
+      4 +    { "source": "/zh-tw/post/:slug", "destination": "/api/post-o
+        +g?slug=:slug&locale=zh-TW" },                                   
+      5 +    { "source": "/:path*", "destination": "/index.html" }       
+      6 +  ]                                                             
+      7  }
+
+● Update(src\pages\PostDetailPage.tsx)
+  ⎿  Added 9 lines
+      21      if (slug) loadPost(slug);
+      22    }, [slug]);
+      23  
+      24 +  const titleForTab = post ? (i18n.language === 'en' && post.en
+         +g_title) || post.title : null;                                 
+      25 +  useEffect(() => {                                            
+      26 +    if (!titleForTab) return;                                  
+      27 +    document.title = `${titleForTab} | Robert Hut`;            
+      28 +    return () => {                                             
+      29 +      document.title = 'Robert Hut';                           
+      30 +    };                                                         
+      31 +  }, [titleForTab]);                                           
+      32 +                                                               
+      33    async function loadPost(slug: string) {
+      34      try {
+      35        const { data, error } = await supabase
+
+● Now checking types, lint, and build, and then testing the function against
+  real data.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● The typecheck and lint errors were all there before my change; none are in my
+  new code. Fixing the --lib flag and compiling the function so I can test it:
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+● The function type-checks cleanly. Now running it against real posts, using the
+  dev server as the source of index.html:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● All 50 recent posts have cover images, so I'll test the first-image and banner
+  fallbacks with a mocked post:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Everything works. Adding a note to CLAUDE.md:
+
+● Update(CLAUDE.md)
+  ⎿  Added 1 line
+      34  
+      35  ### Posts
+      36  - Post URLs are `/post/:slug`. New slugs are random 8-char `[a-
+          z0-9]` codes, generated once when the editor opens a new post (
+          `PostEditorPage`) or by `create-post-hut` when n8n sends no slu
+          g. Existing slugs are never regenerated — older posts have long
+           title-based slugs and their links must keep working.
+      37 +- Share previews: social crawlers don't run JS, so `vercel.json
+         +` rewrites `/post/:slug` and `/zh-tw/post/:slug` to the Vercel 
+         +Function `api/post-og.ts`, which serves `index.html` with the p
+         +ost's OG/Twitter tags (image: `cover_image_url` → first markdow
+         +n image → site banner). It only runs on Vercel, not under `npm 
+         +run dev`. `PostDetailPage` sets `document.title` client-side.  
+      38  - Markdown is rendered with `react-markdown` + `remark-gfm` + `
+          rehype-highlight`; raw HTML is intentionally not enabled. The p
+          ost page and the editor preview share `components.p = MarkdownP
+          aragraph`, which turns a paragraph containing only a YouTube li
+          nk into an embedded `youtube-nocookie.com` player (URL parsing 
+          in `src/lib/youtube.ts`).
+      39  
+      40  ### Pagination
+
+● 完成了。分享單篇文章時，預覽會顯示這篇文章的標題、描述和圖片，瀏覽器分頁也會顯
+  示文章標題。不過這部分在本機看不到效果，要部署到 Vercel 之後才會生效。
+
+  修改了哪些檔案
+  - api/post-og.ts（新增）：一個 Vercel Function。收到 /post/:slug 或
+    /zh-tw/post/:slug 的請求時，它先向 Supabase 讀取這篇已發布的文章，再回傳
+    index.html，但把裡面的分享資訊換成這篇文章的：
+    - 標題：英文路徑優先用英文標題，沒有的話用中文標題。<title> 是「文章標題 |
+      Robert Hut」。
+    - 描述：有摘要就用摘要；沒有的話，從內文去掉 Markdown 語法後取前 160 字。
+    - 圖片：先用封面圖；沒有封面就用文章內的第一張圖片；文章裡也沒有圖片的話，才
+      用網站 banner。
+    - 網址：這篇文章的完整網址，類型設為 article。
+    - 找不到文章或讀取失敗時，就照原樣回傳 index.html，頁面還是會正常顯示。
+  - vercel.json：讓上面兩種文章路徑交給這個函式處理，其他路徑跟以前一樣。
+  - PostDetailPage.tsx：文章載入後，瀏覽器分頁標題會變成「文章標題 | Robert
+    Hut」，離開文章頁時恢復成「Robert Hut」。
+  - CLAUDE.md：加了一段說明這個機制。
+
+  測試結果
+  - 用正式資料庫中一篇有封面圖的文章測試，產生的標題、描述和封面圖網址都正確。最
+    近 50 篇文章都有封面圖，所以「用內文第一張圖片」和「用
+    banner」這兩種情況是用模擬的文章資料測的，兩種都正確，中英文版本都有測，標題
+    裡的特殊字元也有正確處理。
+  - npm run build 成功。typecheck 和 lint 有錯誤，但都是原本就存在的問題，不在這
+    次修改的程式碼裡；新函式另外單獨檢查過型別，沒有錯誤。
+  - 分頁標題的效果我沒有在瀏覽器裡實際確認。
+
+  部署後要注意
+  - 每篇文章的分享資訊會在 CDN 快取 5 分鐘，所以修改文章後，預覽最多要等 5
+    分鐘才會更新。
+  - 這個函式會從你目前網站的網址讀取 index.html。如果 Vercel 的 Preview
+    部署有開啟密碼保護，在 Preview 上可能讀不到，但正式網站不受影響。
+  - 已經分享過的網址，FB 和 LinkedIn 會保留舊的預覽。需要用 Facebook Sharing
+    Debugger (https://developers.facebook.com/tools/debug/) 和 LinkedIn Post
+    Inspector (https://www.linkedin.com/post-inspector/) 重新抓取一次。
+
+  我還沒有 commit 或 push，要我幫你 commit 的話跟我說。
+
+✻ Brewed for 5m 30s · done 3:58 PM
+
+※ recap: 目標是讓 LinkedIn 和 FB 分享單篇文章時顯示該文章的標題、描述和圖片，並讓瀏覽器分頁顯示文章標題，這部分已完成並測試過。下一步是你決定要不要讓我 commit 並部署到 Vercel。
+
+❯ ask only : blog post ## .. 內容改為粗體字是不是較容易閱讀? 你也幫我檢查一下   
+  UI 有沒有可改善的地方                                                         
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● I'll also look at the actual post page in Chrome:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● That also confirms the tab title from the last change works. Now checking how
+  it looks at phone width:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● ## 標題改粗體，會比較好讀嗎？
+
+  會，建議改。 我在瀏覽器裡實際看了文章頁。現在的 ##
+  標題是細體（font-light），只靠比內文大一點的字來區分；內文本身是一般粗細，兩者
+  的粗細差不多，往下捲動時標題不太突出。中文字筆畫多，細體在 Windows
+  上又會更淡，所以這個問題比英文更明顯。
+
+  建議改成：
+  - h2：font-light → font-semibold，字級可以從 md:text-3xl 縮小到
+    md:text-2xl。變粗以後就不需要靠大字來突顯，太大反而會壓過內文。
+  - h3：font-light → font-semibold。
+  - h4：維持 font-medium。
+  - 文章最上方的大標題可以保留細體，那是整篇的主標題，風格不一樣也沒關係。
+
+  只需要改 src/index.css 的 .md-content h2、h3 這兩行。
+
+  UI 可以改善的地方（依嚴重程度排列）
+
+  1. 手機上的導覽列跑版（最嚴重）
+  在手機寬度（約
+  400px）下，導覽列的「首頁、工具箱、作品集…」每個字都被擠成直排，「Robert
+  hut」也斷成兩行。整個頁首大約佔了畫面上方四分之一，而且固定在頂端不會捲走，閱
+  讀時一直擋住內容。頁面底部還出現了左右捲動軸。
+  → 建議手機版改成漢堡選單，或是只顯示圖示。我測試時是登入狀態，多了「管理、登出
+  」兩個選項，所以特別擠；但沒登入時一樣會擠。
+
+  2. 表格在手機上會撐破頁面
+  表格沒有放在可以左右捲動的容器裡，欄位一多就會把整頁撐寬。
+  → 在 ReactMarkdown 的 table 外面包一層 overflow-x-auto 的 div。
+
+  3. 內文字級偏小
+  內文大約是 16px。中文長文用 17–18px 會比較舒服，行距也可以從
+  leading-relaxed（1.625）調到 1.8。
+
+  4. 內文表格的表頭沒有明顯區分
+  表頭只用了 font-medium 加很淡的灰底，和資料列的差別不大。改成 font-semibold
+  會比較清楚。
+
+  5. 文章標題下的標籤字太小、太淡
+  日期和標籤是 12px 的淡灰色，不太容易看清楚，可以加深一點。
+
+  6. 大段落之間缺少分隔
+  這篇文章很長，h2 上方只有 mt-10 的空白，沒有其他分隔。可以在 h2
+  上方加一條細線（border-t pt-8），讓各段落更容易分辨。這項看個人喜好。
+
+  另外確認了上一次的修改：瀏覽器分頁標題已經會顯示「文字轉語音：一套流程，做出兩
+  支有聲示範影片 | Robert Hut」。
+
+  這次只回答問題，沒有改程式。我會優先處理第 1、2 項，然後是 ##
+  改粗體；要我開始做的話跟我說。
+
+✻ Churned for 1m 21s · done 4:09 PM
+
+❯ 1、2 項和 ## 粗體 開始實做                                                    
+
+  Searched for 1 pattern, read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● Starting the changes: the header layout, the table wrapper, and the heading
+  styles.
+
+● Update(src\components\Layout.tsx)
+  ⎿  Added 68 lines, removed 74 lines
+       49      navigate(localePath('/'));
+       50    }
+       51  
+       52 +  const navItems = [                                          
+       53 +    { path: '/blog', icon: Home, label: t('nav.home') },      
+       54 +    { path: '/tools', icon: Wrench, label: t('nav.tools') },  
+       55 +    { path: '/portfolio', icon: Briefcase, label: t('nav.portf
+          +olio') },                                                     
+       56 +    { path: '/about', icon: User, label: t('nav.about') },    
+       57 +    ...(isAdmin ? [{ path: '/admin', icon: Settings, label: t(
+          +'nav.admin') }] : []),                                        
+       58 +  ];                                                          
+       59 +                                                              
+       60 +  // 桌機（lg 以上）橫排；手機與平板收進漢堡選單、改直排      
+       61 +  const renderNavLinks = (mobile: boolean) => (               
+       62 +    <>                                                        
+       63 +      {navItems.map(({ path, icon: Icon, label }) => (        
+       64 +        <Link                                                 
+       65 +          key={path}                                          
+       66 +          to={localePath(path)}                               
+       67 +          className={`flex items-center gap-1.5 text-sm transi
+          +tion-colors font-medium rounded-lg ${                         
+       68 +            mobile ? 'px-3 py-3' : 'px-3 py-2'                
+       69 +          } ${                                                
+       70 +            isActivePath(path)                                
+       71 +              ? 'bg-stone-200 text-stone-900'                 
+       72 +              : 'text-stone-600 hover:text-stone-900 hover:bg-
+          +stone-100'                                                    
+       73 +          }`}                                                 
+       74 +        >                                                     
+       75 +          <Icon className="w-4 h-4" />                        
+       76 +          <span>{label}</span>                                
+       77 +        </Link>                                               
+       78 +      ))}                                                     
+       79 +      {isAdmin && (                                           
+       80 +        <button                                               
+       81 +          onClick={handleLogout}                              
+       82 +          className={`flex items-center gap-1.5 text-sm text-s
+          +tone-600 hover:text-red-600 transition-colors font-medium roun
+          +ded-lg hover:bg-stone-100 ${                                  
+       83 +            mobile ? 'px-3 py-3' : 'px-3 py-2'                
+       84 +          }`}                                                 
+       85 +          title={t('nav.logout')}                             
+       86 +        >                                                     
+       87 +          <LogOut className="w-4 h-4" />                      
+       88 +          <span>{t('nav.logout')}</span>                      
+       89 +        </button>                                             
+       90 +      )}                                                      
+       91 +    </>                                                       
+       92 +  );                                                          
+       93 +                                                              
+       94    return (
+       95      <div className="min-h-screen bg-stone-50 text-stone-900">
+       96        <header className="bg-white border-b border-stone-200 st
+           icky top-0 z-50 shadow-sm">
+       55 -        <nav className="max-w-5xl mx-auto px-6 py-6 flex items
+          --center justify-between">                                     
+       56 -          <Link to={localePath('/blog')} className="group flex
+          - items-center gap-3 hover:opacity-80 transition-opacity">     
+       97 +        <nav className="max-w-5xl mx-auto px-4 sm:px-6 py-3 lg
+          +:py-6 flex items-center justify-between gap-4">               
+       98 +          <Link to={localePath('/blog')} className="group flex
+          + items-center gap-3 shrink-0 hover:opacity-80 transition-opaci
+          +ty">                                                          
+       99              <div className="rounded-lg group-hover:shadow-lg t
+           ransition-shadow bg-white">
+      100                <img
+      101                  src="/Robert_hut_512_nb.png"
+      102                  alt="Robert hut"
+       61 -                className="w-14 h-14"                         
+      103 +                className="w-10 h-10 lg:w-14 lg:h-14"         
+      104                />
+      105              </div>
+      106              <div className="flex flex-col">
+       65 -              <span className="text-2xl font-semibold tracking
+          --tight text-stone-900">                                       
+      107 +              <span className="text-xl lg:text-2xl font-semibo
+          +ld tracking-tight text-stone-900 whitespace-nowrap">          
+      108                  Robert hut
+      109                </span>
+       68 -              <span className="text-base text-stone-500 tracki
+          -ng-wide">                                                     
+      110 +              <span className="text-sm lg:text-base text-stone
+          +-500 tracking-wide whitespace-nowrap">                        
+      111                  n8n, code & AI
+      112                </span>
+      113              </div>
+      114            </Link>
+      115  
+       74 -          <div className="flex items-center gap-6">           
+       75 -            <Link                                             
+       76 -              to={localePath('/blog')}                        
+       77 -              className={`flex items-center gap-1.5 text-sm tr
+          -ansition-colors font-medium px-3 py-2 rounded-lg ${           
+       78 -                isActivePath('/blog')                         
+       79 -                  ? 'bg-stone-200 text-stone-900'             
+       80 -                  : 'text-stone-600 hover:text-stone-900 hover
+          -:bg-stone-100'                                                
+       81 -              }`}                                             
+       82 -            >                                                 
+       83 -              <Home className="w-4 h-4" />                    
+       84 -              <span>{t('nav.home')}</span>                    
+       85 -            </Link>                                           
+       86 -            <Link                                             
+       87 -              to={localePath('/tools')}                       
+       88 -              className={`flex items-center gap-1.5 text-sm tr
+          -ansition-colors font-medium px-3 py-2 rounded-lg ${           
+       89 -                isActivePath('/tools')                        
+       90 -                  ? 'bg-stone-200 text-stone-900'             
+       91 -                  : 'text-stone-600 hover:text-stone-900 hover
+          -:bg-stone-100'                                                
+       92 -              }`}                                             
+       93 -            >                                                 
+       94 -              <Wrench className="w-4 h-4" />                  
+       95 -              <span>{t('nav.tools')}</span>                   
+       96 -            </Link>                                           
+       97 -            <Link                                             
+       98 -              to={localePath('/portfolio')}                   
+       99 -              className={`flex items-center gap-1.5 text-sm tr
+          -ansition-colors font-medium px-3 py-2 rounded-lg ${           
+      100 -                isActivePath('/portfolio')                    
+      101 -                  ? 'bg-stone-200 text-stone-900'             
+      102 -                  : 'text-stone-600 hover:text-stone-900 hover
+          -:bg-stone-100'                                                
+      103 -              }`}                                             
+      104 -            >                                                 
+      105 -              <Briefcase className="w-4 h-4" />               
+      106 -              <span>{t('nav.portfolio')}</span>               
+      107 -            </Link>                                           
+      108 -            <Link                                             
+      109 -              to={localePath('/about')}                       
+      110 -              className={`flex items-center gap-1.5 text-sm tr
+          -ansition-colors font-medium px-3 py-2 rounded-lg ${           
+      111 -                isActivePath('/about')                        
+      112 -                  ? 'bg-stone-200 text-stone-900'             
+      113 -                  : 'text-stone-600 hover:text-stone-900 hover
+          -:bg-stone-100'                                                
+      114 -              }`}                                             
+      115 -            >                                                 
+      116 -              <User className="w-4 h-4" />                    
+      117 -              <span>{t('nav.about')}</span>                   
+      118 -            </Link>                                           
+      119 -            {isAdmin && (                                     
+      120 -              <>                                              
+      121 -                <Link                                         
+      122 -                  to={localePath('/admin')}                   
+      123 -                  className={`flex items-center gap-1.5 text-s
+          -m transition-colors font-medium px-3 py-2 rounded-lg ${       
+      124 -                    isActivePath('/admin')                    
+      125 -                      ? 'bg-stone-200 text-stone-900'         
+      126 -                      : 'text-stone-600 hover:text-stone-900 h
+          -over:bg-stone-100'                                            
+      127 -                  }`}                                         
+      128 -                >                                             
+      129 -                  <Settings className="w-4 h-4" />            
+      130 -                  <span>{t('nav.admin')}</span>               
+      131 -                </Link>                                       
+      132 -                <button                                       
+      133 -                  onClick={handleLogout}                      
+      134 -                  className="flex items-center gap-1.5 text-sm
+          - text-stone-600 hover:text-red-600 transition-colors font-medi
+          -um px-3 py-2 rounded-lg hover:bg-stone-100"                   
+      135 -                  title={t('nav.logout')}                     
+      136 -                >                                             
+      137 -                  <LogOut className="w-4 h-4" />              
+      138 -                  <span>{t('nav.logout')}</span>              
+      139 -                </button>                                     
+      140 -              </>                                             
+      141 -            )}                                                
+      116 +          <div className="hidden lg:flex items-center gap-6"> 
+      117 +            {renderNavLinks(false)}                           
+      118              <LanguageSwitcher />
+      119            </div>
+      120 +                                                              
+      121 +          <button                                             
+      122 +            onClick={() => setMenuOpen((open) => !open)}      
+      123 +            className="lg:hidden p-2 -mr-2 rounded-lg text-sto
+          +ne-600 hover:text-stone-900 hover:bg-stone-100 transition-colo
+          +rs"                                                           
+      124 +            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+      125 +            aria-expanded={menuOpen}                          
+      126 +          >                                                   
+      127 +            {menuOpen ? <X className="w-6 h-6" /> : <Menu clas
+          +sName="w-6 h-6" />}                                           
+      128 +          </button>                                           
+      129          </nav>
+      130 +                                                              
+      131 +        {menuOpen && (                                        
+      132 +          <div className="lg:hidden border-t border-stone-200 
+          +px-4 sm:px-6 py-3 flex flex-col gap-1">                       
+      133 +            {renderNavLinks(true)}                            
+      134 +            <div className="pt-2 mt-1 border-t border-stone-10
+          +0">                                                           
+      135 +              <LanguageSwitcher />                            
+      136 +            </div>                                            
+      137 +          </div>                                              
+      138 +        )}                                                    
+      139        </header>
+      140  
+      147 -      <main className="max-w-5xl mx-auto px-6 py-12">         
+      141 +      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:
+          +py-12">                                                       
+      142          <Outlet />
+      143        </main>
+      144  
+
+● Update(src\components\Layout.tsx)  ⎿  Added 2 lines, removed 1 line
+      1 +import { useEffect, useState } from 'react';                    
+      2  import { Link, Outlet, useNavigate, useLocation } from 'react-ro
+         uter-dom';
+      2 -import { Home, Settings, User, LogOut, Wrench, Briefcase, Facebo
+        -ok, Github, Linkedin, Instagram, FileStack } from 'lucide-react'
+        -;                                                               
+      3 +import { Home, Settings, User, LogOut, Wrench, Briefcase, Facebo
+        +ok, Github, Linkedin, Instagram, FileStack, Menu, X } from 'luci
+        +de-react';                                                      
+      4  import { useTranslation } from 'react-i18next';
+      5  import { useAuth } from '../hooks/useAuth';
+      6  import { supabase } from '../lib/supabase';
+
+● Update(src\components\Layout.tsx)
+  ⎿  Added 8 lines, removed 1 line
+      25    //  t_nav_home: t('nav.home'),
+      26    //  t_nav_tools: t('nav.tools')
+      27    // });
+      28 -                                                               
+      28 +                                                               
+      29 +  const [menuOpen, setMenuOpen] = useState(false);             
+      30 +                                                               
+      31 +  // 換頁後自動收起手機選單                                    
+      32 +  useEffect(() => {                                            
+      33 +    setMenuOpen(false);                                        
+      34 +  }, [location.pathname]);                                     
+      35 +                                                               
+      36    // 🔥 等待 i18n 準備好
+      37    if (!ready) return <div>Loading...</div>;
+      38    
+
+● Update(src\pages\PostDetailPage.tsx)
+  ⎿  Added 6 lines
+      141                  className={['w-full', className].filter(Boolea
+           n).join(' ')}
+      142                />
+      143              ),
+      144 +            // 表格包一層可橫向捲動的容器，避免手機上撐破頁面 
+      145 +            table: ({ node, ...props }) => (                  
+      146 +              <div className="md-table-wrap">                 
+      147 +                <table {...props} />                          
+      148 +              </div>                                          
+      149 +            ),                                                
+      150              a: ({ node, className, ...props }) => (
+      151                <a
+      152                  {...props}
+
+● Update(src\index.css)
+  ⎿  Added 3 lines, removed 3 lines
+      42      @apply text-3xl md:text-4xl font-light leading-tight mt-10 
+          mb-6 text-stone-900;
+      43    }
+      44  
+      45 -  /* (微調點 #2) h2 字級：想更克制就把 md:text-3xl 改成 md:text
+         --[32px] 或更小 */                                              
+      45 +  /* (微調點 #2) h2/h3 用粗體區分段落；字級比細體時小一階，避免
+         +壓過內文 */                                                    
+      46    .md-content h2 {
+      47 -    @apply text-2xl md:text-3xl font-light leading-snug mt-10 m
+         -b-4 text-stone-900;                                            
+      47 +    @apply text-xl md:text-2xl font-semibold leading-snug mt-10
+         + mb-4 text-stone-900;                                          
+      48    }
+      49  
+      50    .md-content h3 {
+      51 -    @apply text-xl md:text-2xl font-light leading-snug mt-8 mb-
+         -3 text-stone-900;                                              
+      51 +    @apply text-lg md:text-xl font-semibold leading-snug mt-8 m
+         +b-3 text-stone-900;                                            
+      52    }
+      53  
+      54    .md-content h4 {
+
+● Update(src\index.css)
+  ⎿  Added 1 line, removed 1 line
+       95  
+       96    /* Inline code (avoid styling code inside pre) */
+       97    .md-content :not(pre) > code {
+       98 -    @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm text-sto
+          -ne-800;                                                       
+       98 +    @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm text-sto
+          +ne-800 [overflow-wrap:anywhere];                              
+       99    }
+      100  
+      101    /* Code block */
+
+● Update(src\index.css)
+  ⎿  Added 5 lines, removed 1 line
+      118    }
+      119  
+      120    /* Table */
+      121 +  .md-table-wrap {                                            
+      122 +    @apply my-6 overflow-x-auto;                              
+      123 +  }                                                           
+      124 +                                                              
+      125    .md-content table {
+      122 -    @apply my-6 w-full border-collapse;                       
+      126 +    @apply w-full border-collapse;                            
+      127    }
+      128  
+      129    .md-content th {
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● No type errors. The one new lint error (line 145) is the same unused-node
+  pattern already used on the two existing lines nearby. Now checking it in the
+  browser:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● The bold headings look right on desktop. The window didn't shrink to phone
+  width, so I'll resize it again:
+
+  Called claude-in-chrome (ctrl+o to expand)
+
+● The window won't resize (it's probably maximized). Instead, I'll load the page
+  inside a 390px-wide iframe and check it there:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● At phone width the page no longer scrolls sideways. The two wide tables scroll
+  inside their own box instead. Now checking the menu:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● The menu opens correctly. Now checking that it closes after choosing a page:
+
+  Called claude-in-chrome 2 times (ctrl+o to expand)
+
+● 三項都完成了，我在本機瀏覽器裡測試過，都能正常運作。
+
+  1. 手機版導覽列（src/components/Layout.tsx）
+  - 寬度 1024px
+    以上維持原本的橫排。比較窄的螢幕（手機和平板）改成右上角的漢堡按鈕
+    ☰，點開後選項直排，包括語言切換。點選任一頁面後，選單會自動收起。
+  - 手機上的頁首高度從大約四分之一個螢幕降到 73px，「Robert hut」也不會再斷行。
+  - 原本每個導覽連結是各寫一次，現在改成共用同一份清單，桌機和手機版都從這裡產生
+    。
+  - 手機上頁面左右的邊距從 24px 改成 16px，讓內文多一點空間。
+
+  2. 表格不再撐破頁面（PostDetailPage.tsx、index.css）
+  - 每個表格外面多包了一層可以左右捲動的容器。用 390px
+    寬度測試那篇文章時，整頁沒有左右捲動，比較寬的 2
+    個表格是在自己的範圍內左右捲動。
+  - 很長的行內程式碼（例如 zh-TW-HsiaoChenNeural）現在可以自動換行。
+
+  3. ## 標題改粗體（index.css）
+  - h2、h3 從細體改成 font-semibold，字級各縮小一階（h2 在桌機上是
+    24px），標題粗細維持不變。
+  - 文章最上方的大標題仍保留細體。
+
+  檢查結果
+  - 型別檢查沒有新的錯誤。
+  - lint 多了一個錯誤：表格那段的寫法跟旁邊原本的 img、a
+    一樣，所以有同樣的「node 沒有使用」錯誤。之前就有好幾個這類 lint
+    錯誤，要不要一起清掉由你決定。
+  - 我測試時是用管理員身分登入的，所以選單裡有「管理」和「登出」。沒登入時選項比
+    較少，版面只會更寬鬆。
+
+  一樣還沒有 commit，之前分享預覽的修改也還沒 commit。要我一起 commit
+  的話跟我說。
+
+✻ Sautéed for 4m 31s · done 4:14 PM
+
+❯ commit it                                                                     
+
+  Committed d004632, ran 1 shell command (ctrl+o to expand)
+
+● I committed it as d004632 Add per-post share previews and improve mobile post 
+  reading on main. That one commit has everything from this session: the
+  per-post share previews, the browser tab title, the mobile menu, the table and
+  inline-code fixes, and the bold headings.
+
+  It's not pushed yet, so local main is 1 commit ahead of GitHub. My own push
+  fails at the GitHub login, so run ! git push yourself when you're ready.
+  Vercel should then deploy it automatically.
+
+  After it deploys, run your post links through the Facebook Sharing Debugger
+  and LinkedIn Post Inspector once each. That makes them re-read the page and
+  replace the old previews.
+
+✻ Crunched for 1m 1s · done 4:17 PM
+
+❯ 修正 3-6 項                                                                   
+
+● Update(src\index.css)
+  ⎿  Added 2 lines, removed 1 line
+      33     Markdown content (no typography plugin)
+      34     ========= */
+      35  @layer components {
+      36 +  /* 中文長文：手機 17px、桌機 18px，行高 1.8 */               
+      37    .md-content {
+      37 -    @apply leading-relaxed;                                    
+      38 +    @apply text-[17px] sm:text-lg leading-[1.8];               
+      39    }
+      40  
+      41    /* Headings */
+
+● Update(src\index.css)
+  ⎿  Added 5 lines
+      48      @apply text-xl md:text-2xl font-semibold leading-snug mt-10
+           mb-4 text-stone-900;
+      49    }
+      50  
+      51 +  /* 大段落之間加細線分隔（文章開頭的第一個 h2 不加） */       
+      52 +  .md-content h2:not(:first-child) {                           
+      53 +    @apply mt-12 pt-8 border-t border-stone-200;               
+      54 +  }                                                            
+      55 +                                                               
+      56    .md-content h3 {
+      57      @apply text-lg md:text-xl font-semibold leading-snug mt-8 m
+          b-3 text-stone-900;
+      58    }
+
+● Update(src\index.css)
+  ⎿  Added 1 line, removed 1 line
+      91  
+      92    /* (微調點 #3) 列表行距：長句更好讀 */
+      93    .md-content li {
+      94 -    @apply mb-3 leading-relaxed;                               
+      94 +    @apply mb-3;                                               
+      95    }
+      96  
+      97    /* Blockquote */
+
+● Update(src\index.css)
+  ⎿  Added 1 line, removed 1 line
+      101  
+      102    /* Inline code (avoid styling code inside pre) */
+      103    .md-content :not(pre) > code {
+      104 -    @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm text-sto
+          -ne-800 [overflow-wrap:anywhere];                              
+      104 +    @apply bg-stone-100 px-1.5 py-0.5 rounded text-[0.85em] te
+          +xt-stone-800 [overflow-wrap:anywhere];                        
+      105    }
+      106  
+      107    /* Code block */
+
+● Update(src\index.css)
+  ⎿  Added 3 lines, removed 2 lines
+      128      @apply my-6 overflow-x-auto;
+      129    }
+      130  
+      131 +  /* 表格字級比內文小一點，欄位多時比較不擠 */                
+      132    .md-content table {
+      132 -    @apply w-full border-collapse;                            
+      133 +    @apply w-full border-collapse text-[15px] leading-relaxed;
+      134    }
+      135  
+      136    .md-content th {
+      136 -    @apply bg-stone-100 border border-stone-300 px-4 py-2 text
+          --left font-medium;                                            
+      137 +    @apply bg-stone-200/70 border border-stone-300 px-4 py-2 t
+          +ext-left font-semibold text-stone-900;                        
+      138    }
+      139  
+      140    .md-content td {
+
+● Update(src\pages\PostDetailPage.tsx)  ⎿  Added 1 line, removed 1 line
+      100            {displayTitle}
+      101          </h1>
+      102  
+      103 -        <div className="mt-4 flex flex-wrap items-center gap-x
+          --6 gap-y-3 text-sm text-stone-500">                           
+      103 +        <div className="mt-4 flex flex-wrap items-center gap-x
+          +-6 gap-y-3 text-sm text-stone-600">                           
+      104            <time className="flex items-center gap-1.5">
+      105              <Calendar className="w-4 h-4" />
+      106              {new Date(post.created_at).toLocaleDateString(i18n
+           .language === 'zh-TW' ? 'zh-TW' : 'en-US', {
+
+● Update(src\pages\PostDetailPage.tsx)
+  ⎿  Added 1 line, removed 1 line
+      117                  {displayTags.map((tag) => (
+      118                    <span
+      119                      key={tag}
+      120 -                    className="px-2.5 py-0.5 bg-stone-100 text
+          --stone-700 rounded-full text-xs"                              
+      120 +                    className="px-3 py-1 bg-stone-200/70 text-
+          +stone-800 rounded-full text-[13px]"                           
+      121                    >
+      122                      {tag}
+      123                    </span>
+
+● sm:text-lg also sets its own line height, which would override the 1.8 on
+  desktop. Switching it to a plain font size:
+
+● Update(src\index.css)
+  ⎿  Added 1 line, removed 1 line
+      35  @layer components {
+      36    /* 中文長文：手機 17px、桌機 18px，行高 1.8 */
+      37    .md-content {
+      38 -    @apply text-[17px] sm:text-lg leading-[1.8];               
+      38 +    @apply text-[17px] sm:text-[18px] leading-[1.8];           
+      39    }
+      40  
+      41    /* Headings */
+
+  Called claude-in-chrome 4 times (ctrl+o to expand)
+
+● The styles are applied correctly: body text is 18px with 1.8 line height, and
+  every h2 except the first has a divider line. Taking one more screenshot to
+  check how it looks:
+
+  Called claude-in-chrome 3 times, ran 1 shell command (ctrl+o to expand)
+
+● 第 3–6 項都改好了。我在本機瀏覽器量過頁面上實際套用的樣式，build 也成功了。
+
+  3. 內文字級和行距（index.css 的 .md-content）
+  - 內文在手機上是 17px，桌機上是 18px，行距 1.8。實際量到桌機上是 18px，行距
+    32.4px。
+  - 表格的字縮小到 15px，因為內文變大後，表格欄位會太擠。
+  - 行內程式碼改成跟著內文大小縮放（內文的 0.85 倍）。
+
+  4. 表格的表頭
+  - 表頭改成粗體，用比較深的灰底和深色文字，跟資料列比較好分辨。
+
+  5. 日期和標籤（PostDetailPage.tsx）
+  - 日期的顏色加深。
+  - 標籤從 12px 放大到 13px，留白和底色都加大，文字顏色也加深。
+
+  6. 大段落之間的分隔線
+  - 每個 ## 標題上方加了一條細線，上方的空白也加大。文章開頭的第一個 ##
+    不加線。實際量到第一個 ## 沒有線，後面的 8 個都有。
+
+  需要注意
+  - 我只拿到一張低解析度的整頁截圖，之後瀏覽器擴充功能的截圖一直逾時，所以沒有放
+    大看細節，也沒有在手機寬度下重新看一次這些改動。建議你在
+    http://localhost:5173/zh-tw/post/pdmmhd5i
+    自己看一下，特別是分隔線和標籤的感覺。
+  - 還沒有 commit。要我 commit 的話跟我說。
+
+✻ Sautéed for 4m 3s · done 4:22 PM
+
+※ recap: 我們在改善部落格文章頁：分享預覽和手機版已經 commit，第 3–6 項（字級、表頭、標籤、分隔線）也改好了，但還沒 commit。下一步請你在本機看一下文章頁，沒問題的話我就 commit。
+
+❯ commit it                                                                     
+
+  Committed f74bbfd (ctrl+o to expand)
+
+● I committed it as f74bbfd Improve post readability: larger body text, clearer 
+  tables and meta on main. It covers the four readability changes: bigger body
+  text, clearer table headers, more visible date and tags, and the divider
+  lines.
+
+  Neither commit is pushed yet, so local main is 2 commits ahead of GitHub:
+  - d004632: per-post share previews and the mobile menu
+  - f74bbfd: this readability update
+
+  Run ! git push when you're ready, and Vercel will deploy both.
+
+✻ Baked for 53s · done 4:29 PM
