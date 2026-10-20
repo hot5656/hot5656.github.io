@@ -34,6 +34,7 @@ The DB stores Chinese as the primary content with optional English columns: post
 
 ### Posts
 - Post URLs are `/post/:slug`. New slugs are random 8-char `[a-z0-9]` codes, generated once when the editor opens a new post (`PostEditorPage`) or by `create-post-hut` when n8n sends no slug. Existing slugs are never regenerated — older posts have long title-based slugs and their links must keep working.
+- Share previews: social crawlers don't run JS, so `vercel.json` rewrites `/post/:slug` and `/zh-tw/post/:slug` to the Vercel Function `api/post-og.ts`, which serves `index.html` with the post's OG/Twitter tags (image: `cover_image_url` → first markdown image → site banner). It only runs on Vercel, not under `npm run dev`. `PostDetailPage` sets `document.title` client-side.
 - Markdown is rendered with `react-markdown` + `remark-gfm` + `rehype-highlight`; raw HTML is intentionally not enabled. The post page and the editor preview share `components.p = MarkdownParagraph`, which turns a paragraph containing only a YouTube link into an embedded `youtube-nocookie.com` player (URL parsing in `src/lib/youtube.ts`).
 
 ### Pagination

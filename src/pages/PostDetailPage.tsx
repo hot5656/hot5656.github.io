@@ -21,6 +21,15 @@ export function PostDetailPage() {
     if (slug) loadPost(slug);
   }, [slug]);
 
+  const titleForTab = post ? (i18n.language === 'en' && post.eng_title) || post.title : null;
+  useEffect(() => {
+    if (!titleForTab) return;
+    document.title = `${titleForTab} | Robert Hut`;
+    return () => {
+      document.title = 'Robert Hut';
+    };
+  }, [titleForTab]);
+
   async function loadPost(slug: string) {
     try {
       const { data, error } = await supabase
@@ -131,6 +140,12 @@ export function PostDetailPage() {
                 loading="lazy"
                 className={['w-full', className].filter(Boolean).join(' ')}
               />
+            ),
+            // 表格包一層可橫向捲動的容器，避免手機上撐破頁面
+            table: ({ node, ...props }) => (
+              <div className="md-table-wrap">
+                <table {...props} />
+              </div>
             ),
             a: ({ node, className, ...props }) => (
               <a
