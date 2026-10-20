@@ -36,6 +36,120 @@ user:name flight
 <!--more-->
 
 ### Tools
+
+#### 有聲影片製作
+``` bash
+# start
+我有做一個 app https://www.roberthut.com/zh-tw/post/%E8%87%AA%E5%B7%B1%E5%8B%95%E6%89%8B%E5%81%9A%E4%B8%80%E5%80%8B-udemy-%E5%85%8D%E8%B2%BB%E5%84%AA%E6%83%A0%E5%88%B8%E6%90%9C%E5%B0%8B%E7%B6%B2%E7%AB%99-mts8peev 
+可否如附件做一個 有聲示範影片?
+不用直接做 先討倫相關內容
+# ask claude code for mor information
+我有以下資訊供你參考
+我建議長度不用限制為 60s 依最後需求調整 你可先進真實網站執行一次 蒐集相關資訊
+# generate for YT
+我要 upload to YT 幫我產生 標題及說明
+# image prompt
+我選標題 1 幫我產生 縮圖 image prompt for YT(含必要文字)
+```
+
+#### md show 圖檔
+``` bash
+# ![圖片說明](圖片路徑)
+![Video Speed Reader 系統架構](speedreader-architecture.png)
+![〈將進酒〉的摘要畫面](speedreader-portfolio-summary.jpg)
+
+# YT 縮圖＋連結
+[![一分鐘看懂 Video Speed Reader](https://img.youtube.com/vi/F45X2dD8A8w/maxresdefault.jpg)](https://www.youtube.com/watch?v=F45X2dD8A8w)
+
+```
+
+#### 動畫版示範短片
+``` bash
+https://ai-video-speedreader.vercel.app/ for 逐字稿轉換
+幫我做一個 動畫版示範短片 給我看看
+```
+
+#### Blog 整理
+``` bash
+# start 
+https://www.roberthut.com/zh-tw/blog 是我的 blog
+每當做一個新的 side project 我都會 設定 my doman 發文
+現在做了 https://ai-video-speedreader.vercel.app/ for 逐字稿轉換
+內含 stripe 測試功能 , 使用 open AI API whisper , and model gpt-5-mini
+但因為 使用 API token 不太可能提供免費使用, 但只提供未登入畫面又看不到內部功能
+請建議我如何寫? 又要如何提供 demo 較好?
+# add sopme condition
+我目前已有 peedreader_tour_voice.mp4  and Video Speed Reader 功能介紹.pdf , peedreader_tour_voice.mp4  可以 upload to YT , Video Speed Reader 功能介紹.pdf 可 set to share ,幫我整理 中文 blog 初稿 (含 title )
+# blog 
+幫我產生blog 文 3個合適封面圖 image prompt (size 為 1024*512) - 不要含中文文字, 
+# blog 摘要
+幫我產生文章摘要 for blog use
+# blog 標籤
+blog 建議標籤
+# blog 英文版
+轉 英文版 blog 內容
+# blog check
+Blog 幫我檢查一下
+
+# YT 標題及說明
+speedreader_tour_voice.mp4 我要 upload to YT 幫我產生 標題及說明
+# YT 縮圖
+我選標題 2 幫我產生 縮圖 image prompt for YT(含必要文字)
+
+# 作品集
+我有作品集頁面 https://www.roberthut.com/zh-tw/portfolio 幫我產生 此 app 作品集 內容
+# 作品集 image
+幫我產生 作品集 image 使用 app 截圖可以嗎？ 可以的話幫我截一張適合的圖(size 為 1024*512)
+
+# linkedin
+我想把這篇 blog show 在我的 linkedin 你建議 如何寫
+# 留言
+留言  如下 ok?
+url : https://ai-video-speedreader.roberthut.com/
+blog: https://www.roberthut.com/zh-tw/blog
+
+# fb 粉絲頁
+我 fb 有個粉絲頁 如何貼比較好?
+# 留言
+紛絲頁 留言 如下 ok?
+blog : https://www.roberthut.com/zh-tw/blog
+# response
+📝 完整開發心得：https://www.roberthut.com/zh-tw/post/%E4%B8%80%E5%88%86%E9%90%98%E7%9C%8B%E6%87%82-video-speed-reader-whisper-%E8%BD%89%E9%80%90%E5%AD%97%E7%A8%BF-gpt-%E6%91%98%E8%A6%81-mvdr4zhj
+📚 更多文章：https://www.roberthut.com/zh-tw/blog
+
+# 個人帳號分享
+發完粉絲頁後，從個人帳號分享一次，再加一句自己的話，可以讓更多朋友看到。 應該要如何寫
+# response
+  最近下班後弄的小工具終於上線了 😄
+  平常看到很長的演講、課程影片都懶得看完，所以做了一個幫我「先讀重點」的東西。
+  新帳號有免費點數，歡迎朋友們幫我試試看，有 bug 記得跟我說 🙏
+# 步驟
+  到粉絲頁那篇貼文，點「分享」→「立即分享（朋友）」或「分享到動態」。
+  在上方的輸入框打你那句話。
+  按「發佈」。
+
+
+```
+
+
+#### generate ppt(claude code)
+``` bash
+# generate  outline md
+❯ 我想要做法 ppt 介紹本 app 功能及操作 請幫我產生 outline md file for the ppt
+
+# add some condition
+❯ ppt 主講為 Robert Kao, email   robertkao5656@gmail.com, 點數購買 ppt show     
+  規劃中產生 ppt 時不加入(md 保留) , 管理後台 產生 ppt 時不加入(md 保留),       
+  背後怎麼運作 有關 YouTube 等無法直接處理的 → 本機 worker (yt-dlp) ppt         
+  時不加入(md 保留)  
+
+# ask generate
+❯ 照這些標記產生 PPT 可以配合 browser 擷取 app 畫面 
+
+# add some remove
+❯ 每個任務只扣一次點數，重送不重複扣 好像會 confuse 相同 url 每次送都會扣一次   
+  ppt 里程碑回顧 移除
+```
 #### vercel Deployment Retention
 {% note info %}
 **建議**
@@ -4509,11 +4623,8 @@ Developers
 URL Configuration
   --> add url : 
 Redirect URLs 加上 : https://ai-video-speedreader.roberthut.com/auth/confirm** 
-
 ```
 
-``` bash
-```
 
 ### Ref
 + AI 機票價格追蹤功能
