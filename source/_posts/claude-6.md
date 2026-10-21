@@ -36,6 +36,39 @@ user:name flight
 <!--more-->
 
 ### Tools
+#### FB 和 LinkedIn 預覽測試
++ [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) 
++ [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) 
+
+#### reset github token
+``` bash
+# test token for hot5656
+$token = "gh.."
+PS C:\WINDOWS\system32> Invoke-RestMethod -Uri "https://api.github.com/users/hot5656" -Headers @{ Authorization = "token $token" }
+
+# set correct token
+# 此方法不好會將 token 存在 .git\config
+# git remote set-url origin https://hot5656:YOUR_TOKEN@github.com/hot5656/hot5656.github.io.git
+# 以下才是正正確設定
+git remote set-url origin https://github.com/hot5656/robert-hut.git
+# push command
+git push origin main
+# test fetch
+git fetch origin
+
+# 清除 Windows 中的舊認證
+1. 按下 Win + R 鍵，輸入 control /name Microsoft.CredentialManager 並按下 Enter（或在搜尋欄輸入 認證管理員）。
+2. 點擊 Windows 認證 (Windows Credentials)。
+3. 在「一般認證」下方找到任何包含 git:[https://github.com](https://github.com) 的項目。
+4. 點開後點選 移除 (Remove)。Verification: 確保清單中不再有舊的 echo5656 或舊 GitHub 憑證。
+
+# delete/create new token
+1. 進入 GitHub 網頁版，點擊右上角大頭貼 → Settings。
+2. 點擊左側最下方的 Developer settings → Personal access tokens → Tokens (classic)。
+3. 找到剛才外洩的那組 Token，點擊旁邊的 Delete 將其永久刪除。
+4. Verification: 該 Token 從你的 GitHub 清單中消失。
+  (如果你需要新的 Token，可以順便點擊右上角 Generate new token 重新產生一組，並妥善保存)。
+```
 
 #### 有聲影片製作
 ``` bash
