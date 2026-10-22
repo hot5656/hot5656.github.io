@@ -167,11 +167,16 @@ blog : https://www.roberthut.com/zh-tw/blog
 
 #### generate ppt(claude code)
 ``` bash
+# 文件說明
+幫我產生一份文件來介紹本 app
+
 # generate  outline md
 ❯ 我想要做法 ppt 介紹本 app 功能及操作 請幫我產生 outline md file for the ppt
+# 說明
+幫我在此文件 每一張 幫我加 解說者 參考說明內容
 
 # add some condition
-❯ ppt 主講為 Robert Kao, email   robertkao5656@gmail.com, 點數購買 ppt show     
+❯ ppt 主講為 Robert, email   robertkao5656@gmail.com, 點數購買 ppt show     
   規劃中產生 ppt 時不加入(md 保留) , 管理後台 產生 ppt 時不加入(md 保留),       
   背後怎麼運作 有關 YouTube 等無法直接處理的 → 本機 worker (yt-dlp) ppt         
   時不加入(md 保留)  
@@ -2393,6 +2398,119 @@ Vercel 專案 fare-finder-pro
 
 ### SaaS 入口網站
 #### 說明
+##### EC2 永遠開著 vs Lambda + ECS Fargate(AI Video SpeedReader) 
+{% note info %}
+
+**三種情境總表**
+
+| 情境 | M1：EC2 永遠開著 | M4：Lambda + ECS Fargate | 差異 |
+|---|---|---|---|
+| 閒置（零流量） | 約 $17 / 月 | 約 $0.06 / 月 | 零流量時幾乎不花錢 |
+| 正常滿載（每天 1,000 支影片） | 約 $133 / 月 | 約 $79 / 月 | 省約 40% |
+| 突發尖峰（1 小時湧入 5,000 支） | c5.xlarge 要 63 小時才消化完 | 約 15 分鐘清空 | 水平擴充，做完就歸零 |
+
+比喻：EC2 像租房子，不管有沒有住都要付月租；Serverless 像住旅館或搭計程車，用多少付多少。
+
+**其他雲端的對應服務**
+
+| 功能 | AWS | GCP | Azure |
+|---|---|---|---|
+| 輕量事件運算（FaaS） | Lambda | Cloud Functions | Azure Functions |
+| 無伺服器容器 | ECS Fargate | Cloud Run | Azure Container Apps（ACA）、Container Instances（ACI） |
+| 託管 Kubernetes | EKS | GKE Autopilot | AKS |
+
+| 計費 | AWS Fargate | GCP Cloud Run | Azure Container Apps |
+|---|---|---|---|
+| vCPU-小時 | 約 $0.0405（ARM / Graviton 約 $0.032） | 約 $0.0360 | 與 GCP 接近 |
+| GB-小時 | 約 $0.0044 | 約 $0.0036 | 與 GCP 接近 |
+| 最小計費單位 | 1 秒（起跳 1 分鐘） | 100 毫秒 | 1 秒 |
+| 縮放到零 | 支援 | 支援 | 支援 |
+| 每月免費額度 | Fargate 無（Lambda 每月 100 萬次） | 約 18 萬 vCPU-秒、36 萬 GB-秒 | 有 |
+
+以每月 1,000 小時試算純運算費：AWS Fargate x86 約 $49.4（Graviton 約 $39.5）、GCP Cloud Run 約 $41.0、Azure ACA 約 $42.5。PDF 的結論是：追求低流量零成本選 GCP Cloud Run，要深度整合 AWS 生態選 Fargate。
+
+{% endnote %}
+
+#####  Vercel 的作法
+{% note info %}
+**AWS 對應 Vercel 的作法**
+Vercel 可以做到類似效果，但要搭配正確的架構：
+
+| AWS | Vercel 上的對應 |
+|---|---|
+| Lambda（短任務、API） | Vercel Functions |
+| ECS Fargate（長時間運算） | 長時間執行的 Vercel Functions，或外部 worker |
+| SQS | QStash（Upstash）、Inngest 或 Trigger.dev |
+
+- 優點：不用管主機、ECS Cluster 或 Dockerfile；閒置 $0。
+- 缺點：每次執行超過 1 小時的重度任務不適合；大規模非同步工作要靠第三方佇列。
+- PDF 說 Pro 方案的函式最長可跑 30 分鐘。這點我們沒有查證；我們的認知是 Pro 約 800 秒，Hobby 是 300 秒。
+
+**現在的設計已經是「Vercel 版 Lambda + Fargate」**
+差別只在佇列：原建議 QStash 或 Inngest，我們用 Vercel 原生的 Vercel Queues（beta）。
+
+| AWS（PDF 的 M4） | 本 repo |
+|---|---|
+| API Gateway + Lambda | `api/jobs/start.py`：驗證 token、`video-read` 標籤、擁有者、每人同時最多 3 個工作，然後送出 `plan` 訊息 |
+| SQS | Vercel Queues：`plan` → `chunk` → `finalize`，至少送達一次，最多重送 4 次 |
+| Fargate 水平擴充 | `api/queue_chunk.py`：影片切成 600 秒一段，每段一則訊息，全部並行 |
+| 閒置 $0 | 一樣 |
+
+PDF 的「15 分鐘清空 5,000 支」靠的是並行。我們用同一個原理，而且並行單位更細：一支 3 小時的影片拆成 18 段同時轉錄，總時間大約等於一段的處理時間。
+
+**和真正的 ECS Fargate 差在哪**
+
+| 項目 | Vercel Functions（現在） | ECS Fargate | 對本專案的影響 |
+|---|---|---|---|
+| 單次執行時間 | Hobby 300 秒 | 無上限 | 這是切成 10 分鐘一段的主因；Fargate 可以一個 task 處理整支影片 |
+| 執行環境 | 只能用 Python 套件，不能自帶 Docker 映像檔 | 任何容器 | ffmpeg 靠 `imageio-ffmpeg` wheel；yt-dlp / YouTube 交給本機 worker |
+| CPU / 記憶體 | 規格小（幾 GB） | 最高 16 vCPU / 120 GB | 影響小：Whisper 是呼叫 OpenAI API，函式大多在等 I/O |
+| 暫存硬碟 | `/tmp` 很小 | 20–200 GB | 用 ffmpeg `-ss` 只抓需要的範圍，避開了這個限制 |
+| 並行控制 | 平台自動擴充 | 可設 task 上限 | 真正的瓶頸是 OpenAI Whisper 的速率限制 |
+| 部署與維運 | `git push` | 要管 ECR、Task Definition、Cluster、IAM、VPC | Vercel 簡單很多 |
+| 佇列成熟度 | Vercel Queues 還在 beta | SQS 很成熟 | 有坑，例如 `consumer_group` 的寫法、訊息只由送出它的 deployment 處理 |
+
+{% endnote %}
+
+#####  QStash and Inngest
+{% note info %}
+**QStash** 和 **Inngest** 都是專門用來處理 **「背景非同步工作（Background Jobs）」**、**「分散式佇列（Message Queue）」** 以及 **「工作流程編排（Workflow Orchestration）」** 的第三方雲端服務。  
+當我們在架構中需要做「發送 Email」、「串接會逾時的 AI 運算」、「WebHook 重試」或是「延遲 10 分鐘執行某個動作」時，通常不能直接塞在前端的 HTTP Request 裡（因為 Serverless 會逾時），這時就會需要這類工具。  
+以下為您分別拆解它們的核心定位、運作方式，以及為什麼現在有了 **Vercel Queues**：
+
+**1\. Upstash QStash**
+
+* **性質**：輕量級、無伺服器（Serverless）的 **訊息佇列（Message Queue）與排程（Scheduler）服務**。  
+* **核心運作方式**：  
+  * 基於 HTTP。你只要丟一個 HTTP POST 請求給 QStash，QStash 就會幫你把訊息安全地排隊，並在指定時間（或立即）**以 HTTP POST 呼叫你的 API 端點（Endpoint）**。  
+  * 支援**自動重試（Retries）**、**訊息延遲（Delay）**、**去重（Deduplication）**。  
+* **特色**：非常適合 Serverless 架構，不需要自己架 Redis 或 RabbitMQ，只要有公開的 API URL 就能接。
+
+**2\. Inngest**
+
+* **性質**：強大的 **工作流程編排引擎（Workflow Orchestration Engine）**。  
+* **核心運作方式**：  
+  * 它不只是排隊，更專注於「步驟（Steps）」與「狀態機（State Machine）」的管理。  
+  * 透過寫程式碼的方式，你可以把複雜的多步驟任務串起來。例如：步驟 A \-\> 等待 3 天 \-\> 檢查資料 \-\> 步驟 B (如果失敗自動重試) \-\> 傳送通知。  
+  * 它支援 sleep（暫停執行好幾天而不會耗費 Serverless 運算資源）、事件驅動（Event-driven architecture）。  
+* **特色**：非常適合處理複雜的商務邏輯、長流程、需要人工審核（Human-in-the-loop）或有多重依賴的背景任務。
+
+**三者的差異與我們改用 Vercel Queues 的考量：**
+
+| 特性 | Vercel Queues (原生 Beta) | Upstash QStash | Inngest |
+| :---- | :---- | :---- | :---- |
+| **平台整合度** | **原生內建**（Vercel 官方推出） | 第三方 SaaS 服務 | 第三方 SaaS 服務 |
+| **架構複雜度** | 最低（只需裝 @vercel/queue 搭配 vercel.json 觸發設定） | 需設定 Upstash 帳號、API Token、Webhook 簽章驗證 | 需設定 Inngest SDK、架設通訊端點、管理 Event Key |
+| **核心強項** | 基礎的 Pub/Sub、非同步任務、簡單的佇列與重試 | 簡單、以 HTTP 為基礎的訊息派發與排程 | 複雜的多步驟工作流程、長達數天或數週的狀態暫停 (sleep) |
+
+**為什麼改用 Vercel Queues？**
+
+> 1. **免除第三方依賴**：不需要額外去 Upstash 或 Inngest 註冊帳號、額外付費訂閱或多管一套金鑰（API Keys），在 Vercel 生態系內就能直接搞定。  
+> 2. **原生整合與型別安全**：直接用官方的 SDK (@vercel/queue)，在開發體驗和部署設定上更直覺，且與 Vercel 的 Serverless / Fluid Compute 完美契合。
+
+如果你的需求只是單純的**背景非同步處理、發送任務、失敗重試**，用原生的 **Vercel Queues** 可以讓整個專案的架構更乾淨、少依賴一個外部廠商。
+{% endnote %}
+
 ##### .env 有兩組 variable SUPABASE_xx and VITE_SUPABASE_xx 其實是一樣 為何要兩組
 ``` bash
 ● 兩組名稱看起來重複，但其實分別給兩個不同的地方用，所以建議不要合併成一組。

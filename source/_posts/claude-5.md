@@ -22,6 +22,8 @@ tags:
 SPEC-auth.md 如何產生
 ```
 
+<!--more-->
+
 #### notes
 ```` bash
 # 一次性購物還有四點要特別注意：
@@ -717,3 +719,104 @@ npm run dev
 - 測試只檢查狀態與結果的正確性，不要用動畫時間當作通過條件
 - 完成後執行完整的 e2e 測試（所有 spec），確認全部通過
 {% endnote %}
+
+#### 階段 5：打磨（完整指令）
+{% note info %}
+請先讀 docs/SPEC.md 與 CLAUDE.md。這是階段 5：打磨。所有頁面功能已完成，這一步只做修正、品質提升與上線前的準備，不新增功能。
+
+**A. 實測發現的問題（優先處理）**
+1. /shop 的 hydration 錯誤：ShopSkeleton 把 Skeleton（div）放進了 SectionHeading 的 subtitle（p）。讓 SectionHeading 的 subtitle 可以接受非文字內容（改用 div 包裝，或骨架狀態不經過 subtitle），並全站搜尋是否還有其他 <p> 包含區塊元素的情況。
+2. 結帳頁付款方式文案：「線上刷卡」的說明移除「Apple Pay」字樣，只寫信用卡。
+3. MiniCart 開啟時不再顯示「已加入購物車」的提示（抽屜本身已經顯示新商品）；MiniCart 沒有開啟的情境（例如 /cart 頁的快速加入）維持提示。
+4. 全螢幕的處理中畫面（「正在前往付款頁⋯」）加上 select-none，避免連點時文字被反白。
+5. /cart 推薦商品快速加入後，焦點移到下一張卡片的快速加入按鈕；沒有其他推薦時移到推薦區標題（如果先前已處理就略過）。
+
+**B. SEO 與分享**
+1. OG 分享圖改為 PNG：用 Next.js 的 opengraph-image.tsx 為首頁與每個商品頁產生 1200×630 的圖（品牌米色背景、品名、中文名、LUNÉA 字標，商品頁加上該商品的瓶身圖）。完成後確認 og:image 是 PNG 的絕對網址。
+2. 新增 sitemap.ts 與 robots.ts（網址使用 getSiteUrl()）。sitemap 包含首頁、/shop、12 個商品頁、/quiz、/discovery；不包含 /cart、/checkout、/order/success、/styleguide。
+3. /styleguide、/cart、/checkout、/order/success 設定 noindex。
+4. 商品頁加上 Product 的 JSON-LD 結構化資料（名稱、描述、圖片、品牌、各容量價格、幣別 TWD）。
+5. 確認每頁都有獨立的 title 與 description。
+6. 加上 favicon 與 apple-touch-icon（LUNÉA 字標的 L，或簡化的瓶身圖形，使用品牌色）。
+
+**C. 首頁視覺（延後的自我評估項目）**
+1. Mood 卡片上半部的留白：加入該 mood 的 2–3 個代表香材名稱（從該 mood 的商品香調中取出，例如溫暖：琥珀・香草・無花果），以細字小字呈現，不要讓卡片變擁擠。
+2. 桌面版 Hero 第一屏的大標上方留白過多，調整 Hero 內容的垂直位置，讓標題與瓶身在 1440×900 下位於視覺中心。
+3. 深色的香氣測驗區塊：加入非常淡的紋理或光暈，讓深色有層次；必須維持文字對比度 AA。
+4. 區塊之間的轉場：在背景色不同的區塊交界加入細線或極淡的漸層過渡，不要硬切。
+
+**D. 品質檢查**
+1. 無障礙：安裝 @axe-core/playwright，在 e2e 中對首頁、/shop、商品頁、/quiz（開場與結果）、/discovery、/cart、/checkout、/order/success 執行 axe 掃描，嚴重（serious）與重大（critical）問題必須為 0。
+2. 鍵盤：只用鍵盤走完一次完整購物流程（首頁 → 商品 → 加入購物車 → 結帳 → 完成頁），確認焦點順序合理、焦點樣式清楚可見、沒有鍵盤陷阱。在回報中列出發現的問題與修正。
+3. Lighthouse：對首頁、/shop、一個商品頁執行 Lighthouse（行動裝置模式，production build），Performance、Accessibility、Best Practices、SEO 都要 ≥ 90。回報各頁分數，低於 90 的項目說明原因與修正。
+4. 確認 dev 與 production 的 console 在所有頁面都沒有錯誤（含 reducedMotion: "reduce"）。
+
+**完成標準**
+- npm run build、npm run lint 無錯誤
+- 完整 e2e 測試（含新的 axe 測試）全部通過
+- 回報：每一項的處理結果、Lighthouse 分數表、修改的檔案
+- 不要 commit
+{% endnote %}
+
+#### Deploy
+``` bash
+# deploy to vercel
+Vercel project
+   --> Add New 
+   --> Project
+   --> Add GitHub Scope
+   --> select account
+   --> login
+   --> Applications
+   --> Repository access
+   --> Only select repositories
+   --> Select reposities
+   --> select target reposities
+   --> Save 
+   --> Import
+   --> Create Project
+   --> Deploy
+   --> Continue to Project
+
+# add Environment for product
+# vercel or private url(include https://)
+SITE_URL = https://domain_name 
+
+# set domain name
+# lunea.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host                  | Value                 | TTL.     | 
+    | CNAME Record| lunea  |  fef6e970c379dc33.vercel-dns-017.com.| Automatic| 
+      ps: 1. fef6e970c379dc33.vercel-dns-017.com. 後面的點是自動加上去
+          2. 本來有問題,使用 vercel 建議 value
+
+# Vercel setting - ai-video-speedreader
+Vercel 專案 lunea
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "lunea.roberthut.com"
+  --> Save
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+
+# test 
+到 pagespeed.web.dev: https://pagespeed.web.dev  量這三個網址的行動版分數，確認本機 Performance 偏低是不是機器負載造成的：
+
+https://lunea.roberthut.com/
+https://lunea.roberthut.com/shop
+https://lunea.roberthut.com/product/rose-brulee
+
+如果 Performance 低於 80，把報告中的 LCP、TBT 和「改善建議」貼給我。
+
+2. 分享預覽
+把網址貼到 LINE 對話框，或用 Facebook 的分享偵錯工具:
+
+https://developers.facebook.com/tools/debug/
+，確認預覽圖和標題都正確。
+```
