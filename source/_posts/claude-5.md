@@ -1,5 +1,5 @@
 ---
-title: LUNÉA — 高端香水電商
+title: 形象網站
 abbrlink: e9bd
 date: 2026-08-12 09:58:24
 categories: AI
@@ -7,8 +7,9 @@ tags:
   - claude
 ---
 
-### spec generate
-#### step
+### LUNÉA — 高端香水電商
+#### Develop
+##### spec generate
 ``` bash
 # init
 我想用 claude code 建立店商網站 如附件 幫我規劃執行步驟及程序
@@ -24,7 +25,52 @@ SPEC-auth.md 如何產生
 
 <!--more-->
 
-#### notes
+##### Blog
+``` bash
+# blog init
+https://www.roberthut.com/zh-tw/blog 是我的 blog
+每當做一個新的 side project 我都會 設定 my domain 發文
+現在做了 https://lunea.roberthut.com/
+我有選了目錄 你可看 code and some information(no modiy for delete it)
+另有說明文件 at https://drive.google.com/file/d/18941F6_XH4kaoctt2HnPQM-JGhUkVevn/view?usp=sharing
+幫我產生blog 文
+# add
+沒有加入 說明 ppt(pdf format) link?
+# blog image prompt
+幫我產生blog 文 3個合適封面圖 image prompt (size 為 1024*512) - 不要含中文文字, 
+# check blog
+幫我看看 https://www.roberthut.com/zh-tw/post/wicomuww 我拿掉 品質檢查結果 and 目前限制與下一步
+# english version
+幫我整理英文版本
+# check english version
+幫我檢查一下 英文版本 https://www.roberthut.com/post/wicomuww
+# 作品集
+我有作品集頁面 https://www.roberthut.com/zh-tw/portfolio 幫我產生 此 app 作品集 內容
+請參考 Video Speed Reader style
+# 作品集 image prompt
+幫我產生 作品集 image 使用 app 截圖可以嗎？ 可以的話幫我截一張適合的圖(size 為 1024*512)
+# YT video
+我要把此 app 做一個 有聲示範影片? 你有兩次製作經驗 取其最合適的方法 另外以表達需要為主 不用特別規範長度
+不用直接做 先討倫相關內容
+# virify voice
+產生 LUNÉA 的三種唸法試聽
+# YT descript and title
+我要 upload to YT 幫我產生 標題及說明
+# YT image prompt
+我選標題 1 幫我產生 縮圖 image prompt for YT(含必要文字)
+# linkedin
+我想把這篇 blog show 在我的 linkedin 你建議 如何寫
+# rerpley
+給留言內容
+# fb 
+我 fb 有個粉絲頁 如何貼比較好?
+# reply
+給留言
+# Blog add video
+我已有 YT 影片 建議遷入 blog 那個位址
+```
+
+##### Notes
 ```` bash
 # 一次性購物還有四點要特別注意：
 1. 訂單編號格式要改。 特店訂單編號必須是唯一值、不可重複使用，且只能用英數字，長度上限 20 字元。SPEC 目前的 LN-20261019-4827 含有連字號，要改成類似 LN202610194827AB7Q 的格式。 
@@ -36,8 +82,8 @@ SPEC-auth.md 如何產生
 4311-9522-2222-2222（有效期限 12/30、CVV 222、OTP 1234）。
 ````
 
-### claude code
-#### create project 
+#### claude code
+##### create project 
 {% note info %}
 1. **Command**
 ```
@@ -83,7 +129,7 @@ npm run dev
 {% endnote %}
 
 
-#### add CLAUDE.md
+##### add CLAUDE.md
 ``` bash
 # LUNÉA — 高端香水電商（Demo）
 
@@ -113,7 +159,7 @@ npm run dev
 5. 不要自行 git commit，由我驗收後處理
 ```
 
-#### plan mode - 階段 1-A：產出規格書
+##### plan mode - 階段 1-A：產出規格書
 ``` bash
 我要建立一個高端香水電商 Demo 網站，品牌名                                    
   LUNÉA（虛構）。這一步先不要寫任何程式，只要產出規格書 docs/SPEC.md。          
@@ -177,7 +223,7 @@ npm run dev
   寫好後先給我確認，不要開始實作。  
 ```
 
-#### 階段 1-B：建立商品資料
+##### 階段 1-B：建立商品資料
 ``` bash
 請先讀 docs/SPEC.md，依照規格建立資料層（這一步不做任何 UI）：                
                                                                                 
@@ -211,7 +257,7 @@ npm run dev
   款商品的品名、tagline、前中後調摘要表給我檢查文案；附上 quiz-sim 結果。  
 ```
 
-#### plan mode - generate SPEC-payment.md
+##### plan mode - generate SPEC-payment.md
 ``` bash
 這一步不要寫程式，只產出 docs/SPEC-payment.md：LUNÉA 階段 7「真實下單＋綠界金流」的規格。
 
@@ -237,7 +283,7 @@ npm run dev
 寫好後先給我確認。
 ```
 
-#### plan mode - generate SPEC-auth.md
+##### plan mode - generate SPEC-auth.md
 ``` bash
 這一步不要寫程式，只產出 docs/SPEC-auth.md：LUNÉA 階段                        
   7-0「會員登入」的規格，作為 docs/SPEC-payment.md 的前置文件。                 
@@ -317,7 +363,7 @@ npm run dev
   寫好後先給我確認。    
 ```
 
-#### 階段 2：設計系統
+##### 階段 2：設計系統
 {% note info %}
 請依照 CLAUDE.md 的設計原則建立 LUNÉA 的設計系統。
 
@@ -355,7 +401,7 @@ npm run dev
 完成後截圖給我，我要確認整體視覺方向。
 {% endnote %}
 
-#### 階段 3：骨架與共用功能
+##### 階段 3：骨架與共用功能
 {% note info %}
 請依照 docs/SPEC.md 建立網站骨架與全站共用功能。
 
@@ -388,7 +434,7 @@ npm run dev
   完成後測試：加入商品 → 重新整理頁面 → 購物車數量仍然保留。
 {% endnote %}
 
-#### 階段 4-1：產品目錄 /shop
+##### 階段 4-1：產品目錄 /shop
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -423,7 +469,7 @@ npm run dev
 - 手機版 Drawer 底部固定「顯示 N 項結果」按鈕
 {% endnote %}
 
-#### 產品詳細頁 /product/[slug]
+##### 產品詳細頁 /product/[slug]
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -472,7 +518,7 @@ npm run dev
 各區塊捲動進入畫面時淡入上移（只觸發一次）。
 {% endnote %}
 
-#### 階段 4-3：購物車 /cart
+##### 階段 4-3：購物車 /cart
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -510,7 +556,7 @@ npm run dev
 - 優惠碼狀態也要存進 cartStore，結帳頁會用到
 {% endnote %}
 
-#### 階段 4-4：首頁
+##### 階段 4-4：首頁
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -576,7 +622,7 @@ npm run dev
 完成後截圖桌面版與手機版完整頁面，並自我評估：哪些地方還不夠有精品感，提出改進建議。
 {% endnote %}
 
-#### 階段 4-5：香氣測驗 /quiz
+##### 階段 4-5：香氣測驗 /quiz
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -620,7 +666,7 @@ npm run dev
 - 整個流程都要能用鍵盤操作（方向鍵選擇、Enter 確認）
 {% endnote %}
 
-#### 階段 4-6：試香組 /discovery
+##### 階段 4-6：試香組 /discovery
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -666,7 +712,7 @@ npm run dev
 - 「隨機幫我選」次要按鈕
 {% endnote %}
 
-#### 階段 4-7：結帳 /checkout 與完成頁
+##### 階段 4-7：結帳 /checkout 與完成頁
 {% note info %}
 請先讀 docs/SPEC.md、docs/SPEC-payment.md 與 CLAUDE.md。以下指令與 SPEC 衝突時，以 SPEC 為準並提出來。
 
@@ -720,7 +766,7 @@ npm run dev
 - 完成後執行完整的 e2e 測試（所有 spec），確認全部通過
 {% endnote %}
 
-#### 階段 5：打磨（完整指令）
+##### 階段 5：打磨（完整指令）
 {% note info %}
 請先讀 docs/SPEC.md 與 CLAUDE.md。這是階段 5：打磨。所有頁面功能已完成，這一步只做修正、品質提升與上線前的準備，不新增功能。
 
@@ -819,4 +865,120 @@ https://lunea.roberthut.com/product/rose-brulee
 
 https://developers.facebook.com/tools/debug/
 ，確認預覽圖和標題都正確。
+```
+
+### SNAP眼鏡 形象網站
+#### Develop
+``` bash
+# init
+之前的 LUNEA 是由一份規格書開始 現在我要做一個 眼鏡形象網站 希望由討論開始 
+希望主打 fashion 陽光 活力 ,  因為不是量販店 所以也無價格及購買流程
+# continue
+1. 虛構 2. 3:7 3. 有沒有可能給我 image prompt 讓我再產生 image  看感覺挑選
+# response as show
+我若要給客戶挑 也可以利用這樣的方式 先給幾張 imaqge?
+# claude - response
+可以，而且這其實就是業界常見的 **mood board（情緒板）** 做法，只是以前是去 Pinterest 或圖庫找圖拼貼，現在可以直接用 AI 生出「為這個案子量身做」的圖，效率高很多。客戶通常很難用文字描述想要什麼，但看到圖就能馬上說「對，就是這個」或「這個太冷了」。
+不過拿給客戶時，有幾個地方要先講清楚，避免後面踩雷：
+  1. 說明這是「感覺參考」，不是最終素材**
+AI 圖的光線、模特兒、場景都很完美，客戶容易以為網站上線就長這樣。如果他實際的產品照是棚拍白底圖，落差會很大。最好一開始就說明：這是用來定調色彩、光線和氛圍，正式素材要另外拍攝或處理。
+ 2. 先問客戶有沒有既有素材**
+如果客戶已經有一批產品照或形象照，mood board 要往那個方向靠，不然挑了一個他根本拍不出來的風格，等於白挑。
+ 3. 每個方向 3 到 4 張就好，方向不要超過 3 個**
+選項太多客戶反而無法決定。每個方向放同一套色調的幾張圖，加上一句話描述（例如「地中海夏日：明亮、乾淨、度假感」），讓他比較的是「方向」而不是「單張好不好看」。
+ 4. 引導客戶說出原因**
+客戶說「我喜歡這張」時，追問是喜歡顏色、光線、人物表情還是構圖。常常他喜歡的是 A 的顏色加 B 的氛圍，這些才是你後面設計時真正要用的資訊。
+ 5. 版權與用途**
+AI 生成圖作為提案和內部參考通常沒問題，但如果客戶想直接拿來當正式網站素材，要確認使用的工具條款是否允許商用，也要留意畫面裡不要出現像真實品牌或真人的元素。
+ 一個進階做法 
+挑定方向後，可以再往前一步做 **style tile**：把選定的圖、配色色票、字體組合、按鈕樣式放在同一頁，讓客戶在進入完整版面設計前，先確認整體視覺語言。這一步能大幅減少後面「整頁重改」的情況。
+這次的眼鏡站，你剛好可以把它當成練習：自己先走一次「mood board → style tile → 版面」，之後接案就有一套現成流程可以套用。 
+# continue
+我選 B. 街頭運動（螢光橘、亮綠、動態感）
+# continue
+SNAP 中英雙語
+# retry
+再給我一版看看
+# select
+v2 的版型和圓角，配上 v1 的橘色當主色 產生給我看看
+選 V3
+# claude - generate prompt doc
+先把這套生圖流程整理成一份可以重複使用的 prompt 清單
+# continue
+剩下的頁面排完
+```
+
+#### claude code
+``` bash
+# generate project 
+npx create-next-app@latest snap-eyewear --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm
+cd snap-eyewear
+npm install next-intl 
+
+mkdir docs, public\frames, public\images, public\lookbook
+
+# put file 
+規格書：在開發規格書文件的匯出選單選 Markdown，存成 docs\spec.md。
+# 照片：照規格書第 7 節的檔名放好，例如 
+public\frames\rally-front-orange.jpg
+public\images\hero-crosswalk.jpg
+...
+
+# commit
+git add .
+git commit -m "init: create-next-app + next-intl + spec"
+
+# start
+請閱讀 docs/spec.md，這是 SNAP 眼鏡品牌形象網站的開發規格書。
+  先不要寫程式，請先：
+  1. 用自己的話整理網站架構、資料結構與元件清單
+  2. 列出你認為規格不清楚或有矛盾的地方
+  3. 提出第 9 節「階段 1：基礎」的實作計畫
+  技術棧固定：Next.js（App Router）+ TypeScript + Tailwind CSS + next-intl，部署 Vercel。
+  不接資料庫、不做價格與購物流程。
+  每個階段完成後停下來讓我驗收，再進下一階段。
+```
+
+#### Deploy
+``` bash
+# vercel link to vercel
+Vercel project
+  --> Snap-eyewear
+  --> Connect Git Repsitiry
+  --> GitHub
+  --> add GitHub Scop
+  --> hot5656
+  --> Application
+  --> Only Select repositories
+  --> Select repositories
+  --> Snap-eyewear
+  --> Snap-eyewear --> Connect 
+
+# add Environment for product
+# vercel or private url(include https://)
+NEXT_PUBLIC_SITE_URL = https://snap.roberthut.com 
+
+# Vercel setting - snap-eyewear
+Vercel 專案 snap-eyewear
+  --> Domains  (左方)
+  --> Edit
+  --> change Domain as "snap.roberthut.com"
+  --> Save
+  --> select Redirect old domain to new (舊的 domain(vercel) 還有效)
+  --> Save
+    view DNS configuration --> DNS Records
+
+# set domain name
+# snap.roberthut.com
+# namecheap setting 
+Dashboard
+  --> Domain List
+  --> MANAGE   (roberthut.com 後面)
+  --> Advanced DNS
+  --> HOST RECORDS 下面
+  --> ADD NEW RECORD
+    | Type	      | Host  | Value                                | TTL.     | 
+    | CNAME Record| snap  |  a91d57712868d68c.vercel-dns-017.com.| Automatic| 
+      ps: 1. a91d57712868d68c.vercel-dns-017.com. 後面的點是自動加上去
+          2. 本來有問題,使用 vercel 建議 value
 ```
