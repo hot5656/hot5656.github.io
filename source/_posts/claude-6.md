@@ -36,6 +36,94 @@ user:name flight
 <!--more-->
 
 ### Tools
+#### backup supabase(手動)
+``` bash
+# 查完整 string(除 password)
+Project overview 
+	--> connect
+  --> Direction Connection string
+  --> Session pooler
+  --> Connection string
+    postgresql://postgres.project_id:[YOUR-PASSWORD]@aws-1-ap-south-1.pooler.supabase.com:5432/postgres
+# [YOUR-PASSWORD]:資料庫密碼
+Project overview 
+	--> connect
+  --> Direction Connection string
+  --> Reset dadabase Password
+  --> Generate a password
+  --> Copy
+  --> Resset password
+
+# docker 需啟動　
+docker info
+
+
+# supabase login
+supabase login
+
+# 建立 supabase 架構
+supabase init
+
+# link to supabase project
+supabase link --project-ref supabase_project_id
+
+
+# 備份角色：
+supabase db dump --db-url "你的完整_CONNECTION_STRING" -f roles.sql --role-only
+
+# 備份 Schema：
+supabase db dump --db-url "你的完整_CONNECTION_STRING" -f schema.sql
+
+# 備份資料：
+supabase db dump --db-url "你的完整_CONNECTION_STRING" -f data.sql --use-copy --data-only -x "storage.buckets_vectors" -x "storage.vector_indexes"
+
+# 列出 Storage Bucket
+supabase storage ls --experimental
+
+# 下載圖片
+# 假設 Bucket 名稱是 images，執行：
+New-Item -ItemType Directory -Force .\storage\images
+supabase storage cp ss:///images .\storage\images -r --experimental
+
+# Eege function - list
+supabase functions list --project-ref supabase_project_id
+
+# Eege function - download
+# **** 等待時間較長 ****
+supabase functions download --project-ref supabase_project_id
+# 查看各個 Function 的資料夾
+Get-ChildItem .\supabase\functions -Recurse -File
+
+# 備份 Secrets (只是給 name)
+supabase secrets list --project-ref supabase_project_id
+
+
+# source code 備份
+supabase/
+├── config.toml
+├── migrations/
+│   ├── 20261001090000_create_profiles.sql
+│   ├── 20261005120000_create_posts.sql
+│   └── 20261010150000_add_image_url.sql
+└── functions/
+    ├── function-a/
+    │   └── index.ts
+    └── function-b/
+        └── index.ts
+
+
+## Direct Connection vs. Session Pooler
+根據你目前的環境（Windows + Docker Desktop），我建議使用 Session Pooler。
+| 比較項目      | Direct Connection                 | Session Pooler                         |
+| -------------| --------------------------------- | -------------------------------------- |
+| 主機名稱      | `db.<PROJECT_REF>.supabase.co`    | `aws-1-ap-south-1.pooler.supabase.com` |
+| IPv4 支援     | 通常需要 IPv6，除非有 IPv4 支援方案 | 通常支援 IPv4                           |
+| 連線方式      | 直接連接 PostgreSQL                | 經過連線池                              |
+| 手動備份適用性 | 適合網路支援時使用                  | 適合你目前的環境                        |
+| 連線埠        | 通常 `5432`                        | Session Pooler 通常 `5432`             |
+
+```
+
 #### FB 和 LinkedIn 預覽測試
 + [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) 
 + [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) 
