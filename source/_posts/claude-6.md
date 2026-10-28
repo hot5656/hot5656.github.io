@@ -36,6 +36,23 @@ user:name flight
 <!--more-->
 
 ### Tools
+#### performance test
+``` bash
+# test 
+1. 到 pagespeed.web.dev: https://pagespeed.web.dev  量這三個網址的行動版分數，確認本機 Performance 偏低是不是機器負載造成的：
+
+https://lunea.roberthut.com/
+https://lunea.roberthut.com/shop
+https://lunea.roberthut.com/product/rose-brulee
+
+如果 Performance 低於 80，把報告中的 LCP、TBT 和「改善建議」貼給我。
+
+2. 分享預覽
+把網址貼到 LINE 對話框，或用 Facebook 的分享偵錯工具:
+
+https://developers.facebook.com/tools/debug/
+，確認預覽圖和標題都正確。
+```
 #### backup supabase(手動)
 ``` bash
 # 查完整 string(除 password)

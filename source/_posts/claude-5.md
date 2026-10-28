@@ -852,7 +852,7 @@ Vercel 專案 lunea
   --> Save
 
 # test 
-到 pagespeed.web.dev: https://pagespeed.web.dev  量這三個網址的行動版分數，確認本機 Performance 偏低是不是機器負載造成的：
+1. 到 pagespeed.web.dev: https://pagespeed.web.dev  量這三個網址的行動版分數，確認本機 Performance 偏低是不是機器負載造成的：
 
 https://lunea.roberthut.com/
 https://lunea.roberthut.com/shop
@@ -981,4 +981,37 @@ Dashboard
     | CNAME Record| snap  |  a91d57712868d68c.vercel-dns-017.com.| Automatic| 
       ps: 1. a91d57712868d68c.vercel-dns-017.com. 後面的點是自動加上去
           2. 本來有問題,使用 vercel 建議 value
+```
+
+#### Deploy to cloudflare
+``` bash
+https://dash.cloudflare.com/
+   --> Compute
+   --> Worker & Pages
+   --> Create application
+   --> Connect Github 
+   --> my account
+   --> only select repositorities
+   --> snap-eyewear
+   --> Install & Authorize
+   --> password
+   # Pages
+   --> Continue to pages
+   --> Import an existing Git repository
+   --> Get Started
+   --> sanp-eyeware
+   --> Begin setup
+   --> Production branch --> cloudflare
+      Framework preset : None
+      Build command：npm run build
+      Build output directory：out
+   --> Environment variables：
+      NODE_VERSION=22
+      NEXT_PUBLIC_SITE_URL=https://snap-eyewear.pages.dev
+
+   # worker
+   --> Continue with Github
+   --> Select snap-eyeware
+   --> Next
+   ...
 ```
