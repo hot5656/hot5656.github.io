@@ -7,6 +7,91 @@ tags:
   - claude
 ---
 
+### Tool
+#### generate doc/ppt
+``` bash
+# generate description document 
+幫我產生一份 md file 來介紹本 app
+
+# generate ppt outline
+我想要做法 ppt 介紹本 app 功能及操作 請幫我產生 outline md file for the ppt
+
+# 文件說明
+幫我產生一份文件來介紹本 app
+
+# generate  outline md
+❯ 我想要做法 ppt 介紹本 app 功能及操作 請幫我產生 outline md file for the ppt
+# 說明
+幫我在此文件 每一張 幫我加 解說者 參考說明內容
+
+# add some condition
+ppt 主講為 Robert, email robertkao5656@gmail.com, 規劃中產生 ppt 時不加入(md 保留) page 16 and 17
+# add description
+幫我在  outline md file 每一張 幫我加 解說者 參考說明內容
+
+# ask generate
+照這 outline md file 產生 PPT 可以配合 browser 擷取 app 畫面
+```
+
+#### Blog generate
+``` bash
+# Generate Blog
+https://www.roberthut.com/zh-tw/blog 是我的 blog
+每當做一個新的 side project 我都會 設定 my domain 發文
+現在做了 https://snap.roberthut.com/zh-TW
+我已 upload 說明文件
+另有說明文件 at https://drive.google.com/file/d/1evbWE7eWNuhMcrN4mMg8PQo4MRjgBwTc/view?usp=sharing
+幫我產生blog 文
+
+# continue
+我選標題 SEE IT. SNAP IT.：SNAP 眼鏡品牌形象網站上線
+請幫我重新產生一份文件(保留原來file), 不含 設計, 部署, 目前狀態
+
+# blog image
+幫我產生blog 文 3個合適封面圖 image prompt (size 為 1024*512) - 不要含中文文字
+# verify
+幫我看看 https://www.roberthut.com/zh-tw/post/2sjpd7ma 我拿掉一些東西
++ 我不希望提技術細節
++ 不直接看到 link,
++ 另我不同意你說的因為不賣東西,所以不標價格,眼鏡行除了量販店外是不會直接標價格
+看看有沒有需要修改的地方
+# re-verify
+更新了 再幫我看一下
+# english version
+幫我整理英文版本(要含標籤, 摘要)
+
+# 作品集
+我有作品集頁面 https://www.roberthut.com/zh-tw/portfolio 幫我產生 此 app 作品集 內容
+中英內容參考 style
+虛構香水品牌的電商示範網站。做香氣測驗、組試香盒，一路走到結帳。
+- **情緒選香**：清新、溫暖、神秘等五種情緒挑香水
+- **香氣測驗**：6 題生活情境題，推薦 3 款並附推薦理由
+- **自選試香組**：12 款任選 5 支 2ml 小樣，固定 NT$1,280
+- **六步驟結帳**：宅配、超商、自取，支援載具與統編
+- **技術**：Next.js 16、Tailwind v4、Playwright 測試
+An e-commerce demo for a fictional perfume brand. Take the scent quiz, build a sample set, and check out.
+- **Shop by mood**: browse by five moods, like fresh, warm or mysterious
+- **Scent quiz**: 6 scenario questions, 3 picks with reasons
+- **Discovery set**: any 5 of 12 scents as 2ml samples, NT$1,280
+- **Six-step checkout**: delivery, store pickup, Taiwan e-invoices
+- **Tech**: Next.js 16, Tailwind v4, Playwright tests
+# 作品集 image
+幫我產生 作品集 image 使用 app 截圖可以嗎？ 可以的話幫我截一張適合的圖(size 為 1024*512)
+# verify profile
+幫我檢查一下 https://www.roberthut.com/zh-tw/portfolio and https://www.roberthut.com/portfolio
+
+# generate video
+我要把此 app 做一個 有聲示範影片? 以表達需要為主,不用特別規範長度.
+不要直接做,先討倫相關內容.
+我有另一平台 generate 資料, 不知道對你有沒有用處, upload 給你參考
+
+# linkedin
+我想把這篇 blog show 在我的 linkedin 你建議 如何寫
+# fb
+我 fb 有個粉絲頁 如何貼比較好? (到時候我一樣是貼上影片)
+```
+
+
 ### LUNÉA — 高端香水電商
 #### Develop
 ##### spec generate
@@ -868,6 +953,9 @@ https://developers.facebook.com/tools/debug/
 ```
 
 ### SNAP眼鏡 形象網站
++ [Cloudflare link](https://snap-eyewear.pages.dev/zh-TW)
++ [vercel link](https://snap.roberthut.com/zh-TW)
+
 #### Develop
 ``` bash
 # init
@@ -1014,4 +1102,128 @@ https://dash.cloudflare.com/
    --> Select snap-eyeware
    --> Next
    ...
+```
+
+
+#### Vercel fix lastest version
+``` bash
+# no build for github change
+Vercel 
+   --> snap-eyewear
+   --> Settings
+   --> Build and Deployment
+   --> Ignored Build Step
+   --> Custom , Comman "exit 0"
+   --> Save
+
+# ask only: vercel 應要移除 snap.roberthut.com 設定?
+現在還不用移除，要等觀察期結束（清單的 H-17）才移除。
+為什麼要留著
+   - 回滾的方法是把 Namecheap 的 CNAME 改回 Vercel。這要能生效，Vercel 專案上必須還掛著 snap.roberthut.com。如果先移除了，CNAME 改回去之後 Vercel 不知道要服務哪個專案，訪客會看到錯誤頁，回滾就失敗了。
+   - 留著也不會干擾 Cloudflare：網域最後由誰服務，是 DNS 決定的。Cloudflare Pages 新增自訂網域時，也不需要先從 Vercel 移除。
+
+切換 DNS 之後可能看到的現象（不用處理）
+   - Vercel 後台的網域設定會出現「Invalid Configuration」之類的警告，因為 CNAME 已經不指向 Vercel 了。這是預期中的，可以不理它。
+   - Vercel 的 HTTPS 憑證效期約 90 天，DNS 不指向 Vercel 時可能無法自動續期。觀察期只有 1 到 2 週，不會碰到這個問題。
+什麼時候移除
+   觀察期結束、確定不會再退回 Vercel 之後，依序：
+   1. 從 Vercel 移除 snap.roberthut.com。
+   2. 把 Namecheap 上 snap 的 TTL 調回原本的值。
+   3. 刪除或暫停 Vercel 專案。
+做完第 1 步之後，就不能再用 DNS 退回 Vercel 了。
+```
+
+#### switch to cloudflare
+``` bash
+# change product to main branch
+https://dash.cloudflare.com/
+   --> Compute
+   --> Worker & Pages
+   --> snap-eyewaer
+   --> Settings
+   --> Branch control : main
+
+# change variable
+Vercel 
+   --> snap-eyewear
+   --> Settings
+      NEXT_PUBLIC_SITE_URL：https://snap-eyewear.pages.dev 改成 https://snap.roberthut.com。
+   # do lastest main branch
+   --> Deployment (Preview main): Retry deployment  
+
+# change variable
+Namecheap 上 snap 那筆 CNAME 的 TTL 調成 300 秒(5 min)
+
+# 一小時後的順序
+1. 先 ! git push origin main（0860f70 還沒推上去）。
+2. D-10：Pages → Custom domains 新增 snap.roberthut.com。 (begin CNAME setup)
+3. D-11：Namecheap 把 Value 改成 snap-eyewear.pages.dev。
+4. D-12：等 Pages 顯示 Active、憑證簽好之後告訴我，我跑 E 段驗證。
+
+# Namecheap TTL 要改為 automactic ?
+先不要改，觀察期間請維持 5 min。
+為什麼要維持 5 分鐘
+- 萬一切換後要退回 Vercel，CNAME 改回去約 5 分鐘就會生效。
+- 如果改回 Automatic（Namecheap 的預設值是 30 分鐘），回滾就要等到 30 分鐘左右。
+D-11 改 Value 時：TTL 那一欄保持 5 min，只改 Value。
+什麼時候改回 Automatic：觀察期結束、確定不會再退回 Vercel 時，跟從 Vercel 移除 snap.roberthut.com 一起做，也就是清單的 H-17。5 分鐘的 TTL 一直留著也沒什麼壞處，只是 DNS 查詢比較頻繁，對這個網站的影響可以忽略。
+
+# 切換清單的 A 到 F 段都完成了。
+觀察期內（從 2026-10-29 起，預計 2026-11-05 到 2026-11-12 結束）
+- 不改網站內容，push 文件沒有關係。
+- 不要從 Vercel 移除 snap.roberthut.com，Namecheap 的 TTL 維持 5 分鐘。
+- 需要回滾時：把 Namecheap 的 Value 改回 a91d57712868d68c.vercel-dns-017.com；如果只是程式有問題，用 Pages 的 Rollback 就好。這些都記在 decisions.md G 節。
+# 觀察期結束後（H-17）
+1. 從 Vercel 移除 snap.roberthut.com。
+2. 把 Namecheap 的 TTL 改回 Automatic。
+3. 刪除或暫停 Vercel 專案。
+4. 視需要刪除 cloudflare 分支。
+另外，scratchpad 裡還有遮蔽前的備份 no_4_backup.txt，不需要的話可以刪掉。
+
+# H-17 每一項不做的影響：
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────┐
+│         項目         │                                        不做會怎樣                                 │                        影響                     │
+├──────────────────────┼──────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────┤
+│ 從 Vercel 移除       │ 網站照常由 Cloudflare 服務，因為 DNS 決定流量往哪裡走。Vercel                        │                                                │
+│ snap.roberthut.com   │ 後台會一直顯示網域設定警告。之後 Vercel 的憑證無法續期，大約 2027                     │ 幾乎沒有，只是後台看起來亂                       │
+│                      │ 年初過期，但流量本來就不經過 Vercel，所以不影響訪客                                  │                                                │
+├──────────────────────┼──────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────┤
+│ Namecheap TTL 改回   │ 一直維持 5 分鐘，DNS 查詢比較頻繁，第一次連線可能慢幾毫秒。好處是之後要改 DNS          │ 可以忽略                                        │
+│ Automatic            │ 都能很快生效                                                                      │                                                │
+├──────────────────────┼──────────────────────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────┤
+│ 刪除或暫停 Vercel     │ 專案留著不會產生費用（免費方案），也不會再建置。snap-eyewear.vercel.app 會一直轉到    │ 沒有影響，但會留著一個可以回滾的舊版，算是一個好處  │
+│ 專案                 │ snap.roberthut.com                                                               │                                                 │
+├──────────────────────┼──────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────┤
+│ 刪除 cloudflare 分支  │ 只是多一個停用的分支                                                               │ 沒有影響                                        │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────────────────────────┘
+
+真正要注意的只有一件事：只要網域還掛在 Vercel 上，Vercel 就還有辦法服務這個網址。萬一哪天 DNS 被誤改回 Vercel，訪客就會看到 Vercel 上的舊版。所以等確定不會回滾了，建議至少做第一項。其他三項做不做都可以，看你想不想讓後台保持整潔。
+
+
+# 觀察期從現在開始（1 到 2 週）
+- 不改網站內容，保持 Vercel 上的舊版可以當作回滾目標。
+- 不要動 Vercel 上的 snap.roberthut.com 網域，Namecheap 的 TTL 也維持 5 分鐘。
+- 需要回滾時：把 Namecheap 的 Value 改回 a91d57712868d68c.vercel-dns-017.com，約 5 分鐘生效。Vercel 後台可能會出現網域設定警告，這在預期之內。
+# 還剩下的事
+- F-16：更新 decisions.md G 節，記下正式站已改在 Cloudflare Pages（從 main 自動部署）、切換時間、回滾方式和觀察期的結束日。只改文件，要我現在做嗎？
+- H-17（觀察期結束後）：從 Vercel 移除網域、把 TTL 調回 Automatic、刪除或暫停 Vercel 專案，也可以順便刪掉 cloudflare 分支。
+
+
+# 準備切換 DNS
+A 段剩下的兩項（切 DNS 之前要做）
+- A-1：PSI 的效能分數，給我之後我寫進 H 節。
+- A-2：把 Namecheap 上 snap 那筆 CNAME 的 TTL 調成 300 秒，並等原本的 TTL 過期，建議隔天再切。
+# 在 pagespeed.web.dev 上抓分數
+1. 打開 https://pagespeed.web.dev。
+2. 輸入網址，按 Analyze：
+   - Cloudflare：https://snap-eyewear.pages.dev/zh-TW
+   - Vercel：https://snap.roberthut.com/zh-TW
+3. 結果頁上方有 Mobile 和 Desktop 兩個分頁，確認選的是 Mobile。
+4. 往下看 Diagnose performance issues 那一區，左上角的大圓圈，標示 Performance 的數字（0–100）就是效能分數。上次你貼的 FCP、LCP、TBT、CLS、Speed Index 也在同一區的 Metrics。
+5. 每個網址跑 3 次，按頁面上的 Analyze 或重新整理都可以，分數每次會差幾分，記下中位數或三次的數字給我。
+# 切換 DNS
+D 段：切換 DNS
+- D-10：Pages → Custom domains → 新增 snap.roberthut.com，DNS 改之前會顯示 pending。
+- D-11：Namecheap 把 snap 的 CNAME 改成 snap-eyewear.pages.dev。
+- D-12：等 Pages 驗證網域並簽發憑證，通常幾分鐘。
 ```
